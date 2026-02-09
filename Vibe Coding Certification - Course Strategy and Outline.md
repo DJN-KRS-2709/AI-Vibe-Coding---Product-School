@@ -6,9 +6,9 @@
 
 This is not a course about AI tools. It is a course about **how modern product managers validate intent faster than ever before** -- using vibe coding as the engine.
 
-The course follows a single narrative arc: **The Confidence Curve**. Students start in ambiguity, not knowing what to build. Through rapid AI-assisted building, they gain confidence in their direction. By the end, they ship a production-ready product backed by validated evidence.
+The course follows a single narrative arc: **The Confidence Line**. Students start in ambiguity, not knowing what to build. Through rapid AI-assisted building, they gain confidence in their direction. By the end, they ship a production-ready product backed by validated evidence.
 
-**The Confidence Curve:**
+**The Confidence Line:**
 
     M1-M2: High Ambiguity  -->  M3-M4: Gaining Clarity  -->  M5-M6: Production Confidence
 
@@ -19,7 +19,7 @@ The course follows a single narrative arc: **The Confidence Curve**. Students st
 - **M3: Precision Prompting** -- As confidence grows, shift from "build me something" to "build me exactly this." Master context layering, agentic prompting, and living prompt packs.
 - **M4: From Vibe to Structure** -- The graduation moment. When to stop exploring and start building for real. Living specs, refactoring, debugging, and the PM-to-engineering handoff.
 - **M5: Real-World Complexity** -- APIs, auth, data, and edge cases. Bridge the gap between clean prototypes and the messiness of production. Includes existing-product prototyping.
-- **M6: Ship It** -- Full group build day. Deploy to a live URL. Present with a stakeholder pitch. Compete. Leave with a portfolio piece and a personal practice.
+- **M6: Ship It** -- Full group build day. Deploy to a live URL. Present with a stakeholder pitch. Compete. Leave with a deployed product, a Validation Evidence Brief, a living PRD, and your personal project and prompt library.
 
 ### Why Now
 
@@ -53,13 +53,15 @@ The course tried to teach a tool. It should be teaching a **process**. The proce
 
 ---
 
-## The Solution: The Confidence Curve
+## The Solution: The Confidence Line
+
+> See: Images/AI Vibe Coding - The Confidence Lin.png
 
 ### Core Thesis
 
 Every product initiative starts in ambiguity and needs to move toward confidence. In the past, this journey required disconnected tools: Figma for mockups, Miro for brainstorming, Google Docs for specs, then engineering for builds. Vibe coding collapses all of these into a single continuous flow. The *process* hasn't changed. The *tools* have unified.
 
-**The Confidence Curve:**
+**The Confidence Line:**
 
     M1-M2: High Ambiguity  -->  M3-M4: Gaining Clarity  -->  M5-M6: Production Confidence
 
@@ -95,7 +97,7 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
 ### What Nobody Does (Our 7 Innovations)
 
-1. **The full ambiguity-to-production arc.** Reforge stops at "find solutions to known problems." Maven stops at "build your first app." We follow the entire Confidence Curve.
+1. **The full ambiguity-to-production arc.** Reforge stops at "find solutions to known problems." Maven stops at "build your first app." We follow the entire Confidence Line.
 2. **The "graduation moment."** When to stop vibing and start structuring. 73% of vibe-coded apps fail to reach production because teams never make this transition deliberately.
 3. **Comprehension debt management.** AI codebases show 8x code duplication. Nobody teaches how to bridge from prototype to maintainable code.
 4. **Agentic workflows for product development.** Planner/worker patterns, MCP, multi-agent orchestration -- the industry is moving here fast and courses haven't caught up.
@@ -116,7 +118,7 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
 ### Module 1: Dive In -- Your First Full Cycle
 
-> **Confidence Curve position:** Far left. Maximum ambiguity. Learn by doing, name it after.
+> **Confidence Line position:** Far left. Maximum ambiguity. Learn by doing, name it after.
 
 **Theme:** No preamble. No slides about why vibe coding is amazing. You build your first prototype in the first 15 minutes. By the end of this module, you've completed a full Build-Show-Learn-Decide cycle. The frameworks are introduced *after* you've experienced them, not before.
 
@@ -124,7 +126,7 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
 - Complete a full Build-Show-Learn-Decide cycle in a single session
 - Experience firsthand how building reveals what thinking alone cannot
-- Identify where you sit on the Confidence Curve (introduced retroactively after the lab)
+- Identify where you sit on the Confidence Line (introduced retroactively after the lab)
 
 **Module Flow:**
 
@@ -140,9 +142,9 @@ The instructor takes a deliberately vague, ambiguous problem statement (e.g., "o
 - **Decide (10 min):** Each student writes down: what did I learn? Should I double down, pivot, or kill this direction? Pairs share their decisions with the class. The instructor highlights the best "kill" decision -- celebrating the courage to stop, not just the ability to build.
 
 **Retroactive Framework (15 min):**
-NOW the instructor introduces the Confidence Curve and key concepts -- after students have lived them:
+NOW the instructor introduces the Confidence Line and key concepts -- after students have lived them:
 - "What you just did in 40 minutes used to take 3 weeks. Here's the framework that names what you experienced."
-- The Confidence Curve: where you just were (far left, high ambiguity) and where the course takes you (far right, production confidence)
+- The Confidence Line: where you just were (far left, high ambiguity) and where the course takes you (far right, production confidence)
 - "Tool vs Toy" prototypes (Reforge's Ravi Mehta): if your prototype didn't help you decide something, it's a toy. Did yours help you decide?
 - Tool landscape overview: code-first editors (Cursor, Claude Code) vs. visual-first builders (Lovable, Bolt, v0). Quick orientation, not a tutorial.
 
@@ -153,7 +155,7 @@ Instructor demonstrates what happens when you vibe-code *without* any problem fr
 
 ### Module 2: What Are You Actually Testing? -- Problem Framing and Validation Design
 
-> **Confidence Curve position:** Still left, but now with a methodology. You know you CAN build fast. Now learn what's WORTH building.
+> **Confidence Line position:** Still left, but now with a methodology. You know you CAN build fast. Now learn what's WORTH building.
 
 **Theme:** M1 proved you can build fast. M2 teaches you to build smart. Before you open any tool, you need to name the assumption you're testing. If you can't articulate what you'll learn from building it, don't build it.
 
@@ -188,7 +190,7 @@ Instructor shows a beautiful, high-fidelity prototype that validated absolutely 
 
 ### Module 3: Precision Prompting -- Communicating Product Intent to AI
 
-> **Confidence Curve position:** Moving right. You know your direction. Now you need precision.
+> **Confidence Line position:** Moving right. You know your direction. Now you need precision.
 
 **Theme:** As your confidence grows, your prompts must evolve from "build me something" to "build me exactly this, because I know what users need."
 
@@ -219,7 +221,7 @@ Live debugging: instructor takes a student's prototype that went off-rails and w
 
 ### Module 4: From Vibe to Structure -- Building with Intent
 
-> **Confidence Curve position:** The inflection point. This is where exploration becomes commitment.
+> **Confidence Line position:** The inflection point. This is where exploration becomes commitment.
 
 **Theme:** There's a moment where you stop exploring and start building for real. This module is about recognizing that moment and shifting your approach.
 
@@ -252,7 +254,7 @@ Instructor shows a real example of what happens when you never graduate from vib
 
 ### Module 5: Real-World Complexity -- APIs, Data, and Edge Cases
 
-> **Confidence Curve position:** Right side. High confidence, now hardening for reality.
+> **Confidence Line position:** Right side. High confidence, now hardening for reality.
 
 **Theme:** Real products live in messy ecosystems. This module bridges the gap between a clean prototype and the complexity of production.
 
@@ -286,7 +288,7 @@ Class exercise: instructor deploys a prototype with zero error handling. Student
 
 ### Module 6: Ship It -- Deployment, Scale, and Stakeholder Buy-In
 
-> **Confidence Curve position:** Far right. Maximum confidence. Time to ship and present.
+> **Confidence Line position:** Far right. Maximum confidence. Time to ship and present.
 
 **Theme:** A prototype that lives on your laptop changes nothing. This module takes your work from "demo" to "deployed" and teaches you how to present it for maximum impact.
 
@@ -305,14 +307,14 @@ Class exercise: instructor deploys a prototype with zero error handling. Student
 - The stakeholder pitch: framing your vibe-coded product as *evidence for a product decision*, not just a "cool demo." Reforge's insight applies: prototypes are questions, not answers. Your pitch should present the evidence, not just the feature.
 - Building your ongoing practice: how to integrate vibe coding into your daily PM workflow -- discovery, stakeholder alignment, eng handoff, user testing
 - The future of PM-as-builder: agentic AI is making it possible for PMs to maintain and evolve products post-launch, not just prototype them. Multi-agent workflows, background agents, autonomous testing -- preview of where this capability is heading.
-- The full Confidence Curve revisited: from ambiguity through validation through production -- students map their own journey
+- The full Confidence Line revisited: from ambiguity through validation through production -- students map their own journey
 
-**Lab: The Group Build + Deploy and Present (full module -- this is the "build day"):**
+**Lab: Group Build Day (100 min):**
 
 This module follows the Agents course model: after 5 modules of individual practice, students come together in small groups (3-4 max) for a full build session. This is where the group project lives.
 
-- **Group build sprint (60-70 min):** Groups receive a project brief and build from zero together. Each member has their own tool instance and works on a different component/feature simultaneously (unlike the old course where one person built and others watched). They coordinate through a shared living PRD.
-- **Deploy (15 min):** Each group deploys their product to a live URL. Real deployment, real URL, shareable with anyone.
+- **Group build sprint (50-60 min):** Groups receive a project brief and build from zero together. Each member has their own tool instance and works on a different component/feature simultaneously (unlike the old course where one person built and others watched). They coordinate through a shared living PRD.
+- **Deploy (10 min):** Each group deploys their product to a live URL. Real deployment, real URL, shareable with anyone.
 - **Present and compete (30 min):** Each group presents with a structured pitch:
   1. The problem (what ambiguity they started with)
   2. The validation journey (what they learned by building)
@@ -320,10 +322,22 @@ This module follows the Agents course model: after 5 modules of individual pract
   4. The recommendation (ship it, pivot, or kill it -- and why)
 - Class votes on best product AND best pitch (addressing the student feedback requesting a competition element)
 
-**Student takeaways:** Each student leaves with (1) their individual project built across M1-M5 that they can keep developing, (2) the group project as a portfolio piece, and (3) their personal prompt library/living PRD they can apply on day one back at work.
-
 **"Break It" Exercise (embedded in presentations):**
 During each presentation, the audience tries to break the live deployed product. Teams must respond to failures live -- demonstrating real product resilience.
+
+---
+
+**Group Deliverables (what each team produces):**
+
+1. **Deployed product** -- a live URL, shareable with anyone. This is the artifact, not the outcome.
+2. **Validation Evidence Brief** -- a 1-page document that captures: what assumption did we start with, what did we build to test it, what did we learn, and what's our recommendation (ship / pivot / kill) with evidence. This is what a PM would actually hand to their VP on Monday morning. The *real* deliverable.
+3. **Living PRD** -- the spec they've been evolving since M4, now attached to the final product. Shows the journey from messy exploration to structured intent.
+
+**Individual Deliverables (what each student takes home):**
+
+1. **Personal project** -- built individually across M1-M5, theirs to keep developing after the course.
+2. **Prompt library / living prompt pack** -- built across M3-M5, a reusable toolkit they can apply to any product initiative.
+3. **Confidence Line self-assessment** -- where are their real work initiatives on the line? What's stuck in ambiguity that could be moved right with a 2-hour build? What's been "vibed" too long and needs graduation? This is the bridge from course to daily practice.
 
 ---
 
@@ -342,7 +356,7 @@ During each presentation, the audience tries to break the live deployed product.
 | "Instructor demo needs to be exciting" | M1 opens with 3-prototype ambiguity demo |
 | "Credit/subscription issues" | Tool-agnostic removes single-tool dependency; Lovable Pro partnership for accounts |
 | "Want competition element" | M6 includes pitch competition with audience voting |
-| "Modules felt disconnected" | Confidence Curve narrative threads every module together |
+| "Modules felt disconnected" | Confidence Line narrative threads every module together |
 | "Content depth was tool-specific" | Depth comes from methodology, not tool mechanics |
 
 ## Appendix B: Competitive Landscape Detail
