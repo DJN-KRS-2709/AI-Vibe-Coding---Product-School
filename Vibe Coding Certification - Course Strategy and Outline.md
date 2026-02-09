@@ -14,8 +14,8 @@ The course follows a single narrative arc: **The Confidence Curve**. Students st
 
 ### The 6 Modules at a Glance
 
-- **M1: The Vibe Coding Mindset** -- Thriving in ambiguity. Build to think, not to ship. Explore 3 directions in the time it takes to schedule a meeting.
-- **M2: Rapid Intent Validation** -- Build to learn. Compress the Build-Measure-Learn cycle from weeks to hours. Validate or kill ideas through tangible prototypes.
+- **M1: Dive In -- Your First Full Cycle** -- No preamble. Build your first prototype in 15 minutes. Show it. Get feedback. Complete a full Build-Show-Learn-Decide loop in one session. Frameworks come after, not before.
+- **M2: What Are You Actually Testing?** -- Now that you can build fast, learn to build smart. Problem framing, validation design, divergent prototypes, fidelity mapping. The skill: name the assumption before you open the tool.
 - **M3: Precision Prompting** -- As confidence grows, shift from "build me something" to "build me exactly this." Master context layering, agentic prompting, and living prompt packs.
 - **M4: From Vibe to Structure** -- The graduation moment. When to stop exploring and start building for real. Living specs, refactoring, debugging, and the PM-to-engineering handoff.
 - **M5: Real-World Complexity** -- APIs, auth, data, and edge cases. Bridge the gap between clean prototypes and the messiness of production. Includes existing-product prototyping.
@@ -63,7 +63,7 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
     M1-M2: High Ambiguity  -->  M3-M4: Gaining Clarity  -->  M5-M6: Production Confidence
 
-- **Left side (M1-M2):** Ambiguity is high. You don't know what to build. Vibe coding lets you explore 10x faster, throw things away cheaply, and validate intent through rapid builds.
+- **Left side (M1-M2):** Ambiguity is high. You don't know what to build. M1 throws you in the water -- you build, show, learn, and decide in one session. M2 teaches you to swim with intent -- problem framing, assumption mapping, and validation design so every build answers a real question.
 - **Middle (M3-M4):** Direction is clearer. You shift from exploration to precision -- structured specs, deliberate architecture, and AI-directed building.
 - **Right side (M5-M6):** Confidence is high. You harden the prototype into a production-ready product with real integrations, deployment, and scale.
 
@@ -114,69 +114,75 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
 ## Detailed Module Breakdowns
 
-### Module 1: The Vibe Coding Mindset -- Thriving in Ambiguity
+### Module 1: Dive In -- Your First Full Cycle
 
-> **Confidence Curve position:** Far left. Maximum ambiguity.
+> **Confidence Curve position:** Far left. Maximum ambiguity. Learn by doing, name it after.
 
-**Theme:** When you don't know what to build, build something. Vibe coding turns ambiguity from a blocker into an advantage.
+**Theme:** No preamble. No slides about why vibe coding is amazing. You build your first prototype in the first 15 minutes. By the end of this module, you've completed a full Build-Show-Learn-Decide cycle. The frameworks are introduced *after* you've experienced them, not before.
 
 **Learning Objectives:**
 
-- Understand why vibe coding is a product development methodology, not just a prototyping trick
-- Identify where you sit on the Confidence Curve for any given initiative
-- Use rapid AI-assisted builds to explore problem spaces faster than traditional discovery
+- Complete a full Build-Show-Learn-Decide cycle in a single session
+- Experience firsthand how building reveals what thinking alone cannot
+- Identify where you sit on the Confidence Curve (introduced retroactively after the lab)
 
-**Key Talking Points:**
+**Module Flow:**
 
-- The old model: research for weeks, write specs, hand off. The new model: build to think, validate to learn, spec what works.
-- The Confidence Curve framework -- how to recognize your ambiguity level and match your approach to it
-- "Throwaway builds" as a strategic tool -- building things you intend to delete is not waste, it's validation
-- "Tool vs Toy" prototypes (inspired by Reforge's Ravi Mehta): every prototype you build should be a *decision-making instrument*, not an impressive demo. If your prototype doesn't help you decide something, it's a toy.
-- Real-world example: how vibe coding replaced a 3-week discovery sprint with a 3-hour prototype that got stakeholder buy-in
-- Tool landscape overview (Cursor, Lovable, Bolt, Replit, v0, Claude Artifacts, etc.) -- how to pick the right tool for the right stage of confidence. Key distinction: code-first editors (Cursor, Claude Code) vs. visual-first builders (Lovable, Bolt, v0) and when each is appropriate.
+The structure is deliberately inverted: DO first, LEARN second. Students experience the power of vibe coding through action, then the instructor names and frames what just happened.
 
-**Opening Demo (15 min):**
-The instructor takes a deliberately vague, ambiguous problem statement (e.g., "our enterprise customers are churning after onboarding") and, live in front of the class, vibe-codes three completely different solution directions in ~12 minutes. Each is a clickable, tangible prototype. The point: in the time it takes to schedule a brainstorming meeting, you could have three testable hypotheses.
+**Opening Demo (12 min):**
+The instructor takes a deliberately vague, ambiguous problem statement (e.g., "our enterprise customers are churning after onboarding") and, live in front of the class, vibe-codes three completely different solution directions. Each is a clickable, tangible prototype. No explanation of methodology. No slides. Just: watch this.
 
-**Lab: The Ambiguity Sprint (30-35 min):**
+**Lab: The Full Cycle (40 min):**
 
-- **Individual build (20 min):** Each student receives the same real, messy, ambiguous problem brief (intentionally incomplete -- no "right answer"). Working alone, they must produce 1 prototype direction using any AI tool of their choice. Everyone builds, everyone gets hands-on.
-- **Pair share (10-15 min):** Students pair up, compare their divergent directions. Discussion: what did your tool choice reveal? What did building reveal that thinking alone couldn't? Class votes on most promising direction.
+- **Individual build (15 min):** Each student receives a real, messy, ambiguous problem brief. Working alone, they produce 1 prototype direction using any AI tool of their choice. Everyone builds from minute one. No setup lectures.
+- **Show and test (15 min):** Students pair up and swap prototypes. Each person walks through their partner's prototype as a "user" while the builder observes. What resonated? What confused? What assumption does this test?
+- **Decide (10 min):** Each student writes down: what did I learn? Should I double down, pivot, or kill this direction? Pairs share their decisions with the class. The instructor highlights the best "kill" decision -- celebrating the courage to stop, not just the ability to build.
+
+**Retroactive Framework (15 min):**
+NOW the instructor introduces the Confidence Curve and key concepts -- after students have lived them:
+- "What you just did in 40 minutes used to take 3 weeks. Here's the framework that names what you experienced."
+- The Confidence Curve: where you just were (far left, high ambiguity) and where the course takes you (far right, production confidence)
+- "Tool vs Toy" prototypes (Reforge's Ravi Mehta): if your prototype didn't help you decide something, it's a toy. Did yours help you decide?
+- Tool landscape overview: code-first editors (Cursor, Claude Code) vs. visual-first builders (Lovable, Bolt, v0). Quick orientation, not a tutorial.
 
 **"Break It" Exercise (10 min):**
-Instructor demonstrates what happens when you vibe-code *without* a clear problem frame -- an AI that hallucinates features, builds the wrong thing beautifully. Lesson: ambiguity is fine, but directionless prompting wastes cycles.
+Instructor demonstrates what happens when you vibe-code *without* any problem frame -- an AI that hallucinates features, builds the wrong thing beautifully. Lesson: you can build fast, but fast without direction is waste. That's what M2 fixes.
 
 ---
 
-### Module 2: Rapid Intent Validation -- Build to Learn, Not to Ship
+### Module 2: What Are You Actually Testing? -- Problem Framing and Validation Design
 
-> **Confidence Curve position:** Still left. Ambiguity remains high, but now you have a direction to test.
+> **Confidence Curve position:** Still left, but now with a methodology. You know you CAN build fast. Now learn what's WORTH building.
 
-**Theme:** The fastest way to validate whether your product direction is right is to put something in people's hands. Vibe coding makes validation cycles nearly free.
+**Theme:** M1 proved you can build fast. M2 teaches you to build smart. Before you open any tool, you need to name the assumption you're testing. If you can't articulate what you'll learn from building it, don't build it.
 
 **Learning Objectives:**
 
-- Design validation experiments using throwaway prototypes instead of surveys or decks
-- Apply the "Intent Validation Loop" -- Build, Show, Learn, Decide
-- Distinguish between fidelity levels and match them to validation goals
+- Frame a product problem with the right constraints before building anything
+- Design validation experiments that test specific, named assumptions
+- Match prototype fidelity to the question you're trying to answer
+- Build 3-5 fundamentally different solution directions, not variations of the same idea
 
 **Key Talking Points:**
 
-- The Intent Validation Loop: Build a thing, show it to a real person, learn what resonated vs. confused, decide whether to double down, pivot, or kill. This compresses the Build-Measure-Learn cycle from weeks to hours.
-- Reforge's problem framing method adapted for validation: Goal, Problem, Context, Constraints, Success Criteria, Explore -- but used to frame *what you're testing*, not just what you're building
-- Three types of feedback sessions (borrowed from Reforge, evolved): (1) Internal stakeholders for alignment and blind spots, (2) Team members for feasibility, (3) Users for validation. Each group sees prototypes at different fidelity.
-- Fidelity mapping: when do you need a clickable mockup vs. a functional app vs. a styled landing page? Matching fidelity to the question you're trying to answer
-- The "divergent prototypes" technique (inspired by Reforge): build 3-5 fundamentally different solution directions, not variations of the same idea. Prompt for divergence, not convergence.
+- The core question: "What am I actually testing?" If you can't answer this in one sentence before you start building, you're building a toy, not a tool.
+- Reforge's problem framing method adapted for validation: Goal, Problem, Context, Constraints, Success Criteria, Explore -- used to frame *what you're testing*, not just what you're building. This is the scaffolding that turns fast building into smart building.
+- Assumption mapping: for any product idea, what are the 3 riskiest assumptions? Which one, if wrong, kills the whole thing? Build to test THAT one first.
+- Divergent prototypes: build 3-5 fundamentally different solution directions, not variations of the same idea. Prompt for divergence, not convergence. (Most teams ask for "a few options" and get the same thing with different button placements.)
+- Fidelity mapping: when do you need a clickable mockup vs. a functional app vs. a styled landing page? Match fidelity to the question you're answering. Don't build a full app when a landing page answers the question.
+- Three types of feedback sessions: (1) Internal stakeholders for alignment and blind spots, (2) Team members for feasibility, (3) Users for validation. Each group sees prototypes at different fidelity and answers different questions.
 - Validating within existing products: how to prototype an enhancement to a shipped product without touching production code
 - Real-world example: using a vibe-coded prototype to kill a feature that had executive sponsorship -- the prototype made the UX problem undeniable
 
-**Lab: The Validation Sprint (40 min):**
+**Lab: The Validation Design Sprint (40 min):**
 
-- **Individual build (20 min):** Each student takes their M1 direction and builds it into a testable prototype at appropriate fidelity. Everyone is building simultaneously -- no one watches.
-- **Peer validation (20 min):** Students pair up and swap prototypes. Each person plays "user" for their partner's prototype, walking through it while the builder observes and takes notes. Structured debrief: what assumption was validated? What was invalidated? What would you change?
+- **Frame first (10 min):** Students receive a new, different problem brief from M1. Before touching any tool, they must write: (1) the riskiest assumption, (2) what they'll build to test it, (3) what fidelity is needed, (4) what a "validated" vs. "invalidated" result looks like. This is the discipline M1 didn't require.
+- **Individual build (15 min):** Now students build -- but with intent. They're building specifically to test their named assumption, at the fidelity level they chose. Not just "build something cool."
+- **Peer validation (15 min):** Students swap prototypes. The validator doesn't just "use" it -- they evaluate: does this prototype actually test the assumption the builder claimed? Or did they build something impressive that proves nothing? Structured debrief on what was validated vs. invalidated.
 
 **"Break It" Exercise (10 min):**
-Instructor shows a beautiful, high-fidelity prototype that validated absolutely nothing -- it looked great but didn't test the actual risky assumption. Lesson: fidelity without intent is vanity.
+Instructor shows a beautiful, high-fidelity prototype that validated absolutely nothing -- it looked great but didn't test the actual risky assumption. Side-by-side with an ugly, low-fidelity prototype that answered the critical question definitively. Lesson: fidelity without intent is vanity. Clarity of question beats quality of build.
 
 ---
 
