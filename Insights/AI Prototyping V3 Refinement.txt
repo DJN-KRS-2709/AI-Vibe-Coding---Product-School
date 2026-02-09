@@ -1,0 +1,520 @@
+﻿Tab 1
+AI Prototyping V3 Refinement
+
+
+
+
+Goal: To elevate the AI Prototyping course from a foundational course to an advanced, technical certification that empowers Senior Product Managers to build, debug, and deploy high-fidelity prototypes with 10x professional velocity and build a truly advanced prototype.
+Objective: Synthesize multi-cohort feedback to remove redundant introductory content, increase the complexity of hands-on labs, and provide "from-the-field" strategic frameworks that ensure every student and group has a sophisticated, functional prototype ready for final evaluation.
+
+
+
+
+DOCUMENTATION: Feedback doc as a guide: AI Prototyping - 1st & 2nd Cohort Feedback
+* Additional Surveys:
+   * Student Survey: Module 5
+   * Student Survey: Module 6
+* Additional Decks:
+   * Copy of M5: Power Advanced Prototypes With API Integrations
+      * Copy of AI Prototyping M5: Lab Guide and Walkthrough
+   * Copy of M6: Deploy and Scale Prototypes for Production
+      * Copy of AI Prototyping M6: Lab Guide and Walkthrough
+
+
+
+
+
+
+
+Modules to Change
+Module 1: Accelerate the Idea-to-Validation Cycle
+Deck to adjust: ​​Copy of M1: Accelerate the Idea-to-Validation Cycle
+Lab guide to adjust: Copy of AI Prototyping M1: Lab Guide and Walkthrough
+Student Survey Results: Module 1
+Strategic Goal: Move beyond "introductory" concepts to secure senior-level buy-in immediately.
+* Content Depth & Velocity: The first half contains repetition regarding the general usefulness of AI (time-saving, shared context). Senior PMs want to skip straight to the "new operating model" and build faster. 
+
+* The "Aha" Moment: The module lacks a strong opening demo. Auditors suggest the instructor perform a live, high-speed build of an impressive clickable prototype to show "what is possible now vs. weeks of work". → This was tried but the instructor’s demo was not exciting enough and too much time was spent here. The demo should be final project related to show the possible capabilities or your own, exciting product you vibe-coded and prototyped yourself.
+
+* Lab Rigor & Technical Logistics: Many students hit "token limits" on Lovable almost immediately, preventing them from finishing the second half of the lab. → We must be explicit before the course starts via Slack that we strongly suggest that students get Lovable Pro. For the actual group builds, at least one member of each team MUST have an account.[a]
+
+* Field Authenticity: Students want to see the instructor's personal POV and real-world examples of how they use these tools in a professional leadership capacity.
+________________
+
+
+Module 2: Write Advanced Prompts for High-Fidelity Prototypes
+Deck to adjust: Copy of M2: Write Advanced Prompts for High-Fidelity Prototypes
+Lab guide to adjust: Copy of AI Prototyping M2: Lab Guide and Walkthrough
+Student Survey Results: Module 2        
+Strategic Goal: Shift from "basic prompting" to "precision architecting".
+   * Content Depth: The current version is perceived as "too basic" for an advanced course. Spending time on foundational concepts like the difference between System and User prompts or token windows is seen as a waste of time for this audience. → This was something the instructor did as extra and there is no content about token windows in the slides. 
+
+   * Lab Complexity: The 20-minute window for the final exercise was insufficient. Students found the "guessing exercise" low-value and preferred more live, "pro" prompt modifications performed by the instructor.
+
+   * Technical Rigor: Students want to see "Cutting-Edge" techniques—like Self-Consistency and Chain of Thought—applied to complex UI/UX options rather than simple text prompts.
+
+   * Strategic Application: There is a request to show how to use ChatGPT to fulfill the FUDI framework quickly to save time on drafting and focus more on "strategizing on prototype improvements".
+________________
+
+
+Module 3: Define the Modern Specs for Prototype Development
+Deck to adjust: Copy of M3: Define the Modern Specs for Prototype Development
+Lab guide to adjust:Copy of AI Prototyping M3: Lab Guide and Walkthrough
+Student Survey Results: Module 3
+Strategic Goal: Align requirements with professional product management standards.
+      * Content Depth: Experienced PMs felt this module lacked a "strategic mindset for existing products". They want to know how to prototype within an existing portfolio, not just a "0-to-1" startup idea.
+
+      * Terminology & Logic: The concept of "Simplified PRD" vs. "PRO" caused confusion. Auditors suggest positioning the PRD as a "living document" that iterates alongside the prototype.
+
+      * Field Authenticity: Students requested more "from the field" examples, such as how PM teams organize themselves around prototyping and how interactions with dev teams actually change.
+
+      * Lab Flow: The volume of links, docs, and templates shared in the first hour was described as "messy" and "overwhelming". The lab instructions need to be a more straightforward, "step-by-step manual" to avoid group confusion.
+
+________________
+
+
+Module 4: Build, Iterate, and Debug Prototypes End-to-End
+Deck to adjust:Copy of M4: Build, Iterate, and Debug Prototypes End-to-End
+Lab guide to adjust: Copy of AI Prototyping M4: Lab Guide and Walkthrough
+Student Survey Results: Module 4
+Strategic Goal: Transition from "AI-built" to "PM-directed" precision.
+         * Content Depth & Energy: The second half of the session moved too slowly. Auditors noted that an hour into the class, students still hadn't started building, leading to lower energy. → this was again an instructor issue moving too slow and not managing time. 
+
+         * Technical Rigor: There is a significant gap in "advanced debugging". Students want to know when to dive into actual code, the benefit of doing so to save credits, and how to use other LLMs (like Claude) to fix hallucinations.
+
+         * Mode Optimization: The instructor did not sufficiently cover "Chat Mode" vs. "Agent Mode," which is a critical distinction for advanced tool usage.
+
+         * Lab Autonomy: Students felt frustrated by "watching" the instructor build in AIQ rather than being hands-on. There was significant confusion in the exercises regarding whether to use the "FUDI" framework or the "Prompt Pack" at specific stages. → Again this was due to the instructor’s choice of teaching. Students should be building themselves, rather than watching.
+
+
+
+
+
+
+FINAL SURVEY FEEDBACK
+
+
+
+
+Additional notes
+  
+[b]
+FINAL SURVEY FEEDBACK[c]
+
+
+c​​ourse_name
+	name
+	question_heading
+	response_text
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Not much to be honest
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Overall, the course was a great experience. I really appreciated the balance between theory and hands-on practice; it made the learning feel immediately useful.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Working with my team and navigating lovable 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	I enjoyed making the prototype. I would have liked to push this further and explore what it takes to take this from a prototype to a production ready product. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Instructors are critical to the success of the course. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I would like to work on an example of building a prototype with a existing app in mind and enhancing it, along with creating a new prototype from scratch
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Please continue to push the hands-on exercises to engage students and keep the discussion lively. This course we better in terms of frequent hands-on activities but still has a fair amount of "sit and get". The instructor was knowledgeable but not a great facilitator, if you can't find teachers with engaging delivery and hands-on experience, go the for the former and give them the talking points/examples. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Cohort and in-class assignments
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	working with the group to make our vision come to life 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Building the prototypes in lovable
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Very focused classes and hands-on exercises
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	No comments at this moment 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Using the tools, and seeing demos by the instructor, and instructor stories about subjects relevant to prototyping. Appreciate the other students interactions. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	NA
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Group activity to debbug 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	The hands on lab and group discussions with all in attendance really amplified my learning and understanding.  It was great to see us create a prototype from start to end. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Very good
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Consistent group designation. Easier to cover information when the group is assigned with the same members during in-class activities 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Sanjeev was awesome. I've had some courses with not so great instructors in the past. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I do wish that the class was a bit less prescriptive and focused on non-happy path scenarios 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Lovable is a powerful tool and is hard to test and troubleshoot the same prototype when there is a limitation on credits. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I have taken a full year membership and navigation for the signed up course and other course that I can take (esp free ones that comes with membership) is not integrated nicely. Its kind of fragmented and not the best customer experience
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I am grateful for the tools provided for each cohort. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Lovable demo and working with api
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Building the actual live prototype 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	-
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Thank you
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	N/A
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Class exercises
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Nothing else to note. 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	NA
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	n/a
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Great course and keep up the good work!
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Reviewing slide content is very difficlut having video or audio content or even the ability to put the slides on notebook LM to consume via audio would have been great.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Instructor bring more energy 
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I wish we had the chance to work individually on our projects instead of group projects. And I felt like AI Prototyping should've been part of a course and not a course on its own
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	the team exercises
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	All the exercises really burned the concepts into our mind.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	very good and informative session
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	Creating my first GitHub repository!
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	My favorite experience during the course was getting to build my first working AI prototype from scratch.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	Always room for tweaking. Though Bolt was useful I think skipping bolt would be fine.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share any additional feedback and comments you might have:
+	I think it would be fun if in the future you had a prototype competition, where teams presented prototypes solving a specific business problem and the teacher chose the feature they would approve and push through to engineering. In other words, the students were working to solve the same business problem -- but not necessarily working to prototype the same feature.
+	AI Prototyping Certification
+	ON - AIPRC - 11/03/2025 - Monday - onaiprc3265
+	Please share your favorite experience during the course:
+	The course project is always the highlight as we get to integrate the practices. Outside of this the lab (I think 4 or 5) to setup user authentication was helpful as I had not done this before. The first lab on a structure prompt was also great and reflected best practices with lovable.
+	
+
+
+
+course_name
+	name
+	question_heading
+	response_text
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Final days with the new instructor with calm approach and clear expertise shaping their point of view. Not comments on the speaker notes being good or what Product School cares about from the first instructor.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Hearing the thought processes and justifications of methods and techniques.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	No
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	loveable
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	I have two observations:
+I appreciate being able to complete the assignments at home and feel that the time available to do this as a group during the lesson is too limited.
+I would like to receive the presentation as a PDF.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	N/A
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	The time period for the class should be longer than 12 hours. Part of the pre-class assignment should include reference to tutorials for the technology as well as best practices to minimize credit usage. Or upfront acknowledgement that as subscription would be needed.  The class should be more than the 12 hours, have have a day of lectures followed by presentations means that the last day of content because independent study if it has to be represented in the presentation. I liked the content and can learn independently but I was not expecting that to have to be my primary option.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	1. Seperate the tool training from the Prototping Framewrok
+2. Get everyone a $25 pro subscription and 
+3. Mix the workshops/assignments with personal deliverables. 
+4. Make the groups smaller as there is not enough time for all 5 people in the group to speak up their mind in the limited time, and agree on steps, and take action.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	None at this time
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Great decision to change the instructor for better experience. 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	content is organized properly 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Please keep your talent. I've been recommending Product School, but I can't do that if the quality goes away.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Switching the class timing wasnt ideal
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Schedule change last week made it quite problematic. Curriculum could include more details about the prototyping itself and less of the core product management concepts
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Non
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	I feel a little bit too much as in a lovable course. Free account doesn't allow us to use it properly so why do we use lovable ? isn't other tools we could use instead ?
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Build real protoypes
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	I like having a project to follow along the whole course. and in group, I think it's great. 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	I find it extremely educational to work hands-on with cases myself. As far as I’m concerned, even more practical cases could be offered to help learn how to use the tools.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Engagement
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Working on the assignments after class. During class the assignments are hectic. We dont k ow each other, there are many people in a group and the tools need subscriptions 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Dejan was amazing 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Tools with subscriptions should be organised and provided by the School. TEAMS SHOULD BE SMALLER. Assignments should be after school. So that we can focus on the curriculum 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Thanks for great course.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Please make this right for me via student support.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Initially this was one of the courses I was most excited for but overall I don't feel like I got what I wanted from it. Switching instructors turned out to be a good call, but its a bit disruptive especially when changing the schedule. 
+The last couple classes were much better.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	We sshared knowledge in the chat and got some great advises from other students on how to collaborate with the tool. That sparked my interest and dived deeper into prototpying professional practices. 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Building a prototype with my team
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	The end of it.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Building real prototypes and seeing ideas turn into something tangible.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	more time is needed on hands on exercises
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	It would be great to have more options in EU timezone during the day.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Downloadable slides of course content and more courses offered by Product School for seasoned leaders 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	The automated and quick responses for any and all questions are robotic. There are pleasantries but little actual action or honest intake of our feedback (or so it seems). The blast of emails, reminders, slack posts and other communications MUST indidate the course FULL name and the instructor name. The abbreviations are space-saving but when one is signed up for many courses, it helps to quickly know which one you are talking about. With the utter chaos or class cancelling and instructors dropping off, we need to know which course you are talking about. Currently, we maintain a spreadsheet with course name, corresponding instructor, day-time of classes, course's abbreviation, etc. Not adding course's full name is sloppy house keeping. This is not done in US and Canada but may be practiced in Spain.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Non
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	That hands on exercises with lovable 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Hands on Prototyping - easiness of adding new features
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Meeting new people.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	listening to feedback on the apps we created and also just the process of building the apps in general. 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Learning how to debug prototypes 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Working on teams
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	NA
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Overall, a very valuable experience with strong content and practical application.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	Love the class.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Lab
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	The AI Prototyping Certification felt more like a long loveable tutorial. Other course were a lot more valuable
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Learning how to name components and improve prototyping prompts.
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	the content could have been much deeper , the course was shallow 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Getting hands on building the prototype for the final project 
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Prompt Iterations and API Integrations
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share any additional feedback and comments you might have:
+	I liked the content
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	learning how to rapidly prototype
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Interacting with peers
+	AI Prototyping Certification
+	ON - AIPRC - 12/02/2025 - Tuesday - onaiprc3796
+	Please share your favorite experience during the course:
+	Applying what we learned in our own projects and how Pricing strategies work with proper messaging.
+	
+
+[a]We will have a partnership tht should give 3 months pro accounts . Ensure this is feasible and that everyone can have it to make the build experience better
+[b]Note second cohort was swapped instructor half way through
+[c]@dejan.krstic2709@gmail.com more feedback for you. This was from the end of course survey - should give you a good idea of what actually was enjoyed etc to cross reference with the in class feedback docs
+_Assigned to dejan.krstic2709@gmail.com_
