@@ -20,7 +20,7 @@ The course follows a single narrative arc: **The Confidence Line**. Students sta
 - **M3: Precision Prompting** -- As confidence grows, shift from "build me something" to "build me exactly this." Master context layering (including for existing products), agentic prompting, and living prompt packs.
 - **M4: From Vibe to Structure** -- The graduation moment. When to stop exploring and start building for real. Extract living specs from your builds. Refactor messy prototypes into structured codebases. Learn to graduate within existing products too.
 - **M5: Real-World Complexity** -- APIs, auth, data, and edge cases. Bridge the gap between clean prototypes and the messiness of production. Plus: the PM-to-engineering handoff -- how to present your prototype and living spec so engineering can build it for real.
-- **M6: Ship It** -- Full group build day. Deploy to a live URL. Present with a stakeholder pitch. Compete. Leave with a deployed product, a Validation Evidence Brief, a living PRD, and your personal project and prompt library.
+- **M6: Ship It** -- Individual ship day. Every student deploys to a live URL with real backend services. Peer gallery walk to see each other's work. Optional volunteer demos with live feedback. Leave with a deployed product, a Validation Evidence Brief, a living PRD, your prompt library, and an engineering handoff note.
 
 ### Why Now
 
@@ -72,45 +72,40 @@ Every product initiative starts in ambiguity and needs to move toward confidence
 
 ### Key Design Principles
 
-1. **Tool-agnostic.** Teach the process and mindset. Demo across Cursor, Lovable, Bolt, Replit, v0, etc. Students choose their tool. The methodology is the durable layer; tools are interchangeable.
-2. **Advanced from minute one.** No "what is AI" slides. Open with a live build that makes the room gasp. Every module assumes senior PM competency.
+1. **Tool-agnostic methodology, single demo tool.** Teach the process and mindset that works with any AI builder. All live demos use Lovable exclusively (Pro partnership confirmed). Students *may* use other tools, but we don't demo alternatives -- switching tools mid-class confuses the learning. The methodology is the durable layer; Lovable is the consistent vehicle.
+2. **Advanced from minute one.** No "what is AI" slides. Open with a live build that makes the room gasp. Every module assumes senior PM competency. Carlos's bar: "I want people complaining because this is too advanced. That means you're pushing their limits." Every student who walks in has done basic prototyping before. We show them things they don't know yet.
 3. **80/20 hands-on ratio.** Labs dominate. Lectures exist only to frame the next exercise. Students build, not watch.
-4. **Individual practice THEN group project.** Borrow the Agents/AIPC course model. Every student builds individually first, then they come together for group work. Solves the "only one person prototypes" problem.
+4. **Individual builds, always. Group activities for networking, not dependency.** Every student builds their own product individually across M1-M6. Group activities during class (pair reviews, discussions, comparing notes) are great for networking and accountability -- but no student's build depends on another student. Groups can be mixed up each session. No homework or between-class group obligations. On the final day, everyone has built something individually; presenting is optional for those who want feedback. (Carlos: "Your team is your agents." The group is accountability, like showing up to the gym -- not a shared dependency.)
 5. **Real-world messiness.** Every module includes a "Break It" exercise -- deliberate non-happy-path scenarios, debugging, and recovery.
-6. **Existing product lens.** Labs offer both "0-to-1" and "enhance an existing product" tracks.
+6. **Existing product lens with high-fidelity cloning.** Labs offer both "0-to-1" and "enhance an existing product" tracks. But "existing product" doesn't mean basic wireframes -- it means **cloning the look and feel of your actual product** using templates (Mobbin, design system imports), Figma integrations, and MCP servers. Students should see: "I can make my prototype look like it belongs in our real product." Carlos: "Not just the basic 'create an e-commerce shop.' This has to be much more robust."
 7. **Living documents over static specs.** PRDs as guardrails that evolve alongside the prototype.
 8. **Validation over vanity.** Every lab asks "what did you learn?" not "what did you build?"
-9. **Future-proof for agentic AI.** Agent-mode workflows, MCP integrations, and multi-agent patterns prepare students for 2026-2027, not 2024.
-10. **Reuse over recreate.** ~50-60% of existing content has good bones. Restructure and rebrand, don't rebuild from scratch.
-11. **Students leave with a usable artifact.** Not just a certificate -- a personal project, a prompt library, and a living PRD they can apply on day one.
-12. **Instructor-proof design.** Labs are self-guiding with clear step-by-step flows, built-in timing, and outcomes that don't depend on instructor energy.
+9. **This is production, not play.** Lovable and similar tools now support backend: databases, Stripe, auth, deployment. Show students they can push to production, connect to real services, and ship product code -- not just "play designer." Mention software engineering agents (Devin, etc.) that can test code, integrate via Slack, and run QA. The magic moment: "Oh my God, I can connect to a database. I can connect to Stripe. I can push something to production." (Carlos)
+10. **Future-proof for agentic AI.** Agent-mode workflows, MCP integrations, and multi-agent patterns prepare students for 2026-2027, not 2024.
+11. **Reuse over recreate.** ~50-60% of existing content has good bones. Restructure and rebrand, don't rebuild from scratch.
+12. **Students leave with a usable artifact.** Not just a certificate -- a personal project, a prompt library, and a living PRD they can apply on day one.
+13. **Instructor-proof design.** Labs are self-guiding with clear step-by-step flows, built-in timing, and outcomes that don't depend on instructor energy.
 
 ### Recommended Tool Path
 
-The course is tool-agnostic by design, but students and instructors need a clear default. This is our recommendation:
+The course is tool-agnostic in methodology but uses **one tool for all demos and labs: Lovable.** Carlos approved this direction -- switching between tools during class is confusing. Students learn the framework through Lovable, and the framework applies to any tool they use at their company.
 
-**Default tool: Lovable (visual-first builder)**
+**Primary tool: Lovable**
 - Lowest barrier to entry for non-technical PMs. No terminal, no code editor, no local setup.
-- Pro accounts provided via Product School partnership (3 months free). This eliminates the #1 friction point from previous cohorts: credit limits and subscription confusion.
-- Used as the primary demo tool by instructors in all live sessions.
+- **Pro accounts provided via Product School partnership (3 months free).** This eliminates the #1 friction point from previous cohorts: credit limits and subscription confusion.
+- Used as the **only** demo tool by instructors in all live sessions. No switching to Bolt or v0 mid-demo.
+- Lovable now supports backend functionality (database connections, Stripe integration, deployment) -- this is critical for M5 and M6 where students push to production.
 
-**Alternative tools encouraged (students may use any of these interchangeably):**
-- **Bolt** -- similar visual-first UX to Lovable, good alternative if Lovable has outages or credit issues
-- **v0** -- Vercel ecosystem, generates React components, good for students already in the Vercel world
-- **Replit** -- more code-visible than Lovable/Bolt, good bridge for students who want to see what's happening under the hood
-
-**Code-first track (optional, not taught in depth):**
-- **Cursor** or **Claude Code** -- for students comfortable with code who want to work in a code editor with AI assistance. Instructor should acknowledge this path exists and is valid, but demos and labs are designed for visual-first tools. Code-first students can follow along with their own tool.
-
-**Instructor demo principle:**
-- Each module's live demo uses Lovable as the primary tool.
-- At least once per module, the instructor shows a brief "and here's the same thing in [Bolt / v0 / Cursor]" moment to reinforce that the methodology works across tools.
-- When a student asks a tool-specific question, redirect to the principle: "That button might move next week. The approach stays the same."
+**Competitive landscape (brief mention, not taught):**
+- In M1 or Pre-Work, the instructor briefly acknowledges: "There are many tools out there -- Bolt, v0, Replit, Cursor, Claude Code. Your company might use different ones. What you learn here applies to any of them. We use Lovable because it's the best tool for this use case and you have Pro access."
+- Product School also has partnerships with Alloy, Magic Patterns, and others -- mention these as resources for curious students, not as course tools.
+- If a student asks about a different tool: "Great question. The approach stays the same. Try it in your tool of choice and share what you find."
 
 **What we do NOT teach:**
 - Tool-specific UI navigation, button locations, settings menus, or account configuration
 - Version-specific features ("Lovable just added X") -- if it changes next week, our content shouldn't break
 - Workarounds for free-tier limitations (solved by the Pro partnership)
+- Demos in multiple tools (solved by using Lovable consistently)
 
 ---
 
@@ -169,7 +164,7 @@ These are the course team's report card. Compare cohort-over-cohort.
 | --- | --- | --- |
 | Overall NPS | 4.5+/5 | The benchmark. Current course is ~3.8. |
 | "Would recommend to a colleague" | 80%+ | Word-of-mouth is the strongest growth driver |
-| Group deployment rate | 100% deploy to live URL | If groups can't deploy, M5-M6 content isn't working |
+| Individual deployment rate | 100% deploy to live URL | If students can't deploy, M5-M6 content isn't working |
 | Validation Evidence Brief quality | Meets rubric (see Instructor Guide) | The real deliverable -- if these are weak, the methodology didn't transfer |
 
 ### After the Course (Impact Indicators -- 30-60 days)
@@ -239,8 +234,10 @@ Leading indicators predict lagging indicators. If build completion is high and s
 
 The structure is deliberately inverted: DO first, LEARN second. Students experience the power of vibe coding through action, then the instructor names and frames what just happened.
 
-**Opening Demo (12 min):**
+**Opening Demo (15 min):**
 The instructor takes a deliberately vague, ambiguous problem statement (e.g., "our enterprise customers are churning after onboarding") and, live in front of the class, vibe-codes three completely different solution directions. Each is a clickable, tangible prototype. No explanation of methodology. No slides. Just: watch this.
+
+**Key twist (per Carlos feedback):** At least one of the three prototypes should demonstrate **existing product cloning** -- the instructor feeds a real product's design system (via Mobbin template or screenshot) into Lovable and builds a feature that looks like it *belongs* in that product. This shows students from minute one that this isn't about generic demos -- it's about making things that look and feel like their real company's product. The "wow moment" is: "That looks like it's already part of Stripe/Notion/Slack."
 
 **Lab: The Full Cycle (40 min):**
 
@@ -253,7 +250,7 @@ NOW the instructor introduces the Confidence Line and key concepts -- after stud
 - "What you just did in 40 minutes used to take 3 weeks. Here's the framework that names what you experienced."
 - The Confidence Line: where you just were (far left, high ambiguity) and where the course takes you (far right, production confidence)
 - "Tool vs Toy" prototypes (Reforge's Ravi Mehta): if your prototype didn't help you decide something, it's a toy. Did yours help you decide?
-- Tool landscape overview: code-first editors (Cursor, Claude Code) vs. visual-first builders (Lovable, Bolt, v0). Quick orientation, not a tutorial.
+- Tool landscape overview (60 seconds max): "There are many tools. Your company may use different ones. What you learn here works with any of them. We use Lovable because it's the best for this use case and you have Pro access." Done. Move on.
 
 **"Break It" Exercise (10 min):**
 Instructor demonstrates what happens when you vibe-code *without* any problem frame -- an AI that hallucinates features, builds the wrong thing beautifully. Lesson: you can build fast, but fast without direction is waste. That's what M2 fixes.
@@ -318,7 +315,9 @@ Instructor shows a beautiful, high-fidelity prototype that validated absolutely 
 
 - The prompting maturity curve: exploration prompts (divergent, open) vs. execution prompts (convergent, precise) -- matching your prompt style to your confidence level
 - Context layering: how to feed AI tools your PRD, design system, user research, and constraints so it builds what you actually mean. Demonstrate with Cursor project rules, .cursorrules files, and system context patterns.
-- **Context layering for existing products:** When you're building within an existing product, your prompts need to carry that context. Show the difference side-by-side: "Build me a settings page" (generic, standalone) vs. "Build me a settings page that matches our existing design system -- here's the component library, color tokens, and navigation pattern" (contextual, integrated). The second prompt produces something that looks like it *belongs*. For PMs working on shipped products, this is the difference between a prototype stakeholders take seriously and one they dismiss as "not how our product looks."
+- **Context layering for existing products (the "clone your product" technique):** When you're building within an existing product, your prompts need to carry that context. Show the difference side-by-side: "Build me a settings page" (generic, standalone) vs. "Build me a settings page that matches our existing design system -- here's the component library, color tokens, and navigation pattern" (contextual, integrated). The second prompt produces something that looks like it *belongs*. For PMs working on shipped products, this is the difference between a prototype stakeholders take seriously and one they dismiss as "not how our product looks."
+  - **Templates and design imports:** Demonstrate using Mobbin templates, Figma imports, and screenshot-based context to clone your company's look and feel. Feed the AI a screenshot of your real product plus your design tokens and watch it generate something that stakeholders immediately recognize. This is the pre-prototyping muscle Carlos flagged as critical: "How are you making sure the look and feel is as similar as possible to your current product?"
+  - **MCP for design systems (demo):** Brief 3-minute demo showing how MCP servers can connect Lovable directly to a Figma file or design system, pulling in real components and styles. Students don't need to set this up themselves, but they should see it's possible -- this is where the industry is heading.
 - Advanced techniques applied to product work: Chain-of-Thought for complex user flows, Self-Consistency for evaluating UI/UX alternatives, Constraint Injection for guardrails
 - The "living prompt pack" concept: a collection of reusable, evolving prompt templates that encode your product context -- NOT a static document, but a dynamic toolkit
 - Agentic prompting: the shift from "prompt and wait" to "delegate and supervise." Introduction to agent mode, multi-step task delegation, and how to direct AI agents like a tech lead (inspired by ZTM's "Creative Director" framing but applied to product strategy, not just code)
@@ -391,8 +390,9 @@ Instructor shows a real example of what happens when you never graduate from vib
 **Key Talking Points:**
 
 - The integration reality: your prototype works in isolation, but real products talk to APIs, store data, handle authentication, and deal with failures. This is where most vibe-coded prototypes stall out -- not because the idea was wrong, but because the builder never made it real enough to test properly.
-- API integration patterns: connecting to real services (Supabase, Firebase, third-party APIs) through AI-assisted development. The key insight: you don't need to understand the API deeply -- you need to describe what you want to the AI tool and verify the result works.
+- **The "Oh Shit" moment -- connecting to real services:** Lovable now supports backend functionality. Walk students through connecting to a real database (Supabase), adding Stripe for payments, setting up authentication. The magic is when students realize: "Wait, this actually works? I can charge money? I can store real data?" Carlos: "I can connect to a database. I can connect to Stripe. Oh, shit. I can push something to production. That would be magic." This is the turning point where students realize this isn't prototyping -- it's product development.
 - Edge case thinking: what happens when the API is down? When the user enters garbage? When there are 10,000 items instead of 10? Use AI to generate edge case tests. The discipline: before you call it "done," ask "what breaks this?"
+- **Software engineering agents (Devin, etc.):** Brief demo (5 min) -- show how engineering agents can test your code, integrate via Slack, run QA passes, and catch bugs you missed. "Hey Devin, go check out this front end." Students don't need to use these tools, but seeing them changes their mental model: this isn't a toy environment, this is real software development with AI teammates. Carlos flagged this as a differentiator.
 - MCP and agentic integrations (brief demo, not a teaching block): Model Context Protocol is where the industry is heading -- AI tools that connect directly to databases, APIs, and services. Show a 2-minute demo of what this looks like. Students don't need to master this now, but they should know it exists and is coming fast.
 - Security checklist (reference, not lecture): a 1-page checklist PMs should run before any prototype touches real data -- rate limiting, input validation, auth token handling, data exposure. Provided as a handout, not taught as a topic.
 - **The PM-engineering handoff (moved from M4):** Vibe coding changes this conversation fundamentally. You're no longer handing off a spec document and saying "build this." You're handing off a working reference implementation with a living spec and saying "here's what it does, here's what we validated, here's what needs to be production-grade." Show the three artifacts engineers actually want: (1) the working prototype, (2) the living PRD from M4, (3) a list of "what I hacked vs. what needs to be built properly." This is where the Confidence Line meets reality -- you've moved from ambiguity to confidence, and now you're transferring that confidence to the team that will build it for real.
@@ -410,60 +410,58 @@ Class exercise: instructor deploys a prototype with zero error handling. Student
 
 ---
 
-### Module 6: Ship It -- Deployment, Scale, and Stakeholder Buy-In
+### Module 6: Ship It -- Deploy, Demo, and Take It Home
 
 > **Confidence Line position:** Far right. Maximum confidence. Time to ship and present.
 
-**Timing (2 hrs total):** Lab/build day (100 min) + Break It embedded in presentations = **100 min structured, 20 min buffer.** M6 is intentionally tight -- it's a build day, not a teaching day. Buffer absorbs: deployment issues, presentation overruns. **Large cohort contingency:** If cohort > 30 students, limit presentations to 4 groups (selected by peer vote); remaining groups do a gallery walk where classmates visit each deployed URL and leave feedback.
+**Timing (2 hrs total):** Individual build/polish (50 min) + Deploy (15 min) + Peer gallery + optional demos (40 min) + Wrap-up (15 min) = **120 min structured, 0 min buffer.** M6 is intentionally packed -- it's a ship day, not a teaching day. If deployment issues arise, instructor troubleshoots live (this IS the learning).
 
-**Theme:** A prototype that lives on your laptop changes nothing. This module takes your work from "demo" to "deployed" and teaches you how to present it for maximum impact.
+**Theme:** A prototype that lives on your laptop changes nothing. This module takes your individual product from "demo" to "deployed" and gives you the stage to show what you built. Everyone ships. Presenting is optional -- but those who do get direct feedback from the instructor.
 
 **Learning Objectives:**
 
 - Deploy a vibe-coded product to a live URL using modern deployment tools
+- Connect real backend services (database, auth, payments) to a prototype
 - Understand the basics of scale: what happens when real users hit your product
 - Present your product with a compelling narrative that drives stakeholder decisions
 - Build a personal vibe coding practice for continued use after the course
 
-**Key Talking Points:**
+**Key Talking Points (brief, woven into build time -- no lecture block):**
 
-- Deployment demystified: from localhost to live URL in minutes (Vercel, Netlify, Supabase hosting, etc.)
-- Scale awareness: what changes when 1 user becomes 100 becomes 10,000 -- connection pools, rate limits, caching (PM-level awareness, not engineering depth)
+- Deployment demystified: from localhost to live URL in minutes. Lovable's built-in deploy, or push to Vercel/Netlify.
+- The production push: "You are not playing designer. You are shipping a real product." Connect to Supabase for data, Stripe for payments, auth for logins. The student who walks out with a live URL that accepts payments has a fundamentally different story than one with a localhost demo.
+- Scale awareness (PM-level, not engineering depth): what changes when 1 user becomes 100 becomes 10,000 -- connection pools, rate limits, caching.
 - Quality gates before shipping: a PM's checklist for "is this production-worthy?" -- error handling coverage, basic security review, performance under load, accessibility baseline. Use AI to run these checks.
 - The stakeholder pitch: framing your vibe-coded product as *evidence for a product decision*, not just a "cool demo." Reforge's insight applies: prototypes are questions, not answers. Your pitch should present the evidence, not just the feature.
-- Building your ongoing practice: how to integrate vibe coding into your daily PM workflow -- discovery, stakeholder alignment, eng handoff, user testing
-- The future of PM-as-builder: agentic AI is making it possible for PMs to maintain and evolve products post-launch, not just prototype them. Multi-agent workflows, background agents, autonomous testing -- preview of where this capability is heading.
 - The full Confidence Line revisited: from ambiguity through validation through production -- students map their own journey
+- Building your ongoing practice: how to integrate vibe coding into your daily PM workflow -- discovery, stakeholder alignment, eng handoff, user testing
 
-**Lab: Group Build Day (100 min):**
+**Lab: Ship Day (120 min):**
 
-This module follows the Agents course model: after 5 modules of individual practice, students come together in small groups (3-4 max) for a full build session. This is where the group project lives.
+**This is an individual build day.** Every student ships their own product. No group projects, no shared dependencies. (Carlos: "That individual project that everybody has to create should be actually individual, and everybody should feel that accountability.")
 
-- **Group build sprint (50-60 min):** Groups receive a project brief and build from zero together. Each member has their own tool instance and works on a different component/feature simultaneously (unlike the old course where one person built and others watched). They coordinate through a shared living PRD.
-- **Deploy (10 min):** Each group deploys their product to a live URL. Real deployment, real URL, shareable with anyone.
-- **Present and compete (30 min):** Each group presents with a structured pitch:
-  1. The problem (what ambiguity they started with)
-  2. The validation journey (what they learned by building)
-  3. The product (live demo of the deployed app)
-  4. The recommendation (ship it, pivot, or kill it -- and why)
-- Class votes on best product AND best pitch (addressing the student feedback requesting a competition element)
-
-**"Break It" Exercise (embedded in presentations):**
-During each presentation, the audience tries to break the live deployed product. Teams must respond to failures live -- demonstrating real product resilience.
+- **Individual build and polish (50 min):** Students take their prototype (built across M1-M5) and prepare it for production. Add any missing integrations, handle edge cases, polish the UI. The instructor circulates and troubleshoots live. Peer discussions happen naturally -- students compare notes, ask for help, show each other what they built (like pair programming at the gym).
+- **Deploy (15 min):** Every student deploys to a live URL. This is non-negotiable -- 100% deployment rate is the success metric. Real URL, shareable with anyone. The instructor walks through deployment live for anyone stuck.
+- **Peer gallery + optional demos (40 min):**
+  - **Gallery walk (15 min):** All deployed URLs are shared in the Slack channel. Students visit each other's products, leave feedback, react with emoji, suggest features. This creates the FOMO moment Carlos described -- "Oh wow, look what they built. I want that feature in mine." This is the networking and community-building moment, without forced group dynamics.
+  - **Volunteer demos (25 min):** 3-4 brave students demo their product live to the class. Structured pitch format:
+    1. The problem (what ambiguity they started with)
+    2. The validation journey (what they learned by building)
+    3. The product (live demo of the deployed app)
+    4. The recommendation (ship it, pivot, or kill it -- and why)
+  - Instructor gives direct feedback. Audience tries to break the live product (the embedded "Break It" moment). Presenting is optional but those who do benefit the most.
+- **Wrap-up and Confidence Line reflection (15 min):** Each student maps their real-work initiatives on the Confidence Line. What's stuck in ambiguity that could be moved right with a 2-hour build? What's been "vibed" too long and needs graduation? This is the bridge from course to daily practice.
 
 ---
 
-**Group Deliverables (what each team produces):**
+**Individual Deliverables (what every student takes home):**
 
-1. **Deployed product** -- a live URL, shareable with anyone. This is the artifact, not the outcome.
-2. **Validation Evidence Brief** -- a 1-page document that captures: what assumption did we start with, what did we build to test it, what did we learn, and what's our recommendation (ship / pivot / kill) with evidence. This is what a PM would actually hand to their VP on Monday morning. The *real* deliverable.
+1. **Deployed product** -- a live URL, shareable with anyone. Connected to real services. This is not a mockup.
+2. **Validation Evidence Brief** -- a 1-page document: what assumption did I start with, what did I build to test it, what did I learn, what's my recommendation (ship / pivot / kill) with evidence. This is what a PM hands to their VP on Monday morning.
 3. **Living PRD** -- the spec they've been evolving since M4, now attached to the final product. Shows the journey from messy exploration to structured intent.
-
-**Individual Deliverables (what each student takes home):**
-
-1. **Personal project** -- built individually across M1-M5, theirs to keep developing after the course.
-2. **Prompt library / living prompt pack** -- built across M3-M5, a reusable toolkit they can apply to any product initiative.
-3. **Confidence Line self-assessment** -- where are their real work initiatives on the line? What's stuck in ambiguity that could be moved right with a 2-hour build? What's been "vibed" too long and needs graduation? This is the bridge from course to daily practice.
+4. **Prompt library / living prompt pack** -- built across M3-M5, a reusable toolkit they can apply to any product initiative.
+5. **Engineering Handoff Note** -- from M5, documenting what's real vs. hacked and what engineering needs to take it forward.
+6. **Confidence Line self-assessment** -- where are their real work initiatives on the line? This is the bridge from course to daily practice.
 
 ---
 
@@ -474,7 +472,7 @@ During each presentation, the audience tries to break the live deployed product.
 | "Felt like a Lovable tutorial" | Tool-agnostic with Recommended Tool Path; Lovable is default for demos but students choose their tool |
 | "Too basic for senior PMs" | No intro AI content; advanced frameworks from minute one; pre-work handles setup |
 | "Too much lecture, not enough hands-on" | 80/20 hands-on ratio; labs dominate every module; per-module buffer time ensures labs never get cut |
-| "Groups too large / only one person builds" | Individual builds in M1-M5; groups of 3-4 max in M6 |
+| "Groups too large / only one person builds" | Individual builds in ALL modules (M1-M6). Group activities for networking/pair review only -- never dependency. No enforced group projects or presentations. (Carlos-approved) |
 | "No non-happy-path scenarios" | "Break It" exercise in every module |
 | "Want existing product use cases" | Existing product lens threaded through M2 (problem briefs), M3 (context layering), M4 (graduation within existing products), not isolated in one module |
 | "PRD confusion" | Living specs concept replaces static PRD; extracted from builds, not written before |
@@ -522,12 +520,16 @@ During each presentation, the audience tries to break the live deployed product.
 
 ## Appendix C: Timeline and Working Principles
 
-**Immediate timeline:**
+**Timeline (updated post-Carlos meeting, Feb 13):**
 
 - Wednesday Feb 11: Draft outline shared with Dana
-- Friday Feb 13: Validation meeting with Carlos (high-level outline + new vision)
-- Following week: Iterate on skeleton, begin detailing Module 1
-- Feb 24: Dejan starts teaching AI Agents course (bandwidth decreases)
+- Friday Feb 13: Validation meeting with Carlos -- **skeleton approved**, Confidence Line + module structure confirmed
+- **Week of Feb 17 (key week, no teaching):** Detail Module 1 fully. Present to Carlos/team for review. Aim to get as much done as possible.
+- **Feb 24:** Dejan starts teaching AI Agents course (3 weeks, bandwidth decreases)
+- **~March 12:** Agents course ends
+- **Second half of March (target):** Dejan teaches the first cohort of the new Vibe Coding course. Lisa to find a European-time slot. Carlos will take the class as a student.
+- **April 13:** AIPRC course begins (may be moved to accommodate Vibe Coding)
+- Carlos will adjust the agreement to account for the additional content development time
 
 **Working principles:**
 
@@ -540,6 +542,7 @@ During each presentation, the audience tries to break the live deployed product.
 
 - Insights/AI Prototyping V3 Refinement.txt -- Multi-cohort feedback synthesis and module-by-module diagnosis
 - Insights/2025-02-09 Dana-Dejan Kickoff Meeting.md -- Internal alignment on vision, lab structure, and working approach
+- Insights/2025-02-13 Carlos Revamp Working Session.md -- CEO validation of skeleton, tool strategy, group work decisions, pre/post-prototyping depth feedback
 
 ## Appendix D: Success Metrics -- Measurement Details
 
