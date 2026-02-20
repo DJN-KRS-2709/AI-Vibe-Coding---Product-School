@@ -105,8 +105,32 @@ Carlos said it plainly: "I want people complaining because this is too advanced.
 - Don't explain what vibe coding is (they'll learn by doing it)
 - Don't ask "has everyone completed the pre-work?" (check Slack beforehand)
 
-**[PLACEHOLDER: Final Project Requirements]**  
-Product School will provide: one slide + 3-min video walking students through final project expectations, requirements, and FAQ. Play early in the course (e.g., after ground rules), ask "Any questions?" then move on. Students can revisit the video anytime. *Insert once Product School provides assets.*
+**Final Project Requirements (Slide + Video)**
+
+Immediately after ground rules, show the Final Project slide and play the 3-minute video. This is the moment Carlos flagged: "That was never clear in the first session and people came back with a lot of questions."
+
+**Slide content (see `Final Project - Requirements and Scenario Guide.md` for full text):**
+
+> **YOUR FINAL PROJECT**
+>
+> You will build and deploy a real product. Individually. No group dependencies.
+>
+> **One product, six modules.** Each week adds a layer: exploration → validation → precision → structure → integrations → deployment.
+>
+> **Five deliverables by Module 6:**
+> 1. Deployed product (live URL — not localhost)
+> 2. Validation Evidence Brief (what you learned, not what you built)
+> 3. Living PRD (extracted from building, not written before)
+> 4. Prompt library (your reusable toolkit)
+> 5. Engineering Handoff Note (what's real, what needs work)
+>
+> **Optional presentation.** 5-minute pitch on the final day. Those who present get direct instructor feedback. Everyone deploys. Presenting is your choice.
+>
+> **You start today.** What you build in Module 1 might become your final project. Or you might pivot. Both are fine.
+
+**Then play the 3-minute video** (produced by Product School — script in `Final Project - Requirements and Scenario Guide.md`). After the video: "Any questions on the final project? Good. You can revisit the video anytime. Let's build."
+
+**Instructor note:** Reference the final project naturally throughout the session. During labs: "What you're building right now might become your final project." During the wrap: "Next module you'll commit to your scenario — either your company problem or one of the course scenarios. That's the product you'll carry through to deployment."
 
 **Instructor prep (before class):**
 - Verify pre-work Slack posts — note who didn't complete it (DM them during first lab)
@@ -185,13 +209,15 @@ Product School will provide: one slide + 3-min video walking students through fi
 
 > **Your Brief (Slide 6):**
 >
-> Pick ONE scenario below, or use the problem you posted in Slack. *If you're staring at a blank prompt box, use one of these three paths to get started.* (Options A, B, C = the three paths; Slide 7 has the two anti–blank-page scenarios.)
+> Pick ONE scenario below, or use the problem you posted in Slack. *If you're staring at a blank prompt box, use one of these paths to get started.* Today is exploration — you might keep what you build, or you might pivot next module. Both are fine.
 >
-> **Option A — Fitness Startup:** A fitness startup wants to reduce member churn. "Something like Strava meets Discord." Build something that could help.
+> **Option A — The Retention Engine:** A B2B SaaS project management tool is losing 30% of customers in the first 90 days. The VP of Customer Success says users "sign up, poke around, and ghost." Build something that could help.
 >
-> **Option B — B2B SaaS:** A B2B SaaS sales team spends 3 hours/day updating CRM notes after calls. The VP wants "some kind of AI thing to fix this." Build something.
+> **Option B — The Internal Tool Nobody Uses:** A 200-person sales team has a CRM note-taking tool with 18% adoption. Reps say it's "too many clicks." The VP wants "some kind of AI thing." Build something.
 >
 > **Option C — Your Product:** Use the problem from your Slack intro. Build a prototype for your real product challenge.
+>
+> *These are two of four course scenarios you can carry through the entire course. See the full scenario library in the Final Project guide. Today is just exploration — try one and see what happens.*
 >
 > **Two scenarios if you hit blank-page syndrome (Slide 7):**
 >
@@ -270,36 +296,177 @@ Product School will provide: one slide + 3-min video walking students through fi
 
 #### 1:03 - 1:13 | Instructor Demo 2: "From Basic to Pro" (10 min)
 
-**Purpose:** This is the "things you don't know yet" moment. The instructor takes a basic prototype (could be their own or a volunteer student's -- ask first) and upgrades it live, showing techniques that go beyond "just prompt and hope."
+**Purpose:** This is the "things you don't know yet" moment. The instructor takes a basic prototype and upgrades it live, showing techniques that go beyond "just prompt and hope."
 
 **How this differs from the first demo (Block 1):** The first demo showed *what* to build — three divergent directions from one problem, including the "existing product clone" wow moment. It was about *exploration* and *speed*. This demo is the opposite: we take *one* prototype and *improve* it. It's about *iteration*, not exploration. Block 1 = "here are three different things you could build." Block 3 = "here's how to make what you built look and feel like a real product."
 
-**The upgrade sequence:**
+**Starting point:** Prototype 1 from Demo 1 — the enterprise customer onboarding dashboard. It has a progress tracker, recommended actions, and a help section. It's functional but looks generic: standard AI-generated layout, default colors, no design system, no real interactivity. This is the "before."
 
 **Upgrade Sequence (Slide 12):** Design System → Add Interactivity → Refine Prompts. The key is steering, not starting over.
 
-**Step 1: Design System Matching (3 min)**
-- Pull up Mobbin. Find a design template that matches the type of product being built.
-- Feed the screenshot + color tokens into Lovable as context.
-- Re-prompt: "Redesign this prototype to match this design system. Keep the same functionality, but use this color palette, card style, and navigation pattern."
-- Show the before/after side by side.
-- Narrate: "Your VP doesn't care about your prototype unless it looks like it could already be in your product. This takes 2 minutes and changes the entire conversation."
+---
 
-**Step 2: Adding Interactivity and State (4 min)**
-- The basic prototype is static. Add real interactions:
-  - "Make the filter dropdown functional. When I select 'High Risk,' only show accounts with risk scores above 70."
-  - "Add a click-to-expand detail view for each account card."
-  - "Add a loading skeleton animation when the page first loads."
-- Narrate: "This is the difference between a screenshot and a product. Stakeholders can click through this. Users can test it. Engineering can see the interaction model you're proposing."
+##### Standardized Refinement Prompts — Use These Exactly
 
-**Step 3: Multi-prompt Refinement (3 min)**
-- Show how to iterate on a specific section without rebuilding the whole thing:
-  - "The header is good but the sidebar feels cluttered. Simplify the sidebar to show only the 4 most important navigation items. Keep everything else the same."
-- Narrate: "You don't start over. You steer. Each prompt gets you closer. This is what separates 'playing with AI' from 'using AI to build a product.'"
+*All instructors use these prompts verbatim. This ensures consistent demos across cohorts and eliminates improvisation risk. Read the narration between prompts while the AI generates.*
+
+**Demo 1 prompt (for reference — this is what produced the starting prototype):**
+
+> Build me an enterprise customer onboarding dashboard that helps users discover key features in their first 30 days. Include a progress tracker, recommended actions, and a help section.
+
+**That produced a working prototype in one prompt. Now we make it real.**
+
+---
+
+**STEP 1: Design System Matching (3 min)**
+
+**Before prompting:** Open Mobbin in a second tab. Navigate to a pre-selected SaaS dashboard screenshot (Linear, Notion, or Stripe — have 2–3 bookmarked). Take a screenshot. Show it to the class: "This is Linear's project view. Watch what happens when I feed this into Lovable as context."
+
+**Action:** Attach the Mobbin screenshot to the Lovable chat, then send:
+
+**Prompt 1A — Full Design System Transformation:**
+
+> Completely redesign this onboarding dashboard to match the design system in the attached screenshot. Transform every visual element:
+>
+> **Layout:** Add a dark sidebar on the left with icon + label navigation items. The main content area should be a clean white/light gray background with generous padding and clear visual hierarchy.
+>
+> **Cards and containers:** Rebuild every section — progress tracker, recommended actions, and help — as modern cards with rounded corners (8px), subtle borders (#e5e7eb), light drop shadows, and consistent 24px internal padding. Cards should have clear separation with white backgrounds that float above the page background.
+>
+> **Color palette:** Dark sidebar (#1e1e2d), light content area (#f9fafb), blue primary accent (#3b82f6) for buttons and active states, green (#22c55e) for completed/success states, gray (#6b7280) for secondary text.
+>
+> **Typography:** Use a clean sans-serif. Page title 24px bold. Section headings 18px semibold. Body text 14px regular. Secondary/helper text 13px in #9ca3af.
+>
+> **Progress tracker:** Redesign as a horizontal step indicator with connected dots/circles across the top of the main area — not a vertical list. Completed steps are filled green, current step pulses blue, upcoming steps are hollow gray. Add a progress bar line connecting the steps.
+>
+> **Recommended actions:** Display as a grid of 2x2 cards, each with an icon on the left, a title, a one-line description, and a subtle arrow or "Start" button on the right. Use hover-ready card styling.
+>
+> **Overall polish:** Add smooth spacing between sections (32px gaps). Make the whole page feel like a premium SaaS product — the kind of dashboard you'd see at Linear, Notion, or Stripe.
+>
+> Keep all existing content and functionality. Transform the design completely.
+
+**While it generates, narrate:**
+
+> "I didn't change what the dashboard does. Same progress tracker, same recommended actions, same help section. But I told it exactly how every element should look — layout, cards, colors, typography, spacing. I gave it a reference screenshot AND spelled out the details. That's the difference between 'make it prettier' and 'match this design system.' One gets you a random reskin. The other gets you something that looks like it belongs at a real company."
+
+**After it renders — show before/after side by side (keep Demo 1 output in a separate tab):**
+
+> "Look at these side by side. Same prototype. Same content. One prompt. The first version looks like a homework assignment. This one looks like it ships at Linear. That progress tracker went from a plain list to a horizontal step indicator. Those recommended actions went from a bulleted list to a card grid. Everything has consistent spacing, real typography, real colors. Your VP doesn't care about your prototype unless it looks like it could already be in your product. This takes 2 minutes and changes the entire conversation."
+
+**If the output isn't perfect** (colors slightly off, spacing awkward): Don't fix it yet. Say: "It's 90% there. We'll fix specific details in Step 3. The point is: the conversation with your stakeholder just changed completely. This went from 'nice demo' to 'wait, is this already in our product?'"
+
+---
+
+**STEP 2: Adding Interactivity and State (4 min)**
+
+**Narrate before prompting:**
+
+> "Right now this looks good but it's a picture. The progress tracker doesn't actually track anything. The recommended actions don't respond when I click them. A stakeholder can look at this, but they can't experience it. Let's fix that."
+
+**Prompt 2A — Interactive Progress Tracker:**
+
+> Make the progress tracker fully interactive. It should show 5 onboarding steps: "Create Account" (completed), "Invite Team" (completed), "Set Up First Project" (current — in progress), "Connect Integrations" (locked), and "Launch First Workflow" (locked). Completed steps should show a green checkmark. The current step should be highlighted with a blue progress indicator. Locked steps should appear grayed out. When I click a completed step, it should expand to show a "Completed on [date]" note. When I click the current step, it should show a brief description and a "Continue" button.
+
+**While it generates, narrate:**
+
+> "One prompt. The progress tracker now works. Watch — I can click each step and see where the user is in their journey. Students who did the first lab — yours were static too. That's fine for exploration. But the moment you add interactivity, it goes from 'a thing I made' to 'a thing someone can test.' That's the difference."
+
+**After it renders, click through the steps live. Show completed vs. current vs. locked.**
+
+**Prompt 2B — Actionable Recommendation Cards:**
+
+> Make the recommended actions section interactive. Each recommended action should be a card with: an icon, a title, a one-line description, and a "Start" button. When I hover over a card, it should lift slightly with a shadow (hover state). When I click "Start," the card should transition to show a brief inline explanation of how to complete the action, with a "Mark Complete" button. When I click "Mark Complete," the card should collapse, show a green checkmark, and move to a "Completed" section at the bottom. Include 4 recommended actions: "Invite 2 teammates," "Create your first project," "Connect Slack integration," and "Set up weekly digest."
+
+**While it generates, narrate:**
+
+> "This is where prototypes start feeling like products. A stakeholder can now click through the onboarding flow and say 'yes, this is the right sequence' or 'no, we should change the order.' They're not reacting to a screenshot — they're testing the experience. That's validation. That's a tool, not a toy."
+
+**After it renders, click through 2 actions — hover, start, mark complete. Show the flow.**
+
+**Prompt 2C — Loading State (quick polish):**
+
+> Add a loading skeleton animation that shows for 1.5 seconds when the page first loads, before the dashboard content appears. Use gray placeholder blocks that match the layout of the progress tracker, action cards, and sidebar. This should feel like a real app loading data from a server.
+
+**While it generates, narrate:**
+
+> "This is a 15-second prompt. It adds perceived quality. When your stakeholder loads this and sees a skeleton animation before the content appears, their brain registers 'this is a real app.' It's a small thing. It matters."
+
+**After it renders, refresh the page to show the skeleton loading. Pause for effect.**
+
+> "Static → functional → polished. Three prompts. The prototype went from a screenshot to something your engineering team would look at and say 'okay, I see what you're proposing.' That's the goal."
+
+---
+
+**STEP 3: Multi-Prompt Refinement — Steering, Not Restarting (3 min)**
+
+**Narrate before prompting:**
+
+> "Now the most important skill. Something is off. The help section at the bottom takes up too much space and feels like an afterthought. And the header text is generic. Most people would start over. Or they'd re-prompt the whole page. Don't. Target the specific section. Keep everything else locked."
+
+**Prompt 3A — Targeted Section Fix:**
+
+> The help section at the bottom is too large and takes up too much vertical space. Replace it with a compact "Need Help?" bar that sits at the very bottom of the page — one line, with a search input on the left and two links on the right: "Documentation" and "Contact Support." Make it sticky so it's always visible. Don't change anything else on the page — keep the sidebar, progress tracker, and recommended actions exactly as they are.
+
+**While it generates, narrate:**
+
+> "Notice what I did. I told it exactly what to change AND what NOT to change. That's the skill — constraint injection. If you just say 'fix the help section,' it might rebuild the whole page. You steer by being specific about what stays and what goes."
+
+**After it renders, point out that the progress tracker and actions are unchanged:**
+
+> "Help section is compact and sticky. Everything else is untouched. One prompt. No rebuild."
+
+**Prompt 3B — Copy and Tone Refinement:**
+
+> Change the main dashboard heading from "Enterprise Customer Onboarding" to "Welcome back, Sarah — here's your setup progress." Change the subheading to "3 of 5 steps complete. You're ahead of most teams at this stage." Make the subheading a lighter gray (#9ca3af) and slightly smaller than the heading. Don't change anything else.
+
+**Narrate:**
+
+> "Even naming matters. 'Enterprise Customer Onboarding' is what a PM calls it internally. 'Welcome back, Sarah — here's your setup progress' is what a user sees. Personalization. Encouragement. Progress framing. One prompt, two line changes, completely different experience."
+
+**Prompt 3C (optional, if time allows) — Micro-Interaction Polish:**
+
+> Add a subtle celebration animation — confetti or a brief sparkle effect — that triggers when a user clicks "Mark Complete" on a recommended action. The animation should be brief (under 2 seconds) and not block interaction. Also add a small progress percentage next to the main heading that updates in real time as actions are completed (e.g., "60% complete").
+
+**Narrate (if used):**
+
+> "Tiny detail. Huge signal. The user completes an action and gets a micro-celebration. Their brain says 'I'm making progress.' These moments are what make onboarding sticky. Your stakeholder sees that and thinks 'this person understands user psychology.' One prompt."
+
+---
+
+##### Demo 2 Summary — What the Class Just Saw
+
+| Step | Prompts | Time | What Changed |
+| --- | --- | --- | --- |
+| Design System | 1 prompt | ~2 min | Generic → looks like a real SaaS product |
+| Interactivity | 3 prompts | ~4 min | Static → interactive progress tracker, clickable action cards, loading state |
+| Refinement | 2–3 prompts | ~3 min | Bloated help section → compact bar, generic copy → personalized, micro-celebrations |
+| **Total** | **6–7 prompts** | **~10 min** | **Basic AI output → stakeholder-ready onboarding experience** |
+
+**The teaching moment (say this before transitioning to Lab 2):**
+
+> "6 prompts. 10 minutes. That prototype went from 'I made a thing with AI' to 'here's an onboarding experience I'd show my VP.' The technique is always the same: design system first, then interactivity, then refine the details. You don't start over. You steer. Each prompt gets you closer. Now you're going to do the same with YOUR prototype."
+
+---
+
+##### Common Failure Modes for Demo 2
+
+- **Lovable rebuilds the whole page instead of targeting a section:** This actually teaches a valuable lesson. Say: "See what happened? I wasn't specific enough. It rebuilt everything. Let me add a constraint." Then re-send with the "don't change anything else" clause. Students need to see the recovery, not just the success.
+- **The design system match is off** (wrong colors, spacing awkward): Don't try to make it perfect. Say: "Close enough to have the conversation. We'll fix specifics in Step 3." Moving forward is more valuable than perfection.
+- **Progress tracker states don't work correctly:** This is common with interactive state. Say: "The logic isn't perfect yet. That's the kind of thing we'd refine in Module 3 with precision prompting. For now, the interaction model is what matters — the stakeholder can see the concept."
+- **A prompt takes too long to generate (>30 sec):** Narrate while waiting. Talk about what you expected. If it exceeds 60 seconds, say: "Sometimes the tool thinks. This is real life — you learn to write your next prompt while the current one generates. Multitask."
+- **Step 3 time is tight:** Prompt 3A (help section fix) is mandatory — it's the core "steering" lesson. Prompts 3B and 3C are optional polish. Cut from the bottom.
+
+##### Instructor Prep — Before Class
+
+- **Mobbin bookmarks ready:** Have 3 SaaS dashboard screenshots bookmarked (Linear, Notion, Stripe). Use whichever matches the energy of the class. Linear for a dark/modern feel, Stripe for clean/enterprise, Notion for minimal/collaborative.
+- **Demo 1 Prototype 1 saved:** After building the onboarding dashboard in Demo 1, keep that Lovable project open in its own tab. Demo 2 picks up exactly where it left off.
+- **Prompts copied and ready to paste:** Have all 6–7 prompts pre-copied in a text file or clipboard manager. You should be pasting, not typing, during the demo. Typing wastes time and introduces errors.
+- **Backup plan:** If Demo 1 went off-rails and Prototype 1 isn't usable, use a pre-built version (build it before class, save the project link). Never waste live class time recovering a bad demo.
+
+---
 
 **The setup for Lab 2:**
 
-> "You just saw me take a basic prototype and make it look like a real product in 10 minutes. Now you're going to do the same with yours. Take your prototype from the first build, and level it up. Apply a design template. Add interactivity. Refine without rebuilding. You have 15 minutes."
+> "You just saw me take a basic prototype and make it look like a real product in 10 minutes. 6 prompts. Design system, interactivity, refinement. Now you're going to do the same with yours. Take your prototype from the first build, and level it up. Apply a design template from Mobbin. Add at least one interaction that works. Refine one section without rebuilding everything. You have 15 minutes."
 
 ---
 
@@ -392,9 +559,9 @@ Connect to their real work:
 
 > "We use Lovable in this course because it's the best visual-first builder and you have Pro access. But everything you're learning works in Bolt, v0, Cursor, Claude Code -- any AI builder. Your company might use different tools. The methodology doesn't change. Now let's move on."
 
-**4. What's Coming (2 min)**
+**4. What's Coming + Scenario Commitment (2 min)**
 
-> "Today was about raw building speed. Module 2 adds the lens: before you build, you name the assumption you're testing. Module 3 gets precision -- structured prompts, design system matching, living prompt packs. Module 4 is the graduation moment -- when to stop exploring and start committing. Module 5 connects to real backends -- databases, APIs, payments. Module 6, you deploy and ship. Each module builds on the last. And in every single one, you build."
+> "Today was about raw building speed — exploration. Next module, you commit. You'll pick the scenario you're going to carry through the rest of the course: either your real company problem or one of the course scenarios. From Module 2 onward, every lab builds on the same product. Module 2 adds the lens: name the assumption you're testing. Module 3 gets precision — structured prompts, design system matching. Module 4 is the graduation moment. Module 5 connects to real backends — databases, APIs, payments. Module 6, you deploy and ship. One product, six modules. Each one adds a layer. And in every single one, you build."
 
 ---
 
@@ -444,7 +611,7 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
 
 **No homework.** Deliver during or immediately after the accountability activity:
 
-> "No homework. You're done. Optional: rebuild for your real product — use a screenshot from your actual app, drop it in Slack if you do. Next: Module 2. You can build fast. Now: are you building the right thing? We'll add the lens that turns speed into strategy. See you then."
+> "No homework. You're done. But before next session, think about this: which scenario do you want to carry through the rest of the course? Your real company problem? One of the course scenarios? Module 2 is where you commit — and everything you build from that point forward adds a layer to the same product. That product is what you deploy in Module 6. Optional: rebuild for your real product — use a screenshot from your actual app, drop it in Slack if you do. Next: Module 2. You can build fast. Now: are you building the right thing? We'll add the lens that turns speed into strategy. See you then."
 
 #### Slide 21: What You Accomplished Today
 
@@ -469,7 +636,7 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
 | Open Floor (optional) | 0:06 - 0:08 | 2 min | Team round [if small cohort] |
 | Confidence Line Preview (Slide 2) | 0:08 - 0:10 | 2 min | Instructor talk |
 | Title + Ground Rules (Slides 3-4) | 0:10 - 0:13 | 3 min | Instructor talk |
-| [PLACEHOLDER] Final Project | — | — | Video + slide (Product School) |
+| Final Project (Slide + Video) | 0:13 | ~4 min | Slide + 3-min video |
 | Instructor Demo: Three Directions | 0:13 - 0:28 | 15 min | Instructor demo |
 | The Tools We Use | 0:28 - 0:33 | 5 min | Instructor talk |
 | Hands-on Lab 1: First Vibe Build | 0:33 - 0:53 | 20 min | **Hands-on lab** |
@@ -586,14 +753,19 @@ The morning after Module 1, check the `#builds` channel. If 3+ students posted a
 
 ## Appendix: Example Problem Briefs
 
-### Brief A: Fitness Community (0-to-1)
-> A fitness startup with 50K members is seeing 40% churn after month 3. Members say the app feels "lonely" -- they track workouts solo but want connection. The founder's pitch: "Something like Strava meets Discord." But nobody knows what that actually means. Your job: prototype what "fitness community" could look like. Don't build what exists. Build what could exist.
+*Module 1 is exploration. Students can try any brief without committing. Starting in Module 2, they pick one scenario (or their company problem) and carry it through M6. The full scenario library with module-by-module progression is in `Final Project - Requirements and Scenario Guide.md`.*
 
-### Brief B: Sales AI Assistant (0-to-1)
-> A B2B SaaS company's 200-person sales team spends 3 hours/day updating CRM notes after customer calls. The VP of Sales told the PM team: "I want some kind of AI thing to fix this." That's the entire brief. Your job: prototype a solution. What does "fixing" CRM note-taking look like? Is it a Chrome extension? A Slack bot? A standalone dashboard? You decide.
+### Brief A: The Retention Engine (Course Scenario 1)
+> A B2B SaaS company (project management tool, 5K paying teams) is losing 30% of customers in the first 90 days. The VP of Customer Success says: "Users sign up, poke around for a week, and ghost." The Head of Product thinks it's a feature discovery problem. The CEO thinks it's onboarding. The data team says the highest-retention users all share one behavior: they invite a second team member within the first 3 days. Nobody agrees on the solution.
 
-### Brief C: Your Real Company (Existing Product)
-> Use the problem you posted in your Slack intro during pre-work. This is your actual work challenge. Build a prototype of the feature or improvement you think could help. Feed in a screenshot of your current product if you can -- make it look like it belongs.
+### Brief B: The Internal Tool Nobody Uses (Course Scenario 2)
+> Your company's 200-person sales team has an internal CRM note-taking tool that was built last year. Adoption is 18%. Sales reps say it's "too many clicks" and keep using Google Docs. The VP of Sales wants "some kind of AI thing" to fix this. Engineering says the tool is "fine." Meanwhile, the CEO casually mentioned "maybe we should just buy Gong" in last week's all-hands.
 
-### Brief D: Dashboard Bounce Rate (Existing Product)
-> Your company's analytics dashboard has a 60% bounce rate on the onboarding flow. New users land, look around for 30 seconds, and leave. Your PM lead thinks it's information overload. Your designer thinks it's a navigation problem. Your eng lead thinks users just don't know what to do first. Prototype an improvement. You can't redesign the whole product -- just the first experience.
+### Brief C: Your Real Company (Your Product Track)
+> Use the problem you posted in your Slack intro during pre-work. This is your actual work challenge. Build a prototype of the feature or improvement you think could help. Feed in a screenshot of your current product if you can — make it look like it belongs.
+
+### Brief D: The Marketplace Trust Problem (Course Scenario 3)
+> A peer-to-peer services marketplace (50K registered users, 8K monthly active) has a trust problem. Bookings are flat despite growing signups. Customer research shows the #1 reason people browse but don't book: "I don't trust the providers." New providers have zero reviews and nobody wants to be the first customer.
+
+### Brief E: The Dashboard Nobody Reads (Course Scenario 4 — Existing Product)
+> Your company's customer-facing analytics dashboard has a 60% bounce rate on first visit. 12 charts, 4 filter options, a data export button. New users land, see a wall of charts, and leave within 30 seconds. Power users love it. But 80% of new signups are non-technical business users who just want to know: "Is my campaign working?"

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding Syllabus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 3rem 2rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      color: #ffffff;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .module-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    
+    .module-card:hover {
+      border-color: #58a6ff;
+    }
+    
+    .module-badge {
+      display: inline-block;
+      background: #1f6feb;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 0.25rem 0.625rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    
+    .module-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #ffffff;
+      line-height: 1.35;
+    }
+    
+    .module-description {
+      font-size: 0.875rem;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vibe Coding Syllabus</h1>
+    
+    <div class="grid">
+      <div class="module-card">
+        <span class="module-badge">MODULE 1</span>
+        <h2 class="module-title">The Vibe Coding Mindset</h2>
+        <p class="module-description">Experience the full Build-Show-Learn-Decide cycle in a single session. Build multiple prototypes from one ambiguous problem, get real feedback, and make decisions based on evidence. Learn the Confidence Line framework retroactively—prove you can build fast before naming why.</p>
+      </div>
+      
+      <div class="module-card">
+        <span class="module-badge">MODULE 2</span>
+        <h2 class="module-title">The Validation Lens</h2>
+        <p class="module-description">Name the assumption before you open the tool. Master problem framing, assumption mapping, and fidelity mapping to build smart—not just fast. Learn to test the right thing with divergent prototypes and structured peer validation.</p>
+      </div>
+      
+      <div class="module-card">
+        <span class="module-badge">MODULE 3</span>
+        <h2 class="module-title">The Precision Shift</h2>
+        <p class="module-description">Shift from "build me something" to "build me exactly this." Master context layering, constraint injection, and living prompt packs to direct AI like a tech lead. Match your prompting style to your confidence level.</p>
+      </div>
+      
+      <div class="module-card">
+        <span class="module-badge">MODULE 4</span>
+        <h2 class="module-title">The Graduation Moment</h2>
+        <p class="module-description">Recognize when to stop exploring and start building for real. Extract a living spec from what you've built, refactor exploratory code into maintainable structure, and bridge from PM prototype to engineering-ready deliverable.</p>
+      </div>
+      
+      <div class="module-card">
+        <span class="module-badge">MODULE 5</span>
+        <h2 class="module-title">The Integration Leap</h2>
+        <p class="module-description">Connect your prototype to real databases, APIs, and services. Handle authentication, edge cases, and failure modes. Learn to present your work to engineering with a living spec that accelerates their work—not replaces it.</p>
+      </div>
+      
+      <div class="module-card">
+        <span class="module-badge">MODULE 6</span>
+        <h2 class="module-title">From Localhost to Live</h2>
+        <p class="module-description">Take your product from localhost to a live URL. Deploy, present with a compelling narrative, and leave with a personal vibe coding practice. Everyone ships. Everyone goes home with a deployed product and evidence that drives decisions.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

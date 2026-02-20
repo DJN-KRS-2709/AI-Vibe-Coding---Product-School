@@ -42,9 +42,9 @@ Module 1 proved they can build fast. Module 2 teaches them to build smart. The c
 
 **Instructor script:**
 
-> "Module 1: you built fast. You completed a full cycle—build, show, learn, decide. Today we add the lens. Before you open any tool, you answer one question: What am I actually testing? If you can't answer that in one sentence, you're building a toy, not a tool. That's today."
+> "Module 1: you built fast. You completed a full cycle — build, show, learn, decide. Today, two things change. First: you commit. You're picking the scenario you'll carry through the rest of this course — your company problem or one of the course scenarios. What you build today is the foundation of your final project. Second: we add the lens. Before you open any tool, you answer one question: What am I actually testing? If you can't answer that in one sentence, you're building a toy, not a tool. That's today."
 
-**Slide content:** "What Are You Actually Testing?" | MODULE 2 | The lens that turns speed into strategy.
+**Slide content:** "What Are You Actually Testing?" | MODULE 2 | The lens that turns speed into strategy. *Today you commit to your final project scenario.*
 
 ---
 
@@ -158,11 +158,19 @@ Module 1 proved they can build fast. Module 2 teaches them to build smart. The c
 
 **Lab Brief (displayed + Slack):**
 
-> **Choose one brief:**
+> **This is your commitment moment.** Starting today, you're building your final project. Pick the scenario you'll carry through M2–M6. Everything you build from now on adds a layer to this product.
 >
-> **Brief A (0-to-1):** A new, ambiguous product problem. [Use Brief A or B from Appendix.]
+> **Choose your track:**
 >
-> **Brief B (Existing Product):** "Your company's analytics dashboard has a 60% bounce rate on the onboarding flow. Prototype 3 different improvements." Frame within the constraints of an existing product.
+> **Course Scenario 1 — The Retention Engine:** B2B SaaS losing 30% of customers in 90 days. Is it onboarding? Feature discovery? Team invitation? (Full brief in Final Project guide.)
+>
+> **Course Scenario 2 — The Internal Tool Nobody Uses:** CRM with 18% adoption. Too many clicks? Wrong motivation? Wrong timing? (Full brief in Final Project guide.)
+>
+> **Course Scenario 3 — The Marketplace Trust Problem:** Bookings flat despite signups. Zero-review providers. Trust badges? Guarantees? Profile redesign? (Full brief in Final Project guide.)
+>
+> **Course Scenario 4 — The Dashboard Nobody Reads (Existing Product):** Analytics dashboard with 60% bounce rate. Information overload? Navigation? Irrelevance? (Full brief in Final Project guide.)
+>
+> **Your Company Problem:** The problem you posted in Slack. This is your actual work challenge.
 >
 > **Before you open Lovable, write:**
 > 1. The riskiest assumption I'm testing
@@ -170,7 +178,7 @@ Module 1 proved they can build fast. Module 2 teaches them to build smart. The c
 > 3. What fidelity is needed (landing page? clickable flow? functional app?)
 > 4. What "validated" vs. "invalidated" looks like
 >
-> **Post your frame in Slack** (one short paragraph). That's your commitment.
+> **Post your frame in Slack** (one short paragraph). Include which scenario you chose. That's your commitment — this is your final project from here on out.
 
 **What the instructor does:**
 - Circulates. Checks that students are writing, not building.
@@ -185,14 +193,14 @@ Module 1 proved they can build fast. Module 2 teaches them to build smart. The c
 
 **Lab Brief (continued):**
 
-> **Now build.** You have 25 minutes.
+> **Now build.** You have 25 minutes. Remember: this is the start of your final project. What you build today carries forward.
 >
 > - Use your frame as your North Star. Every prompt should serve the assumption.
 > - Apply what we just covered: add context, use a Mobbin template or screenshot as reference, add constraints.
-> - Build 1–3 divergent directions—different solutions, not variations.
+> - Build 1–3 divergent directions — different solutions, not variations.
 > - Credits tip: Plan complex prompts in Gemini/ChatGPT first. Paste into Lovable when ready.
 >
-> **Produce:** 1–3 prototype links. Share in Slack with your assumption: "Testing: [X]. Links: [A], [B], [C]."
+> **Produce:** 1–3 prototype links. Share in Slack with your assumption: "Scenario: [name]. Testing: [X]. Links: [A], [B], [C]."
 
 **What the instructor does:**
 - Circulates. If someone is building without referencing their frame: "What assumption are you testing? Does this prototype test it?"
@@ -299,7 +307,7 @@ Instructor shows two prototypes side by side:
 > "Post your framed prototype(s) in #builds. Caption: What assumption did you test? What did you learn? Not what you built—what you learned. Engage: look at 2 others. Did their prototype actually test what they said?"
 
 **Wrap + Preview:**
-> "No homework. Optional: take your real product problem, write the assumption frame, and build one prototype to test it. Next: Module 3. Precision prompting—build me exactly this. See you then."
+> "No homework. But you've committed to your scenario — that's your product from here forward. Next module, you take what you built today and level it up with precision prompting. Same product, better execution. Context layering, design system matching, documented prompt chains. Module 3: build me exactly this. See you then."
 
 ---
 
@@ -349,20 +357,25 @@ Instructor shows two prototypes side by side:
 - Module 1 complete
 - Lovable Pro account
 - Slack access
-- Optional: Screenshot of their real product (for Brief B or existing product track)
+- Optional: Screenshot of their real product (for Scenario 4 or Your Company track)
 
 ---
 
-## Appendix: Problem Briefs
+## Appendix: Problem Briefs (Aligned to Final Project Scenarios)
 
-### Brief A: Community Wellness (0-to-1)
-> A corporate wellness program has 10K employees enrolled but only 15% monthly active. HR says employees want "connection and accountability" but the current app is just trackers and challenges. Your job: prototype what "wellness community" could look like. Frame the riskiest assumption. Build 1–3 divergent directions to test it.
+*Students commit to one of these scenarios in M2 and carry it through M6. Full scenario details, including module-by-module progression, are in `Final Project - Requirements and Scenario Guide.md`.*
 
-### Brief B: Internal Tool Adoption (0-to-1)
-> Your company built an internal tool for project managers. Adoption is 20%. PMs say it's "too complicated." Engineering says it's "fine." Your job: prototype an onboarding or simplification that could increase adoption. What assumption are you testing? Build to test it.
+### Scenario 1: The Retention Engine (0-to-1)
+> A B2B SaaS company (project management tool, 5K paying teams) is losing 30% of customers in the first 90 days. Users "sign up, poke around, and ghost." The data team says the highest-retention users all invite a second team member within 3 days. **M2 framing:** Is the problem that users don't know they can invite? That the invite flow is buried? Or that solo users don't see the value of collaboration? Name the riskiest assumption. Build 1–3 divergent directions to test it.
 
-### Brief C: Dashboard Bounce Rate (Existing Product)
-> Your company's analytics dashboard has a 60% bounce rate on the onboarding flow. New users land, look around for 30 seconds, and leave. Your PM lead thinks it's information overload. Your designer thinks it's navigation. Your eng lead thinks users don't know what to do first. Prototype 3 different improvements. Frame: what assumption does each prototype test? You can't redesign the whole product—just the first experience.
+### Scenario 2: The Internal Tool Nobody Uses (0-to-1)
+> A 200-person sales team has a CRM note-taking tool with 18% adoption. Reps say "too many clicks." The VP wants AI. Engineering says the tool is "fine." **M2 framing:** Is the problem input friction (too many clicks)? Motivation (reps don't see value in documenting)? Timing (they forget by the time they're at their desk)? Name the riskiest assumption. Build to test it.
 
-### Brief D: Your Real Product (Existing Product)
-> Use the problem from your Slack intro. Write the assumption frame. Build 1–2 prototypes to test it. Use a screenshot of your existing product as context if you can.
+### Scenario 3: The Marketplace Trust Problem (0-to-1)
+> A peer-to-peer services marketplace has bookings flat despite growing signups. The #1 reason people don't book: "I don't trust the providers." New providers have zero reviews. **M2 framing:** Is the problem lack of social proof (no reviews)? Risk aversion (what if something goes wrong)? Information asymmetry (can't evaluate providers)? Name the riskiest assumption. Build to test it.
+
+### Scenario 4: The Dashboard Nobody Reads (Existing Product)
+> A customer-facing analytics dashboard has a 60% bounce rate on first visit. 12 charts, 4 filter options. Power users love it. 80% of new signups are non-technical users who just want: "Is my campaign working?" **M2 framing:** Is the problem information overload? Lack of guidance? Irrelevant metrics for non-technical users? Name the riskiest assumption. You can't redesign the whole product — just the first experience.
+
+### Your Company Problem (Your Product Track)
+> Use the problem from your Slack intro. Write the assumption frame. Build 1–2 prototypes to test it. Use a screenshot of your existing product as context. **M2 framing:** What's the riskiest assumption about your initiative? If you learned it was wrong, would it kill the project?

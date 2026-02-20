@@ -166,31 +166,32 @@ Complete these before the first live session:
 
 ---
 
-### Module 6: Ship It -- Deployment, Scale, and Stakeholder Buy-In
+### Module 6: Ship It -- Deploy, Demo, and Take It Home
 
 **Total time:** 2 hours (120 min)
 
 | Time | Duration | Activity | Notes |
 | --- | --- | --- | --- |
-| 0:00 | 5 min | M6 kickoff + group formation | Form groups of 3-4. Distribute project briefs. "You have 55 minutes. Go." |
-| 0:05 | 55 min | **Lab: Group build sprint** | Groups build from zero. Each member works on their own tool instance. They coordinate via shared living PRD. Walk the room -- make sure everyone is building, not watching. |
-| 1:00 | 10 min | **Deploy** | Each group deploys to a live URL. Help with deployment issues. This should be fast. |
-| 1:10 | 30 min | **Present and compete** | Structured pitch: problem, validation journey, live demo, recommendation. Audience tries to break it during demo. Class votes on best product + best pitch. |
-| 1:40 | 10 min | **Wrap-up** | Confidence Line revisited. Individual deliverables reminder. What to do tomorrow at work. |
-| 1:50 | 10 min | **Buffer** | Presentation overruns, deployment issues, final Q&A. |
+| 0:00 | 5 min | M6 kickoff | "Ship day. No new teaching. You've been building this for 5 modules. Today you polish, deploy, and present." |
+| 0:05 | 50 min | **Lab: Individual build + polish** | Students take their prototype (built across M1-M5) and prepare for production. Add missing integrations, handle edge cases, polish UI. Instructor circulates and troubleshoots live. |
+| 0:55 | 15 min | **Deploy** | Every student deploys to a live URL. Non-negotiable. Walk through deployment live for anyone stuck. |
+| 1:10 | 15 min | **Gallery walk** | All deployed URLs shared in Slack. Students visit each other's products, leave feedback, try to break things. |
+| 1:25 | 25 min | **Volunteer presentations** | 3-5 students present: 5-min structured pitch (problem, assumption, validation journey, live demo, recommendation). Instructor gives direct feedback. Audience tries to break the live product. |
+| 1:50 | 10 min | **Wrap-up** | Confidence Line revisited. Deliverables reminder. What to do tomorrow at work. |
 
 **Large cohort contingency (>30 students):**
-- Limit presentations to 4 groups (selected by peer vote: "Which group's product do you most want to see?")
-- Remaining groups do a gallery walk: everyone visits each deployed URL, leaves feedback on a shared doc
-- Gallery walk takes 15 min, replaces some of the presentation time
+- Limit presentations to 4-5 volunteers
+- Extend gallery walk to 20 min to compensate
+- Gallery walk creates the same energy as presentations with better cohort coverage
 
-**If running behind:** Cut the wrap-up to 5 min. Never cut the presentations -- that's the culmination of the course.
+**If running behind:** Cut the wrap-up to 5 min. Never cut the gallery walk or presentations -- that's the culmination of the course.
 
 **Common failure modes:**
-- One group member dominates the build -> Check in at 15 min and 30 min. Ask each member: "What are YOU building?" If someone isn't building, reassign them a specific component.
-- Deployment fails -> Have Vercel/Netlify deploy instructions as a 1-page cheat sheet. If a group truly can't deploy, let them present from localhost with a note that deployment is "in progress."
-- Presentations are too long -> Enforce the time strictly. Use a visible timer. "You have 5 minutes. When the timer goes, you stop."
-- "Break It" during presentations is too gentle -> Seed the audience with specific attacks: "Try entering a 10,000-character name." "Hit the back button 5 times fast." "Open it on your phone."
+- Deployment fails -> Have Vercel/Netlify deploy instructions as a 1-page cheat sheet. If a student truly can't deploy, use Lovable's built-in Publish button. Last resort: present from localhost with a note that deployment is "in progress."
+- Nobody volunteers to present -> Call on 2-3 students whose builds you noticed during the gallery walk. "I saw what you built -- the class needs to see it too."
+- Presentations are too long -> Enforce 5 minutes strictly. Use a visible timer. "When the timer goes, you stop."
+- "Break It" during presentations is too gentle -> Seed the audience: "Try entering a 10,000-character name." "Hit the back button 5 times fast." "Open it on your phone."
+- Student's product isn't polished -> That's okay. The Evidence Brief and recommendation matter more than polish. A scrappy MVP with a clear recommendation beats a beautiful product with no insight.
 
 ---
 
@@ -238,7 +239,7 @@ Complete these before the first live session:
 
 ## Assessment Rubric
 
-### Validation Evidence Brief (Group Deliverable, M6)
+### Validation Evidence Brief (Individual Deliverable)
 
 | Criterion | Excellent (5) | Good (3) | Needs Work (1) |
 | --- | --- | --- | --- |
@@ -255,7 +256,7 @@ Complete these before the first live session:
 | **Reusability** | Prompts are context-rich and could be used by another PM | Prompts work but are specific to one project | Prompts are one-off, not reusable |
 | **Documentation** | Each prompt has: purpose, when to use, expected output | Some documentation | No documentation |
 
-### Living PRD (Group Deliverable, M6)
+### Living PRD (Individual Deliverable)
 
 | Criterion | Excellent (5) | Good (3) | Needs Work (1) |
 | --- | --- | --- | --- |

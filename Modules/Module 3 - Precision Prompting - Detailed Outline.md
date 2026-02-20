@@ -13,7 +13,7 @@
 | **Core Principle** | Shift from "build me something" to "build me exactly this." |
 | **Tool** | Lovable. Gemini/ChatGPT for prompt planning. Mobbin. Figma/MCP for design context. |
 | **Pre-requisite** | Modules 1–2 complete. Students can build fast and build smart. |
-| **What students walk out with** | A documented prompt chain, a precision-built prototype, and the foundation for a living prompt pack |
+| **What students walk out with** | Their final project prototype rebuilt with precision, a documented prompt chain (foundation of Deliverable #4: Prompt Library), and evidence accumulating for their Validation Evidence Brief |
 
 ### The Energy Contract
 
@@ -42,9 +42,9 @@ As confidence grows, prompts must evolve. Module 1: raw speed. Module 2: named a
 
 **Instructor script:**
 
-> "Module 1: build fast. Module 2: build smart—name the assumption first. Today: build precise. You know what you want. Now you need to communicate it so the AI builds exactly that. 'Build me something' becomes 'build me exactly this.'"
+> "Module 1: build fast. Module 2: build smart — name the assumption, commit to your scenario. Today: build precise. You've got a product. You've got a direction. Now you need to communicate it so the AI builds exactly what you mean. 'Build me something' becomes 'build me exactly this.' Today you take your M2 prototype and level it up — same product, precision execution."
 
-**Slide content:** "Precision Prompting" | MODULE 3 | Communicating product intent to AI. The shift from exploration to execution.
+**Slide content:** "Precision Prompting" | MODULE 3 | Communicating product intent to AI. The shift from exploration to execution. Same product, better prompts.
 
 ---
 
@@ -209,14 +209,15 @@ As confidence grows, prompts must evolve. Module 1: raw speed. Module 2: named a
 
 **Lab Brief (displayed + Slack):**
 
-> **The Precision Build**
+> **The Precision Build — Level Up Your Final Project**
 >
-> You're building for a product you understand. Use a moderately detailed brief (see Appendix—or use your M2 prototype and level it up with precision).
+> Take your M2 prototype — the one you committed to — and rebuild it with precision. Same product. Same scenario. Better execution. This is the next layer of your final project.
 >
 > **Requirements:**
-> - Document your prompt chain. Each prompt, why you wrote it that way, what it produced.
-> - Use context layering: product context, design reference (Mobbin or screenshot), constraints.
-> - Build with multi-step prompting. No single mega-prompt—break it into logical steps.
+> - Document your prompt chain. Each prompt, why you wrote it that way, what it produced. This becomes the foundation of your prompt library (Deliverable #4).
+> - Use context layering: product context, design reference (Mobbin or screenshot of your product / scenario's target look and feel), constraints.
+> - Build with multi-step prompting. No single mega-prompt — break it into logical steps.
+> - Apply a design system. Your prototype should look like it belongs in a real product, not a generic AI demo.
 >
 > **Deliverable:** Prototype link + prompt chain (paste in Slack or shared doc). Your partner will try to reproduce a similar result using only your prompt chain.
 >
@@ -309,11 +310,11 @@ Instructor takes a student's prototype that went off-rails (ask for a volunteer 
 **1. The precision loop**
 > "Context → Prompt → Output → Refine. You're not guessing anymore. You're directing. That's the precision shift."
 
-**2. Confidence Line position**
-> "You're moving right. M1–M2: ambiguity. M3: gaining clarity. You know what you want. You can communicate it. Module 4 is the graduation moment—when to stop exploring and start structuring. Extract the spec. Refactor the code."
+**2. Confidence Line position — your final project is taking shape**
+> "Look at what you've built across three modules. M1: raw exploration. M2: you committed to a scenario and named what you're testing. M3: you rebuilt it with precision. Your final project is three modules in already. Next module: you graduate it. Extract the living PRD — that's Deliverable #3. Refactor the code. Structure it so an engineer could read it."
 
 **3. What's coming (Module 4)**
-> "Next: From Vibe to Structure. The graduation moment. Living specs. Refactoring. When to commit."
+> "Next: From Vibe to Structure. The graduation moment. You take everything you've built and extract a living spec from it. Refactor the code. That's the midpoint of your final project — from exploration to structure."
 
 ---
 
@@ -327,7 +328,7 @@ Instructor takes a student's prototype that went off-rails (ask for a volunteer 
 > "Post your prototype + prompt chain in #builds. Caption: What made your prompts work? What would you add to your living prompt pack? Engage: look at 2 others. Could you use their prompt chain?"
 
 **Wrap + Preview:**
-> "No homework. Optional: build one more screen using only your prompt chain—test its portability. Next: Module 4. The graduation moment. When to stop exploring and start building for real. See you then."
+> "No homework. Optional: build one more screen of your project using only your prompt chain — test its portability. Next: Module 4. The graduation moment. You take the prototype you've been building and you graduate it — extract the living PRD, refactor the code, get it structured for real. That's when your final project starts looking like a product, not a prototype. See you then."
 
 ---
 
@@ -381,13 +382,21 @@ Instructor takes a student's prototype that went off-rails (ask for a volunteer 
 
 ---
 
-## Appendix: Product Briefs for Precision Build
+## Appendix: Precision Build Guidance by Scenario
 
-### Brief A: SaaS Settings Page
-> Build a settings page for a B2B SaaS product. The product has a dark sidebar navigation (like Linear), a white main content area, and uses a blue accent (#2563eb). The settings page should have 4 sections: Profile, Notifications, Billing, and Security. Each section has a heading and 3–5 configurable items. Use a Mobbin screenshot of a similar settings page as reference, or describe the layout precisely. Document every prompt you use. Build in 3–4 logical steps (e.g., layout first, then sections, then interactions).
+*Every student works on the scenario they committed to in M2. These are precision prompting guidelines specific to each scenario — not new briefs. The product is the same. The prompting is better.*
 
-### Brief B: Onboarding Flow (3 Screens)
-> Build a 3-screen onboarding flow for a fitness app. Screen 1: Welcome + "Get Started" CTA. Screen 2: Select goals (3 options: Lose weight, Build muscle, Stay active). Screen 3: Summary + "Complete" button. Match a Strava or similar fitness app aesthetic (bold typography, green/accent colors). Document your prompt chain. Use context layering—what does the user need to know at each step?
+### Scenario 1: The Retention Engine — Precision Layer
+> Take your M2 prototype (onboarding wizard, team invitation flow, or feature discovery dashboard). Apply a design system: use a Mobbin screenshot of a PM tool (Linear, Asana, Monday.com) as reference. Clone the sidebar, card layout, and color palette. Add interactivity: make filters functional, add a detail view that expands, include a loading state. Document 4–6 prompts. Build in logical steps: layout → content → interactivity → polish.
 
-### Brief C: Your M2 Prototype — Level Up with Precision
-> Take your best prototype from Module 2. Rebuild it with precision prompting. Document your prompt chain. Use a Mobbin template or screenshot of your real product as reference. Add 2–3 constraints you didn't have before. The goal: same product, but built with a portable prompt chain someone else could use.
+### Scenario 2: The Internal Tool Nobody Uses — Precision Layer
+> Take your M2 prototype (AI summarizer, simplified CRM input, Slack bot, or Chrome extension). Apply a design system: use a Mobbin screenshot of a CRM interface (Salesforce, HubSpot, Pipedrive). Match the existing CRM's look so it feels like a native feature, not an add-on. Add state: show what happens after a call is summarized — where does the note go? Document your prompt chain. Focus on the user flow, not just the first screen.
+
+### Scenario 3: The Marketplace Trust Problem — Precision Layer
+> Take your M2 prototype (trust badges, provider profiles, guarantee page). Apply a marketplace design system: use Airbnb, TaskRabbit, or Fiverr as reference from Mobbin. Match the card layout, review style, and booking flow. Add interactivity: make the trust badge clickable (what does "verified" mean?), show the booking confidence indicator. Document prompts.
+
+### Scenario 4: The Dashboard Nobody Reads — Precision Layer
+> Take your M2 prototype (simplified view, guided wizard, AI summary). Clone the existing dashboard's design from Mobbin (Mixpanel, Amplitude, Looker). Build your improvement ON TOP of the existing look and feel — this is the "existing product" skill Carlos flagged. Add interactivity: make the hero metric clickable, show the AI summary updating. Document prompts.
+
+### Your Company Problem — Precision Layer
+> Take your M2 prototype. Feed in a screenshot of your actual product. Apply your company's design system (colors, typography, component patterns). Precision-prompt the AI to match. Add 2–3 constraints you didn't have before. Document your prompt chain so someone at your company could reproduce it.

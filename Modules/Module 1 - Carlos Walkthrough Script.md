@@ -67,8 +67,8 @@ VIBE CODING CERTIFICATION | 2 HOURS
 
 ---
 
-## [PLACEHOLDER] Final Project Requirements
-**Product School to provide:** 1 slide + 3-min video. Walks through final project expectations, requirements, FAQ. Play early (e.g., after ground rules). Instructor: "Any questions?" then move on.
+## Final Project Requirements (Slide + Video)
+**Content now defined** in `Final Project - Requirements and Scenario Guide.md`. One slide (YOUR FINAL PROJECT — 5 deliverables, individual, one product across six modules) + 3-min video (script included in the guide). Play after ground rules. Instructor: "Any questions on the final project? Good. You can revisit the video anytime. Let's build."
 
 ---
 
@@ -102,7 +102,7 @@ Lovable—best in market, partnership, Pro access for free. Other partnerships: 
 **On screen:**  
 Hands-on Lab 1: Your First Vibe Build | 20 Minutes  
 Pick ONE scenario, or use the problem from Slack. If you're staring at a blank prompt box, use one of these three paths to get started.  
-Option A: Fitness Startup | Option B: B2B SaaS | Option C: Your Product
+Option A: The Retention Engine | Option B: The Internal Tool Nobody Uses | Option C: Your Product
 
 **Say:**
 
@@ -192,7 +192,7 @@ The key is steering, not starting over. Small, focused prompts compound into pro
 
 **Say:**
 
-> "Three steps: Design System, Add Interactivity, Refine Prompts. Carlos: design systems are meaty—Module 2 will cover in detail. Templates, Figma import, Mobbin examples. For now: intro only."
+> "Three steps: Design System, Add Interactivity, Refine Prompts. We've standardized every prompt for this demo — 6-7 prompts, all pre-written, in the Module 1 Detailed Outline under 'Standardized Refinement Prompts.' Every instructor uses the same set. Carlos: design systems are meaty — Module 2 will cover in detail. Templates, Figma import, Mobbin examples. For now: intro only, but the demo shows the power."
 
 ---
 

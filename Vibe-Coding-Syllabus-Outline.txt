@@ -1,0 +1,37 @@
+VIBE CODING SYLLABUS — SIX MODULES
+
+---
+
+Module 1: The Vibe Coding Mindset
+
+Experience the full Build-Show-Learn-Decide cycle in a single session. Build multiple prototypes from one ambiguous problem, get real feedback, and make decisions based on evidence. Learn the Confidence Line framework retroactively—prove you can build fast before naming why.
+
+---
+
+Module 2: The Validation Lens
+
+Name the assumption before you open the tool. Master problem framing, assumption mapping, and fidelity mapping to build smart—not just fast. Learn to test the right thing with divergent prototypes and structured peer validation.
+
+---
+
+Module 3: The Precision Shift
+
+Shift from "build me something" to "build me exactly this." Master context layering, constraint injection, and living prompt packs to direct AI like a tech lead. Match your prompting style to your confidence level.
+
+---
+
+Module 4: The Graduation Moment
+
+Recognize when to stop exploring and start building for real. Extract a living spec from what you've built, refactor exploratory code into maintainable structure, and bridge from PM prototype to engineering-ready deliverable.
+
+---
+
+Module 5: The Integration Leap
+
+Connect your prototype to real databases, APIs, and services. Handle authentication, edge cases, and failure modes. Learn to present your work to engineering with a living spec that accelerates their work—not replaces it.
+
+---
+
+Module 6: From Localhost to Live
+
+Take your product from localhost to a live URL. Deploy, present with a compelling narrative, and leave with a personal vibe coding practice. Everyone ships. Everyone goes home with a deployed product and evidence that drives decisions.

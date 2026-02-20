@@ -64,8 +64,25 @@ Tool issues? Message Slack. Keep building, keep learning.
 
 ---
 
-## [PLACEHOLDER] Slide — Final Project Requirements
-**Product School to provide:** One slide + 3-min video. Walks students through final project expectations, requirements, FAQ. Play early in course (e.g., after ground rules). Instructor asks "Any questions?" then moves on. Students can revisit video anytime.
+## Slide — Your Final Project
+**YOUR FINAL PROJECT**
+
+You will build and deploy a real product. Individually. No group dependencies.
+
+**One product, six modules.** Each week adds a layer: exploration → validation → precision → structure → integrations → deployment.
+
+**Five deliverables by Module 6:**
+1. Deployed product (live URL — not localhost)
+2. Validation Evidence Brief (what you learned, not what you built)
+3. Living PRD (extracted from building, not written before)
+4. Prompt library (your reusable toolkit)
+5. Engineering Handoff Note (what's real, what needs work)
+
+**Optional presentation.** 5-minute pitch on the final day. Those who present get direct instructor feedback. Everyone deploys. Presenting is your choice.
+
+**You start today.** What you build in Module 1 might become your final project. Or you might pivot. Both are fine.
+
+*Play 3-minute Final Project video after this slide. See `Final Project - Requirements and Scenario Guide.md` for full video script.*
 
 ---
 
@@ -95,16 +112,15 @@ We're using the best tool in the market right now: **Lovable.** Partnership with
 **Hands-on Lab 1: Your First Vibe Build** | 20 Minutes  
 *(Hands-on lab = students building in tool. Demo = instructor building.)*
 
-Pick ONE scenario below, or use the problem you posted in Slack. **If you're staring at a blank prompt box, use one of these three paths to get started.**
+Pick ONE scenario below, or use the problem you posted in Slack. Today is exploration — you might keep what you build, or you might pivot next module. Both are fine.
 
-**Option A: Fitness Startup**  
-A fitness startup wants to reduce member churn. "Something like Strava meets Discord." Build something that could help.
+**Option A — The Retention Engine:** A B2B SaaS project management tool is losing 30% of customers in the first 90 days. Users "sign up, poke around, and ghost." Build something that could help.
 
-**Option B: B2B SaaS**  
-A B2B SaaS sales team spends 3 hours/day updating CRM notes after calls. The VP wants "some kind of AI thing to fix this." Build something.
+**Option B — The Internal Tool Nobody Uses:** A 200-person sales team has a CRM note-taking tool with 18% adoption. Reps say "too many clicks." The VP wants "some kind of AI thing." Build something.
 
-**Option C: Your Product**  
-Use the problem from your Slack intro. Build a prototype for your real product challenge.
+**Option C — Your Product:** Use the problem from your Slack intro. Build a prototype for your real product challenge.
+
+*These are two of four course scenarios you can carry through the entire course. Today is just exploration — try one and see what happens.*
 
 ---
 
@@ -164,30 +180,30 @@ Most product teams spend months debating features in conference rooms. You just 
 ---
 
 ## Slide 12 — Instructor Demo 2: From Basic to Pro
-**Instructor Demo 2: From Basic to Pro** | 10 Minutes
+**Instructor Demo 2: From Basic to Pro** | 10 Minutes | 6–7 Standardized Prompts
 
 Now that you've built something fast, let's talk about making it feel real. Demo 2 is fundamentally different from Demo 1.
 
-**Demo 1: What to Build** — Three divergent directions. Exploration. Speed. Answering: "Which problem should we solve?"
+**Demo 1: What to Build** — Three divergent directions. Exploration. Speed. "Which problem should we solve?"
 
-**Demo 2: How to Improve** — Take ONE prototype and level it up. Iteration, not exploration. Answering: "How do we make this look and feel like a real product?"
+**Demo 2: How to Improve** — Take ONE prototype and level it up. Iteration, not exploration. "How do we make this look and feel like a real product?"
 
-You're about to see how to transform a rough prototype into something you'd proudly show your VP.
+You're about to see how to transform a rough prototype into something you'd proudly show your VP — in 6 prompts.
 
 ---
 
 ## Slide 13 — The Upgrade Sequence
-**The Upgrade Sequence**
+**The Upgrade Sequence** | Steering, Not Starting Over
 
-**Design System** — Match a real design system using Mobbin screenshots for visual context.
+**Step 1 — Design System** (1 prompt) Match a real product's design using a Mobbin screenshot as context. Same functionality, completely different look. "Your VP doesn't care about your prototype unless it looks like it could already be in your product."
 
-**Add Interactivity** — Genuine interactivity: functional filters, detail views, and loading states that make it feel like a product, not just pictures.
+**Step 2 — Add Interactivity** (3 prompts) Functional filters that actually filter. Click-to-expand detail panels. Loading skeleton that signals "this is a real app." Static → clickable → testable.
 
-**Refine Prompts** — Use multi-prompt refinement to fix specific sections without rebuilding everything.
+**Step 3 — Refine, Don't Rebuild** (2–3 prompts) Target one section. Tell the AI what to change AND what not to change. Sidebar too cluttered? Simplify it — keep everything else locked. Copy sounds internal? Rename it — one prompt, two lines, different perception.
 
-The key is steering, not starting over. Small, focused prompts compound into professional results.
+6 prompts. 10 minutes. Generic AI output → stakeholder-ready product.
 
-*Note for instructors: Module 2 goes deeper on design systems—prompts, templates, Figma import, Mobbin patterns. (Carlos: meaty topic—people will want to decompose what makes an excellent prompt.)*
+*Note for instructors: All prompts are standardized — see Module 1 Detailed Outline, "Standardized Refinement Prompts." Paste, don't type. Module 2 goes deeper on design systems.*
 
 ---
 

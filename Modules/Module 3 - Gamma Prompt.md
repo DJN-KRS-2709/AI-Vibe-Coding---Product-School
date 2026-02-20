@@ -15,9 +15,9 @@ Create a professional slide deck for teaching a 2-hour workshop called **"Module
 
 MODULE 3 | VIBE CODING CERTIFICATION
 
-Module 1: build fast. Module 2: build smart. Today: build precise.
+Module 1: build fast. Module 2: build smart and commit to your scenario. Today: build precise.
 
-**The shift:** "Build me something" becomes "build me exactly this." You know what you want. Now you need to communicate it so the AI builds exactly that.
+**The shift:** "Build me something" becomes "build me exactly this." You've got a product. You've got a direction. Now take your M2 prototype and level it up — same product, precision execution.
 
 ---
 
@@ -130,12 +130,15 @@ We're moving there. For now, focus on precision in your prompts.
 ---
 
 ## Slide 11 — Hands-on Lab: The Precision Build
-**Hands-on Lab: The Precision Build** | 25 Minutes
+**Hands-on Lab: Level Up Your Final Project** | 25 Minutes
+
+Take your M2 prototype — the one you committed to — and rebuild it with precision. Same product. Same scenario. Better execution.
 
 **Requirements:**
-- Document your prompt chain. Each prompt, why you wrote it, what it produced.
+- Document your prompt chain. Each prompt, why you wrote it, what it produced. This becomes the foundation of your Prompt Library (Deliverable #4).
 - Use context layering: product context, design reference (Mobbin or screenshot), constraints.
-- Build with multi-step prompting—no single mega-prompt.
+- Build with multi-step prompting — no single mega-prompt.
+- Apply a design system. Make it look like it belongs in a real product.
 
 **Deliverable:** Prototype link + prompt chain. Your partner will try to reproduce using only your chain.
 
@@ -218,9 +221,9 @@ You're moving right. M1–M2: ambiguity. M3: gaining clarity. You know what you 
 ## Slide 19 — Wrap + Preview
 **Wrap + Preview**
 
-**No Homework** — You're done. Optional: build one more screen using only your prompt chain—test its portability.
+**No Homework** — Optional: build one more screen of your project using only your prompt chain — test its portability.
 
-**Next: Module 4** — The graduation moment. When to stop exploring and start building for real.
+**Next: Module 4** — You take the prototype you've been building and graduate it. Extract the living PRD (Deliverable #3). Refactor the code. Get it structured for real. That's the midpoint of your final project.
 
 See you then.
 
@@ -229,12 +232,13 @@ See you then.
 ## Slide 20 — What You Accomplished Today
 **What You Accomplished Today**
 
+- **Leveled up your final project** — Same product from M2, rebuilt with precision
 - **Context layering** — PRD, design system, constraints
 - **Clone-your-product** — Screenshots, Mobbin, Figma
-- **Documented prompt chain** — First artifact of your living prompt pack
+- **Documented prompt chain** — First artifact of your Prompt Library (Deliverable #4)
 - **Prompt debugging** — Diagnose before re-prompting
 
-You didn't just build. You built with precision.
+Your final project is three modules in. M1: explored. M2: committed. M3: precision-built.
 
 ---
 

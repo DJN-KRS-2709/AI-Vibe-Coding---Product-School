@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — What Are You De-Risking?</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; padding: 40px; }
+
+  .slide {
+    width: 960px;
+    min-height: 540px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    padding: 48px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .slide-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .slide-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #64748b;
+    line-height: 1.5;
+    max-width: 800px;
+  }
+
+  .risk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .risk-card {
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .risk-card.value { background: #eff6ff; border-left: 4px solid #3b82f6; }
+  .risk-card.usability { background: #f0fdf4; border-left: 4px solid #22c55e; }
+  .risk-card.feasibility { background: #fefce8; border-left: 4px solid #eab308; }
+
+  .risk-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #94a3b8;
+  }
+
+  .risk-card.value .risk-label { color: #3b82f6; }
+  .risk-card.usability .risk-label { color: #16a34a; }
+  .risk-card.feasibility .risk-label { color: #ca8a04; }
+
+  .risk-question {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .risk-desc {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  .core-question {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 16px 24px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .core-question span { color: #3b82f6; }
+
+  .tracks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .track {
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .track.greenfield { background: #f8fafc; border: 1px solid #e2e8f0; }
+  .track.existing { background: #f8fafc; border: 1px solid #e2e8f0; }
+
+  .track-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .track-content h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+
+  .track-content p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.4;
+  }
+
+  .forward-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b82f6;
+    text-align: right;
+    padding-top: 4px;
+  }
+
+  .speaker-notes {
+    margin-top: 40px;
+    width: 960px;
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 32px;
+    border: 1px dashed #cbd5e1;
+  }
+
+  .speaker-notes h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .speaker-notes p {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p:last-child { margin-bottom: 0; }
+  .speaker-notes strong { color: #1e293b; }
+</style>
+</head>
+<body>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+
+<div class="slide">
+
+  <div class="core-question">
+    First, ask: <span>"What is the single riskiest assumption I need to validate?"</span>
+  </div>
+
+  <div class="slide-header">
+    <h1>What Are You De-Risking?</h1>
+  </div>
+
+  <div class="subtitle">
+    A prototype is a strategic experiment. Your hypothesis identifies the riskiest part of your product concept — which tells you exactly where to focus your build.
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card value">
+      <div class="risk-label">If your risk is Value</div>
+      <div class="risk-question">"Will users actually rely on this for a critical task?"</div>
+      <div class="risk-desc">Focus on user intent. Test whether the core premise solves a real problem — or is just a novelty.</div>
+    </div>
+    <div class="risk-card usability">
+      <div class="risk-label">If your risk is Usability</div>
+      <div class="risk-question">"Will the interface feel like a tool or an overwhelming black box?"</div>
+      <div class="risk-desc">Focus on interaction. Simplify complex steps, find where the flow breaks down.</div>
+    </div>
+    <div class="risk-card feasibility">
+      <div class="risk-label">If your risk is Feasibility</div>
+      <div class="risk-question">"Can the logic generate accurate results from these inputs?"</div>
+      <div class="risk-desc">Focus on constraints. Find edge cases where your logic or data might fail.</div>
+    </div>
+  </div>
+
+  <div class="tracks">
+    <div class="track greenfield">
+      <div class="track-icon">🆕</div>
+      <div class="track-content">
+        <h3>Building from scratch? (0-to-1)</h3>
+        <p>Start with value — do users even want this?</p>
+      </div>
+    </div>
+    <div class="track existing">
+      <div class="track-icon">🔧</div>
+      <div class="track-content">
+        <h3>Enhancing an existing product? (1-to-N)</h3>
+        <p>Start with adoption — will users find it? Does it break what already works?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="forward-link">
+    Next: You'll choose your risk focus and frame your build →
+  </div>
+
+</div>
+
+<div class="speaker-notes">
+  <h2>Speaker Notes</h2>
+  <p>Every prototype is a strategic experiment. Before you build, ask: <strong>"What is the single riskiest assumption I need to validate?"</strong></p>
+  <p><strong>If your risk is value:</strong> You're testing whether anyone actually wants this. Focus on the core premise — does the output solve a real problem or is it a novelty?</p>
+  <p><strong>If your risk is usability:</strong> You're testing whether the experience makes sense. Focus on interaction — where does the flow break down?</p>
+  <p><strong>If your risk is feasibility:</strong> You're testing whether the logic actually works. Focus on constraints and edge cases — what inputs break it?</p>
+  <p><strong>For greenfield (0-to-1):</strong> Start with value. <strong>For existing products (1-to-N):</strong> Start with adoption or integration risk.</p>
+  <p>You'll choose your risk focus in the next exercise.</p>
+</div>
+
+</div>
+
+</body>
+</html>

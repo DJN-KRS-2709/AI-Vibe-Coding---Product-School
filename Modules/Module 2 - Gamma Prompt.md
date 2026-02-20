@@ -15,9 +15,11 @@ Create a professional slide deck for teaching a 2-hour workshop called **"Module
 
 MODULE 2 | VIBE CODING CERTIFICATION
 
-Module 1: you built fast. Today we add the lens.
+Module 1: you built fast. Today, two things change.
 
-**The core question:** What am I actually testing? If you can't answer that in one sentence before you open the tool, you're building a toy, not a tool.
+**First: you commit.** You pick the scenario you'll carry through the rest of this course. What you build today is the foundation of your final project.
+
+**Second: we add the lens.** What am I actually testing? If you can't answer that in one sentence before you open the tool, you're building a toy, not a tool.
 
 ---
 
@@ -107,9 +109,14 @@ Lovable gives ~100 credits/month. You can burn through them fast.
 ## Slide 8 — Hands-on Lab: Frame Before You Build
 **Hands-on Lab Part 1: Frame Before You Build** | 10 Minutes
 
-**Choose one brief:**
-- **Brief A (0-to-1):** New product problem
-- **Brief B (Existing Product):** Dashboard 60% bounce rate—prototype 3 improvements
+**This is your commitment moment.** Pick the scenario you'll carry through M2–M6. This becomes your final project.
+
+**Choose your track:**
+- **Scenario 1 — The Retention Engine:** B2B SaaS losing 30% in 90 days
+- **Scenario 2 — The Internal Tool Nobody Uses:** CRM with 18% adoption
+- **Scenario 3 — The Marketplace Trust Problem:** Bookings flat, zero-review providers
+- **Scenario 4 — The Dashboard Nobody Reads:** Analytics with 60% bounce rate (existing product)
+- **Your Company Problem:** The problem from your Slack intro
 
 **Before you open Lovable, write:**
 1. The riskiest assumption I'm testing
@@ -117,7 +124,7 @@ Lovable gives ~100 credits/month. You can burn through them fast.
 3. What fidelity is needed
 4. What "validated" vs. "invalidated" looks like
 
-**Post your frame in Slack.** That's your commitment.
+**Post your frame in Slack.** Include which scenario you chose. That's your commitment — this is your final project from here on out.
 
 ---
 
@@ -131,7 +138,7 @@ Lovable gives ~100 credits/month. You can burn through them fast.
 - Build 1–3 divergent directions—different solutions, not variations
 - Credits tip: Plan complex prompts in Gemini/ChatGPT first
 
-**Produce:** 1–3 prototype links. Share in Slack with your assumption: "Testing: [X]. Links: [A], [B], [C]."
+**Produce:** 1–3 prototype links. Share in Slack: "Scenario: [name]. Testing: [X]. Links: [A], [B], [C]."
 
 ---
 
@@ -218,9 +225,9 @@ You're still on the left side—high ambiguity. But now you have a methodology. 
 ## Slide 17 — Wrap + Preview
 **Wrap + Preview**
 
-**No Homework** — You're done. Optional: take your real product problem, write the assumption frame, build one prototype to test it.
+**No Homework** — But you've committed to your scenario. That's your product from here forward.
 
-**Next: Module 3** — Precision prompting. Build me exactly this.
+**Next: Module 3** — You take what you built today and level it up with precision prompting. Same product, better execution. Context layering, design system matching, documented prompt chains.
 
 See you then.
 
@@ -229,12 +236,13 @@ See you then.
 ## Slide 18 — What You Accomplished Today
 **What You Accomplished Today**
 
+- **Committed to your final project** — You chose your scenario. It carries through M6.
 - **Framed before you built** — Named the assumption, chose the fidelity
 - **Built with intent** — 1–3 prototypes designed to test, not impress
 - **Validated (or invalidated)** — You learned something definitive
 - **Design systems foundation** — Prompt anatomy, Mobbin, credits strategy
 
-You didn't just build. You built to learn.
+You didn't just build. You built to learn. And your final project is underway.
 
 ---
 
