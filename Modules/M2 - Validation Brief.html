@@ -597,6 +597,74 @@
 </div>
 
 <script>
+  const scenarioDefaults = {
+    retention: {
+      hypIf: "we surface team invites prominently during first-run onboarding",
+      hypThen: "day-3 invite rate increases from 12% to 25%",
+      hypBecause: "solo users churn at 3x the rate, and the invite button is buried in Settings > Team > Members",
+      explore: "Is the blocker discoverability (users can't find the invite) or motivation (users don't see the value of inviting)?",
+      risk: "usability",
+      killSwitch: "Users actually want to collaborate — if the tool is fundamentally solo, nothing about invites will matter",
+      validated: "Users engage with the invite prompt within the first 3 screens and complete the invite flow without help",
+      invalidated: "Users dismiss or skip the invite prompt entirely, even when it's prominently placed",
+      fidelity: 1
+    },
+    internal: {
+      hypIf: "we reduce call logging to a one-tap voice-note capture that auto-fills CRM fields",
+      hypThen: "daily call logging rate increases from 0.8 to 3+ calls per rep",
+      hypBecause: "reps skip logging because it takes 4.5 minutes and requires 9 fields — not because they don't see the value",
+      explore: "Is the blocker friction (too many steps/fields) or motivation (no immediate value to the rep)?",
+      risk: "usability",
+      killSwitch: "Reps don't actually have useful call notes to log — if calls don't produce loggable insights, faster entry won't help",
+      validated: "Reps can complete a call log in under 30 seconds and the captured data is useful for pipeline reviews",
+      invalidated: "Even with a simplified flow, reps still don't log — the problem is motivation, not friction",
+      fidelity: 1
+    },
+    marketplace: {
+      hypIf: "we enrich provider profiles with verification badges, work samples, response time, and a satisfaction guarantee",
+      hypThen: "browse-to-book conversion increases from 6% to 15% and provider page bounce drops below 50%",
+      hypBecause: "71% of customers bounce from provider pages that show only a name and photo — they need proof before they'll book a stranger",
+      explore: "Is the primary trust blocker the lack of provider information, or the absence of a platform guarantee?",
+      risk: "usability",
+      killSwitch: "Customers won't book unreviewed providers regardless of trust signals — if reviews are the only thing that matters, profile enrichment alone won't help",
+      validated: "Users browse an enhanced provider profile and initiate a booking with a zero-review provider who has trust signals",
+      invalidated: "Users still won't book zero-review providers even with rich profiles, verification badges, and guarantees visible",
+      fidelity: 1
+    },
+    dashboard: {
+      hypIf: "we replace the 12-chart default view with a role-based 3-metric summary for new users",
+      hypThen: "first-visit bounce rate drops from 60% to below 30%",
+      hypBecause: "new users are overwhelmed by information overload — they need one clear answer, not 12 charts with equal visual weight",
+      explore: "Is the problem information overload (too many charts) or irrelevant defaults (wrong charts for this user's role)?",
+      risk: "usability",
+      killSwitch: "Non-technical users don't actually need the dashboard at all — if they're fully served by the weekly email summary, no redesign will bring them back",
+      validated: "New users find their key metric within 30 seconds and take an action (filter, drill down, or share)",
+      invalidated: "New users still bounce even with a simplified view — the problem is deeper than information overload",
+      fidelity: 1
+    }
+  };
+
+  document.getElementById('scenario').addEventListener('change', function() {
+    const data = scenarioDefaults[this.value];
+    if (!data) return;
+
+    document.getElementById('hyp-if').value = data.hypIf;
+    document.getElementById('hyp-then').value = data.hypThen;
+    document.getElementById('hyp-because').value = data.hypBecause;
+    document.getElementById('explore').value = data.explore;
+    document.getElementById('kill-switch').value = data.killSwitch;
+    document.querySelector('.success-cell.validated textarea').value = data.validated;
+    document.querySelector('.success-cell.invalidated textarea').value = data.invalidated;
+
+    document.querySelectorAll('.risk-card').forEach(c => {
+      c.classList.toggle('selected', c.dataset.risk === data.risk);
+    });
+
+    document.querySelectorAll('.fidelity-option').forEach((c, i) => {
+      c.classList.toggle('selected', i === data.fidelity);
+    });
+  });
+
   function selectRisk(el) {
     document.querySelectorAll('.risk-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
