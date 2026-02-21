@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Peer Review: Does This Test It?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #0d1117;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    padding: 36px 48px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .header-left { flex: 1; }
+
+  .review-badge {
+    display: inline-block;
+    background: #da3633;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .slide-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .slide-subtitle {
+    font-size: 13px;
+    color: #8b949e;
+  }
+
+  .timer-box {
+    flex: 0 0 auto;
+    background: rgba(218, 54, 51, 0.12);
+    border: 1px solid rgba(218, 54, 51, 0.25);
+    border-radius: 8px;
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  .timer-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #f85149;
+  }
+
+  .timer-label {
+    font-size: 10px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .phase-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .phase-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .phase-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .phase-silent .phase-label { color: #f0883e; }
+  .phase-discuss .phase-label { color: #da3633; }
+
+  .phase-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .phase-desc {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.6;
+  }
+
+  .phase-desc strong { color: #c9d1d9; }
+
+  .phase-time {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 800;
+    color: #f0883e;
+    margin-bottom: 8px;
+  }
+
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .question-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(218, 54, 51, 0.06);
+    border: 1px solid rgba(218, 54, 51, 0.12);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .question-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(218, 54, 51, 0.2);
+    color: #f85149;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .question-text {
+    font-size: 12px;
+    color: #c9d1d9;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .question-text strong { color: #fff; }
+
+  .punchline {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .punchline-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #8b949e;
+    font-style: italic;
+  }
+
+  .punchline-text strong {
+    color: #fff;
+    font-style: normal;
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(218, 54, 51, 0.06);
+    border-top: 1px solid rgba(218, 54, 51, 0.12);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .callout-icon {
+    width: 28px; height: 28px;
+    background: #da3633;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px; color: white; font-weight: 800;
+  }
+
+  .callout-text {
+    font-size: 12px; color: #c9d1d9; font-weight: 500; line-height: 1.4;
+  }
+
+  .callout-text strong { color: #fff; font-weight: 700; }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #da3633;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px; font-weight: 700; color: #555;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px; color: #444; line-height: 1.65; margin-bottom: 10px;
+  }
+
+  .speaker-notes strong { color: #222; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="review-badge">Breakout Activity</div>
+        <div class="slide-title">Peer Review: Does This Test It?</div>
+        <div class="slide-subtitle">Breakout rooms. Groups of 2. Swap prototypes.</div>
+      </div>
+      <div class="timer-box">
+        <div class="timer-number">10</div>
+        <div class="timer-label">minutes</div>
+      </div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-card phase-silent">
+        <div class="phase-label">Phase 1</div>
+        <div class="phase-time">3 min</div>
+        <div class="phase-title">Silent Exploration</div>
+        <div class="phase-desc">Open your partner's prototype. <strong>No explanation.</strong> Click through it cold &mdash; the way a real user would. Can you figure out what it does and what it tests?</div>
+      </div>
+      <div class="phase-card phase-discuss">
+        <div class="phase-label">Phase 2 &mdash; Discuss</div>
+        <div class="questions-grid">
+          <div class="question-card">
+            <span class="question-num">1</span>
+            <div class="question-text">Does this prototype actually <strong>test the stated hypothesis?</strong></div>
+          </div>
+          <div class="question-card">
+            <span class="question-num">2</span>
+            <div class="question-text">Where does the experience <strong>break beyond the happy path?</strong></div>
+          </div>
+          <div class="question-card">
+            <span class="question-num">3</span>
+            <div class="question-text">Can you see <strong>real data</strong> in here? Does it make the prototype more credible?</div>
+          </div>
+          <div class="question-card">
+            <span class="question-num">4</span>
+            <div class="question-text"><strong>Tool vs. Toy</strong> &mdash; would this help the builder make a decision, or does it just look good?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="punchline">
+      <div class="punchline-text">The question isn't <strong>"is this cool?"</strong> &mdash; it's <strong>"does this test what you said you were testing?"</strong></div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="callout-icon">!</div>
+      <div class="callout-text">
+        <strong>If your partner built a dashboard instead of a product, call it out.</strong>
+        That's the most useful feedback you can give.
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Setup (30 sec):</strong> "Breakout rooms. Groups of 2. You have 10 minutes total. First 3 minutes: silence. Open your partner's Lovable link. Click through it the way a real user would — no context, no explanation. Can you figure out what it does? Can you figure out what it's testing?"</p>
+    <p><strong>On the silent phase:</strong> "The silence is the test. If your partner needs to explain what their prototype does, the prototype doesn't work. A real user won't have your partner standing behind them narrating. The prototype needs to speak for itself."</p>
+    <p><strong>On the four questions:</strong> "After the silent phase, discuss. Four questions on screen. The most important one is number 4: Tool vs. Toy. Can the builder actually use this prototype to make a go/no-go decision on their hypothesis? Or does it just look impressive? An impressive dashboard that doesn't test anything is worse than an ugly prototype that answers the question."</p>
+    <p><strong>On real data:</strong> "Question 3 — can you see real numbers and real quotes from the scenario? This is the Module 2 difference. In Module 1, everyone used placeholder text. 'Lorem ipsum' doesn't convince anyone. Real data makes the prototype credible. If your partner's prototype says 'XX% churn rate' instead of '30% churn rate,' that's a miss."</p>
+    <p><strong>Transition:</strong> "When you come back, I'm going to ask: how many of you built a tool that tests something, and how many of you built a toy that looks good? Be honest. That distinction is the entire point of this module."</p>
+  </div>
+</div>
+</body>
+</html>

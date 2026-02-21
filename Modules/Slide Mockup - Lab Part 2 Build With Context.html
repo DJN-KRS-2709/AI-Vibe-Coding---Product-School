@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Lab Part 2: Build With Context</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #0d1117;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    padding: 36px 48px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .header-left { flex: 1; }
+
+  .lab-badge {
+    display: inline-block;
+    background: #1a7f37;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .slide-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .slide-subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    font-weight: 400;
+  }
+
+  .slide-subtitle strong { color: #58a6ff; }
+
+  .timer-box {
+    flex: 0 0 auto;
+    background: rgba(26, 127, 55, 0.15);
+    border: 1px solid rgba(26, 127, 55, 0.3);
+    border-radius: 8px;
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  .timer-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a7f37;
+  }
+
+  .timer-label {
+    font-size: 10px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .flow-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 111, 224, 0.08);
+    border: 1px solid rgba(59, 111, 224, 0.15);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+  }
+
+  .flow-dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .flow-dot.done { background: #1a7f37; color: white; }
+  .flow-dot.active { background: #3B6FE0; color: white; }
+
+  .flow-label {
+    font-size: 11px; font-weight: 600; color: #8b949e;
+  }
+
+  .flow-label.active { color: #58a6ff; }
+
+  .flow-arrow {
+    color: #484f58; font-size: 12px;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .step-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #1a7f37;
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    display: inline;
+    vertical-align: middle;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: #8b949e;
+    line-height: 1.55;
+    margin-top: 8px;
+  }
+
+  .step-desc strong { color: #c9d1d9; }
+
+  .goal-row {
+    display: flex;
+    gap: 14px;
+  }
+
+  .goal-card {
+    flex: 1;
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+
+  .goal-yes {
+    background: rgba(26, 127, 55, 0.1);
+    border: 1px solid rgba(26, 127, 55, 0.25);
+  }
+
+  .goal-no {
+    background: rgba(218, 54, 51, 0.08);
+    border: 1px solid rgba(218, 54, 51, 0.2);
+  }
+
+  .goal-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .goal-yes .goal-label { color: #3fb950; }
+  .goal-no .goal-label { color: #f85149; }
+
+  .goal-text {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .goal-yes .goal-text { color: #aff5b4; }
+  .goal-no .goal-text { color: #ffa198; }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(26, 127, 55, 0.08);
+    border-top: 1px solid rgba(26, 127, 55, 0.15);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .callout-icon {
+    width: 28px; height: 28px;
+    background: #1a7f37;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .callout-icon svg { width: 14px; height: 14px; fill: white; }
+
+  .callout-text {
+    font-size: 12px; color: #c9d1d9; font-weight: 500; line-height: 1.4;
+  }
+
+  .callout-text strong { color: #fff; font-weight: 700; }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #1a7f37;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px; font-weight: 700; color: #555;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px; color: #444; line-height: 1.65; margin-bottom: 10px;
+  }
+
+  .speaker-notes strong { color: #222; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="lab-badge">Hands-On Lab &mdash; Part 2 of 2</div>
+        <div class="slide-title">Build With Context</div>
+        <div class="slide-subtitle">Open <strong>Lovable</strong>. Build your prompt with all four inputs.</div>
+      </div>
+      <div class="timer-box">
+        <div class="timer-number">25</div>
+        <div class="timer-label">minutes</div>
+      </div>
+    </div>
+
+    <div class="flow-banner">
+      <span class="flow-dot done">&#10003;</span>
+      <span class="flow-label">Validation Brief</span>
+      <span class="flow-arrow">&#8594;</span>
+      <span class="flow-dot done">&#10003;</span>
+      <span class="flow-label">Context Data Pack</span>
+      <span class="flow-arrow">&#8594;</span>
+      <span class="flow-dot done">&#10003;</span>
+      <span class="flow-label">Visual Reference</span>
+      <span class="flow-arrow">&#8594;</span>
+      <span class="flow-dot active">4</span>
+      <span class="flow-label active">Structured Prompt Builder</span>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <div class="step-title">Open the Prompt Builder</div>
+        <div class="step-desc">Select your scenario at the top &mdash; it tells you <strong>which block carries the most weight.</strong> Then fill each block from your completed artifacts.</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <div class="step-title">Paste Context + Upload Screenshots</div>
+        <div class="step-desc">Block 1: paste from Data Pack (<strong>"Copy Everything"</strong> or curated). Block 2: upload your <strong>screenshots</strong> and describe the feel.</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <div class="step-title">Set Guardrails from Your Brief</div>
+        <div class="step-desc">Block 3: translate your hypothesis, kill switch, and fidelity into constraints. <strong>Build the product, not a dashboard about it.</strong></div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">4</span>
+        <div class="step-title">Copy Prompt &rarr; Paste in Lovable</div>
+        <div class="step-desc">Block 4: define output format + screens. Hit <strong>"Copy Prompt"</strong>, paste into Lovable. Verify your <strong>shareable link works</strong>.</div>
+      </div>
+    </div>
+
+    <div class="goal-row">
+      <div class="goal-card goal-yes">
+        <div class="goal-label">&#10003; Your goal</div>
+        <div class="goal-text">Build something that looks like a real product AND tests a specific hypothesis</div>
+      </div>
+      <div class="goal-card goal-no">
+        <div class="goal-label">&#10007; Not your goal</div>
+        <div class="goal-text">Make it pretty</div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="callout-icon">
+        <svg viewBox="0 0 16 16"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25V8.5h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>
+      </div>
+      <div class="callout-text">
+        <strong>Verify your shareable link works</strong> &mdash; you're swapping prototypes with a partner in 25 minutes.
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Setup (1 min):</strong> "Open the Structured Prompt Builder. Select your scenario at the top — it'll tell you which block matters most for your specific problem. Then fill in each block using the three artifacts you just prepared. Block 1 gets your context data. Block 2 gets your screenshots. Block 3 gets your validation brief as guardrails. Block 4 defines what Lovable should actually build."</p>
+    <p><strong>On the workflow:</strong> "Don't freestyle. The Prompt Builder exists because we've seen what happens when people just type into Lovable cold — you get generic output. The whole point of Part 1 was preparing these inputs. Now use them. Paste, don't retype."</p>
+    <p><strong>The guardrail warning:</strong> "Block 3 has a red warning for a reason. The number one mistake in Module 1 was people building impressive-looking strategy dashboards instead of interactive products. Your prototype should be something a real user clicks through to test your hypothesis. If nobody can interact with it, it's a slide deck."</p>
+    <p><strong>Credits strategy:</strong> "Review your assembled prompt before pasting it into Lovable. Read it out loud. Does it sound like clear instructions to a developer? If not, tighten it. You can even run it through ChatGPT first — zero credits. When it reads right, paste it into Lovable in one shot."</p>
+    <p><strong>Release:</strong> "Go. 25 minutes. When your prototype is live, grab the shareable link and test it in an incognito window. If the link works, you're ready for the peer review. Post the link in Slack."</p>
+  </div>
+</div>
+</body>
+</html>
