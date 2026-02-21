@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Validation Loop: Prompt Template</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    min-height: 540px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 36px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+
+  .description {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.5;
+    max-width: 520px;
+  }
+
+  .loop-badge {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 10px 16px;
+  }
+
+  .loop-badge-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .loop-badge-text {
+    font-size: 10px;
+    color: #888;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .loop-badge-text strong {
+    color: #444;
+    display: block;
+    font-size: 11px;
+  }
+
+  .template-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .template-card {
+    border-radius: 10px;
+    padding: 18px 20px 16px;
+    position: relative;
+    border: 1px solid #e1e4e8;
+  }
+
+  .card-step-1 {
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%);
+    border-color: #d6e0f5;
+  }
+
+  .card-step-2 {
+    background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%);
+    border-color: #d6e0f5;
+  }
+
+  .card-step-3 {
+    background: #0d1117;
+    border-color: #0d1117;
+  }
+
+  .card-step-4 {
+    background: #f6f8fa;
+    border-color: #e1e4e8;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .card-step-1 .card-number,
+  .card-step-2 .card-number {
+    background: #3B6FE0;
+    color: white;
+  }
+
+  .card-step-3 .card-number {
+    background: #fff;
+    color: #0d1117;
+  }
+
+  .card-step-4 .card-number {
+    background: #444;
+    color: white;
+  }
+
+  .card-step-name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .card-step-1 .card-step-name,
+  .card-step-2 .card-step-name {
+    color: #1a1a2e;
+  }
+
+  .card-step-3 .card-step-name {
+    color: #ffffff;
+  }
+
+  .card-step-4 .card-step-name {
+    color: #1a1a2e;
+  }
+
+  .prompt-frame {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.65;
+  }
+
+  .card-step-1 .prompt-frame,
+  .card-step-2 .prompt-frame {
+    background: #ffffff;
+    border: 1px solid #d6e0f5;
+    color: #444;
+  }
+
+  .card-step-3 .prompt-frame {
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: #9ca3af;
+  }
+
+  .card-step-4 .prompt-frame {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #444;
+  }
+
+  .prompt-frame .fill {
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .card-step-1 .fill,
+  .card-step-2 .fill {
+    color: #3B6FE0;
+  }
+
+  .card-step-3 .fill {
+    color: #60a5fa;
+  }
+
+  .card-step-4 .fill {
+    color: #555;
+  }
+
+  .prompt-frame .keyword {
+    font-weight: 600;
+  }
+
+  .card-step-1 .keyword,
+  .card-step-2 .keyword {
+    color: #1a1a2e;
+  }
+
+  .card-step-3 .keyword {
+    color: #e5e7eb;
+  }
+
+  .card-step-4 .keyword {
+    color: #1a1a2e;
+  }
+
+  .card-hint {
+    font-size: 10px;
+    margin-top: 8px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .card-step-1 .card-hint,
+  .card-step-2 .card-hint {
+    color: #888;
+  }
+
+  .card-step-3 .card-hint {
+    color: #555d6e;
+  }
+
+  .card-step-4 .card-hint {
+    color: #888;
+  }
+
+  .card-hint strong {
+    font-weight: 700;
+  }
+
+  .card-step-3 .card-hint strong {
+    color: #9ca3af;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="header">
+      <div class="header-left">
+        <div class="subtitle">Prompt Template</div>
+        <div class="title">Frame Before You Build</div>
+        <div class="description">
+          Each step of the Validation Loop maps to a concrete prompt component. Fill these in before you open Lovable. This is your pre-flight checklist.
+        </div>
+      </div>
+      <div class="loop-badge">
+        <svg class="loop-badge-icon" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="11" stroke="#3B6FE0" stroke-width="2.5" fill="none" opacity="0.25"/>
+          <path d="M14 3 C20.1 3 25 7.9 25 14" stroke="#3B6FE0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <polygon points="25,11 25,17 21,14" fill="#3B6FE0"/>
+        </svg>
+        <div class="loop-badge-text">
+          <strong>Validation Loop</strong>
+          One template per revolution
+        </div>
+      </div>
+    </div>
+
+    <div class="template-grid">
+
+      <div class="template-card card-step-1">
+        <div class="card-header">
+          <div class="card-number">1</div>
+          <div class="card-step-name">Hypothesis</div>
+        </div>
+        <div class="prompt-frame">
+          <span class="keyword">If</span> <span class="fill">[user takes this action]</span><br>
+          <span class="keyword">then</span> <span class="fill">[this outcome happens]</span><br>
+          <span class="keyword">because</span> <span class="fill">[this assumption is true]</span>
+        </div>
+        <div class="card-hint">This is the "why" behind every prompt. If you can't finish this sentence, you're not ready to build.</div>
+      </div>
+
+      <div class="template-card card-step-2">
+        <div class="card-header">
+          <div class="card-number">2</div>
+          <div class="card-step-name">Constraints</div>
+        </div>
+        <div class="prompt-frame">
+          <span class="keyword">Risk type:</span> <span class="fill">[value / usability / feasibility]</span><br>
+          <span class="keyword">Kill switch:</span> <span class="fill">[the assumption that kills it]</span><br>
+          <span class="keyword">Scope:</span> <span class="fill">[N screens, single flow]</span><br>
+          <span class="keyword">Success looks like:</span> <span class="fill">[measurable signal]</span>
+        </div>
+        <div class="card-hint">Guardrails for the build. These go straight into your prompt's <strong>Constraint</strong> block.</div>
+      </div>
+
+      <div class="template-card card-step-3">
+        <div class="card-header">
+          <div class="card-number">3</div>
+          <div class="card-step-name">Build Prompt</div>
+        </div>
+        <div class="prompt-frame">
+          <span class="keyword">Context:</span> <span class="fill">[scenario + user quotes + metrics]</span><br>
+          <span class="keyword">Reference:</span> <span class="fill">[screenshot or Mobbin link]</span><br>
+          <span class="keyword">Constraint:</span> <span class="fill">[from step 2 above]</span><br>
+          <span class="keyword">Output:</span> <span class="fill">[N-screen flow that tests hypothesis]</span>
+        </div>
+        <div class="card-hint"><strong>This is what you paste into Lovable.</strong> Steps 1&ndash;2 feed directly into this.</div>
+      </div>
+
+      <div class="template-card card-step-4">
+        <div class="card-header">
+          <div class="card-number">4</div>
+          <div class="card-step-name">Synthesize</div>
+        </div>
+        <div class="prompt-frame">
+          <span class="keyword">What broke:</span> <span class="fill">[where the flow failed]</span><br>
+          <span class="keyword">What held:</span> <span class="fill">[what worked as expected]</span><br>
+          <span class="keyword">Updated hypothesis:</span> <span class="fill">[revised if/then]</span><br>
+          <span class="keyword">Next build:</span> <span class="fill">[what changes in the next loop]</span>
+        </div>
+        <div class="card-hint">Don't just iterate on pixels. Update your hypothesis with evidence, then loop back to step 1.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>How to use this:</strong> "This is your pre-flight checklist. Before you open Lovable, fill in steps 1 and 2. That gives you the raw material for step 3 &mdash; your actual prompt. After you build and stress-test, step 4 captures what you learned. Then you loop. Each revolution through this template produces a better prototype and a sharper hypothesis."</p>
+    <p><strong>On the structure:</strong> "Notice steps 1 and 2 are framing work &mdash; you do this before you touch any tool. Step 3 is the actual prompt you paste into Lovable. Step 4 is what you do after. The template maps the loop to a concrete workflow: frame, build, learn, repeat."</p>
+    <p><strong>On the if/then/because:</strong> "The hypothesis isn't 'I want to build a dashboard.' It's 'If I surface team invite prompts during onboarding, then day-3 invite rates increase, because solo users don't know the feature exists.' That's testable. That's what drives the build."</p>
+    <p><strong>Connect to labs:</strong> "In Lab Part 1, you'll fill in steps 1&ndash;2. In Lab Part 2, you'll assemble step 3 and build. In the peer review, your partner evaluates whether the prototype actually tests your step-1 hypothesis. Step 4 happens after feedback. This template is the thread that runs through everything today."</p>
+  </div>
+</div>
+</body>
+</html>

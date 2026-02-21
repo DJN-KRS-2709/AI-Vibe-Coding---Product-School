@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Structured Prompt Builder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #EBF0FE; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+  .flow-steps {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+  }
+
+  .flow-step .dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #e5e7eb; color: #888;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+  }
+
+  .flow-step.active .dot { background: #3B6FE0; color: white; }
+  .flow-step.active { color: #3B6FE0; }
+  .flow-step.done .dot { background: #1a7f37; color: white; }
+  .flow-step.done { color: #1a7f37; }
+
+  .flow-arrow { color: #d1d5db; font-size: 16px; display: flex; align-items: center; }
+
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .section-bar {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .section-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+    color: white;
+  }
+
+  .num-context { background: #3B6FE0; }
+  .num-reference { background: #7c3aed; }
+  .num-constraint { background: #0d1117; }
+  .num-output { background: #1a7f37; }
+
+  .section-label { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .section-sublabel { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .section-body { padding: 20px 28px 24px; }
+
+  .prompt-area {
+    width: 100%;
+    border: 1.5px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    line-height: 1.65;
+    background: #fafbfc;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .prompt-area:focus {
+    outline: none;
+    border-color: #3B6FE0;
+    box-shadow: 0 0 0 3px rgba(59,111,224,0.12);
+    background: #fff;
+  }
+
+  .prompt-area::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .helper-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .helper-chip {
+    font-size: 11px; font-weight: 600;
+    padding: 5px 12px; border-radius: 6px;
+    border: 1px solid #e1e4e8;
+    background: #f6f8fa; color: #555;
+    cursor: pointer; transition: all 0.2s;
+    user-select: none;
+  }
+
+  .helper-chip:hover { border-color: #3B6FE0; color: #3B6FE0; background: #f0f4ff; }
+
+  .upload-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fafbfc;
+  }
+
+  .upload-zone:hover { border-color: #7c3aed; background: #f8f5ff; }
+
+  .upload-zone-icon { font-size: 32px; margin-bottom: 8px; }
+  .upload-zone-text { font-size: 13px; color: #666; line-height: 1.5; }
+  .upload-zone-text strong { color: #1a1a2e; }
+  .upload-zone-hint { font-size: 11px; color: #aaa; margin-top: 6px; }
+
+  .upload-preview {
+    display: none;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #7c3aed;
+    position: relative;
+  }
+
+  .upload-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .upload-preview .remove-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: rgba(0,0,0,0.6); color: white;
+    border: none; border-radius: 6px;
+    padding: 4px 10px; font-size: 11px;
+    cursor: pointer; font-weight: 600;
+  }
+
+  .constraint-input {
+    width: 100%;
+    border: 1.5px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #e5e7eb;
+    line-height: 1.65;
+    background: #0d1117;
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .constraint-input:focus {
+    outline: none;
+    border-color: #555d6e;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
+  }
+
+  .constraint-input::placeholder { color: #555d6e; font-style: italic; }
+
+  .output-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .output-label {
+    font-size: 12px; font-weight: 700; color: #1a7f37;
+    padding-top: 12px;
+  }
+
+  .output-input {
+    width: 100%;
+    border: 1.5px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e;
+    background: #f0fdf4;
+  }
+
+  .output-input:focus { outline: none; border-color: #1a7f37; box-shadow: 0 0 0 3px rgba(26,127,55,0.1); }
+  .output-input::placeholder { color: #86efac; }
+
+  .final-section {
+    background: #0d1117;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .final-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+
+  .final-actions { display: flex; gap: 10px; }
+
+  .final-btn {
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .btn-copy { background: #3B6FE0; color: white; }
+  .btn-copy:hover { background: #2D5BC4; }
+  .btn-clear { background: #21262d; color: #9ca3af; }
+  .btn-clear:hover { background: #30363d; }
+
+  .final-preview {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #c9d1d9;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    min-height: 120px;
+  }
+
+  .final-preview .kw { color: #79c0ff; font-weight: 600; }
+  .final-preview .val { color: #a5d6ff; }
+
+  .tip-bar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px;
+    margin-top: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #fef3c7; color: #92400e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="badge">Module 2 — Lab Part 2</div>
+    <h1>Structured Prompt Builder</h1>
+    <p>Assemble the prompt you'll paste into Lovable. Four blocks. Each one feeds the AI different information. The output is a complete, copy-ready prompt.</p>
+  </div>
+
+  <div class="flow-steps">
+    <div class="flow-step done"><span class="dot">✓</span> Validation Brief</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step done"><span class="dot">✓</span> Visual Reference</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step done"><span class="dot">✓</span> Data Pack</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step active"><span class="dot">4</span> Build Prompt</div>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="section">
+    <div class="section-bar">
+      <div class="section-num num-context">C</div>
+      <div>
+        <div class="section-label">Context</div>
+        <div class="section-sublabel">What's the product, who's the user, what's the situation?</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <textarea class="prompt-area" id="context-input" placeholder="Paste your scenario brief here. Then add 2-3 user quotes from the data pack.
+
+Example:
+Build a retention-focused onboarding flow for a B2B project management tool used by 5,000 teams. 30% of customers churn within 90 days. Users who invite a teammate in the first 3 days retain at 3x the rate (68% vs 22%), but only 12% send an invite.
+
+Here's what users are saying:
+- &quot;I invited my co-founder on Day 2 and we started using it together. That's when it clicked.&quot;
+- &quot;I tried to invite my team but the flow asked for their role and department. I just want to add them.&quot;
+- &quot;Why can't I just share a link to my board? My teammate gave up trying to sign up.&quot;" rows="8"></textarea>
+      <div class="helper-row">
+        <span class="helper-chip" onclick="insertText('context-input', '\n\nHere\'s what users are saying:\n- \"[paste quote 1]\"\n- \"[paste quote 2]\"\n- \"[paste quote 3]\"')">+ Add User Quotes</span>
+        <span class="helper-chip" onclick="insertText('context-input', '\n\nKey metrics:\n- [metric]: [value]\n- [metric]: [value]\n- [metric]: [value]')">+ Add Metrics</span>
+        <span class="helper-chip" onclick="insertText('context-input', '\n\nStakeholder context: [VP/PM/CEO] believes the core issue is [hypothesis]. We\'re testing whether that\'s true.')">+ Add Stakeholder View</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERENCE -->
+  <div class="section">
+    <div class="section-bar">
+      <div class="section-num num-reference">R</div>
+      <div>
+        <div class="section-label">Reference</div>
+        <div class="section-sublabel">The visual anchor — show, don't describe</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+        <div class="upload-zone-icon">📸</div>
+        <div class="upload-zone-text"><strong>Drop your screenshot here</strong> or click to browse</div>
+        <div class="upload-zone-hint">From Mobbin, your product, or a competitor. This image goes into Lovable alongside the text prompt.</div>
+      </div>
+      <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleUpload(event)">
+      <div class="upload-preview" id="upload-preview">
+        <img id="preview-img" src="">
+        <button class="remove-btn" onclick="removeUpload()">Remove</button>
+      </div>
+      <textarea class="prompt-area" id="reference-input" style="margin-top: 12px;" placeholder="Match this look and feel. Use the same layout structure, typography scale, and spacing. Adapt the content to my scenario." rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- CONSTRAINT -->
+  <div class="section" style="background: #0d1117;">
+    <div class="section-bar" style="border-bottom-color: #21262d;">
+      <div class="section-num num-constraint">!</div>
+      <div>
+        <div class="section-label" style="color: #fff;">Constraint</div>
+        <div class="section-sublabel" style="color: #555d6e;">Guardrails from your Validation Brief</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <textarea class="constraint-input" id="constraint-input" placeholder="Paste your constraints from the Validation Brief. Tell the AI what to focus on and what to avoid.
+
+Example:
+- Focus on the team invite flow during first-run onboarding
+- Display these actual metrics: 68% retention with invite vs 22% without, 12% current invite rate
+- Maximum 3 screens: invite prompt, team setup wizard, collaborative task view
+- Use real user quotes in the UI copy, not generic placeholder text
+- Avoid generic dashboard patterns — this should feel specific to a B2B PM tool
+- The invite action must be completable in under 30 seconds" rows="6"></textarea>
+      <div class="helper-row" style="margin-top: 12px;">
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Display these actual metrics: [metric 1], [metric 2], [metric 3]')">+ Specific Metrics</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Maximum [N] screens: [screen 1], [screen 2], [screen 3]')">+ Screen Limit</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Use real user quotes in the UI copy, not placeholder text')">+ Real Copy</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Avoid generic patterns — this should feel specific to [domain]')">+ Anti-Generic</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="section">
+    <div class="section-bar">
+      <div class="section-num num-output">→</div>
+      <div>
+        <div class="section-label">Output</div>
+        <div class="section-sublabel">Exactly what Lovable should produce</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="output-grid">
+        <div class="output-label">Format</div>
+        <input class="output-input" id="output-format" placeholder="A 3-screen responsive web flow">
+        <div class="output-label">Screens</div>
+        <input class="output-input" id="output-screens" placeholder="1) Invite prompt on first login  2) Team setup wizard  3) Collaborative task view">
+        <div class="output-label">Tests</div>
+        <input class="output-input" id="output-tests" placeholder="Whether surfacing invites during onboarding increases invite action vs burying it in settings">
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL PREVIEW -->
+  <div class="final-section">
+    <div class="final-header">
+      <div>
+        <div class="final-title">Your Complete Prompt</div>
+        <div class="final-subtitle">Copy this and paste it into Lovable</div>
+      </div>
+      <div class="final-actions">
+        <button class="final-btn btn-clear" onclick="clearPreview()">Start Over</button>
+        <button class="final-btn btn-copy" id="copy-final-btn" onclick="copyFinal()">Copy Prompt</button>
+      </div>
+    </div>
+    <div class="final-preview" id="final-preview"></div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">!</div>
+    <div class="tip-text">
+      <strong>Credits strategy:</strong> Review this prompt in ChatGPT or Gemini first. Iterate on wording there — zero credits burned. When the prompt reads exactly how you want it, paste it into Lovable in one shot. Don't trial-and-error in Lovable.
+    </div>
+  </div>
+</div>
+
+<script>
+  const fields = ['context-input', 'reference-input', 'constraint-input', 'output-format', 'output-screens', 'output-tests'];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updatePreview);
+  });
+
+  function updatePreview() {
+    const context = document.getElementById('context-input').value.trim();
+    const reference = document.getElementById('reference-input').value.trim();
+    const constraint = document.getElementById('constraint-input').value.trim();
+    const format = document.getElementById('output-format').value.trim();
+    const screens = document.getElementById('output-screens').value.trim();
+    const tests = document.getElementById('output-tests').value.trim();
+
+    let prompt = '';
+
+    if (context) {
+      prompt += `CONTEXT:\n${context}\n\n`;
+    }
+
+    if (reference) {
+      prompt += `REFERENCE:\n[Screenshot attached]\n${reference}\n\n`;
+    }
+
+    if (constraint) {
+      prompt += `CONSTRAINTS:\n${constraint}\n\n`;
+    }
+
+    if (format || screens || tests) {
+      prompt += `OUTPUT:\n`;
+      if (format) prompt += `Build: ${format}\n`;
+      if (screens) prompt += `Screens: ${screens}\n`;
+      if (tests) prompt += `This prototype tests: ${tests}\n`;
+    }
+
+    const preview = document.getElementById('final-preview');
+    if (prompt) {
+      preview.textContent = prompt;
+    } else {
+      preview.textContent = 'Start typing above to see your assembled prompt here...';
+    }
+  }
+
+  function copyFinal() {
+    const text = document.getElementById('final-preview').textContent;
+    if (!text || text.startsWith('Start typing')) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-final-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#1a7f37';
+      setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.style.background = '#3B6FE0'; }, 2000);
+    });
+  }
+
+  function clearPreview() {
+    fields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    removeUpload();
+    updatePreview();
+  }
+
+  function insertText(fieldId, text) {
+    const el = document.getElementById(fieldId);
+    el.value += text;
+    el.focus();
+    updatePreview();
+  }
+
+  function handleUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('preview-img').src = e.target.result;
+      document.getElementById('upload-preview').style.display = 'block';
+      document.getElementById('upload-zone').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeUpload() {
+    document.getElementById('upload-preview').style.display = 'none';
+    document.getElementById('upload-zone').style.display = 'block';
+    document.getElementById('file-input').value = '';
+  }
+
+  updatePreview();
+</script>
+</body>
+</html>

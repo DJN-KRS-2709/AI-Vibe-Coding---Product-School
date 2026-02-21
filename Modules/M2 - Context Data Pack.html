@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Context Data Pack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 840px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #EBF0FE;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+  .scenario-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .scenario-tab {
+    padding: 14px 12px;
+    border: 2px solid #e1e4e8;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .scenario-tab:hover { border-color: #a0b8f0; background: #f8faff; }
+
+  .scenario-tab.active { border-color: #3B6FE0; background: #EBF0FE; }
+
+  .scenario-tab-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+  .scenario-tab.active .scenario-tab-title { color: #3B6FE0; }
+  .scenario-tab-desc { font-size: 10px; color: #888; }
+
+  .scenario-content { display: none; }
+  .scenario-content.active { display: block; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .card-header-left { display: flex; align-items: center; gap: 12px; }
+
+  .card-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .icon-brief { background: #EBF0FE; }
+  .icon-quotes { background: #fef3c7; }
+  .icon-metrics { background: #f0fdf4; }
+
+  .card-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .copy-btn {
+    font-size: 11px; font-weight: 700; color: #3B6FE0;
+    background: #EBF0FE; border: none; border-radius: 6px;
+    padding: 6px 14px; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover { background: #d6e0f5; }
+
+  .card-body { padding: 0 28px 24px; }
+
+  .brief-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+  }
+
+  .brief-label {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  }
+
+  .brief-value {
+    font-size: 13px; color: #444; line-height: 1.6;
+    padding: 12px 0 12px 16px; border-bottom: 1px solid #f0f0f0;
+  }
+
+  .brief-value strong { color: #1a1a2e; }
+
+  .brief-grid > :nth-last-child(-n+2) { border-bottom: none; }
+
+  .quote-list { list-style: none; }
+
+  .quote-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f5f5f5;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 6px;
+    margin-bottom: 2px;
+  }
+
+  .quote-item:hover { background: #fafbfc; }
+
+  .quote-item.highlighted { background: #fffbeb; border-left: 3px solid #f59e0b; }
+
+  .quote-check {
+    width: 20px; height: 20px; border-radius: 5px;
+    border: 2px solid #d1d5db; flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: transparent; transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .quote-item.highlighted .quote-check {
+    background: #f59e0b; border-color: #f59e0b; color: white;
+  }
+
+  .quote-text { font-size: 13px; color: #444; line-height: 1.6; font-style: italic; }
+  .quote-source { font-size: 11px; color: #888; font-style: normal; margin-top: 4px; }
+
+  .quote-type-label {
+    font-size: 10px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 16px 16px 8px; margin-top: 4px;
+  }
+
+  .metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .metrics-table th {
+    text-align: left;
+    font-size: 10px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 8px 12px;
+    border-bottom: 2px solid #e5e7eb;
+    background: #fafbfc;
+    position: sticky; top: 0;
+  }
+
+  .metrics-table td {
+    font-size: 12px; color: #444;
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  .metrics-table tr { cursor: pointer; transition: background 0.15s; }
+  .metrics-table tr:hover { background: #fafbfc; }
+  .metrics-table tr.highlighted { background: #f0fdf4; }
+
+  .metrics-table tr.highlighted td:first-child::before {
+    content: "●";
+    color: #1a7f37;
+    margin-right: 6px;
+    font-size: 8px;
+  }
+
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600; color: #1a1a2e;
+  }
+
+  .hypotheses-list { list-style: none; }
+
+  .hypothesis-item {
+    padding: 12px 16px;
+    border-left: 3px solid #e5e7eb;
+    margin-bottom: 8px;
+    border-radius: 0 6px 6px 0;
+    background: #fafbfc;
+  }
+
+  .hypothesis-role { font-size: 11px; font-weight: 700; color: #3B6FE0; margin-bottom: 4px; }
+  .hypothesis-text { font-size: 13px; color: #444; line-height: 1.5; }
+
+  .constraints-list {
+    list-style: none;
+    font-size: 13px; color: #444; line-height: 1.6;
+  }
+
+  .constraints-list li { padding: 6px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .constraints-list li::before { content: "→"; color: #888; flex-shrink: 0; font-weight: 600; }
+
+  .selection-bar {
+    background: #0d1117;
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    position: sticky;
+    bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .selection-info { color: #9ca3af; font-size: 13px; }
+  .selection-info strong { color: #fff; }
+
+  .selection-actions { display: flex; gap: 10px; }
+
+  .sel-btn {
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .sel-btn-secondary {
+    background: #21262d; color: #c9d1d9;
+  }
+
+  .sel-btn-secondary:hover { background: #30363d; }
+
+  .sel-btn-primary {
+    background: #3B6FE0; color: white;
+  }
+
+  .sel-btn-primary:hover { background: #2D5BC4; }
+
+  .instructions-banner {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .instructions-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #3B6FE0; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .instructions-text { font-size: 13px; color: #555; line-height: 1.65; }
+  .instructions-text strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="badge">Module 2 — Lab Part 1, Step 2</div>
+    <h1>Context Data Pack</h1>
+    <p>Real user quotes, real metrics, full problem brief. Select your scenario, highlight what matters for your hypothesis, and copy it into your prompt.</p>
+  </div>
+
+  <div class="instructions-banner">
+    <div class="instructions-icon">!</div>
+    <div class="instructions-text">
+      <strong>Don't use everything.</strong> Click the checkboxes next to 2-3 quotes and 3-5 metrics that directly relate to your hypothesis. These are the ones you'll paste into your Lovable prompt. The "Copy Selected" button at the bottom will bundle them for you.
+    </div>
+  </div>
+
+  <div class="scenario-tabs">
+    <div class="scenario-tab active" onclick="switchScenario('retention')">
+      <div class="scenario-tab-title">Retention Engine</div>
+      <div class="scenario-tab-desc">B2B SaaS · 30% churn</div>
+    </div>
+    <div class="scenario-tab" onclick="switchScenario('internal')">
+      <div class="scenario-tab-title">Internal Tool</div>
+      <div class="scenario-tab-desc">CRM · 18% adoption</div>
+    </div>
+    <div class="scenario-tab" onclick="switchScenario('marketplace')">
+      <div class="scenario-tab-title">Marketplace Trust</div>
+      <div class="scenario-tab-desc">Bookings flat · 0 reviews</div>
+    </div>
+    <div class="scenario-tab" onclick="switchScenario('dashboard')">
+      <div class="scenario-tab-title">Dashboard</div>
+      <div class="scenario-tab-desc">Analytics · 60% bounce</div>
+    </div>
+  </div>
+
+  <!-- ==================== RETENTION ENGINE ==================== -->
+  <div class="scenario-content active" id="scenario-retention">
+
+    <!-- Brief -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon icon-brief">📋</div>
+          <div>
+            <div class="card-title">Scenario Brief</div>
+            <div class="card-subtitle">Paste this as your prompt's Context block</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="event.stopPropagation(); copyBrief('retention')">Copy Brief</button>
+      </div>
+      <div class="card-body">
+        <div class="brief-grid">
+          <div class="brief-label">Company</div>
+          <div class="brief-value">B2B project management SaaS. 5,000 paying teams. $4.2M ARR. Series A. 18 months old.</div>
+          <div class="brief-label">Problem</div>
+          <div class="brief-value"><strong>30% of new customers churn within 90 days.</strong> The company cannot raise Series B with this churn rate. The board has given the team one quarter to show measurable improvement.</div>
+          <div class="brief-label">Key Data</div>
+          <div class="brief-value">Users who invite a teammate in the first 3 days retain at 3x the rate (68% vs 22%). Only 12% of new users send an invite in the first 3 days. The invite button is buried in Settings > Team > Members. 60% of new users never create their first task.</div>
+          <div class="brief-label">Constraints</div>
+          <div class="brief-value">No engineering resources for 6 weeks. Must work within the existing product. Prototype only.</div>
+          <div class="brief-label">Your Job</div>
+          <div class="brief-value">Prototype the intervention with the highest likelihood of reducing 90-day churn. Identify the riskiest assumption, then build to test it.</div>
+        </div>
+        <div style="margin-top: 16px;">
+          <div class="quote-type-label">Competing Hypotheses</div>
+          <ul class="hypotheses-list">
+            <li class="hypothesis-item"><div class="hypothesis-role">VP Customer Success</div><div class="hypothesis-text">"It's a team activation problem. Make inviting effortless."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Head of Product</div><div class="hypothesis-text">"It's a feature discovery problem. Users don't find the features that make us sticky."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">CEO</div><div class="hypothesis-text">"I don't care what it is. Cut 90-day churn in half."</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quotes -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon icon-quotes">💬</div>
+          <div>
+            <div class="card-title">User & Stakeholder Feedback</div>
+            <div class="card-subtitle">Click to highlight 2-3 quotes for your prompt</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedQuotes('retention')">Copy Selected</button>
+      </div>
+      <div class="card-body">
+        <div class="quote-type-label">User Quotes</div>
+        <ul class="quote-list" id="quotes-retention">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I signed up because my manager told me to. I opened it once, couldn't figure out where my tasks were, and went back to Notion."</div><div class="quote-source">Churned user, Day 3</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The onboarding asked me to set up a project, but I don't even know what a 'workspace' is in your tool. I just need a to-do list."</div><div class="quote-source">Churned user, Day 1</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I actually liked it once I figured out the board view. But it took me two weeks to find it. By then my trial was almost over."</div><div class="quote-source">Retained user</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I invited my co-founder on Day 2 and we started using it together. That's when it clicked — it's a team tool, not a solo tool."</div><div class="quote-source">Retained user, power user</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Why can't I just share a link to my board? I had to explain to my teammate how to sign up, create an account, join the workspace... she gave up."</div><div class="quote-source">Churned user, Day 7</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The weekly summary email is the only reason I come back. Without it I'd forget this tool exists."</div><div class="quote-source">At-risk user</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I tried to invite my team but the invite flow asked for their 'role' and 'department.' I don't know their department codes. I just want to add them."</div><div class="quote-source">At-risk user, Day 4</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Your competitor lets me import my existing tasks from Trello. You don't. So I'm running two tools and that's not sustainable."</div><div class="quote-source">Churned user, Day 14</div></div></li>
+        </ul>
+        <div class="quote-type-label">Stakeholder Quotes</div>
+        <ul class="quote-list">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The data is clear — users who invite a teammate in the first 3 days retain at 3x the rate. But only 12% of new users send an invite in that window."</div><div class="quote-source">VP of Customer Success</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"We buried the invite button in Settings > Team > Members. I know. It's on the roadmap to move it."</div><div class="quote-source">Head of Product</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I don't care if it's onboarding or invites or whatever. I need the 90-day churn number to drop by half or we're not raising our Series B."</div><div class="quote-source">CEO</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"There's a weird correlation — users who create their first task within 10 minutes of signup retain at 2x. But 60% of users never create a task at all."</div><div class="quote-source">Data Analyst</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <div class="card-icon icon-metrics">📊</div>
+          <div>
+            <div class="card-title">Quantitative Metrics</div>
+            <div class="card-subtitle">Click rows to select 3-5 metrics for your prototype</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedMetrics('retention')">Copy Selected</button>
+      </div>
+      <div class="card-body" style="overflow-x: auto;">
+        <table class="metrics-table" id="metrics-retention">
+          <thead><tr><th>Metric</th><th>Value</th><th>Segment</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr onclick="toggleMetric(this)"><td>Signup to first task</td><td><span class="metric-value">8.2 min</span></td><td>Retained users</td><td>Median for users who stay past 90 days</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Signup to first task</td><td><span class="metric-value">Never</span></td><td>Churned users</td><td>60% never create a task</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Day-3 invite rate</td><td><span class="metric-value">12%</span></td><td>All users</td><td>Only 12% invite a teammate</td></tr>
+            <tr onclick="toggleMetric(this)"><td>90-day retention (with invite)</td><td><span class="metric-value">68%</span></td><td>Invited teammate</td><td>3x retention vs solo</td></tr>
+            <tr onclick="toggleMetric(this)"><td>90-day retention (without invite)</td><td><span class="metric-value">22%</span></td><td>Solo users</td><td>Solo users churn fast</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Board view discovery</td><td><span class="metric-value">31%</span></td><td>All users</td><td>In first 2 weeks</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Board view discovery</td><td><span class="metric-value">89%</span></td><td>Retained users</td><td>Retained users find it</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Onboarding completion</td><td><span class="metric-value">44%</span></td><td>All users</td><td>Drop-off at workspace setup</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Weekly email open rate</td><td><span class="metric-value">62%</span></td><td>All users</td><td>Drives 35% of return visits</td></tr>
+            <tr onclick="toggleMetric(this)"><td>NPS</td><td><span class="metric-value">24</span></td><td>All users</td><td>Below benchmark of 40</td></tr>
+            <tr onclick="toggleMetric(this)"><td>NPS</td><td><span class="metric-value">71</span></td><td>Power users</td><td>Power users love it</td></tr>
+            <tr onclick="toggleMetric(this)"><td>90-day churn rate</td><td><span class="metric-value">30%</span></td><td>All users</td><td>Target: reduce to 15%</td></tr>
+            <tr onclick="toggleMetric(this)"><td>MAU/DAU ratio</td><td><span class="metric-value">0.18</span></td><td>All users</td><td>Low daily engagement</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Support tickets (onboarding)</td><td><span class="metric-value">342/mo</span></td><td>All users</td><td>38% of all tickets</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== INTERNAL TOOL ==================== -->
+  <div class="scenario-content" id="scenario-internal">
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-brief">📋</div><div><div class="card-title">Scenario Brief</div><div class="card-subtitle">Paste this as your prompt's Context block</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyBrief('internal')">Copy Brief</button></div>
+      <div class="card-body">
+        <div class="brief-grid">
+          <div class="brief-label">Company</div><div class="brief-value">Mid-market SaaS. 200-person sales team across 3 offices + remote. $45M ARR. Series C.</div>
+          <div class="brief-label">Problem</div><div class="brief-value"><strong>Internal CRM note-taking tool has 18% adoption.</strong> Sales reps prefer Google Docs or text messages. Losing institutional knowledge with every rep departure (34% annual turnover). CEO mentioned buying Gong at all-hands.</div>
+          <div class="brief-label">Key Data</div><div class="brief-value">Average time to log a call: 4.5 minutes. Reps make ~6 calls/day but log fewer than 1. Tool requires 9 fields; reps fill 3.2 on average. Mobile app crashes 23% of sessions. 67% bulk-update the night before quarterly reviews.</div>
+          <div class="brief-label">Constraints</div><div class="brief-value">Cannot replace the existing CRM (CTO's initiative). Must layer on top. Prototype only. Sales team won't attend training.</div>
+          <div class="brief-label">Your Job</div><div class="brief-value">Prototype an intervention that gets adoption above 50% without requiring training. Identify the real blocker, then build to test.</div>
+        </div>
+        <div style="margin-top: 16px;"><div class="quote-type-label">Competing Hypotheses</div>
+          <ul class="hypotheses-list">
+            <li class="hypothesis-item"><div class="hypothesis-role">VP Sales</div><div class="hypothesis-text">"Make it so easy they can't NOT use it. Under 30 seconds per call."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Engineering</div><div class="hypothesis-text">"The tool works. It's a training problem."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Revenue Ops</div><div class="hypothesis-text">"The real cost isn't the tool — it's the $2.3M in lost deal intelligence annually."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">CEO</div><div class="hypothesis-text">"Just buy Gong."</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-quotes">💬</div><div><div class="card-title">User & Stakeholder Feedback</div><div class="card-subtitle">Click to highlight 2-3 quotes for your prompt</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedQuotes('internal')">Copy Selected</button></div>
+      <div class="card-body">
+        <div class="quote-type-label">Sales Rep Quotes</div>
+        <ul class="quote-list" id="quotes-internal">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I know I'm supposed to log my calls. But by the time I open the CRM, find the right contact, click through three screens, and type my notes... I've forgotten half of what was said."</div><div class="quote-source">Senior AE</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I just text myself after calls and paste it into a Google Doc. I know that's not ideal but at least I can find it later."</div><div class="quote-source">SDR</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The CRM wants me to fill out 'Next Steps,' 'Decision Maker,' 'Budget Range,' 'Timeline' after every single call. Most of the time I don't have that info yet. So I just skip it."</div><div class="quote-source">AE</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I used it for a week when I started. Then I realized nobody else on the team uses it either, so why bother?"</div><div class="quote-source">New hire, 2 months in</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"If it could just listen to my calls and fill itself out, I'd use it every day. The problem isn't the tool — it's the data entry."</div><div class="quote-source">Senior AE</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"My manager checks the CRM once a quarter for pipeline reviews. That's literally the only time it matters."</div><div class="quote-source">AE</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I actually like the reporting features. But the data in there is garbage because nobody enters it consistently."</div><div class="quote-source">Sales Manager</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The mobile app crashes constantly. I'm usually in my car between meetings. If I can't do it from my phone, it's not happening."</div><div class="quote-source">Field Sales Rep</div></div></li>
+        </ul>
+        <div class="quote-type-label">Stakeholder Quotes</div>
+        <ul class="quote-list">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"We spent $180K building this tool. 18% adoption. I need to either fix it or justify buying Gong to the board."</div><div class="quote-source">VP of Sales</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The tool works fine. The problem is user behavior, not the software. We've offered training three times — nobody shows up."</div><div class="quote-source">Engineering Lead</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Maybe we should just buy Gong. I've heard good things."</div><div class="quote-source">CEO (from all-hands)</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"We're losing an estimated $2.3M annually in deal intelligence because reps don't document."</div><div class="quote-source">Revenue Ops</div></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-metrics">📊</div><div><div class="card-title">Quantitative Metrics</div><div class="card-subtitle">Click rows to select 3-5 metrics</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedMetrics('internal')">Copy Selected</button></div>
+      <div class="card-body" style="overflow-x: auto;">
+        <table class="metrics-table" id="metrics-internal"><thead><tr><th>Metric</th><th>Value</th><th>Segment</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr onclick="toggleMetric(this)"><td>Adoption rate</td><td><span class="metric-value">18%</span></td><td>All reps</td><td>Active weekly users</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Daily active users</td><td><span class="metric-value">11</span></td><td>All reps</td><td>Out of 200 reps</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Time to log a call</td><td><span class="metric-value">4.5 min</span></td><td>Active users</td><td>Per call</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Calls per rep per day</td><td><span class="metric-value">6.2</span></td><td>All reps</td><td>Average</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Calls logged per rep per day</td><td><span class="metric-value">0.8</span></td><td>All reps</td><td>Most go unlogged</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Fields completed per entry</td><td><span class="metric-value">3.2 / 9</span></td><td>Active users</td><td>Out of 9 required</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Mobile crash rate</td><td><span class="metric-value">23%</span></td><td>Mobile users</td><td>Per session</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Bulk update before review</td><td><span class="metric-value">67%</span></td><td>All reps</td><td>Night before pipeline review</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Rep turnover</td><td><span class="metric-value">34%</span></td><td>Annual</td><td>Knowledge walks out the door</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Knowledge loss per departure</td><td><span class="metric-value">~47 deals</span></td><td>Per event</td><td>Deals with no CRM context</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Gong annual cost</td><td><span class="metric-value">$285K</span></td><td>Company</td><td>Alternative solution</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Internal NPS</td><td><span class="metric-value">-12</span></td><td>All reps</td><td>Negative NPS</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MARKETPLACE TRUST ==================== -->
+  <div class="scenario-content" id="scenario-marketplace">
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-brief">📋</div><div><div class="card-title">Scenario Brief</div><div class="card-subtitle">Paste this as your prompt's Context block</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyBrief('marketplace')">Copy Brief</button></div>
+      <div class="card-body">
+        <div class="brief-grid">
+          <div class="brief-label">Company</div><div class="brief-value">Peer-to-peer home services marketplace. 50K registered users, 8K MAU. Pre-Series A. 2 years old.</div>
+          <div class="brief-label">Problem</div><div class="brief-value"><strong>Bookings flat despite 22% QoQ signup growth.</strong> Funnel breaks at provider selection — 71% bounce. 64% of providers have zero reviews. New providers wait 47 days median for first booking; 72% churn within 90 days.</div>
+          <div class="brief-label">Key Data</div><div class="brief-value">Platform never prompts for reviews. 73% would pay a premium for "verified" providers. Provider profiles show only name and photo. Top 10% of providers capture 58% of bookings. Repeat booking rate is 41%.</div>
+          <div class="brief-label">Constraints</div><div class="brief-value">Small team (8 people). Must work within existing marketplace UX. Cannot offer actual financial guarantees. Must show traction within one quarter.</div>
+          <div class="brief-label">Your Job</div><div class="brief-value">Prototype the trust mechanism with highest impact on first bookings for new providers.</div>
+        </div>
+        <div style="margin-top: 16px;"><div class="quote-type-label">Competing Hypotheses</div>
+          <ul class="hypotheses-list">
+            <li class="hypothesis-item"><div class="hypothesis-role">Growth</div><div class="hypothesis-text">"It's a cold-start problem. Get new providers their first 3 reviews and bookings will follow."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Product</div><div class="hypothesis-text">"It's a profile problem. Richer profiles = more trust signals = more bookings."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">CEO</div><div class="hypothesis-text">"It's a guarantee problem. Offer a money-back guarantee like Airbnb."</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-quotes">💬</div><div><div class="card-title">User & Stakeholder Feedback</div><div class="card-subtitle">Click to highlight 2-3 quotes</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedQuotes('marketplace')">Copy Selected</button></div>
+      <div class="card-body">
+        <div class="quote-type-label">Customer Quotes</div>
+        <ul class="quote-list" id="quotes-marketplace">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I found three providers who looked good. None had reviews. I'm not going to be the guinea pig who finds out they're terrible."</div><div class="quote-source">Browsed, didn't book</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I booked once. The provider was 45 minutes late and didn't apologize. There was no way to report it or get a refund. I deleted the app."</div><div class="quote-source">One-time booker, churned</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"On Airbnb I trust the system because of the guarantee. Here, if something goes wrong, I'm on my own."</div><div class="quote-source">Browsed, didn't book</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I would pay more for a 'verified' provider. I don't care about the cheapest option — I care about not having a stranger in my house who I know nothing about."</div><div class="quote-source">Browsed, didn't book</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The provider profiles are just a name and a photo. No bio, no work samples, no response time. How am I supposed to decide?"</div><div class="quote-source">Browsed, didn't book</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I actually had a great experience! But the app never asked me to leave a review. I would have."</div><div class="quote-source">Satisfied booker</div></div></li>
+        </ul>
+        <div class="quote-type-label">Provider Quotes</div>
+        <ul class="quote-list">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I signed up a month ago. Zero bookings. No one will take a chance on the new person."</div><div class="quote-source">New provider</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I do great work but I can't get my first review. I offered 50% off for my first 3 customers and the platform doesn't even let me do that."</div><div class="quote-source">New provider</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The top providers have 50+ reviews and get all the bookings. The rest of us get nothing. There's no way to break in."</div><div class="quote-source">Provider, 3 months, 0 reviews</div></div></li>
+        </ul>
+        <div class="quote-type-label">Stakeholder Quotes</div>
+        <ul class="quote-list">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Signups are up 22% QoQ. Bookings are flat. The funnel breaks at the provider selection page."</div><div class="quote-source">Head of Growth</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"We need to solve the cold-start problem for new providers. If we can't get them their first 3 bookings, we lose them."</div><div class="quote-source">Head of Product</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I want a guarantee program. Airbnb has one. We need one. But the team keeps telling me it's complicated."</div><div class="quote-source">CEO</div></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-metrics">📊</div><div><div class="card-title">Quantitative Metrics</div><div class="card-subtitle">Click rows to select 3-5 metrics</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedMetrics('marketplace')">Copy Selected</button></div>
+      <div class="card-body" style="overflow-x: auto;">
+        <table class="metrics-table" id="metrics-marketplace"><thead><tr><th>Metric</th><th>Value</th><th>Segment</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr onclick="toggleMetric(this)"><td>Signup to first booking</td><td><span class="metric-value">14%</span></td><td>Customers</td><td>Only 14% ever book</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Browse to book conversion</td><td><span class="metric-value">6%</span></td><td>Monthly</td><td>Very low</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Provider page bounce rate</td><td><span class="metric-value">71%</span></td><td>Customers</td><td>Leave without action</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Providers with zero reviews</td><td><span class="metric-value">64%</span></td><td>All providers</td><td>No social proof</td></tr>
+            <tr onclick="toggleMetric(this)"><td>New provider first booking</td><td><span class="metric-value">47 days</span></td><td>Median</td><td>Nearly 7 weeks</td></tr>
+            <tr onclick="toggleMetric(this)"><td>New provider 90-day churn</td><td><span class="metric-value">72%</span></td><td>New providers</td><td>Most leave</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Top 10% booking share</td><td><span class="metric-value">58%</span></td><td>Top providers</td><td>Winner-takes-most</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Willingness to pay for verified</td><td><span class="metric-value">73%</span></td><td>Surveyed</td><td>Strong signal</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Repeat booking rate</td><td><span class="metric-value">41%</span></td><td>Booked customers</td><td>Trust builds loyalty</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Review prompts sent</td><td><span class="metric-value">0</span></td><td>All</td><td>Platform never asks</td></tr>
+            <tr onclick="toggleMetric(this)"><td>NPS</td><td><span class="metric-value">18</span></td><td>All users</td><td>Low trust drags NPS</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DASHBOARD ==================== -->
+  <div class="scenario-content" id="scenario-dashboard">
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-brief">📋</div><div><div class="card-title">Scenario Brief</div><div class="card-subtitle">Paste this as your prompt's Context block</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyBrief('dashboard')">Copy Brief</button></div>
+      <div class="card-body">
+        <div class="brief-grid">
+          <div class="brief-label">Company</div><div class="brief-value">Customer-facing analytics platform. 14,200 MAU. $8.5M ARR. Series B. 3 years old.</div>
+          <div class="brief-label">Problem</div><div class="brief-value"><strong>60% first-visit bounce rate.</strong> Dashboard built for data analysts but user base is now 80% non-technical business users. New users see 12 charts and leave within 30 seconds. Power users (20%) love it — NPS of 72.</div>
+          <div class="brief-label">Key Data</div><div class="brief-value">12 charts on default view with no hierarchy. Only 8% discover custom views (76% of power users use them). 54% rely on weekly email summary. 19% export to Google Sheets. 38% of support tickets (~412/mo) are dashboard comprehension questions.</div>
+          <div class="brief-label">Constraints</div><div class="brief-value">Cannot remove charts from power user view. Must serve both audiences. Data pipeline is solid — problem is presentation. Prototype only.</div>
+          <div class="brief-label">Your Job</div><div class="brief-value">Prototype the intervention that gets first-visit bounce below 30% for non-technical users while preserving the power user experience.</div>
+        </div>
+        <div style="margin-top: 16px;"><div class="quote-type-label">Competing Hypotheses</div>
+          <ul class="hypotheses-list">
+            <li class="hypothesis-item"><div class="hypothesis-role">PM Lead</div><div class="hypothesis-text">"Information overload. We need a simplified default view for non-technical users."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Designer</div><div class="hypothesis-text">"It's a hierarchy problem. Nothing tells users where to look first."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Engineering</div><div class="hypothesis-text">"Just add a tutorial. Problem solved."</div></li>
+            <li class="hypothesis-item"><div class="hypothesis-role">Customer Success</div><div class="hypothesis-text">"We're drowning in tickets. Whatever you build, make it self-explanatory."</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-quotes">💬</div><div><div class="card-title">User & Stakeholder Feedback</div><div class="card-subtitle">Click to highlight 2-3 quotes</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedQuotes('dashboard')">Copy Selected</button></div>
+      <div class="card-body">
+        <div class="quote-type-label">User Quotes</div>
+        <ul class="quote-list" id="quotes-dashboard">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I log in, see 12 charts, and immediately feel overwhelmed. I don't know which one matters. So I close the tab."</div><div class="quote-source">New user, marketing manager</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I just want to know: is my campaign working? Yes or no. I don't need a scatter plot to tell me that."</div><div class="quote-source">New user, small business owner</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I love the dashboard. But I've been using it for 2 years and I know exactly where to look. My new team members are completely lost."</div><div class="quote-source">Power user, head of analytics</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The filters are confusing. I selected 'Last 30 days' but one of the charts is still showing all-time data. I don't trust the numbers anymore."</div><div class="quote-source">New user, product manager</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Someone showed me the 'custom view' feature and it changed everything. But I never would have found it on my own."</div><div class="quote-source">Retained user</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I get the weekly email summary. That's all I need. I never actually open the dashboard."</div><div class="quote-source">Casual user</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"I exported the data to Google Sheets and built my own charts. Your dashboard has the data — it just doesn't present it in a way I can use."</div><div class="quote-source">Frustrated user, ops manager</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"What am I looking at? — Literally what I said when I first opened it. And I have an MBA."</div><div class="quote-source">New user, VP of Marketing</div></div></li>
+        </ul>
+        <div class="quote-type-label">Stakeholder Quotes</div>
+        <ul class="quote-list">
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"We built this for data analysts. Then we 10x'd our user base with non-technical users. The product didn't evolve with the audience."</div><div class="quote-source">PM Lead</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"The information hierarchy is broken. Everything has equal visual weight. Nothing says 'look here first.'"</div><div class="quote-source">Designer</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"38% of our support tickets are some variation of 'I don't understand the dashboard.' That's 400+ tickets a month."</div><div class="quote-source">Head of Customer Success</div></div></li>
+          <li class="quote-item" onclick="toggleHighlight(this)"><span class="quote-check">✓</span><div><div class="quote-text">"Bounce rate is embarrassing. If new users can't get value in the first minute, we have a product problem, not a training problem."</div><div class="quote-source">CEO</div></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-header-left"><div class="card-icon icon-metrics">📊</div><div><div class="card-title">Quantitative Metrics</div><div class="card-subtitle">Click rows to select 3-5 metrics</div></div></div><button class="copy-btn" onclick="event.stopPropagation(); copyHighlightedMetrics('dashboard')">Copy Selected</button></div>
+      <div class="card-body" style="overflow-x: auto;">
+        <table class="metrics-table" id="metrics-dashboard"><thead><tr><th>Metric</th><th>Value</th><th>Segment</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr onclick="toggleMetric(this)"><td>First-visit bounce rate</td><td><span class="metric-value">60%</span></td><td>New users</td><td>Leave within 30 seconds</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Time to first insight</td><td><span class="metric-value">Never</span></td><td>New users</td><td>Most never find actionable data</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Time to first insight</td><td><span class="metric-value">45 sec</span></td><td>Power users</td><td>Know where to look</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Charts on default view</td><td><span class="metric-value">12</span></td><td>All</td><td>Information overload</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Filter usage</td><td><span class="metric-value">22%</span></td><td>New users</td><td>First 30 days</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Filter usage</td><td><span class="metric-value">91%</span></td><td>Power users</td><td>Per session</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Custom view discovery</td><td><span class="metric-value">8%</span></td><td>New users</td><td>Hidden feature</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Custom view usage</td><td><span class="metric-value">76%</span></td><td>Power users</td><td>Per session</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Weekly email reliance</td><td><span class="metric-value">54%</span></td><td>All users</td><td>Never open dashboard</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Data export rate</td><td><span class="metric-value">19%</span></td><td>All users</td><td>Build own charts</td></tr>
+            <tr onclick="toggleMetric(this)"><td>Support tickets (dashboard)</td><td><span class="metric-value">412/mo</span></td><td>All users</td><td>38% of all tickets</td></tr>
+            <tr onclick="toggleMetric(this)"><td>NPS (new users)</td><td><span class="metric-value">11</span></td><td>New users</td><td>Very low</td></tr>
+            <tr onclick="toggleMetric(this)"><td>NPS (power users)</td><td><span class="metric-value">72</span></td><td>Power users</td><td>Love it</td></tr>
+            <tr onclick="toggleMetric(this)"><td>User base composition</td><td><span class="metric-value">80% / 20%</span></td><td>Non-tech / Tech</td><td>Audience shifted</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selection Bar -->
+  <div class="selection-bar" id="selection-bar">
+    <div class="selection-info">
+      <strong id="selected-count">0 quotes, 0 metrics</strong> selected — ready to copy into your prompt
+    </div>
+    <div class="selection-actions">
+      <button class="sel-btn sel-btn-secondary" onclick="clearAll()">Clear All</button>
+      <button class="sel-btn sel-btn-primary" onclick="copyAll()">Copy All Selected</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentScenario = 'retention';
+
+  function switchScenario(id) {
+    currentScenario = id;
+    document.querySelectorAll('.scenario-tab').forEach((t,i) => {
+      t.classList.toggle('active', ['retention','internal','marketplace','dashboard'][i] === id);
+    });
+    document.querySelectorAll('.scenario-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('scenario-' + id).classList.add('active');
+    updateCount();
+  }
+
+  function toggleHighlight(el) {
+    el.classList.toggle('highlighted');
+    updateCount();
+  }
+
+  function toggleMetric(el) {
+    el.classList.toggle('highlighted');
+    updateCount();
+  }
+
+  function updateCount() {
+    const active = document.getElementById('scenario-' + currentScenario);
+    const quotes = active.querySelectorAll('.quote-item.highlighted').length;
+    const metrics = active.querySelectorAll('.metrics-table tr.highlighted').length;
+    document.getElementById('selected-count').textContent = quotes + ' quotes, ' + metrics + ' metrics';
+  }
+
+  function getSelectedQuotes() {
+    const active = document.getElementById('scenario-' + currentScenario);
+    const items = active.querySelectorAll('.quote-item.highlighted');
+    return Array.from(items).map(item => {
+      const text = item.querySelector('.quote-text').textContent;
+      const source = item.querySelector('.quote-source').textContent;
+      return `"${text}" — ${source}`;
+    });
+  }
+
+  function getSelectedMetrics() {
+    const active = document.getElementById('scenario-' + currentScenario);
+    const rows = active.querySelectorAll('.metrics-table tr.highlighted');
+    return Array.from(rows).map(row => {
+      const cells = row.querySelectorAll('td');
+      return `${cells[0].textContent}: ${cells[1].textContent} (${cells[2].textContent}) — ${cells[3].textContent}`;
+    });
+  }
+
+  function copyHighlightedQuotes() {
+    const quotes = getSelectedQuotes();
+    if (!quotes.length) { alert('Select quotes by clicking them first.'); return; }
+    const text = "USER FEEDBACK (selected for prompt):\n\n" + quotes.join('\n\n');
+    copyText(text, event.target);
+  }
+
+  function copyHighlightedMetrics() {
+    const metrics = getSelectedMetrics();
+    if (!metrics.length) { alert('Select metrics by clicking rows first.'); return; }
+    const text = "KEY METRICS (display these in the prototype):\n\n" + metrics.join('\n');
+    copyText(text, event.target);
+  }
+
+  function copyBrief(id) {
+    const active = document.getElementById('scenario-' + id);
+    const labels = active.querySelectorAll('.brief-label');
+    const values = active.querySelectorAll('.brief-value');
+    let text = 'SCENARIO BRIEF:\n\n';
+    labels.forEach((l, i) => {
+      text += l.textContent + ': ' + values[i].textContent + '\n\n';
+    });
+    const hyps = active.querySelectorAll('.hypothesis-item');
+    if (hyps.length) {
+      text += 'COMPETING HYPOTHESES:\n';
+      hyps.forEach(h => {
+        text += '- ' + h.querySelector('.hypothesis-role').textContent + ': ' + h.querySelector('.hypothesis-text').textContent + '\n';
+      });
+    }
+    copyText(text, event.target);
+  }
+
+  function copyAll() {
+    const quotes = getSelectedQuotes();
+    const metrics = getSelectedMetrics();
+    let text = '';
+    if (quotes.length) text += "USER FEEDBACK:\n\n" + quotes.join('\n\n') + '\n\n';
+    if (metrics.length) text += "KEY METRICS (display these numbers in the prototype):\n\n" + metrics.join('\n') + '\n';
+    if (!text) { alert('Select quotes and metrics first.'); return; }
+    copyText(text, document.querySelector('.sel-btn-primary'));
+  }
+
+  function clearAll() {
+    const active = document.getElementById('scenario-' + currentScenario);
+    active.querySelectorAll('.highlighted').forEach(el => el.classList.remove('highlighted'));
+    updateCount();
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

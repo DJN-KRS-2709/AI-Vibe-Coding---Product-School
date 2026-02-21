@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — What's Your Kill Switch?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+
+  .intro {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 740px;
+    margin-bottom: 24px;
+  }
+
+  .intro strong {
+    color: #1a1a2e;
+  }
+
+  .risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+  }
+
+  .risk-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 16px 10px 0;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .risk-table td {
+    padding: 12px 16px 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.4;
+    vertical-align: middle;
+  }
+
+  .risk-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .risk-label {
+    font-weight: 700;
+    color: #1a1a2e;
+    font-size: 14px;
+  }
+
+  .build-tag {
+    display: inline-block;
+    background: #f0f4ff;
+    color: #3B6FE0;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid #d6e0f5;
+  }
+
+  .callouts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: auto;
+  }
+
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    position: relative;
+  }
+
+  .callout-zero {
+    background: #f6f8fa;
+    border: 1px solid #e1e4e8;
+  }
+
+  .callout-one {
+    background: #0d1117;
+    border: 1px solid #0d1117;
+  }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .callout-zero .callout-label {
+    color: #888;
+  }
+
+  .callout-one .callout-label {
+    color: #3B6FE0;
+  }
+
+  .callout-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .callout-zero .callout-title {
+    color: #1a1a2e;
+  }
+
+  .callout-one .callout-title {
+    color: #ffffff;
+  }
+
+  .callout-text {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .callout-zero .callout-text {
+    color: #555;
+  }
+
+  .callout-one .callout-text {
+    color: #9ca3af;
+  }
+
+  .callout-one .callout-text strong {
+    color: #e5e7eb;
+    font-weight: 600;
+  }
+
+  .callout-one .callout-text em {
+    color: #60a5fa;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .callout-zero .callout-text strong {
+    color: #1a1a2e;
+    font-weight: 600;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="title">What's Your Kill Switch?</div>
+    <div class="intro">
+      Three risk categories determine what you build. Your risk type isn't a philosophy &mdash; it's a build decision. The kill-switch question forces clarity: <strong>Which assumption, if wrong, kills the whole thing?</strong> Build to test <em>that one</em> first.
+    </div>
+
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Risk Type</th>
+          <th>The Question</th>
+          <th>Build This</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="risk-label">Value</span></td>
+          <td>Will anyone want this?</td>
+          <td><span class="build-tag">Landing page</span></td>
+        </tr>
+        <tr>
+          <td><span class="risk-label">Usability</span></td>
+          <td>Will the experience make sense?</td>
+          <td><span class="build-tag">Clickable mockup</span></td>
+        </tr>
+        <tr>
+          <td><span class="risk-label">Feasibility</span></td>
+          <td>Will the logic actually work?</td>
+          <td><span class="build-tag">Functional app</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callouts-row">
+      <div class="callout callout-zero">
+        <div class="callout-label">0-to-1 Products</div>
+        <div class="callout-title">Kill switch: desirability</div>
+        <div class="callout-text">Nobody wants it yet &mdash; <strong>prove they will.</strong> You're testing whether the problem is real before you invest in building.</div>
+      </div>
+
+      <div class="callout callout-one">
+        <div class="callout-label">1-to-N Products</div>
+        <div class="callout-title">Kill switch: adoption</div>
+        <div class="callout-text">People have it &mdash; <strong>prove they'll use it.</strong> You already have users, data, and a product. <em>You never start from scratch.</em> Screenshot what exists, feed it in, build on top.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>On the table:</strong> "This is your decision tree. If your biggest risk is 'does anyone want this' &mdash; don't build an app. Build a landing page and see if people click. If the risk is 'will it make sense' &mdash; build a clickable mockup and watch someone try it. If it's 'will the logic work' &mdash; build a functional prototype. Match fidelity to risk."</p>
+    <p><strong>On 0-to-1 vs 1-to-N:</strong> "Here's the shift most people miss. If you're building something brand new, the kill switch is almost always desirability &mdash; nobody wants it yet, prove they will. But most of you work on existing products. You're in 1-to-N territory. Your kill switch is adoption &mdash; people already have it, but they're not using the new thing you're adding."</p>
+    <p><strong>On never starting from scratch (1-to-N):</strong> "And here's the kicker for 1-to-N &mdash; you never have to start from a blank page. You have an existing product. Screenshot it. Feed it into Lovable. Build on top of what already exists. That's the Screenshot-to-App entry point from slide 3. Your prototype should look like it belongs in your actual product, not like a standalone demo. That's what makes it testable."</p>
+    <p><strong>Connect to scenarios:</strong> "Look at your scenario. The Retention Engine &mdash; that's 1-to-N, the product exists. The Internal Tool &mdash; also 1-to-N, CRM exists, adoption is the problem. If you picked one of these, your first move should be screenshotting what you already have."</p>
+  </div>
+</div>
+</body>
+</html>

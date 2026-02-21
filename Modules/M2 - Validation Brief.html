@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Validation Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #EBF0FE;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .section {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 28px 0;
+  }
+
+  .section-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #3B6FE0;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .section-body {
+    padding: 16px 28px 24px;
+  }
+
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  .field-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .field-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .field-hint {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .field-input {
+    width: 100%;
+    border: 1.5px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    background: #fafbfc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+  }
+
+  .field-input:focus {
+    outline: none;
+    border-color: #3B6FE0;
+    box-shadow: 0 0 0 3px rgba(59,111,224,0.12);
+    background: #fff;
+  }
+
+  .field-input::placeholder {
+    color: #b0b0b0;
+    font-style: italic;
+  }
+
+  textarea.field-input {
+    min-height: 72px;
+  }
+
+  .hypothesis-frame {
+    background: #f6f8fa;
+    border: 1.5px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+
+  .hypothesis-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .hypothesis-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .hypothesis-keyword {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3B6FE0;
+    flex-shrink: 0;
+    min-width: 72px;
+  }
+
+  .hypothesis-input {
+    flex: 1;
+    border: none;
+    border-bottom: 1.5px solid #d1d5db;
+    padding: 4px 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+
+  .hypothesis-input:focus {
+    outline: none;
+    border-bottom-color: #3B6FE0;
+  }
+
+  .hypothesis-input::placeholder {
+    color: #b0b0b0;
+    font-style: italic;
+  }
+
+  .risk-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .risk-card {
+    border: 2px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    background: #fafbfc;
+  }
+
+  .risk-card:hover {
+    border-color: #a0b8f0;
+    background: #f8faff;
+  }
+
+  .risk-card.selected {
+    border-color: #3B6FE0;
+    background: #EBF0FE;
+  }
+
+  .risk-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+
+  .risk-card.selected .risk-card-title {
+    color: #3B6FE0;
+  }
+
+  .risk-card-question {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .risk-card-build {
+    font-size: 10px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .fidelity-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .fidelity-option {
+    border: 2px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    background: #fafbfc;
+  }
+
+  .fidelity-option:hover {
+    border-color: #a0b8f0;
+  }
+
+  .fidelity-option.selected {
+    border-color: #3B6FE0;
+    background: #EBF0FE;
+  }
+
+  .fidelity-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+  }
+
+  .fidelity-desc {
+    font-size: 10px;
+    color: #888;
+  }
+
+  .kill-switch-box {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 20px 24px;
+  }
+
+  .kill-switch-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #da3633;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .kill-switch-prompt {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .kill-switch-input {
+    width: 100%;
+    border: 1.5px solid #30363d;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #e5e7eb;
+    background: #161b22;
+  }
+
+  .kill-switch-input:focus {
+    outline: none;
+    border-color: #da3633;
+    box-shadow: 0 0 0 3px rgba(218,54,51,0.15);
+  }
+
+  .kill-switch-input::placeholder {
+    color: #555d6e;
+    font-style: italic;
+  }
+
+  .success-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .success-cell {
+    background: #f6f8fa;
+    border: 1.5px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .success-cell-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .success-cell.validated .success-cell-label {
+    color: #1a7f37;
+  }
+
+  .success-cell.invalidated .success-cell-label {
+    color: #da3633;
+  }
+
+  .success-cell textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    resize: vertical;
+    min-height: 48px;
+  }
+
+  .success-cell textarea:focus {
+    outline: none;
+  }
+
+  .success-cell textarea::placeholder {
+    color: #b0b0b0;
+    font-style: italic;
+  }
+
+  .export-bar {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 28px;
+  }
+
+  .export-hint {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  .export-hint strong {
+    color: #555;
+  }
+
+  .export-btn {
+    background: #3B6FE0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .export-btn:hover {
+    background: #2D5BC4;
+  }
+
+  .scenario-select {
+    width: 100%;
+    border: 1.5px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #1a1a2e;
+    background: #fafbfc;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+
+  .scenario-select:focus {
+    outline: none;
+    border-color: #3B6FE0;
+    box-shadow: 0 0 0 3px rgba(59,111,224,0.12);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="badge">Module 2 — Lab Part 1</div>
+    <h1>Validation Brief</h1>
+    <p>Fill this out before you open Lovable. Every field feeds your build prompt. This is the difference between a generic demo and a prototype that tests a real hypothesis.</p>
+  </div>
+
+  <!-- Section 1: Scenario -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">Your Scenario</div>
+    </div>
+    <div class="section-body">
+      <div class="field-group">
+        <select class="scenario-select" id="scenario">
+          <option value="" disabled selected>Choose your scenario...</option>
+          <option value="retention">The Retention Engine — B2B SaaS, 30% churn in 90 days</option>
+          <option value="internal">The Internal Tool Nobody Uses — CRM, 18% adoption</option>
+          <option value="marketplace">The Marketplace Trust Problem — Bookings flat, zero reviews</option>
+          <option value="dashboard">The Dashboard Nobody Reads — Analytics, 60% bounce</option>
+          <option value="byo">Bring Your Own — Your company, your problem</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Hypothesis -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">Your Hypothesis</div>
+    </div>
+    <div class="section-body">
+      <div class="field-hint">Write this as a testable statement. If you can't finish the sentence, you're not ready to build.</div>
+      <div class="hypothesis-frame">
+        <div class="hypothesis-row">
+          <span class="hypothesis-keyword">If</span>
+          <input type="text" class="hypothesis-input" placeholder="we surface team invites during first-run onboarding" id="hyp-if">
+        </div>
+        <div class="hypothesis-row">
+          <span class="hypothesis-keyword">then</span>
+          <input type="text" class="hypothesis-input" placeholder="day-3 invite rate increases from 12% to 25%" id="hyp-then">
+        </div>
+        <div class="hypothesis-row">
+          <span class="hypothesis-keyword">because</span>
+          <input type="text" class="hypothesis-input" placeholder="solo users churn at 3x the rate and they don't know the invite feature exists" id="hyp-because">
+        </div>
+      </div>
+      <div class="field-group" style="margin-top: 16px;">
+        <div class="field-label">What are you learning?</div>
+        <div class="field-hint">The "Explore" question. Not what you're building — what you're trying to find out.</div>
+        <input type="text" class="field-input" placeholder="Is the blocker discoverability (can't find invite) or motivation (don't see the value)?" id="explore">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Risk Type -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title">Risk Type</div>
+    </div>
+    <div class="section-body">
+      <div class="field-hint" style="margin-bottom: 12px;">Your risk type determines what you build. Click one.</div>
+      <div class="risk-cards">
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="value">
+          <div class="risk-card-title">Value</div>
+          <div class="risk-card-question">Will anyone want this?</div>
+          <div class="risk-card-build">Build: Landing page</div>
+        </div>
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="usability">
+          <div class="risk-card-title">Usability</div>
+          <div class="risk-card-question">Will the experience make sense?</div>
+          <div class="risk-card-build">Build: Clickable mockup</div>
+        </div>
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="feasibility">
+          <div class="risk-card-title">Feasibility</div>
+          <div class="risk-card-question">Will the logic actually work?</div>
+          <div class="risk-card-build">Build: Functional app</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Kill Switch -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title">Kill Switch</div>
+    </div>
+    <div class="section-body">
+      <div class="kill-switch-box">
+        <div class="kill-switch-label">The assumption that kills it</div>
+        <div class="kill-switch-prompt">Which assumption, if wrong, makes the whole thing worthless? This is what you build to test first.</div>
+        <input type="text" class="kill-switch-input" placeholder="Users actually want to collaborate — if the tool is fundamentally solo, invites won't matter" id="kill-switch">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Success Criteria -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title">Success Criteria</div>
+    </div>
+    <div class="section-body">
+      <div class="field-hint" style="margin-bottom: 12px;">Define what validated and invalidated look like before you build. Not after.</div>
+      <div class="success-grid">
+        <div class="success-cell validated">
+          <div class="success-cell-label">Validated if...</div>
+          <textarea placeholder="Users click the invite prompt within the first 3 screens. The flow is intuitive enough that users complete it without help."></textarea>
+        </div>
+        <div class="success-cell invalidated">
+          <div class="success-cell-label">Invalidated if...</div>
+          <textarea placeholder="Users dismiss or skip the invite prompt. They complete onboarding without engaging with the team feature at all."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Fidelity -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <div class="section-title">Fidelity Level</div>
+    </div>
+    <div class="section-body">
+      <div class="field-hint" style="margin-bottom: 12px;">How much do you need to build to test your hypothesis? Don't overbuild.</div>
+      <div class="fidelity-row">
+        <div class="fidelity-option" onclick="selectFidelity(this)">
+          <div class="fidelity-label">Landing Page</div>
+          <div class="fidelity-desc">Static. Tests value/demand.</div>
+        </div>
+        <div class="fidelity-option" onclick="selectFidelity(this)">
+          <div class="fidelity-label">Clickable Flow</div>
+          <div class="fidelity-desc">2-4 screens. Tests usability.</div>
+        </div>
+        <div class="fidelity-option" onclick="selectFidelity(this)">
+          <div class="fidelity-label">Functional App</div>
+          <div class="fidelity-desc">Working logic. Tests feasibility.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export -->
+  <div class="export-bar">
+    <div class="export-hint">
+      <strong>Done?</strong> Copy this to Slack and move to Lab Part 2.<br>
+      Your hypothesis, risk type, and kill switch feed directly into your prompt.
+    </div>
+    <button class="export-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+</div>
+
+<script>
+  function selectRisk(el) {
+    document.querySelectorAll('.risk-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function selectFidelity(el) {
+    document.querySelectorAll('.fidelity-option').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function copyToClipboard() {
+    const scenario = document.getElementById('scenario');
+    const scenarioText = scenario.options[scenario.selectedIndex]?.text || 'Not selected';
+    const hypIf = document.getElementById('hyp-if').value || '';
+    const hypThen = document.getElementById('hyp-then').value || '';
+    const hypBecause = document.getElementById('hyp-because').value || '';
+    const explore = document.getElementById('explore').value || '';
+    const riskCard = document.querySelector('.risk-card.selected');
+    const riskType = riskCard ? riskCard.dataset.risk : 'Not selected';
+    const killSwitch = document.getElementById('kill-switch').value || '';
+    const fidelityEl = document.querySelector('.fidelity-option.selected .fidelity-label');
+    const fidelity = fidelityEl ? fidelityEl.textContent : 'Not selected';
+    const validated = document.querySelector('.success-cell.validated textarea').value || '';
+    const invalidated = document.querySelector('.success-cell.invalidated textarea').value || '';
+
+    const text = `VALIDATION BRIEF — Module 2
+━━━━━━━━━━━━━━━━━━━━━━
+
+Scenario: ${scenarioText}
+
+HYPOTHESIS
+If ${hypIf}
+then ${hypThen}
+because ${hypBecause}
+
+Exploring: ${explore}
+
+Risk Type: ${riskType}
+Fidelity: ${fidelity}
+
+KILL SWITCH
+${killSwitch}
+
+SUCCESS CRITERIA
+✅ Validated if: ${validated}
+❌ Invalidated if: ${invalidated}`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.export-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#1a7f37';
+      setTimeout(() => {
+        btn.textContent = 'Copy to Clipboard';
+        btn.style.background = '#3B6FE0';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
