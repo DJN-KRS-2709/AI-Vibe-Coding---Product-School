@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Credits Strategy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 48px 56px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.55;
+    max-width: 700px;
+    margin-bottom: 32px;
+  }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .step-card {
+    position: relative;
+    padding: 20px 18px 18px;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: #3B6FE0;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.55;
+  }
+
+  .eject-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0d1117;
+    padding: 18px 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .eject-icon {
+    width: 36px;
+    height: 36px;
+    background: #da3633;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .eject-content {
+    flex: 1;
+  }
+
+  .eject-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #da3633;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+
+  .eject-text {
+    font-size: 12.5px;
+    color: #c9d1d9;
+    line-height: 1.5;
+  }
+
+  .eject-text strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="title">Credits Strategy</div>
+    <div class="description">
+      Lovable gives ~100 credits/month. You can burn through them in a single session. Here's the strategy experienced builders use to get 5x the output from the same credits.
+    </div>
+
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-title">Plan in Gemini or ChatGPT</div>
+        <div class="step-desc">Structure your prompt, iterate on wording, test your logic. Zero credits burned. This is where 60% of the work happens.</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-title">Paste into Lovable</div>
+        <div class="step-desc">When the prompt is polished, paste it in. One generation. No trial-and-error burning credits on half-baked prompts.</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-title">Fix in Code When Possible</div>
+        <div class="step-desc">A typo? Wrong color? Misaligned element? Edit the generated output directly instead of re-prompting. Save credits for structural changes only.</div>
+      </div>
+    </div>
+
+    <div class="eject-bar">
+      <div class="eject-icon">!</div>
+      <div class="eject-content">
+        <div class="eject-label">When to Eject</div>
+        <div class="eject-text">
+          Prompted twice and it's still broken? <strong>Stop.</strong> You're in a credit death spiral. Export the code to ChatGPT, debug there, paste the fix back. Save your credits for building, not debugging.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>On Credits:</strong> "Before the lab — this will save you. Lovable gives about 100 credits a month. If you prompt, re-prompt, re-prompt without a plan, you'll burn through them in 20 minutes. The strategy: plan in a free tool first (ChatGPT, Gemini), paste the polished prompt into Lovable in one shot, and fix small things in code instead of re-prompting."</p>
+    <p><strong>On Ejecting:</strong> "Most important tip for the lab: if you've prompted twice and it's still broken — stop. Do not keep prompting. That's rage-prompting and it burns credits with zero return. The pro move: copy the code, paste it into ChatGPT, ask it to find the bug, paste the fix back into Lovable. You just saved 5 credits."</p>
+  </div>
+</div>
+</body>
+</html>

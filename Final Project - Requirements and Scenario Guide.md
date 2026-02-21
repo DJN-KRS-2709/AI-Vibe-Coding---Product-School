@@ -382,9 +382,11 @@ These scenarios are designed to carry a student from M1 through M6. Each one is:
 | M6 | Deploy. Present the evidence: "We validated that the invite flow is the lever. Here's the live product. Here's what engineering needs to build it for real. Our recommendation: ship the simplified invite flow; kill the feature discovery dashboard idea." |
 
 **Provided assets (instructor prepares):**
-- Mobbin screenshots of 2–3 PM tool dashboards
-- Sample data: user retention curve, feature adoption stats (fictional)
-- Fake stakeholder quotes for the problem brief
+- Mobbin screenshots of 2–3 PM tool dashboards (Linear, Asana, Monday.com)
+- **M2 Context Data Pack** (distributed in Module 2):
+  - `feedback.md` — 12 user/stakeholder quotes (exit surveys, support tickets, executive perspectives)
+  - `metrics.csv` — 15 data points (retention rates, invite rates, feature discovery, NPS by segment)
+  - `scenario-brief.md` — full problem brief with competing hypotheses and constraints
 
 ---
 
@@ -405,9 +407,11 @@ These scenarios are designed to carry a student from M1 through M6. Each one is:
 | M6 | Deploy. Present: "We tested that reducing input to < 30 seconds increases adoption. The AI summarizer + one-click approve flow validated this. Recommendation: ship as a CRM plugin. Kill the Gong purchase — this solves the problem at 10% of the cost." |
 
 **Provided assets:**
-- Mobbin screenshots of CRM interfaces (Salesforce, HubSpot)
-- Sample CRM data structure
-- Fake stakeholder email thread (the "maybe buy Gong" panic)
+- Mobbin screenshots of CRM interfaces (Salesforce, HubSpot, Pipedrive)
+- **M2 Context Data Pack** (distributed in Module 2):
+  - `feedback.md` — 12 user/stakeholder quotes (rep complaints, manager perspectives, CEO Gong comment)
+  - `metrics.csv` — 14 data points (adoption rate, time-to-log, fields completed, mobile crash rate, knowledge loss cost)
+  - `scenario-brief.md` — full problem brief with competing hypotheses and constraints
 
 ---
 
@@ -428,9 +432,11 @@ These scenarios are designed to carry a student from M1 through M6. Each one is:
 | M6 | Deploy. Present: "We tested that a money-back guarantee badge increases booking conversion more than enhanced profiles. Here's the live product. Recommendation: ship the guarantee program for top providers; revisit profile redesign in Q3." |
 
 **Provided assets:**
-- Mobbin screenshots of marketplace provider profiles (Airbnb, TaskRabbit)
-- Sample booking conversion data (fictional)
-- Customer research quotes about trust
+- Mobbin screenshots of marketplace provider profiles (Airbnb, TaskRabbit, Thumbtack)
+- **M2 Context Data Pack** (distributed in Module 2):
+  - `feedback.md` — 12 user/stakeholder quotes (customer trust concerns, provider cold-start frustration, growth team data)
+  - `metrics.csv` — 15 data points (signup-to-booking conversion, provider churn, review distribution, willingness-to-pay for verified)
+  - `scenario-brief.md` — full problem brief with competing hypotheses and constraints
 
 ---
 
@@ -452,8 +458,10 @@ These scenarios are designed to carry a student from M1 through M6. Each one is:
 
 **Provided assets:**
 - Mobbin screenshots of analytics dashboards (Mixpanel, Amplitude, Looker)
-- Sample analytics data (fictional)
-- Support ticket excerpts about dashboard confusion
+- **M2 Context Data Pack** (distributed in Module 2):
+  - `feedback.md` — 12 user/stakeholder quotes (new user overwhelm, power user satisfaction, support ticket themes, designer insight)
+  - `metrics.csv` — 16 data points (bounce rate, time-to-insight by segment, filter usage, custom view discovery, NPS split)
+  - `scenario-brief.md` — full problem brief with competing hypotheses and constraints
 
 ---
 

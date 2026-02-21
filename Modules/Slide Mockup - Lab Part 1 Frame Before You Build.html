@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Lab Part 1: Frame Before You Build</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #0d1117;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .lab-badge {
+    display: inline-block;
+    background: #3B6FE0;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .slide-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .slide-subtitle {
+    font-size: 13px;
+    color: #8b949e;
+    font-weight: 400;
+  }
+
+  .timer-box {
+    flex: 0 0 auto;
+    background: rgba(59, 111, 224, 0.15);
+    border: 1px solid rgba(59, 111, 224, 0.3);
+    border-radius: 8px;
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  .timer-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #3B6FE0;
+  }
+
+  .timer-label {
+    font-size: 10px;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .task-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .task-step {
+    font-size: 10px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .task-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .task-desc {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.55;
+  }
+
+  .task-desc strong {
+    color: #c9d1d9;
+    font-weight: 600;
+  }
+
+  .task-deliverable {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .deliverable-icon {
+    width: 16px;
+    height: 16px;
+    background: rgba(59, 111, 224, 0.2);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: #3B6FE0;
+  }
+
+  .deliverable-text {
+    font-size: 11px;
+    color: #58a6ff;
+    font-weight: 500;
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(59, 111, 224, 0.08);
+    border-top: 1px solid rgba(59, 111, 224, 0.15);
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .callout-icon {
+    width: 28px;
+    height: 28px;
+    background: #3B6FE0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .callout-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+  }
+
+  .callout-text {
+    font-size: 12px;
+    color: #c9d1d9;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .callout-text strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .fidelity-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .fidelity-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 10px 14px;
+    flex: 1;
+  }
+
+  .fidelity-risk {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #3B6FE0;
+    white-space: nowrap;
+  }
+
+  .fidelity-arrow {
+    color: #484f58;
+    font-size: 11px;
+  }
+
+  .fidelity-build {
+    font-size: 11px;
+    color: #c9d1d9;
+    font-weight: 500;
+  }
+
+  .fidelity-question {
+    font-size: 10px;
+    color: #8b949e;
+    font-style: italic;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="lab-badge">Hands-On Lab &mdash; Part 1</div>
+        <div class="slide-title">Frame Before You Build</div>
+        <div class="slide-subtitle">Complete your Problem Frame. Choose your direction. Match your fidelity.</div>
+      </div>
+      <div class="timer-box">
+        <div class="timer-number">10</div>
+        <div class="timer-label">minutes</div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="task-card">
+        <div class="task-step">Step 1 &mdash; Your Problem Frame</div>
+        <div class="task-title">Fill Out the 6-Element Template</div>
+        <div class="task-desc">
+          Use the Problem Framework from slide 7. Fill in all six elements for <strong>your chosen scenario</strong>: Goal, Problem, Context, Constraints, Success Criteria, and Explore. The last one is the most important &mdash; what are you trying to <strong>learn</strong>?
+        </div>
+        <div class="task-deliverable">
+          <div class="deliverable-icon">&#8594;</div>
+          <div class="deliverable-text">Paste your completed frame in Slack</div>
+        </div>
+      </div>
+
+      <div class="task-card">
+        <div class="task-step">Step 2 &mdash; Diverge, Don't Decorate</div>
+        <div class="task-title">Sketch 2&ndash;3 Fundamentally Different Directions</div>
+        <div class="task-desc">
+          Before you open Lovable, write down <strong>2&ndash;3 different approaches</strong> to your problem. Not variations of the same idea &mdash; structurally different solutions. A self-service flow vs. a concierge model. A dashboard vs. a chat interface.
+        </div>
+        <div class="task-deliverable">
+          <div class="deliverable-icon">&#8594;</div>
+          <div class="deliverable-text">Pick the one that tests your riskiest assumption</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fidelity-row">
+      <div class="fidelity-chip">
+        <div>
+          <span class="fidelity-risk">Value Risk</span>
+          <span class="fidelity-arrow">&rarr;</span>
+          <span class="fidelity-build">Landing Page</span>
+        </div>
+        <div class="fidelity-question">"Will they sign up?"</div>
+      </div>
+      <div class="fidelity-chip">
+        <div>
+          <span class="fidelity-risk">Usability Risk</span>
+          <span class="fidelity-arrow">&rarr;</span>
+          <span class="fidelity-build">Clickable Mockup</span>
+        </div>
+        <div class="fidelity-question">"Can they navigate?"</div>
+      </div>
+      <div class="fidelity-chip">
+        <div>
+          <span class="fidelity-risk">Feasibility Risk</span>
+          <span class="fidelity-arrow">&rarr;</span>
+          <span class="fidelity-build">Functional App</span>
+        </div>
+        <div class="fidelity-question">"Does the logic work?"</div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="callout-icon">
+        <svg viewBox="0 0 16 16"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25V8.5h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>
+      </div>
+      <div class="callout-text">
+        <strong>If your options only differ by button placement, you haven't diverged.</strong>
+        Push for different architectures, not different aesthetics.
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Setup (1 min):</strong> "You have 10 minutes. Two tasks. First: fill out the Problem Frame template for your chosen scenario. All six elements. Paste it in Slack when you're done. Second: before you open Lovable, write down 2-3 fundamentally different ways you could solve this problem. Not color variations — different approaches."</p>
+    <p><strong>On Divergence:</strong> "If your three options are the same dashboard with different layouts, you haven't diverged. Push for structurally different solutions — a self-service tool vs. a guided walkthrough vs. an alert system. The goal is to see which shape of product actually tests your riskiest assumption."</p>
+    <p><strong>On Fidelity Matching:</strong> "Look at the bottom of the slide. Match your build depth to your risk. If your riskiest assumption is value — 'will anyone even want this?' — don't build a full app. A landing page answers that faster. If your risk is feasibility — 'can the logic actually work?' — then yes, you need a functional prototype. Don't over-build."</p>
+    <p><strong>Release:</strong> "Go. 10 minutes. Problem Frame first, then diverge. If you finish early, start drafting your first prompt — but don't paste it into Lovable yet. That's Part 2."</p>
+  </div>
+</div>
+</body>
+</html>

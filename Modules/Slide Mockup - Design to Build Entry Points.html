@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — From Design to Build: Three Entry Points</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .title-area {
+    flex: 1;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3B6FE0;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .description {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.5;
+    max-width: 460px;
+  }
+
+  .callout-box {
+    flex: 0 0 auto;
+    background: #0d1117;
+    color: #fff;
+    border-radius: 8px;
+    padding: 14px 20px;
+    max-width: 260px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .callout-icon {
+    width: 22px;
+    height: 22px;
+    background: #3B6FE0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .callout-text {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #c9d1d9;
+    font-weight: 500;
+  }
+
+  .callout-text strong {
+    color: #fff;
+  }
+
+  .cards-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .entry-card {
+    background: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 12px;
+    padding: 22px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .entry-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .card-number {
+    position: absolute;
+    top: -1px;
+    left: 20px;
+    background: #3B6FE0;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+
+  .card-method {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .card-best-for {
+    font-size: 10px;
+    font-weight: 700;
+    color: #3B6FE0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .card-best-desc {
+    font-size: 11.5px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .card-sources {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #e1e4e8;
+  }
+
+  .source-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+
+  .source-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .source-tag {
+    font-size: 10px;
+    color: #555;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-weight: 500;
+  }
+
+  .source-tag.highlight {
+    background: #EBF0FE;
+    border-color: #b4c7f0;
+    color: #2D5BC4;
+  }
+
+  .bottom-note {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    font-style: italic;
+  }
+
+  .bottom-note strong {
+    color: #666;
+    font-style: normal;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="top-section">
+      <div class="title-area">
+        <div class="subtitle">Templates & Design Systems</div>
+        <div class="title">From Design to Build</div>
+        <div class="description">
+          You don't start from zero. Modern AI prototyping tools are multimodal &mdash; they ingest text, images, and design files. Choose your entry point based on what you have.
+        </div>
+      </div>
+      <div class="callout-box">
+        <div class="callout-icon">!</div>
+        <div class="callout-text">
+          <strong>The fastest path to a coherent prototype</strong> is feeding in what already exists &mdash; not describing it from scratch.
+        </div>
+      </div>
+    </div>
+
+    <div class="cards-row">
+      <div class="entry-card">
+        <div class="card-number">1</div>
+        <div class="card-title">Text-to-App</div>
+        <div class="card-method">Natural language prompts</div>
+        <div class="card-best-for">Best for</div>
+        <div class="card-best-desc">New concepts where no design exists yet. You have a problem statement and a hypothesis &mdash; not a wireframe.</div>
+        <div class="card-sources">
+          <div class="source-label">Where to start</div>
+          <div class="source-tags">
+            <span class="source-tag">Your Problem Frame</span>
+            <span class="source-tag">Prompt anatomy (slide 14)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="card-number">2</div>
+        <div class="card-title">Screenshot-to-App</div>
+        <div class="card-method">Upload an image &mdash; it matches the layout</div>
+        <div class="card-best-for">Best for</div>
+        <div class="card-best-desc">Cloning existing patterns, digitizing a whiteboard sketch, or matching a competitor's flow. Show it &mdash; don't describe it.</div>
+        <div class="card-sources">
+          <div class="source-label">Where to find references</div>
+          <div class="source-tags">
+            <span class="source-tag highlight">Mobbin (free)</span>
+            <span class="source-tag highlight">Your existing product</span>
+            <span class="source-tag">Whiteboard photos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry-card">
+        <div class="card-number">3</div>
+        <div class="card-title">Design-to-Code</div>
+        <div class="card-method">Figma imports or design system docs</div>
+        <div class="card-best-for">Best for</div>
+        <div class="card-best-desc">Transforming existing high-fidelity visuals into functional code. Your prototype matches your brand from minute one.</div>
+        <div class="card-sources">
+          <div class="source-label">How to connect</div>
+          <div class="source-tags">
+            <span class="source-tag highlight">Figma (MCP)</span>
+            <span class="source-tag">Brand guidelines</span>
+            <span class="source-tag">Style tokens</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-note">
+      <strong>M3 goes deeper</strong> on Figma-to-Lovable workflows and design system matching. For now: screenshot what you like, paste it in.
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Text-to-App:</strong> "This is your 'blank canvas' option. If you have a problem statement but no visual reference, just describe what you need using the prompt anatomy from slide 14 &mdash; Context, Reference, Constraint, Output. It's great for speed, but you'll get more generic results without a visual anchor."</p>
+    <p><strong>Screenshot-to-App:</strong> "This is the highest-ROI move for most of you. Go to Mobbin &mdash; it's free &mdash; find a real product screen that's close to what you want (a pricing page, a dashboard, an onboarding flow). Screenshot it, paste it into Lovable, and say 'match this look and feel, then add my feature.' Or screenshot your own product and build on top of it. The AI matches the layout, fonts, and spacing automatically."</p>
+    <p><strong>Design-to-Code:</strong> "If your company has a Figma design system, you can import it directly. Lovable's MCP integration connects to Figma &mdash; we'll go much deeper on this in Module 3. For today, just know it exists. Most of you will use Screenshot-to-App in the lab."</p>
+    <p><strong>Quick tip:</strong> "The fastest path to a coherent prototype is feeding in what already exists. Don't spend 5 prompts describing a dashboard layout when you can screenshot one from Mobbin in 10 seconds."</p>
+  </div>
+</div>
+</body>
+</html>

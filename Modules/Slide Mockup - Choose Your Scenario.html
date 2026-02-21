@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — Choose Your Scenario</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 36px 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3B6FE0;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.15;
+  }
+
+  .important-badge {
+    background: #3B6FE0;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .commitment-line {
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .scenario-card {
+    background: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .scenario-number {
+    width: 32px;
+    height: 32px;
+    background: #3B6FE0;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .scenario-content {
+    flex: 1;
+  }
+
+  .scenario-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+  }
+
+  .scenario-hook {
+    font-size: 11.5px;
+    color: #444;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .scenario-desc {
+    font-size: 10.5px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .scenario-risk {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    color: #3B6FE0;
+    background: #EBF0FE;
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .byop-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f6f8fa;
+    border-top: 1px solid #e1e4e8;
+    padding: 14px 48px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .byop-number {
+    width: 32px;
+    height: 32px;
+    background: #24292f;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .byop-content {
+    flex: 1;
+  }
+
+  .byop-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .byop-desc {
+    font-size: 10.5px;
+    color: #666;
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #3B6FE0;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="header-row">
+      <div>
+        <div class="subtitle">Final Project Scenario</div>
+        <div class="title">Choose Your Scenario</div>
+      </div>
+      <div class="important-badge">Commitment Moment</div>
+    </div>
+    <div class="commitment-line">Pick the scenario you'll carry through Modules 2&ndash;6. This becomes your final project. No switching.</div>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-number">1</div>
+        <div class="scenario-content">
+          <div class="scenario-title">The Retention Engine</div>
+          <div class="scenario-hook">B2B SaaS losing 30% of users in 90 days.</div>
+          <div class="scenario-desc">Why are they leaving? Build a prototype that helps you understand churn drivers and test whether an intervention can change the curve.</div>
+          <div class="scenario-risk">Likely risk: Value</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <div class="scenario-number">2</div>
+        <div class="scenario-content">
+          <div class="scenario-title">The Internal Tool Nobody Uses</div>
+          <div class="scenario-hook">CRM with 18% adoption. Built it, they didn't come.</div>
+          <div class="scenario-desc">Figure out why adoption is so low and prototype a version that actually fits into how people work. Classic 1-to-N problem.</div>
+          <div class="scenario-risk">Likely risk: Usability / Adoption</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <div class="scenario-number">3</div>
+        <div class="scenario-content">
+          <div class="scenario-title">The Marketplace Trust Problem</div>
+          <div class="scenario-hook">Bookings flat, zero-review providers.</div>
+          <div class="scenario-desc">Buyers don't trust new providers. Prototype a trust mechanism that gets first-time providers their first booking.</div>
+          <div class="scenario-risk">Likely risk: Value / Feasibility</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <div class="scenario-number">4</div>
+        <div class="scenario-content">
+          <div class="scenario-title">The Dashboard Nobody Reads</div>
+          <div class="scenario-hook">Analytics with 60% bounce rate.</div>
+          <div class="scenario-desc">Data exists but nobody finds insight. Prototype a version that surfaces the right information so people use it to make decisions.</div>
+          <div class="scenario-risk">Likely risk: Usability</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="byop-bar">
+      <div class="byop-number">5</div>
+      <div class="byop-content">
+        <div class="byop-title">Bring Your Own</div>
+        <div class="byop-desc">Use a real problem from your company. Requirements: a clear user, a measurable outcome, and enough ambiguity to test. Check with your instructor.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Setup:</strong> "This is your commitment moment. The scenario you pick now is the one you carry through the rest of the course. Every lab, every prototype, every deliverable builds on this same problem. No switching after today."</p>
+    <p><strong>Scenario 1 — Retention Engine:</strong> "You're a PM at a B2B SaaS company. 30% of users churn within 90 days. Leadership wants answers. Your job: build a prototype that helps you understand why they're leaving and test whether an intervention works. If your instinct is 'do users even want this solution?' — that's a value risk."</p>
+    <p><strong>Scenario 2 — Internal Tool:</strong> "Your company built a CRM. 18% adoption. Nobody uses it. Why? Your job: figure out why adoption is so low and prototype a version that fits into how people actually work. This is a classic 1-to-N problem — the product exists, the users don't come."</p>
+    <p><strong>Scenario 3 — Marketplace Trust:</strong> "You run a services marketplace. Bookings are flat because new providers have zero reviews. Buyers don't trust them. Your job: prototype a trust mechanism that gets first-time providers booked. Could be value risk (does trust even matter?) or feasibility (can you generate credible trust signals?)."</p>
+    <p><strong>Scenario 4 — Dashboard:</strong> "Your analytics dashboard has a 60% bounce rate. The data is there but nobody finds insight. Your job: prototype a version that surfaces the right information so people actually use it. Likely a usability problem — the data exists, the interface doesn't serve it."</p>
+    <p><strong>Option 5 — Bring Your Own:</strong> "If you have a real problem from your company, you can use that. Three requirements: a clear user, a measurable outcome, and enough ambiguity that you don't already know the answer. Check with me during the break if you're unsure."</p>
+    <p><strong>Timing:</strong> "Don't overthink it. Pick the one that feels closest to your real work. You have until the end of break to decide. Post your choice in Slack."</p>
+  </div>
+</div>
+</body>
+</html>

@@ -12,6 +12,8 @@ This is the companion document to the **Vibe Coding Certification - Course Strat
 
 **One rule above all:** Every student should be building something in every module. If you look around the room and people are watching instead of building, something has gone wrong.
 
+**Wow moment principle:** Every module must have a wow moment -- a point where students visibly level up and can see the difference. If a student can't point to something they built or experienced in a session and say "that was the moment," the module design has failed. This is a core principle for this program. (Established with Carlos, Feb 20 session.)
+
 ---
 
 ## Pre-Class Checklist

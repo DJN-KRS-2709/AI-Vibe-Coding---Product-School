@@ -280,8 +280,26 @@
     font-size: 16px; font-weight: 800; flex-shrink: 0;
   }
 
-  .instructions-text { font-size: 13px; color: #555; line-height: 1.65; }
+  .instructions-text { font-size: 13px; color: #555; line-height: 1.65; flex: 1; }
   .instructions-text strong { color: #1a1a2e; }
+
+  .copy-everything-btn {
+    flex-shrink: 0;
+    align-self: center;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    background: #3B6FE0;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .copy-everything-btn:hover { background: #2D5BC4; }
 </style>
 </head>
 <body>
@@ -295,8 +313,9 @@
   <div class="instructions-banner">
     <div class="instructions-icon">!</div>
     <div class="instructions-text">
-      <strong>Don't use everything.</strong> Click the checkboxes next to 2-3 quotes and 3-5 metrics that directly relate to your hypothesis. These are the ones you'll paste into your Lovable prompt. The "Copy Selected" button at the bottom will bundle them for you.
+      <strong>Two ways to use this.</strong> Click <strong>"Copy Everything"</strong> to grab the full scenario (brief + all quotes + all metrics) in one shot — or hand-pick specific quotes and metrics with the checkboxes below.
     </div>
+    <button class="copy-everything-btn" onclick="copyEverything()">Copy Everything</button>
   </div>
 
   <div class="scenario-tabs">
@@ -735,6 +754,51 @@
     if (metrics.length) text += "KEY METRICS (display these numbers in the prototype):\n\n" + metrics.join('\n') + '\n';
     if (!text) { alert('Select quotes and metrics first.'); return; }
     copyText(text, document.querySelector('.sel-btn-primary'));
+  }
+
+  function copyEverything() {
+    const active = document.getElementById('scenario-' + currentScenario);
+    let text = '';
+
+    // Brief
+    const labels = active.querySelectorAll('.brief-label');
+    const values = active.querySelectorAll('.brief-value');
+    text += 'SCENARIO BRIEF:\n\n';
+    labels.forEach((l, i) => {
+      text += l.textContent + ': ' + values[i].textContent + '\n\n';
+    });
+    const hyps = active.querySelectorAll('.hypothesis-item');
+    if (hyps.length) {
+      text += 'COMPETING HYPOTHESES:\n';
+      hyps.forEach(h => {
+        text += '- ' + h.querySelector('.hypothesis-role').textContent + ': ' + h.querySelector('.hypothesis-text').textContent + '\n';
+      });
+      text += '\n';
+    }
+
+    // All quotes
+    const allQuotes = active.querySelectorAll('.quote-item');
+    if (allQuotes.length) {
+      text += 'USER & STAKEHOLDER FEEDBACK:\n\n';
+      allQuotes.forEach(item => {
+        const qt = item.querySelector('.quote-text').textContent;
+        const qs = item.querySelector('.quote-source').textContent;
+        text += `"${qt}" — ${qs}\n\n`;
+      });
+    }
+
+    // All metrics
+    const allRows = active.querySelectorAll('.metrics-table tbody tr');
+    if (allRows.length) {
+      text += 'KEY METRICS:\n\n';
+      allRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        text += `${cells[0].textContent}: ${cells[1].textContent} (${cells[2].textContent}) — ${cells[3].textContent}\n`;
+      });
+    }
+
+    const btn = document.querySelector('.copy-everything-btn');
+    copyText(text, btn);
   }
 
   function clearAll() {

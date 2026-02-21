@@ -221,26 +221,59 @@
   .upload-zone-text strong { color: #1a1a2e; }
   .upload-zone-hint { font-size: 11px; color: #aaa; margin-top: 6px; }
 
-  .upload-preview {
+  .upload-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .upload-gallery:empty {
     display: none;
+    margin-bottom: 0;
+  }
+
+  .upload-thumb {
+    position: relative;
     border-radius: 10px;
     overflow: hidden;
     border: 2px solid #7c3aed;
-    position: relative;
+    background: #f6f8fa;
   }
 
-  .upload-preview img {
+  .upload-thumb img {
     width: 100%;
     display: block;
+    aspect-ratio: 16/10;
+    object-fit: cover;
   }
 
-  .upload-preview .remove-btn {
+  .upload-thumb .remove-btn {
     position: absolute;
-    top: 8px; right: 8px;
-    background: rgba(0,0,0,0.6); color: white;
+    top: 6px; right: 6px;
+    background: rgba(0,0,0,0.65); color: white;
     border: none; border-radius: 6px;
-    padding: 4px 10px; font-size: 11px;
-    cursor: pointer; font-weight: 600;
+    padding: 3px 8px; font-size: 10px;
+    cursor: pointer; font-weight: 700;
+    transition: background 0.2s;
+  }
+
+  .upload-thumb .remove-btn:hover {
+    background: #da3633;
+  }
+
+  .upload-thumb .thumb-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .constraint-input {
@@ -357,6 +390,59 @@
 
   .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
   .tip-text strong { color: #1a1a2e; }
+
+  .scenario-pick {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 10px 8px;
+    border: 2px solid #e1e4e8;
+    border-radius: 8px;
+    background: #fafbfc;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .scenario-pick:hover { border-color: #a0b8f0; background: #f8faff; color: #3B6FE0; }
+
+  .scenario-pick.active {
+    border-color: #3B6FE0;
+    background: #EBF0FE;
+    color: #3B6FE0;
+    font-weight: 700;
+  }
+
+  .scenario-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #555;
+    padding: 12px 16px;
+    background: #f6f8fa;
+    border-radius: 8px;
+    border-left: 3px solid #3B6FE0;
+    display: none;
+  }
+
+  .scenario-hint.visible { display: block; }
+
+  .scenario-hint strong { color: #1a1a2e; }
+
+  .scenario-hint .focus-block {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+  }
+
+  .focus-block.ctx { background: #EBF0FE; color: #3B6FE0; }
+  .focus-block.ref { background: #f3f0ff; color: #7c3aed; }
+  .focus-block.val { background: #1a1a2e; color: #fff; }
+  .focus-block.out { background: #f0fdf4; color: #1a7f37; }
 </style>
 </head>
 <body>
@@ -375,6 +461,18 @@
     <div class="flow-step done"><span class="dot">✓</span> Data Pack</div>
     <span class="flow-arrow">→</span>
     <div class="flow-step active"><span class="dot">4</span> Build Prompt</div>
+  </div>
+
+  <!-- Scenario Selector -->
+  <div style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px 28px;margin-bottom:16px;">
+    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:10px;">Which scenario are you building for?</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+      <button class="scenario-pick active" onclick="pickScenario('retention',this)">Retention Engine</button>
+      <button class="scenario-pick" onclick="pickScenario('internal',this)">Internal Tool</button>
+      <button class="scenario-pick" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
+      <button class="scenario-pick" onclick="pickScenario('dashboard',this)">Dashboard</button>
+    </div>
+    <div class="scenario-hint" id="scenario-hint"></div>
   </div>
 
   <div style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px 28px;margin-bottom:24px;">
@@ -460,16 +558,13 @@ Key metrics:
           </ul>
         </div>
       </div>
+      <div class="upload-gallery" id="upload-gallery"></div>
       <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
         <div class="upload-zone-icon">📸</div>
-        <div class="upload-zone-text"><strong>Drop your screenshot here</strong> or click to browse</div>
-        <div class="upload-zone-hint">This is the screenshot you saved from the Visual Reference Guide (Mobbin, your product, or a competitor)</div>
+        <div class="upload-zone-text"><strong>Drop screenshots here</strong> or click to browse</div>
+        <div class="upload-zone-hint">Add one or more screenshots — from Mobbin, your product, or a competitor</div>
       </div>
-      <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleUpload(event)">
-      <div class="upload-preview" id="upload-preview">
-        <img id="preview-img" src="">
-        <button class="remove-btn" onclick="removeUpload()">Remove</button>
-      </div>
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleUpload(event)">
       <textarea class="prompt-area" id="reference-input" style="margin-top: 12px;" placeholder="Match this look and feel. Use the same layout structure, typography scale, and spacing. Adapt the content to my scenario and data." rows="3"></textarea>
     </div>
   </div>
@@ -594,8 +689,13 @@ Key metrics:
       prompt += `CONTEXT:\n${context}\n\n`;
     }
 
-    if (reference) {
-      prompt += `REFERENCE:\n[Screenshot attached]\n${reference}\n\n`;
+    const imgCount = document.querySelectorAll('.upload-thumb').length;
+    if (reference || imgCount > 0) {
+      prompt += `REFERENCE:\n`;
+      if (imgCount === 1) prompt += `[1 screenshot attached]\n`;
+      else if (imgCount > 1) prompt += `[${imgCount} screenshots attached]\n`;
+      if (reference) prompt += `${reference}\n`;
+      prompt += `\n`;
     }
 
     if (constraint) {
@@ -641,23 +741,86 @@ Key metrics:
     updatePreview();
   }
 
+  let uploadCounter = 0;
+
+  (function initDragDrop() {
+    const zone = document.getElementById('upload-zone');
+    zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.style.borderColor = '#7c3aed'; });
+    zone.addEventListener('dragleave', function() { zone.style.borderColor = ''; });
+    zone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      zone.style.borderColor = '';
+      if (e.dataTransfer.files.length) {
+        handleUploadFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+      }
+    });
+  })();
+
   function handleUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById('preview-img').src = e.target.result;
-      document.getElementById('upload-preview').style.display = 'block';
-      document.getElementById('upload-zone').style.display = 'none';
-    };
-    reader.readAsDataURL(file);
+    handleUploadFiles(Array.from(event.target.files));
   }
 
-  function removeUpload() {
-    document.getElementById('upload-preview').style.display = 'none';
-    document.getElementById('upload-zone').style.display = 'block';
+  function handleUploadFiles(files) {
+    if (!files.length) return;
+    const gallery = document.getElementById('upload-gallery');
+
+    files.forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      const id = 'upload-' + (++uploadCounter);
+      reader.onload = function(e) {
+        const thumb = document.createElement('div');
+        thumb.className = 'upload-thumb';
+        thumb.id = id;
+        thumb.innerHTML = `<img src="${e.target.result}"><button class="remove-btn" onclick="removeImage('${id}')">✕</button><div class="thumb-label">${file.name}</div>`;
+        gallery.appendChild(thumb);
+        updatePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+
     document.getElementById('file-input').value = '';
   }
+
+  function removeImage(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+    updatePreview();
+  }
+
+  const scenarioHints = {
+    retention: {
+      focus: 'ctx',
+      label: 'Block 1 — Context Data Pack',
+      text: 'This scenario is data-rich: activation timelines, invite rates, churn segments. <strong>Your Context block does the heavy lifting.</strong> Pour in the behavioral data — the AI needs to understand the retention dynamics to build the right intervention. Block 3 (Validation Brief) keeps it focused on the riskiest assumption.'
+    },
+    internal: {
+      focus: 'val',
+      label: 'Block 3 — Validation Brief',
+      text: 'Tight constraints define this scenario: can\'t replace the CRM, no training, must layer on top. <strong>Your Validation Brief block is where you win or lose.</strong> Be surgical about what the prototype does and doesn\'t do. Without clear guardrails, the AI will build a whole new CRM instead of a lightweight intervention.'
+    },
+    marketplace: {
+      focus: 'ref',
+      label: 'Block 2 — Visual Reference',
+      text: 'Trust is visual — badges, verified tags, profile layouts, guarantee banners. <strong>Your Visual Reference block matters most here.</strong> Upload screenshots of how Airbnb, Thumbtack, or similar platforms handle trust signals. The AI needs to see what "trust" looks like to build it right.'
+    },
+    dashboard: {
+      focus: 'ctx',
+      label: 'Blocks 1 + 2 — Context & Reference',
+      text: 'Two distinct audiences (power users vs. non-technical) plus a visual hierarchy problem. <strong>Both your Context and Visual Reference blocks carry weight.</strong> The Context block needs to clearly define the two segments. The Reference block should show what good information hierarchy looks like — find a clean dashboard on Mobbin.'
+    }
+  };
+
+  function pickScenario(id, btn) {
+    document.querySelectorAll('.scenario-pick').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const hint = scenarioHints[id];
+    const hintEl = document.getElementById('scenario-hint');
+    hintEl.innerHTML = `<span class="focus-block ${hint.focus}">${hint.label}</span> carries the most weight<br><br>${hint.text}`;
+    hintEl.classList.add('visible');
+  }
+
+  pickScenario('retention', document.querySelector('.scenario-pick.active'));
 
   updatePreview();
 </script>

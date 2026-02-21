@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slide Mockup — The Rapid Validation Loop</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  .slide {
+    width: 960px;
+    height: 540px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 48px 56px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    gap: 40px;
+  }
+
+  .left-col {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 16px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3B6FE0;
+    letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+
+  .title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .left-description {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+    margin-top: auto;
+    margin-bottom: 8px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 16px;
+  }
+
+  .right-col {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .loop-container {
+    position: relative;
+    width: 380px;
+    height: 380px;
+  }
+
+  .loop-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px;
+    height: 240px;
+  }
+
+  .loop-ring svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .step {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(59, 111, 224, 0.25);
+    z-index: 2;
+  }
+
+  .step-number {
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.85;
+    margin-bottom: 2px;
+  }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+    padding: 0 8px;
+  }
+
+  .step-1 {
+    background: linear-gradient(135deg, #4A7FE8, #3B6FE0);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .step-2 {
+    background: linear-gradient(135deg, #2D5BC4, #1E4AB0);
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+  .step-3 {
+    background: linear-gradient(135deg, #2D5BC4, #1E4AB0);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .step-4 {
+    background: linear-gradient(135deg, #4A7FE8, #3B6FE0);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .annotation {
+    position: absolute;
+    font-size: 10.5px;
+    color: #666;
+    line-height: 1.45;
+    max-width: 140px;
+    z-index: 3;
+  }
+
+  .annotation-1 {
+    top: -8px;
+    left: 50%;
+    transform: translateX(80px);
+    text-align: left;
+  }
+
+  .annotation-2 {
+    top: 50%;
+    right: -16px;
+    transform: translate(100%, -120%);
+    text-align: left;
+  }
+
+  .annotation-3 {
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(80px);
+    text-align: left;
+  }
+
+  .annotation-4 {
+    top: 50%;
+    left: -16px;
+    transform: translate(-100%, 20%);
+    text-align: right;
+    max-width: 130px;
+  }
+
+  .annotation em {
+    font-style: italic;
+    color: #999;
+  }
+
+  .arrow {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .arrow svg {
+    overflow: visible;
+  }
+
+  .arrow-1-2 {
+    top: 72px;
+    right: 62px;
+  }
+
+  .arrow-2-3 {
+    bottom: 72px;
+    right: 62px;
+  }
+
+  .arrow-3-4 {
+    bottom: 72px;
+    left: 62px;
+  }
+
+  .arrow-4-1 {
+    top: 72px;
+    left: 62px;
+  }
+
+  .connector {
+    position: absolute;
+    border: none;
+    z-index: 1;
+  }
+
+  .connector-1 {
+    top: 38px;
+    left: calc(50% + 56px);
+    width: 32px;
+    border-top: 1.5px dashed #bbb;
+  }
+
+  .connector-2 {
+    top: calc(50% - 24px);
+    right: -2px;
+    width: 32px;
+    border-top: 1.5px dashed #bbb;
+  }
+
+  .connector-3 {
+    bottom: 38px;
+    left: calc(50% + 56px);
+    width: 32px;
+    border-top: 1.5px dashed #bbb;
+  }
+
+  .connector-4 {
+    top: calc(50% + 24px);
+    left: -2px;
+    width: 32px;
+    border-top: 1.5px dashed #bbb;
+  }
+
+  .center-cycle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  .center-cycle svg {
+    opacity: 0.12;
+  }
+
+  .speaker-notes {
+    width: 960px;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 28px 40px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .speaker-notes h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .speaker-notes p {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .speaker-notes strong {
+    color: #222;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="slide">
+    <div class="left-col">
+      <div class="subtitle">From Assumption to Evidence</div>
+      <div class="title">The Rapid Validation Loop</div>
+      <div class="left-description">
+        This cycle turns raw ideas into validated strategy. Each revolution sharpens your hypothesis, tightens your constraints, and moves your product from uncertain to evidence-backed.
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="loop-container">
+
+        <div class="center-cycle">
+          <svg width="200" height="200" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#3B6FE0" stroke-width="18" />
+            <polygon points="100,4 108,18 92,18" fill="#3B6FE0" transform="rotate(45 100 100)" />
+            <polygon points="100,4 108,18 92,18" fill="#3B6FE0" transform="rotate(135 100 100)" />
+            <polygon points="100,4 108,18 92,18" fill="#3B6FE0" transform="rotate(225 100 100)" />
+            <polygon points="100,4 108,18 92,18" fill="#3B6FE0" transform="rotate(315 100 100)" />
+          </svg>
+        </div>
+
+        <div class="step step-1">
+          <span class="step-number">1.</span>
+          <span class="step-label">Identify the Hypothesis</span>
+        </div>
+
+        <div class="step step-2">
+          <span class="step-number">2.</span>
+          <span class="step-label">Define the Constraints</span>
+        </div>
+
+        <div class="step step-3">
+          <span class="step-number">3.</span>
+          <span class="step-label">Build and Stress-Test</span>
+        </div>
+
+        <div class="step step-4">
+          <span class="step-number">4.</span>
+          <span class="step-label">Synthesize and Pivot</span>
+        </div>
+
+        <hr class="connector connector-1">
+        <hr class="connector connector-2">
+        <hr class="connector connector-3">
+        <hr class="connector connector-4">
+
+        <div class="annotation annotation-1">
+          The <strong>"why"</strong> that governs every prompt you write.
+        </div>
+
+        <div class="annotation annotation-2">
+          The <strong>guardrails</strong> for the build. Scope it before you start.
+        </div>
+
+        <div class="annotation annotation-3">
+          Move beyond the happy path. Find where the logic or experience <strong>breaks</strong>.
+        </div>
+
+        <div class="annotation annotation-4">
+          Turns raw ideas into <strong>validated strategy</strong> by proving what works before committing.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="speaker-notes">
+    <h2>Speaker Notes</h2>
+    <p><strong>Step 1 — Identify the Hypothesis:</strong> Start with a clear "if/then" statement. If you provide the AI with a specific set of inputs, then the user will achieve a specific outcome. This prevents aimless prompting and ensures every version of your prototype has a job to do.</p>
+    <p><strong>Step 2 — Define the Constraints:</strong> Before you build, define the boundaries — intent, logic, interaction patterns. These constraints ensure the AI stays on track and produces a tool that tests your specific assumption rather than a generic demo.</p>
+    <p><strong>Step 3 — Build and Stress-Test:</strong> Your goal isn't just to see it work — it's to see where it breaks. Stress-test the outputs and the user flow to identify technical and usability gaps that would stay hidden in a document.</p>
+    <p><strong>Step 4 — Synthesize and Pivot:</strong> Use the findings to refine your problem framing. Don't just move on — update your hypothesis based on evidence. This is how you iterate on strategy, not just on pixels.</p>
+  </div>
+</div>
+</body>
+</html>
