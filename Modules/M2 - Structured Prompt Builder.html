@@ -95,6 +95,73 @@
 
   .section-body { padding: 20px 28px 24px; }
 
+  .source-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+  }
+
+  .source-banner.dark {
+    background: #161b22;
+    border-color: #30363d;
+  }
+
+  .source-banner-icon {
+    width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; flex-shrink: 0; font-weight: 800;
+  }
+
+  .source-banner-icon.blue { background: #EBF0FE; color: #3B6FE0; }
+  .source-banner-icon.purple { background: #f3f0ff; color: #7c3aed; }
+  .source-banner-icon.red { background: #fef2f2; color: #da3633; }
+  .source-banner-icon.dark-icon { background: #21262d; color: #9ca3af; }
+
+  .source-banner-text {
+    font-size: 12px; color: #555; line-height: 1.5;
+  }
+
+  .source-banner.dark .source-banner-text {
+    color: #9ca3af;
+  }
+
+  .source-banner-text strong { color: #1a1a2e; }
+  .source-banner.dark .source-banner-text strong { color: #e5e7eb; }
+
+  .source-banner-text a {
+    color: #3B6FE0; font-weight: 600; text-decoration: none;
+  }
+
+  .source-banner-text a:hover { text-decoration: underline; }
+
+  .source-steps {
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  .source-steps li {
+    font-size: 11px;
+    color: #888;
+    padding: 2px 0;
+    display: flex;
+    gap: 6px;
+  }
+
+  .source-banner.dark .source-steps li { color: #555d6e; }
+
+  .source-steps li .step-num {
+    font-weight: 800;
+    color: #3B6FE0;
+    flex-shrink: 0;
+  }
+
+  .source-banner.dark .source-steps li .step-num { color: #555d6e; }
+
   .prompt-area {
     width: 100%;
     border: 1.5px solid #e1e4e8;
@@ -297,7 +364,7 @@
   <div class="header">
     <div class="badge">Module 2 — Lab Part 2</div>
     <h1>Structured Prompt Builder</h1>
-    <p>Assemble the prompt you'll paste into Lovable. Four blocks. Each one feeds the AI different information. The output is a complete, copy-ready prompt.</p>
+    <p>Your three completed artifacts feed into the four blocks below. Each block tells you exactly where to paste from. The result is one complete, copy-ready prompt for Lovable.</p>
   </div>
 
   <div class="flow-steps">
@@ -310,28 +377,65 @@
     <div class="flow-step active"><span class="dot">4</span> Build Prompt</div>
   </div>
 
+  <div style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px 28px;margin-bottom:24px;">
+    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;">Where each artifact goes:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
+        <span style="background:#3B6FE0;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">1</span>
+        <span><strong style="color:#1a1a2e;">Context Data Pack</strong> &rarr; Block 1 (scenario brief + quotes + metrics)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
+        <span style="background:#7c3aed;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">2</span>
+        <span><strong style="color:#1a1a2e;">Visual Reference</strong> &rarr; Block 2 (your screenshot)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
+        <span style="background:#0d1117;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">3</span>
+        <span><strong style="color:#1a1a2e;">Validation Brief</strong> &rarr; Block 3 (hypothesis + kill switch + scope)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
+        <span style="background:#1a7f37;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">4</span>
+        <span><strong style="color:#1a1a2e;">Validation Brief</strong> &rarr; Block 4 (fidelity level + what it tests)</span>
+      </div>
+    </div>
+  </div>
+
   <!-- CONTEXT -->
   <div class="section">
     <div class="section-bar">
-      <div class="section-num num-context">C</div>
+      <div class="section-num num-context">1</div>
       <div>
         <div class="section-label">Context</div>
-        <div class="section-sublabel">What's the product, who's the user, what's the situation?</div>
+        <div class="section-sublabel">Tell the AI what you're building and for whom</div>
       </div>
     </div>
     <div class="section-body">
-      <textarea class="prompt-area" id="context-input" placeholder="Paste your scenario brief here. Then add 2-3 user quotes from the data pack.
+      <div class="source-banner">
+        <div class="source-banner-icon blue">📋</div>
+        <div class="source-banner-text">
+          <strong>Paste from your Context Data Pack</strong>
+          <ul class="source-steps">
+            <li><span class="step-num">1.</span> Open the Data Pack &rarr; click "Copy Brief" for your scenario</li>
+            <li><span class="step-num">2.</span> Paste it below</li>
+            <li><span class="step-num">3.</span> Then add your 2-3 highlighted user quotes (click "Copy Selected" in the Data Pack)</li>
+          </ul>
+        </div>
+      </div>
+      <textarea class="prompt-area" id="context-input" placeholder="[Paste your Scenario Brief from the Context Data Pack here]
 
-Example:
-Build a retention-focused onboarding flow for a B2B project management tool used by 5,000 teams. 30% of customers churn within 90 days. Users who invite a teammate in the first 3 days retain at 3x the rate (68% vs 22%), but only 12% send an invite.
+Then add:
 
-Here's what users are saying:
-- &quot;I invited my co-founder on Day 2 and we started using it together. That's when it clicked.&quot;
-- &quot;I tried to invite my team but the flow asked for their role and department. I just want to add them.&quot;
-- &quot;Why can't I just share a link to my board? My teammate gave up trying to sign up.&quot;" rows="8"></textarea>
+Here's what real users are saying:
+- &quot;[Paste highlighted quote 1]&quot; — Source
+- &quot;[Paste highlighted quote 2]&quot; — Source
+- &quot;[Paste highlighted quote 3]&quot; — Source
+
+Key metrics:
+- [Paste highlighted metric 1]
+- [Paste highlighted metric 2]
+- [Paste highlighted metric 3]" rows="10"></textarea>
       <div class="helper-row">
-        <span class="helper-chip" onclick="insertText('context-input', '\n\nHere\'s what users are saying:\n- \"[paste quote 1]\"\n- \"[paste quote 2]\"\n- \"[paste quote 3]\"')">+ Add User Quotes</span>
-        <span class="helper-chip" onclick="insertText('context-input', '\n\nKey metrics:\n- [metric]: [value]\n- [metric]: [value]\n- [metric]: [value]')">+ Add Metrics</span>
+        <span class="helper-chip" onclick="insertText('context-input', '\n\nHere\'s what real users are saying:\n- \"[paste quote from Data Pack]\"\n- \"[paste quote from Data Pack]\"\n- \"[paste quote from Data Pack]\"')">+ Add User Quotes</span>
+        <span class="helper-chip" onclick="insertText('context-input', '\n\nKey metrics from our data:\n- [metric]: [value]\n- [metric]: [value]\n- [metric]: [value]')">+ Add Metrics</span>
         <span class="helper-chip" onclick="insertText('context-input', '\n\nStakeholder context: [VP/PM/CEO] believes the core issue is [hypothesis]. We\'re testing whether that\'s true.')">+ Add Stakeholder View</span>
       </div>
     </div>
@@ -340,48 +444,72 @@ Here's what users are saying:
   <!-- REFERENCE -->
   <div class="section">
     <div class="section-bar">
-      <div class="section-num num-reference">R</div>
+      <div class="section-num num-reference">2</div>
       <div>
-        <div class="section-label">Reference</div>
-        <div class="section-sublabel">The visual anchor — show, don't describe</div>
+        <div class="section-label">Visual Reference</div>
+        <div class="section-sublabel">Show the AI what it should look like</div>
       </div>
     </div>
     <div class="section-body">
+      <div class="source-banner">
+        <div class="source-banner-icon purple">📸</div>
+        <div class="source-banner-text">
+          <strong>Upload the screenshot from your Visual Reference Guide</strong>
+          <ul class="source-steps">
+            <li><span class="step-num">1.</span> The screenshot you found on Mobbin, your product, or a competitor</li>
+            <li><span class="step-num">2.</span> Drop it below &mdash; this image gets attached alongside your text prompt in Lovable</li>
+            <li><span class="step-num">3.</span> Tell the AI how to use it: "Match this look and feel"</li>
+          </ul>
+        </div>
+      </div>
       <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
         <div class="upload-zone-icon">📸</div>
         <div class="upload-zone-text"><strong>Drop your screenshot here</strong> or click to browse</div>
-        <div class="upload-zone-hint">From Mobbin, your product, or a competitor. This image goes into Lovable alongside the text prompt.</div>
+        <div class="upload-zone-hint">This is the screenshot you saved from the Visual Reference Guide (Mobbin, your product, or a competitor)</div>
       </div>
       <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleUpload(event)">
       <div class="upload-preview" id="upload-preview">
         <img id="preview-img" src="">
         <button class="remove-btn" onclick="removeUpload()">Remove</button>
       </div>
-      <textarea class="prompt-area" id="reference-input" style="margin-top: 12px;" placeholder="Match this look and feel. Use the same layout structure, typography scale, and spacing. Adapt the content to my scenario." rows="3"></textarea>
+      <textarea class="prompt-area" id="reference-input" style="margin-top: 12px;" placeholder="Match this look and feel. Use the same layout structure, typography scale, and spacing. Adapt the content to my scenario and data." rows="3"></textarea>
     </div>
   </div>
 
   <!-- CONSTRAINT -->
   <div class="section" style="background: #0d1117;">
     <div class="section-bar" style="border-bottom-color: #21262d;">
-      <div class="section-num num-constraint">!</div>
+      <div class="section-num num-constraint">3</div>
       <div>
-        <div class="section-label" style="color: #fff;">Constraint</div>
-        <div class="section-sublabel" style="color: #555d6e;">Guardrails from your Validation Brief</div>
+        <div class="section-label" style="color: #fff;">Constraints</div>
+        <div class="section-sublabel" style="color: #555d6e;">Guardrails that keep the AI focused on your hypothesis</div>
       </div>
     </div>
     <div class="section-body">
-      <textarea class="constraint-input" id="constraint-input" placeholder="Paste your constraints from the Validation Brief. Tell the AI what to focus on and what to avoid.
+      <div class="source-banner dark">
+        <div class="source-banner-icon dark-icon">📝</div>
+        <div class="source-banner-text">
+          <strong>Pull from your Validation Brief</strong>
+          <ul class="source-steps">
+            <li><span class="step-num">1.</span> Your <strong>hypothesis</strong> &mdash; what you're testing (the if/then/because)</li>
+            <li><span class="step-num">2.</span> Your <strong>kill switch</strong> &mdash; what assumption kills it if wrong</li>
+            <li><span class="step-num">3.</span> Your <strong>risk type + fidelity</strong> &mdash; how many screens, what level of detail</li>
+            <li><span class="step-num">4.</span> Your <strong>selected metrics</strong> from the Data Pack &mdash; tell the AI to display these exact numbers</li>
+          </ul>
+        </div>
+      </div>
+      <textarea class="constraint-input" id="constraint-input" placeholder="From your Validation Brief, translate into guardrails:
 
-Example:
-- Focus on the team invite flow during first-run onboarding
-- Display these actual metrics: 68% retention with invite vs 22% without, 12% current invite rate
-- Maximum 3 screens: invite prompt, team setup wizard, collaborative task view
-- Use real user quotes in the UI copy, not generic placeholder text
-- Avoid generic dashboard patterns — this should feel specific to a B2B PM tool
-- The invite action must be completable in under 30 seconds" rows="6"></textarea>
+- HYPOTHESIS: I'm testing whether [if/then from your Brief]
+- KILL SWITCH: The assumption that kills this is [from your Brief]
+- FOCUS: Build the [specific flow] — this is the riskiest part
+- DATA: Display these actual metrics: [paste 3-5 from Data Pack]
+- SCOPE: Maximum [N] screens: [screen 1], [screen 2], [screen 3]
+- COPY: Use real user quotes in the UI, not placeholder text
+- AVOID: No generic patterns — this should feel specific to [domain]" rows="8"></textarea>
       <div class="helper-row" style="margin-top: 12px;">
-        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Display these actual metrics: [metric 1], [metric 2], [metric 3]')">+ Specific Metrics</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- HYPOTHESIS: I\'m testing whether [paste your if/then from the Validation Brief]')">+ From Brief: Hypothesis</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Display these actual metrics: [paste selected metrics from Data Pack]')">+ From Data Pack: Metrics</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Maximum [N] screens: [screen 1], [screen 2], [screen 3]')">+ Screen Limit</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Use real user quotes in the UI copy, not placeholder text')">+ Real Copy</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Avoid generic patterns — this should feel specific to [domain]')">+ Anti-Generic</span>
@@ -392,20 +520,26 @@ Example:
   <!-- OUTPUT -->
   <div class="section">
     <div class="section-bar">
-      <div class="section-num num-output">→</div>
+      <div class="section-num num-output">4</div>
       <div>
         <div class="section-label">Output</div>
-        <div class="section-sublabel">Exactly what Lovable should produce</div>
+        <div class="section-sublabel">Tell the AI exactly what to produce</div>
       </div>
     </div>
     <div class="section-body">
+      <div class="source-banner">
+        <div class="source-banner-icon blue">→</div>
+        <div class="source-banner-text">
+          <strong>This comes from your Validation Brief</strong> &mdash; your fidelity level and success criteria tell you what to ask for. How many screens? What flow? What does it need to test?
+        </div>
+      </div>
       <div class="output-grid">
         <div class="output-label">Format</div>
-        <input class="output-input" id="output-format" placeholder="A 3-screen responsive web flow">
+        <input class="output-input" id="output-format" placeholder="A 3-screen responsive web flow (from your Fidelity Level in the Brief)">
         <div class="output-label">Screens</div>
         <input class="output-input" id="output-screens" placeholder="1) Invite prompt on first login  2) Team setup wizard  3) Collaborative task view">
         <div class="output-label">Tests</div>
-        <input class="output-input" id="output-tests" placeholder="Whether surfacing invites during onboarding increases invite action vs burying it in settings">
+        <input class="output-input" id="output-tests" placeholder="Whether [your hypothesis from the Brief] — this is what makes it a validation tool, not a demo">
       </div>
     </div>
   </div>
