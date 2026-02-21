@@ -101,8 +101,8 @@
 
   .content-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
     margin-bottom: 20px;
   }
 
@@ -289,66 +289,60 @@
   <div class="slide">
     <div class="slide-header">
       <div class="header-left">
-        <div class="lab-badge">Hands-On Lab &mdash; Part 1</div>
-        <div class="slide-title">Frame Before You Build</div>
-        <div class="slide-subtitle">Complete your Problem Frame. Choose your direction. Match your fidelity.</div>
+        <div class="lab-badge">Hands-On Lab &mdash; Part 1 of 2</div>
+        <div class="slide-title">Frame + Gather Context</div>
+        <div class="slide-subtitle">Do NOT open Lovable yet. Prepare the inputs first.</div>
       </div>
       <div class="timer-box">
-        <div class="timer-number">10</div>
+        <div class="timer-number">12</div>
         <div class="timer-label">minutes</div>
       </div>
     </div>
 
     <div class="content-grid">
       <div class="task-card">
-        <div class="task-step">Step 1 &mdash; Your Problem Frame</div>
-        <div class="task-title">Fill Out the 6-Element Template</div>
+        <div class="task-step">Step 1 &mdash; 5 minutes</div>
+        <div class="task-title">Fill Out the Validation Brief</div>
         <div class="task-desc">
-          Use the Problem Framework from slide 7. Fill in all six elements for <strong>your chosen scenario</strong>: Goal, Problem, Context, Constraints, Success Criteria, and Explore. The last one is the most important &mdash; what are you trying to <strong>learn</strong>?
+          Select your scenario &mdash; it <strong>auto-populates</strong> your hypothesis, risk type, kill switch, success criteria, and fidelity level. Review and adjust. Be specific: <strong>"improve retention" is not a hypothesis.</strong>
         </div>
         <div class="task-deliverable">
           <div class="deliverable-icon">&#8594;</div>
-          <div class="deliverable-text">Paste your completed frame in Slack</div>
+          <div class="deliverable-text">Hypothesis + kill switch + fidelity locked</div>
         </div>
       </div>
 
       <div class="task-card">
-        <div class="task-step">Step 2 &mdash; Diverge, Don't Decorate</div>
-        <div class="task-title">Sketch 2&ndash;3 Fundamentally Different Directions</div>
+        <div class="task-step">Step 2 &mdash; 4 minutes</div>
+        <div class="task-title">Read Your Context Data Pack</div>
         <div class="task-desc">
-          Before you open Lovable, write down <strong>2&ndash;3 different approaches</strong> to your problem. Not variations of the same idea &mdash; structurally different solutions. A self-service flow vs. a concierge model. A dashboard vs. a chat interface.
+          Highlight <strong>2&ndash;3 user quotes</strong> that reveal the real pain and <strong>3&ndash;5 metrics</strong> that anchor the problem in data. Or hit <strong>"Copy Everything"</strong> to grab the full scenario in one shot.
         </div>
         <div class="task-deliverable">
           <div class="deliverable-icon">&#8594;</div>
-          <div class="deliverable-text">Pick the one that tests your riskiest assumption</div>
+          <div class="deliverable-text">Quotes + metrics copied to clipboard</div>
+        </div>
+      </div>
+
+      <div class="task-card">
+        <div class="task-step">Step 3 &mdash; 3 minutes</div>
+        <div class="task-title">Find Your Visual Reference</div>
+        <div class="task-desc">
+          Browse <strong>Mobbin</strong> or screenshot your own product. Pick something that shows the <strong>feel</strong> you want the AI to match. You can upload <strong>multiple screenshots</strong> in the Prompt Builder.
+        </div>
+        <div class="task-deliverable">
+          <div class="deliverable-icon">&#8594;</div>
+          <div class="deliverable-text">1&ndash;3 screenshots saved and ready</div>
         </div>
       </div>
     </div>
 
     <div class="fidelity-row">
-      <div class="fidelity-chip">
+      <div class="fidelity-chip" style="flex: 1; justify-content: center; text-align: center;">
         <div>
-          <span class="fidelity-risk">Value Risk</span>
-          <span class="fidelity-arrow">&rarr;</span>
-          <span class="fidelity-build">Landing Page</span>
+          <span class="fidelity-build" style="color: #58a6ff;">Next &rarr;</span>
+          <span class="fidelity-build"> All three flow into the <strong style="color: #fff;">Structured Prompt Builder</strong> (Part 2)</span>
         </div>
-        <div class="fidelity-question">"Will they sign up?"</div>
-      </div>
-      <div class="fidelity-chip">
-        <div>
-          <span class="fidelity-risk">Usability Risk</span>
-          <span class="fidelity-arrow">&rarr;</span>
-          <span class="fidelity-build">Clickable Mockup</span>
-        </div>
-        <div class="fidelity-question">"Can they navigate?"</div>
-      </div>
-      <div class="fidelity-chip">
-        <div>
-          <span class="fidelity-risk">Feasibility Risk</span>
-          <span class="fidelity-arrow">&rarr;</span>
-          <span class="fidelity-build">Functional App</span>
-        </div>
-        <div class="fidelity-question">"Does the logic work?"</div>
       </div>
     </div>
 
@@ -357,18 +351,19 @@
         <svg viewBox="0 0 16 16"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25V8.5h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>
       </div>
       <div class="callout-text">
-        <strong>If your options only differ by button placement, you haven't diverged.</strong>
-        Push for different architectures, not different aesthetics.
+        <strong>Post in Slack now:</strong> Scenario + hypothesis + screenshot + highlighted quotes/metrics.
+        If it's not in Slack, it doesn't count.
       </div>
     </div>
   </div>
 
   <div class="speaker-notes">
     <h2>Speaker Notes</h2>
-    <p><strong>Setup (1 min):</strong> "You have 10 minutes. Two tasks. First: fill out the Problem Frame template for your chosen scenario. All six elements. Paste it in Slack when you're done. Second: before you open Lovable, write down 2-3 fundamentally different ways you could solve this problem. Not color variations — different approaches."</p>
-    <p><strong>On Divergence:</strong> "If your three options are the same dashboard with different layouts, you haven't diverged. Push for structurally different solutions — a self-service tool vs. a guided walkthrough vs. an alert system. The goal is to see which shape of product actually tests your riskiest assumption."</p>
-    <p><strong>On Fidelity Matching:</strong> "Look at the bottom of the slide. Match your build depth to your risk. If your riskiest assumption is value — 'will anyone even want this?' — don't build a full app. A landing page answers that faster. If your risk is feasibility — 'can the logic actually work?' — then yes, you need a functional prototype. Don't over-build."</p>
-    <p><strong>Release:</strong> "Go. 10 minutes. Problem Frame first, then diverge. If you finish early, start drafting your first prompt — but don't paste it into Lovable yet. That's Part 2."</p>
+    <p><strong>Setup (1 min):</strong> "You have 12 minutes and three tasks. Do NOT open Lovable yet — the quality of your prototype depends entirely on what you prepare now. Step 1: open the Validation Brief, select your scenario — it auto-fills your hypothesis, risk type, kill switch, and fidelity level. Review it. Adjust anything that doesn't feel right. Step 2: open the Context Data Pack for your scenario. Highlight the quotes and metrics that matter, or hit 'Copy Everything' for the full package. Step 3: find a visual reference — browse Mobbin or screenshot your own product."</p>
+    <p><strong>On the Validation Brief:</strong> "The auto-fill gives you a starting point, not the answer. Read the hypothesis it generates. Does it actually test the riskiest assumption? If not, rewrite it. Same for the kill switch — what's the one thing that, if wrong, means this whole prototype was a waste? Be honest about that."</p>
+    <p><strong>On the Context Data Pack:</strong> "You have two options. You can curate: highlight 2-3 quotes and 3-5 metrics that specifically support your hypothesis. Or you can hit 'Copy Everything' and give the AI the full picture. Either works — curating is sharper, full context is faster."</p>
+    <p><strong>On Visual Reference:</strong> "Don't skip this. The difference between a generic-looking prototype and one that looks like a real product is a single screenshot. Mobbin is your best friend. And you can upload multiple screenshots now — grab the layout from one, the style from another."</p>
+    <p><strong>Release:</strong> "Go. 12 minutes. When you're done, post in Slack: your scenario, your hypothesis, your screenshot, and your highlighted quotes/metrics. If it's not in Slack, it doesn't count. All three of these feed directly into the Structured Prompt Builder in Part 2."</p>
   </div>
 </div>
 </body>
