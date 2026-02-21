@@ -378,45 +378,43 @@
   </div>
 
   <div style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px 28px;margin-bottom:24px;">
-    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;">Where each artifact goes:</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
-        <span style="background:#3B6FE0;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">1</span>
-        <span><strong style="color:#1a1a2e;">Context Data Pack</strong> &rarr; Block 1 (scenario brief + quotes + metrics)</span>
+    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;">One artifact per block &mdash; here's the map:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:14px;">
+        <span style="background:#3B6FE0;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">1</span>
+        <strong style="color:#1a1a2e;font-size:13px;">Context Data Pack</strong>
+        <span style="color:#888;font-size:11px;text-align:center;">Scenario brief + quotes + metrics</span>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
-        <span style="background:#7c3aed;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">2</span>
-        <span><strong style="color:#1a1a2e;">Visual Reference</strong> &rarr; Block 2 (your screenshot)</span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:14px;">
+        <span style="background:#7c3aed;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">2</span>
+        <strong style="color:#1a1a2e;font-size:13px;">Visual Reference</strong>
+        <span style="color:#888;font-size:11px;text-align:center;">Your screenshot</span>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
-        <span style="background:#0d1117;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">3</span>
-        <span><strong style="color:#1a1a2e;">Validation Brief</strong> &rarr; Block 3 (hypothesis + kill switch + scope)</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:10px 14px;">
-        <span style="background:#1a7f37;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">4</span>
-        <span><strong style="color:#1a1a2e;">Validation Brief</strong> &rarr; Block 4 (fidelity level + what it tests)</span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#555;background:#f6f8fa;border-radius:8px;padding:14px;">
+        <span style="background:#0d1117;color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">3</span>
+        <strong style="color:#1a1a2e;font-size:13px;">Validation Brief</strong>
+        <span style="color:#888;font-size:11px;text-align:center;">Hypothesis + kill switch + scope + output</span>
       </div>
     </div>
   </div>
 
-  <!-- CONTEXT -->
+  <!-- BLOCK 1: CONTEXT DATA PACK -->
   <div class="section">
     <div class="section-bar">
       <div class="section-num num-context">1</div>
       <div>
-        <div class="section-label">Context</div>
-        <div class="section-sublabel">Tell the AI what you're building and for whom</div>
+        <div class="section-label">Context Data Pack</div>
+        <div class="section-sublabel">Your scenario brief, user quotes, and metrics</div>
       </div>
     </div>
     <div class="section-body">
       <div class="source-banner">
         <div class="source-banner-icon blue">📋</div>
         <div class="source-banner-text">
-          <strong>Paste from your Context Data Pack</strong>
+          <strong>Open your Context Data Pack and paste here:</strong>
           <ul class="source-steps">
-            <li><span class="step-num">1.</span> Open the Data Pack &rarr; click "Copy Brief" for your scenario</li>
-            <li><span class="step-num">2.</span> Paste it below</li>
-            <li><span class="step-num">3.</span> Then add your 2-3 highlighted user quotes (click "Copy Selected" in the Data Pack)</li>
+            <li><span class="step-num">1.</span> Click "Copy Brief" for your scenario &rarr; paste it below</li>
+            <li><span class="step-num">2.</span> Click "Copy Selected" for your highlighted quotes and metrics &rarr; paste below the brief</li>
           </ul>
         </div>
       </div>
@@ -476,40 +474,40 @@ Key metrics:
     </div>
   </div>
 
-  <!-- CONSTRAINT -->
+  <!-- BLOCK 3: VALIDATION BRIEF -->
   <div class="section" style="background: #0d1117;">
     <div class="section-bar" style="border-bottom-color: #21262d;">
       <div class="section-num num-constraint">3</div>
       <div>
-        <div class="section-label" style="color: #fff;">Constraints</div>
-        <div class="section-sublabel" style="color: #555d6e;">Guardrails that keep the AI focused on your hypothesis</div>
+        <div class="section-label" style="color: #fff;">Validation Brief</div>
+        <div class="section-sublabel" style="color: #555d6e;">Your hypothesis, kill switch, scope, and guardrails</div>
       </div>
     </div>
     <div class="section-body">
       <div class="source-banner dark">
         <div class="source-banner-icon dark-icon">📝</div>
         <div class="source-banner-text">
-          <strong>Pull from your Validation Brief</strong>
+          <strong>Open your Validation Brief and translate it into guardrails:</strong>
           <ul class="source-steps">
-            <li><span class="step-num">1.</span> Your <strong>hypothesis</strong> &mdash; what you're testing (the if/then/because)</li>
-            <li><span class="step-num">2.</span> Your <strong>kill switch</strong> &mdash; what assumption kills it if wrong</li>
-            <li><span class="step-num">3.</span> Your <strong>risk type + fidelity</strong> &mdash; how many screens, what level of detail</li>
-            <li><span class="step-num">4.</span> Your <strong>selected metrics</strong> from the Data Pack &mdash; tell the AI to display these exact numbers</li>
+            <li><span class="step-num">1.</span> Your <strong>hypothesis</strong> &mdash; the if/then/because statement</li>
+            <li><span class="step-num">2.</span> Your <strong>kill switch</strong> &mdash; the assumption that kills it if wrong</li>
+            <li><span class="step-num">3.</span> Your <strong>fidelity level</strong> &mdash; how many screens, what scope</li>
+            <li><span class="step-num">4.</span> Your <strong>success criteria</strong> &mdash; what validated vs invalidated looks like</li>
           </ul>
         </div>
       </div>
-      <textarea class="constraint-input" id="constraint-input" placeholder="From your Validation Brief, translate into guardrails:
+      <textarea class="constraint-input" id="constraint-input" placeholder="Translate your Validation Brief into AI guardrails:
 
-- HYPOTHESIS: I'm testing whether [if/then from your Brief]
-- KILL SWITCH: The assumption that kills this is [from your Brief]
+- HYPOTHESIS: I'm testing whether [paste your if/then/because]
+- KILL SWITCH: The assumption that kills this is [paste from Brief]
 - FOCUS: Build the [specific flow] — this is the riskiest part
-- DATA: Display these actual metrics: [paste 3-5 from Data Pack]
-- SCOPE: Maximum [N] screens: [screen 1], [screen 2], [screen 3]
+- SCOPE: Maximum [N] screens: [from your fidelity level]
+- METRICS: Display these actual numbers: [paste selected metrics from Data Pack]
 - COPY: Use real user quotes in the UI, not placeholder text
 - AVOID: No generic patterns — this should feel specific to [domain]" rows="8"></textarea>
       <div class="helper-row" style="margin-top: 12px;">
-        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- HYPOTHESIS: I\'m testing whether [paste your if/then from the Validation Brief]')">+ From Brief: Hypothesis</span>
-        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Display these actual metrics: [paste selected metrics from Data Pack]')">+ From Data Pack: Metrics</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- HYPOTHESIS: I\'m testing whether [paste your if/then/because from the Validation Brief]')">+ Hypothesis</span>
+        <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- KILL SWITCH: The assumption that kills this is [paste from Validation Brief]')">+ Kill Switch</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Maximum [N] screens: [screen 1], [screen 2], [screen 3]')">+ Screen Limit</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Use real user quotes in the UI copy, not placeholder text')">+ Real Copy</span>
         <span class="helper-chip" style="background: #161b22; color: #9ca3af; border-color: #30363d;" onclick="insertText('constraint-input', '\n- Avoid generic patterns — this should feel specific to [domain]')">+ Anti-Generic</span>
@@ -517,20 +515,20 @@ Key metrics:
     </div>
   </div>
 
-  <!-- OUTPUT -->
+  <!-- BLOCK 4: OUTPUT -->
   <div class="section">
     <div class="section-bar">
       <div class="section-num num-output">4</div>
       <div>
         <div class="section-label">Output</div>
-        <div class="section-sublabel">Tell the AI exactly what to produce</div>
+        <div class="section-sublabel">What should Lovable produce?</div>
       </div>
     </div>
     <div class="section-body">
       <div class="source-banner">
         <div class="source-banner-icon blue">→</div>
         <div class="source-banner-text">
-          <strong>This comes from your Validation Brief</strong> &mdash; your fidelity level and success criteria tell you what to ask for. How many screens? What flow? What does it need to test?
+          <strong>Also from your Validation Brief:</strong> your fidelity level tells you the format (landing page / clickable flow / functional app), and your hypothesis tells you what it needs to test.
         </div>
       </div>
       <div class="output-grid">
