@@ -259,9 +259,36 @@
 
   .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
   .tip-text strong { color: #1a1a2e; }
+
+  /* Save indicator */
+  .save-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 8px 16px; font-size: 11px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    background: #ecfdf5; color: #059669; border-bottom: 1px solid #a7f3d0;
+    transform: translateY(-100%); transition: transform 0.3s ease;
+  }
+  .save-bar.visible { transform: translateY(0); }
+  .save-bar .save-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #059669;
+  }
+  .save-bar.saving { background: #eff6ff; color: #3b82f6; border-color: #bfdbfe; }
+  .save-bar.saving .save-dot { background: #3b82f6; }
+
+  /* Import button */
+  .btn-import {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700;
+    background: #21262d; color: #9ca3af; border: none;
+    border-radius: 8px; padding: 10px 20px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-import:hover { background: #30363d; color: #fff; }
 </style>
 </head>
 <body>
+<div class="save-bar" id="save-bar"><div class="save-dot"></div><span id="save-text">Saved to this browser</span></div>
 <div class="page">
   <div class="header">
     <div class="badge">Deliverable #4</div>
@@ -382,6 +409,8 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       </div>
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+        <button class="final-btn btn-import" onclick="document.getElementById('import-file-input').click()">Import .md</button>
+        <input type="file" id="import-file-input" accept=".md,.txt,.json" style="display:none" onchange="importPack(event)">
         <button class="final-btn btn-markdown" onclick="downloadMarkdown()">Export .md</button>
         <button class="final-btn btn-copy-main" id="copy-pack-btn" onclick="copyPack()">Copy Full Pack</button>
       </div>
@@ -395,19 +424,141 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       <strong>This pack is living, not static.</strong> After every module, come back and update it. Add new constraint templates when you find AI patterns to avoid. Add new output templates when you discover prompt structures that work. Add new chain entries as your library grows.
     </div>
   </div>
+
+  <div class="tip-bar" style="margin-top:10px;">
+    <div class="tip-icon">💾</div>
+    <div class="tip-text">
+      <strong>Auto-saved to your browser.</strong> Your pack saves automatically as you type and persists between sessions. To move it to another device, use <strong>Export .md</strong> and then <strong>Import .md</strong> on the other device.
+    </div>
+  </div>
 </div>
 
 <script>
-  const chainEntries = [];
-  let dsCounter = 0;
+  const STORAGE_KEY = 'living-prompt-pack-v1';
+  let saveTimeout = null;
+  let isRestoring = false;
 
-  // Constraint rows
-  const defaultConstraints = [
+  let chainEntries = [];
+  let dsCounter = 0;
+  let dsImages = [];
+
+  const FRESH_CONSTRAINTS = [
     { always: 'Match existing design language from the attached screenshot', never: 'Add new backend functionality or API calls' },
     { always: 'Include loading, error, and empty states for every screen', never: 'Use placeholder text like lorem ipsum or "Sample User"' },
     { always: 'Keep navigation consistent across all screens', never: 'Rebuild screens that already exist — only modify what I specify' },
   ];
 
+  const FRESH_TEMPLATES = [
+    { label: 'Expand', text: 'Add a [screen type] screen: [what it shows]. Match the attached [reference] screenshot. Navigation between all [N] screens.' },
+    { label: 'Behavior', text: 'Add a loading state with skeleton screens for [section]. Add an empty state for [scenario]: "[message]". Add an error state for [failure]: "[message]". Same design language.' },
+    { label: 'Refine', text: 'The [screen] needs [change]. [Specific instruction]. Don\'t change anything else.' },
+  ];
+
+  let defaultConstraints = JSON.parse(JSON.stringify(FRESH_CONSTRAINTS));
+  let defaultTemplates = JSON.parse(JSON.stringify(FRESH_TEMPLATES));
+
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Save indicator ──
+  function showSaveIndicator(msg, type) {
+    const bar = document.getElementById('save-bar');
+    const text = document.getElementById('save-text');
+    text.textContent = msg;
+    bar.className = 'save-bar visible' + (type === 'saving' ? ' saving' : '');
+    clearTimeout(bar._hideTimer);
+    bar._hideTimer = setTimeout(() => { bar.classList.remove('visible'); }, 2400);
+  }
+
+  // ── localStorage persistence ──
+  function gatherState() {
+    return {
+      contextBlock: document.getElementById('context-block').value,
+      figmaLink: document.getElementById('figma-link').value,
+      dsInstructions: document.getElementById('ds-instructions').value,
+      dsImages: dsImages,
+      constraints: defaultConstraints,
+      templates: defaultTemplates,
+      chainEntries: chainEntries,
+      savedAt: new Date().toISOString()
+    };
+  }
+
+  function saveToLocalStorage() {
+    if (isRestoring) return;
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      try {
+        const state = gatherState();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        showSaveIndicator('Saved to this browser', 'saved');
+      } catch (e) {
+        if (e.name === 'QuotaExceededError') {
+          showSaveIndicator('Storage full — export your pack to keep it safe', 'saving');
+        }
+      }
+    }, 600);
+  }
+
+  function restoreFromLocalStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const state = JSON.parse(raw);
+      applyState(state);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function applyState(state) {
+    isRestoring = true;
+
+    if (state.contextBlock != null) {
+      document.getElementById('context-block').value = state.contextBlock;
+    }
+    if (state.figmaLink != null) {
+      document.getElementById('figma-link').value = state.figmaLink;
+    }
+    if (state.dsInstructions != null) {
+      document.getElementById('ds-instructions').value = state.dsInstructions;
+    }
+
+    if (state.dsImages && state.dsImages.length > 0) {
+      dsImages = state.dsImages;
+      const gallery = document.getElementById('ds-gallery');
+      gallery.innerHTML = '';
+      dsImages.forEach((src, idx) => {
+        const id = 'ds-' + (++dsCounter);
+        const thumb = document.createElement('div');
+        thumb.className = 'upload-thumb';
+        thumb.id = id;
+        thumb.innerHTML = `<img src="${src}"><button class="remove-btn" onclick="removeDSImage('${id}', ${idx})">✕</button>`;
+        gallery.appendChild(thumb);
+      });
+    }
+
+    if (state.constraints && state.constraints.length > 0) {
+      defaultConstraints = state.constraints;
+    }
+    if (state.templates && state.templates.length > 0) {
+      defaultTemplates = state.templates;
+    }
+    if (state.chainEntries && state.chainEntries.length > 0) {
+      chainEntries = state.chainEntries;
+    }
+
+    renderConstraintRows();
+    renderTemplateRows();
+    renderChainEntries();
+    updatePreview();
+
+    isRestoring = false;
+  }
+
+  // ── Constraint rows ──
   function renderConstraintRows() {
     const container = document.getElementById('constraint-rows');
     container.innerHTML = '';
@@ -415,10 +566,10 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       container.innerHTML += `
         <div class="row-item">
           <span class="row-prefix always">Always:</span>
-          <input class="row-input" value="${esc(c.always)}" oninput="defaultConstraints[${i}].always=this.value;updatePreview()" placeholder="Always do this...">
+          <input class="row-input" value="${esc(c.always)}" oninput="defaultConstraints[${i}].always=this.value;updatePreview();saveToLocalStorage()" placeholder="Always do this...">
           <span class="row-prefix never">Never:</span>
-          <input class="row-input" value="${esc(c.never)}" oninput="defaultConstraints[${i}].never=this.value;updatePreview()" placeholder="Never do this...">
-          <button class="row-remove" onclick="defaultConstraints.splice(${i},1);renderConstraintRows();updatePreview()">✕</button>
+          <input class="row-input" value="${esc(c.never)}" oninput="defaultConstraints[${i}].never=this.value;updatePreview();saveToLocalStorage()" placeholder="Never do this...">
+          <button class="row-remove" onclick="defaultConstraints.splice(${i},1);renderConstraintRows();updatePreview();saveToLocalStorage()">✕</button>
         </div>`;
     });
   }
@@ -426,15 +577,10 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
   function addConstraintRow() {
     defaultConstraints.push({ always: '', never: '' });
     renderConstraintRows();
+    saveToLocalStorage();
   }
 
-  // Output templates
-  const defaultTemplates = [
-    { label: 'Expand', text: 'Add a [screen type] screen: [what it shows]. Match the attached [reference] screenshot. Navigation between all [N] screens.' },
-    { label: 'Behavior', text: 'Add a loading state with skeleton screens for [section]. Add an empty state for [scenario]: "[message]". Add an error state for [failure]: "[message]". Same design language.' },
-    { label: 'Refine', text: 'The [screen] needs [change]. [Specific instruction]. Don\'t change anything else.' },
-  ];
-
+  // ── Output templates ──
   function renderTemplateRows() {
     const container = document.getElementById('template-rows');
     container.innerHTML = '';
@@ -442,9 +588,9 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       container.innerHTML += `
         <div class="row-item" style="flex-direction:column;align-items:stretch;gap:6px;">
           <div style="display:flex;gap:8px;align-items:center;">
-            <input class="row-input" style="max-width:100px;font-weight:700;" value="${esc(t.label)}" oninput="defaultTemplates[${i}].label=this.value;updatePreview()" placeholder="Label">
-            <input class="row-input" style="flex:1;" value="${esc(t.text)}" oninput="defaultTemplates[${i}].text=this.value;updatePreview()" placeholder="Template text with [placeholders]...">
-            <button class="row-remove" onclick="defaultTemplates.splice(${i},1);renderTemplateRows();updatePreview()">✕</button>
+            <input class="row-input" style="max-width:100px;font-weight:700;" value="${esc(t.label)}" oninput="defaultTemplates[${i}].label=this.value;updatePreview();saveToLocalStorage()" placeholder="Label">
+            <input class="row-input" style="flex:1;" value="${esc(t.text)}" oninput="defaultTemplates[${i}].text=this.value;updatePreview();saveToLocalStorage()" placeholder="Template text with [placeholders]...">
+            <button class="row-remove" onclick="defaultTemplates.splice(${i},1);renderTemplateRows();updatePreview();saveToLocalStorage()">✕</button>
           </div>
         </div>`;
     });
@@ -453,11 +599,32 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
   function addTemplateRow() {
     defaultTemplates.push({ label: '', text: '' });
     renderTemplateRows();
+    saveToLocalStorage();
   }
 
-  // Design system upload
+  // ── Design system upload ──
   function handleDSUpload(event) {
     handleDSFiles(Array.from(event.target.files));
+  }
+
+  function removeDSImage(elementId, imageIdx) {
+    document.getElementById(elementId).remove();
+    dsImages.splice(imageIdx, 1);
+    rebuildGalleryIds();
+    saveToLocalStorage();
+  }
+
+  function rebuildGalleryIds() {
+    const gallery = document.getElementById('ds-gallery');
+    gallery.innerHTML = '';
+    dsImages.forEach((src, idx) => {
+      const id = 'ds-' + (++dsCounter);
+      const thumb = document.createElement('div');
+      thumb.className = 'upload-thumb';
+      thumb.id = id;
+      thumb.innerHTML = `<img src="${src}"><button class="remove-btn" onclick="removeDSImage('${id}', ${idx})">✕</button>`;
+      gallery.appendChild(thumb);
+    });
   }
 
   (function initDSDragDrop() {
@@ -474,23 +641,28 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
   function handleDSFiles(files) {
     if (!files.length) return;
     const gallery = document.getElementById('ds-gallery');
+    let loaded = 0;
     files.forEach(file => {
       if (!file.type.startsWith('image/')) return;
       const reader = new FileReader();
       const id = 'ds-' + (++dsCounter);
       reader.onload = e => {
+        dsImages.push(e.target.result);
+        const imgIdx = dsImages.length - 1;
         const thumb = document.createElement('div');
         thumb.className = 'upload-thumb';
         thumb.id = id;
-        thumb.innerHTML = `<img src="${e.target.result}"><button class="remove-btn" onclick="document.getElementById('${id}').remove()">✕</button>`;
+        thumb.innerHTML = `<img src="${e.target.result}"><button class="remove-btn" onclick="removeDSImage('${id}', ${imgIdx})">✕</button>`;
         gallery.appendChild(thumb);
+        loaded++;
+        if (loaded === files.length) saveToLocalStorage();
       };
       reader.readAsDataURL(file);
     });
     document.getElementById('ds-file-input').value = '';
   }
 
-  // Chain entries
+  // ── Chain entries ──
   function addChainEntry() {
     const textarea = document.getElementById('chain-paste');
     const text = textarea.value.trim();
@@ -503,6 +675,7 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     textarea.value = '';
     renderChainEntries();
     updatePreview();
+    saveToLocalStorage();
   }
 
   function renderChainEntries() {
@@ -516,7 +689,7 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
             <div class="chain-entry-title">${esc(title)}</div>
             <div style="display:flex;gap:8px;align-items:center;">
               <span class="chain-entry-date">${entry.date}</span>
-              <button class="row-remove" onclick="chainEntries.splice(${i},1);renderChainEntries();updatePreview()">✕</button>
+              <button class="row-remove" onclick="chainEntries.splice(${i},1);renderChainEntries();updatePreview();saveToLocalStorage()">✕</button>
             </div>
           </div>
           <div class="chain-entry-body">${esc(entry.text)}</div>
@@ -524,8 +697,8 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     });
   }
 
-  // Preview
-  function updatePreview() {
+  // ── Preview ──
+  function buildPackText() {
     const contextBlock = document.getElementById('context-block').value.trim();
     const figmaLink = document.getElementById('figma-link').value.trim();
     const dsInstructions = document.getElementById('ds-instructions').value.trim();
@@ -569,11 +742,21 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       });
     }
 
+    return { pack, hasContent: !!(contextBlock || figmaLink || dsInstructions || imgCount > 0 || activeConstraints.length > 0 || activeTemplates.length > 0 || chainEntries.length > 0) };
+  }
+
+  function updatePreview() {
+    const { pack, hasContent } = buildPackText();
     const preview = document.getElementById('pack-preview');
-    const hasContent = contextBlock || figmaLink || dsInstructions || imgCount > 0 || activeConstraints.length > 0 || activeTemplates.length > 0 || chainEntries.length > 0;
     preview.textContent = hasContent ? pack : 'Fill in the sections above to see your prompt pack here...';
   }
 
+  // ── Attach save to main text fields ──
+  document.getElementById('context-block').addEventListener('input', saveToLocalStorage);
+  document.getElementById('figma-link').addEventListener('input', saveToLocalStorage);
+  document.getElementById('ds-instructions').addEventListener('input', saveToLocalStorage);
+
+  // ── Copy / Export / Import ──
   function copyPack() {
     const text = document.getElementById('pack-preview').textContent;
     if (!text || text.startsWith('Fill in')) return;
@@ -597,12 +780,121 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     URL.revokeObjectURL(url);
   }
 
+  function importPack(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const content = e.target.result;
+
+      if (file.name.endsWith('.json')) {
+        try {
+          const state = JSON.parse(content);
+          applyState(state);
+          saveToLocalStorage();
+          showSaveIndicator('Pack imported and saved', 'saved');
+        } catch (err) {
+          alert('Could not parse JSON file.');
+        }
+      } else {
+        parseMarkdownImport(content);
+        showSaveIndicator('Pack imported and saved', 'saved');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  function parseMarkdownImport(text) {
+    const sections = {};
+    let currentSection = null;
+    const lines = text.split('\n');
+
+    for (const line of lines) {
+      if (line.startsWith('── ') && line.endsWith(' ──')) {
+        currentSection = line.replace(/── /g, '').replace(/ ──/g, '').trim();
+        sections[currentSection] = [];
+      } else if (currentSection) {
+        sections[currentSection].push(line);
+      }
+    }
+
+    if (sections['PRODUCT CONTEXT BLOCK']) {
+      document.getElementById('context-block').value = sections['PRODUCT CONTEXT BLOCK'].join('\n').trim();
+    }
+
+    if (sections['DESIGN SYSTEM REFERENCE']) {
+      const dsLines = sections['DESIGN SYSTEM REFERENCE'];
+      for (const l of dsLines) {
+        if (l.startsWith('Figma: ')) document.getElementById('figma-link').value = l.replace('Figma: ', '');
+        if (l.startsWith('Instructions: ')) document.getElementById('ds-instructions').value = l.replace('Instructions: ', '');
+      }
+    }
+
+    if (sections['CONSTRAINT TEMPLATES']) {
+      const imported = [];
+      let current = {};
+      for (const l of sections['CONSTRAINT TEMPLATES']) {
+        if (l.startsWith('ALWAYS: ')) {
+          current.always = l.replace('ALWAYS: ', '');
+        } else if (l.startsWith('NEVER: ')) {
+          current.never = l.replace('NEVER: ', '');
+          imported.push(current);
+          current = {};
+        }
+      }
+      if (current.always || current.never) imported.push(current);
+      if (imported.length > 0) {
+        defaultConstraints.length = 0;
+        imported.forEach(c => defaultConstraints.push({ always: c.always || '', never: c.never || '' }));
+      }
+    }
+
+    if (sections['OUTPUT TEMPLATES']) {
+      const imported = [];
+      for (const l of sections['OUTPUT TEMPLATES']) {
+        const match = l.match(/^\[(.+?)\]:\s*(.+)$/);
+        if (match) imported.push({ label: match[1], text: match[2] });
+      }
+      if (imported.length > 0) {
+        defaultTemplates.length = 0;
+        imported.forEach(t => defaultTemplates.push(t));
+      }
+    }
+
+    if (sections['CHAIN ENTRIES']) {
+      const raw = sections['CHAIN ENTRIES'].join('\n');
+      const entries = raw.split(/\n---\s*Entry\s+\d+/).filter(s => s.trim());
+      const imported = [];
+      for (const entry of entries) {
+        const dateMatch = entry.match(/\((.+?)\)\s*---/);
+        const date = dateMatch ? dateMatch[1] : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const body = entry.replace(/\(.+?\)\s*---/, '').trim();
+        if (body) imported.push({ text: body, date });
+      }
+      if (imported.length > 0) {
+        chainEntries.length = 0;
+        imported.forEach(e => chainEntries.push(e));
+      }
+    }
+
+    renderConstraintRows();
+    renderTemplateRows();
+    renderChainEntries();
+    updatePreview();
+    saveToLocalStorage();
+  }
+
   function clearAll() {
+    if (!confirm('This will clear all your data including saved content. Export first if you want to keep it.')) return;
+
     document.getElementById('context-block').value = '';
     document.getElementById('figma-link').value = '';
     document.getElementById('ds-instructions').value = '';
     document.getElementById('ds-gallery').innerHTML = '';
     document.getElementById('chain-paste').value = '';
+    dsImages = [];
+
     defaultConstraints.length = 0;
     defaultConstraints.push(
       { always: '', never: '' },
@@ -615,19 +907,23 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       { label: 'Refine', text: '' },
     );
     chainEntries.length = 0;
+
     renderConstraintRows();
     renderTemplateRows();
     renderChainEntries();
     updatePreview();
+
+    localStorage.removeItem(STORAGE_KEY);
+    showSaveIndicator('Pack cleared', 'saving');
   }
 
-  function esc(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // ── Initialize ──
+  const restored = restoreFromLocalStorage();
+  if (!restored) {
+    renderConstraintRows();
+    renderTemplateRows();
+    updatePreview();
   }
-
-  renderConstraintRows();
-  renderTemplateRows();
-  updatePreview();
 </script>
 </body>
 </html>
