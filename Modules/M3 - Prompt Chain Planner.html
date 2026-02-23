@@ -524,10 +524,69 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
 <script>
   const auditState = { states: 'no', repro: 'no' };
 
+  const SCENARIO_DATA = {
+    retention: {
+      label: 'Retention Engine',
+      audit: { screens: 3, states: 'no', repro: 'no' },
+      expand: `Add a 4th screen: after the user invites teammates, show a team workspace with shared tasks and a "Your team is set up" confirmation — match the attached Asana team view screenshot. Add a 5th screen: an internal PM dashboard showing Day-3 invite rate, retention with vs. without invite, and churn trend — match the attached Intercom reporting dashboard screenshot. Navigation between all 5 screens.`,
+      behavior: `Add loading skeletons for the onboarding flow screens while content loads. Error state for failed invites: "Couldn't send invite — check the email and try again." Empty state for the team workspace when no teammates have joined yet: "Waiting for teammates to join — share the link to get started." Same design language throughout all states.`,
+      refine: `The PM dashboard needs to be more actionable. Add a "Send nudge email" button next to each at-risk account row. Make the churn trend chart show a weekly breakdown on hover. Don't change anything else.`
+    },
+    internal: {
+      label: 'Internal Tool',
+      audit: { screens: 2, states: 'no', repro: 'no' },
+      expand: `Add a 3rd screen: when a user clicks an account row, show an account detail view with a risk timeline (last 90 days), feature adoption breakdown by module, last 5 login sessions, and key contact info — match the attached Linear issue detail screenshot. Add a 4th screen: a team-level roll-up dashboard showing total accounts at risk, average risk score trend, and outreach completion rate — match the attached Datadog dashboard screenshot. Navigation between all 4 screens.`,
+      behavior: `Add loading skeletons for the account list table while data loads. Empty state for when no accounts are at risk: "No at-risk accounts right now — check back tomorrow." Error state for when the data sync fails: "Couldn't load account data — last sync failed. Retry or contact engineering." Add a loading skeleton for the risk timeline chart on the detail screen. Same design language throughout.`,
+      refine: `The account detail screen needs a recommended actions section. Add a "Suggested Playbook" card below the risk timeline that shows 3 prioritized next steps based on the risk signals (e.g., "Schedule check-in call", "Send feature adoption guide", "Escalate to CSM lead"). Don't change anything else.`
+    },
+    marketplace: {
+      label: 'Marketplace Trust',
+      audit: { screens: 3, states: 'no', repro: 'no' },
+      expand: `Add a 4th screen: after a customer books a provider, show a post-booking confirmation with a satisfaction guarantee badge, provider ETA, and a "Report an issue" link — match the attached Airbnb booking confirmation screenshot. Add a 5th screen: a provider-facing dashboard showing their profile completeness score, booking requests, review stats, and a "Boost your profile" checklist — match the attached Etsy seller dashboard screenshot. Navigation between all 5 screens.`,
+      behavior: `Add loading skeletons for the provider search results page while profiles load. Empty state for providers with zero reviews: "New to the platform — book with our satisfaction guarantee." Error state for failed booking attempts: "Booking couldn't be completed — the provider may be unavailable. Try another time or provider." Empty state on the provider dashboard for new providers with no bookings: "No bookings yet — complete your profile to start appearing in search." Same design language throughout.`,
+      refine: `The provider profile page needs stronger trust signals above the fold. Move the verification badge and satisfaction guarantee to directly below the provider name, before the bio. Add a "Response time: usually within 2 hours" indicator next to the badge. Don't change anything else.`
+    },
+    dashboard: {
+      label: 'Dashboard',
+      audit: { screens: 2, states: 'no', repro: 'no' },
+      expand: `Add a 3rd screen: when a user clicks a metric card, show a detail drill-down with a time-series chart (daily/weekly/monthly toggle), a breakdown table by segment, and an anomaly highlight section — match the attached Amplitude dashboard screenshot. Add a 4th screen: a settings/configuration screen where users can set alert thresholds, choose which metrics appear on the main dashboard, and manage notification preferences — match the attached Notion settings screenshot. Navigation between all 4 screens.`,
+      behavior: `Add loading skeletons for all chart components and metric cards on the main dashboard while data loads. Empty state for when a metric has no data yet: "No data for this period — adjust the date range or check your integration." Error state for when a chart fails to load: "Couldn't load this chart — data source may be temporarily unavailable. Retry." Add a loading spinner for the drill-down page transition. Same design language throughout.`,
+      refine: `The main dashboard needs better scannability. Add a color-coded status indicator (green/yellow/red) to each metric card based on whether it's trending up, flat, or down compared to last period. Make each card show a sparkline mini-chart in the bottom-right corner. Don't change anything else.`
+    }
+  };
+
   function pickScenario(id, btn) {
     document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
+    const data = SCENARIO_DATA[id];
+    if (!data) return;
+
+    const hasExisting = ['prompt-expand','prompt-behavior','prompt-refine'].some(
+      fid => document.getElementById(fid).value.trim() !== ''
+    );
+
+    if (hasExisting && !confirm('Replace your current prompts with example prompts for "' + data.label + '"?')) {
+      updatePreview();
+      return;
+    }
+
+    document.getElementById('prompt-expand').value = data.expand;
+    document.getElementById('prompt-behavior').value = data.behavior;
+    document.getElementById('prompt-refine').value = data.refine;
+
+    document.getElementById('result-expand').value = '';
+    document.getElementById('result-behavior').value = '';
+    document.getElementById('result-refine').value = '';
+
+    document.getElementById('audit-screens').value = data.audit.screens;
+    setToggle('states', data.audit.states);
+    setToggle('repro', data.audit.repro);
+
+    updateAudit();
     updatePreview();
+
+    document.querySelector('.prompt-card.expand').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function setToggle(field, val) {
@@ -567,7 +626,6 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     }
 
     document.getElementById('audit-summary').innerHTML = msg;
-    updatePreview();
   }
 
   function updatePreview() {
