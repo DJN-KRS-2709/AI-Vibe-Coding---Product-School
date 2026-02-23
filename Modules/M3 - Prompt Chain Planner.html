@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 — Prompt Chain Planner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #059669;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #ecfdf5; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+  .flow-steps {
+    display: flex; justify-content: center; gap: 8px;
+    margin-bottom: 32px; flex-wrap: wrap;
+  }
+
+  .flow-step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: #888;
+  }
+
+  .flow-step .dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #e5e7eb; color: #888;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+  }
+
+  .flow-step.done .dot { background: #1a7f37; color: white; }
+  .flow-step.done { color: #1a7f37; }
+  .flow-step.active .dot { background: #059669; color: white; }
+  .flow-step.active { color: #059669; }
+
+  .flow-arrow { color: #d1d5db; font-size: 16px; display: flex; align-items: center; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-body { padding: 20px 28px 24px; }
+
+  .card-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0; color: white;
+  }
+
+  .card-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .scenario-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .scenario-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 10px 8px; border: 2px solid #e1e4e8;
+    border-radius: 8px; background: #fafbfc; color: #555;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .scenario-btn:hover { border-color: #a0d8c0; background: #f0fdf8; color: #059669; }
+  .scenario-btn.active { border-color: #059669; background: #ecfdf5; color: #059669; font-weight: 700; }
+
+  .m2-links {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-top: 14px;
+  }
+
+  .m2-link {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font-size: 11px; color: #888; background: #f6f8fa;
+    border-radius: 8px; padding: 12px 8px; text-decoration: none;
+    border: 2px solid transparent; transition: all 0.2s;
+    text-align: center;
+  }
+  .m2-link:hover { border-color: #d1d5db; background: #f0f0f5; }
+  .m2-link strong { color: #3B6FE0; font-size: 12px; }
+
+  .m2-link-dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: white;
+  }
+
+  /* Audit */
+  .audit-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .audit-item { display: flex; flex-direction: column; gap: 6px; }
+  .audit-label { font-size: 12px; font-weight: 600; color: #555; }
+
+  .audit-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 700; color: #1a1a2e;
+    padding: 10px 14px; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; width: 100%;
+    text-align: center;
+  }
+  .audit-input:focus { outline: none; border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+
+  .audit-toggle-row { display: flex; gap: 8px; }
+
+  .audit-toggle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border: 2px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; color: #888; cursor: pointer;
+    transition: all 0.2s; flex: 1; text-align: center;
+  }
+  .audit-toggle:hover { border-color: #d1d5db; }
+  .audit-toggle.yes { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .audit-toggle.no { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+
+  .audit-summary {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #555; line-height: 1.6;
+    margin-top: 4px;
+  }
+  .audit-summary strong { color: #1a1a2e; }
+  .audit-summary .gap { color: #dc2626; font-weight: 600; }
+  .audit-summary .ok { color: #059669; font-weight: 600; }
+
+  /* Prompt cards */
+  .prompt-card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 12px; overflow: hidden;
+    border-left: 4px solid transparent;
+  }
+  .prompt-card.expand { border-left-color: #3B6FE0; }
+  .prompt-card.behavior { border-left-color: #d97706; }
+  .prompt-card.refine { border-left-color: #059669; }
+
+  .prompt-card-header {
+    padding: 18px 24px; display: flex; align-items: center;
+    gap: 14px; border-bottom: 1px solid #f0f0f0;
+  }
+
+  .prompt-num {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .num-expand { background: #3B6FE0; }
+  .num-behavior { background: #d97706; }
+  .num-refine { background: #059669; }
+
+  .prompt-card-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .prompt-card-desc { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .prompt-card-body { padding: 18px 24px 20px; }
+
+  .template-hint {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #666; line-height: 1.6;
+    margin-bottom: 12px; font-family: 'JetBrains Mono', monospace;
+  }
+  .template-hint strong { color: #1a1a2e; }
+
+  .attach-reminder {
+    display: flex; align-items: center; gap: 8px;
+    background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 12px; font-size: 11px; color: #1e40af;
+  }
+  .attach-reminder strong { color: #1e3a8a; }
+
+  .prompt-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 16px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.65;
+    background: #fafbfc; resize: vertical; min-height: 90px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .prompt-textarea:focus {
+    outline: none; border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5,150,105,0.1); background: #fff;
+  }
+  .prompt-textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .result-section {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px dashed #e1e4e8;
+  }
+  .result-label {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .result-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Inter', sans-serif;
+    font-size: 12px; color: #555; line-height: 1.5;
+    background: #fafbfc; resize: vertical; min-height: 60px;
+  }
+  .result-textarea:focus {
+    outline: none; border-color: #888;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+  }
+  .result-textarea::placeholder { color: #c0c0c0; font-style: italic; }
+
+  .prompt-actions {
+    display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;
+  }
+
+  .btn-small {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700; border: none; border-radius: 6px;
+    padding: 8px 16px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-expand { background: #eff6ff; color: #3B6FE0; }
+  .btn-copy-expand:hover { background: #dbeafe; }
+  .btn-copy-behavior { background: #fffbeb; color: #d97706; }
+  .btn-copy-behavior:hover { background: #fef3c7; }
+  .btn-copy-refine { background: #ecfdf5; color: #059669; }
+  .btn-copy-refine:hover { background: #d1fae5; }
+
+  /* Connector arrows */
+  .connector {
+    display: flex; justify-content: center; padding: 4px 0;
+  }
+  .connector-arrow {
+    width: 2px; height: 24px; background: #d1d5db; position: relative;
+  }
+  .connector-arrow::after {
+    content: '▼'; position: absolute; bottom: -8px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  /* Final output */
+  .final-section {
+    background: #0d1117; border-radius: 12px;
+    padding: 28px 32px; margin-top: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .final-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+
+  .final-actions { display: flex; gap: 10px; }
+
+  .final-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-main { background: #059669; color: white; }
+  .btn-copy-main:hover { background: #047857; }
+  .btn-clear { background: #21262d; color: #9ca3af; }
+  .btn-clear:hover { background: #30363d; }
+
+  .final-preview {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #c9d1d9; line-height: 1.8;
+    white-space: pre-wrap; max-height: 500px;
+    overflow-y: auto; min-height: 120px;
+  }
+
+  .tip-bar {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px; margin-top: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #fef3c7; color: #92400e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="badge">Module 3 — Hands-On Lab</div>
+    <h1>Prompt Chain Planner</h1>
+    <p>Plan, write, and document your 3-prompt chain before you touch Lovable. Each prompt targets one thing. The chain becomes an artifact your partner can follow.</p>
+  </div>
+
+  <div class="flow-steps">
+    <div class="flow-step done"><span class="dot">✓</span> M2 Prototype</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step active"><span class="dot">1</span> Audit &amp; Plan</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="dot">2</span> Write Chain</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="dot">3</span> Execute in Lovable</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step"><span class="dot">4</span> Document Results</div>
+  </div>
+
+  <!-- Scenario Selector -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#059669;">⚡</div>
+      <div>
+        <div class="card-title">Your Scenario</div>
+        <div class="card-subtitle">Same scenario you chose in Module 2</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="scenario-grid">
+        <button class="scenario-btn active" onclick="pickScenario('retention',this)">Retention Engine</button>
+        <button class="scenario-btn" onclick="pickScenario('internal',this)">Internal Tool</button>
+        <button class="scenario-btn" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
+        <button class="scenario-btn" onclick="pickScenario('dashboard',this)">Dashboard</button>
+      </div>
+      <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Already have your M2 artifacts? Reference them while you plan:</div>
+      <div class="m2-links">
+        <a class="m2-link" href="M2%20-%20Context%20Data%20Pack.html" target="_blank">
+          <span class="m2-link-dot" style="background:#3B6FE0;">1</span>
+          <strong>Context Data Pack ↗</strong>
+          <span>Quotes + metrics</span>
+        </a>
+        <a class="m2-link" href="M2%20-%20Visual%20Reference%20Guide.html" target="_blank">
+          <span class="m2-link-dot" style="background:#7c3aed;">2</span>
+          <strong>Visual Reference ↗</strong>
+          <span>Screenshots</span>
+        </a>
+        <a class="m2-link" href="M2%20-%20Validation%20Brief.html" target="_blank">
+          <span class="m2-link-dot" style="background:#0d1117;">3</span>
+          <strong>Validation Brief ↗</strong>
+          <span>Hypothesis + scope</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- M2 Audit -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dc2626;">?</div>
+      <div>
+        <div class="card-title">Audit Your M2 Prototype</div>
+        <div class="card-subtitle">What does your M2 build have — and what's missing?</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="audit-grid">
+        <div class="audit-item">
+          <div class="audit-label">How many screens?</div>
+          <input class="audit-input" type="number" id="audit-screens" value="2" min="1" max="20" oninput="updateAudit()">
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Loading / error / empty states?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle no" id="audit-states-no" onclick="setToggle('states','no')">No</button>
+            <button class="audit-toggle" id="audit-states-yes" onclick="setToggle('states','yes')">Yes</button>
+          </div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Reproducible from prompt?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle no" id="audit-repro-no" onclick="setToggle('repro','no')">No</button>
+            <button class="audit-toggle" id="audit-repro-yes" onclick="setToggle('repro','yes')">Yes</button>
+          </div>
+        </div>
+      </div>
+      <div class="audit-summary" id="audit-summary"></div>
+    </div>
+  </div>
+
+  <!-- Prompt 1: Expand -->
+  <div class="prompt-card expand">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-expand">1</div>
+      <div>
+        <div class="prompt-card-title">Expand</div>
+        <div class="prompt-card-desc">Add new screens. Extend the user journey.</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="attach-reminder">
+        <strong>📸 Attach screenshots!</strong> For each new screen, attach a Mobbin reference so Lovable knows the layout. (e.g., Asana team view for a workspace, Intercom dashboard for analytics)
+      </div>
+      <div class="template-hint">
+        <strong>Template:</strong> "Add a [Nth] screen: [what it shows]. Match the attached [reference] screenshot. Add a [Nth] screen: [what it shows]. Match the attached [reference] screenshot. Navigation between all [N] screens."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-expand" placeholder="Write your Expand prompt here...
+
+Example: &quot;Add a 4th screen: after the user invites teammates, show a team workspace with shared tasks — match the attached Asana screenshot. Add a 5th screen: an internal PM dashboard showing invite rate and churn trend — match the attached Intercom screenshot. Navigation between all 5 screens.&quot;" rows="5" oninput="updatePreview()"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what did this produce?</div>
+        <textarea class="result-textarea" id="result-expand" placeholder="Document the result: how many screens now? Did the design match? What worked, what didn't?" rows="3" oninput="updatePreview()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-expand" onclick="copyField('prompt-expand')">Copy Prompt 1</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <!-- Prompt 2: Behavior -->
+  <div class="prompt-card behavior">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-behavior">2</div>
+      <div>
+        <div class="prompt-card-title">Behavior</div>
+        <div class="prompt-card-desc">Add interactive states. Make it behave like real software.</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Add a loading state with skeleton screens for [section]. Add an empty state for [scenario]: '[message]'. Add an error state for [failure case]: '[message]'. Same design language throughout."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-behavior" placeholder="Write your Behavior prompt here...
+
+Example: &quot;Add loading skeletons for the onboarding flow. Error state for failed invites: 'Couldn't send invite — check the email.' Empty state for the team workspace: 'Waiting for teammates to join.' Same design language throughout.&quot;" rows="5" oninput="updatePreview()"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what did this produce?</div>
+        <textarea class="result-textarea" id="result-behavior" placeholder="Document the result: which states appeared? Did the design language hold? What surprised you?" rows="3" oninput="updatePreview()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-behavior" onclick="copyField('prompt-behavior')">Copy Prompt 2</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <!-- Prompt 3: Refine -->
+  <div class="prompt-card refine">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-refine">3</div>
+      <div>
+        <div class="prompt-card-title">Refine</div>
+        <div class="prompt-card-desc">Steer one thing. Don't rebuild. Precision, not restarting.</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "The [specific screen] needs [specific change]. [Add/move/resize a component]. Don't change anything else."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-refine" placeholder="Write your Refine prompt here...
+
+Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge email' button next to at-risk accounts. Make the churn trend chart show weekly breakdown on hover. Don't change anything else.&quot;" rows="5" oninput="updatePreview()"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what did this produce?</div>
+        <textarea class="result-textarea" id="result-refine" placeholder="Document the result: did it change only what you asked? Did anything else break? What would you refine next?" rows="3" oninput="updatePreview()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-refine" onclick="copyField('prompt-refine')">Copy Prompt 3</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final output -->
+  <div class="final-section">
+    <div class="final-header">
+      <div>
+        <div class="final-title">Your Documented Chain</div>
+        <div class="final-subtitle">Copy this for the peer review — your partner follows this chain</div>
+      </div>
+      <div class="final-actions">
+        <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+        <button class="final-btn btn-copy-main" id="copy-chain-btn" onclick="copyChain()">Copy Full Chain</button>
+      </div>
+    </div>
+    <div class="final-preview" id="chain-preview">Write your prompts above to see the full chain here...</div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">!</div>
+    <div class="tip-text">
+      <strong>Don't start over.</strong> If a prompt goes off-rails, diagnose which step broke and rephrase that one prompt. The instinct to rebuild from scratch is an M2 habit — M3 is about steering. Your chain should grow, not restart.
+    </div>
+  </div>
+
+  <div class="tip-bar" style="margin-top:12px;">
+    <div class="tip-icon" style="background:#eff6ff;color:#3B6FE0;">→</div>
+    <div class="tip-text">
+      <strong>Next step:</strong> After documenting your chain, open the <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html" style="color:#059669;font-weight:700;text-decoration:none;">Living Prompt Pack Builder ↗</a> to turn your chain into a reusable toolkit (Deliverable #4).
+    </div>
+  </div>
+</div>
+
+<script>
+  const auditState = { states: 'no', repro: 'no' };
+
+  function pickScenario(id, btn) {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePreview();
+  }
+
+  function setToggle(field, val) {
+    auditState[field] = val;
+    ['yes','no'].forEach(v => {
+      const el = document.getElementById(`audit-${field}-${v}`);
+      el.className = 'audit-toggle' + (val === v ? (v === 'yes' ? ' yes' : ' no') : '');
+    });
+    updateAudit();
+  }
+
+  function updateAudit() {
+    const screens = parseInt(document.getElementById('audit-screens').value) || 0;
+    const hasStates = auditState.states === 'yes';
+    const isRepro = auditState.repro === 'yes';
+
+    const parts = [];
+    parts.push(`<strong>${screens} screen${screens !== 1 ? 's' : ''}</strong>`);
+    parts.push(hasStates
+      ? '<span class="ok">has states</span>'
+      : '<span class="gap">no states</span>');
+    parts.push(isRepro
+      ? '<span class="ok">reproducible</span>'
+      : '<span class="gap">not reproducible</span>');
+
+    let msg = `Your M2 build: ${parts.join(' · ')}`;
+
+    const gaps = [];
+    if (screens < 4) gaps.push('add more screens');
+    if (!hasStates) gaps.push('add loading/error/empty states');
+    if (!isRepro) gaps.push('document your chain so others can follow');
+
+    if (gaps.length > 0) {
+      msg += `<br><strong>M3 closes these gaps:</strong> ${gaps.join(', ')}.`;
+    } else {
+      msg += '<br><span class="ok">Looking good! Use M3 to push it further.</span>';
+    }
+
+    document.getElementById('audit-summary').innerHTML = msg;
+    updatePreview();
+  }
+
+  function updatePreview() {
+    const scenario = document.querySelector('.scenario-btn.active')?.textContent || 'Unknown';
+    const screens = document.getElementById('audit-screens').value || '?';
+    const hasStates = auditState.states === 'yes' ? 'has states' : 'no states';
+    const isRepro = auditState.repro === 'yes' ? 'reproducible' : 'not reproducible';
+
+    const p1 = document.getElementById('prompt-expand').value.trim();
+    const p2 = document.getElementById('prompt-behavior').value.trim();
+    const p3 = document.getElementById('prompt-refine').value.trim();
+    const r1 = document.getElementById('result-expand').value.trim();
+    const r2 = document.getElementById('result-behavior').value.trim();
+    const r3 = document.getElementById('result-refine').value.trim();
+
+    if (!p1 && !p2 && !p3) {
+      document.getElementById('chain-preview').textContent = 'Write your prompts above to see the full chain here...';
+      return;
+    }
+
+    let chain = `PROMPT CHAIN — Module 3\n━━━━━━━━━━━━━━━━━━━━━━\nScenario: ${scenario}\nStarting point: M2 prototype (${screens} screens, ${hasStates}, ${isRepro})\n`;
+
+    if (p1) {
+      chain += `\nPROMPT 1 — EXPAND\n${p1}\n`;
+      if (r1) chain += `Result: ${r1}\n`;
+    }
+
+    if (p2) {
+      chain += `\nPROMPT 2 — BEHAVIOR\n${p2}\n`;
+      if (r2) chain += `Result: ${r2}\n`;
+    }
+
+    if (p3) {
+      chain += `\nPROMPT 3 — REFINE\n${p3}\n`;
+      if (r3) chain += `Result: ${r3}\n`;
+    }
+
+    document.getElementById('chain-preview').textContent = chain;
+  }
+
+  function copyField(id) {
+    const text = document.getElementById(id).value;
+    if (!text.trim()) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btns = document.querySelectorAll(`[onclick="copyField('${id}')"]`);
+      btns.forEach(btn => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      });
+    });
+  }
+
+  function copyChain() {
+    const text = document.getElementById('chain-preview').textContent;
+    if (!text || text.startsWith('Write your')) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-chain-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#047857';
+      setTimeout(() => { btn.textContent = 'Copy Full Chain'; btn.style.background = '#059669'; }, 2000);
+    });
+  }
+
+  function clearAll() {
+    ['prompt-expand','prompt-behavior','prompt-refine','result-expand','result-behavior','result-refine'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('audit-screens').value = '2';
+    setToggle('states', 'no');
+    setToggle('repro', 'no');
+    updatePreview();
+  }
+
+  updateAudit();
+  updatePreview();
+</script>
+</body>
+</html>

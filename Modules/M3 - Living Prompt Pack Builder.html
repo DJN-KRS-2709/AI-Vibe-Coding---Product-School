@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 — Living Prompt Pack Builder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #7c3aed;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #f3f0ff; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+
+  .card-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .card-body { padding: 20px 28px 24px; }
+
+  .helper-text {
+    font-size: 12px; color: #888; line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .helper-text strong { color: #555; }
+
+  .field-label {
+    font-size: 12px; font-weight: 700; color: #555;
+    margin-bottom: 6px; display: block;
+  }
+
+  .text-area {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 16px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.65;
+    background: #fafbfc; resize: vertical; min-height: 80px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .text-area:focus {
+    outline: none; border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1); background: #fff;
+  }
+  .text-area::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .text-input {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 10px 14px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; background: #fafbfc;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus {
+    outline: none; border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+  }
+  .text-input::placeholder { color: #b0b0b0; }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed #d1d5db; border-radius: 10px;
+    padding: 24px; text-align: center; cursor: pointer;
+    transition: all 0.2s; background: #fafbfc; margin-bottom: 12px;
+  }
+  .upload-zone:hover { border-color: #7c3aed; background: #faf5ff; }
+  .upload-zone-icon { font-size: 28px; margin-bottom: 6px; }
+  .upload-zone-text { font-size: 12px; color: #666; }
+  .upload-zone-text strong { color: #1a1a2e; }
+
+  .upload-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px; margin-bottom: 12px;
+  }
+  .upload-gallery:empty { display: none; }
+
+  .upload-thumb {
+    position: relative; border-radius: 8px; overflow: hidden;
+    border: 2px solid #7c3aed; background: #f6f8fa;
+  }
+  .upload-thumb img {
+    width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover;
+  }
+  .upload-thumb .remove-btn {
+    position: absolute; top: 4px; right: 4px;
+    background: rgba(0,0,0,0.6); color: white;
+    border: none; border-radius: 4px; padding: 2px 6px;
+    font-size: 10px; cursor: pointer; font-weight: 700;
+  }
+  .upload-thumb .remove-btn:hover { background: #dc2626; }
+
+  /* Repeatable rows */
+  .row-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .row-item {
+    display: flex; gap: 8px; align-items: center;
+  }
+
+  .row-prefix {
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    width: 70px; text-align: right; padding-right: 4px;
+  }
+  .row-prefix.always { color: #059669; }
+  .row-prefix.never { color: #dc2626; }
+
+  .row-input {
+    flex: 1; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 8px 12px; font-family: 'Inter', sans-serif;
+    font-size: 12px; color: #1a1a2e; background: #fafbfc;
+  }
+  .row-input:focus {
+    outline: none; border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+  }
+  .row-input::placeholder { color: #c0c0c0; }
+
+  .row-remove {
+    font-size: 16px; color: #ccc; cursor: pointer; border: none;
+    background: none; padding: 4px 8px; transition: color 0.2s;
+  }
+  .row-remove:hover { color: #dc2626; }
+
+  .add-row-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700; color: #7c3aed;
+    background: #f3f0ff; border: 1.5px dashed #c4b5fd;
+    border-radius: 8px; padding: 8px 16px; cursor: pointer;
+    transition: all 0.2s; margin-top: 8px; width: 100%;
+  }
+  .add-row-btn:hover { background: #ede9fe; border-color: #7c3aed; }
+
+  /* Chain entries */
+  .chain-entry {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 14px 18px; margin-bottom: 10px;
+  }
+  .chain-entry-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .chain-entry-title {
+    font-size: 12px; font-weight: 700; color: #1a1a2e;
+  }
+  .chain-entry-date { font-size: 10px; color: #aaa; }
+  .chain-entry-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #555; line-height: 1.6;
+    white-space: pre-wrap; max-height: 200px; overflow-y: auto;
+  }
+
+  .chain-paste-area {
+    width: 100%; border: 1.5px dashed #d1d5db; border-radius: 8px;
+    padding: 14px 18px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: #555; line-height: 1.6;
+    background: #fafbfc; resize: vertical; min-height: 80px;
+  }
+  .chain-paste-area:focus {
+    outline: none; border-color: #7c3aed; border-style: solid;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+  }
+  .chain-paste-area::placeholder { color: #c0c0c0; font-style: italic; }
+
+  .btn-add-chain {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; color: white;
+    background: #7c3aed; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+    margin-top: 10px;
+  }
+  .btn-add-chain:hover { background: #6d28d9; }
+
+  /* Final output */
+  .final-section {
+    background: #0d1117; border-radius: 12px;
+    padding: 28px 32px; margin-top: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .final-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+
+  .final-actions { display: flex; gap: 10px; }
+
+  .final-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-main { background: #7c3aed; color: white; }
+  .btn-copy-main:hover { background: #6d28d9; }
+  .btn-markdown { background: #21262d; color: #9ca3af; }
+  .btn-markdown:hover { background: #30363d; }
+  .btn-clear { background: #21262d; color: #555d6e; }
+  .btn-clear:hover { background: #30363d; color: #9ca3af; }
+
+  .final-preview {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #c9d1d9; line-height: 1.8;
+    white-space: pre-wrap; max-height: 500px;
+    overflow-y: auto; min-height: 120px;
+  }
+
+  .tip-bar {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px; margin-top: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #f3f0ff; color: #7c3aed;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="badge">Deliverable #4</div>
+    <h1>Living Prompt Pack Builder</h1>
+    <p>Build your reusable prompt toolkit. These four components get pasted at the start of every prompt session. Your pack grows with every module.</p>
+  </div>
+
+  <!-- 1. Product Context Block -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eff6ff;">📄</div>
+      <div>
+        <div class="card-title">Product Context Block</div>
+        <div class="card-subtitle">Paste this at the start of every prompt session</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="helper-text">
+        <strong>One paragraph that briefs the AI on your product.</strong> Include: company, product, user, core metric, current challenge. Every prompt you write starts with this block — the AI never has to guess who you are or what you're building.
+      </div>
+      <textarea class="text-area" id="context-block" placeholder="Company: [name], [stage], [size]
+Product: [what it does]
+User: [who uses it and why]
+Core metric: [the number that matters most]
+Current challenge: [the problem you're solving]
+
+Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B project management SaaS. User: Team leads managing cross-functional projects. Core metric: 90-day retention. Current challenge: 30% of new customers churn within 90 days because solo users never invite teammates.&quot;" rows="6" oninput="updatePreview()"></textarea>
+    </div>
+  </div>
+
+  <!-- 2. Design System Reference -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#f3f0ff;">🎨</div>
+      <div>
+        <div class="card-title">Design System Reference</div>
+        <div class="card-subtitle">Visual direction the AI matches every time</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="helper-text">
+        <strong>You already have this from M2.</strong> Upload your screenshot or paste a Figma link. This ensures every generation matches your product's visual language — no more generic outputs.
+      </div>
+      <div class="upload-gallery" id="ds-gallery"></div>
+      <div class="upload-zone" onclick="document.getElementById('ds-file-input').click()">
+        <div class="upload-zone-icon">📸</div>
+        <div class="upload-zone-text"><strong>Drop your design reference</strong> or click to browse</div>
+      </div>
+      <input type="file" id="ds-file-input" accept="image/*" multiple style="display:none" onchange="handleDSUpload(event)">
+      <label class="field-label" style="margin-top:12px;">Figma Link (optional)</label>
+      <input class="text-input" id="figma-link" type="url" placeholder="https://figma.com/file/..." oninput="updatePreview()">
+      <label class="field-label" style="margin-top:12px;">Instructions for the AI</label>
+      <input class="text-input" id="ds-instructions" placeholder="Match this layout, typography, and spacing. Use the same color palette." oninput="updatePreview()">
+    </div>
+  </div>
+
+  <!-- 3. Constraint Templates -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fef2f2;">🔒</div>
+      <div>
+        <div class="card-title">Constraint Templates</div>
+        <div class="card-subtitle">Guardrails that prevent the AI from drifting</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="helper-text">
+        <strong>Reusable rules.</strong> These get appended to every prompt. "Always" rules ensure consistency. "Never" rules prevent common AI mistakes you've already identified.
+      </div>
+      <div class="row-list" id="constraint-rows"></div>
+      <button class="add-row-btn" onclick="addConstraintRow()">+ Add constraint pair</button>
+    </div>
+  </div>
+
+  <!-- 4. Output Templates -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#ecfdf5;">📝</div>
+      <div>
+        <div class="card-title">Output Templates</div>
+        <div class="card-subtitle">Fill-in-the-blank structures for common prompt types</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="helper-text">
+        <strong>Reusable prompt skeletons.</strong> Based on the 3 chain types (Expand, Behavior, Refine) plus any custom patterns you discover. Fill in the blanks for each new project.
+      </div>
+      <div class="row-list" id="template-rows"></div>
+      <button class="add-row-btn" onclick="addTemplateRow()">+ Add output template</button>
+    </div>
+  </div>
+
+  <!-- 5. Chain Entries -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fef3c7;">⛓</div>
+      <div>
+        <div class="card-title">Chain Entries</div>
+        <div class="card-subtitle">Your documented prompt chains — this section grows over time</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="helper-text">
+        Paste documented chains from the <a href="M3%20-%20Prompt%20Chain%20Planner.html" target="_blank" style="color:#059669;font-weight:600;text-decoration:none;">Prompt Chain Planner ↗</a>. Each entry becomes a reusable reference — what prompts did you use, what worked, what didn't.
+      </div>
+      <div id="chain-entries"></div>
+      <textarea class="chain-paste-area" id="chain-paste" placeholder="Paste your documented chain here (from the Prompt Chain Planner's 'Copy Full Chain' button)..." rows="4"></textarea>
+      <button class="btn-add-chain" id="add-chain-btn" onclick="addChainEntry()">Add Chain Entry</button>
+    </div>
+  </div>
+
+  <!-- Final output -->
+  <div class="final-section">
+    <div class="final-header">
+      <div>
+        <div class="final-title">Your Living Prompt Pack</div>
+        <div class="final-subtitle">Copy or export — this is Deliverable #4</div>
+      </div>
+      <div class="final-actions">
+        <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+        <button class="final-btn btn-markdown" onclick="downloadMarkdown()">Export .md</button>
+        <button class="final-btn btn-copy-main" id="copy-pack-btn" onclick="copyPack()">Copy Full Pack</button>
+      </div>
+    </div>
+    <div class="final-preview" id="pack-preview">Fill in the sections above to see your prompt pack here...</div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">↻</div>
+    <div class="tip-text">
+      <strong>This pack is living, not static.</strong> After every module, come back and update it. Add new constraint templates when you find AI patterns to avoid. Add new output templates when you discover prompt structures that work. Add new chain entries as your library grows.
+    </div>
+  </div>
+</div>
+
+<script>
+  const chainEntries = [];
+  let dsCounter = 0;
+
+  // Constraint rows
+  const defaultConstraints = [
+    { always: 'Match existing design language from the attached screenshot', never: 'Add new backend functionality or API calls' },
+    { always: 'Include loading, error, and empty states for every screen', never: 'Use placeholder text like lorem ipsum or "Sample User"' },
+    { always: 'Keep navigation consistent across all screens', never: 'Rebuild screens that already exist — only modify what I specify' },
+  ];
+
+  function renderConstraintRows() {
+    const container = document.getElementById('constraint-rows');
+    container.innerHTML = '';
+    defaultConstraints.forEach((c, i) => {
+      container.innerHTML += `
+        <div class="row-item">
+          <span class="row-prefix always">Always:</span>
+          <input class="row-input" value="${esc(c.always)}" oninput="defaultConstraints[${i}].always=this.value;updatePreview()" placeholder="Always do this...">
+          <span class="row-prefix never">Never:</span>
+          <input class="row-input" value="${esc(c.never)}" oninput="defaultConstraints[${i}].never=this.value;updatePreview()" placeholder="Never do this...">
+          <button class="row-remove" onclick="defaultConstraints.splice(${i},1);renderConstraintRows();updatePreview()">✕</button>
+        </div>`;
+    });
+  }
+
+  function addConstraintRow() {
+    defaultConstraints.push({ always: '', never: '' });
+    renderConstraintRows();
+  }
+
+  // Output templates
+  const defaultTemplates = [
+    { label: 'Expand', text: 'Add a [screen type] screen: [what it shows]. Match the attached [reference] screenshot. Navigation between all [N] screens.' },
+    { label: 'Behavior', text: 'Add a loading state with skeleton screens for [section]. Add an empty state for [scenario]: "[message]". Add an error state for [failure]: "[message]". Same design language.' },
+    { label: 'Refine', text: 'The [screen] needs [change]. [Specific instruction]. Don\'t change anything else.' },
+  ];
+
+  function renderTemplateRows() {
+    const container = document.getElementById('template-rows');
+    container.innerHTML = '';
+    defaultTemplates.forEach((t, i) => {
+      container.innerHTML += `
+        <div class="row-item" style="flex-direction:column;align-items:stretch;gap:6px;">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input class="row-input" style="max-width:100px;font-weight:700;" value="${esc(t.label)}" oninput="defaultTemplates[${i}].label=this.value;updatePreview()" placeholder="Label">
+            <input class="row-input" style="flex:1;" value="${esc(t.text)}" oninput="defaultTemplates[${i}].text=this.value;updatePreview()" placeholder="Template text with [placeholders]...">
+            <button class="row-remove" onclick="defaultTemplates.splice(${i},1);renderTemplateRows();updatePreview()">✕</button>
+          </div>
+        </div>`;
+    });
+  }
+
+  function addTemplateRow() {
+    defaultTemplates.push({ label: '', text: '' });
+    renderTemplateRows();
+  }
+
+  // Design system upload
+  function handleDSUpload(event) {
+    handleDSFiles(Array.from(event.target.files));
+  }
+
+  (function initDSDragDrop() {
+    const zone = document.querySelector('.upload-zone');
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.style.borderColor = '#7c3aed'; });
+    zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.style.borderColor = '';
+      handleDSFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+    });
+  })();
+
+  function handleDSFiles(files) {
+    if (!files.length) return;
+    const gallery = document.getElementById('ds-gallery');
+    files.forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      const id = 'ds-' + (++dsCounter);
+      reader.onload = e => {
+        const thumb = document.createElement('div');
+        thumb.className = 'upload-thumb';
+        thumb.id = id;
+        thumb.innerHTML = `<img src="${e.target.result}"><button class="remove-btn" onclick="document.getElementById('${id}').remove()">✕</button>`;
+        gallery.appendChild(thumb);
+      };
+      reader.readAsDataURL(file);
+    });
+    document.getElementById('ds-file-input').value = '';
+  }
+
+  // Chain entries
+  function addChainEntry() {
+    const textarea = document.getElementById('chain-paste');
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    chainEntries.push({
+      text: text,
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    });
+    textarea.value = '';
+    renderChainEntries();
+    updatePreview();
+  }
+
+  function renderChainEntries() {
+    const container = document.getElementById('chain-entries');
+    container.innerHTML = '';
+    chainEntries.forEach((entry, i) => {
+      const title = entry.text.split('\n').find(l => l.startsWith('Scenario:'))?.replace('Scenario: ', '') || `Chain #${i + 1}`;
+      container.innerHTML += `
+        <div class="chain-entry">
+          <div class="chain-entry-header">
+            <div class="chain-entry-title">${esc(title)}</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span class="chain-entry-date">${entry.date}</span>
+              <button class="row-remove" onclick="chainEntries.splice(${i},1);renderChainEntries();updatePreview()">✕</button>
+            </div>
+          </div>
+          <div class="chain-entry-body">${esc(entry.text)}</div>
+        </div>`;
+    });
+  }
+
+  // Preview
+  function updatePreview() {
+    const contextBlock = document.getElementById('context-block').value.trim();
+    const figmaLink = document.getElementById('figma-link').value.trim();
+    const dsInstructions = document.getElementById('ds-instructions').value.trim();
+    const imgCount = document.querySelectorAll('#ds-gallery .upload-thumb').length;
+
+    let pack = `LIVING PROMPT PACK\n━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+    if (contextBlock) {
+      pack += `\n── PRODUCT CONTEXT BLOCK ──\n${contextBlock}\n`;
+    }
+
+    if (figmaLink || dsInstructions || imgCount > 0) {
+      pack += `\n── DESIGN SYSTEM REFERENCE ──\n`;
+      if (imgCount > 0) pack += `[${imgCount} screenshot${imgCount > 1 ? 's' : ''} attached]\n`;
+      if (figmaLink) pack += `Figma: ${figmaLink}\n`;
+      if (dsInstructions) pack += `Instructions: ${dsInstructions}\n`;
+    }
+
+    const activeConstraints = defaultConstraints.filter(c => c.always || c.never);
+    if (activeConstraints.length > 0) {
+      pack += `\n── CONSTRAINT TEMPLATES ──\n`;
+      activeConstraints.forEach(c => {
+        if (c.always) pack += `ALWAYS: ${c.always}\n`;
+        if (c.never) pack += `NEVER: ${c.never}\n`;
+      });
+    }
+
+    const activeTemplates = defaultTemplates.filter(t => t.label || t.text);
+    if (activeTemplates.length > 0) {
+      pack += `\n── OUTPUT TEMPLATES ──\n`;
+      activeTemplates.forEach(t => {
+        const label = t.label || 'Untitled';
+        pack += `[${label}]: ${t.text}\n`;
+      });
+    }
+
+    if (chainEntries.length > 0) {
+      pack += `\n── CHAIN ENTRIES ──\n`;
+      chainEntries.forEach((entry, i) => {
+        pack += `\n--- Entry ${i + 1} (${entry.date}) ---\n${entry.text}\n`;
+      });
+    }
+
+    const preview = document.getElementById('pack-preview');
+    const hasContent = contextBlock || figmaLink || dsInstructions || imgCount > 0 || activeConstraints.length > 0 || activeTemplates.length > 0 || chainEntries.length > 0;
+    preview.textContent = hasContent ? pack : 'Fill in the sections above to see your prompt pack here...';
+  }
+
+  function copyPack() {
+    const text = document.getElementById('pack-preview').textContent;
+    if (!text || text.startsWith('Fill in')) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-pack-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#059669';
+      setTimeout(() => { btn.textContent = 'Copy Full Pack'; btn.style.background = '#7c3aed'; }, 2000);
+    });
+  }
+
+  function downloadMarkdown() {
+    const text = document.getElementById('pack-preview').textContent;
+    if (!text || text.startsWith('Fill in')) return;
+    const blob = new Blob([text], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Living-Prompt-Pack.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function clearAll() {
+    document.getElementById('context-block').value = '';
+    document.getElementById('figma-link').value = '';
+    document.getElementById('ds-instructions').value = '';
+    document.getElementById('ds-gallery').innerHTML = '';
+    document.getElementById('chain-paste').value = '';
+    defaultConstraints.length = 0;
+    defaultConstraints.push(
+      { always: '', never: '' },
+      { always: '', never: '' },
+    );
+    defaultTemplates.length = 0;
+    defaultTemplates.push(
+      { label: 'Expand', text: '' },
+      { label: 'Behavior', text: '' },
+      { label: 'Refine', text: '' },
+    );
+    chainEntries.length = 0;
+    renderConstraintRows();
+    renderTemplateRows();
+    renderChainEntries();
+    updatePreview();
+  }
+
+  function esc(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  renderConstraintRows();
+  renderTemplateRows();
+  updatePreview();
+</script>
+</body>
+</html>

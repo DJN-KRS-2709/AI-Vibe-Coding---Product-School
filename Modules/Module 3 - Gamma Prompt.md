@@ -29,13 +29,13 @@ Module 1 was speed. Module 2 was aim. Module 3 is precision.
 ## Slide 2 — Bridge from M2 + Agenda
 **Your M2 Prototype Proves Something. Would Your VP Ship It?**
 
-Your M2 build has real data, real user quotes, a real hypothesis. That's a huge leap from M1. But if you showed it to your VP right now, they'd say: "Cool, but this doesn't look like our product."
+Your M2 build has real data, real user quotes, a design reference, and a real hypothesis. That's a huge leap from M1. But if you showed it to your VP right now, they'd say: "This tests the right thing, but it's only 3 screens. Where's the full flow? What happens when things go wrong?"
 
 Today's flow:
 1. **Demo** — What precision looks like
 2. **Diagnose** — How does your M2 build hold up?
-3. **The Precision Toolkit** — Design systems, prompt chains, context layering
-4. **Lab** — Build a multi-screen product flow with a 5-prompt chain
+3. **The Precision Toolkit** — Prompt chain anatomy, multi-step prompting, living prompt packs
+4. **Lab** — Expand your M2 build with a 3-prompt chain
 5. **Peer Review** — Can someone else follow your prompt chain?
 
 ---
@@ -47,31 +47,31 @@ INSTRUCTOR DEMO
 
 The M2 prototype: Retention Engine onboarding flow.
 
-- Day-3 invite rate: 12%
-- Retention with invite: 68% vs 22% without
-- 3-screen onboarding flow with real user quotes and a named hypothesis
+- Real data, real user quotes, design-matched to Asana
+- Named hypothesis: "Surface team invites during first-run onboarding"
+- 3-screen onboarding flow
 
-What's missing?
-- Doesn't match your product — generic styling
-- No loading states, no error handling
-- No internal view for the PM team to track results
+What's still missing?
+- Only 3 screens — where's the team workspace after they invite? Where's the PM dashboard to track if it's working?
+- No loading states, no error handling — what happens when things go wrong?
+- Built with one big prompt — could someone else reproduce this?
 
-*Speaker Notes: Pull up the actual M2 Retention Engine prototype you built live in Module 2. Let the room look at it. Ask: "Would your VP present this to the board?" Pause. Let the silence do the work. Then walk through the three gaps. This sets up the demo — students need to feel the gap before you show the fix. Keep it to 2 minutes.*
+*Speaker Notes: Pull up the actual M2 Retention Engine prototype you built live in Module 2. It already has the design match and real data — that's M2's work. Ask: "Would your VP present this to the board?" Pause. The answer is "almost" — it tests the right thing and looks right, but it's incomplete. Name the three gaps: not enough screens, no states, not reproducible. Keep it to 2 minutes.*
 
 ---
 
 ## Slide 4 — Live Build: 3 Prompts
 **The Precision Chain**
 
-**Prompt 1 — Design:** "Rebuild this onboarding flow to match this design system [Mobbin screenshot of Linear]. Keep the invite-first flow and all the metrics. Match the card layout, typography, and navigation."
+**Prompt 1 — Expand:** Attach 2 screenshots: Asana team view + Intercom reporting dashboard. "Add a 4th screen: after the user invites teammates, show a team workspace with shared tasks and a 'Your team is set up' confirmation — match the attached Asana screenshot. Add a 5th screen: an internal PM dashboard showing Day-3 invite rate, retention with vs without invite, and churn trend — match the attached Intercom dashboard screenshot. Navigation between all 5 screens."
 
-**Prompt 2 — Screens:** "Add a team workspace screen after the user invites teammates. Add an internal PM dashboard showing Day-3 invite rate, retention, and churn trend. Navigation between all screens."
+**Prompt 2 — States:** "Add loading skeletons for the onboarding flow. Error state for failed invites: 'Couldn't send invite — check the email.' Empty state for the team workspace: 'Waiting for teammates to join.' Same design language throughout."
 
-**Prompt 3 — States:** "Add loading skeletons. Error state for failed invites. Empty state for the team workspace. Same design language throughout."
+**Prompt 3 — Refine:** "The PM dashboard needs to be more actionable. Add a 'Send nudge email' button next to at-risk accounts. Make the churn trend chart show weekly breakdown on hover. Don't change anything else."
 
-3 prompts. 5 screens. Matched to Linear. With states.
+3 prompts. 5 screens. States. And an iteration without rebuilding.
 
-*Speaker Notes: Run the 3 prompts sequentially in Lovable — pre-type each one in a separate tab so you paste instantly. Prompt 1: paste, wait ~40 sec, let the design transform land. "Same content, looks like Linear now." Prompt 2: paste, wait ~40 sec, click through the new screens. "We went from 3 screens to 5 — and there's a PM dashboard now." Prompt 3: paste, wait ~40 sec, show the loading skeleton and error state. "It behaves like a real product." Don't linger — this is a teaser. 5 minutes total. The students will do it themselves and that's where the real moment lives.*
+*Speaker Notes: Run the 3 prompts sequentially — pre-type each one so you paste instantly. Prompt 1: paste with 2 Mobbin screenshots attached (Asana team view for Screen 4, Intercom reporting dashboard for Screen 5), wait ~40 sec, click through the new screens. "We went from 3 to 5 — and there's a PM dashboard the VP can actually use." Prompt 2: paste, wait ~40 sec, show the loading skeleton and error state. "Now it behaves like a real product." Prompt 3: paste, wait ~40 sec. "Notice I didn't rebuild anything. I refined ONE screen. Steering, not restarting. That's precision." Don't linger — 5 minutes total. The students will do it themselves.*
 
 ---
 
@@ -122,20 +122,22 @@ M1–M2 lived on the left. Today you move right.
 
 ---
 
-## Slide 8 — Context Layering: The Core Technique
-**Context Layering** — Feed the AI Everything It Needs
+## Slide 8 — Anatomy of a Prompt Chain
+**Why Chains Beat Mega-Prompts**
 
-Generic prompt = generic output. Layered context = your product.
+In M2, you put everything into one prompt. It worked — but the AI had to solve layout, data, design, and flow all at once. Things get lost.
 
-**What to feed:**
-- **Product brief** — What does this do? Who is it for?
-- **Design system** — Colors, typography, components. Screenshot, tokens, or Figma link.
-- **User research** — Key quotes, behaviors, pain points (you already have these from M2).
-- **Constraints** — What must be included? What must be avoided?
+A prompt chain uses **3 different types of prompts in sequence:**
 
-**The "clone your product" technique:** Screenshot your actual product. "Match this layout, colors, navigation. Add my new feature on top." Stakeholders take prototypes seriously when they look like the real product.
+| Step | Prompt Type | What it does | Example |
+|---|---|---|---|
+| 1 | **Expand** | Add new screens, extend the flow | "Add a dashboard and a detail view. Navigation between all screens." |
+| 2 | **Behavior** | Add states and interactions | "Loading skeletons. Error messages. Empty states." |
+| 3 | **Refine** | Steer one thing, don't rebuild | "Make the chart interactive. Don't change anything else." |
 
-MCP (Model Context Protocol) connects AI tools directly to Figma files and design systems. You don't need to set this up today — but know it exists.
+Each prompt type does a different job. You're not splitting one big prompt into 3 parts — you're using different **kinds** of prompts in sequence. The AI focuses on one thing at a time. Precision accumulates.
+
+*Speaker Notes: Connect this directly to the demo they just watched. "Remember the 3 prompts I ran? Prompt 1 was an Expand prompt — I added screens. Prompt 2 was a Behavior prompt — I added states. Prompt 3 was a Refine prompt — I changed one screen. Three different kinds of prompts. That's the structure you'll use in the lab."*
 
 ---
 
@@ -169,49 +171,43 @@ Your prompt chain from today becomes the first entry in your Prompt Library (Del
 
 ---
 
-## Slide 11 — Lab Part 1: Prepare Your Precision Inputs
+## Slide 11 — Lab Part 1: Assess and Plan
 **Hands-on Lab Part 1: Prepare** | 8 Minutes
 
-Do NOT open Lovable yet. Prepare the ammunition.
+Do NOT open Lovable yet. Plan your chain first.
 
-**Step 1 (3 min):** Capture your design system reference.
-- Option A: Screenshot your company's actual product (if working on real problem)
-- Option B: Find a Mobbin reference matching your scenario's product type (PM tool, CRM, marketplace, dashboard)
-- Option C: Export Figma components if you have them
+**Step 1 (3 min):** Pull up your M2 prototype. Audit what's there:
+- How many screens? What's missing from the full user journey?
+- Any loading states, error handling, or empty states? (Probably not.)
+- Is there a secondary view — a dashboard, detail page, or admin screen?
 
-**Step 2 (3 min):** Plan your 5-step prompt chain on paper or in a doc.
-- Prompt 1: Structure + design match
-- Prompt 2: Feature from your M2 hypothesis
-- Prompt 3: Real data injection (metrics + quotes from M2)
-- Prompt 4: Interactive states (loading, empty, error)
-- Prompt 5: Second screen + navigation
+**Step 2 (3 min):** Plan a 3-prompt chain on paper or in a doc.
+- Prompt 1: Expand — what 1-2 screens would make this a complete flow?
+- Prompt 2: States — loading skeletons, error messages, empty states
+- Prompt 3: Refine — pick one screen that needs iteration, steer it without rebuilding
 
-**Step 3 (2 min):** Gather your M2 materials — pull up your M2 hypothesis, data pack quotes, and metrics.
+**Step 3 (2 min):** Write each prompt out in full before you touch Lovable. This is your chain. If you can't explain each step on paper, you're not ready.
 
-*Speaker Notes: Walk the room. Check that everyone has a design system reference — if they don't have a Mobbin screenshot yet, help them find one. Check that their 5-step plan is written down, not just in their head. "If you don't have a screenshot and a plan on paper, you're not ready for the build yet." This 8 minutes of prep IS the difference between M2 and M3.*
+*Speaker Notes: Walk the room. Check that everyone has their M2 prototype open and their 3-prompt chain written down — not in their head, on paper. "If your chain isn't written out, you're not ready for the build yet." Common issue: students want to START OVER instead of expanding their M2. Redirect them: "Your M2 work is your foundation. Don't rebuild — expand." This 8 minutes of planning IS the difference between M2 and M3.*
 
 ---
 
 ## Slide 12 — Lab Part 2: The Precision Build
 **Hands-on Lab Part 2: Build** | 22 Minutes
 
-Execute your chain step by step. Document every prompt.
+Start from your M2 prototype. Execute your chain step by step. Document every prompt.
 
-**Prompt 1 — Structure:** Open Lovable. Attach your design system screenshot. "Build a [dashboard/flow] with this layout: [sidebar/header/main content]. Match this design system."
+**Prompt 1 — Expand:** "Add a [detail view / dashboard / secondary screen] to this prototype. When a user clicks [X], show [specific content]. Include navigation back to the main view. Keep the existing design language."
 
-**Prompt 2 — Feature:** "Add [your M2 hypothesis feature]. Keep the design system. Include these sections: [specific sections from your M2 build]."
+**Prompt 2 — States:** "Add a loading state with skeleton screens for [specific section]. Add an empty state for [scenario]: '[helpful message]'. Add an error state for [failure case]: '[error message]'. Same design language throughout."
 
-**Prompt 3 — Data:** "Display these real metrics: [paste 3-5 numbers from your M2 data pack]. Show these user quotes as feedback cards: [paste 2-3 quotes]."
-
-**Prompt 4 — States:** "Add a loading state with skeleton screens. Add an empty state for new users with an onboarding message. Add an error state. Same design language throughout."
-
-**Prompt 5 — Second Screen:** "Add a detail view when a user clicks [X]. Include navigation back to the main view. Show [specific data] on this screen."
+**Prompt 3 — Refine:** "The [specific screen] needs [specific change]. [Add/move/resize a component]. Don't change anything else." Steer one thing. Don't rebuild.
 
 **Document each prompt** — what you wrote, why, and what it produced. This is the foundation of your Prompt Library (Deliverable #4).
 
 *Verify your shareable link works — you're swapping prototypes next.*
 
-*Speaker Notes: THIS IS THE WOW MOMENT — it happens in the students' hands, not yours. Walk the room as they execute. At prompt 1: check the design match landed. At prompt 3: watch for reactions when loading states appear — that's usually when it clicks. At prompt 5: "Stop. Click through your prototype from the first screen to the last." Let them navigate. Let them see the multi-screen flow, the data, the states. Don't narrate it — let the experience speak. At 20 min: "2 minutes. Document your last prompt. Make sure your shareable link works." If someone is stuck on prompt 2: "What context are you giving it? Try adding the screenshot again." If someone's result looks off: "That's prompt debugging — we'll cover it later. For now, steer with your next prompt, don't restart."*
+*Speaker Notes: THIS IS THE WOW MOMENT — it happens in the students' hands, not yours. Walk the room as they execute. At Prompt 1: check they're expanding their M2, not rebuilding from scratch. At Prompt 2: watch for reactions when loading skeletons appear — that's usually when it clicks. "It looks like a real product now." At Prompt 3: "Notice you didn't start over. You steered one thing. That's the difference." After 20 min: "Stop. Click through your prototype from the first screen to the last." Let them navigate. Let them see the multi-screen flow and the states. Don't narrate it — let the experience speak. At 22 min: "Document your last prompt. Make sure your shareable link works." If someone wants to start over: "Resist the urge. Expand what you have. That's precision."*
 
 ---
 
@@ -278,7 +274,7 @@ Same tool. Same you.
 ## Slide 17 — What You Did Today
 **What You Did Today**
 
-**1. Prompt Chain** — You documented a 5-step chain. Each prompt targeted one aspect. Your partner could follow it. That's the first entry in your Prompt Library (Deliverable #4).
+**1. Prompt Chain** — You documented a 3-step chain. Each prompt targeted one aspect. Your partner could follow it. That's the first entry in your Prompt Library (Deliverable #4).
 
 **2. Multi-Screen Flow** — Multiple connected screens with navigation. Not a single page.
 
@@ -293,7 +289,7 @@ Same tool. Same you.
 
 **2. Engage:** Look at 2 others. Could you follow their prompt chain? Would you get a similar result?
 
-**3. Optional challenge:** Take your company's real product screenshot and design system. Rebuild your M3 prototype to match. Drop the before/after in Slack.
+**3. Optional challenge:** Add a 4th prompt to your chain — one screen you didn't have time to build today. Drop the before/after in Slack with the prompt that created it.
 
 ---
 
@@ -330,9 +326,9 @@ Scan the QR code or use the link to share your feedback. Your insights help us i
 - Slide 3 — Large question, minimal clutter. This is a conversation starter, not a lecture slide.
 - Slide 4 — Show the 3 prompts cleanly. Students should be able to read the prompt text and see the progression.
 - Slide 6 — Three numbered questions, prominent and scannable from the back of the room
-- Slide 8 — Context Layering: four inputs as a visual stack or card grid
+- Slide 8 — Anatomy of a Prompt Chain: the 3-column table (Expand / Behavior / Refine) is the key visual. Students will reference this during the lab.
 - Slide 9 — Multi-Step Prompting: three techniques as distinct visual blocks
-- Slide 12 — 5-step prompt chain as a clear, numbered workflow. Students will reference this while building. Must be scannable at a glance. This is the most-referenced slide in the module.
+- Slide 12 — 3-step prompt chain as a clear, numbered workflow. Students will reference this while building. Must be scannable at a glance. This is the most-referenced slide in the module.
 - Slide 16 — Three-column layout (M1 | M2 | M3). Let the visual comparison do the talking — minimal text.
 - Slide 17 — Takeaways mirror slide 1's three waypoints (visual callback, same pattern as M2)
 - Keep all lab slides (11, 12, 13) highly scannable — students reference these while building
