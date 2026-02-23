@@ -167,35 +167,32 @@ A collection of evolving prompt templates that encode your product context. NOT 
 - Constraint templates ("Always do X. Never do Y.")
 - Output templates ("Build me a [component] with [features] matching [design system]")
 
-Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). It evolves as you learn.
+Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). Build it in the **Living Prompt Pack Builder** — it evolves as you learn.
 
 ---
 
 ## Slide 11 — Lab Part 1: Assess and Plan
 **Hands-on Lab Part 1: Prepare** | 8 Minutes
 
-Do NOT open Lovable yet. Plan your chain first.
+Do NOT open Lovable yet. Open the **Prompt Chain Planner** and plan your chain first.
 
-**Step 1 (3 min):** Pull up your M2 prototype. Audit what's there:
-- How many screens? What's missing from the full user journey?
-- Any loading states, error handling, or empty states? (Probably not.)
-- Is there a secondary view — a dashboard, detail page, or admin screen?
+**Step 1 (3 min):** Fill in the M2 Audit in the Planner. How many screens? Any states? Reproducible?
 
-**Step 2 (3 min):** Plan a 3-prompt chain on paper or in a doc.
-- Prompt 1: Expand — what 1-2 screens would make this a complete flow?
-- Prompt 2: States — loading skeletons, error messages, empty states
-- Prompt 3: Refine — pick one screen that needs iteration, steer it without rebuilding
+**Step 2 (3 min):** Write your 3-prompt chain in the Planner's color-coded cards:
+- Prompt 1 (Expand) — what 1-2 screens would make this a complete flow?
+- Prompt 2 (Behavior) — loading skeletons, error messages, empty states
+- Prompt 3 (Refine) — pick one screen that needs iteration, steer it without rebuilding
 
-**Step 3 (2 min):** Write each prompt out in full before you touch Lovable. This is your chain. If you can't explain each step on paper, you're not ready.
+**Step 3 (2 min):** Read each prompt aloud. If you can't explain what each step does, you're not ready.
 
-*Speaker Notes: Walk the room. Check that everyone has their M2 prototype open and their 3-prompt chain written down — not in their head, on paper. "If your chain isn't written out, you're not ready for the build yet." Common issue: students want to START OVER instead of expanding their M2. Redirect them: "Your M2 work is your foundation. Don't rebuild — expand." This 8 minutes of planning IS the difference between M2 and M3.*
+*Speaker Notes: Drop the Prompt Chain Planner link in Slack now. Walk the room. Check that everyone has the Planner open with the audit filled in and all 3 prompt cards written — not in their head, in the tool. "If your chain isn't in the Planner, you're not ready for the build yet." Common issue: students want to START OVER instead of expanding their M2. Redirect them: "Your M2 work is your foundation. Don't rebuild — expand." This 8 minutes of planning IS the difference between M2 and M3.*
 
 ---
 
 ## Slide 12 — Lab Part 2: The Precision Build
 **Hands-on Lab Part 2: Build** | 22 Minutes
 
-Start from your M2 prototype. Execute your chain step by step. Document every prompt.
+Start from your M2 prototype. Copy each prompt from the **Prompt Chain Planner** into Lovable, one at a time. Document results back in the Planner.
 
 **Prompt 1 — Expand:** "Add a [detail view / dashboard / secondary screen] to this prototype. When a user clicks [X], show [specific content]. Include navigation back to the main view. Keep the existing design language."
 
@@ -203,7 +200,7 @@ Start from your M2 prototype. Execute your chain step by step. Document every pr
 
 **Prompt 3 — Refine:** "The [specific screen] needs [specific change]. [Add/move/resize a component]. Don't change anything else." Steer one thing. Don't rebuild.
 
-**Document each prompt** — what you wrote, why, and what it produced. This is the foundation of your Prompt Library (Deliverable #4).
+**Document each result** in the Planner's "What did this produce?" section. Then **Copy Full Chain** — this is the foundation of your Prompt Library (Deliverable #4).
 
 *Verify your shareable link works — you're swapping prototypes next.*
 
@@ -216,7 +213,7 @@ Start from your M2 prototype. Execute your chain step by step. Document every pr
 
 Breakout rooms. Groups of 2.
 
-**The test:** Person A shares their documented prompt chain + prototype link. Person B reads the chain. Can you understand each step? Could you reproduce a similar result using only the chain?
+**The test:** Person A shares their documented prompt chain (from the Prompt Chain Planner) + prototype link. Person B reads the chain. Can you understand each step? Could you reproduce a similar result using only the chain?
 
 **Feedback questions:**
 - Was the prompt chain clear? What was missing?
@@ -274,7 +271,7 @@ Same tool. Same you.
 ## Slide 17 — What You Did Today
 **What You Did Today**
 
-**1. Prompt Chain** — You documented a 3-step chain. Each prompt targeted one aspect. Your partner could follow it. That's the first entry in your Prompt Library (Deliverable #4).
+**1. Prompt Chain** — You documented a 3-step chain in the Prompt Chain Planner. Each prompt targeted one aspect. Your partner followed it. That's the first entry in your Living Prompt Pack (Deliverable #4).
 
 **2. Multi-Screen Flow** — Multiple connected screens with navigation. Not a single page.
 
@@ -285,7 +282,7 @@ Same tool. Same you.
 ## Slide 18 — Accountability
 **ACCOUNTABILITY** | Before We Wrap
 
-**1. Post in #builds:** Your prototype link + your full prompt chain. Caption: What made your prompts work? What would you add to your living prompt pack?
+**1. Post in #builds:** Your prototype link + your full prompt chain (copy from the Prompt Chain Planner). Caption: What made your prompts work? What would you add to your Living Prompt Pack?
 
 **2. Engage:** Look at 2 others. Could you follow their prompt chain? Would you get a similar result?
 
