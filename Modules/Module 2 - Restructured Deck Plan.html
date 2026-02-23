@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Restructured Deck Plan (v3)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e0e0e5;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 60px 48px 48px;
+    border-bottom: 3px solid #3B6FE0;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3B6FE0;
+    margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .hero .sub { font-size: 16px; color: #8899bb; line-height: 1.6; max-width: 780px; }
+
+  .stats-bar { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; font-weight: 600; color: #6b7fa3; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ── Diff banner ── */
+  .diff-banner {
+    background: #1a1520;
+    border: 1px solid #3b2a50;
+    border-radius: 10px;
+    margin-top: 28px;
+    padding: 20px 24px;
+  }
+  .diff-banner h3 {
+    font-size: 13px; font-weight: 700; color: #a78bfa;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .diff-banner p {
+    font-size: 13px; color: #9898a8; line-height: 1.7; margin-bottom: 6px;
+  }
+  .diff-banner p:last-child { margin-bottom: 0; }
+  .diff-banner strong { color: #c4b5fd; }
+  .diff-banner em { color: #f87171; font-style: normal; font-weight: 600; }
+
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 20px 48px; background: #13131a;
+    border-bottom: 1px solid #1e1e2e;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #888; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .content { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .section-header {
+    margin: 48px 0 20px; padding: 20px 28px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .section-header:first-child { margin-top: 8px; }
+  .section-header h2 { font-size: 20px; font-weight: 800; color: #fff; }
+  .section-header .section-time {
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.1);
+    padding: 6px 14px; border-radius: 8px;
+  }
+
+  .section-opening { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+  .section-demo { background: linear-gradient(135deg, #2d1b4e, #4c1d95); border-left: 4px solid #a78bfa; }
+  .section-gap { background: linear-gradient(135deg, #2a1a1a, #6b2020); border-left: 4px solid #f87171; }
+  .section-teaching { background: linear-gradient(135deg, #3b2a1a, #92400e); border-left: 4px solid #fbbf24; }
+  .section-lab { background: linear-gradient(135deg, #1a3a2a, #065f46); border-left: 4px solid #34d399; }
+  .section-review { background: linear-gradient(135deg, #3b1a2a, #9f1239); border-left: 4px solid #f472b6; }
+  .section-wrap { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+
+  .slide-card {
+    background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .slide-card:hover { border-color: #3a3a5a; }
+
+  .slide-top { display: flex; align-items: flex-start; gap: 20px; padding: 24px 28px 20px; }
+  .slide-number {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .slide-main { flex: 1; min-width: 0; }
+  .slide-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+
+  .slide-type {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 5px;
+  }
+  .type-title { background: #1e3a5f; color: #60a5fa; }
+  .type-demo { background: #4c1d95; color: #c4b5fd; }
+  .type-handson { background: #065f46; color: #6ee7b7; }
+  .type-teaching { background: #78350f; color: #fcd34d; }
+  .type-activity { background: #9f1239; color: #fda4af; }
+  .type-debrief { background: #3b1a2a; color: #f9a8d4; }
+  .type-wrap { background: #1e3a5f; color: #93c5fd; }
+  .type-gap { background: #6b2020; color: #fca5a5; }
+
+  .slide-source {
+    font-size: 10px; font-weight: 600; color: #555;
+    background: #222; padding: 3px 8px; border-radius: 4px;
+  }
+  .source-new { background: #1a3a2a; color: #34d399; }
+  .source-keep { background: #222; color: #666; }
+  .source-modify { background: #3b2a1a; color: #fbbf24; }
+
+  .slide-title { font-size: 18px; font-weight: 700; color: #e8e8f0; margin-bottom: 8px; line-height: 1.3; }
+  .slide-content { font-size: 13px; color: #9898a8; line-height: 1.7; }
+  .slide-content strong { color: #c0c0d0; font-weight: 600; }
+  .slide-content em { color: #7b8aff; font-style: normal; font-weight: 600; }
+  .slide-content ul { margin: 8px 0 4px 18px; }
+  .slide-content li { margin-bottom: 4px; }
+
+  .slide-notes {
+    background: #15151e; border-top: 1px solid #252535;
+    padding: 16px 28px 18px; padding-left: 96px;
+  }
+  .notes-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #555; margin-bottom: 6px;
+  }
+  .slide-notes p { font-size: 12px; color: #777; line-height: 1.65; margin-bottom: 6px; }
+  .slide-notes p:last-child { margin-bottom: 0; }
+  .slide-notes strong { color: #999; }
+
+  .time-badge {
+    font-size: 11px; font-weight: 700; color: #666;
+    margin-left: auto; white-space: nowrap; flex-shrink: 0;
+  }
+
+  .cut-section {
+    margin: 48px 0 20px; padding: 24px 28px;
+    background: #1c1418; border: 1px solid #3b2020; border-radius: 12px;
+  }
+  .cut-section h2 { font-size: 18px; font-weight: 800; color: #f87171; margin-bottom: 8px; }
+  .cut-section .cut-desc { font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.6; }
+  .cut-item {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid #2a1a1a; font-size: 13px;
+  }
+  .cut-item:last-child { border-bottom: none; }
+  .cut-slides { font-weight: 700; color: #f87171; flex-shrink: 0; width: 100px; text-align: right; font-size: 12px; }
+  .cut-reason { color: #777; }
+  .cut-name { color: #aaa; font-weight: 600; min-width: 200px; }
+
+  .bg-opening { background: #2563eb; }
+  .bg-demo { background: #7c3aed; }
+  .bg-gap { background: #dc2626; }
+  .bg-teaching { background: #d97706; }
+  .bg-lab { background: #059669; }
+  .bg-review { background: #e11d48; }
+  .bg-wrap { background: #2563eb; }
+
+  /* ── M1 recap box ── */
+  .m1-recap {
+    background: #151520;
+    border: 1px solid #2a2a40;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .m1-recap h3 {
+    font-size: 14px; font-weight: 800; color: #60a5fa;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  }
+  .m1-recap .m1-flow {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .m1-block {
+    background: #1a1a2e; border: 1px solid #2a2a45; border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .m1-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #60a5fa; margin-bottom: 6px;
+  }
+  .m1-block-title { font-size: 13px; font-weight: 700; color: #c8c8d8; margin-bottom: 4px; }
+  .m1-block-desc { font-size: 11px; color: #777; line-height: 1.5; }
+  .m1-block-overlap {
+    font-size: 10px; font-weight: 700; color: #f87171;
+    margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<div class="hero">
+  <div class="hero-label">Restructured Deck Plan — v3 (Lab = The Wow)</div>
+  <h1>Module 2: The Validation Lens</h1>
+  <div class="sub">
+    Build Smart, Not Just Fast. The wow moment is in the students' hands: they assemble a full context prompt
+    (data pack + screenshot + guardrails + hypothesis) in the prompt builder, paste it into Lovable, and see their
+    prototype come back with real user language, real metrics, and a named assumption. That's the fireworks.
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">26</span><span class="stat-label">Slides (from 49)</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Instructor Demo</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Mini Activity</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Hands-On Lab (2 parts)</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Peer Review</span></div>
+    <div class="stat"><span class="stat-num">~100</span><span class="stat-label">Minutes Total</span></div>
+  </div>
+
+  <div class="diff-banner">
+    <h3>What changed from v2 — The Lab IS the Wow</h3>
+    <p><strong>Core shift:</strong> The instructor demo is a <strong>teaser</strong>, not the emotional peak. The mini activity <strong>surfaces the gap</strong>. But the WOW moment is the <strong>Hands-On Lab</strong> — when students assemble a full-context prompt in the prompt builder (data pack + screenshot + hypothesis guardrails), copy it into Lovable, and watch their own prototype render with real data and real user voice. That's the fireworks — in their hands, not the instructor's.</p>
+    <p><strong>Lab workflow made explicit:</strong> Open prompt builder (ChatGPT/Claude) → Paste context from Data Pack → Upload screenshot → Set guardrails from Validation Brief → Copy assembled prompt into Lovable → See the result. Each step is now a clear, numbered action.</p>
+    <p><strong>Demo reframed as setup:</strong> Quick teaser showing the before/after so students know what they're building toward. Not the main event.</p>
+  </div>
+</div>
+
+<!-- ════════════════════ LEGEND ════════════════════ -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Opening / Wrap</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Instructor Demo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Mini Activity</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Teaching</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> Hands-On Lab</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e11d48"></div> Peer Review / Reveal</div>
+  <div class="legend-item" style="margin-left:auto;">
+    <span class="slide-source source-keep" style="font-size:11px">KEEP</span>
+    <span class="slide-source source-modify" style="font-size:11px">MODIFY</span>
+    <span class="slide-source source-new" style="font-size:11px">NEW</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ── M1 RECAP ── -->
+<div class="m1-recap">
+  <h3>What M1 Already Covers (don't repeat in M2)</h3>
+  <div class="m1-flow">
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Demo #1</div>
+      <div class="m1-block-title">Triple-Threat Build</div>
+      <div class="m1-block-desc">3 prototypes from 1 ambiguous problem. Speed is the wow.</div>
+    </div>
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Lab #1</div>
+      <div class="m1-block-title">First Vibe Build</div>
+      <div class="m1-block-desc">Build from scratch in Lovable. Text prompt → shareable URL in 20 min.</div>
+    </div>
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Demo #2</div>
+      <div class="m1-block-title">Basic to Pro</div>
+      <div class="m1-block-desc">VP won't look at vibe sketches. Need brand matching + interactivity.</div>
+    </div>
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Lab #2</div>
+      <div class="m1-block-title">Refine with Mobbin</div>
+      <div class="m1-block-desc">Screenshot design match, add interactivity, polish the build.</div>
+      <div class="m1-block-overlap">Screenshot-to-App is M1 territory</div>
+    </div>
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Demo #3</div>
+      <div class="m1-block-title">Speed Illusion</div>
+      <div class="m1-block-desc">Generic prompt vs specific prompt. Same time, different results.</div>
+      <div class="m1-block-overlap">Prompt specificity is M1 territory</div>
+    </div>
+    <div class="m1-block">
+      <div class="m1-block-label">M1 Teaching</div>
+      <div class="m1-block-title">Confidence Line + Toy vs Tool</div>
+      <div class="m1-block-desc">Framework revealed at the end. "Your prototype proves nothing yet."</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 1: OPENING                                            ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-opening">
+  <h2>Opening</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">1</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-title">Title Slide</span>
+        <span class="slide-source source-keep">KEEP — was slide 5</span>
+      </div>
+      <div class="slide-title">The Validation Lens — Build Smart, Not Just Fast</div>
+      <div class="slide-content">
+        <strong>MODULE 2 | VIBE CODING CERTIFICATION</strong><br><br>
+        Three things today:<br>
+        <ul>
+          <li><strong>1. Constraints</strong> — Frame what you're testing and why</li>
+          <li><strong>2. Context</strong> — Real data, real users, real metrics inside your prototype</li>
+          <li><strong>3. Build</strong> — A prototype that proves something, not just looks like something</li>
+        </ul>
+        <br>
+        <em>Module 1 was fireworks. Module 2 is aim.</em>
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Energy:</strong> "Welcome back. Module 1 was fireworks — you built apps, refined them, made them look professional. Today is about aim. Your M1 prototypes look great. But what do they prove? That's the gap we close today."</p>
+    <p><strong>Three waypoints:</strong> "Constraints, Context, Build. By the end, your prototype won't just look like a product — it'll investigate a real question with real data."</p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">2</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-title">Bridge + Agenda</span>
+        <span class="slide-source source-modify">MODIFY — was slide 6, now combined with agenda</span>
+      </div>
+      <div class="slide-title">Speed Without Direction Is a Liability</div>
+      <div class="slide-content">
+        This course operates in the <strong>solution space</strong>. We teach you how to test solutions faster.<br><br>
+        Today's flow:<br>
+        <ul>
+          <li><strong>1.</strong> Demo — Quick preview of what context injection looks like</li>
+          <li><strong>2.</strong> Diagnose — What does your M1 build actually prove? (spoiler: nothing yet)</li>
+          <li><strong>3.</strong> The Validation Lens — Framework, kill switch, scenario selection</li>
+          <li><strong>4.</strong> Lab — Assemble a full-context prompt and paste it into Lovable (the main event)</li>
+          <li><strong>5.</strong> Peer Review + Reveal — M1 vs M2 side by side</li>
+        </ul>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Quick and punchy.</strong> "Five blocks. The lab in the middle is the main event — you'll assemble a full-context prompt and paste it into Lovable. Everything before it is setup. Everything after it is reflection. Let's go."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 2: INSTRUCTOR DEMO — DATA + HYPOTHESIS INJECTION      ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-demo">
+  <h2>Instructor Demo — Teaser: Here's What's Possible</h2>
+  <span class="section-time">12 min</span>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">3</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Teaching</span>
+        <span class="slide-source source-modify">MODIFY — was M2 slide 10</span>
+      </div>
+      <div class="slide-title">Bridging Design and Build — Three Entry Points</div>
+      <div class="slide-content">
+        Modern vibe coding tools are multimodal. They can ingest your existing assets and match your design system. Here are the three entry points:<br><br>
+        <strong>1. Text-to-App</strong> — Natural language prompts. Best for new concepts where no design exists. <em>This is what you did in M1.</em><br><br>
+        <strong>2. Screenshot-to-App</strong> — Upload a screenshot from Mobbin, your product, or a competitor. The tool matches it. <em>You used this to refine in M1 Lab 2. Today you'll use it as a starting input alongside real data.</em><br><br>
+        <strong>3. Design-to-Code</strong> — Figma imports or design system docs. For on-brand prototypes from existing design systems. Figma now supports code-to-design too — the boundary is dissolving in both directions.<br><br>
+        <strong>The strategic choice:</strong> Which entry point depends on what assets you have. 0-to-1 products usually start with Text-to-App. 1-to-N products should start with Screenshot-to-App or Design-to-Code — <em>you never start from scratch when you already have a product.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Carlos said this will wake people up.</strong> "In M1 you used screenshots to polish. That's entry point 2. But today we're adding something M1 never had — real data, real users, a real hypothesis. The entry point gets you the look. The Validation Lens gets you the substance."</p>
+    <p><strong>Figma mention:</strong> "Figma this week announced you can go code-to-design — not just design-to-code. The boundary is dissolving. We won't demo it today, but know it exists."</p>
+    <p><strong>Connect to 0-to-1 vs 1-to-N:</strong> "If you're building something brand new, Text-to-App is fine. But most of you work on existing products. You have screenshots, design systems, user research. Start from what you have."</p>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">4</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-demo">Instructor Demo — The Setup</span>
+        <span class="slide-source source-new">NEW</span>
+      </div>
+      <div class="slide-title">This Prototype Looks Great. What Does It Prove?</div>
+      <div class="slide-content">
+        Instructor pulls up a polished, M1-quality prototype — Mobbin-matched design, interactive components, professional layout. It looks like a real retention dashboard.<br><br>
+        <strong>Question to the room:</strong> "What assumption is this testing?"<br><br>
+        Answer: <em>nothing.</em> It has lorem ipsum data, generic charts, and placeholder copy. It's a toy — beautiful, but it doesn't help you decide anything.<br><br>
+        <strong>"I'm going to show you a quick before/after. Then YOU'RE going to do this to your own build."</strong>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>This is a teaser, not the main event.</strong> You're setting up what they'll experience themselves in the lab. Keep it fast. "This is where M1 left you. Looks great, proves nothing. Let me show you the fix in 3 minutes — then you'll do it yourself."</p>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">5</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-demo">Live Build — Quick Before/After</span>
+        <span class="slide-source source-new">NEW — teaser for the lab</span>
+      </div>
+      <div class="slide-title">Demo: What Changes When You Add Real Context</div>
+      <div class="slide-content">
+        Instructor quickly rebuilds the same prototype with a Context Data Pack — hypothesis, real metrics, user quotes:<br><br>
+        <em>"I'm testing whether surfacing the invite flow in the first 3 days reduces solo-user churn. Display: Day-3 invite rate (12%), solo churn (30%), team activation (45%). Include user quotes: 'I didn't even know I could add teammates.'"</em><br><br>
+        Result: same visual quality, but now it shows <strong>real numbers, real user language, and tests a named assumption</strong>.<br><br>
+        <strong>"That's the difference. You're going to do exactly this to your own build in 30 minutes."</strong>
+      </div>
+    </div>
+    <span class="time-badge">5 min live</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Keep this quick — it's a preview, not the payoff.</strong> Let the output render, give it a beat, name the three ingredients (hypothesis, data, user voice). "You'll do this yourself soon. The magic is in the inputs, not the tool. Now let's see where YOUR M1 build stands."</p>
+    <p><strong>Don't linger.</strong> The students will experience it themselves — that's where the real wow lives. This just shows them the destination so they're motivated through the framework section.</p>
+  </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">6</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-demo">Demo Debrief</span>
+        <span class="slide-source source-new">NEW</span>
+      </div>
+      <div class="slide-title">Three Ingredients M1 Didn't Have</div>
+      <div class="slide-content">
+        Same tool. Same visual quality. Completely different purpose.<br><br>
+        <ul>
+          <li><strong>Hypothesis</strong> — "I'm testing whether [X]" stated before building</li>
+          <li><strong>Real data</strong> — actual metrics from analytics, not placeholder charts</li>
+          <li><strong>User voice</strong> — real quotes from research, not lorem ipsum</li>
+        </ul>
+        <br>
+        <em>You'll assemble all three into a single prompt and paste it into Lovable yourself today.</em><br><br>
+        But first — let's see where your M1 build actually stands.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Set the anticipation:</strong> "Those three ingredients — that's what you'll add in the lab. But first, pull up your M1 prototype. Let's be honest about where it stands."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 3: MINI ACTIVITY — DIAGNOSE YOUR M1 BUILD             ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-gap">
+  <h2>Mini Activity — "Diagnose Your M1 Build"</h2>
+  <span class="section-time">7 min</span>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-gap">7</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-gap">Mini Activity</span>
+        <span class="slide-source source-new">NEW — surfaces the gap</span>
+      </div>
+      <div class="slide-title">Pull Up Your M1 Prototype. What Does It Prove?</div>
+      <div class="slide-content">
+        <strong>Individual Exercise | 5 minutes</strong><br><br>
+        Open your M1 Lab 2 prototype (the refined one). Answer three questions:<br><br>
+        <strong>1.</strong> What assumption was this testing? <em>(Be honest — probably none.)</em><br><br>
+        <strong>2.</strong> If your VP asked "what did you learn from this?" — what would you say?<br><br>
+        <strong>3.</strong> Where is there real user data in here? Real metrics? Real user language?<br><br>
+        <strong>Post in Slack:</strong> Your M1 link + honest answers to all three.<br><br>
+        <em>This gap — between "looks real" and "proves something" — is exactly what Module 2 closes.</em>
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>This should be slightly uncomfortable.</strong> Most students will realize their M1 build doesn't test anything specific. That's the point. "If you can't name the assumption, it's a toy. That's not a failure — that's M1's job. M1 proved you can build. M2 proves you can build something that matters."</p>
+    <p><strong>Transition:</strong> "Now I'm going to give you the framework and the materials to close that gap. By the end of today, you'll have a prototype where the answer to all three questions is obvious."</p>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-gap">8</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debrief">Quick Debrief</span>
+        <span class="slide-source source-new">NEW</span>
+      </div>
+      <div class="slide-title">The Gap Is the Lesson</div>
+      <div class="slide-content">
+        Quick share — full class, 2 minutes:<br><br>
+        <ul>
+          <li>"Who found their M1 build was testing a clear assumption?" (Few hands.)</li>
+          <li>"Who had real user data in there?" (Almost nobody.)</li>
+          <li>"Who could answer their VP?" (Awkward silence.)</li>
+        </ul>
+        <br>
+        <em>That's normal. M1 was about speed. M2 is about aim. Let's build the toolkit.</em>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Keep it light.</strong> This isn't a gotcha. It's a setup. "You're supposed to feel this gap. It means M1 worked — you can build fast. Now we add direction."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 4: THE VALIDATION LENS — FRAMEWORK                    ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-teaching">
+  <h2>The Validation Lens — Framework</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">9</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Framework</span>
+        <span class="slide-source source-modify">MODIFY — was slide 25, compressed</span>
+      </div>
+      <div class="slide-title">Name It Before You Build It</div>
+      <div class="slide-content">
+        Before you touch the tool, name the test. One sentence:<br>
+        <em>"I'm testing whether [X]."</em><br><br>
+        If you can't finish that sentence, you're not ready to build.<br><br>
+        <strong>The Validation Loop</strong> (the cycle you'll run from now on):<br>
+        <ul>
+          <li><strong>1.</strong> Identify the Hypothesis — the "why" behind every prompt</li>
+          <li><strong>2.</strong> Define the Constraints — the guardrails for the build</li>
+          <li><strong>3.</strong> Build and Stress-Test — find where it BREAKS, not where it works</li>
+          <li><strong>4.</strong> Synthesize and Pivot — update your hypothesis with what you learned</li>
+        </ul>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Earned now.</strong> They just felt the gap. This framework is the fix. "Four steps. Step 3 is the one people skip: you're not building to see it work. You're building to see where it breaks."</p>
+  </div>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">10</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Framework</span>
+        <span class="slide-source source-modify">MODIFY — was slides 26 + Kill Switch mockup</span>
+      </div>
+      <div class="slide-title">What's Your Kill Switch?</div>
+      <div class="slide-content">
+        Three risk categories — your risk type determines what you build:<br><br>
+        <strong>Value</strong> → Will anyone want this? → Build a landing page<br>
+        <strong>Usability</strong> → Will the experience make sense? → Build a clickable mockup<br>
+        <strong>Feasibility</strong> → Will the logic actually work? → Build a functional app<br><br>
+        <strong>The kill-switch question:</strong> Which assumption, if wrong, kills the whole thing?<br><br>
+        <em>0-to-1: the kill switch is usually desirability.</em><br>
+        <em>1-to-N: the kill switch is usually adoption.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Use the Kill Switch slide mockup design.</strong> "Match fidelity to risk. The Retention Engine scenario — that's 1-to-N, the product exists. Your kill switch is adoption. You don't need to prove people want it. You need to prove they'll use the invite flow."</p>
+  </div>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">11</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Scenario Selection</span>
+        <span class="slide-source source-keep">KEEP — from Gamma prompt</span>
+      </div>
+      <div class="slide-title">Choose Your Scenario — Your Final Project Starts Now</div>
+      <div class="slide-content">
+        Pick the scenario you'll carry through Modules 2–6. No switching after today.<br><br>
+        <strong>1 — The Retention Engine:</strong> B2B SaaS, 30% churn in 90 days. What's the real blocker?<br>
+        <strong>2 — The Internal Tool Nobody Uses:</strong> CRM, 18% adoption. Fix it without replacing it.<br>
+        <strong>3 — The Marketplace Trust Problem:</strong> Bookings flat. Zero-review providers. Solve cold-start.<br>
+        <strong>4 — The Dashboard Nobody Reads:</strong> 60% bounce. Serve power users AND new users.<br>
+        <strong>5 — Bring Your Own:</strong> A real problem from your company.<br><br>
+        <em>Post your choice in Slack. 2 minutes.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Pre-read ideal:</strong> Push scenario descriptions to Slack before class so students come with a leaning. "Don't agonize. Pick the one closest to your real work."</p>
+  </div>
+</div>
+
+<!-- Slide 12 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">12</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Worked Example</span>
+        <span class="slide-source source-modify">MODIFY — was slide 8, shown filled out</span>
+      </div>
+      <div class="slide-title">The Problem Framework — Worked Example</div>
+      <div class="slide-content">
+        Shown <strong>filled out</strong> for the Retention Engine (not as an empty template):<br><br>
+        <ul>
+          <li><strong>Goal</strong> — Reduce 90-day churn from 30% to 15%</li>
+          <li><strong>Problem</strong> — Solo users churn at 3x the rate of team users</li>
+          <li><strong>Context</strong> — B2B PM tool, 5K teams, Series A</li>
+          <li><strong>Constraints</strong> — No engineering for 6 weeks, must work within existing product</li>
+          <li><strong>Success Criteria</strong> — Day-3 invite rate increases from 12% to 25%</li>
+          <li><strong>Explore</strong> — Is the blocker discoverability or motivation?</li>
+        </ul>
+        <br>
+        <em>The last element — Explore — is the key. What are you LEARNING by building this?</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Show the artifact, don't lecture the framework.</strong> Carlos: "The problem framework is slow. It felt like another theory block." Fix: "Here's what this looks like for the Retention Engine. Notice 'Explore' — that's the one most people skip."</p>
+  </div>
+</div>
+
+<!-- Slide 13 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">13</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">M1 → M2 Shift</span>
+        <span class="slide-source source-keep">KEEP — was slide 13</span>
+      </div>
+      <div class="slide-title">What Makes Module 2 Different From Module 1</div>
+      <div class="slide-content">
+        In Module 1, you built from nothing. Today, you build from <strong>this</strong>:<br><br>
+        <strong>Validation Brief</strong> — hypothesis, risk type, kill switch, success criteria<br>
+        <strong>Visual Reference</strong> — screenshot from Mobbin, your product, or a competitor<br>
+        <strong>Context Data Pack</strong> — real user quotes + real metrics + full problem brief<br>
+        <strong>Structured Prompt</strong> — Context / Reference / Constraint / Output<br><br>
+        Your prototype will show real data and real user voice — not placeholder text.<br>
+        <em>Data packs are in Slack. Download yours now.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Transition to the lab:</strong> "Four inputs. You saw what these do in the demo. You felt the gap in the mini activity. Now you're going to assemble all four and build something that actually tests a hypothesis."</p>
+    <p><strong>Action:</strong> "Download your Context Data Pack from Slack right now."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 5: HANDS-ON LAB — BUILD WITH FULL CONTEXT              ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-lab">
+  <h2>Hands-On Lab — Build With Full Context (THE WOW MOMENT)</h2>
+  <span class="section-time">30 min</span>
+</div>
+
+<!-- Slide 14 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">14</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-handson">Hands-On Lab — Part 1: Assemble</span>
+        <span class="slide-source source-modify">MODIFY — was slide 27 + Gamma slide 10</span>
+      </div>
+      <div class="slide-title">Assemble Your Inputs (Do NOT Open Lovable Yet)</div>
+      <div class="slide-content">
+        <strong>Individual Exercise | 10 minutes</strong><br>
+        You're building a prompt that will produce something fundamentally different from M1. First, gather the ammunition.<br><br>
+        <strong>Step 1 (4 min):</strong> Fill out the Validation Brief — write your hypothesis as one sentence: <em>"I'm testing whether [X]."</em> Name your risk type and kill switch.<br><br>
+        <strong>Step 2 (3 min):</strong> Open your Context Data Pack (from Slack). Highlight 2-3 user quotes you'll paste into the prompt and 3-5 real metrics you want displayed in the prototype.<br><br>
+        <strong>Step 3 (3 min):</strong> Choose your visual reference — reuse your M1 screenshot or grab a new one from Mobbin.<br><br>
+        <em>Post in Slack: your hypothesis + the quotes and metrics you selected.</em>
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Build the anticipation:</strong> "I know you want to jump into Lovable. Resist. You saw in the demo what happens with the right inputs. The 10 minutes you spend here ARE the difference between M1 and M2. This is the Validation Lens in practice — name it before you build it."</p>
+    <p><strong>Walk the room:</strong> Check hypotheses are specific. "I'm testing whether showing the invite flow on Day 1 increases team activation" is good. "I'm testing my dashboard" is not.</p>
+  </div>
+</div>
+
+<!-- Slide 15 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">15</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-handson">Hands-On Lab — Part 2: Build (THE FIREWORKS)</span>
+        <span class="slide-source source-modify">MODIFY — was slide 32 + Gamma slide 11</span>
+      </div>
+      <div class="slide-title">Assemble the Prompt, Paste Into Lovable, See the Difference</div>
+      <div class="slide-content">
+        <strong>Individual Exercise | 20 minutes</strong><br>
+        This is the core activity. Follow the workflow:<br><br>
+        <strong>Step 1 — Open your prompt builder</strong> (ChatGPT or Claude). This is where you assemble, not Lovable.<br><br>
+        <strong>Step 2 — Paste your context.</strong> Drop in your scenario brief from the Context Data Pack. Include 2-3 real user quotes directly in the prompt.<br><br>
+        <strong>Step 3 — Upload your screenshot.</strong> Attach the visual reference. "Match this look and feel."<br><br>
+        <strong>Step 4 — Set your guardrails from the Validation Brief.</strong> Add your hypothesis, constraints, and specific metrics: "Display these numbers: [X], [Y], [Z]." Define the output: "Build a [N]-screen flow that tests [your hypothesis]."<br><br>
+        <strong>Step 5 — Copy the assembled prompt into Lovable.</strong> Paste. Hit build. Watch the result.<br><br>
+        <strong>This is the moment.</strong> Your prototype should come back with real data, real user language, and a specific hypothesis embedded. Not lorem ipsum. Not generic charts. <em>Your</em> users' words. <em>Your</em> metrics. <em>Your</em> question being tested.<br><br>
+        <em>Verify your shareable link works — you're swapping prototypes soon.</em>
+      </div>
+    </div>
+    <span class="time-badge">20 min build</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>This is where the magic happens — in their hands.</strong> When students see their prototype render with actual user quotes and real metrics, that's the M2 wow moment. Let them react. It's the same feeling as M1's "I just made an app" but elevated: "I just made a product investigation tool."</p>
+    <p><strong>Walk the room.</strong> (1) People who went straight to Lovable without the prompt builder — "Step back, assemble first." (2) People stuck assembling — help them sequence the four inputs. (3) People who finished early — "Where does it break beyond the happy path? What would a skeptical VP ask?"</p>
+    <p><strong>Credit efficiency:</strong> "This is exactly why we use the prompt builder first. One well-assembled prompt vs. five trial-and-error burns in Lovable."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 6: PEER REVIEW + THE REVEAL                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-review">
+  <h2>Peer Review + The Reveal</h2>
+  <span class="section-time">18 min</span>
+</div>
+
+<!-- Slide 16 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">16</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-activity">Breakout Group Activity</span>
+        <span class="slide-source source-keep">KEEP — was slide 33</span>
+      </div>
+      <div class="slide-title">Peer Review: Does This Test It?</div>
+      <div class="slide-content">
+        <strong>Breakout rooms. Groups of 2. | 10 minutes</strong><br><br>
+        <strong>3 minutes of silence.</strong> Explore your partner's prototype cold. No explanation.<br><br>
+        <strong>Then discuss:</strong><br>
+        <ul>
+          <li>Does this prototype actually test the stated hypothesis?</li>
+          <li>Where does the experience break beyond the happy path?</li>
+          <li>Can you see real data in here? Does it make the prototype more credible?</li>
+          <li><strong>Tool vs. Toy</strong> — would this help the builder make a decision, or does it just look good?</li>
+        </ul>
+        <br>
+        <em>The question isn't "is this cool?" It's "does this test what you said you were testing?"</em>
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Enforce the silence.</strong> "3 minutes. Don't explain your prototype. If they can't tell what you're testing from using it, that's a signal."</p>
+    <p><strong>Evolution from M1:</strong> In M1, the peer review was "what confused you about this prototype?" In M2, it's "does this test what you claim?" The bar has moved from clarity to validation.</p>
+  </div>
+</div>
+
+<!-- Slide 17 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">17</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-activity">The Reveal — Full Circle</span>
+        <span class="slide-source source-keep">KEEP — was slide 16</span>
+      </div>
+      <div class="slide-title">The Reveal: Your M1 Build vs. Your M2 Build</div>
+      <div class="slide-content">
+        Open both tabs. M1 on the left. M2 on the right. Same tool. Same you.<br><br>
+        <strong>Module 1:</strong> Vague prompt + Mobbin match → Professional-looking demo<br>
+        Looks great. Placeholder data. No hypothesis. Can't answer "what did you learn?"<br><br>
+        <strong>Module 2:</strong> Context Data Pack + hypothesis + real metrics + user quotes → Validation tool<br>
+        Real user language. Actual metrics. Specific hypothesis embedded. You can tell your VP exactly what you learned.<br><br>
+        Now answer the same three questions from the mini activity:<br>
+        <ul>
+          <li>What assumption is this testing? <em>(Now you can answer.)</em></li>
+          <li>What would you tell your VP? <em>(Now you have evidence.)</em></li>
+          <li>Where's the real data? <em>(It's in the prototype.)</em></li>
+        </ul>
+        <br>
+        <em>Constraints + Context + Intent = The Validation Lens</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Full-circle moment.</strong> "At the start of class you couldn't answer those three questions. Now the answers are obvious — they're literally in the prototype. That's the Validation Lens."</p>
+    <p><strong>Let it land.</strong> The students experienced the wow in the lab. The Reveal just names what they already felt.</p>
+  </div>
+</div>
+
+<!-- Slide 18 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">18</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debrief">Pulse Check</span>
+        <span class="slide-source source-keep">KEEP — was slide 17</span>
+      </div>
+      <div class="slide-title">Pulse Check: Production-Readiness Score</div>
+      <div class="slide-content">
+        Rate your M2 prototype. Post in Slack: your score + one sentence why.<br><br>
+        <strong>1</strong> = Just a Sketch — it exists but it's not ready for eyes<br>
+        <strong>2</strong> = Rough Direction — the idea is there, execution isn't<br>
+        <strong>3</strong> = Getting There — recognizable, some real functionality<br>
+        <strong>4</strong> = Solid — I'd show this to my team<br>
+        <strong>5</strong> = VP-Ready — I'd present this to leadership tomorrow
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Callback to M1:</strong> "You scored your M1 prototype on this same scale. Compare. The score might not have jumped much — but the REASON should be different. In M1 it was about looks. In M2 it should be about what it tests."</p>
+  </div>
+</div>
+
+<!-- Slide 19 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">19</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debrief">Quick Debrief</span>
+        <span class="slide-source source-keep">KEEP — was slide 34</span>
+      </div>
+      <div class="slide-title">Quick Debrief</div>
+      <div class="slide-content">
+        <strong>POST ON SLACK</strong><br><br>
+        In one sentence: What assumption did you test, and what did you learn?<br><br>
+        <em>Not what you built — what you LEARNED.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Evolution from M1:</strong> M1's debrief was "What surprised you?" M2's debrief is "What did you learn?" The shift from reaction to reflection is the Validation Lens in action.</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  BLOCK 7: WRAP                                                ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-wrap">
+  <h2>Wrap</h2>
+  <span class="section-time">7 min</span>
+</div>
+
+<!-- Slide 20 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">20</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Chapter Break</span>
+        <span class="slide-source source-keep">KEEP — was slide 18</span>
+      </div>
+      <div class="slide-title">What You Did Today</div>
+      <div class="slide-content">
+        Three things — the same three waypoints from the start. Let's close the loop.
+      </div>
+    </div>
+    <span class="time-badge">30 sec</span>
+  </div>
+</div>
+
+<!-- Slide 21 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">21</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Takeaway 1</span>
+        <span class="slide-source source-keep">KEEP — was slide 19</span>
+      </div>
+      <div class="slide-title">Takeaway 1: The Constraint Toolkit</div>
+      <div class="slide-content">
+        Every build now starts with a Validation Brief — not a blank prompt. You defined a hypothesis, identified your risk type, named your kill switch, and set measurable success criteria before you opened Lovable.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+<!-- Slide 22 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">22</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Takeaway 2</span>
+        <span class="slide-source source-keep">KEEP — was slide 20</span>
+      </div>
+      <div class="slide-title">Takeaway 2: Context Injection</div>
+      <div class="slide-content">
+        Real user quotes, real metrics, and real problem briefs fed directly into the builder tool. The difference between your M1 and M2 prototypes isn't visual quality — it's <strong>what they prove</strong>.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+<!-- Slide 23 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">23</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Takeaway 3</span>
+        <span class="slide-source source-keep">KEEP — was slide 21</span>
+      </div>
+      <div class="slide-title">Takeaway 3: A Prototype That Proves Something</div>
+      <div class="slide-content">
+        Pull up your M1 and M2 prototypes side by side. Both look professional. But only one helps you decide something. Same tool. Same builder. Radically different purpose.<br><br>
+        <em>From this point forward, every prototype gets judged by what it validates — not how it looks.</em>
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+<!-- Slide 24 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">24</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Accountability</span>
+        <span class="slide-source source-keep">KEEP — was slide 22</span>
+      </div>
+      <div class="slide-title">Accountability — Before We Wrap</div>
+      <div class="slide-content">
+        <strong>1. Post in #builds:</strong> What assumption did you test? What did you learn? Not what you built — what you LEARNED.<br><br>
+        <strong>2. Engage:</strong> Look at 2 others. Did their prototype actually test what they claimed?<br><br>
+        <strong>3. Optional challenge:</strong> Take your company's real user research or analytics and inject it into your M2 prototype. Drop the before/after in Slack.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+<!-- Slide 25 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">25</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">What's Next</span>
+        <span class="slide-source source-keep">KEEP — was slide 23</span>
+      </div>
+      <div class="slide-title">Module 3: Precision Prompting</div>
+      <div class="slide-content">
+        Same product. Better execution.<br><br>
+        Context layering. Design system matching. Documented prompt chains.<br>
+        You'll go from "build me something" to <em>"build me exactly this."</em><br><br>
+        Module 1: Build fast.<br>
+        Module 2: Build smart.<br>
+        Module 3: Build precise.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+<!-- Slide 26 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">26</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Survey</span>
+        <span class="slide-source source-keep">KEEP — standard PS template</span>
+      </div>
+      <div class="slide-title">Your Opinion Matters To Us</div>
+      <div class="slide-content">
+        Scan the QR code or use the link to share your feedback. Your insights help us improve each cohort.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  CUT LIST                                                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="cut-section">
+  <h2>Eliminated from Current Deck (24 slides)</h2>
+  <div class="cut-desc">
+    These slides are cut or absorbed into the restructured flow. Content marked with a star can be relocated to other modules.
+  </div>
+
+  <div class="cut-item">
+    <span class="cut-slides">Slide 2</span>
+    <span class="cut-name">Class Expectations</span>
+    <span class="cut-reason">— Already in M1 slide 2. Don't repeat.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 3</span>
+    <span class="cut-name">Full Syllabus Overview</span>
+    <span class="cut-reason">— Already in M1 slide 4. Students know the arc.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 4</span>
+    <span class="cut-name">Old Agenda</span>
+    <span class="cut-reason">— Doesn't match new content. Replaced by new slide 2.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 7, 11, 14, 15</span>
+    <span class="cut-name">Blank/empty slides</span>
+    <span class="cut-reason">— Dead space.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 8</span>
+    <span class="cut-name">Problem Framework (6-part theory)</span>
+    <span class="cut-reason">— Carlos: "another theory block." Replaced by worked example (new slide 11).</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 9</span>
+    <span class="cut-name">0-to-1 Greenfield standalone</span>
+    <span class="cut-reason">— Absorbed into Kill Switch slide (new slide 9).</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 10</span>
+    <span class="cut-name">Bridging Design and Build</span>
+    <span class="cut-reason">— RESTORED as slide 3. Reframed: M1 used screenshots to refine; M2 teaches the three entry points as a strategic choice + Figma/Design-to-Code (new to students).</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 12</span>
+    <span class="cut-name">Prompt Anatomy (Context/Reference/Constraint/Output)</span>
+    <span class="cut-reason">— Absorbed into lab instructions (new slide 14). M1 Demo #3 already covers prompt specificity.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 24, 29, 31</span>
+    <span class="cut-name">Chapter break headers</span>
+    <span class="cut-reason">— Unnecessary with new flow.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 28</span>
+    <span class="cut-name">Quick Debrief (Problem Framework)</span>
+    <span class="cut-reason">— Merged into Lab Part 1 Slack post.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 30</span>
+    <span class="cut-name">Credit Efficiency / Plan in Sandbox</span>
+    <span class="cut-reason">— Move to M1 per Carlos. M1 slide 12 already has credit tips. Reinforce verbally in M2.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 35–36</span>
+    <span class="cut-name">Time estimate + Cameras On</span>
+    <span class="cut-reason">— Filler.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 37–38</span>
+    <span class="cut-name">Old Key Takeaways + Extra Practice</span>
+    <span class="cut-reason">— Legacy from old course. Replaced by new takeaways (slides 19–22).</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 40–42</span>
+    <span class="cut-name">Bonus resources, Q&A, closing</span>
+    <span class="cut-reason">— Bonus links go to Slack. Q&A handled verbally.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 43–44</span>
+    <span class="cut-name">FUDI Framework + BUILD Framework</span>
+    <span class="cut-reason">— Relocate to M3 (Precision Prompting) or M4.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slides 45–48</span>
+    <span class="cut-name">Old prompting theory</span>
+    <span class="cut-reason">— Relocate to M3. Too advanced for M2.</span>
+  </div>
+  <div class="cut-item">
+    <span class="cut-slides">Slide 49</span>
+    <span class="cut-name">AI Prototyping Tool Stack</span>
+    <span class="cut-reason">— Already in M1 slide 12.</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

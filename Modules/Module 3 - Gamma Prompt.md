@@ -6,261 +6,333 @@
 
 ## Instructions for Gamma
 
-Create a professional slide deck for teaching a 2-hour workshop called **"Module 3: Precision Prompting — Communicating Product Intent to AI"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–2 — they can build fast and build smart; now they're learning to build precise. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide.
+Create a professional slide deck for teaching a 2-hour workshop called **"Module 3: Precision Prompting — Build Me Exactly This"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–2 — they can build fast (M1) and build smart with data and hypotheses (M2); now they're learning to build precise. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–2 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
 
 ---
 
-## Slide 1 — Module 3 Title + The Precision Shift
-**Precision Prompting**
+## Slide 1 — Module 3 Title + 3 Waypoints
+**Precision Prompting — Build Me Exactly This**
 
 MODULE 3 | VIBE CODING CERTIFICATION
 
-Module 1: build fast. Module 2: build smart and commit to your scenario. Today: build precise.
+Three things today:
+1. **Prompt Chain** — Not one big prompt. A documented sequence, step by step, that someone else can follow.
+2. **Multi-Screen Flow** — Not a single page. Connected screens with navigation.
+3. **Interactive States** — Loading, empty, error. Your prototype behaves like a real product.
 
-**The shift:** "Build me something" becomes "build me exactly this." You've got a product. You've got a direction. Now take your M2 prototype and level it up — same product, precision execution.
+Module 1 was speed. Module 2 was aim. Module 3 is precision.
+
+*Speaker Notes: "Welcome back. M1 was speed — you proved you can build. M2 was aim — you proved you can build something that tests a real question. Today is precision. Same product, dramatically better execution. Three waypoints: prompt chain, multi-screen flow, interactive states. By the end of today, your prototype won't just test something — it'll look like your VP could ship it tomorrow."*
 
 ---
 
-## Slide 2 — The Prompting Maturity Curve
+## Slide 2 — Bridge from M2 + Agenda
+**Your M2 Prototype Proves Something. Would Your VP Ship It?**
+
+Your M2 build has real data, real user quotes, a real hypothesis. That's a huge leap from M1. But if you showed it to your VP right now, they'd say: "Cool, but this doesn't look like our product."
+
+Today's flow:
+1. **Demo** — What precision looks like
+2. **Diagnose** — How does your M2 build hold up?
+3. **The Precision Toolkit** — Design systems, prompt chains, context layering
+4. **Lab** — Build a multi-screen product flow with a 5-prompt chain
+5. **Peer Review** — Can someone else follow your prompt chain?
+
+---
+
+## Slide 3 — Instructor Demo: The Setup
+**Remember This? Would Your VP Present It?**
+
+INSTRUCTOR DEMO
+
+The M2 prototype: Retention Engine onboarding flow.
+
+- Day-3 invite rate: 12%
+- Retention with invite: 68% vs 22% without
+- 3-screen onboarding flow with real user quotes and a named hypothesis
+
+What's missing?
+- Doesn't match your product — generic styling
+- No loading states, no error handling
+- No internal view for the PM team to track results
+
+*Speaker Notes: Pull up the actual M2 Retention Engine prototype you built live in Module 2. Let the room look at it. Ask: "Would your VP present this to the board?" Pause. Let the silence do the work. Then walk through the three gaps. This sets up the demo — students need to feel the gap before you show the fix. Keep it to 2 minutes.*
+
+---
+
+## Slide 4 — Live Build: 3 Prompts
+**The Precision Chain**
+
+**Prompt 1 — Design:** "Rebuild this onboarding flow to match this design system [Mobbin screenshot of Linear]. Keep the invite-first flow and all the metrics. Match the card layout, typography, and navigation."
+
+**Prompt 2 — Screens:** "Add a team workspace screen after the user invites teammates. Add an internal PM dashboard showing Day-3 invite rate, retention, and churn trend. Navigation between all screens."
+
+**Prompt 3 — States:** "Add loading skeletons. Error state for failed invites. Empty state for the team workspace. Same design language throughout."
+
+3 prompts. 5 screens. Matched to Linear. With states.
+
+*Speaker Notes: Run the 3 prompts sequentially in Lovable — pre-type each one in a separate tab so you paste instantly. Prompt 1: paste, wait ~40 sec, let the design transform land. "Same content, looks like Linear now." Prompt 2: paste, wait ~40 sec, click through the new screens. "We went from 3 screens to 5 — and there's a PM dashboard now." Prompt 3: paste, wait ~40 sec, show the loading skeleton and error state. "It behaves like a real product." Don't linger — this is a teaser. 5 minutes total. The students will do it themselves and that's where the real moment lives.*
+
+---
+
+## Slide 5 — Demo Debrief
+**What Changed**
+
+Same tool. Same data.
+
+- **Prompt chain** — 3 prompts, each targeting one thing. Not one mega-prompt.
+- **Multi-screen flow** — from 3 screens to 5, with navigation and an internal dashboard
+- **Interactive states** — loading, empty, error
+
+Three prompts. Each one built on the last. That's precision prompting.
+
+*Speaker Notes: Quick debrief — name the three things that changed. Don't oversell it. "You'll do this to your own build in 20 minutes. But first, let's see where your M2 prototype actually stands." Transition to the mini activity.*
+
+---
+
+## Slide 6 — Mini Activity: Assess Your M2 Build
+**Pull Up Your M2 Prototype**
+
+INDIVIDUAL EXERCISE | 5 MINUTES
+
+Open your M2 prototype. Answer three questions:
+
+**1.** Does this look like it belongs in your product? Or does it look AI-generated?
+
+**2.** How many screens does it have?
+
+**3.** What happens when the data is loading? When there's an error? When there's no data yet?
+
+**Post in Slack:** Your M2 link + your answers.
+
+*Speaker Notes: This should be slightly uncomfortable. Most students will realize their M2 build is 1-2 screens, generic styling, no states. That's the point — it surfaces the gap the lab will close. After 5 minutes, do a quick hand-check: "Who has more than 2 screens? Who has loading states? Who would show this to their VP right now?" The honest answers create the motivation for the teaching and lab ahead. Transition: "Now I'll give you the toolkit to fix all three."*
+
+---
+
+## Slide 7 — The Prompting Maturity Curve
 **The Prompting Maturity Curve**
 
-**Exploration prompts (left):** Divergent, open. "Build me something that could help with X." Good for ambiguity.
+Your prompt style should match your confidence level.
 
-**Execution prompts (right):** Convergent, precise. "Build me a settings page with these 4 sections, matching this design system." Good when you know what you want.
+**Exploration prompts (M1–M2):** Divergent, open. "Build me something that could help with X." Good for ambiguity. Good for discovering what to test.
 
-Your prompt style should match your confidence level. Today we move right.
+**Execution prompts (M3+):** Convergent, precise. "Build me a settings page with these 4 sections, matching this design system, with loading states and navigation." Good when you know what you want.
+
+M1–M2 lived on the left. Today you move right.
 
 ---
 
-## Slide 3 — Context Layering
-**Context Layering** — The Core Technique
+## Slide 8 — Context Layering: The Core Technique
+**Context Layering** — Feed the AI Everything It Needs
 
-**What to feed the AI:**
-- **PRD or product brief** — What does this do? Who is it for?
+Generic prompt = generic output. Layered context = your product.
+
+**What to feed:**
+- **Product brief** — What does this do? Who is it for?
 - **Design system** — Colors, typography, components. Screenshot, tokens, or Figma link.
-- **User research** — Key quotes, behaviors, pain points.
+- **User research** — Key quotes, behaviors, pain points (you already have these from M2).
 - **Constraints** — What must be included? What must be avoided?
 
-Generic prompt = generic output. Specific context = specific output.
+**The "clone your product" technique:** Screenshot your actual product. "Match this layout, colors, navigation. Add my new feature on top." Stakeholders take prototypes seriously when they look like the real product.
+
+MCP (Model Context Protocol) connects AI tools directly to Figma files and design systems. You don't need to set this up today — but know it exists.
 
 ---
 
-## Slide 4 — Context for Existing Products
-**"Clone Your Product"** — Context for Existing Products
+## Slide 9 — Multi-Step Prompting
+**Multi-Step Prompting** — No More Mega-Prompts
 
-**Generic:** "Build me a settings page." → Standalone, could be any product.
+In M2, you assembled one big prompt. Today you build a chain. Each prompt targets ONE aspect.
 
-**Contextual:** "Build me a settings page that matches our existing design system—here's the component library, color tokens, navigation pattern." → Looks like it *belongs*.
+**Chain-of-Thought:** Break complex flows into steps. "First the layout. Then the feature. Then the states. Then the second screen." The AI reasons through the structure.
 
-For PMs on shipped products: stakeholders take prototypes seriously when they look like the real product.
+**Constraint Injection:** Add guardrails explicitly. "Use only these 5 colors. No modals. Mobile-first. Match the sidebar pattern from the screenshot."
 
----
+**Iterative Refinement:** Don't rebuild. "The dashboard is good. Change only the detail view — simplify to 3 sections." Steering, not restarting.
 
-## Slide 5 — Templates & Design Imports
-**Templates & Design Imports**
-
-**Mobbin** — Real product screens. Feed a screenshot as reference. "Build me a pricing page that looks like this."
-
-**Figma** — If your design system lives in Figma, import it. Share the link or export components.
-
-**Screenshot-based cloning** — Screenshot your actual product. "Match this layout, colors, navigation. Add [your new feature] on top."
+The prompt chain becomes an artifact. If someone else can follow your chain and get a similar result, you've built something portable.
 
 ---
 
-## Slide 6 — MCP for Design Systems
-**MCP for Design Systems**
+## Slide 10 — Living Prompt Packs
+**Living Prompt Packs** — Your Reusable Toolkit
 
-Model Context Protocol connects AI tools directly to Figma files, design systems, APIs.
-
-**Demo:** Lovable (or connected tool) pulling from a Figma file. Real components, real styles.
-
-You don't need to set this up today. But you should know it exists. This is where the industry is heading.
-
----
-
-## Slide 7 — Living Prompt Packs
-**Living Prompt Packs**
-
-A collection of reusable, evolving prompt templates that encode your product context. NOT static—dynamic toolkit.
+A collection of evolving prompt templates that encode your product context. NOT static — dynamic and growing.
 
 **What goes in:**
 - Product context block (paste at the start of every prompt)
-- Design system reference (screenshot or link)
-- Constraint templates ("Always X. Never Y.")
-- Output templates ("Build me a [component] with [features]")
+- Design system reference (screenshot or Figma link)
+- Constraint templates ("Always do X. Never do Y.")
+- Output templates ("Build me a [component] with [features] matching [design system]")
 
-The pack evolves as you learn. Today you start building yours.
-
----
-
-## Slide 8 — Advanced Techniques
-**Advanced Techniques** (Applied to Product Work)
-
-**Chain-of-Thought** — Break complex flows into steps. "First the header. Then the sidebar. Then the content."
-
-**Constraint Injection** — Add guardrails. "Use only these 5 colors. No modals. Mobile-first."
-
-**Iterative refinement** — Don't rebuild. "The header is good. Change only the sidebar." Steering, not restarting.
+Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). It evolves as you learn.
 
 ---
 
-## Slide 9 — Prompt Debugging
-**Prompt Debugging**
+## Slide 11 — Lab Part 1: Prepare Your Precision Inputs
+**Hands-on Lab Part 1: Prepare** | 8 Minutes
 
-When the AI builds the wrong thing, diagnose before re-prompting.
+Do NOT open Lovable yet. Prepare the ammunition.
 
-**Three culprits:**
-1. **Missing context** — Did you give it the design system? Constraints?
-2. **Conflicting constraints** — Did you say "simple" and "feature-rich"?
-3. **Wrong tool** — Some things need code editing, not re-prompting.
+**Step 1 (3 min):** Capture your design system reference.
+- Option A: Screenshot your company's actual product (if working on real problem)
+- Option B: Find a Mobbin reference matching your scenario's product type (PM tool, CRM, marketplace, dashboard)
+- Option C: Export Figma components if you have them
 
-**The heuristic:** 5+ prompts deep on the same issue? The problem isn't the tool—it's your framing. Step back. Simplify.
+**Step 2 (3 min):** Plan your 5-step prompt chain on paper or in a doc.
+- Prompt 1: Structure + design match
+- Prompt 2: Feature from your M2 hypothesis
+- Prompt 3: Real data injection (metrics + quotes from M2)
+- Prompt 4: Interactive states (loading, empty, error)
+- Prompt 5: Second screen + navigation
 
----
+**Step 3 (2 min):** Gather your M2 materials — pull up your M2 hypothesis, data pack quotes, and metrics.
 
-## Slide 10 — Agentic Prompting (Brief)
-**Agentic Prompting** — The Future
-
-**"Prompt and wait"** → You type every step.
-
-**"Delegate and supervise"** → You give direction. The AI decides the steps. Agent mode.
-
-We're moving there. For now, focus on precision in your prompts.
+*Speaker Notes: Walk the room. Check that everyone has a design system reference — if they don't have a Mobbin screenshot yet, help them find one. Check that their 5-step plan is written down, not just in their head. "If you don't have a screenshot and a plan on paper, you're not ready for the build yet." This 8 minutes of prep IS the difference between M2 and M3.*
 
 ---
 
-## Slide 11 — Hands-on Lab: The Precision Build
-**Hands-on Lab: Level Up Your Final Project** | 25 Minutes
+## Slide 12 — Lab Part 2: The Precision Build
+**Hands-on Lab Part 2: Build** | 22 Minutes
 
-Take your M2 prototype — the one you committed to — and rebuild it with precision. Same product. Same scenario. Better execution.
+Execute your chain step by step. Document every prompt.
 
-**Requirements:**
-- Document your prompt chain. Each prompt, why you wrote it, what it produced. This becomes the foundation of your Prompt Library (Deliverable #4).
-- Use context layering: product context, design reference (Mobbin or screenshot), constraints.
-- Build with multi-step prompting — no single mega-prompt.
-- Apply a design system. Make it look like it belongs in a real product.
+**Prompt 1 — Structure:** Open Lovable. Attach your design system screenshot. "Build a [dashboard/flow] with this layout: [sidebar/header/main content]. Match this design system."
 
-**Deliverable:** Prototype link + prompt chain. Your partner will try to reproduce using only your chain.
+**Prompt 2 — Feature:** "Add [your M2 hypothesis feature]. Keep the design system. Include these sections: [specific sections from your M2 build]."
+
+**Prompt 3 — Data:** "Display these real metrics: [paste 3-5 numbers from your M2 data pack]. Show these user quotes as feedback cards: [paste 2-3 quotes]."
+
+**Prompt 4 — States:** "Add a loading state with skeleton screens. Add an empty state for new users with an onboarding message. Add an error state. Same design language throughout."
+
+**Prompt 5 — Second Screen:** "Add a detail view when a user clicks [X]. Include navigation back to the main view. Show [specific data] on this screen."
+
+**Document each prompt** — what you wrote, why, and what it produced. This is the foundation of your Prompt Library (Deliverable #4).
+
+*Verify your shareable link works — you're swapping prototypes next.*
+
+*Speaker Notes: THIS IS THE WOW MOMENT — it happens in the students' hands, not yours. Walk the room as they execute. At prompt 1: check the design match landed. At prompt 3: watch for reactions when loading states appear — that's usually when it clicks. At prompt 5: "Stop. Click through your prototype from the first screen to the last." Let them navigate. Let them see the multi-screen flow, the data, the states. Don't narrate it — let the experience speak. At 20 min: "2 minutes. Document your last prompt. Make sure your shareable link works." If someone is stuck on prompt 2: "What context are you giving it? Try adding the screenshot again." If someone's result looks off: "That's prompt debugging — we'll cover it later. For now, steer with your next prompt, don't restart."*
 
 ---
 
-## Slide 12 — Breakout Group Activity: Prompt Chain Peer Review
-**Breakout Group Activity: Prompt Chain Peer Review** | 10 Minutes
+## Slide 13 — Peer Review: Prompt Chain Portability
+**Breakout Group Activity: Can You Follow My Chain?** | 10 Minutes
 
-Person A shares prompt chain + prototype. Person B: Can you reproduce a similar result using only the chain?
+Breakout rooms. Groups of 2.
+
+**The test:** Person A shares their documented prompt chain + prototype link. Person B reads the chain. Can you understand each step? Could you reproduce a similar result using only the chain?
 
 **Feedback questions:**
 - Was the prompt chain clear? What was missing?
-- Could you reproduce? If not, why?
-- What would make this reusable across projects?
+- Could you follow the logic from prompt to prompt?
+- What would make this reusable across projects — not just for this scenario?
 
-The test: Can someone else use your prompt chain? If not, it's not portable yet.
+If your partner can't follow your chain, it's not portable yet.
 
-**Format:** Breakout rooms. "How many per room? Press the button."
-
----
-
-## Slide 13 — What Made Your Prompts Work?
-**What Made Your Prompts Work?** — Full-class discussion
-
-One insight: What made your prompts work? Or what didn't—and what did you change?
-
-Portability is the test. If your prompt chain only works for you, it's not a pack yet.
+*Speaker Notes: The portability test is the second wow beat — when students see their partner get a similar result from just reading their chain, it validates that the chain itself is the artifact, not just the prototype. Enforce the structure: Person A shares chain + link, Person B reads the chain and evaluates. Then switch. "If your partner gets lost at step 3, your chain is missing context at step 3."*
 
 ---
 
-## Slide 14 — "Break It" Exercise: Live Prompt Debugging
-**"Break It" Exercise** — Live Prompt Debugging
+## Slide 14 — Quick Share
+**What Made Your Prompts Work?**
 
-**What we're breaking:** The assumption that more prompts = better result.
+One insight: What made your prompts work? Or what didn't — and what did you change?
 
-**Process:** Take a prototype that went off-rails. Diagnose live:
-1. Read the prompt chain. What did they ask for?
-2. Look at the output. What did they get?
-3. Diagnose: Missing context? Conflicting constraints? Wrong tool?
-4. Fix it live. Rephrase. Add context. Or edit the code directly.
+If your prompt chain only works for you, it's not a pack yet.
 
 ---
 
-## Slide 15 — Reflection Moment
-**Reflection Moment**
+## Slide 15 — Break It: Prompt Debugging
+**"Break It" Exercise** — Prompt Debugging
 
-Think about your own build. Where did your prompts fail? What would you do differently?
+When a prompt chain goes off-rails, diagnose before re-prompting:
 
-That reflection—that's the start of your living prompt pack.
+1. **Read the chain.** What did you ask for at each step?
+2. **Compare the output.** What did you get? Where did it diverge?
+3. **Diagnose:** Missing context? Conflicting constraints? Wrong tool?
+4. **Fix it.** Rephrase one prompt. Add a constraint. Or edit the code directly.
 
----
+If you're 5+ prompts deep on the same issue, the problem isn't the tool — it's your framing.
 
-## Slide 16 — The Precision Loop
-**The Precision Loop**
-
-**Context → Prompt → Output → Refine**
-
-You're not guessing anymore. You're directing. That's the precision shift.
+*Speaker Notes: Use a volunteer's prototype that went off-rails, or a prepared example. Walk through the diagnosis live with the class. Ask the room: "Where did it diverge? Prompt 2 or prompt 3?" Let students diagnose before you do. Fix ONE prompt live and show the improvement. 10 minutes total.*
 
 ---
 
-## Slide 17 — Confidence Line + What's Next
-**The Confidence Line**
+## Slide 16 — Pull Up All Three
+**M1. M2. M3. Side by Side.**
 
-You're moving right. M1–M2: ambiguity. M3: gaining clarity. You know what you want. You can communicate it.
+Open three tabs.
 
-**Next: Module 4** — From Vibe to Structure. The graduation moment. Living specs. Refactoring. When to commit.
+**Module 1:** Your first build. One prompt, one page.
+
+**Module 2:** Your validation build. Real data, real hypothesis, real user quotes.
+
+**Module 3:** Your precision build. Design-matched. Multiple screens. States. Documented chain.
+
+Same tool. Same you.
+
+*Speaker Notes: This is the third wow beat — the visual payoff. Have students open all three tabs themselves. Don't describe it. Let the three-tab comparison do the talking. Give it 30 seconds of silence while people look. Then: "Same tool. Same you. That's three modules of progression." This is the image they take home.*
 
 ---
 
-## Slide 18 — Accountability: Before We Wrap
+## Slide 17 — What You Did Today
+**What You Did Today**
+
+**1. Prompt Chain** — You documented a 5-step chain. Each prompt targeted one aspect. Your partner could follow it. That's the first entry in your Prompt Library (Deliverable #4).
+
+**2. Multi-Screen Flow** — Multiple connected screens with navigation. Not a single page.
+
+**3. Interactive States** — Loading, empty, error. Your prototype behaves like a shipped product.
+
+---
+
+## Slide 18 — Accountability
 **ACCOUNTABILITY** | Before We Wrap
 
-**Post your prototype + prompt chain** in #builds. Caption: What made your prompts work? What would you add to your living prompt pack?
+**1. Post in #builds:** Your prototype link + your full prompt chain. Caption: What made your prompts work? What would you add to your living prompt pack?
 
-**Engage** — Look at 2 others. Could you use their prompt chain?
+**2. Engage:** Look at 2 others. Could you follow their prompt chain? Would you get a similar result?
 
----
-
-## Slide 19 — Wrap + Preview
-**Wrap + Preview**
-
-**No Homework** — Optional: build one more screen of your project using only your prompt chain — test its portability.
-
-**Next: Module 4** — You take the prototype you've been building and graduate it. Extract the living PRD (Deliverable #3). Refactor the code. Get it structured for real. That's the midpoint of your final project.
-
-See you then.
+**3. Optional challenge:** Take your company's real product screenshot and design system. Rebuild your M3 prototype to match. Drop the before/after in Slack.
 
 ---
 
-## Slide 20 — What You Accomplished Today
-**What You Accomplished Today**
+## Slide 19 — Module 4 Preview
+**Module 4: From Vibe to Structure**
 
-- **Leveled up your final project** — Same product from M2, rebuilt with precision
-- **Context layering** — PRD, design system, constraints
-- **Clone-your-product** — Screenshots, Mobbin, Figma
-- **Documented prompt chain** — First artifact of your Prompt Library (Deliverable #4)
-- **Prompt debugging** — Diagnose before re-prompting
+Same product. Next level.
 
-Your final project is three modules in. M1: explored. M2: committed. M3: precision-built.
+You've built fast (M1), built smart (M2), and built precise (M3). Your prototype looks like a real product. Next: graduate it.
 
----
+**Module 4 — The Graduation Moment:**
+- Extract the living PRD from what you've built (Deliverable #3)
+- Refactor the code — clean architecture, proper naming, separation of concerns
+- The judgment call: when to stop exploring and start building for real
 
-## Slide 21 — The Journey Continues
-**The Journey Continues**
-
-Module 1: Build fast.  
-Module 2: Build smart.  
-Module 3: Build precise.  
+Module 1: Build fast.
+Module 2: Build smart.
+Module 3: Build precise.
 Module 4: Build for real.
 
-From "I don't know what to build" to "I know exactly what to build and how to direct the AI."
+---
 
-Next up: The graduation moment.
+## Slide 20 — Survey
+**Your Opinion Matters To Us**
+
+Scan the QR code or use the link to share your feedback. Your insights help us improve each cohort.
 
 ---
 
 ## Design Notes for Gamma
-- Use a consistent, modern template (match Modules 1–2 if part of a series)
-- Keep slides readable from the back of a room — large text, high contrast
-- Slide 1 — "Precision Prompting" as the hook
-- Slides 3–5 — Context layering (core technique; clear, scannable)
-- Slide 6 — MCP demo (visual if possible)
-- Slide 14 — "Break It" live debugging (interactive concept)
-- Slides 20–21 — Celebratory close, bridge to Module 4
+- Match Modules 1–2 visual template exactly (same fonts, colors, layout grid)
+- Slides are student-facing course material — keep content clean, instructional, and practical. Do NOT put pedagogical commentary, emotional cues, or "wow moment" labels on slides. The experience should speak for itself.
+- Slide 1 — Bold title, three waypoints as prominent numbered list (same pattern as M2 slide 1)
+- Slide 3 — Large question, minimal clutter. This is a conversation starter, not a lecture slide.
+- Slide 4 — Show the 3 prompts cleanly. Students should be able to read the prompt text and see the progression.
+- Slide 6 — Three numbered questions, prominent and scannable from the back of the room
+- Slide 8 — Context Layering: four inputs as a visual stack or card grid
+- Slide 9 — Multi-Step Prompting: three techniques as distinct visual blocks
+- Slide 12 — 5-step prompt chain as a clear, numbered workflow. Students will reference this while building. Must be scannable at a glance. This is the most-referenced slide in the module.
+- Slide 16 — Three-column layout (M1 | M2 | M3). Let the visual comparison do the talking — minimal text.
+- Slide 17 — Takeaways mirror slide 1's three waypoints (visual callback, same pattern as M2)
+- Keep all lab slides (11, 12, 13) highly scannable — students reference these while building
