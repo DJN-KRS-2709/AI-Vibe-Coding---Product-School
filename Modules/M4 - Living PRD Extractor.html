@@ -520,13 +520,14 @@
   const auditState = { states: 'yes', chain: 'yes' };
 
   const PRD_SECTION_IDS = [
-    { id: 'overview', icon: '📄', title: 'Product Overview', hint: 'What it does, who it\'s for' },
-    { id: 'problem', icon: '🎯', title: 'Problem & Hypothesis', hint: 'What question, what evidence' },
-    { id: 'flows', icon: '🔄', title: 'User Flows', hint: 'Screen-by-screen flow' },
-    { id: 'metrics', icon: '📊', title: 'Key Metrics', hint: 'What numbers prove it works' },
-    { id: 'technical', icon: '⚙️', title: 'Technical Reality', hint: 'What\'s real vs. mocked' },
-    { id: 'assumptions', icon: '⚠️', title: 'Assumptions & Risks', hint: 'Bets and kill switch' },
-    { id: 'nextsteps', icon: '🚀', title: 'Recommended Next Steps', hint: 'What engineering should build first' }
+    { id: 'overview', icon: '📄', title: 'Product Overview', hint: 'Product name\nOne-line description\nCompany stage & size\nTarget user (role, seniority, context)\nCore value proposition — what does the user get that they don\'t have today?\nProduct type: new 0→1 product, feature addition, or improvement to existing surface?' },
+    { id: 'problem', icon: '🎯', title: 'Problem Statement & Hypothesis', hint: 'The Problem:\nWhat is happening today? (current state with data)\nWho is affected and how badly? (user pain + business impact)\nWhy hasn\'t it been solved? (structural reason)\n\nThe Hypothesis:\nIf we [intervention]...\nthen [measurable outcome]...\nbecause [insight/evidence that supports this bet].\n\nExploring: [The specific question this prototype answers]\n\nEvidence Supporting This Bet:\n- User quote 1: "..." — [source]\n- User quote 2: "..." — [source]\n- Data point: [metric] — [what it proves]' },
+    { id: 'flows', icon: '🔄', title: 'User Flows & Screen Map', hint: 'Screen 1: [Name] — [Purpose]\n  → Entry point: [how user arrives]\n  → Primary action: [what user does]\n  → Leads to: Screen 2\n\nScreen 2: [Name] — [Purpose]\n  → Entry point: [from Screen 1 via...]\n  → Primary action: [what user does]\n  → Leads to: Screen 3\n\n[Continue for all screens]\n\nNavigation model: [linear flow / hub-and-spoke / tab-based]\nEdge cases handled: [loading → skeleton, error → message, empty → prompt]' },
+    { id: 'metrics', icon: '📊', title: 'Success Metrics & Measurement Plan', hint: 'Primary metric (north star):\n  [Metric name] — currently [X], target [Y], timeframe [Z]\n\nLeading indicators:\n  1. [Metric] — measures [what] — target [value]\n  2. [Metric] — measures [what] — target [value]\n  3. [Metric] — measures [what] — target [value]\n\nGuardrail metrics (must NOT degrade):\n  1. [Metric] — current baseline [value]\n\nMeasurement approach:\n  How will we track this? (A/B test, cohort analysis, before/after)\n  Sample size needed: [estimate]\n  Expected time to significance: [weeks]' },
+    { id: 'technical', icon: '⚙️', title: 'Technical Reality — What\'s Real vs. Mocked', hint: 'REAL (exists in current product or prototype):\n- [Component/feature] — how it works today\n- [Component/feature] — how it works today\n\nMOCKED (needs engineering to become real):\n- [Component/feature] — what it would need (API, database, service)\n- [Component/feature] — what it would need\n\nEXISTING INFRASTRUCTURE TO LEVERAGE:\n- [API/service] — already exists, can integrate\n- [Database/model] — already has the data\n\nNEW INFRASTRUCTURE REQUIRED:\n- [Service/API] — doesn\'t exist yet, needs to be built\n- [Data pipeline] — no current data source for this' },
+    { id: 'assumptions', icon: '⚠️', title: 'Assumptions, Risks & Kill Switch', hint: 'CORE ASSUMPTIONS (what we\'re betting on):\n1. [Assumption] — confidence level: high/medium/low — evidence: [what supports it]\n2. [Assumption] — confidence level: high/medium/low — evidence: [what supports it]\n3. [Assumption] — confidence level: high/medium/low — evidence: [what supports it]\n\nRISKS:\n- Technical: [what could go wrong technically]\n- User adoption: [what if users don\'t behave as expected]\n- Business: [unintended consequences]\n\nKILL SWITCH:\nWe stop and reassess if: [specific condition with measurable threshold]\nWe would know within: [timeframe]\nFallback plan: [what we do instead]' },
+    { id: 'scope', icon: '📋', title: 'Scope Definition — In vs. Out', hint: 'IN SCOPE (build this):\n- [Feature/capability] — why it\'s essential\n- [Feature/capability] — why it\'s essential\n- [Feature/capability] — why it\'s essential\n\nOUT OF SCOPE (explicitly not building):\n- [Feature] — why not now (future phase / different team / not validated)\n- [Feature] — why not now\n\nDEPENDENCIES:\n- [Team/system] — what we need from them and when\n- [Team/system] — what we need from them and when\n\nPHASING:\n  Phase 1 (MVP): [what ships first and why]\n  Phase 2 (fast-follow): [what comes next]\n  Phase 3 (future): [longer-term vision]' },
+    { id: 'nextsteps', icon: '🚀', title: 'Engineering Recommendation & Next Steps', hint: 'RECOMMENDED BUILD ORDER:\n1. [First thing to build] — why first (highest impact / unblocks others / lowest risk)\n2. [Second thing] — why second\n3. [Third thing] — why third\n\nESTIMATED EFFORT:\n- Phase 1: [t-shirt size] — [what\'s included]\n- Phase 2: [t-shirt size] — [what\'s included]\n\nOPEN QUESTIONS FOR ENGINEERING:\n1. [Question that needs eng input before building]\n2. [Question]\n\nEXPERIMENT PLAN:\n- How to validate before full build: [lightweight test approach]\n- Success criteria for green-lighting full build: [specific threshold]' }
   ];
 
   const SCENARIO_DATA = {
@@ -537,13 +538,147 @@
       refactor: `Refactor this codebase. Rename components: the welcome screen should be OnboardingWelcome, the invite form should be TeamInviteForm, the team workspace should be TeamWorkspace, the PM dashboard should be PMDashboard. Separate data logic (metrics, invite API calls) from display components. Group files by feature (/onboarding, /team, /dashboard). Add a README explaining the 5-screen flow and project structure.`,
       handoff: `Generate an engineering handoff for this B2B onboarding prototype: list every component (OnboardingWelcome, TeamInviteForm, TeamWorkspace, PMDashboard, etc.) and its purpose. Describe the data model — user profile, invite status, team membership, dashboard metrics. Note that invite data is currently mocked but the invite API exists in the existing product. Top 3 technical decisions: 1) integrate with existing invite API vs. build new, 2) real-time dashboard vs. daily batch, 3) A/B test framework for the onboarding flow. Write a 'start here' guide.`,
       prd: {
-        overview: `B2B onboarding flow that surfaces team invites during signup. For B2B project management SaaS (Series A, 5,000 paying teams). Helps team leads get their team onboarded faster by prompting invites in the first 3 days.`,
-        problem: `Problem: 30% of new customers churn within 90 days. Only 12% invite teammates in first 3 days. Hypothesis: Surface invites during onboarding → increase Day-3 invite rate from 12% to 25% → improve 90-day retention.`,
-        flows: `1. Welcome screen → 2. Invite form (email teammates) → 3. Team workspace (shared tasks) → 4. PM dashboard (invite rate, churn trend) → 5. Settings/confirmation.`,
-        metrics: `Day-3 invite rate (target: 25%), 90-day retention (with vs. without invite), churn rate.`,
-        technical: `Data is mocked. Invite API exists in existing product. Dashboard metrics are placeholder.`,
-        assumptions: `Bet: Users will invite during onboarding if prompted. Kill switch: If Day-3 invite rate doesn't move after 2 weeks, pause and reassess.`,
-        nextsteps: `1) Integrate real invite API. 2) Wire dashboard to real metrics. 3) Add A/B test framework for onboarding variants.`
+        overview: `Product: Team Invite Onboarding Flow
+One-line: Redesigned first-run onboarding that makes inviting teammates the default next step, not a buried setting.
+Company: B2B project management SaaS — Series A, 5,000 paying teams, $4.2M ARR.
+Target user: New team leads (first 72 hours) who just signed up and haven't yet invited anyone.
+Core value proposition: Transforms the solo-user signup into a team activation moment — users see collaboration value before they can churn.
+Product type: Feature addition to existing onboarding surface. No new backend functionality required; leverages existing invite API.`,
+        problem: `THE PROBLEM:
+30% of new customers churn within 90 days. The board requires measurable improvement this quarter.
+Users who invite a teammate within the first 3 days retain at 68%. Users who don't retain at only 22%. But only 12% of new users send an invite in the first 3 days — the invite button is buried in Settings > Team > Members. 60% of new users never create their first task.
+
+THE HYPOTHESIS:
+If we surface team invites prominently during first-run onboarding,
+then Day-3 invite rate increases from 12% to 25%,
+because the current invite flow has high friction (requires role + department) and low visibility (buried in settings), and retained users consistently cite "inviting a teammate" as the activation moment.
+
+Exploring: Is the primary barrier visibility (users don't find the invite) or friction (the invite form asks too much)?
+
+EVIDENCE:
+- Retained user: "When I invited my co-founder on Day 2, that's when it clicked. It's a team tool." — post-churn interview
+- At-risk user: "I tried to invite my team but it asked for role and department. I don't know that. I just want to add them." — support ticket
+- Data: Users who invite retain at 68% vs. 22% — 3x difference
+- Data: Only 12% invite in first 3 days — massive untapped opportunity`,
+        flows: `Screen 1: OnboardingWelcome — "Better Together" value framing
+  → Entry: First login after signup
+  → Primary action: Tap "Invite Your Team" CTA
+  → Shows collaboration stats and team value proposition
+  → Leads to: Screen 2
+
+Screen 2: TeamInviteForm — Simplified invite (email only, no role/dept)
+  → Entry: From Screen 1 CTA
+  → Primary action: Enter email addresses, send invites
+  → Secondary: "Skip for now" (tracked as a signal)
+  → Leads to: Screen 3
+
+Screen 3: TeamWorkspace — "Your team is set up" confirmation + shared tasks
+  → Entry: After invites sent (or skipped)
+  → Shows: Shared task list, teammate avatars, collaboration preview
+  → Empty state: "Waiting for teammates to join — share the link to get started"
+  → Leads to: Screen 4 (via nav)
+
+Screen 4: PMDashboard — Internal metrics dashboard
+  → Entry: Navigation from any screen
+  → Shows: Day-3 invite rate, retention with/without invite, churn trend
+  → Actions: "Send nudge email" button per at-risk account, weekly chart hover
+  → Leads to: Any screen via nav
+
+Navigation: Tab-based with persistent bottom nav across all 5 screens
+Edge cases: Loading → skeleton screens, Error → "Couldn't send invite — check the email", Empty → "Waiting for teammates to join"`,
+        metrics: `PRIMARY METRIC (north star):
+Day-3 invite rate — currently 12%, target 25%, within 4 weeks of launch
+
+LEADING INDICATORS:
+1. Onboarding completion rate — measures flow engagement — target 80%+
+2. Invite form submission rate — measures intent — target 40% of new users
+3. Time to first invite — measures friction reduction — target < 24 hours (currently ~7 days median)
+
+GUARDRAIL METRICS:
+1. Onboarding drop-off rate — must not exceed current 35%
+2. Support ticket volume — must not spike from confusion
+3. Existing feature adoption — must not degrade from onboarding changes
+
+MEASUREMENT:
+A/B test: 50/50 split, new onboarding vs. current flow. Cohort analysis at Day 3, Day 14, Day 90.
+Sample size needed: ~2,000 new signups per arm (based on current 12% rate, detecting 13% lift at 95% confidence)
+Expected time to significance: 3-4 weeks at current signup velocity`,
+        technical: `REAL (exists today):
+- Invite API — works, sends email invites, tracks acceptance
+- User authentication — standard auth flow
+- Team model — users, teams, roles already in database
+
+MOCKED (needs engineering):
+- Onboarding flow UI — new screens, currently a generic welcome page
+- Simplified invite form — current form requires role + department fields
+- PM Dashboard — all metrics are hardcoded placeholder values
+- "Send nudge email" functionality — no automated nudge system exists
+- Weekly chart hover interaction — frontend only, no real time-series data
+
+EXISTING INFRASTRUCTURE:
+- Invite API at /api/v2/invites — accepts email, returns invite status
+- User analytics pipeline — can track events, just needs new event types
+- Email service — Sendgrid integration, can send custom templates
+
+NEW INFRASTRUCTURE REQUIRED:
+- Dashboard metrics aggregation service — daily batch job to compute invite rates and retention
+- Nudge email automation — triggered emails for users who haven't invited by Day 2
+- A/B test framework integration — LaunchDarkly or similar for onboarding variants`,
+        assumptions: `CORE ASSUMPTIONS:
+1. Visibility is the primary barrier, not lack of intent — confidence: HIGH — evidence: 73% of churned users said they "didn't know" about team features
+2. Reducing invite friction (removing role/dept fields) won't cause data quality issues — confidence: MEDIUM — evidence: most teams assign roles later anyway
+3. Showing collaboration value upfront motivates invites — confidence: MEDIUM — evidence: retained users cite "team moment" as activation trigger
+
+RISKS:
+- Technical: Simplified invite form may need backend changes to make role/dept optional
+- User adoption: Power users who want role assignment upfront may be frustrated by simplification
+- Business: If nudge emails are too aggressive, they could accelerate churn instead of preventing it
+
+KILL SWITCH:
+We stop and reassess if: Day-3 invite rate doesn't increase by at least 5 percentage points within 2 weeks of launch.
+We would know within: 3 weeks (2 weeks of data + 1 week analysis).
+Fallback plan: Revert to current onboarding, focus on reducing invite form friction without changing the flow.`,
+        scope: `IN SCOPE:
+- 3-screen onboarding flow (welcome, invite, workspace) — core intervention
+- PM dashboard with key metrics — validates the investment
+- Loading, error, and empty states — production-quality UX
+- Simplified invite (email only) — removes friction
+
+OUT OF SCOPE:
+- Role-based permissions during onboarding — future phase, requires backend changes
+- Mobile-specific onboarding — web-first, mobile follows
+- Integration with Slack/Teams for invites — V2 feature
+- Real-time dashboard — daily batch is sufficient for V1
+
+DEPENDENCIES:
+- Backend team: Make role/department optional on invite API — needed before launch
+- Data team: New event tracking for onboarding steps — needed for measurement
+- Design team: Final visual polish — prototype is the starting point
+
+PHASING:
+Phase 1 (MVP, 2 weeks): Onboarding flow + simplified invite + basic analytics events
+Phase 2 (fast-follow, 2 weeks): PM dashboard with real metrics + nudge email automation
+Phase 3 (future): A/B test framework, mobile onboarding, Slack/Teams integration`,
+        nextsteps: `RECOMMENDED BUILD ORDER:
+1. Simplified invite API (make role/dept optional) — unblocks everything, lowest risk, 2 days eng effort
+2. 3-screen onboarding flow — highest user impact, uses existing invite API, 1 week eng effort
+3. Analytics event tracking — needed for measurement, 2 days eng effort
+4. PM dashboard with real data — validates investment, requires metrics aggregation service, 1 week eng effort
+5. Nudge email automation — increases invite rate further, 3 days eng effort
+
+ESTIMATED EFFORT:
+Phase 1 (MVP): Medium — 2 engineers, 2 weeks — onboarding flow + invite simplification + events
+Phase 2: Medium — 1 engineer, 2 weeks — dashboard + nudge emails
+
+OPEN QUESTIONS FOR ENGINEERING:
+1. Can we make role/department optional on the invite API without a migration, or does it require a schema change?
+2. Do we have the event pipeline capacity to track onboarding step-by-step events at current signup volume?
+3. Is LaunchDarkly already integrated, or do we need to set up an A/B framework from scratch?
+
+EXPERIMENT PLAN:
+- Lightweight test: Deploy new onboarding to 10% of new signups for 1 week, compare Day-3 invite rate
+- Success criteria: Day-3 invite rate > 17% (5-point lift) in test group
+- Green-light full build if: Test group shows statistically significant improvement AND no degradation in guardrail metrics`
       }
     },
     internal: {
@@ -553,13 +688,142 @@
       refactor: `Refactor this codebase. Rename components to AccountListView, AccountDetail, RiskTimeline, TeamRollupDashboard, OutreachPlaybook. Separate risk calculation logic from display. Group by feature (/accounts, /dashboard, /playbooks). Add README.`,
       handoff: `Engineering handoff for the churn warning system: component list, data model (account, risk_score, feature_adoption, login_history), what's mocked (risk algorithm, CRM data), top 3 decisions (real-time risk scoring vs. batch, CRM integration method, alert threshold configuration), start-here guide.`,
       prd: {
-        overview: `Internal churn early warning system. Shows accounts with risk scores, feature adoption, last login. For internal CS/ops teams managing enterprise accounts.`,
-        problem: `Problem: Enterprise accounts churn without warning. Hypothesis: Flag at-risk accounts early → enable proactive outreach → reduce churn.`,
-        flows: `1. Account list (risk scores) → 2. Account detail (risk timeline, adoption) → 3. Team roll-up dashboard → 4. Settings/playbooks.`,
-        metrics: `Accounts flagged before churn, time to outreach, churn prevention rate.`,
-        technical: `Risk algorithm mocked. CRM data mocked. UI and flows are real.`,
-        assumptions: `Bet: Risk signals predict churn. Kill switch: If false positive rate > 30%, recalibrate.`,
-        nextsteps: `1) Integrate real risk scoring. 2) Connect to CRM. 3) Add alert thresholds.`
+        overview: `Product: Churn Early Warning System
+One-line: Internal operations tool that flags at-risk enterprise accounts before they churn, enabling proactive CS outreach.
+Company: B2B SaaS — enterprise accounts with $50K+ ACV.
+Target user: Customer Success Managers and CS Ops leads who manage 50-200 enterprise accounts each.
+Core value proposition: Replaces reactive "account churned" alerts with predictive "account is at risk" signals, giving CS teams a 30-day warning window.
+Product type: New internal tool — not customer-facing. Integrates with existing CRM and product analytics.`,
+        problem: `THE PROBLEM:
+Enterprise accounts churn without warning. CSMs learn about risk when the renewal conversation starts — by then it's too late. The average CSM manages 120 accounts and has no systematic way to prioritize outreach.
+
+THE HYPOTHESIS:
+If we surface risk signals (login frequency, feature adoption, support tickets) in a centralized dashboard with recommended actions,
+then CSMs proactively reach out to at-risk accounts 30+ days before renewal,
+because currently risk signals exist in 4 different tools (CRM, analytics, support, billing) and no one synthesizes them.
+
+Exploring: Are login frequency + feature adoption sufficient to predict churn, or do we need support ticket sentiment as well?
+
+EVIDENCE:
+- CS Lead: "I found out the account was at risk when they didn't reply to the renewal email. By then, they'd already chosen a competitor." — CS retrospective
+- CSM: "I have the data in 4 tools. I just don't have time to check all of them for 120 accounts." — internal interview
+- Data: 78% of churned accounts showed declining login frequency 45+ days before cancellation
+- Data: Accounts with <30% feature adoption churn at 3x the rate of accounts with >60% adoption`,
+        flows: `Screen 1: AccountListView — Risk-scored account list
+  → Entry: Direct navigation (home screen)
+  → Shows: Account name, risk score (0-100), last login, feature adoption %, "Reach out" button
+  → Sortable by risk score, filterable by segment
+  → Leads to: Screen 2 (click account row)
+
+Screen 2: AccountDetail — Deep dive on a single account
+  → Entry: Click account from list
+  → Shows: Risk timeline (90 days), feature adoption by module, last 5 login sessions, key contacts, outreach history
+  → Contains: Suggested Playbook card with 3 prioritized actions
+  → Leads to: Back to list, or drill into any section
+
+Screen 3: TeamRollupDashboard — Portfolio-level view
+  → Entry: Navigation tab
+  → Shows: Total accounts at risk, average risk score trend, outreach completion rate, team member workload
+  → Leads to: Any account detail via drill-down
+
+Screen 4: Settings — Alert configuration
+  → Entry: Navigation tab
+  → Shows: Risk threshold configuration, notification preferences, playbook customization
+
+Navigation: Left sidebar with list/dashboard/settings tabs
+Edge cases: Loading → skeleton for account list and charts, Empty → "No at-risk accounts right now — check back tomorrow", Error → "Couldn't load account data — last sync failed. Retry."`,
+        metrics: `PRIMARY METRIC:
+Accounts flagged before churn — target: 80% of churning accounts flagged 30+ days before cancellation (currently 0% — no early warning exists)
+
+LEADING INDICATORS:
+1. CSM outreach rate for flagged accounts — target: 90% contacted within 48 hours of flag
+2. Time from flag to first outreach — target: < 48 hours
+3. Risk score accuracy — target: > 70% of high-risk accounts actually renew-at-risk or churn
+
+GUARDRAIL METRICS:
+1. False positive rate — must stay below 30% (CSMs lose trust if too many false alarms)
+2. CSM workload — must not increase total outreach volume by >20%
+
+MEASUREMENT:
+Cohort analysis: Compare churn rates for flagged-and-contacted vs. unflagged accounts.
+A/B not feasible (can't withhold risk info from CS team). Use historical baseline.
+Expected time to measure: 1 full renewal cycle (90 days)`,
+        technical: `REAL (exists today):
+- Account list UI — interactive table with sorting and filtering
+- Account detail layout — risk timeline, feature breakdown, contact info display
+- Navigation and routing — sidebar nav works across all screens
+
+MOCKED:
+- Risk scoring algorithm — currently random scores, needs ML model or rule-based scoring
+- CRM data — account names and contacts are placeholder, needs Salesforce/HubSpot integration
+- Login frequency data — needs product analytics pipeline integration
+- Feature adoption data — needs event tracking per module
+- Outreach tracking — "Reach out" button is UI-only, needs CRM action creation
+- Suggested Playbook — static recommendations, needs dynamic rule engine
+
+EXISTING INFRASTRUCTURE:
+- Salesforce CRM — has account data, contacts, renewal dates
+- Mixpanel — has login events and basic feature usage
+- Intercom — has support ticket data and sentiment
+
+NEW INFRASTRUCTURE:
+- Risk scoring service — rule-based V1, ML V2 — ingests data from 3 sources
+- Data aggregation layer — nightly ETL from Salesforce + Mixpanel + Intercom
+- Alert/notification service — triggers Slack alerts and email for new high-risk accounts`,
+        assumptions: `CORE ASSUMPTIONS:
+1. Login frequency + feature adoption are sufficient early predictors of churn — confidence: HIGH — evidence: 78% correlation in historical data
+2. CSMs will act on risk signals if surfaced clearly — confidence: MEDIUM — evidence: CSMs say they want this but haven't had it before
+3. A rule-based risk score is good enough for V1 — confidence: MEDIUM — evidence: simple thresholds (login < 3x/week AND adoption < 30%) catch most cases
+
+RISKS:
+- Technical: Data aggregation across 3 systems may have latency or consistency issues
+- User adoption: CSMs may not trust the risk scores initially, requiring a calibration period
+- Business: If risk scores are inaccurate, CSMs waste time on healthy accounts
+
+KILL SWITCH:
+We stop if: False positive rate exceeds 30% after 30 days of use, OR CSMs report the tool adds burden without value.
+We would know within: 30 days of launch.
+Fallback: Simplify to a weekly email digest of top 10 at-risk accounts instead of a full dashboard.`,
+        scope: `IN SCOPE:
+- Account list with risk scores — core value, enables prioritization
+- Account detail with risk timeline — enables investigation before outreach
+- Team roll-up dashboard — enables CS leadership visibility
+- Basic alert configuration — enables customization per CSM
+
+OUT OF SCOPE:
+- ML-based risk scoring — V2, rule-based is sufficient for V1
+- Automated outreach (auto-send emails) — requires legal review, future phase
+- Customer-facing health score — internal tool only for now
+- Mobile app — desktop-first for CS workflows
+
+DEPENDENCIES:
+- Data engineering: ETL pipeline from Salesforce + Mixpanel + Intercom — 2 weeks lead time
+- CS operations: Define risk score thresholds and playbook rules — needed before launch
+
+PHASING:
+Phase 1 (MVP, 3 weeks): Account list + detail with rule-based risk scores from Salesforce data only
+Phase 2 (4 weeks): Add Mixpanel + Intercom data, team dashboard, Slack alerts
+Phase 3 (future): ML risk model, automated playbooks, customer-facing health score`,
+        nextsteps: `RECOMMENDED BUILD ORDER:
+1. Data aggregation pipeline (Salesforce first) — unblocks everything, 1 week
+2. Rule-based risk scoring service — simple threshold model, 3 days
+3. Account list and detail UI with real data — highest value, 1 week
+4. Team roll-up dashboard — CS leadership buy-in, 3 days
+5. Slack alert integration — drives adoption, 2 days
+
+ESTIMATED EFFORT:
+Phase 1: Medium-Large — 2 engineers, 3 weeks — data pipeline + risk scoring + core UI
+Phase 2: Medium — 1-2 engineers, 4 weeks — multi-source data + dashboard + alerts
+
+OPEN QUESTIONS:
+1. Salesforce API rate limits — can we pull all account data nightly, or do we need incremental sync?
+2. How do we handle accounts with missing data (no Mixpanel events)? Default risk score or exclude?
+3. Should risk scores be visible to account executives, or CS-only?
+
+EXPERIMENT PLAN:
+- Lightweight test: Run rule-based scoring on historical data, validate against known churned accounts
+- Success criteria: >70% of churned accounts would have been flagged as high-risk 30+ days before cancellation
+- Green-light: If historical validation passes, launch to 5 CSMs for 2-week pilot`
       }
     },
     marketplace: {
@@ -569,13 +833,161 @@
       refactor: `Refactor: rename to ProviderSearchResults, ProviderProfile, TrustBadgeGroup, BookingConfirmation, ReviewPrompt, ProviderDashboard. Separate provider data from booking logic. Group by /providers, /booking, /reviews. Add README.`,
       handoff: `Engineering handoff for marketplace trust: components, data model (provider, verification_status, trust_score, booking, review, guarantee), what's mocked (guarantee system, reviews), top 3 decisions (guarantee backend service, review moderation, provider verification process), start-here guide.`,
       prd: {
-        overview: `Marketplace trust system. Enriches provider profiles with verification, trust signals, satisfaction guarantee. For two-sided marketplace — customers booking services, providers offering services.`,
-        problem: `Problem: 6% browse-to-book, 71% provider page bounce, 64% zero-review providers. Hypothesis: Enriched profiles + guarantee → browse-to-book from 6% to 15%.`,
-        flows: `1. Provider search → 2. Provider profile (trust badges) → 3. Booking confirmation → 4. Review prompt → 5. Provider dashboard.`,
-        metrics: `Browse-to-book rate (target: 15%), provider page bounce, booking completion.`,
-        technical: `Guarantee system mocked. Reviews mocked. Provider data structure is defined.`,
-        assumptions: `Bet: Trust signals overcome zero-review hesitation. Kill switch: If guarantee claims spike, pause.`,
-        nextsteps: `1) Build guarantee backend. 2) Integrate review system. 3) Provider verification flow.`
+        overview: `Product: Marketplace Trust & Booking System
+One-line: Trust infrastructure that enriches provider profiles with verification badges, work samples, response times, and a satisfaction guarantee — converting browsers into bookers.
+Company: Home services marketplace — signups up 22% QoQ, bookings flat, 18 months old.
+Target users: (1) Customers browsing providers but not booking. (2) New providers struggling to get first bookings.
+Core value proposition: Customers get confidence to book unreviewed providers. Providers get a fair shot at their first customers. Platform converts its growing traffic into actual transactions.
+Product type: Feature addition to existing marketplace — enhances provider profiles and booking flow.`,
+        problem: `THE PROBLEM:
+Signups are up 22% QoQ. Bookings are flat. The funnel breaks at the provider selection page — 71% bounce rate. 64% of providers have zero reviews. New providers wait a median of 47 days for their first booking, and 72% of new providers churn within 90 days. The top 10% of providers capture 58% of all bookings. It's a winner-takes-most dynamic that kills the supply side.
+
+THE HYPOTHESIS:
+If we enrich provider profiles with verification badges, work samples, response time, and a satisfaction guarantee,
+then browse-to-book conversion increases from 6% to 15% and provider page bounce drops below 50%,
+because 71% of customers bounce from provider pages that show only a name and photo — they need proof before they'll book a stranger.
+
+Exploring: Is the primary trust blocker the lack of provider information, or the absence of a platform guarantee?
+
+EVIDENCE:
+- Customer: "I found three providers who looked good. None had reviews. I'm not going to be the guinea pig." — user interview
+- Customer: "I would pay more for a 'verified' provider. I care about not having a stranger in my house who I know nothing about." — survey (73% willing to pay more)
+- Provider: "I do great work but I can't get my first review. I offered 50% off and the platform doesn't even let me do that." — provider interview
+- Head of Growth: "Signups are up 22% QoQ. Bookings are flat. The funnel breaks at the provider selection page."
+- CEO: "I want a guarantee program. Airbnb has one. We need one."`,
+        flows: `Screen 1: ProviderSearchResults — Enhanced search with trust indicators
+  → Entry: Search or category browse
+  → Shows: Provider cards with verification badge, response time, trust score, "Guaranteed" tag
+  → Sortable by trust score, response time, price
+  → Leads to: Screen 2 (click provider)
+
+Screen 2: ProviderProfile — Enriched profile with trust signals above the fold
+  → Entry: From search results
+  → Shows: Verification badge + guarantee badge (above fold), bio, work samples, response time, reviews (or "New — book with guarantee"), pricing
+  → Primary action: "Book Now" button
+  → Empty state for zero-review providers: "New to the platform — book with our satisfaction guarantee"
+  → Leads to: Screen 3
+
+Screen 3: BookingConfirmation — Post-booking with guarantee details
+  → Entry: After booking submitted
+  → Shows: Booking details, provider ETA, guarantee terms, "Report an issue" link
+  → Leads to: Screen 4 (post-service)
+
+Screen 4: ReviewPrompt — Post-service review collection
+  → Entry: 24 hours after service completed (or manual trigger)
+  → Shows: Star rating, text review, photo upload option
+  → Leads to: Thank you + back to search
+
+Screen 5: ProviderDashboard — Provider-facing metrics and growth tools
+  → Entry: Provider login
+  → Shows: Profile completeness score, booking requests, review stats, "Boost your profile" checklist
+  → Empty state: "No bookings yet — complete your profile to start appearing in search"
+
+Navigation: Tab-based (Search | Bookings | Profile for customers; Dashboard | Requests | Reviews for providers)
+Edge cases: Loading → skeleton for search results, Error → "Booking couldn't be completed — try another time", Empty → context-specific messages per screen`,
+        metrics: `PRIMARY METRIC:
+Browse-to-book conversion — currently 6%, target 15%, within 8 weeks of launch
+
+LEADING INDICATORS:
+1. Provider page bounce rate — currently 71%, target <50%
+2. Zero-review provider booking rate — currently near 0%, target 10%+ of bookings
+3. Review submission rate — currently 0% (no prompts sent), target 40% post-service
+4. New provider first-booking time — currently 47 days median, target <14 days
+
+GUARDRAIL METRICS:
+1. Guarantee claim rate — must stay below 5% (unsustainable if higher)
+2. Customer satisfaction (post-booking NPS) — must not drop below current 18
+3. Provider retention — must not decline further
+
+MEASUREMENT:
+A/B test: New profiles + guarantee vs. current profiles for 50% of traffic.
+Secondary: Cohort analysis on new providers (with enhanced profile vs. without).
+Sample size: ~5,000 search sessions per arm (based on 6% conversion, detecting 9% lift).
+Expected time: 4-6 weeks for statistical significance.`,
+        technical: `REAL (exists today):
+- Provider profile structure — name, photo, category, pricing in database
+- Search and browse — functional search with basic filtering
+- Booking system — basic booking creation and provider notification
+- Provider login and dashboard shell — authentication works
+
+MOCKED:
+- Verification system — badges are visual-only, no actual verification process
+- Satisfaction guarantee — displayed as a badge, no backend for claims or refunds
+- Trust score calculation — hardcoded, no algorithm
+- Review system — reviews are placeholder data, no submission or moderation pipeline
+- Response time tracking — displayed but not measured from real data
+- Work sample uploads — UI exists but no storage or moderation
+- "Boost your profile" checklist — static, not connected to actual profile completeness
+
+EXISTING INFRASTRUCTURE:
+- Stripe Connect — already integrated for provider payments, can handle refunds for guarantee
+- SendGrid — email service for review prompts and booking notifications
+- Cloudinary — image CDN, can store work sample photos
+- Provider database — has the schema, just needs new fields (verification_status, trust_score)
+
+NEW INFRASTRUCTURE:
+- Guarantee claims service — workflow for customer claims, provider disputes, auto-refunds
+- Review pipeline — submission, moderation (profanity filter + manual review queue), display
+- Verification workflow — document upload, manual verification, badge assignment
+- Trust score engine — composite score from verification + reviews + response time + completion rate`,
+        assumptions: `CORE ASSUMPTIONS:
+1. Trust signals (badges, guarantee) overcome zero-review hesitation — confidence: HIGH — evidence: 73% of surveyed customers willing to pay more for "verified" providers
+2. Providers will complete enhanced profiles if it leads to more bookings — confidence: MEDIUM — evidence: providers are desperate for bookings but may not invest time upfront
+3. The guarantee cost is manageable (<5% claim rate) — confidence: LOW — evidence: Airbnb's guarantee claim rate is ~2%, but our quality control is less mature
+
+RISKS:
+- Technical: Guarantee claims workflow is complex (disputes, refunds, fraud prevention)
+- User adoption: Customers may still prefer reviewed providers even with guarantee
+- Business: If guarantee claims exceed 5%, the program is financially unsustainable
+- Supply-side: If verification is too burdensome, providers may leave the platform entirely
+
+KILL SWITCH:
+We stop if: Guarantee claim rate exceeds 5% in the first 30 days, OR browse-to-book doesn't improve by at least 3 percentage points within 6 weeks.
+We would know within: 6 weeks.
+Fallback: Remove guarantee, keep enriched profiles only (lower risk, lower impact).`,
+        scope: `IN SCOPE:
+- Enhanced provider profiles (verification badge, response time, work samples) — highest impact on bounce rate
+- Satisfaction guarantee badge and terms display — enables booking confidence
+- Review collection prompt (post-service) — starts building review inventory
+- Provider dashboard with profile completeness — drives supply-side engagement
+
+OUT OF SCOPE:
+- Automated verification (background checks) — manual verification for V1
+- Guarantee claims dispute resolution — manual process via support for V1
+- Provider promotional tools (50% off first booking) — V2 feature
+- Mobile app redesign — web-first, mobile follows
+- Real-time chat between customer and provider — different team, different initiative
+
+DEPENDENCIES:
+- Trust & Safety team: Define verification criteria and manual review process — 1 week
+- Finance: Approve guarantee budget and refund workflow — needed before launch
+- Legal: Review guarantee terms and conditions — 1 week
+
+PHASING:
+Phase 1 (MVP, 3 weeks): Enhanced profiles + verification badges + guarantee display + review prompt
+Phase 2 (4 weeks): Guarantee claims workflow + trust score algorithm + provider promotional tools
+Phase 3 (future): Automated verification, ML-based trust scoring, provider tier system`,
+        nextsteps: `RECOMMENDED BUILD ORDER:
+1. Enhanced provider profile fields (verification badge, response time, work samples) — highest impact, 1 week
+2. Review collection pipeline (post-service email + submission form + basic moderation) — builds review inventory, 1.5 weeks
+3. Guarantee badge display + terms page — enables booking confidence, 2 days
+4. Provider dashboard with completeness score — drives supply-side engagement, 1 week
+5. Guarantee claims workflow — complex but necessary for real launch, 2 weeks
+
+ESTIMATED EFFORT:
+Phase 1: Medium — 2 engineers, 3 weeks — profiles + reviews + guarantee display
+Phase 2: Large — 2-3 engineers, 4 weeks — claims workflow + trust scoring + promotions
+
+OPEN QUESTIONS:
+1. What's the guarantee coverage amount? Flat rate or percentage of booking value?
+2. Manual verification — what documents do providers submit? Who reviews them and what's the SLA?
+3. Should the trust score be visible to providers? Could it create perverse incentives?
+
+EXPERIMENT PLAN:
+- Lightweight test: Launch enhanced profiles WITHOUT guarantee to 50% of traffic, measure bounce rate improvement
+- If profiles alone improve bounce by 10+ points, guarantee may not be needed for V1
+- Full test: Add guarantee to the enriched-profile group, measure incremental conversion lift
+- Green-light Phase 2 if: Browse-to-book reaches 12%+ AND guarantee claims stay below 5%`
       }
     },
     dashboard: {
@@ -585,13 +997,153 @@
       refactor: `Refactor: rename to DashboardMain, MetricDrilldown, SegmentBreakdown, SettingsPanel, ChartComponent, AlertConfig. Separate chart rendering from data fetching. Group by /dashboard, /metrics, /settings. Add README.`,
       handoff: `Engineering handoff for analytics dashboard: components, data model, what's mocked (all chart data), top 3 decisions (data warehouse integration, real-time vs. cached metrics, alert delivery system), start-here guide.`,
       prd: {
-        overview: `Analytics dashboard with drill-down. For product/ops teams who need actionable metrics. Makes data scannable and drillable.`,
-        problem: `Problem: Dashboard nobody reads, data not actionable. Hypothesis: Better visualization + drill-down → increased engagement and action.`,
-        flows: `1. Main dashboard (metric cards) → 2. Metric drill-down (time-series) → 3. Segment breakdown → 4. Settings (alerts, preferences).`,
-        metrics: `Dashboard engagement, drill-down rate, alert configuration rate.`,
-        technical: `All chart data mocked. UI and drill-down logic are real.`,
-        assumptions: `Bet: Users will drill down if it's easy. Kill switch: If engagement doesn't improve, simplify.`,
-        nextsteps: `1) Data warehouse integration. 2) Real-time vs. cached decision. 3) Alert delivery system.`
+        overview: `Product: Actionable Analytics Dashboard
+One-line: Redesigned analytics dashboard that surfaces anomalies, enables one-click drill-down, and drives action — not just observation.
+Company: B2B SaaS — product and ops teams use metrics daily but rarely act on them.
+Target user: Product managers and ops leads who check dashboards daily but spend 80% of time in spreadsheets because the dashboard isn't actionable.
+Core value proposition: Transforms passive metric-watching into active decision-making — every data point leads to a "what should I do about this?" answer.
+Product type: Improvement to existing analytics surface. Same data, dramatically better UX and actionability.`,
+        problem: `THE PROBLEM:
+The current dashboard shows 20+ metrics on one page. Nobody reads it. Weekly active usage is 23% — and of those who visit, average session is 45 seconds (scan, leave). When teams need to make decisions, they export to spreadsheets. The dashboard is a reporting artifact, not a decision tool.
+
+THE HYPOTHESIS:
+If we redesign the dashboard with anomaly highlighting, one-click drill-down, segment comparison, and configurable alerts,
+then weekly active usage increases from 23% to 60% and average session time doubles,
+because the current dashboard forces users to interpret raw numbers without context — they need the dashboard to tell them what changed, why, and what to do about it.
+
+Exploring: Is the primary issue information overload (too many metrics) or lack of actionability (no path from insight to action)?
+
+EVIDENCE:
+- PM: "I open the dashboard every Monday. I look at it for 30 seconds. Then I open a spreadsheet to actually figure out what happened." — user interview
+- Ops lead: "The numbers are all there. But I can't tell what's normal vs. what needs attention. Everything looks the same." — user interview
+- Data: 23% weekly active usage — down from 40% at launch 6 months ago
+- Data: 0% alert configuration rate — the feature exists but nobody uses it because setup requires SQL knowledge`,
+        flows: `Screen 1: DashboardMain — Scannable metric cards with status indicators
+  → Entry: Default landing page
+  → Shows: 6-8 key metric cards with trend arrows, color-coded status (green/yellow/red), sparkline charts
+  → Anomaly highlighting: Cards with significant changes pulse or have a distinct border
+  → Primary action: Click any card to drill down
+  → Leads to: Screen 2
+
+Screen 2: MetricDrilldown — Deep dive on one metric
+  → Entry: Click metric card from Screen 1
+  → Shows: Full time-series chart (daily/weekly/monthly toggle), anomaly annotations, segment selector
+  → Actions: Compare segments, set date range, annotate data points
+  → Leads to: Screen 3 (click segment) or back to Screen 1
+
+Screen 3: SegmentBreakdown — Compare segments side by side
+  → Entry: From drill-down segment selector
+  → Shows: Side-by-side comparison of 2-3 segments, difference highlighting, breakdown table
+  → Actions: Change segments, export comparison
+  → Leads to: Back to drill-down or dashboard
+
+Screen 4: SettingsPanel — Alert and display configuration
+  → Entry: Navigation or "Set alert" from any metric card
+  → Shows: Alert thresholds (no SQL — visual slider), notification preferences (email/Slack), dashboard layout customization
+  → Leads to: Back to dashboard
+
+Navigation: Top bar with Dashboard | Settings tabs. Breadcrumb trail for drill-down path.
+Edge cases: Loading → skeleton for charts and cards, Empty → "No data for this period — adjust date range", Error → "Couldn't load chart — data source unavailable. Retry."`,
+        metrics: `PRIMARY METRIC:
+Weekly active dashboard usage — currently 23%, target 60%, within 8 weeks
+
+LEADING INDICATORS:
+1. Drill-down rate — currently 0% (no drill-down exists), target 40% of sessions include at least one drill-down
+2. Average session duration — currently 45 seconds, target 2+ minutes
+3. Alert configuration rate — currently 0%, target 30% of users set at least one alert
+4. Export-to-spreadsheet rate — currently high (proxy for dashboard inadequacy), target 50% reduction
+
+GUARDRAIL METRICS:
+1. Page load time — must stay under 3 seconds (adding charts could slow things down)
+2. Data accuracy — must match existing reporting tools exactly (trust is fragile)
+
+MEASUREMENT:
+Before/after comparison (same user base, new dashboard replaces old).
+Supplement with qualitative: 5-user feedback sessions at week 2 and week 6.
+Time to measure: 8 weeks for usage pattern stabilization.`,
+        technical: `REAL (exists today):
+- Dashboard layout and metric cards — visual components render correctly
+- Navigation between screens — routing and breadcrumbs work
+- Drill-down interaction — click card → detail view transition works
+- Chart rendering (static) — charts display with placeholder data
+
+MOCKED:
+- All metric data — every number is hardcoded, needs data warehouse connection
+- Time-series charts — display static data, need real time-series API
+- Anomaly detection — visual highlighting is manual, needs statistical anomaly detection
+- Alert system — settings UI exists, no backend for threshold monitoring or notifications
+- Segment comparison — UI works, no real segment data
+- Sparkline mini-charts — visual only, no real trend data
+- Export functionality — button exists, no actual CSV/PDF generation
+
+EXISTING INFRASTRUCTURE:
+- Snowflake data warehouse — has all the underlying metric data
+- Looker — current BI tool (dashboard replaces Looker for daily use cases)
+- Slack integration — webhook exists for alerts (just needs to be connected)
+- dbt models — metric definitions already standardized
+
+NEW INFRASTRUCTURE:
+- Dashboard API layer — REST endpoints serving pre-computed metrics from Snowflake
+- Caching layer (Redis) — metrics don't change minute-to-minute, cache for performance
+- Anomaly detection service — statistical model (Z-score or similar) for significant changes
+- Alert monitoring service — checks thresholds hourly, triggers Slack/email`,
+        assumptions: `CORE ASSUMPTIONS:
+1. Users want actionable dashboards, not just data — confidence: HIGH — evidence: 80% use spreadsheets because dashboard isn't actionable
+2. Anomaly highlighting will drive drill-down behavior — confidence: MEDIUM — evidence: users say they miss important changes because "everything looks the same"
+3. No-code alert configuration will drive adoption — confidence: MEDIUM — evidence: current SQL-based alerts have 0% adoption; visual sliders should remove barrier
+
+RISKS:
+- Technical: Data warehouse queries may be too slow for real-time drill-down without significant caching investment
+- User adoption: Users may be too habituated to spreadsheets to change behavior
+- Business: If data accuracy doesn't match Looker exactly, users will lose trust immediately
+
+KILL SWITCH:
+We stop if: Weekly active usage doesn't reach 40% within 6 weeks, OR users report data accuracy issues.
+We would know within: 6 weeks.
+Fallback: Keep anomaly alerts as a Slack bot (no dashboard change), feed into existing workflow.`,
+        scope: `IN SCOPE:
+- Redesigned metric cards with status indicators and sparklines — core scannability improvement
+- One-click drill-down with time-series charts — core actionability improvement
+- Segment comparison view — enables investigation
+- Visual alert configuration (no SQL) — drives ongoing engagement
+
+OUT OF SCOPE:
+- Custom metric creation — use existing dbt definitions for V1
+- Embedding in other tools (Slack, Notion) — future integration
+- Mobile dashboard — desktop-first for daily standup use case
+- Real-time streaming data — hourly refresh is sufficient for V1
+- AI-powered insights ("here's what changed and why") — V2 feature
+
+DEPENDENCIES:
+- Data engineering: Dashboard API endpoints from Snowflake — 2 weeks
+- Data engineering: Redis caching layer — 1 week
+- Design: Final visual polish on anomaly indicators and chart interactions — 1 week
+
+PHASING:
+Phase 1 (MVP, 3 weeks): Metric cards with real data + drill-down + basic anomaly highlighting
+Phase 2 (3 weeks): Segment comparison + alert configuration + Slack notifications
+Phase 3 (future): AI insights, custom metrics, mobile, embedded reports`,
+        nextsteps: `RECOMMENDED BUILD ORDER:
+1. Dashboard API endpoints (Snowflake → REST) — unblocks all real data, 1.5 weeks
+2. Redis caching layer — ensures performance, 3 days
+3. Metric cards with real data + sparklines — immediate visible value, 1 week
+4. Drill-down with time-series charts — core actionability, 1 week
+5. Anomaly detection service — drives engagement, 1 week
+6. Alert configuration + Slack integration — ongoing engagement, 1 week
+
+ESTIMATED EFFORT:
+Phase 1: Medium — 2 engineers, 3 weeks — API + caching + cards + drill-down
+Phase 2: Medium — 1-2 engineers, 3 weeks — segments + alerts + Slack
+
+OPEN QUESTIONS:
+1. Snowflake query performance — can we serve drill-down queries in <2 seconds, or do we need pre-computed aggregates?
+2. Metric definitions — are current dbt models sufficient, or do some metrics need recalculation?
+3. Anomaly sensitivity — what Z-score threshold feels right? Too sensitive = alert fatigue, too lax = missed changes.
+
+EXPERIMENT PLAN:
+- Lightweight test: Deploy redesigned dashboard to one team (Product) for 2 weeks, measure usage vs. other teams
+- Success criteria: >50% weekly active usage in pilot team AND qualitative feedback is positive
+- Green-light full rollout if: Pilot team sustains usage and reports reduced spreadsheet dependency`
       }
     }
   };

@@ -166,13 +166,14 @@ Traditional PRDs are written before anything exists. They describe a product tha
 
 | Section | What It Answers |
 |---------|----------------|
-| Product Overview | What does this do? Who is it for? |
-| Problem & Hypothesis | What question does this answer? What evidence supports it? |
-| User Flows | How does a user get from start to finish? Screen by screen. |
-| Key Metrics | What numbers would prove this works at scale? |
-| Technical Reality | What's real vs. mocked? What needs engineering to become production? |
-| Assumptions & Risks | What are you betting on? What's the kill switch? |
-| Recommended Next Steps | What should engineering build first? What can wait? |
+| Product Overview | What does this do? Who is it for? Company context, target user, value proposition. |
+| Problem & Hypothesis | What's happening today (with data)? If we [intervention], then [outcome], because [evidence]. User quotes and data points that support the bet. |
+| User Flows & Screen Map | Screen-by-screen flow: entry point, primary action, where it leads. Navigation model. Edge cases (loading, error, empty). |
+| Success Metrics | North star metric with current/target/timeframe. Leading indicators. Guardrail metrics. Measurement plan (A/B, cohort, sample size). |
+| Technical Reality | What's real vs. mocked? Existing infrastructure to leverage. New infrastructure required. |
+| Assumptions & Risks | Core assumptions with confidence levels. Technical, adoption, and business risks. Kill switch with specific threshold. |
+| Scope — In vs. Out | What's in scope and why. What's explicitly out and why not now. Dependencies. Phasing (MVP → fast-follow → future). |
+| Engineering Recommendation | Recommended build order with rationale. Effort estimates. Open questions for engineering. Experiment plan before full build. |
 
 This is Deliverable #3. It starts today and evolves through M5 and M6.
 
