@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — Living PRD Extractor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #7c3aed;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #f3f0ff; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0; color: white;
+  }
+
+  .card-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .card-body { padding: 20px 28px 24px; }
+
+  .scenario-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .scenario-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 10px 8px; border: 2px solid #e1e4e8;
+    border-radius: 8px; background: #fafbfc; color: #555;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .scenario-btn:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
+  .scenario-btn.active { border-color: #7c3aed; background: #f3f0ff; color: #7c3aed; font-weight: 700; }
+
+  .audit-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .audit-item { display: flex; flex-direction: column; gap: 6px; }
+  .audit-label { font-size: 12px; font-weight: 600; color: #555; }
+
+  .audit-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 700; color: #1a1a2e;
+    padding: 10px 14px; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; width: 100%;
+    text-align: center;
+  }
+  .audit-input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+
+  .audit-toggle-row { display: flex; gap: 8px; }
+  .audit-toggle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border: 2px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; color: #888; cursor: pointer;
+    transition: all 0.2s; flex: 1; text-align: center;
+  }
+  .audit-toggle:hover { border-color: #d1d5db; }
+  .audit-toggle.yes { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .audit-toggle.no { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+
+  .audit-summary {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #555; line-height: 1.6;
+    margin-top: 4px;
+  }
+  .audit-summary strong { color: #1a1a2e; }
+  .audit-summary .gap { color: #dc2626; font-weight: 600; }
+  .audit-summary .ok { color: #059669; font-weight: 600; }
+
+  .prompt-card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 12px; overflow: hidden;
+    border-left: 4px solid transparent;
+  }
+  .prompt-card.extract { border-left-color: #3B6FE0; }
+  .prompt-card.refactor { border-left-color: #d97706; }
+  .prompt-card.handoff { border-left-color: #059669; }
+
+  .prompt-card-header {
+    padding: 18px 24px; display: flex; align-items: center;
+    gap: 14px; border-bottom: 1px solid #f0f0f0;
+  }
+
+  .prompt-num {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .num-extract { background: #3B6FE0; }
+  .num-refactor { background: #d97706; }
+  .num-handoff { background: #059669; }
+
+  .prompt-card-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .prompt-card-desc { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .prompt-card-body { padding: 18px 24px 20px; }
+
+  .template-hint {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #666; line-height: 1.6;
+    margin-bottom: 12px; font-family: 'JetBrains Mono', monospace;
+  }
+  .template-hint strong { color: #1a1a2e; }
+
+  .prompt-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 16px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.65;
+    background: #fafbfc; resize: vertical; min-height: 90px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .prompt-textarea:focus {
+    outline: none; border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1); background: #fff;
+  }
+  .prompt-textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .result-section {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px dashed #e1e4e8;
+  }
+  .result-label {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .result-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Inter', sans-serif;
+    font-size: 12px; color: #555; line-height: 1.5;
+    background: #fafbfc; resize: vertical; min-height: 60px;
+  }
+  .result-textarea:focus {
+    outline: none; border-color: #888;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+  }
+  .result-textarea::placeholder { color: #c0c0c0; font-style: italic; }
+
+  .prompt-actions {
+    display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;
+  }
+
+  .btn-small {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700; border: none; border-radius: 6px;
+    padding: 8px 16px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-extract { background: #eff6ff; color: #3B6FE0; }
+  .btn-copy-extract:hover { background: #dbeafe; }
+  .btn-copy-refactor { background: #fffbeb; color: #d97706; }
+  .btn-copy-refactor:hover { background: #fef3c7; }
+  .btn-copy-handoff { background: #ecfdf5; color: #059669; }
+  .btn-copy-handoff:hover { background: #d1fae5; }
+
+  .prd-section {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 10px; overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+
+  .prd-section-header {
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; transition: background 0.2s;
+    border-bottom: 1px solid transparent;
+  }
+  .prd-section-header:hover { background: #fafbfc; }
+  .prd-section-header.collapsed { border-bottom: none; }
+
+  .prd-section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 700; color: #1a1a2e;
+  }
+  .prd-section-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; background: #f3f0ff; color: #7c3aed;
+  }
+  .prd-section-chevron {
+    font-size: 12px; color: #888; transition: transform 0.2s;
+  }
+  .prd-section.collapsed .prd-section-chevron { transform: rotate(-90deg); }
+
+  .prd-section-body {
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .prd-section.collapsed .prd-section-body { display: none; }
+
+  .prd-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.6;
+    background: #fafbfc; resize: vertical; min-height: 80px;
+  }
+  .prd-textarea:focus {
+    outline: none; border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+  }
+  .prd-textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .connector {
+    display: flex; justify-content: center; padding: 4px 0;
+  }
+  .connector-arrow {
+    width: 2px; height: 24px; background: #d1d5db; position: relative;
+  }
+  .connector-arrow::after {
+    content: '▼'; position: absolute; bottom: -8px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  .final-section {
+    background: #0d1117; border-radius: 12px;
+    padding: 28px 32px; margin-top: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .final-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+
+  .final-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .final-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-main { background: #7c3aed; color: white; }
+  .btn-copy-main:hover { background: #6d28d9; }
+  .btn-markdown { background: #21262d; color: #9ca3af; }
+  .btn-markdown:hover { background: #30363d; }
+  .btn-clear { background: #21262d; color: #555d6e; }
+  .btn-clear:hover { background: #30363d; color: #9ca3af; }
+  .btn-import { background: #21262d; color: #9ca3af; }
+  .btn-import:hover { background: #30363d; color: #fff; }
+
+  .final-preview {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #c9d1d9; line-height: 1.8;
+    white-space: pre-wrap; max-height: 500px;
+    overflow-y: auto; min-height: 120px;
+  }
+
+  .tip-bar {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px; margin-top: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #f3f0ff; color: #7c3aed;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+  .tip-text a { color: #7c3aed; font-weight: 600; text-decoration: none; }
+  .tip-text a:hover { text-decoration: underline; }
+
+  .save-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 8px 16px; font-size: 11px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    background: #ecfdf5; color: #059669; border-bottom: 1px solid #a7f3d0;
+    transform: translateY(-100%); transition: transform 0.3s ease;
+  }
+  .save-bar.visible { transform: translateY(0); }
+  .save-bar .save-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #059669;
+  }
+  .save-bar.saving { background: #eff6ff; color: #3b82f6; border-color: #bfdbfe; }
+  .save-bar.saving .save-dot { background: #3b82f6; }
+</style>
+</head>
+<body>
+<div class="save-bar" id="save-bar"><div class="save-dot"></div><span id="save-text">Saved to this browser</span></div>
+<div class="page">
+  <div class="header">
+    <div class="badge">Module 4 — Living PRD</div>
+    <h1>Living PRD Extractor</h1>
+    <p>Extract a Living PRD from your M3 prototype. Use this tool to guide your extraction prompt, capture PRD sections, refactor, and hand off to engineering.</p>
+  </div>
+
+  <!-- Scenario Selector -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed;">⚡</div>
+      <div>
+        <div class="card-title">Your Scenario</div>
+        <div class="card-subtitle">Same scenario you chose in Module 2 & 3</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="scenario-grid">
+        <button class="scenario-btn active" onclick="pickScenario('retention',this)">Retention Engine</button>
+        <button class="scenario-btn" onclick="pickScenario('internal',this)">Internal Tool</button>
+        <button class="scenario-btn" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
+        <button class="scenario-btn" onclick="pickScenario('dashboard',this)">Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- M3 Audit -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#dc2626;">?</div>
+      <div>
+        <div class="card-title">M3 Audit</div>
+        <div class="card-subtitle">Quick summary of what you built in M3</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="audit-grid">
+        <div class="audit-item">
+          <div class="audit-label">How many screens?</div>
+          <input class="audit-input" type="number" id="audit-screens" value="5" min="1" max="20" oninput="updateAudit();debouncedSave()">
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Loading / error / empty states?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle" id="audit-states-no" onclick="setToggle('states','no');debouncedSave()">No</button>
+            <button class="audit-toggle yes" id="audit-states-yes" onclick="setToggle('states','yes');debouncedSave()">Yes</button>
+          </div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Has prompt chain?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle" id="audit-chain-no" onclick="setToggle('chain','no');debouncedSave()">No</button>
+            <button class="audit-toggle yes" id="audit-chain-yes" onclick="setToggle('chain','yes');debouncedSave()">Yes</button>
+          </div>
+        </div>
+      </div>
+      <div class="audit-summary" id="audit-summary"></div>
+    </div>
+  </div>
+
+  <!-- Extraction Prompt -->
+  <div class="prompt-card extract">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-extract">1</div>
+      <div>
+        <div class="prompt-card-title">Extraction Prompt</div>
+        <div class="prompt-card-desc">Use AI to extract a PRD from your prototype</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Look at this prototype — [what it is]. Write a product requirements document covering: what this product does, who it's for, the problem, the [N] screens and their purpose, user flow, hypothesis, key metrics, what's mocked vs. real, and recommended next steps for engineering."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-extract" placeholder="Write your extraction prompt here..." rows="5" oninput="debouncedSave()"></textarea>
+      <div class="result-section">
+        <div class="result-label">After extracting — paste the PRD here</div>
+        <textarea class="result-textarea" id="result-extract" placeholder="Paste the AI-extracted PRD here. You can then copy sections into the Living PRD cards below." rows="6" oninput="debouncedSave()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-extract" onclick="copyField('prompt-extract')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Living PRD Sections -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#7c3aed;">📋</div>
+      <div>
+        <div class="card-title">Living PRD Sections</div>
+        <div class="card-subtitle">7 sections — fill from extraction or edit directly</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="prd-sections-container"></div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <!-- Refactoring Prompt -->
+  <div class="prompt-card refactor">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-refactor">2</div>
+      <div>
+        <div class="prompt-card-title">Refactoring Prompt</div>
+        <div class="prompt-card-desc">Clean up the codebase for handoff</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Refactor this codebase. Rename components: [list]. Separate data logic from display components. Group files by feature. Add a README explaining the flow and project structure."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-refactor" placeholder="Write your refactoring prompt here..." rows="5" oninput="debouncedSave()"></textarea>
+      <div class="result-section">
+        <div class="result-label">After refactoring — what changed?</div>
+        <textarea class="result-textarea" id="result-refactor" placeholder="Document what the refactor produced..." rows="3" oninput="debouncedSave()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-refactor" onclick="copyField('prompt-refactor')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <!-- Engineering Handoff -->
+  <div class="prompt-card handoff">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-handoff">3</div>
+      <div>
+        <div class="prompt-card-title">Engineering Handoff</div>
+        <div class="prompt-card-desc">Generate the handoff document for engineering</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Generate an engineering handoff for this prototype: list every component and its purpose. Describe the data model. Note what's mocked vs. real. Top 3 technical decisions. Write a 'start here' guide."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-handoff" placeholder="Write your handoff prompt here..." rows="5" oninput="debouncedSave()"></textarea>
+      <div class="result-section">
+        <div class="result-label">Paste the handoff document here</div>
+        <textarea class="result-textarea" id="result-handoff" placeholder="Paste the AI-generated handoff here..." rows="6" oninput="debouncedSave()"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-handoff" onclick="copyField('prompt-handoff')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Output -->
+  <div class="final-section">
+    <div class="final-header">
+      <div>
+        <div class="final-title">Your Graduated Package</div>
+        <div class="final-subtitle">Living PRD + Engineering Handoff — ready for graduation</div>
+      </div>
+      <div class="final-actions">
+        <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+        <button class="final-btn btn-import" onclick="document.getElementById('import-file-input').click()">Import .md</button>
+        <input type="file" id="import-file-input" accept=".md,.txt,.json" style="display:none" onchange="importPRD(event)">
+        <button class="final-btn btn-markdown" onclick="downloadMarkdown()">Export .md</button>
+        <button class="final-btn btn-copy-main" id="copy-prd-btn" onclick="copyFullPRD()">Copy Full PRD</button>
+      </div>
+    </div>
+    <div class="final-preview" id="prd-preview">Fill in the sections above to see your full Living PRD here...</div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">📄</div>
+    <div class="tip-text">
+      <strong>A Living PRD evolves.</strong> Unlike a static document, this PRD gets updated as you learn. After user testing, update the hypothesis. After engineering feedback, refine the technical reality. The PRD stays in sync with the product.
+    </div>
+  </div>
+
+  <div class="tip-bar" style="margin-top:12px;">
+    <div class="tip-icon" style="background:#eff6ff;color:#3B6FE0;">→</div>
+    <div class="tip-text">
+      <strong>Related tools:</strong> <a href="M3%20-%20Prompt%20Chain%20Planner.html">Prompt Chain Planner</a> · <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html">Living Prompt Pack Builder</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'm4-living-prd-extractor-v1';
+  let saveTimeout = null;
+  let isRestoring = false;
+
+  const auditState = { states: 'yes', chain: 'yes' };
+
+  const PRD_SECTION_IDS = [
+    { id: 'overview', icon: '📄', title: 'Product Overview', hint: 'What it does, who it\'s for' },
+    { id: 'problem', icon: '🎯', title: 'Problem & Hypothesis', hint: 'What question, what evidence' },
+    { id: 'flows', icon: '🔄', title: 'User Flows', hint: 'Screen-by-screen flow' },
+    { id: 'metrics', icon: '📊', title: 'Key Metrics', hint: 'What numbers prove it works' },
+    { id: 'technical', icon: '⚙️', title: 'Technical Reality', hint: 'What\'s real vs. mocked' },
+    { id: 'assumptions', icon: '⚠️', title: 'Assumptions & Risks', hint: 'Bets and kill switch' },
+    { id: 'nextsteps', icon: '🚀', title: 'Recommended Next Steps', hint: 'What engineering should build first' }
+  ];
+
+  const SCENARIO_DATA = {
+    retention: {
+      label: 'Retention Engine',
+      audit: { screens: 5, states: 'yes', chain: 'yes' },
+      extract: `Look at this prototype — a B2B SaaS onboarding flow designed to increase early team invites and reduce 90-day churn. Write a product requirements document covering: what this product does (onboarding flow surfacing team invites), who it's for (B2B project management SaaS, Series A, 5,000 paying teams), the problem (30% churn within 90 days, only 12% invite teammates in first 3 days), the 5 screens and their purpose, the user flow, the hypothesis (surface invites during onboarding → increase Day-3 invite rate from 12% to 25%), key metrics (Day-3 invite rate, 90-day retention, churn rate), what's mocked vs. real (data is mocked, invite API exists), and recommended next steps for engineering.`,
+      refactor: `Refactor this codebase. Rename components: the welcome screen should be OnboardingWelcome, the invite form should be TeamInviteForm, the team workspace should be TeamWorkspace, the PM dashboard should be PMDashboard. Separate data logic (metrics, invite API calls) from display components. Group files by feature (/onboarding, /team, /dashboard). Add a README explaining the 5-screen flow and project structure.`,
+      handoff: `Generate an engineering handoff for this B2B onboarding prototype: list every component (OnboardingWelcome, TeamInviteForm, TeamWorkspace, PMDashboard, etc.) and its purpose. Describe the data model — user profile, invite status, team membership, dashboard metrics. Note that invite data is currently mocked but the invite API exists in the existing product. Top 3 technical decisions: 1) integrate with existing invite API vs. build new, 2) real-time dashboard vs. daily batch, 3) A/B test framework for the onboarding flow. Write a 'start here' guide.`,
+      prd: {
+        overview: `B2B onboarding flow that surfaces team invites during signup. For B2B project management SaaS (Series A, 5,000 paying teams). Helps team leads get their team onboarded faster by prompting invites in the first 3 days.`,
+        problem: `Problem: 30% of new customers churn within 90 days. Only 12% invite teammates in first 3 days. Hypothesis: Surface invites during onboarding → increase Day-3 invite rate from 12% to 25% → improve 90-day retention.`,
+        flows: `1. Welcome screen → 2. Invite form (email teammates) → 3. Team workspace (shared tasks) → 4. PM dashboard (invite rate, churn trend) → 5. Settings/confirmation.`,
+        metrics: `Day-3 invite rate (target: 25%), 90-day retention (with vs. without invite), churn rate.`,
+        technical: `Data is mocked. Invite API exists in existing product. Dashboard metrics are placeholder.`,
+        assumptions: `Bet: Users will invite during onboarding if prompted. Kill switch: If Day-3 invite rate doesn't move after 2 weeks, pause and reassess.`,
+        nextsteps: `1) Integrate real invite API. 2) Wire dashboard to real metrics. 3) Add A/B test framework for onboarding variants.`
+      }
+    },
+    internal: {
+      label: 'Internal Tool',
+      audit: { screens: 4, states: 'yes', chain: 'yes' },
+      extract: `Look at this prototype — an internal churn early warning system for enterprise accounts. Write a product requirements document covering: what it does (shows accounts with risk scores, feature adoption, last login), who it's for (internal CS/ops teams), the problem (enterprise accounts churning without warning), the 4 screens (account list, account detail, team roll-up, settings), user flow, hypothesis, key metrics (accounts flagged before churn, time to outreach, churn prevention rate), what's mocked vs. real, and next steps for engineering.`,
+      refactor: `Refactor this codebase. Rename components to AccountListView, AccountDetail, RiskTimeline, TeamRollupDashboard, OutreachPlaybook. Separate risk calculation logic from display. Group by feature (/accounts, /dashboard, /playbooks). Add README.`,
+      handoff: `Engineering handoff for the churn warning system: component list, data model (account, risk_score, feature_adoption, login_history), what's mocked (risk algorithm, CRM data), top 3 decisions (real-time risk scoring vs. batch, CRM integration method, alert threshold configuration), start-here guide.`,
+      prd: {
+        overview: `Internal churn early warning system. Shows accounts with risk scores, feature adoption, last login. For internal CS/ops teams managing enterprise accounts.`,
+        problem: `Problem: Enterprise accounts churn without warning. Hypothesis: Flag at-risk accounts early → enable proactive outreach → reduce churn.`,
+        flows: `1. Account list (risk scores) → 2. Account detail (risk timeline, adoption) → 3. Team roll-up dashboard → 4. Settings/playbooks.`,
+        metrics: `Accounts flagged before churn, time to outreach, churn prevention rate.`,
+        technical: `Risk algorithm mocked. CRM data mocked. UI and flows are real.`,
+        assumptions: `Bet: Risk signals predict churn. Kill switch: If false positive rate > 30%, recalibrate.`,
+        nextsteps: `1) Integrate real risk scoring. 2) Connect to CRM. 3) Add alert thresholds.`
+      }
+    },
+    marketplace: {
+      label: 'Marketplace Trust',
+      audit: { screens: 5, states: 'yes', chain: 'yes' },
+      extract: `Look at this prototype — a marketplace trust system to increase booking rates with unreviewed providers. Write a PRD covering: what it does (enriches provider profiles with verification, trust signals, satisfaction guarantee), who it's for (two-sided marketplace — customers booking services, providers offering services), the problem (6% browse-to-book, 71% provider page bounce, 64% zero-review providers), 5 screens, flows, hypothesis (enriched profiles + guarantee → browse-to-book from 6% to 15%), metrics, what's mocked vs. real, next steps.`,
+      refactor: `Refactor: rename to ProviderSearchResults, ProviderProfile, TrustBadgeGroup, BookingConfirmation, ReviewPrompt, ProviderDashboard. Separate provider data from booking logic. Group by /providers, /booking, /reviews. Add README.`,
+      handoff: `Engineering handoff for marketplace trust: components, data model (provider, verification_status, trust_score, booking, review, guarantee), what's mocked (guarantee system, reviews), top 3 decisions (guarantee backend service, review moderation, provider verification process), start-here guide.`,
+      prd: {
+        overview: `Marketplace trust system. Enriches provider profiles with verification, trust signals, satisfaction guarantee. For two-sided marketplace — customers booking services, providers offering services.`,
+        problem: `Problem: 6% browse-to-book, 71% provider page bounce, 64% zero-review providers. Hypothesis: Enriched profiles + guarantee → browse-to-book from 6% to 15%.`,
+        flows: `1. Provider search → 2. Provider profile (trust badges) → 3. Booking confirmation → 4. Review prompt → 5. Provider dashboard.`,
+        metrics: `Browse-to-book rate (target: 15%), provider page bounce, booking completion.`,
+        technical: `Guarantee system mocked. Reviews mocked. Provider data structure is defined.`,
+        assumptions: `Bet: Trust signals overcome zero-review hesitation. Kill switch: If guarantee claims spike, pause.`,
+        nextsteps: `1) Build guarantee backend. 2) Integrate review system. 3) Provider verification flow.`
+      }
+    },
+    dashboard: {
+      label: 'Dashboard',
+      audit: { screens: 4, states: 'yes', chain: 'yes' },
+      extract: `Look at this prototype — an analytics dashboard with drill-down capabilities. Write a PRD covering: what it does, who it's for, the problem (dashboard nobody reads, data not actionable), 4 screens (main dashboard, metric drill-down, segment breakdown, settings), flows, hypothesis, metrics, mocked vs. real, next steps.`,
+      refactor: `Refactor: rename to DashboardMain, MetricDrilldown, SegmentBreakdown, SettingsPanel, ChartComponent, AlertConfig. Separate chart rendering from data fetching. Group by /dashboard, /metrics, /settings. Add README.`,
+      handoff: `Engineering handoff for analytics dashboard: components, data model, what's mocked (all chart data), top 3 decisions (data warehouse integration, real-time vs. cached metrics, alert delivery system), start-here guide.`,
+      prd: {
+        overview: `Analytics dashboard with drill-down. For product/ops teams who need actionable metrics. Makes data scannable and drillable.`,
+        problem: `Problem: Dashboard nobody reads, data not actionable. Hypothesis: Better visualization + drill-down → increased engagement and action.`,
+        flows: `1. Main dashboard (metric cards) → 2. Metric drill-down (time-series) → 3. Segment breakdown → 4. Settings (alerts, preferences).`,
+        metrics: `Dashboard engagement, drill-down rate, alert configuration rate.`,
+        technical: `All chart data mocked. UI and drill-down logic are real.`,
+        assumptions: `Bet: Users will drill down if it's easy. Kill switch: If engagement doesn't improve, simplify.`,
+        nextsteps: `1) Data warehouse integration. 2) Real-time vs. cached decision. 3) Alert delivery system.`
+      }
+    }
+  };
+
+  function renderPRDSections() {
+    const container = document.getElementById('prd-sections-container');
+    container.innerHTML = '';
+    PRD_SECTION_IDS.forEach((s, i) => {
+      const section = document.createElement('div');
+      section.className = 'prd-section' + (i < 3 ? '' : ' collapsed');
+      section.id = 'prd-' + s.id;
+      section.innerHTML = `
+        <div class="prd-section-header" onclick="togglePRDSection('${s.id}')">
+          <div class="prd-section-title">
+            <span class="prd-section-icon">${s.icon}</span>
+            ${s.title}
+          </div>
+          <span class="prd-section-chevron">▼</span>
+        </div>
+        <div class="prd-section-body">
+          <textarea class="prd-textarea" id="prd-${s.id}-text" placeholder="${s.hint}" oninput="debouncedSave()"></textarea>
+        </div>
+      `;
+      container.appendChild(section);
+    });
+  }
+
+  function togglePRDSection(id) {
+    const el = document.getElementById('prd-' + id);
+    if (el) el.classList.toggle('collapsed');
+  }
+
+  function pickScenario(id, btn) {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const data = SCENARIO_DATA[id];
+    if (!data) return;
+
+    const hasExisting = ['prompt-extract', 'prompt-refactor', 'prompt-handoff'].some(
+      fid => document.getElementById(fid)?.value?.trim() !== ''
+    ) || PRD_SECTION_IDS.some(s => document.getElementById('prd-' + s.id + '-text')?.value?.trim() !== '');
+
+    if (hasExisting && !confirm('Replace your current content with example content for "' + data.label + '"?')) {
+      updatePreview();
+      return;
+    }
+
+    document.getElementById('prompt-extract').value = data.extract;
+    document.getElementById('prompt-refactor').value = data.refactor;
+    document.getElementById('prompt-handoff').value = data.handoff;
+
+    document.getElementById('result-extract').value = '';
+    document.getElementById('result-refactor').value = '';
+    document.getElementById('result-handoff').value = '';
+
+    document.getElementById('audit-screens').value = data.audit.screens;
+    setToggle('states', data.audit.states);
+    setToggle('chain', data.audit.chain);
+
+    PRD_SECTION_IDS.forEach(s => {
+      const ta = document.getElementById('prd-' + s.id + '-text');
+      if (ta && data.prd[s.id]) ta.value = data.prd[s.id];
+      else if (ta) ta.value = '';
+    });
+
+    updateAudit();
+    updatePreview();
+    saveToLocalStorage();
+
+    document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setToggle(field, val) {
+    auditState[field] = val;
+    ['yes','no'].forEach(v => {
+      const el = document.getElementById(`audit-${field}-${v}`);
+      if (el) el.className = 'audit-toggle' + (val === v ? (v === 'yes' ? ' yes' : ' no') : '');
+    });
+    updateAudit();
+  }
+
+  function updateAudit() {
+    const screens = parseInt(document.getElementById('audit-screens').value) || 0;
+    const hasStates = auditState.states === 'yes';
+    const hasChain = auditState.chain === 'yes';
+
+    const parts = [];
+    parts.push(`<strong>${screens} screen${screens !== 1 ? 's' : ''}</strong>`);
+    parts.push(hasStates ? '<span class="ok">has states</span>' : '<span class="gap">no states</span>');
+    parts.push(hasChain ? '<span class="ok">has chain</span>' : '<span class="gap">no chain</span>');
+
+    document.getElementById('audit-summary').innerHTML = `Your M3 build: ${parts.join(' · ')}`;
+  }
+
+  function showSaveIndicator(msg, type) {
+    const bar = document.getElementById('save-bar');
+    const text = document.getElementById('save-text');
+    text.textContent = msg;
+    bar.className = 'save-bar visible' + (type === 'saving' ? ' saving' : '');
+    clearTimeout(bar._hideTimer);
+    bar._hideTimer = setTimeout(() => { bar.classList.remove('visible'); }, 2400);
+  }
+
+  function debouncedSave() {
+    if (isRestoring) return;
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      saveToLocalStorage();
+      updatePreview();
+    }, 600);
+  }
+
+  function gatherState() {
+    const state = {
+      scenario: document.querySelector('.scenario-btn.active')?.textContent || 'Retention Engine',
+      auditScreens: document.getElementById('audit-screens').value,
+      auditStates: auditState.states,
+      auditChain: auditState.chain,
+      promptExtract: document.getElementById('prompt-extract').value,
+      resultExtract: document.getElementById('result-extract').value,
+      promptRefactor: document.getElementById('prompt-refactor').value,
+      resultRefactor: document.getElementById('result-refactor').value,
+      promptHandoff: document.getElementById('prompt-handoff').value,
+      resultHandoff: document.getElementById('result-handoff').value,
+      prdSections: {},
+      savedAt: new Date().toISOString()
+    };
+    PRD_SECTION_IDS.forEach(s => {
+      const ta = document.getElementById('prd-' + s.id + '-text');
+      if (ta) state.prdSections[s.id] = ta.value;
+    });
+    return state;
+  }
+
+  function saveToLocalStorage() {
+    if (isRestoring) return;
+    try {
+      const state = gatherState();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      showSaveIndicator('Saved to this browser', 'saved');
+    } catch (e) {
+      if (e.name === 'QuotaExceededError') {
+        showSaveIndicator('Storage full — export your PRD to keep it safe', 'saving');
+      }
+    }
+  }
+
+  function restoreFromLocalStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const state = JSON.parse(raw);
+      applyState(state);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function applyState(state) {
+    isRestoring = true;
+
+    if (state.auditScreens != null) document.getElementById('audit-screens').value = state.auditScreens;
+    if (state.auditStates) setToggle('states', state.auditStates);
+    if (state.auditChain) setToggle('chain', state.auditChain);
+
+    if (state.promptExtract != null) document.getElementById('prompt-extract').value = state.promptExtract;
+    if (state.resultExtract != null) document.getElementById('result-extract').value = state.resultExtract;
+    if (state.promptRefactor != null) document.getElementById('prompt-refactor').value = state.promptRefactor;
+    if (state.resultRefactor != null) document.getElementById('result-refactor').value = state.resultRefactor;
+    if (state.promptHandoff != null) document.getElementById('prompt-handoff').value = state.promptHandoff;
+    if (state.resultHandoff != null) document.getElementById('result-handoff').value = state.resultHandoff;
+
+    if (state.prdSections) {
+      PRD_SECTION_IDS.forEach(s => {
+        const ta = document.getElementById('prd-' + s.id + '-text');
+        if (ta && state.prdSections[s.id] != null) ta.value = state.prdSections[s.id];
+      });
+    }
+
+    if (state.scenario) {
+      const btn = Array.from(document.querySelectorAll('.scenario-btn')).find(b => b.textContent === state.scenario);
+      if (btn) {
+        document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    }
+
+    updateAudit();
+    updatePreview();
+    isRestoring = false;
+  }
+
+  function buildFullPRD() {
+    const scenario = document.querySelector('.scenario-btn.active')?.textContent || 'Unknown';
+    const screens = document.getElementById('audit-screens').value || '?';
+
+    let prd = `LIVING PRD — Module 4\n━━━━━━━━━━━━━━━━━━━━━━\nScenario: ${scenario}\nM3 prototype: ${screens} screens\n\n`;
+
+    PRD_SECTION_IDS.forEach(s => {
+      const ta = document.getElementById('prd-' + s.id + '-text');
+      const val = ta?.value?.trim();
+      if (val) prd += `── ${s.title.toUpperCase()} ──\n${val}\n\n`;
+    });
+
+    const resultExtract = document.getElementById('result-extract').value.trim();
+    if (resultExtract) prd += `── EXTRACTED PRD (RAW) ──\n${resultExtract}\n\n`;
+
+    const resultRefactor = document.getElementById('result-refactor').value.trim();
+    if (resultRefactor) prd += `── REFACTOR NOTES ──\n${resultRefactor}\n\n`;
+
+    const resultHandoff = document.getElementById('result-handoff').value.trim();
+    if (resultHandoff) prd += `── ENGINEERING HANDOFF ──\n${resultHandoff}\n`;
+
+    const hasContent = PRD_SECTION_IDS.some(s => {
+      const ta = document.getElementById('prd-' + s.id + '-text');
+      return ta?.value?.trim();
+    }) || resultExtract || resultRefactor || resultHandoff;
+
+    return { prd, hasContent };
+  }
+
+  function updatePreview() {
+    const { prd, hasContent } = buildFullPRD();
+    const preview = document.getElementById('prd-preview');
+    preview.textContent = hasContent ? prd : 'Fill in the sections above to see your full Living PRD here...';
+  }
+
+  function copyField(id) {
+    const text = document.getElementById(id).value;
+    if (!text.trim()) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btns = document.querySelectorAll(`[onclick="copyField('${id}')"]`);
+      btns.forEach(btn => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      });
+    });
+  }
+
+  function copyFullPRD() {
+    const text = document.getElementById('prd-preview').textContent;
+    if (!text || text.startsWith('Fill in')) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-prd-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#059669';
+      setTimeout(() => { btn.textContent = 'Copy Full PRD'; btn.style.background = '#7c3aed'; }, 2000);
+    });
+  }
+
+  function downloadMarkdown() {
+    const text = document.getElementById('prd-preview').textContent;
+    if (!text || text.startsWith('Fill in')) return;
+    const blob = new Blob([text], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Living-PRD.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function importPRD(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const content = e.target.result;
+      if (file.name.endsWith('.json')) {
+        try {
+          const state = JSON.parse(content);
+          applyState(state);
+          saveToLocalStorage();
+          showSaveIndicator('PRD imported and saved', 'saved');
+        } catch (err) {
+          alert('Could not parse JSON file.');
+        }
+      } else {
+        parseMarkdownImport(content);
+        showSaveIndicator('PRD imported and saved', 'saved');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  function parseMarkdownImport(text) {
+    const sections = {};
+    let currentSection = null;
+    const lines = text.split('\n');
+
+    for (const line of lines) {
+      if (line.startsWith('── ') && line.endsWith(' ──')) {
+        currentSection = line.replace(/── /g, '').replace(/ ──/g, '').trim().toLowerCase().replace(/\s+/g, '').replace(/&/g, '');
+        sections[currentSection] = [];
+      } else if (currentSection) {
+        sections[currentSection].push(line);
+      }
+    }
+
+    const idMap = { productoverview: 'overview', problemhypothesis: 'problem', userflows: 'flows', keymetrics: 'metrics', technicalreality: 'technical', assumptionsrisks: 'assumptions', assumptions: 'assumptions', recommendednextsteps: 'nextsteps', extractedprdraw: 'result-extract', refactornotes: 'result-refactor', engineeringhandoff: 'result-handoff' };
+
+    for (const [key, lines] of Object.entries(sections)) {
+      const val = lines.join('\n').trim();
+      if (!val) continue;
+      const mapped = idMap[key] || key;
+      if (PRD_SECTION_IDS.some(s => s.id === mapped)) {
+        const ta = document.getElementById('prd-' + mapped + '-text');
+        if (ta) ta.value = val;
+      } else if (mapped === 'result-extract') document.getElementById('result-extract').value = val;
+      else if (mapped === 'result-refactor') document.getElementById('result-refactor').value = val;
+      else if (mapped === 'result-handoff') document.getElementById('result-handoff').value = val;
+    }
+
+    updatePreview();
+    saveToLocalStorage();
+  }
+
+  function clearAll() {
+    if (!confirm('This will clear all your data. Export first if you want to keep it. Continue?')) return;
+
+    document.getElementById('prompt-extract').value = '';
+    document.getElementById('result-extract').value = '';
+    document.getElementById('prompt-refactor').value = '';
+    document.getElementById('result-refactor').value = '';
+    document.getElementById('prompt-handoff').value = '';
+    document.getElementById('result-handoff').value = '';
+
+    PRD_SECTION_IDS.forEach(s => {
+      const ta = document.getElementById('prd-' + s.id + '-text');
+      if (ta) ta.value = '';
+    });
+
+    document.getElementById('audit-screens').value = '5';
+    setToggle('states', 'yes');
+    setToggle('chain', 'yes');
+
+    updateAudit();
+    updatePreview();
+    localStorage.removeItem(STORAGE_KEY);
+    showSaveIndicator('Cleared', 'saving');
+  }
+
+  renderPRDSections();
+  const restored = restoreFromLocalStorage();
+  if (!restored) {
+    pickScenario('retention', document.querySelector('.scenario-btn.active'));
+  }
+  updateAudit();
+  updatePreview();
+</script>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — From Vibe to Structure Deck Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e0e0e5;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 60px 48px 48px;
+    border-bottom: 3px solid #059669;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #059669; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .hero .sub { font-size: 16px; color: #8899bb; line-height: 1.6; max-width: 780px; }
+
+  .stats-bar { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; font-weight: 600; color: #6b7fa3; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .wow-banner {
+    background: #0f1f1a;
+    border: 1px solid #065f46;
+    border-radius: 10px;
+    margin-top: 28px;
+    padding: 20px 24px;
+  }
+  .wow-banner h3 {
+    font-size: 13px; font-weight: 700; color: #34d399;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .wow-banner p {
+    font-size: 13px; color: #9898a8; line-height: 1.7; margin-bottom: 6px;
+  }
+  .wow-banner p:last-child { margin-bottom: 0; }
+  .wow-banner strong { color: #6ee7b7; }
+  .wow-banner em { color: #f472b6; font-style: normal; font-weight: 600; }
+
+  /* Previous module recap */
+  .m3-recap {
+    background: #151520;
+    border: 1px solid #2a2a40;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .m3-recap h3 {
+    font-size: 14px; font-weight: 800; color: #059669;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  }
+  .m3-recap .m3-flow {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .m3-block {
+    background: #1a1a2e; border: 1px solid #2a2a45; border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .m3-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #059669; margin-bottom: 6px;
+  }
+  .m3-block-title { font-size: 13px; font-weight: 700; color: #c8c8d8; margin-bottom: 4px; }
+  .m3-block-desc { font-size: 11px; color: #777; line-height: 1.5; }
+  .m3-block-note {
+    font-size: 10px; font-weight: 700; color: #34d399;
+    margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 20px 48px; background: #13131a;
+    border-bottom: 1px solid #1e1e2e;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #888; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .content { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .section-header {
+    margin: 48px 0 20px; padding: 20px 28px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .section-header:first-child { margin-top: 8px; }
+  .section-header h2 { font-size: 20px; font-weight: 800; color: #fff; }
+  .section-header .section-time {
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.1);
+    padding: 6px 14px; border-radius: 8px;
+  }
+
+  .section-opening { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+  .section-demo { background: linear-gradient(135deg, #2d1b4e, #4c1d95); border-left: 4px solid #a78bfa; }
+  .section-gap { background: linear-gradient(135deg, #2a1a1a, #6b2020); border-left: 4px solid #f87171; }
+  .section-teaching { background: linear-gradient(135deg, #3b2a1a, #92400e); border-left: 4px solid #fbbf24; }
+  .section-lab { background: linear-gradient(135deg, #1a3a2a, #065f46); border-left: 4px solid #34d399; }
+  .section-review { background: linear-gradient(135deg, #3b1a2a, #9f1239); border-left: 4px solid #f472b6; }
+  .section-wrap { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+  .section-debug { background: linear-gradient(135deg, #2a1a2a, #5b2150); border-left: 4px solid #c084fc; }
+
+  .slide-card {
+    background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .slide-card:hover { border-color: #3a3a5a; }
+
+  .slide-top { display: flex; align-items: flex-start; gap: 20px; padding: 24px 28px 20px; }
+  .slide-number {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .slide-main { flex: 1; min-width: 0; }
+  .slide-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+
+  .slide-type {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 5px;
+  }
+  .type-title { background: #1e3a5f; color: #60a5fa; }
+  .type-demo { background: #4c1d95; color: #c4b5fd; }
+  .type-handson { background: #065f46; color: #6ee7b7; }
+  .type-teaching { background: #78350f; color: #fcd34d; }
+  .type-activity { background: #9f1239; color: #fda4af; }
+  .type-debrief { background: #3b1a2a; color: #f9a8d4; }
+  .type-wrap { background: #1e3a5f; color: #93c5fd; }
+  .type-gap { background: #6b2020; color: #fca5a5; }
+  .type-debug { background: #5b2150; color: #d8b4fe; }
+
+  .slide-title { font-size: 18px; font-weight: 700; color: #e8e8f0; margin-bottom: 8px; line-height: 1.3; }
+  .slide-content { font-size: 13px; color: #9898a8; line-height: 1.7; }
+  .slide-content strong { color: #c0c0d0; font-weight: 600; }
+  .slide-content em { color: #7b8aff; font-style: normal; font-weight: 600; }
+  .slide-content ul { margin: 8px 0 4px 18px; }
+  .slide-content li { margin-bottom: 4px; }
+
+  .prompt-block {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 16px; margin: 10px 0; font-size: 12px; line-height: 1.6;
+    color: #a8a8c0;
+  }
+  .prompt-block .prompt-label {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .prompt-label-expand { color: #60a5fa; }
+  .prompt-label-states { color: #fbbf24; }
+  .prompt-label-refine { color: #34d399; }
+  /* Add new prompt label colors for M4 */
+  .prompt-label-extract { color: #60a5fa; }
+  .prompt-label-refactor { color: #fbbf24; }
+  .prompt-label-handoff { color: #34d399; }
+
+  /* PRD table */
+  .prd-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px;
+  }
+  .prd-table th {
+    text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #666;
+    border-bottom: 1px solid #2a2a3a;
+  }
+  .prd-table td {
+    padding: 10px 12px; border-bottom: 1px solid #1e1e2e; color: #9898a8; line-height: 1.5;
+  }
+  .prd-table td:first-child { font-weight: 700; color: #c0c0d0; white-space: nowrap; }
+
+  .slide-notes {
+    background: #15151e; border-top: 1px solid #252535;
+    padding: 16px 28px 18px; padding-left: 96px;
+  }
+  .notes-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #555; margin-bottom: 6px;
+  }
+  .slide-notes p { font-size: 12px; color: #777; line-height: 1.65; margin-bottom: 6px; }
+  .slide-notes p:last-child { margin-bottom: 0; }
+  .slide-notes strong { color: #999; }
+
+  .time-badge {
+    font-size: 11px; font-weight: 700; color: #666;
+    margin-left: auto; white-space: nowrap; flex-shrink: 0;
+  }
+
+  .bg-opening { background: #2563eb; }
+  .bg-demo { background: #7c3aed; }
+  .bg-gap { background: #dc2626; }
+  .bg-teaching { background: #d97706; }
+  .bg-lab { background: #059669; }
+  .bg-review { background: #e11d48; }
+  .bg-wrap { background: #2563eb; }
+  .bg-debug { background: #7e22ce; }
+
+  /* Code before/after */
+  .code-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .code-block {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6;
+  }
+  .code-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .code-before .code-block-label { color: #f87171; }
+  .code-after .code-block-label { color: #34d399; }
+  .code-before { color: #f87171; border-color: #3a1a1a; }
+  .code-after { color: #6ee7b7; border-color: #1a3a2a; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<div class="hero">
+  <div class="hero-label">Deck Plan — Module 4: From Vibe to Structure</div>
+  <h1>Module 4: From Vibe to Structure — The Graduation Moment</h1>
+  <div class="sub">
+    Students extract a Living PRD from their working prototype, refactor the code for engineers, and generate an engineering handoff — all in 30 minutes. The wow is when their partner understands the product from just the spec, without ever seeing the prototype.
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">20</span><span class="stat-label">Slides</span></div>
+    <div class="stat"><span class="stat-num">~100</span><span class="stat-label">min</span></div>
+    <div class="stat"><span class="stat-num">~55%</span><span class="stat-label">Hands-On</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Deliverables</span></div>
+  </div>
+
+  <div class="wow-banner">
+    <h3>THE M4 WOW MOMENT</h3>
+    <p><strong>Beat 1 (after extraction):</strong> A complete Living PRD appears — product overview, user flows, hypothesis, metrics, what's real vs. mocked, engineering next steps. Students didn't write it. The AI extracted it from their working prototype. <em>"I would have spent 2 weeks on this."</em></p>
+    <p><strong>Beat 2 (after refactoring):</strong> Code view: Component1 becomes OnboardingWelcome. Data logic has its own folder. There's a README. Same product — now an engineer can read it on day one.</p>
+    <p><strong>The Partner Test:</strong> Partner reads ONLY the PRD. Can they describe the product, the user, the hypothesis, what's mocked, and what to build first? If yes — it's handoff-ready. The prototype can survive without its creator.</p>
+  </div>
+</div>
+
+<!-- ════════════════════ LEGEND ════════════════════ -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Opening</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Demo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Gap Surfacing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Teaching</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> Hands-On Lab</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e11d48"></div> Peer Review</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7e22ce"></div> Break It</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Wrap-Up</div>
+</div>
+
+<div class="content">
+
+<!-- ── M3 RECAP ── -->
+<div class="m3-recap">
+  <h3>WHAT M3 ESTABLISHED (Starting Point for M4)</h3>
+  <div class="m3-flow">
+    <div class="m3-block">
+      <div class="m3-block-label">M3 Core</div>
+      <div class="m3-block-title">Multi-Screen Flow</div>
+      <div class="m3-block-desc">5+ connected screens with navigation, expanded from M2 via prompt chain</div>
+      <div class="m3-block-note">CARRIES FORWARD</div>
+    </div>
+    <div class="m3-block">
+      <div class="m3-block-label">M3 Core</div>
+      <div class="m3-block-title">Interactive States</div>
+      <div class="m3-block-desc">Loading skeletons, error handling, empty states throughout</div>
+      <div class="m3-block-note">CARRIES FORWARD</div>
+    </div>
+    <div class="m3-block">
+      <div class="m3-block-label">M3 Core</div>
+      <div class="m3-block-title">Documented Chain</div>
+      <div class="m3-block-desc">3-prompt chain (Expand, Behavior, Refine) — reproducible by partner</div>
+      <div class="m3-block-note">CARRIES FORWARD</div>
+    </div>
+    <div class="m3-block">
+      <div class="m3-block-label">M3 Core</div>
+      <div class="m3-block-title">Living Prompt Pack</div>
+      <div class="m3-block-desc">Reusable prompt toolkit with context, constraints, templates</div>
+      <div class="m3-block-note">CARRIES FORWARD</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: OPENING                                            ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-opening">
+  <h2>Opening</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">1</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-title">Title Slide</span>
+      </div>
+      <div class="slide-title">From Vibe to Structure — The Graduation Moment</div>
+      <div class="slide-content">
+        <strong>MODULE 4 | VIBE CODING CERTIFICATION</strong><br><br>
+        Three things today:<br>
+        <ul>
+          <li><strong>1. Living PRD</strong> — Extracted from what you built, not written before building. Your prototype becomes the spec.</li>
+          <li><strong>2. Code Refactoring</strong> — Same product, readable code. Clean architecture an engineer can inherit.</li>
+          <li><strong>3. Engineering Handoff</strong> — The document that bridges PM prototype to engineering sprint.</li>
+        </ul>
+        <br>
+        <em>Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 is graduation.</em>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Energy:</strong> "Welcome back. You've built fast, built smart, and built precise. Your M3 prototype has 5+ screens, interactive states, and a documented prompt chain. It looks like a real product. But here's the thing — if you got hit by a bus tomorrow, could anyone pick up where you left off?"</p>
+    <p><strong>Three waypoints:</strong> "Living PRD, code refactoring, engineering handoff. By the end of today, your prototype graduates from exploration to something an engineering team can actually build from."</p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">2</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-title">Bridge</span>
+      </div>
+      <div class="slide-title">Your M3 Prototype Looks Real. Could Engineering Build From It?</div>
+      <div class="slide-content">
+        Your M3 build has multiple screens, interactive states, design-matched UI, and a documented prompt chain. If your VP saw it, they'd think engineering built it. But pull up the code — what would an engineer see? Component names like Component1, handleClick2. Data logic tangled with display logic. No documentation, no architecture, no spec.<br><br>
+        <strong>Today's flow:</strong> 1. Demo, 2. Teaching, 3. Lab, 4. Peer Review, 5. Break It
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: INSTRUCTOR DEMO                                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-demo">
+  <h2>Instructor Demo</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">3</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-demo">Demo Setup</span>
+      </div>
+      <div class="slide-title">Your M3 Prototype. Let's Look Under the Hood.</div>
+      <div class="slide-content">
+        <strong>INSTRUCTOR DEMO.</strong> The M3 Retention Engine prototype: 5 screens with navigation, interactive states, refined PM dashboard, design-matched to Asana, built with documented 3-prompt chain. Now open the code view. Names like div1, Section3, handleSubmit2. Data fetching mixed into UI components. No README. No structure.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Pull up the M3 Retention Engine prototype.</strong> Click through the screens — remind students how polished it is. Then switch to code view. Let it sit for 10 seconds. Don't explain the mess — let them see it. "This is what your VP doesn't see. This is what the engineer who inherits it sees." Pause. "3 prompts. Watch."</p>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">4</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-demo">Live Build: 3 Prompts</span>
+      </div>
+      <div class="slide-title">The Graduation Chain</div>
+      <div class="slide-content">
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-extract">PROMPT 1 — EXTRACT</div>
+          "Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the 5 screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering."
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-refactor">PROMPT 2 — REFACTOR</div>
+          "Refactor the codebase. Rename all components to be descriptive (e.g., OnboardingWelcome, TeamInviteForm, PMDashboard). Separate data logic from display components. Group files by feature, not by type. Add a README.md that explains the project structure."
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-handoff">PROMPT 3 — HANDOFF</div>
+          "Generate an engineering handoff document: list every component and what it does, describe the data model (what's real vs. mocked), identify the 3 biggest technical decisions an engineer would need to make, and write a 'start here' guide."
+        </div>
+        <br>
+        <strong>Then:</strong> 3 prompts. A spec, structured code, and an engineering handoff.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Run 3 prompts sequentially</strong> — pre-type each. Prompt 1: paste, wait ~60 sec. Read the PRD aloud. "I didn't write this. The prototype wrote its own spec." Prompt 2: paste, wait ~60 sec. Switch to code view. Show the before/after. "Component1 is now OnboardingWelcome." Prompt 3: paste, wait ~40 sec. Read the handoff highlights. Total: ~7 minutes.</p>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">5</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debrief">Demo Debrief</span>
+      </div>
+      <div class="slide-title">What Changed</div>
+      <div class="slide-content">
+        Same prototype. Same 5 screens. Same states.<br><br>
+        <ul>
+          <li><strong>Living PRD extracted</strong> — complete spec generated from the build.</li>
+          <li><strong>Code refactored</strong> — descriptive names, separated concerns, README.</li>
+          <li><strong>Engineering handoff</strong> — component map, data model, technical decisions, start-here guide.</li>
+        </ul>
+        <br>
+        <strong>Traditional PM workflow:</strong> Research → Spec → Build → Test.<br>
+        <strong>Vibe Coding workflow:</strong> Build → Test → Extract spec. The spec is the output, not the starting point.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Land the paradigm shift.</strong> "In traditional PM, you write the spec BEFORE you build. In Vibe Coding, you build first, test the hypothesis, and THEN extract the spec from what actually works. The spec isn't imagined — it's grounded in a working prototype."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: GAP SURFACING                                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-gap">
+  <h2>Gap Surfacing</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-gap">6</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-activity">Mini Activity</span>
+      </div>
+      <div class="slide-title">Open Your M3 Prototype's Code View</div>
+      <div class="slide-content">
+        <strong>INDIVIDUAL EXERCISE | 5 MINUTES</strong><br><br>
+        Open Lovable. Switch to code view. Answer:<br>
+        <ul>
+          <li><strong>1.</strong> Could an engineer understand what each component does from its name alone?</li>
+          <li><strong>2.</strong> Is data logic separated from display logic?</li>
+          <li><strong>3.</strong> Is there any documentation — a README, comments, anything?</li>
+        </ul>
+        <br>
+        <strong>Post in Slack:</strong> One thing an engineer would struggle with in your current code.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Same structure as M3 mini activity.</strong> Most students will realize: terrible component names, no separation, zero docs. After 5 minutes: "Who has descriptive component names? Who has a README?" The honest answers set up the teaching and lab.</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: TEACHING                                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-teaching">
+  <h2>Teaching</h2>
+  <span class="section-time">12 min</span>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">7</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Graduation Judgment</span>
+      </div>
+      <div class="slide-title">When Do You Stop Exploring and Start Building For Real?</div>
+      <div class="slide-content">
+        <strong>Graduate when:</strong> hypothesis validated, stakeholders said "build this", you know what's real vs. mocked, prototype answers a specific question with evidence.<br><br>
+        <strong>Don't graduate when:</strong> still exploring direction, testing multiple things, haven't shown anyone, can't explain the hypothesis.<br><br>
+        The graduation moment isn't about the code being ready. It's about the question being answered.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>"This is the judgment call that separates PMs who prototype from PMs who ship."</strong> Graduation isn't a code quality bar — it's a knowledge bar. Ask 2-3 students: "Based on your M3 prototype, would you graduate today?"</p>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">8</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Comprehension Debt</span>
+      </div>
+      <div class="slide-title">Comprehension Debt — The Silent Killer</div>
+      <div class="slide-content">
+        Technical debt has a cousin: <strong>comprehension debt</strong>. Every prompt adds features, every feature adds complexity. After 50+ prompts, even YOU can't explain what your prototype does without clicking through it.<br><br>
+        <strong>Signs:</strong> "Let me show you" (can't describe without demo), prototype does things you didn't ask for, can't explain the data model, new prompts break old things.<br><br>
+        <strong>The fix:</strong> Extract the spec. The Living PRD is your comprehension debt payoff.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>"Comprehension debt is when the prototype knows more than you do."</strong> The Living PRD forces you to articulate what you've built.</p>
+  </div>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">9</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Living PRD</span>
+      </div>
+      <div class="slide-title">The Living PRD — A Spec Extracted, Not Imagined</div>
+      <div class="slide-content">
+        <table class="prd-table">
+          <tr><th>Section</th><th>What It Covers</th></tr>
+          <tr><td>Product Overview</td><td>What does this do? Who is it for?</td></tr>
+          <tr><td>Problem & Hypothesis</td><td>What question does this answer?</td></tr>
+          <tr><td>User Flows</td><td>Screen by screen</td></tr>
+          <tr><td>Key Metrics</td><td>What proves this works at scale?</td></tr>
+          <tr><td>Technical Reality</td><td>What's real vs. mocked?</td></tr>
+          <tr><td>Assumptions & Risks</td><td>Kill switch?</td></tr>
+          <tr><td>Recommended Next Steps</td><td>What should engineering build first?</td></tr>
+        </table>
+        This is <strong>Deliverable #3</strong>.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">10</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-teaching">Code Refactoring for PMs</span>
+      </div>
+      <div class="slide-title">You Don't Need to Be an Engineer. You Need the AI to Clean Up.</div>
+      <div class="slide-content">
+        <div class="code-compare">
+          <div class="code-block code-before">
+            <div class="code-block-label">Before</div>
+            Component1<br>
+            handleClick2<br>
+            all logic in one file
+          </div>
+          <div class="code-block code-after">
+            <div class="code-block-label">After</div>
+            OnboardingWelcome<br>
+            TeamInviteForm<br>
+            data in /services<br>
+            README.md
+          </div>
+        </div>
+        <em>You're not engineering. You're directing the AI to make the code handoff-ready — the same way you directed it to add screens and states in M3.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>"10 minutes of refactoring prompts saves a week of engineering confusion."</strong> You already know how to direct the AI — M3 proved that. This is the same skill, applied to code instead of UI.</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: HANDS-ON LAB                                       ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-lab">
+  <h2>Hands-On Lab</h2>
+  <span class="section-time">30 min</span>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">11</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-handson">Lab Part 1: Extract</span>
+      </div>
+      <div class="slide-title">Hands-on Lab Part 1: Extract the Living PRD | 10 Minutes</div>
+      <div class="slide-content">
+        Open the Living PRD Extractor tool. Select your scenario.<br><br>
+        <strong>Step 1 (3 min):</strong> Review the extraction prompt. Customize for your prototype.<br><br>
+        <strong>Step 2 (5 min):</strong> Copy prompt into Lovable. Paste generated PRD back into Extractor.<br><br>
+        <strong>Step 3 (2 min):</strong> Read your PRD. Does it accurately describe what you built?<br><br>
+        <strong>Do NOT refactor yet.</strong> First, capture the spec.
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Drop the Living PRD Extractor link in Slack.</strong> Walk the room. The common reaction: "It actually described my product correctly." Check that everyone has a PRD pasted back. "If your PRD doesn't match what you built, fix it now."</p>
+  </div>
+</div>
+
+<!-- Slide 12 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">12</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-handson">Lab Part 2: Refactor + Handoff</span>
+      </div>
+      <div class="slide-title">Hands-on Lab Part 2: Refactor & Handoff | 20 Minutes</div>
+      <div class="slide-content">
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-refactor">PROMPT 1 — REFACTOR</div>
+          "Refactor this codebase. Rename all components to be descriptive. Separate data logic from display. Group files by feature. Add a README.md."
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-handoff">PROMPT 2 — HANDOFF</div>
+          "Write an engineering handoff: list every component and its purpose, describe the data model, identify top 3 technical decisions, write a 'start here' guide."
+        </div>
+        <br>
+        After refactoring: switch to code view. Compare before and after. Paste handoff into the Living PRD Extractor.
+      </div>
+    </div>
+    <span class="time-badge">20 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>THIS IS THE WOW MOMENT.</strong> Walk the room. When they switch to code view: "Find your dashboard component. What was it called before?" The naming transformation clicks immediately. After 20 min: "You now have a PRD, structured code, and an engineering handoff. That's graduation."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: PEER REVIEW                                        ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-review">
+  <h2>Peer Review</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 13 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">13</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-activity">Breakout Group Activity</span>
+      </div>
+      <div class="slide-title">Breakout Group Activity: Can You Build From This? | 10 Minutes</div>
+      <div class="slide-content">
+        Groups of 2. <strong>The test:</strong> Person A shares ONLY their Living PRD (not the prototype). Person B reads it and answers:<br>
+        <ul>
+          <li>What does this product do?</li>
+          <li>Who is it for?</li>
+          <li>What hypothesis does it test?</li>
+          <li>What's real vs. mocked?</li>
+          <li>What should engineering build first?</li>
+        </ul>
+        <br>
+        If Person B can answer all 5, it's handoff-ready.
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Enforce:</strong> NO showing the prototype. PRD only. "If your partner can describe the product from just reading your PRD — you've written a spec that stands on its own." Watch for the reaction when it works: the student realizes their prototype can exist independently of them. That's graduation.</p>
+  </div>
+</div>
+
+<!-- Slide 14 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-review">14</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debrief">Quick Share</span>
+      </div>
+      <div class="slide-title">What Surprised You About Your Own Spec?</div>
+      <div class="slide-content">
+        One insight: What did the extracted PRD get right that you hadn't articulated? Or what did it miss that you thought was obvious?<br><br>
+        The gap between what you built and what you can describe — that's comprehension debt in action.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: BREAK IT                                           ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-debug">
+  <h2>Break It</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 15 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-debug">15</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-debug">Break It</span>
+      </div>
+      <div class="slide-title">"Break It" Exercise — 500 Prompts Deep, No Spec</div>
+      <div class="slide-content">
+        <strong>CAUTIONARY TALE.</strong> A PM built a prototype over 6 weeks. 500+ prompts. Features everywhere. No spec. The PM left the project.<br><br>
+        <strong>What the inheriting PM found:</strong><br>
+        <ul>
+          <li>47 components with no descriptive names</li>
+          <li>Data logic scattered across 12 files</li>
+          <li>3 features that contradict each other</li>
+          <li>No hypothesis documented</li>
+          <li>The AI can't explain it either — context window exceeded</li>
+        </ul>
+        <br>
+        <strong>The lesson:</strong> If you can't extract the spec, nobody can. Graduation isn't optional.
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Make this visceral.</strong> Ask: "Has anyone inherited a project with no documentation?" Let them share horror stories. "This is what happens when you skip M4."</p>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════╗ -->
+<!-- ║  SECTION: WRAP-UP                                            ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="section-header section-wrap">
+  <h2>Wrap-Up</h2>
+  <span class="section-time">8 min</span>
+</div>
+
+<!-- Slide 16 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">16</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Four-Tab Reveal</span>
+      </div>
+      <div class="slide-title">M1. M2. M3. M4. Side by Side.</div>
+      <div class="slide-content">
+        Four columns:<br><br>
+        <strong>M1</strong> — first build, one prompt, one page.<br><br>
+        <strong>M2</strong> — validation build, real data, hypothesis, design-matched.<br><br>
+        <strong>M3</strong> — precision build, 5+ screens, states, documented chain.<br><br>
+        <strong>M4</strong> — graduated build, clean code, Living PRD, engineering handoff.<br><br>
+        Same tool. Same you. Four modules of progression.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Same pattern as M3 triple reveal</strong> — now four tabs. Give it 30 seconds of silence. "In M1, you built a demo. By M4, you have a spec, structured code, and an engineering handoff. That's not a prototype anymore — that's a product brief an engineering team can sprint on."</p>
+  </div>
+</div>
+
+<!-- Slide 17 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">17</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">What You Did Today</span>
+      </div>
+      <div class="slide-title">What You Did Today</div>
+      <div class="slide-content">
+        <strong>1. Living PRD</strong> — extracted a complete product spec from your working prototype. Deliverable #3.<br><br>
+        <strong>2. Code Refactoring</strong> — directed AI to clean the code: descriptive names, separated concerns, README.<br><br>
+        <strong>3. Engineering Handoff</strong> — component map, data model, technical decisions. A new engineer can orient in 5 minutes.<br><br>
+        Your prototype graduated. It can survive without you.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+<!-- Slide 18 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">18</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Accountability</span>
+      </div>
+      <div class="slide-title">ACCOUNTABILITY | Before We Wrap</div>
+      <div class="slide-content">
+        <strong>1. Post in #builds:</strong> prototype link + Living PRD (from Extractor). Caption: What did the AI get right about your product that you hadn't written down?<br><br>
+        <strong>2. Engage:</strong> Read 2 other PRDs. Could you understand the product without seeing the prototype?<br><br>
+        <strong>3. Optional challenge:</strong> Share your engineering handoff with an actual engineer. Drop their feedback in Slack.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+<!-- Slide 19 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">19</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">M5 Preview</span>
+      </div>
+      <div class="slide-title">Module 5: Make It Real</div>
+      <div class="slide-content">
+        Same product. Real connections.<br><br>
+        <strong>M5 — The Backend Moment:</strong> Connect to a real database, add authentication, API integrations.<br><br>
+        M1: Build fast. M2: Build smart. M3: Build precise. M4: Build for real. M5: Make it real.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+<!-- Slide 20 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">20</div>
+    <div class="slide-main">
+      <div class="slide-meta">
+        <span class="slide-type type-wrap">Survey</span>
+      </div>
+      <div class="slide-title">Your Opinion Matters To Us</div>
+      <div class="slide-content">
+        Scan the QR code or use the link to share your feedback.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
