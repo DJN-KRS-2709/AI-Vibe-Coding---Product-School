@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Make It Real Deck Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e0e0e5;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 60px 48px 48px;
+    border-bottom: 3px solid #3B6FE0;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #3B6FE0; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .hero .sub { font-size: 16px; color: #8899bb; line-height: 1.6; max-width: 780px; }
+
+  .stats-bar { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; font-weight: 600; color: #6b7fa3; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .wow-banner {
+    background: #0f1520;
+    border: 1px solid #1e3a5f;
+    border-radius: 10px;
+    margin-top: 28px;
+    padding: 20px 24px;
+  }
+  .wow-banner h3 {
+    font-size: 13px; font-weight: 700; color: #60a5fa;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .wow-banner p {
+    font-size: 13px; color: #9898a8; line-height: 1.7; margin-bottom: 6px;
+  }
+  .wow-banner p:last-child { margin-bottom: 0; }
+  .wow-banner strong { color: #93c5fd; }
+  .wow-banner em { color: #f472b6; font-style: normal; font-weight: 600; }
+
+  .m4-recap {
+    background: #151520;
+    border: 1px solid #2a2a40;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .m4-recap h3 {
+    font-size: 14px; font-weight: 800; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  }
+  .m4-recap .m4-flow {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .m4-block {
+    background: #1a1a2e; border: 1px solid #2a2a45; border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .m4-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #3B6FE0; margin-bottom: 6px;
+  }
+  .m4-block-title { font-size: 13px; font-weight: 700; color: #c8c8d8; margin-bottom: 4px; }
+  .m4-block-desc { font-size: 11px; color: #777; line-height: 1.5; }
+  .m4-block-note {
+    font-size: 10px; font-weight: 700; color: #60a5fa;
+    margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 20px 48px; background: #13131a;
+    border-bottom: 1px solid #1e1e2e;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #888; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .content { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .section-header {
+    margin: 48px 0 20px; padding: 20px 28px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .section-header:first-child { margin-top: 8px; }
+  .section-header h2 { font-size: 20px; font-weight: 800; color: #fff; }
+  .section-header .section-time {
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.1);
+    padding: 6px 14px; border-radius: 8px;
+  }
+
+  .section-opening { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+  .section-demo { background: linear-gradient(135deg, #2d1b4e, #4c1d95); border-left: 4px solid #a78bfa; }
+  .section-teaching { background: linear-gradient(135deg, #3b2a1a, #92400e); border-left: 4px solid #fbbf24; }
+  .section-activity { background: linear-gradient(135deg, #3b1a2a, #9f1239); border-left: 4px solid #f472b6; }
+  .section-lab { background: linear-gradient(135deg, #1a3a2a, #065f46); border-left: 4px solid #34d399; }
+  .section-chaos { background: linear-gradient(135deg, #3a1a1a, #7f1d1d); border-left: 4px solid #f87171; }
+  .section-debug { background: linear-gradient(135deg, #2a1a2a, #5b2150); border-left: 4px solid #c084fc; }
+  .section-wrap { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+
+  .slide-card {
+    background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .slide-card:hover { border-color: #3a3a5a; }
+
+  .slide-top { display: flex; align-items: flex-start; gap: 20px; padding: 24px 28px 20px; }
+  .slide-number {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .slide-main { flex: 1; min-width: 0; }
+  .slide-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+
+  .slide-type {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 5px;
+  }
+  .type-title { background: #1e3a5f; color: #60a5fa; }
+  .type-demo { background: #4c1d95; color: #c4b5fd; }
+  .type-handson { background: #065f46; color: #6ee7b7; }
+  .type-teaching { background: #78350f; color: #fcd34d; }
+  .type-activity { background: #9f1239; color: #fda4af; }
+  .type-debrief { background: #3b1a2a; color: #f9a8d4; }
+  .type-wrap { background: #1e3a5f; color: #93c5fd; }
+  .type-chaos { background: #7f1d1d; color: #fca5a5; }
+  .type-debug { background: #5b2150; color: #d8b4fe; }
+
+  .slide-title { font-size: 18px; font-weight: 700; color: #e8e8f0; margin-bottom: 8px; line-height: 1.3; }
+  .slide-content { font-size: 13px; color: #9898a8; line-height: 1.7; }
+  .slide-content strong { color: #c0c0d0; font-weight: 600; }
+  .slide-content em { color: #7b8aff; font-style: normal; font-weight: 600; }
+  .slide-content ul { margin: 8px 0 4px 18px; }
+  .slide-content li { margin-bottom: 4px; }
+
+  .prompt-block {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 16px; margin: 10px 0; font-size: 12px; line-height: 1.6;
+    color: #a8a8c0;
+  }
+  .prompt-block .prompt-label {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .prompt-label-connect { color: #60a5fa; }
+  .prompt-label-auth { color: #fbbf24; }
+  .prompt-label-edge { color: #34d399; }
+
+  .edge-cases-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;
+  }
+  .edge-case-item {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 10px 14px; font-size: 12px; color: #9898a8; line-height: 1.5;
+  }
+  .edge-case-item strong { color: #f87171; font-weight: 700; }
+  .edge-case-item em { color: #34d399; font-style: normal; }
+
+  .integration-pattern {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 14px 18px; margin: 6px 0;
+  }
+  .integration-pattern-label {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #60a5fa; margin-bottom: 6px;
+  }
+  .integration-pattern-title { font-size: 13px; font-weight: 700; color: #c8c8d8; margin-bottom: 4px; }
+  .integration-pattern-desc { font-size: 12px; color: #888; line-height: 1.6; }
+
+  .five-tabs {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 12px 0;
+  }
+  .tab-card {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 10px; text-align: center;
+  }
+  .tab-module {
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .tab-label { font-size: 11px; font-weight: 600; color: #c8c8d8; margin-bottom: 4px; }
+  .tab-desc { font-size: 10px; color: #666; line-height: 1.4; }
+  .tab-m1 .tab-module { color: #60a5fa; }
+  .tab-m2 .tab-module { color: #fbbf24; }
+  .tab-m3 .tab-module { color: #34d399; }
+  .tab-m4 .tab-module { color: #c084fc; }
+  .tab-m5 .tab-module { color: #f87171; }
+  .tab-m5 { border-color: #f87171; background: #1a1318; }
+
+  .handoff-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px;
+  }
+  .handoff-table th {
+    text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #666;
+    border-bottom: 1px solid #2a2a3a;
+  }
+  .handoff-table td {
+    padding: 10px 12px; border-bottom: 1px solid #1e1e2e; color: #9898a8; line-height: 1.5;
+  }
+  .handoff-table td:first-child { font-weight: 700; color: #c0c0d0; white-space: nowrap; }
+
+  .security-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0;
+  }
+  .security-do {
+    background: #0f1f1a; border: 1px solid #065f46; border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .security-dont {
+    background: #1f0f0f; border: 1px solid #5f0606; border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .security-do .sec-label { color: #34d399; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .security-dont .sec-label { color: #f87171; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .security-do ul, .security-dont ul { font-size: 11px; color: #999; line-height: 1.5; margin-left: 14px; }
+  .security-do li, .security-dont li { margin-bottom: 3px; }
+
+  .slide-notes {
+    background: #15151e; border-top: 1px solid #252535;
+    padding: 16px 28px 18px; padding-left: 96px;
+  }
+  .notes-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #555; margin-bottom: 6px;
+  }
+  .slide-notes p { font-size: 12px; color: #777; line-height: 1.65; margin-bottom: 6px; }
+  .slide-notes p:last-child { margin-bottom: 0; }
+  .slide-notes strong { color: #999; }
+
+  .time-badge {
+    font-size: 11px; font-weight: 700; color: #666;
+    margin-left: auto; white-space: nowrap; flex-shrink: 0;
+  }
+
+  .bg-opening { background: #2563eb; }
+  .bg-demo { background: #7c3aed; }
+  .bg-teaching { background: #d97706; }
+  .bg-activity { background: #e11d48; }
+  .bg-lab { background: #059669; }
+  .bg-chaos { background: #dc2626; }
+  .bg-debug { background: #7e22ce; }
+  .bg-wrap { background: #2563eb; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Deck Plan — Module 5: Make It Real</div>
+  <h1>Module 5: Make It Real — The Backend Moment</h1>
+  <div class="sub">
+    Students connect their graduated M4 prototypes to real backends — Supabase database, authentication, and edge case handling. The wow is when they refresh the page and the data is still there, then log in as a different user and see different data. The facade becomes a working product.
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">20</span><span class="stat-label">Slides</span></div>
+    <div class="stat"><span class="stat-num">~107</span><span class="stat-label">min</span></div>
+    <div class="stat"><span class="stat-num">~55%</span><span class="stat-label">Hands-On</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">New Deliverable</span></div>
+  </div>
+
+  <div class="wow-banner">
+    <h3>THE M5 WOW MOMENT</h3>
+    <p><strong>Beat 1 — The Persistence Moment (after database):</strong> Student enters data. Refreshes the page. The data is still there. They close the tab, reopen it — still there. Open Supabase dashboard — the data is sitting in a real table. <em>"It persists. This isn't a mockup anymore."</em></p>
+    <p><strong>Beat 2 — The Multi-User Moment (after auth):</strong> Student logs in as User A. Sees their data. Logs out. Creates a new account as User B. Different data. Real multi-user behavior. <em>"This is a real product."</em></p>
+    <p><strong>The Chaos Round:</strong> Instructor triggers failures — API down, bad data, edge cases. Students who handled errors see graceful messages. Students who didn't see blank screens. Real products break. Yours should break gracefully.</p>
+    <p><strong>Carlos's quote:</strong> <em>"I can connect to a database. I can connect to Stripe. Oh, shit. I can push something to production. That would be magic."</em></p>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Opening</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Demo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Teaching</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e11d48"></div> Activity</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> Hands-On Lab</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> Chaos Round</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7e22ce"></div> Break It</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Wrap-Up</div>
+</div>
+
+<div class="content">
+
+<!-- M4 RECAP -->
+<div class="m4-recap">
+  <h3>WHAT M4 ESTABLISHED (Starting Point for M5)</h3>
+  <div class="m4-flow">
+    <div class="m4-block">
+      <div class="m4-block-label">M4 Core</div>
+      <div class="m4-block-title">Living PRD</div>
+      <div class="m4-block-desc">AI-extracted product spec: overview, hypothesis, flows, metrics, technical reality, engineering recommendation</div>
+      <div class="m4-block-note">CARRIES FORWARD → UPDATED IN M5</div>
+    </div>
+    <div class="m4-block">
+      <div class="m4-block-label">M4 Core</div>
+      <div class="m4-block-title">Clean Code</div>
+      <div class="m4-block-desc">Refactored components with meaningful names, separated logic, README</div>
+      <div class="m4-block-note">CARRIES FORWARD</div>
+    </div>
+    <div class="m4-block">
+      <div class="m4-block-label">M4 Core</div>
+      <div class="m4-block-title">Engineering Handoff</div>
+      <div class="m4-block-desc">Code is readable by engineers. Living PRD describes the product.</div>
+      <div class="m4-block-note">CARRIES FORWARD → EXPANDED IN M5</div>
+    </div>
+    <div class="m4-block">
+      <div class="m4-block-label">M4 Core</div>
+      <div class="m4-block-title">Living Prompt Pack</div>
+      <div class="m4-block-desc">Context, design refs, constraints, templates — reusable prompt toolkit</div>
+      <div class="m4-block-note">CARRIES FORWARD → ADD INTEGRATION PROMPTS</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: OPENING ═══════════ -->
+<div class="section-header section-opening">
+  <h2>Opening</h2>
+  <span class="section-time">8 min</span>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">1</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-title">Title + Waypoints</span></div>
+      <div class="slide-title">Make It Real — The Backend Moment</div>
+      <div class="slide-content">
+        <strong>Three things today:</strong><br>
+        <strong>1. Real Database</strong> — Your data persists. Refresh the page — it's still there.<br>
+        <strong>2. Authentication</strong> — Real users, real accounts. Different people see different data.<br>
+        <strong>3. Edge Cases</strong> — What happens when things break? Your product handles them gracefully.<br><br>
+        Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was graduation. Module 5 is where it gets real.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Energy:</strong> "Welcome back. Everything you've built so far looked real but was a facade — hardcoded data, no persistence, no users. Today that changes. Three waypoints: real database, authentication, and edge cases. By the end of today, your prototype will have real data that persists, real user accounts, and graceful failure handling. It won't be a prototype anymore. It'll be a working product."</p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">2</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-title">Bridge + Agenda</span></div>
+      <div class="slide-title">Your M4 Prototype Has a Spec and Clean Code. But It's Still a Facade.</div>
+      <div class="slide-content">
+        Your M4 build has a Living PRD, refactored code, and an engineering handoff. An engineer could read it. But try this: enter data, close the tab, reopen it. The data is gone. Log in as a different user — you can't. Everything is hardcoded.<br><br>
+        <strong>Today you connect the facade to reality.</strong><br><br>
+        Today's flow: Demo → Teaching → Lab → Chaos Round → Break It → Wrap
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Energy:</strong> "In M4, your prototype graduated — it has a spec, clean code, and an engineer could inherit it. But it's still a facade. Enter a teammate's email, refresh — gone. That's every prototype. Today we cross the line. 3 prompts, and your data will persist, your users will be real, and your errors will be handled."</p>
+    <p>Frame the agenda: Demo (watch me do it), Teaching (understand the patterns), Lab (you do it), Chaos (things break), Break It (cautionary tale), Wrap (accountability).</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: DEMO ═══════════ -->
+<div class="section-header section-demo">
+  <h2>Instructor Demo — The Backend Moment</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">3</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-demo">Demo Setup</span></div>
+      <div class="slide-title">Same Prototype. Same Facade.</div>
+      <div class="slide-content">
+        <strong>INSTRUCTOR DEMO</strong><br><br>
+        The M4 Retention Engine: 5 screens, interactive states, clean code, Living PRD. Everything from M4.<br><br>
+        Watch: I enter an invite. Refresh the page. Gone. I "log in" — no password, no account. The PM dashboard shows hardcoded numbers that never change.<br><br>
+        This is every prototype ever built. It looks real. It isn't.<br><br>
+        <strong>3 prompts. Watch what changes.</strong>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Setup:</strong> Pull up the M4 Retention Engine in Lovable. Click through all 5 screens to remind them of the polished UI — this is the same product they saw in M4. Then demonstrate the facade: type a teammate's email in the invite form, refresh the page — the invite disappears. Go to the PM dashboard — the metrics never change. "This is the gap between a prototype and a product. 3 prompts." Keep this fast — 2 minutes setup.</p>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">4</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-demo">Live Build</span></div>
+      <div class="slide-title">The Integration Chain — 3 Prompts</div>
+      <div class="slide-content">
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-connect">Prompt 1 — Database (Connect)</div>
+          "Add Supabase to this project. Create a 'users' table and an 'invites' table. When a user sends an invite on Screen 2, store it in the invites table with the sender email, recipient email, and timestamp. When the team workspace (Screen 3) loads, fetch all invites for this user from Supabase and display them. When the PM dashboard (Screen 4) loads, query the invites table to calculate actual invite rate and display the real number."
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-auth">Prompt 2 — Authentication (Auth)</div>
+          "Add Supabase authentication. Add a login/signup screen before the onboarding flow. Users sign up with email and password. After login, the app fetches only their team's invites. Different users see different data. Show the logged-in user's name in the header. Add a logout button."
+        </div>
+        <div class="prompt-block">
+          <div class="prompt-label prompt-label-edge">Prompt 3 — Edge Cases</div>
+          "Handle these failure modes: If the Supabase connection fails, show 'Connection error — please try again' instead of a blank screen. If the user has no invites yet, show 'No invites sent yet — start by inviting your team' instead of an empty list. If the invite submission fails, show 'Couldn't send invite — check the email and try again' with a retry button. Add a loading skeleton while data is being fetched from Supabase."
+        </div>
+        <strong>3 prompts. Real data. Real users. Real error handling.</strong>
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Run the 3 prompts sequentially.</strong> Prompt 1: paste, wait ~90 sec. Send an invite. Refresh the page. "The invite is still there. It's in a real database." Open Supabase dashboard in a new tab — show the data in the table. Let the moment land.</p>
+    <p>Prompt 2: paste, wait ~90 sec. Log out. Sign up as a new user. "Different user, different invites. Real multi-user behavior." This is the second wow beat.</p>
+    <p>Prompt 3: paste, wait ~60 sec. Disconnect WiFi (or use Supabase pause). "Connection error. The app tells you what happened instead of showing a blank screen." Reconnect. "And it recovers."</p>
+    <p><strong>Total: ~8 minutes.</strong> Let the persistence moment and the multi-user moment land — these are the biggest reactions you'll get all course.</p>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">5</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-demo">Debrief</span></div>
+      <div class="slide-title">What Changed</div>
+      <div class="slide-content">
+        Same prototype. Same 5 screens. Same design.<br><br>
+        <ul>
+          <li><strong>Data persists</strong> — invites are stored in Supabase. Refresh, close tab, reopen — they're still there.</li>
+          <li><strong>Users are real</strong> — login, signup, personalized data. Different users see different things.</li>
+          <li><strong>Failures are handled</strong> — connection errors, empty states, loading states, retry logic.</li>
+        </ul><br>
+        Before: a visual facade with hardcoded data.<br>
+        After: a working product with a real backend.<br><br>
+        <strong>That's the line between prototype and product.</strong>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Energy:</strong> "This is the line. Everything before this was visual — it looked real but wasn't. Now the data persists, users are real, and errors are handled. You crossed from prototype to product. And you did it with 3 prompts." Transition to teaching: "Let me show you what's actually happening under the hood."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: TEACHING ═══════════ -->
+<div class="section-header section-teaching">
+  <h2>Teaching — Integration Patterns & Edge Cases</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">6</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">How Lovable Connects to the Real World</div>
+      <div class="slide-content">
+        Three integration patterns you'll use today:<br><br>
+        <div class="integration-pattern">
+          <div class="integration-pattern-label">1. Database (Supabase)</div>
+          <div class="integration-pattern-title">Your data lives in tables.</div>
+          <div class="integration-pattern-desc">Read, write, update, delete. The AI writes the SQL and API calls. You describe what data to store and when to fetch it.</div>
+        </div>
+        <div class="integration-pattern">
+          <div class="integration-pattern-label">2. Authentication (Supabase Auth)</div>
+          <div class="integration-pattern-title">Signup, login, logout, sessions.</div>
+          <div class="integration-pattern-desc">The AI wires it up. You describe who should see what. Row-level security means users only see their own data.</div>
+        </div>
+        <div class="integration-pattern">
+          <div class="integration-pattern-label">3. External APIs</div>
+          <div class="integration-pattern-title">Stripe, SendGrid, any documented API.</div>
+          <div class="integration-pattern-desc">The AI reads the docs and writes the integration. You describe the trigger and the action.</div>
+        </div>
+        You don't write the code. You describe what should happen. The AI integrates it.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Keep at 3 minutes. Show the Supabase dashboard briefly — tables, auth users, RLS policies. "Supabase is the backend. Lovable talks to it. You describe what data to store and what happens when — the AI writes the integration code." Don't go deep on SQL or APIs — not the point. The point is: PMs can describe backend behavior in plain English and the AI makes it work.</p>
+  </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">7</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">Real Products Break. Yours Should Break Gracefully.</div>
+      <div class="slide-content">
+        <strong>The 5 edge cases every product needs:</strong><br><br>
+        <div class="edge-cases-grid">
+          <div class="edge-case-item"><strong>1. Loading</strong> — What does the user see while data is being fetched? <em>Skeleton screens, spinners</em></div>
+          <div class="edge-case-item"><strong>2. Empty</strong> — What if there's no data yet? <em>Helpful message + CTA, not blank screen</em></div>
+          <div class="edge-case-item"><strong>3. Error</strong> — What if the API fails? <em>Error message + retry, not a crash</em></div>
+          <div class="edge-case-item"><strong>4. Conflict</strong> — Two users do the same thing simultaneously? <em>Last-write wins, or merge</em></div>
+        </div>
+        <div class="edge-case-item" style="background: #13131e; border: 1px solid #252540; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #9898a8; line-height: 1.5; margin-top: 8px;"><strong>5. Boundary</strong> — What if there are 10,000 items instead of 10? <em>Pagination, not a frozen page</em></div>
+        <br>
+        If you can describe the failure, the AI can handle it.
+      </div>
+    </div>
+    <span class="time-badge">4 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"Most prototypes only handle the happy path — the path where everything works. Real products handle the unhappy paths too. Five edge cases. You don't need to code them — you need to describe them. If you can say 'when the API fails, show an error message with a retry button,' the AI will build it." Quick poll: "How many of you have thought about what happens when your prototype's data source is down?" Most won't have. "That's M5."</p>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">8</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">The Engineering Handoff Note — Deliverable #5</div>
+      <div class="slide-content">
+        The Living PRD (M4) describes the product. The Engineering Handoff Note describes the <strong>technical reality</strong>.<br><br>
+        <table class="handoff-table">
+          <thead><tr><th>Section</th><th>What It Answers</th></tr></thead>
+          <tbody>
+            <tr><td>Integrations</td><td>What's connected and how — Supabase tables, auth model, API endpoints</td></tr>
+            <tr><td>Real vs. Mocked</td><td>What's truly functional vs. what's still faked — honest assessment</td></tr>
+            <tr><td>Data Model</td><td>Real schema — table names, field types, relationships</td></tr>
+            <tr><td>Edge Cases</td><td>What's handled (loading, errors, empty) vs. known gaps</td></tr>
+            <tr><td>Start Here</td><td>If an engineer inherits this tomorrow, where do they begin?</td></tr>
+          </tbody>
+        </table>
+        <br>
+        This is NOT a technical spec. It's a PM's honest assessment of what's real and what's not.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"This is the bridge document. Your Living PRD says what the product does and why. The Handoff Note says what's technically real and what's still mocked. Together, an engineer can pick this up and start building without reverse-engineering your prototype." Stress: honesty over polish. "If the Stripe integration is faked, say so. Engineers respect PMs who are honest about what's real."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: ACTIVITY ═══════════ -->
+<div class="section-header section-activity">
+  <h2>Mini Activity — Plan Before You Build</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-activity">9</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-activity">Individual Exercise</span></div>
+      <div class="slide-title">What Would You Integrate?</div>
+      <div class="slide-content">
+        Look at your M4 prototype. Answer three questions:<br><br>
+        <strong>1.</strong> What data is currently hardcoded that should come from a database?<br>
+        <strong>2.</strong> Who are the different users? Should they see different things?<br>
+        <strong>3.</strong> What breaks if the data source is slow or unavailable?<br><br>
+        <strong>Post in Slack:</strong> Your top integration priority — the one thing that would make the biggest difference.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>This sets up the lab. Students identify their own integration priorities before you give them the tools. Most will realize: "Everything is hardcoded." After 5 minutes: "Who said database? Who said auth? Who said both?" Most will say both. "Good. That's exactly what you'll build in the next 30 minutes."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: TEACHING 2 ═══════════ -->
+<div class="section-header section-teaching">
+  <h2>Security Basics</h2>
+  <span class="section-time">3 min</span>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">10</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">Security Checklist — The One-Page Version</div>
+      <div class="slide-content">
+        You're a PM, not a security engineer. But know the basics:<br><br>
+        <div class="security-grid">
+          <div class="security-do">
+            <div class="sec-label">✓ Do</div>
+            <ul>
+              <li>Use Supabase Row-Level Security (RLS)</li>
+              <li>Use HTTPS (Lovable defaults this)</li>
+              <li>Never expose API keys in frontend</li>
+              <li>Hash passwords (Supabase Auth auto-handles)</li>
+            </ul>
+          </div>
+          <div class="security-dont">
+            <div class="sec-label">✗ Don't</div>
+            <ul>
+              <li>Store sensitive data you don't need</li>
+              <li>Skip auth "because it's just a prototype"</li>
+              <li>Trust user input — validate server-side</li>
+            </ul>
+          </div>
+        </div>
+        <br>
+        This is a prototype, not production. But good habits start now.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Keep this brief — 60 seconds. Don't turn it into a security lecture. "You don't need to be a security expert. But if your prototype has a database, it needs auth. If it has auth, it needs RLS. Supabase handles most of this for you. The main rule: don't store data you don't need, and never expose API keys in frontend code."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: LAB ═══════════ -->
+<div class="section-header section-lab">
+  <h2>Hands-On Lab — Connect Your Prototype</h2>
+  <span class="section-time">30 min</span>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">11</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Lab Part 1</span></div>
+      <div class="slide-title">Add a Real Database — 15 Minutes</div>
+      <div class="slide-content">
+        Open the <strong>Integration Planner</strong> tool. Select your scenario.<br><br>
+        <strong>Step 1 (3 min):</strong> Review the database schema the Planner suggests. What tables? What fields? Customize for your prototype.<br><br>
+        <strong>Step 2 (10 min):</strong> Copy the database prompt from the Planner into Lovable. Let it set up Supabase. Test: enter data, refresh the page. Is it still there?<br><br>
+        <strong>Step 3 (2 min):</strong> Document in the Planner: What data persists now? What's still hardcoded?<br><br>
+        <strong>The moment your data survives a page refresh — that's the line.</strong>
+      </div>
+    </div>
+    <span class="time-badge">15 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Drop the Integration Planner link in Slack.</strong> Walk the room. The database prompt usually takes 60-90 seconds to generate. The KEY MOMENT: when a student enters data, refreshes, and the data is still there. Watch for it — you'll see their reaction. "Your data just survived a page refresh. That's not a prototype anymore."</p>
+    <p>Common issue: Supabase setup — if students get stuck on the Supabase connection, pair them with someone who has it working, or show the 3-line fix. After 15 min: "Who has persistent data? Show me a refresh."</p>
+  </div>
+</div>
+
+<!-- Slide 12 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">12</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Lab Part 2</span></div>
+      <div class="slide-title">Auth & Edge Cases — 15 Minutes</div>
+      <div class="slide-content">
+        <strong>Auth (10 min):</strong> Copy the auth prompt from the Planner into Lovable. Add signup/login. Test: create an account, log in, see your data. Log out. Create a different account — different data.<br><br>
+        <strong>Edge Cases (5 min):</strong> Copy the edge case prompt. Handle at least 2: loading state while fetching from Supabase, and an error state if the connection fails.<br><br>
+        <strong>Document in the Planner:</strong> What integrations work? What's still mocked? What edge cases are handled?
+      </div>
+    </div>
+    <span class="time-badge">15 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>THIS IS THE WOW MOMENT.</strong> Walk the room. At auth: watch for the moment a student logs in as User A, sees their data, logs out, logs in as User B, and sees different data. That's the multi-user moment. "You just built a multi-user product. Different people, different data, same prototype."</p>
+    <p>At edge cases: "Disconnect your WiFi. What happens? Does your app crash or show an error message?"</p>
+    <p>After 15 min: "Stop. You have a real database, real auth, and error handling. That's a working product."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: CHAOS ═══════════ -->
+<div class="section-header section-chaos">
+  <h2>Chaos Round — Things Break</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 13 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-chaos">13</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-chaos">Instructor-Led Exercise</span></div>
+      <div class="slide-title">Chaos Round: Things Break</div>
+      <div class="slide-content">
+        The instructor triggers chaos. You handle it.<br><br>
+        <div class="edge-cases-grid">
+          <div class="edge-case-item"><strong>Round 1:</strong> "Your Supabase project is paused. What does your user see?" <em>Error message vs. blank screen</em></div>
+          <div class="edge-case-item"><strong>Round 2:</strong> "A user sends 500 invites in 1 second. What happens?" <em>Rate limiting? Pagination? Frozen UI?</em></div>
+          <div class="edge-case-item"><strong>Round 3:</strong> "The API returns unexpected data format. What breaks?" <em>Validation? Graceful fallback?</em></div>
+          <div class="edge-case-item"><strong>Discuss:</strong> Which of these would you prioritize fixing first? Why? <em>Connection failure affects 100% of users</em></div>
+        </div>
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>Make this dramatic.</strong> For Round 1: if students are on Supabase, you can actually pause the Supabase project temporarily (or just ask them to disconnect WiFi). "Look at your app. What does your user see?" Let them scramble. For Round 2: ask hypothetically — most won't have rate limiting. "That's a real production concern. How would you describe it to an engineer?" Round 3: "What if the invites table returns a date instead of a string?"</p>
+    <p>Discuss as a group: "Which of these three would you fix first?" The answer is usually Round 1 (connection failure) because it affects 100% of users. 10 minutes total.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: QUICK SHARE ═══════════ -->
+<div class="section-header section-activity">
+  <h2>Quick Share</h2>
+  <span class="section-time">3 min</span>
+</div>
+
+<!-- Slide 14 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-activity">14</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-debrief">Debrief</span></div>
+      <div class="slide-title">What Surprised You About Connecting to a Real Backend?</div>
+      <div class="slide-content">
+        One insight: What was easier than expected? What was harder? What would you tell your engineering team about this experience?<br><br>
+        <strong>If you can describe what your backend does in one sentence, you can write the handoff note.</strong>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: BREAK IT ═══════════ -->
+<div class="section-header section-debug">
+  <h2>Break It — Zero Error Handling</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 15 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-debug">15</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-debug">Break It</span></div>
+      <div class="slide-title">The Product That Never Handles Errors</div>
+      <div class="slide-content">
+        <strong>CAUTIONARY TALE</strong><br><br>
+        A real product with a database, auth, and API integrations — but zero error handling.<br><br>
+        <strong>Try breaking it:</strong>
+        <div class="edge-cases-grid">
+          <div class="edge-case-item"><strong>Slow network</strong> → infinite loading, no feedback</div>
+          <div class="edge-case-item"><strong>Invalid email format</strong> → silent failure, user thinks it worked</div>
+          <div class="edge-case-item"><strong>Database unreachable</strong> → blank screen, no explanation</div>
+          <div class="edge-case-item"><strong>Two users editing same record</strong> → last write wins, data lost</div>
+        </div>
+        <br>
+        <strong>A backend without error handling is worse than no backend at all.</strong> Users trust that "real" products work.
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Use a prepared example or a volunteer's prototype. Try each failure mode live. "Watch — I'm going to turn off WiFi. What happens?" Let the room see the blank screen or crash. "Now watch the same thing with error handling." Show the graceful version. "Same failure. Completely different user experience." The contrast makes the point: backend without error handling creates a worse experience than a static prototype.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: WRAP ═══════════ -->
+<div class="section-header section-wrap">
+  <h2>Wrap-Up</h2>
+  <span class="section-time">14 min</span>
+</div>
+
+<!-- Slide 16 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">16</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Wow Moment</span></div>
+      <div class="slide-title">M1. M2. M3. M4. M5. Side by Side.</div>
+      <div class="slide-content">
+        Open five tabs.<br><br>
+        <div class="five-tabs">
+          <div class="tab-card tab-m1">
+            <div class="tab-module">Module 1</div>
+            <div class="tab-label">Speed</div>
+            <div class="tab-desc">One prompt, one page. Static. No data.</div>
+          </div>
+          <div class="tab-card tab-m2">
+            <div class="tab-module">Module 2</div>
+            <div class="tab-label">Aim</div>
+            <div class="tab-desc">Real data, hypothesis, design-matched. Hardcoded.</div>
+          </div>
+          <div class="tab-card tab-m3">
+            <div class="tab-module">Module 3</div>
+            <div class="tab-label">Precision</div>
+            <div class="tab-desc">5+ screens, states, chain. Still a facade.</div>
+          </div>
+          <div class="tab-card tab-m4">
+            <div class="tab-module">Module 4</div>
+            <div class="tab-label">Graduation</div>
+            <div class="tab-desc">Clean code, Living PRD, handoff. No backend.</div>
+          </div>
+          <div class="tab-card tab-m5">
+            <div class="tab-module">Module 5</div>
+            <div class="tab-label">Integration</div>
+            <div class="tab-desc">Real database, real auth, error handling. It works.</div>
+          </div>
+        </div>
+        <br>
+        <strong>Same tool. Same you. Five modules of progression.</strong>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Same pattern as M4's four-tab reveal — now five. Let students open all five. 30 seconds of silence. "In M1, you typed a prompt and got a page. In M5, you have a multi-user product with a real database, authentication, and error handling. That's not a prototype anymore." This is the crescendo of the production half. M6 is about deploying and shipping — M5 is where the product becomes real.</p>
+  </div>
+</div>
+
+<!-- Slide 17 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">17</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Takeaways</span></div>
+      <div class="slide-title">What You Did Today</div>
+      <div class="slide-content">
+        <strong>1. Real Database</strong> — Your data persists in Supabase. Refresh, close, reopen — it's still there. No more hardcoded values.<br><br>
+        <strong>2. Authentication</strong> — Real users with real accounts. Different people see different data. Login, logout, sessions.<br><br>
+        <strong>3. Edge Cases</strong> — Your product handles failures gracefully: loading states, error messages, empty states, retry logic.<br><br>
+        Your prototype crossed the line from facade to functional. Update your Living PRD and begin your Engineering Handoff Note.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+</div>
+
+<!-- Slide 18 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">18</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Accountability</span></div>
+      <div class="slide-title">Accountability — Before We Wrap</div>
+      <div class="slide-content">
+        <strong>1. Post in #builds:</strong> Your prototype link. Caption: "Refresh it. The data persists." Show the before/after of one integration.<br><br>
+        <strong>2. Engage:</strong> Try 2 other prototypes. Can you sign up? Does your data persist? Try to break it — what happens?<br><br>
+        <strong>3. Update your Living Prompt Pack:</strong> Add your integration prompts (database, auth, edge cases) to the Output Templates section.<br><br>
+        <strong>4. Start your Engineering Handoff Note:</strong> What integrations are real? What's still mocked? What edge cases are handled? Use the Integration Planner's handoff section.
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+</div>
+
+<!-- Slide 19 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">19</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Preview</span></div>
+      <div class="slide-title">Module 6: Ship It</div>
+      <div class="slide-content">
+        Same product. Live URL.<br><br>
+        You've built fast (M1), built smart (M2), built precise (M3), graduated it (M4), and made it real (M5). One thing left: put it in front of real people.<br><br>
+        <strong>Module 6 — The Ship Moment:</strong>
+        <ul>
+          <li>Deploy to a live URL — anyone can access it</li>
+          <li>Final polish and QA pass</li>
+          <li>Gallery walk — the class experiences each other's products</li>
+          <li>Optional: 5-minute pitch with live demo</li>
+        </ul><br>
+        M1: Build fast. M2: Build smart. M3: Build precise. M4: Build for real. M5: Make it real. <strong>M6: Ship it.</strong>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"This is the emotional high point of the second half (M5). After this, M6 is about shipping and presenting. Your product has a database, auth, error handling, a Living PRD, and an Engineering Handoff Note. M6 puts it in front of real people. Deploy, polish, gallery walk, optional pitch. Your certification is almost complete."</p>
+  </div>
+</div>
+
+<!-- Slide 20 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">20</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Survey</span></div>
+      <div class="slide-title">Your Opinion Matters To Us</div>
+      <div class="slide-content">
+        Scan the QR code or use the link to share your feedback. Your insights help us improve each cohort.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+
+</div><!-- end content -->
+</body>
+</html>

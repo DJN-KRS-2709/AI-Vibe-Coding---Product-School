@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Integration Planner</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 32px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #eff6ff; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 32px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 620px; margin: 0 auto; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0; color: white;
+  }
+
+  .card-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .card-body { padding: 20px 28px 24px; }
+
+  .scenario-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .scenario-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 10px 8px; border: 2px solid #e1e4e8;
+    border-radius: 8px; background: #fafbfc; color: #555;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .scenario-btn:hover { border-color: #93c5fd; background: #eff6ff; color: #3B6FE0; }
+  .scenario-btn.active { border-color: #3B6FE0; background: #eff6ff; color: #3B6FE0; font-weight: 700; }
+
+  .section-label {
+    font-size: 12px; font-weight: 700; color: #555;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 8px; margin-top: 16px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  .section-hint {
+    font-size: 12px; color: #888; line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .audit-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .audit-item { display: flex; flex-direction: column; gap: 6px; }
+  .audit-label { font-size: 12px; font-weight: 600; color: #555; }
+
+  .audit-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 700; color: #1a1a2e;
+    padding: 10px 14px; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; width: 100%;
+    text-align: center;
+  }
+  .audit-input:focus { outline: none; border-color: #3B6FE0; box-shadow: 0 0 0 3px rgba(59,111,224,0.1); }
+
+  .audit-toggle-row { display: flex; gap: 8px; }
+  .audit-toggle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border: 2px solid #e1e4e8; border-radius: 8px;
+    background: #fafbfc; color: #888; cursor: pointer;
+    transition: all 0.2s; flex: 1; text-align: center;
+  }
+  .audit-toggle:hover { border-color: #d1d5db; }
+  .audit-toggle.yes { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .audit-toggle.no { border-color: #dc2626; background: #fef2f2; color: #dc2626; }
+
+  .audit-summary {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #555; line-height: 1.6;
+    margin-top: 4px;
+  }
+  .audit-summary strong { color: #1a1a2e; }
+  .audit-summary .gap { color: #dc2626; font-weight: 600; }
+  .audit-summary .ok { color: #059669; font-weight: 600; }
+
+  /* Schema section */
+  .schema-table {
+    width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px;
+  }
+  .schema-table th {
+    text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: #888;
+    background: #f6f8fa; border-bottom: 1px solid #e1e4e8;
+  }
+  .schema-table td {
+    padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #555;
+  }
+  .schema-table input {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; width: 100%;
+    border: none; background: transparent; padding: 2px 0;
+  }
+  .schema-table input:focus { outline: none; }
+  .schema-table input::placeholder { color: #c0c0c0; font-style: italic; }
+  .schema-add {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600; color: #3B6FE0;
+    background: none; border: none; cursor: pointer;
+    padding: 8px 12px;
+  }
+  .schema-add:hover { text-decoration: underline; }
+  .schema-remove {
+    font-size: 14px; color: #ccc; cursor: pointer; border: none; background: none;
+    padding: 0 4px;
+  }
+  .schema-remove:hover { color: #f87171; }
+
+  /* Checklist */
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #f6f8fa;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-check {
+    width: 20px; height: 20px; border: 2px solid #e1e4e8; border-radius: 4px;
+    cursor: pointer; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 12px; color: transparent;
+  }
+  .checklist-check.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .checklist-text { font-size: 13px; color: #555; line-height: 1.5; }
+  .checklist-text strong { color: #1a1a2e; }
+
+  /* Prompt cards */
+  .prompt-card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 12px; overflow: hidden;
+    border-left: 4px solid transparent;
+  }
+  .prompt-card.connect { border-left-color: #3B6FE0; }
+  .prompt-card.auth { border-left-color: #d97706; }
+  .prompt-card.edge { border-left-color: #059669; }
+
+  .prompt-card-header {
+    padding: 18px 24px; display: flex; align-items: center;
+    gap: 14px; border-bottom: 1px solid #f0f0f0;
+  }
+
+  .prompt-num {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: white; flex-shrink: 0;
+  }
+  .num-connect { background: #3B6FE0; }
+  .num-auth { background: #d97706; }
+  .num-edge { background: #059669; }
+
+  .prompt-card-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .prompt-card-desc { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .prompt-card-body { padding: 18px 24px 20px; }
+
+  .template-hint {
+    background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-size: 12px; color: #666; line-height: 1.6;
+    margin-bottom: 12px; font-family: 'JetBrains Mono', monospace;
+  }
+  .template-hint strong { color: #1a1a2e; }
+
+  .prompt-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 16px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.65;
+    background: #fafbfc; resize: vertical; min-height: 90px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .prompt-textarea:focus {
+    outline: none; border-color: #3B6FE0;
+    box-shadow: 0 0 0 3px rgba(59,111,224,0.1); background: #fff;
+  }
+  .prompt-textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .result-section {
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px dashed #e1e4e8;
+  }
+  .result-label {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .result-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Inter', sans-serif;
+    font-size: 12px; color: #555; line-height: 1.5;
+    background: #fafbfc; resize: vertical; min-height: 60px;
+  }
+  .result-textarea:focus {
+    outline: none; border-color: #888;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+  }
+  .result-textarea::placeholder { color: #c0c0c0; font-style: italic; }
+
+  .prompt-actions {
+    display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end;
+  }
+
+  .btn-small {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700; border: none; border-radius: 6px;
+    padding: 8px 16px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-connect { background: #eff6ff; color: #3B6FE0; }
+  .btn-copy-connect:hover { background: #dbeafe; }
+  .btn-copy-auth { background: #fffbeb; color: #d97706; }
+  .btn-copy-auth:hover { background: #fef3c7; }
+  .btn-copy-edge { background: #ecfdf5; color: #059669; }
+  .btn-copy-edge:hover { background: #d1fae5; }
+
+  /* Handoff section */
+  .handoff-section {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 10px; overflow: hidden;
+    border: 1px solid #f0f0f0;
+  }
+
+  .handoff-section-header {
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; transition: background 0.2s;
+    border-bottom: 1px solid transparent;
+  }
+  .handoff-section-header:hover { background: #fafbfc; }
+  .handoff-section-header.collapsed { border-bottom: none; }
+
+  .handoff-section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 700; color: #1a1a2e;
+  }
+  .handoff-section-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; background: #eff6ff; color: #3B6FE0;
+  }
+  .handoff-section-chevron {
+    font-size: 12px; color: #888; transition: transform 0.2s;
+  }
+  .handoff-section.collapsed .handoff-section-chevron { transform: rotate(-90deg); }
+
+  .handoff-section-body {
+    padding: 16px 24px 20px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .handoff-section.collapsed .handoff-section-body { display: none; }
+
+  .handoff-textarea {
+    width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    padding: 12px 16px; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: #1a1a2e; line-height: 1.6;
+    background: #fafbfc; resize: vertical; min-height: 80px;
+  }
+  .handoff-textarea:focus {
+    outline: none; border-color: #3B6FE0;
+    box-shadow: 0 0 0 3px rgba(59,111,224,0.1);
+  }
+  .handoff-textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .connector {
+    display: flex; justify-content: center; padding: 4px 0;
+  }
+  .connector-arrow {
+    width: 2px; height: 24px; background: #d1d5db; position: relative;
+  }
+  .connector-arrow::after {
+    content: '▼'; position: absolute; bottom: -8px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  /* Final output */
+  .final-section {
+    background: #0d1117; border-radius: 12px;
+    padding: 28px 32px; margin-top: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .final-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+
+  .final-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .final-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700; border: none; border-radius: 8px;
+    padding: 10px 20px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-copy-main { background: #3B6FE0; color: white; }
+  .btn-copy-main:hover { background: #2d5bc0; }
+  .btn-markdown { background: #21262d; color: #9ca3af; }
+  .btn-markdown:hover { background: #30363d; }
+  .btn-clear { background: #21262d; color: #555d6e; }
+  .btn-clear:hover { background: #30363d; color: #9ca3af; }
+  .btn-import { background: #21262d; color: #9ca3af; }
+  .btn-import:hover { background: #30363d; color: #fff; }
+
+  .final-preview {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #c9d1d9; line-height: 1.8;
+    white-space: pre-wrap; max-height: 500px;
+    overflow-y: auto; min-height: 120px;
+  }
+
+  .tip-bar {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 20px 28px; margin-top: 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #eff6ff; color: #3B6FE0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .save-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 8px 16px; font-size: 11px; font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    background: #ecfdf5; color: #059669; border-bottom: 1px solid #a7f3d0;
+    transform: translateY(-100%); transition: transform 0.3s ease;
+  }
+  .save-bar.visible { transform: translateY(0); }
+  .save-bar .save-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #059669;
+  }
+  .save-bar.saving { background: #eff6ff; color: #3B6FE0; border-color: #bfdbfe; }
+  .save-bar.saving .save-dot { background: #3B6FE0; }
+
+  input[type="file"] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="save-bar" id="save-bar"><div class="save-dot"></div><span id="save-text">Saved to this browser</span></div>
+
+<div class="page">
+
+  <div class="header">
+    <div class="badge">Module 5 — Lab Companion</div>
+    <h1>Integration Planner</h1>
+    <p>Plan your backend integration, execute the 3 prompts, and document the handoff. Your prototype goes from facade to functional.</p>
+  </div>
+
+  <!-- ═══ SCENARIO SELECTOR ═══ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#3B6FE0;">1</div>
+      <div>
+        <div class="card-title">Select Your Scenario</div>
+        <div class="card-subtitle">Auto-populates prompts, schema, and edge cases</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="scenario-grid">
+        <button class="scenario-btn" onclick="pickScenario('retention', this)">Retention<br>Engine</button>
+        <button class="scenario-btn" onclick="pickScenario('internal', this)">Internal<br>Tool</button>
+        <button class="scenario-btn" onclick="pickScenario('marketplace', this)">Marketplace<br>Trust</button>
+        <button class="scenario-btn" onclick="pickScenario('dashboard', this)">Dashboard</button>
+      </div>
+
+      <div class="section-label" style="margin-top:20px;">M4 AUDIT — What You're Starting With</div>
+      <div class="audit-grid">
+        <div class="audit-item">
+          <div class="audit-label">Screens</div>
+          <input type="number" class="audit-input" id="audit-screens" value="5" min="1" max="20" oninput="updateAudit(); save();">
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Has Living PRD?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle yes" id="toggle-prd-yes" onclick="setToggle('prd','yes')">Yes</button>
+            <button class="audit-toggle" id="toggle-prd-no" onclick="setToggle('prd','no')">No</button>
+          </div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-label">Code Refactored?</div>
+          <div class="audit-toggle-row">
+            <button class="audit-toggle yes" id="toggle-code-yes" onclick="setToggle('code','yes')">Yes</button>
+            <button class="audit-toggle" id="toggle-code-no" onclick="setToggle('code','no')">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="audit-summary" id="audit-summary">
+        <strong>Starting point:</strong> 5 screens, Living PRD: <span class="ok">yes</span>, Code refactored: <span class="ok">yes</span>. Ready for backend integration.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DATABASE SCHEMA ═══ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#3B6FE0;">2</div>
+      <div>
+        <div class="card-title">Database Schema</div>
+        <div class="card-subtitle">Plan what data to persist in Supabase</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="section-hint">Define the tables your prototype needs. What data is currently hardcoded that should be stored in a real database?</div>
+      <div id="schema-container"></div>
+      <button class="schema-add" onclick="addSchemaTable()">+ Add Table</button>
+    </div>
+  </div>
+
+  <!-- ═══ AUTH FLOW ═══ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#d97706;">3</div>
+      <div>
+        <div class="card-title">Authentication Flow</div>
+        <div class="card-subtitle">Define user types and what they can see</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="section-label">AUTH MODEL</div>
+      <textarea class="prompt-textarea" id="auth-model" rows="4" placeholder="What type of auth? (email/password, social login, magic link)&#10;What user roles exist? (admin, regular user, viewer)&#10;What does each role see? (all data, own data only, read-only)&#10;Who can create accounts?" oninput="save();"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ EDGE CASE CHECKLIST ═══ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#059669;">4</div>
+      <div>
+        <div class="card-title">Edge Case Checklist</div>
+        <div class="card-subtitle">Check off edge cases as you handle them</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="checklist-container"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PROMPT 1: DATABASE ═══ -->
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <div class="prompt-card connect">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-connect">1</div>
+      <div>
+        <div class="prompt-card-title">Prompt 1 — Connect (Database)</div>
+        <div class="prompt-card-desc">Add Supabase and persist your data</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Add Supabase to this project. Create a [table] table with [fields]. When [user action], store [data] in [table]. When [screen] loads, fetch [data] from Supabase and display it."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-connect" rows="6" placeholder="Write your database integration prompt here..." oninput="save();"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what happened?</div>
+        <textarea class="result-textarea" id="result-connect" placeholder="Does data persist after refresh? What's in the Supabase dashboard?" oninput="save();"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-connect" onclick="copyField('prompt-connect')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROMPT 2: AUTH ═══ -->
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <div class="prompt-card auth">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-auth">2</div>
+      <div>
+        <div class="prompt-card-title">Prompt 2 — Auth (Authentication)</div>
+        <div class="prompt-card-desc">Add real users with login/signup</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Add Supabase authentication. Add a login/signup screen. Users sign up with [method]. After login, fetch only [their data]. Show [username] in header. Add logout."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-auth" rows="6" placeholder="Write your authentication prompt here..." oninput="save();"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what happened?</div>
+        <textarea class="result-textarea" id="result-auth" placeholder="Can you log in? Do different users see different data?" oninput="save();"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-auth" onclick="copyField('prompt-auth')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROMPT 3: EDGE CASES ═══ -->
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <div class="prompt-card edge">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-edge">3</div>
+      <div>
+        <div class="prompt-card-title">Prompt 3 — Edge Cases</div>
+        <div class="prompt-card-desc">Handle failures gracefully</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>Template:</strong> "Handle these failure modes: If [connection fails], show [error message]. If [no data], show [empty state + CTA]. If [action fails], show [error + retry]. Add loading skeletons while fetching."
+      </div>
+      <textarea class="prompt-textarea" id="prompt-edge" rows="6" placeholder="Write your edge case handling prompt here..." oninput="save();"></textarea>
+      <div class="result-section">
+        <div class="result-label">After executing — what happened?</div>
+        <textarea class="result-textarea" id="result-edge" placeholder="What happens when you disconnect WiFi? Empty state shown? Error messages visible?" oninput="save();"></textarea>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-small btn-copy-edge" onclick="copyField('prompt-edge')">Copy Prompt</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ENGINEERING HANDOFF NOTE ═══ -->
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <div class="card" style="border: 2px solid #e1e4e8;">
+    <div class="card-header">
+      <div class="card-icon" style="background:#1a1a2e;">5</div>
+      <div>
+        <div class="card-title">Engineering Handoff Note</div>
+        <div class="card-subtitle">Deliverable #5 — What's real, what's mocked, where to start</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="handoff-sections"></div>
+    </div>
+  </div>
+
+  <!-- ═══ FINAL OUTPUT ═══ -->
+  <div class="final-section">
+    <div class="final-header">
+      <div>
+        <div class="final-title">Full Integration Plan + Handoff Note</div>
+        <div class="final-subtitle">Copy, export, or share your complete M5 documentation</div>
+      </div>
+      <div class="final-actions">
+        <button class="final-btn btn-copy-main" onclick="copyFull()">Copy All</button>
+        <button class="final-btn btn-markdown" onclick="downloadMarkdown()">Export .md</button>
+        <button class="final-btn btn-import" onclick="document.getElementById('import-file').click()">Import .md</button>
+        <input type="file" id="import-file" accept=".md,.json,.txt" onchange="importPlan(event)">
+        <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+      </div>
+    </div>
+    <div class="final-preview" id="final-preview"></div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text">
+      <strong>Auto-save enabled.</strong> Your work saves to this browser automatically. Use Export/Import to transfer between devices. After M5, update your <strong>Living PRD</strong> (from M4) with integration details, and add your integration prompts to your <strong>Living Prompt Pack</strong> (from M3).
+    </div>
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-icon">🔗</div>
+    <div class="tip-text">
+      <strong>The Handoff Note + Living PRD = the complete package.</strong> Your Living PRD (M4) says what the product does and why. This Handoff Note says what's technically real. Together, an engineer can inherit your project without reverse-engineering anything.
+    </div>
+  </div>
+
+</div><!-- end page -->
+
+<script>
+  const STORAGE_KEY = 'integration-planner-v1';
+  let saveTimeout = null;
+  let isRestoring = false;
+
+  const auditState = { prd: 'yes', code: 'yes' };
+
+  const HANDOFF_SECTIONS = [
+    { id: 'integrations', icon: '🔌', title: 'Integrations — What\'s Connected', hint: 'Supabase database: [table names, what they store]\nSupabase auth: [auth method, user roles]\nExternal APIs: [which APIs, what triggers them]\nHow data flows: [user action → API call → database → UI update]' },
+    { id: 'realvsmocked', icon: '🎭', title: 'What\'s Real vs. What\'s Mocked', hint: 'REAL (functional, connected, tested):\n- [Feature] — connected to Supabase, data persists\n- [Feature] — auth works, different users see different data\n\nMOCKED (looks real, but hardcoded or faked):\n- [Feature] — hardcoded data, not from database\n- [Feature] — UI only, no backend logic\n\nPARTIALLY REAL:\n- [Feature] — reads from DB but writes are mocked' },
+    { id: 'datamodel', icon: '🗄️', title: 'Data Model — Real Schema', hint: 'Table: [name]\n  - id (uuid, primary key)\n  - [field_name] (type) — what it stores\n  - [field_name] (type) — what it stores\n  - created_at (timestamp)\n\nRelationships:\n  - [table A] → [table B] via [foreign key]\n\nRow-Level Security:\n  - Users can only read/write their own [resource]' },
+    { id: 'edgecases', icon: '⚠️', title: 'Edge Cases — Handled vs. Known Gaps', hint: 'HANDLED:\n✅ Loading state — skeleton screens while fetching\n✅ Connection error — error message + retry button\n✅ Empty state — helpful message + CTA\n✅ [Scenario-specific case]\n\nKNOWN GAPS (not yet handled):\n❌ Rate limiting — no protection against rapid submissions\n❌ Concurrent editing — last write wins, no conflict resolution\n❌ Data validation — minimal server-side validation\n❌ [Scenario-specific gap]' },
+    { id: 'starthere', icon: '🚀', title: 'Start Here — For the Engineer Who Inherits This', hint: 'ARCHITECTURE:\n  Frontend: [React/etc via Lovable] → Supabase JS client → Supabase\n  Auth: Supabase Auth with [email/password]\n  Database: Supabase PostgreSQL\n\nTO GET RUNNING:\n  1. Clone from Lovable\n  2. Set up Supabase project (or use existing: [project URL])\n  3. Run migrations (in supabase/migrations/)\n  4. Set environment variables: SUPABASE_URL, SUPABASE_ANON_KEY\n\nKNOWN ISSUES:\n  - [Issue 1]\n  - [Issue 2]\n\nRECOMMENDED FIRST TASK:\n  [What to build or fix first and why]' }
+  ];
+
+  const DEFAULT_CHECKLIST = [
+    { id: 'loading', text: '<strong>Loading state</strong> — Skeleton screens or spinner while data is fetched from Supabase', checked: false },
+    { id: 'empty', text: '<strong>Empty state</strong> — Helpful message + CTA when there\'s no data yet', checked: false },
+    { id: 'error-connection', text: '<strong>Connection error</strong> — Error message when Supabase/API is unreachable', checked: false },
+    { id: 'error-action', text: '<strong>Action failure</strong> — Error + retry when a write operation fails', checked: false },
+    { id: 'auth-invalid', text: '<strong>Invalid login</strong> — Error message for wrong email/password', checked: false },
+    { id: 'auth-session', text: '<strong>Session expiry</strong> — Redirect to login when session expires', checked: false },
+    { id: 'boundary-list', text: '<strong>Large dataset</strong> — Pagination or virtual scrolling for 100+ items', checked: false },
+    { id: 'validation', text: '<strong>Input validation</strong> — Prevent empty/malformed submissions', checked: false },
+    { id: 'scenario-1', text: '<strong>Scenario-specific</strong> — [Your scenario\'s primary edge case]', checked: false },
+    { id: 'scenario-2', text: '<strong>Scenario-specific</strong> — [Your scenario\'s secondary edge case]', checked: false }
+  ];
+
+  let schemaData = [];
+  let checklistData = JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+
+  const SCENARIO_DATA = {
+    retention: {
+      label: 'Retention Engine',
+      audit: { screens: 5, prd: 'yes', code: 'yes' },
+      schema: [
+        { name: 'users', fields: 'id (uuid), email (text), name (text), company_id (uuid), role (text), created_at (timestamp)' },
+        { name: 'invites', fields: 'id (uuid), sender_id (uuid → users), recipient_email (text), status (text: pending/accepted/expired), sent_at (timestamp)' },
+        { name: 'teams', fields: 'id (uuid), name (text), created_by (uuid → users), member_count (int), created_at (timestamp)' },
+        { name: 'onboarding_progress', fields: 'id (uuid), user_id (uuid → users), step_completed (int), tasks_created (int), invite_sent (boolean), completed_at (timestamp)' }
+      ],
+      authModel: 'Auth type: Email/password via Supabase Auth\n\nUser roles:\n- Regular user — sees their own onboarding flow, can invite teammates, views team workspace\n- Admin/PM — sees the PM dashboard with aggregate metrics (invite rate, retention, churn trend)\n\nPermissions:\n- Regular users can only read/write their own invites and onboarding progress\n- PM dashboard is read-only, accessible only to admin role\n- Row-Level Security: users.id must match auth.uid() for writes',
+      connect: 'Add Supabase to this project. Create these tables:\n\n1. "users" table: id (uuid, primary key), email (text), name (text), company_id (uuid), role (text, default: "user"), created_at (timestamp).\n\n2. "invites" table: id (uuid), sender_id (uuid, references users.id), recipient_email (text), status (text, default: "pending"), sent_at (timestamp).\n\n3. "onboarding_progress" table: id (uuid), user_id (uuid, references users.id), step_completed (int, default: 0), tasks_created (int, default: 0), invite_sent (boolean, default: false).\n\nWhen a user sends a team invite on the invite screen, store it in the invites table with sender_id from the logged-in user, the recipient_email they entered, status "pending", and current timestamp.\n\nWhen the team workspace screen loads, fetch all invites where sender_id matches the current user and display them with status badges (pending/accepted).\n\nWhen the PM dashboard loads, query the invites table to calculate: total invites sent, Day-3 invite rate (invites sent within 3 days of user creation / total users), and display these as real metrics instead of hardcoded numbers.',
+      auth: 'Add Supabase authentication. Add a clean login/signup screen as the first screen of the app — match the existing design system.\n\nUsers sign up with email and password. After signup, create a row in the users table with their email and name.\n\nAfter login, the app should:\n- Fetch only this user\'s invites (where sender_id = current user)\n- Show the logged-in user\'s name in the top header\n- Add a logout button in the header\n\nFor the PM dashboard: only users with role "admin" can see it. Regular users see a "You don\'t have access" message if they navigate there.\n\nDifferent users should see completely different invite data — test by creating two accounts.',
+      edge: 'Handle these failure modes throughout the app:\n\n1. If the Supabase connection fails on any screen, show a centered error card: "Connection error — please try again" with a retry button that re-fetches data. Don\'t show a blank screen.\n\n2. If a new user has no invites yet, show an empty state on the team workspace: "No invites sent yet — invite your first teammate to get started" with a prominent invite button.\n\n3. If the invite submission fails (network error, invalid email), show an inline error below the form: "Couldn\'t send invite — check the email and try again" with a retry option. Don\'t clear the form.\n\n4. Add loading skeleton screens on every screen that fetches data from Supabase — the onboarding flow, team workspace, and PM dashboard should all show skeleton placeholders while loading.\n\n5. If the user\'s session expires, redirect to the login screen with a message: "Session expired — please log in again."',
+      checklist: [
+        { id: 'loading', checked: false, text: '<strong>Loading state</strong> — Skeleton screens on all data-fetching screens (onboarding, workspace, dashboard)' },
+        { id: 'empty', checked: false, text: '<strong>Empty state</strong> — Team workspace shows "No invites yet" with invite CTA when zero invites exist' },
+        { id: 'error-connection', checked: false, text: '<strong>Connection error</strong> — Error card with retry button when Supabase is unreachable' },
+        { id: 'error-action', checked: false, text: '<strong>Invite failure</strong> — Inline error below invite form with retry, don\'t clear the form' },
+        { id: 'auth-invalid', checked: false, text: '<strong>Invalid login</strong> — "Incorrect email or password" message on login screen' },
+        { id: 'auth-session', checked: false, text: '<strong>Session expiry</strong> — Redirect to login with "Session expired" message' },
+        { id: 'boundary-list', checked: false, text: '<strong>Large invite list</strong> — Pagination when invite count exceeds 50' },
+        { id: 'validation', checked: false, text: '<strong>Email validation</strong> — Prevent sending invite to invalid email format' },
+        { id: 'scenario-1', checked: false, text: '<strong>Duplicate invite</strong> — What if the user invites the same email twice? Show "Already invited" message' },
+        { id: 'scenario-2', checked: false, text: '<strong>Self-invite</strong> — Prevent user from inviting their own email address' }
+      ]
+    },
+    internal: {
+      label: 'Internal Tool',
+      audit: { screens: 5, prd: 'yes', code: 'yes' },
+      schema: [
+        { name: 'users', fields: 'id (uuid), email (text), name (text), role (text: rep/manager), crm_connected (boolean), created_at (timestamp)' },
+        { name: 'call_notes', fields: 'id (uuid), rep_id (uuid → users), customer_name (text), call_date (timestamp), raw_notes (text), ai_summary (text), action_items (jsonb)' },
+        { name: 'customers', fields: 'id (uuid), name (text), company (text), last_contact (timestamp), health_score (int), assigned_rep (uuid → users)' }
+      ],
+      authModel: 'Auth type: Email/password via Supabase Auth (simulating CRM login)\n\nUser roles:\n- Sales rep — sees their own call notes, customer list, and AI summaries\n- Manager — sees all reps\' notes, aggregate metrics, team performance\n\nPermissions:\n- Reps can only CRUD their own call_notes and view their assigned customers\n- Managers can read all call_notes (read-only) and view team metrics\n- Row-Level Security: call_notes.rep_id must match auth.uid() for rep writes',
+      connect: 'Add Supabase to this project. Create these tables:\n\n1. "users" table: id (uuid, primary key), email (text), name (text), role (text, default: "rep"), crm_connected (boolean, default: false), created_at (timestamp).\n\n2. "call_notes" table: id (uuid), rep_id (uuid, references users.id), customer_name (text), call_date (timestamp), raw_notes (text), ai_summary (text), action_items (jsonb).\n\n3. "customers" table: id (uuid), name (text), company (text), last_contact (timestamp), health_score (int), assigned_rep (uuid, references users.id).\n\nWhen a rep saves call notes, store them in call_notes with the rep_id from the logged-in user, customer info, and timestamp.\n\nWhen the notes list screen loads, fetch all call_notes where rep_id matches the current user, ordered by call_date descending.\n\nWhen the manager dashboard loads, query call_notes to show: notes per rep this week, average summary length, and customer health distribution.',
+      auth: 'Add Supabase authentication. Add a login screen styled to match the existing CRM-like design.\n\nUsers sign up with email and password. After signup, create a user row with default role "rep".\n\nAfter login:\n- Reps see their own call notes and customer list\n- Managers see all reps\' notes and the team performance dashboard\n- Show user name and role badge in the sidebar header\n- Add logout button in the sidebar\n\nReps cannot access the manager dashboard. Show "Manager access required" if they try.',
+      edge: 'Handle these failure modes:\n\n1. If Supabase is unreachable, show "Connection error — your notes are safe, try refreshing" with a retry button on all data screens.\n\n2. If a rep has no call notes yet, show: "No call notes yet — log your first customer call to get started" with a "New Note" button.\n\n3. If saving a call note fails, show an inline error: "Couldn\'t save note — please try again" and preserve the text so nothing is lost.\n\n4. Add loading skeletons on the notes list, customer list, and manager dashboard while data loads from Supabase.\n\n5. If the AI summary generation fails (mock API), show: "Summary unavailable — you can add it manually" with an edit field.',
+      checklist: [
+        { id: 'loading', checked: false, text: '<strong>Loading state</strong> — Skeleton screens on notes list, customer list, and manager dashboard' },
+        { id: 'empty', checked: false, text: '<strong>Empty notes</strong> — "No call notes yet — log your first call" with New Note CTA' },
+        { id: 'error-connection', checked: false, text: '<strong>Connection error</strong> — "Notes are safe, try refreshing" with retry button' },
+        { id: 'error-action', checked: false, text: '<strong>Save failure</strong> — Inline error preserving all typed content' },
+        { id: 'auth-invalid', checked: false, text: '<strong>Invalid login</strong> — Error message for wrong credentials' },
+        { id: 'auth-session', checked: false, text: '<strong>Session expiry</strong> — Redirect to login with message' },
+        { id: 'boundary-list', checked: false, text: '<strong>Large note history</strong> — Pagination for reps with 100+ call notes' },
+        { id: 'validation', checked: false, text: '<strong>Required fields</strong> — Prevent saving note without customer name' },
+        { id: 'scenario-1', checked: false, text: '<strong>Recording fails</strong> — What if call recording/upload fails? Show "Recording unavailable" with manual entry option' },
+        { id: 'scenario-2', checked: false, text: '<strong>AI summary wrong</strong> — Rep can edit/override AI-generated summary' }
+      ]
+    },
+    marketplace: {
+      label: 'Marketplace Trust',
+      audit: { screens: 5, prd: 'yes', code: 'yes' },
+      schema: [
+        { name: 'users', fields: 'id (uuid), email (text), name (text), role (text: provider/customer), verified (boolean), created_at (timestamp)' },
+        { name: 'providers', fields: 'id (uuid), user_id (uuid → users), business_name (text), verification_status (text: pending/verified/failed), trust_score (int), documents_submitted (jsonb)' },
+        { name: 'bookings', fields: 'id (uuid), customer_id (uuid → users), provider_id (uuid → providers), service (text), status (text: pending/confirmed/completed/disputed), booked_at (timestamp)' },
+        { name: 'reviews', fields: 'id (uuid), booking_id (uuid → bookings), reviewer_id (uuid → users), rating (int), comment (text), created_at (timestamp)' }
+      ],
+      authModel: 'Auth type: Email/password via Supabase Auth\n\nUser roles:\n- Provider — sees their verification status, bookings, reviews, trust score\n- Customer — sees provider listings with trust scores, can book and review\n- Admin — sees all providers, verification queue, dispute resolution\n\nPermissions:\n- Providers can only edit their own profile, see their own bookings\n- Customers can browse all verified providers, manage their own bookings\n- Row-Level Security: providers can only write to their own rows; customers can only create bookings/reviews for themselves',
+      connect: 'Add Supabase to this project. Create these tables:\n\n1. "users" table: id (uuid, primary key), email (text), name (text), role (text: "provider" or "customer"), verified (boolean, default: false), created_at (timestamp).\n\n2. "providers" table: id (uuid), user_id (uuid, references users.id), business_name (text), verification_status (text, default: "pending"), trust_score (int, default: 0), documents_submitted (jsonb).\n\n3. "bookings" table: id (uuid), customer_id (uuid, references users.id), provider_id (uuid, references providers.id), service (text), status (text, default: "pending"), booked_at (timestamp).\n\n4. "reviews" table: id (uuid), booking_id (uuid, references bookings.id), reviewer_id (uuid, references users.id), rating (int), comment (text), created_at (timestamp).\n\nWhen a customer books a provider, create a booking row with status "pending". When a provider views their dashboard, fetch their bookings and reviews from Supabase. Calculate trust_score from average review ratings.',
+      auth: 'Add Supabase authentication. Add a login/signup screen with role selection — "I\'m a Provider" or "I\'m a Customer".\n\nAfter signup, create user row with the selected role and corresponding provider/customer record.\n\nAfter login:\n- Providers see: their verification status, incoming bookings, reviews, trust score\n- Customers see: provider listings (only verified), booking form, their booking history\n- Show role badge next to user name in header\n- Add logout button\n\nProviders cannot see customer-only pages (booking flow). Customers cannot see provider dashboard.',
+      edge: 'Handle these failure modes:\n\n1. If Supabase is unreachable, show "Connection error — please try again" with retry on all screens.\n\n2. If a provider has no bookings yet, show: "No bookings yet — complete your verification to appear in listings" with a link to verification.\n\n3. If a customer searches and no verified providers match, show: "No verified providers found — try broadening your search" instead of empty results.\n\n4. If a booking submission fails, show: "Couldn\'t create booking — please try again" and preserve the form data.\n\n5. Add loading skeletons on provider listings, booking history, and provider dashboard while fetching from Supabase.\n\n6. If a review submission fails, show inline error and preserve the rating and comment.',
+      checklist: [
+        { id: 'loading', checked: false, text: '<strong>Loading state</strong> — Skeleton screens on provider listings, booking history, provider dashboard' },
+        { id: 'empty', checked: false, text: '<strong>No providers</strong> — "No verified providers found — broaden search" message' },
+        { id: 'error-connection', checked: false, text: '<strong>Connection error</strong> — Error card with retry on all screens' },
+        { id: 'error-action', checked: false, text: '<strong>Booking failure</strong> — Inline error preserving form data' },
+        { id: 'auth-invalid', checked: false, text: '<strong>Invalid login</strong> — Error for wrong credentials' },
+        { id: 'auth-session', checked: false, text: '<strong>Session expiry</strong> — Redirect to login with message' },
+        { id: 'boundary-list', checked: false, text: '<strong>Many providers</strong> — Pagination/infinite scroll for provider listings' },
+        { id: 'validation', checked: false, text: '<strong>Review validation</strong> — Require rating before submitting review' },
+        { id: 'scenario-1', checked: false, text: '<strong>Verification fails</strong> — Provider sees "Verification failed — resubmit documents" with specific reason' },
+        { id: 'scenario-2', checked: false, text: '<strong>Booking dispute</strong> — Customer disputes a "guaranteed" booking — show dispute form and status' }
+      ]
+    },
+    dashboard: {
+      label: 'Dashboard',
+      audit: { screens: 5, prd: 'yes', code: 'yes' },
+      schema: [
+        { name: 'users', fields: 'id (uuid), email (text), name (text), role (text: exec/analyst/team_lead), department (text), created_at (timestamp)' },
+        { name: 'metrics', fields: 'id (uuid), metric_name (text), value (numeric), period (text), department (text), recorded_at (timestamp)' },
+        { name: 'ai_summaries', fields: 'id (uuid), user_id (uuid → users), summary_text (text), metrics_referenced (jsonb), generated_at (timestamp), feedback (text: helpful/not_helpful)' },
+        { name: 'alerts', fields: 'id (uuid), metric_id (uuid → metrics), threshold (numeric), direction (text: above/below), triggered_at (timestamp), acknowledged_by (uuid → users)' }
+      ],
+      authModel: 'Auth type: Email/password via Supabase Auth\n\nUser roles:\n- Executive — sees high-level KPIs, AI summaries, cross-department view\n- Team lead — sees their department metrics, can drill down, sees AI insights\n- Analyst — sees all data, can create custom views, export functionality\n\nPermissions:\n- Executives see aggregated data across all departments\n- Team leads see only their department\'s detailed metrics\n- Analysts can read all data but custom views are personal\n- Row-Level Security: ai_summaries filtered by user_id; metrics filtered by department for team leads',
+      connect: 'Add Supabase to this project. Create these tables:\n\n1. "users" table: id (uuid, primary key), email (text), name (text), role (text), department (text), created_at (timestamp).\n\n2. "metrics" table: id (uuid), metric_name (text), value (numeric), period (text: "daily"/"weekly"/"monthly"), department (text), recorded_at (timestamp).\n\n3. "ai_summaries" table: id (uuid), user_id (uuid, references users.id), summary_text (text), metrics_referenced (jsonb), generated_at (timestamp), feedback (text).\n\n4. "alerts" table: id (uuid), metric_id (uuid, references metrics.id), threshold (numeric), direction (text), triggered_at (timestamp), acknowledged_by (uuid, references users.id).\n\nWhen the dashboard loads, fetch metrics for the user\'s department (or all departments for executives) from Supabase. Display real metric values instead of hardcoded numbers. When the user generates an AI summary, store it in ai_summaries with the referenced metrics.',
+      auth: 'Add Supabase authentication. Add a login screen with clean, dashboard-appropriate styling.\n\nAfter login:\n- Executives see the cross-department overview with all KPIs\n- Team leads see their department\'s detailed metrics with drill-down\n- Analysts see the full data view with export options\n- Show user name, role, and department in the sidebar\n- Add logout button\n\nTeam leads cannot see other departments\' detailed data. Show "Access restricted to your department" if they navigate to another team\'s view.',
+      edge: 'Handle these failure modes:\n\n1. If Supabase is unreachable, show "Dashboard data unavailable — please try again" with retry. Don\'t show charts with zero data as if the metrics are actually zero.\n\n2. If no metrics exist for a period, show: "No data for this period yet — data refreshes daily" instead of empty charts.\n\n3. If the AI summary generation fails (mock API), show: "Summary generation failed — try again or view raw metrics" with a retry button.\n\n4. Add loading skeletons on all dashboard panels — KPIs, charts, and AI summary sections should all show placeholder content while loading.\n\n5. If an alert acknowledgment fails, show inline error and keep the alert in unacknowledged state.',
+      checklist: [
+        { id: 'loading', checked: false, text: '<strong>Loading state</strong> — Skeleton screens on KPIs, charts, AI summaries, and alert panels' },
+        { id: 'empty', checked: false, text: '<strong>No data period</strong> — "No data for this period — refreshes daily" instead of empty/zero charts' },
+        { id: 'error-connection', checked: false, text: '<strong>Connection error</strong> — "Dashboard unavailable" message (don\'t show zeroed-out metrics)' },
+        { id: 'error-action', checked: false, text: '<strong>Summary failure</strong> — "Try again or view raw metrics" with retry' },
+        { id: 'auth-invalid', checked: false, text: '<strong>Invalid login</strong> — Error for wrong credentials' },
+        { id: 'auth-session', checked: false, text: '<strong>Session expiry</strong> — Redirect to login with message' },
+        { id: 'boundary-list', checked: false, text: '<strong>Large dataset</strong> — Pagination for metric history tables with 1000+ rows' },
+        { id: 'validation', checked: false, text: '<strong>Alert thresholds</strong> — Validate numeric input when creating alert rules' },
+        { id: 'scenario-1', checked: false, text: '<strong>Misleading AI summary</strong> — User can flag summary as "not helpful" and see raw data instead' },
+        { id: 'scenario-2', checked: false, text: '<strong>Stale data</strong> — Show "Last updated: [timestamp]" and "Refresh" button if data is >1 hour old' }
+      ]
+    }
+  };
+
+  function esc(s) { return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function showSaveIndicator(text, saving) {
+    const bar = document.getElementById('save-bar');
+    const txt = document.getElementById('save-text');
+    txt.textContent = text || 'Saved to this browser';
+    bar.classList.toggle('saving', !!saving);
+    bar.classList.add('visible');
+    setTimeout(() => bar.classList.remove('visible'), 2000);
+  }
+
+  function gatherStateFull() {
+    const st = {
+      scenario: document.querySelector('.scenario-btn.active')?.textContent.replace(/\n/g,' ').trim() || '',
+      auditScreens: document.getElementById('audit-screens').value,
+      auditPrd: auditState.prd,
+      auditCode: auditState.code,
+      schema: schemaData,
+      authModel: document.getElementById('auth-model').value,
+      checklist: checklistData,
+      promptConnect: document.getElementById('prompt-connect').value,
+      resultConnect: document.getElementById('result-connect').value,
+      promptAuth: document.getElementById('prompt-auth').value,
+      resultAuth: document.getElementById('result-auth').value,
+      promptEdge: document.getElementById('prompt-edge').value,
+      resultEdge: document.getElementById('result-edge').value,
+      handoff: {}
+    };
+    HANDOFF_SECTIONS.forEach(s => {
+      const el = document.getElementById('handoff-' + s.id);
+      if (el) st.handoff[s.id] = el.value;
+    });
+    return st;
+  }
+
+  function save() {
+    if (isRestoring) return;
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(gatherStateFull()));
+        showSaveIndicator('Saved to this browser');
+      } catch(e) {}
+    }, 600);
+  }
+
+  function restoreFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const st = JSON.parse(raw);
+      isRestoring = true;
+      applyState(st);
+      isRestoring = false;
+      showSaveIndicator('Restored from this browser');
+      return true;
+    } catch(e) { return false; }
+  }
+
+  function applyState(st) {
+    if (st.auditScreens) document.getElementById('audit-screens').value = st.auditScreens;
+    if (st.auditPrd) { auditState.prd = st.auditPrd; setToggle('prd', st.auditPrd); }
+    if (st.auditCode) { auditState.code = st.auditCode; setToggle('code', st.auditCode); }
+    if (st.schema && st.schema.length) { schemaData = st.schema; } else { schemaData = [{ name: '', fields: '' }]; }
+    renderSchema();
+    if (st.authModel) document.getElementById('auth-model').value = st.authModel;
+    if (st.checklist) { checklistData = st.checklist; }
+    renderChecklist();
+    if (st.promptConnect) document.getElementById('prompt-connect').value = st.promptConnect;
+    if (st.resultConnect) document.getElementById('result-connect').value = st.resultConnect;
+    if (st.promptAuth) document.getElementById('prompt-auth').value = st.promptAuth;
+    if (st.resultAuth) document.getElementById('result-auth').value = st.resultAuth;
+    if (st.promptEdge) document.getElementById('prompt-edge').value = st.promptEdge;
+    if (st.resultEdge) document.getElementById('result-edge').value = st.resultEdge;
+    renderHandoffSections();
+    if (st.handoff) {
+      HANDOFF_SECTIONS.forEach(s => {
+        const el = document.getElementById('handoff-' + s.id);
+        if (el && st.handoff[s.id]) el.value = st.handoff[s.id];
+      });
+    }
+    updateAudit();
+    updatePreview();
+  }
+
+  function setToggle(key, val) {
+    auditState[key] = val;
+    const yesBtn = document.getElementById('toggle-' + key + '-yes');
+    const noBtn = document.getElementById('toggle-' + key + '-no');
+    yesBtn.className = 'audit-toggle' + (val === 'yes' ? ' yes' : '');
+    noBtn.className = 'audit-toggle' + (val === 'no' ? ' no' : '');
+    updateAudit();
+    save();
+  }
+
+  function updateAudit() {
+    const screens = document.getElementById('audit-screens').value || '?';
+    const prd = auditState.prd;
+    const code = auditState.code;
+    const prdSpan = prd === 'yes' ? '<span class="ok">yes</span>' : '<span class="gap">no — complete M4 first</span>';
+    const codeSpan = code === 'yes' ? '<span class="ok">yes</span>' : '<span class="gap">no — refactor in M4 first</span>';
+    document.getElementById('audit-summary').innerHTML =
+      '<strong>Starting point:</strong> ' + screens + ' screens, Living PRD: ' + prdSpan + ', Code refactored: ' + codeSpan + '. ' +
+      (prd === 'yes' && code === 'yes' ? 'Ready for backend integration.' : 'Complete M4 deliverables before M5.');
+    updatePreview();
+  }
+
+  // Schema
+  function renderSchema() {
+    const c = document.getElementById('schema-container');
+    c.innerHTML = '';
+    schemaData.forEach((t, i) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'margin-bottom:12px;';
+      div.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="font-size:11px;font-weight:700;color:#3B6FE0;text-transform:uppercase;">Table ${i+1}</span>
+          ${schemaData.length > 1 ? `<button class="schema-remove" onclick="removeSchemaTable(${i})">×</button>` : ''}
+        </div>
+        <table class="schema-table">
+          <thead><tr><th>Table Name</th><th>Fields</th></tr></thead>
+          <tbody><tr>
+            <td><input value="${esc(t.name)}" placeholder="e.g. users" oninput="schemaData[${i}].name=this.value;save();"></td>
+            <td><input value="${esc(t.fields)}" placeholder="e.g. id (uuid), email (text), name (text), created_at (timestamp)" oninput="schemaData[${i}].fields=this.value;save();"></td>
+          </tr></tbody>
+        </table>`;
+      c.appendChild(div);
+    });
+  }
+
+  function addSchemaTable() {
+    schemaData.push({ name: '', fields: '' });
+    renderSchema();
+    save();
+  }
+
+  function removeSchemaTable(i) {
+    schemaData.splice(i, 1);
+    renderSchema();
+    save();
+  }
+
+  // Checklist
+  function renderChecklist() {
+    const c = document.getElementById('checklist-container');
+    c.innerHTML = '';
+    checklistData.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'checklist-item';
+      div.innerHTML = `
+        <div class="checklist-check ${item.checked ? 'checked' : ''}" onclick="toggleCheck(${i});">${item.checked ? '✓' : ''}</div>
+        <div class="checklist-text">${item.text}</div>`;
+      c.appendChild(div);
+    });
+  }
+
+  function toggleCheck(i) {
+    checklistData[i].checked = !checklistData[i].checked;
+    renderChecklist();
+    save();
+  }
+
+  // Handoff sections
+  function renderHandoffSections() {
+    const c = document.getElementById('handoff-sections');
+    c.innerHTML = '';
+    HANDOFF_SECTIONS.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'handoff-section';
+      div.id = 'handoff-section-' + s.id;
+      div.innerHTML = `
+        <div class="handoff-section-header" onclick="toggleHandoffSection('${s.id}')">
+          <div class="handoff-section-title">
+            <div class="handoff-section-icon">${s.icon}</div>
+            ${esc(s.title)}
+          </div>
+          <span class="handoff-section-chevron">▼</span>
+        </div>
+        <div class="handoff-section-body">
+          <textarea class="handoff-textarea" id="handoff-${s.id}" rows="6" placeholder="${esc(s.hint)}" oninput="save();">${''}</textarea>
+        </div>`;
+      c.appendChild(div);
+    });
+  }
+
+  function toggleHandoffSection(id) {
+    const sec = document.getElementById('handoff-section-' + id);
+    sec.classList.toggle('collapsed');
+  }
+
+  // Scenario picker
+  function pickScenario(id, btn) {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const data = SCENARIO_DATA[id];
+    if (!data) return;
+
+    const hasExisting = ['prompt-connect','prompt-auth','prompt-edge'].some(
+      fid => document.getElementById(fid).value.trim() !== ''
+    );
+
+    if (hasExisting && !confirm('Replace your current content with example data for "' + data.label + '"?')) {
+      updatePreview();
+      return;
+    }
+
+    document.getElementById('audit-screens').value = data.audit.screens;
+    auditState.prd = data.audit.prd;
+    auditState.code = data.audit.code;
+    setToggle('prd', data.audit.prd);
+    setToggle('code', data.audit.code);
+
+    schemaData = JSON.parse(JSON.stringify(data.schema));
+    renderSchema();
+
+    document.getElementById('auth-model').value = data.authModel;
+    document.getElementById('prompt-connect').value = data.connect;
+    document.getElementById('prompt-auth').value = data.auth;
+    document.getElementById('prompt-edge').value = data.edge;
+    document.getElementById('result-connect').value = '';
+    document.getElementById('result-auth').value = '';
+    document.getElementById('result-edge').value = '';
+
+    checklistData = JSON.parse(JSON.stringify(data.checklist));
+    renderChecklist();
+
+    updateAudit();
+    updatePreview();
+    save();
+
+    document.querySelector('.prompt-card.connect').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Preview
+  function buildFullText() {
+    let t = '# M5 Integration Plan + Engineering Handoff Note\n\n';
+
+    const scenario = document.querySelector('.scenario-btn.active')?.textContent.replace(/\n/g,' ').trim();
+    if (scenario) t += '**Scenario:** ' + scenario + '\n';
+    t += '**Starting point:** ' + (document.getElementById('audit-screens').value || '?') + ' screens';
+    t += ', PRD: ' + auditState.prd + ', Code refactored: ' + auditState.code + '\n\n';
+
+    t += '---\n\n## Database Schema\n\n';
+    schemaData.forEach(s => {
+      if (s.name || s.fields) {
+        t += '**' + (s.name || 'unnamed') + ':** ' + (s.fields || '(no fields)') + '\n';
+      }
+    });
+
+    t += '\n## Auth Model\n\n' + (document.getElementById('auth-model').value || '(not defined)') + '\n\n';
+
+    t += '## Edge Case Checklist\n\n';
+    checklistData.forEach(item => {
+      const label = item.text.replace(/<[^>]+>/g, '');
+      t += (item.checked ? '✅' : '☐') + ' ' + label + '\n';
+    });
+
+    t += '\n---\n\n## Prompt 1 — Connect (Database)\n\n';
+    t += (document.getElementById('prompt-connect').value || '(not written)') + '\n\n';
+    const rc = document.getElementById('result-connect').value;
+    if (rc) t += '**Result:** ' + rc + '\n\n';
+
+    t += '## Prompt 2 — Auth (Authentication)\n\n';
+    t += (document.getElementById('prompt-auth').value || '(not written)') + '\n\n';
+    const ra = document.getElementById('result-auth').value;
+    if (ra) t += '**Result:** ' + ra + '\n\n';
+
+    t += '## Prompt 3 — Edge Cases\n\n';
+    t += (document.getElementById('prompt-edge').value || '(not written)') + '\n\n';
+    const re = document.getElementById('result-edge').value;
+    if (re) t += '**Result:** ' + re + '\n\n';
+
+    t += '---\n\n## Engineering Handoff Note\n\n';
+    HANDOFF_SECTIONS.forEach(s => {
+      const val = document.getElementById('handoff-' + s.id)?.value || '';
+      t += '### ' + s.title + '\n\n' + (val || '(not filled in)') + '\n\n';
+    });
+
+    return t;
+  }
+
+  function updatePreview() {
+    document.getElementById('final-preview').textContent = buildFullText();
+  }
+
+  function copyField(id) {
+    const text = document.getElementById(id).value;
+    navigator.clipboard.writeText(text).then(() => {
+      showSaveIndicator('Copied to clipboard!', true);
+    });
+  }
+
+  function copyFull() {
+    navigator.clipboard.writeText(buildFullText()).then(() => {
+      showSaveIndicator('Full plan copied!', true);
+    });
+  }
+
+  function downloadMarkdown() {
+    const blob = new Blob([buildFullText()], { type: 'text/markdown' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'M5-Integration-Plan.md';
+    a.click();
+  }
+
+  function importPlan(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const text = e.target.result;
+        if (text.trim().startsWith('{')) {
+          const data = JSON.parse(text);
+          isRestoring = true;
+          applyState(data);
+          isRestoring = false;
+        } else {
+          parseMarkdownImport(text);
+        }
+        save();
+        showSaveIndicator('Imported successfully!', true);
+      } catch(err) {
+        alert('Could not parse the file. Make sure it\'s a valid .md or .json export.');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  function parseMarkdownImport(text) {
+    const sections = text.split(/^## /m);
+    sections.forEach(sec => {
+      const lines = sec.trim().split('\n');
+      const heading = lines[0];
+      const body = lines.slice(1).join('\n').trim();
+
+      if (/Prompt 1/i.test(heading)) {
+        const parts = body.split(/\*\*Result:\*\*/);
+        document.getElementById('prompt-connect').value = parts[0].trim();
+        if (parts[1]) document.getElementById('result-connect').value = parts[1].trim();
+      }
+      if (/Prompt 2/i.test(heading)) {
+        const parts = body.split(/\*\*Result:\*\*/);
+        document.getElementById('prompt-auth').value = parts[0].trim();
+        if (parts[1]) document.getElementById('result-auth').value = parts[1].trim();
+      }
+      if (/Prompt 3/i.test(heading)) {
+        const parts = body.split(/\*\*Result:\*\*/);
+        document.getElementById('prompt-edge').value = parts[0].trim();
+        if (parts[1]) document.getElementById('result-edge').value = parts[1].trim();
+      }
+      if (/Auth Model/i.test(heading)) {
+        document.getElementById('auth-model').value = body;
+      }
+    });
+
+    const handoffSections = text.split(/^### /m);
+    handoffSections.forEach(sec => {
+      const lines = sec.trim().split('\n');
+      const heading = lines[0];
+      const body = lines.slice(1).join('\n').trim();
+      HANDOFF_SECTIONS.forEach(s => {
+        if (heading.includes(s.title)) {
+          const el = document.getElementById('handoff-' + s.id);
+          if (el && body && body !== '(not filled in)') el.value = body;
+        }
+      });
+    });
+
+    updatePreview();
+  }
+
+  function clearAll() {
+    if (!confirm('Clear everything and start over? This cannot be undone.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('audit-screens').value = 5;
+    auditState.prd = 'yes';
+    auditState.code = 'yes';
+    setToggle('prd', 'yes');
+    setToggle('code', 'yes');
+    schemaData = [{ name: '', fields: '' }];
+    renderSchema();
+    document.getElementById('auth-model').value = '';
+    checklistData = JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+    renderChecklist();
+    document.getElementById('prompt-connect').value = '';
+    document.getElementById('result-connect').value = '';
+    document.getElementById('prompt-auth').value = '';
+    document.getElementById('result-auth').value = '';
+    document.getElementById('prompt-edge').value = '';
+    document.getElementById('result-edge').value = '';
+    renderHandoffSections();
+    updateAudit();
+    updatePreview();
+    showSaveIndicator('Cleared!', true);
+  }
+
+  // Initialize
+  schemaData = [{ name: '', fields: '' }];
+  renderHandoffSections();
+  const restored = restoreFromStorage();
+  if (!restored) {
+    renderSchema();
+    renderChecklist();
+    updateAudit();
+    updatePreview();
+  }
+</script>
+
+</body>
+</html>
