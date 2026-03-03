@@ -6,7 +6,7 @@
 
 ## Instructions for Gamma
 
-Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — The Backend Moment"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and graduate prototypes with living PRDs (M4); now they're connecting their prototypes to real backends. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
+Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — The Backend Moment"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and graduate prototypes with living PRDs, GitHub repos, and Supabase connections (M4); now they're building real backend functionality on top of the infrastructure they connected. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
 
 ---
 
@@ -16,53 +16,51 @@ Create a professional slide deck for teaching a 2-hour workshop called **"Module
 MODULE 5 | VIBE CODING CERTIFICATION
 
 Three things today:
-1. **Real Database** — Your data persists. Refresh the page — it's still there. No more hardcoded values.
-2. **Authentication** — Real users, real accounts. Different people see different data.
-3. **Edge Cases** — What happens when things break? Loading, errors, empty states, API failures. Your product handles them.
+1. **Real Database Schemas** — Build real tables, store real data. Your Supabase connection from M4 becomes a working backend.
+2. **Authentication** — Real users, real accounts. Different people see different data. Row-level security.
+3. **Edge Cases & API Integrations** — What happens when things break? Loading, errors, empty states. Plus: connect external APIs.
 
 Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was graduation. Module 5 is where it gets real.
 
-*Speaker Notes: "Welcome back. Everything you've built so far looked real but was a facade — hardcoded data, no persistence, no users. Today that changes. Three waypoints: real database, authentication, and edge cases. By the end of today, your prototype will have real data that persists, real user accounts, and graceful failure handling. It won't be a prototype anymore. It'll be a working product."*
+*Speaker Notes: "Welcome back. In M4, you connected GitHub and Supabase — your prototype graduated with real infrastructure. But that infrastructure is still empty. The database has no tables. There's no authentication. There are no API integrations. Today we build on top of what you connected. Three waypoints: real database schemas, authentication, and edge cases with API integrations. By the end of today, your prototype will have real data that persists, real user accounts, and graceful failure handling. It won't be a prototype anymore. It'll be a working product."*
 
 ---
 
 ## Slide 2 — Bridge from M4 + Agenda
-**Your M4 Prototype Has a Spec and Clean Code. But It's Still a Facade.**
+**Your M4 Prototype Has Infrastructure. But the Database Is Empty.**
 
-Your M4 build has a Living PRD, refactored code, and an engineering handoff. An engineer could read it. But try this: enter data, close the tab, reopen it. The data is gone. Log in as a different user — you can't. Everything is hardcoded.
+Your M4 build has a Living PRD, refactored code in GitHub, a Supabase connection, and an engineering handoff. An engineer could clone the repo. But try this: enter data, close the tab, reopen it. The data is gone. Log in as a different user — you can't. The infrastructure is connected, but nothing is built on top of it yet.
 
-Today you connect the facade to reality.
+Today you build the backend.
 
 Today's flow:
-1. **Demo** — Watch a prototype go from facade to functional
-2. **Teaching** — Integration patterns, auth, edge case thinking
-3. **Lab** — Connect your prototype to a real database and auth
+1. **Demo** — Watch a prototype go from empty infrastructure to functional product
+2. **Teaching** — Database schemas, auth patterns, edge case thinking, API integrations
+3. **Lab** — Build real tables, add authentication, connect APIs
 4. **Chaos Round** — Things break. Handle it.
-5. **Break It** — The prototype with zero error handling
+5. **Break It** — The product with zero error handling
 
 ---
 
 ## Slide 3 — Instructor Demo: The Setup
-**Same Prototype. Same Facade.**
+**Same Prototype. Infrastructure Connected. Nothing Built On It Yet.**
 
 INSTRUCTOR DEMO
 
-The M4 Retention Engine: 5 screens, interactive states, clean code, Living PRD. Everything from M4.
+The M4 Retention Engine: 5 screens, interactive states, clean code in GitHub, Supabase connected, Living PRD. Everything from M4.
 
-Watch: I enter an invite. Refresh the page. Gone. I "log in" — no password, no account. The PM dashboard shows hardcoded numbers that never change.
-
-This is every prototype ever built. It looks real. It isn't.
+Watch: I enter an invite. Refresh the page. Gone. I "log in" — no password, no account. The PM dashboard shows hardcoded numbers that never change. The Supabase dashboard shows no tables. The infrastructure is there, but it's empty.
 
 3 prompts. Watch what changes.
 
-*Speaker Notes: Pull up the M4 Retention Engine in Lovable. Click through to show the polished UI — remind them how far it's come since M1. Then demonstrate the facade: type a teammate's email in the invite form, refresh the page — the invite disappears. Go to the PM dashboard — the metrics never change. "This is the gap between a prototype and a product. 3 prompts." Keep this fast — 2 minutes setup.*
+*Speaker Notes: Pull up the M4 Retention Engine in Lovable. Click through to show the polished UI. Open the Supabase dashboard in a tab — show that the project exists but has no tables. "In M4, you connected the infrastructure. Today you build on top of it." Then demonstrate: type an invite, refresh — gone. "The database is connected but empty. 3 prompts." Keep this fast — 2 minutes setup.*
 
 ---
 
 ## Slide 4 — Live Build: 3 Prompts
 **The Integration Chain**
 
-**Prompt 1 — Database:** "Add Supabase to this project. Create a 'users' table and an 'invites' table. When a user sends an invite on Screen 2, store it in the invites table with the sender email, recipient email, and timestamp. When the team workspace (Screen 3) loads, fetch all invites for this user from Supabase and display them. When the PM dashboard (Screen 4) loads, query the invites table to calculate actual invite rate and display the real number."
+**Prompt 1 — Database Schema:** "Create a 'users' table and an 'invites' table in Supabase. When a user sends an invite on Screen 2, store it in the invites table with the sender email, recipient email, and timestamp. When the team workspace (Screen 3) loads, fetch all invites for this user from Supabase and display them. When the PM dashboard (Screen 4) loads, query the invites table to calculate actual invite rate and display the real number."
 
 **Prompt 2 — Auth:** "Add Supabase authentication. Add a login/signup screen before the onboarding flow. Users sign up with email and password. After login, the app fetches only their team's invites. Different users see different data. Show the logged-in user's name in the header. Add a logout button."
 
@@ -70,7 +68,7 @@ This is every prototype ever built. It looks real. It isn't.
 
 3 prompts. Real data. Real users. Real error handling.
 
-*Speaker Notes: Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh the page. "The invite is still there. It's in a real database." Open Supabase dashboard in a new tab — show the data in the table. Prompt 2: paste, wait ~90 sec. Log out. Sign up as a new user. "Different user, different invites. Real multi-user behavior." Prompt 3: paste, wait ~60 sec. Disconnect WiFi (or use Supabase pause). "Connection error. The app tells you what happened instead of showing a blank screen." Reconnect. "And it recovers." Total: ~8 minutes. Let the moments land — the persistence moment and the multi-user moment are the biggest reactions you'll get all course.*
+*Speaker Notes: Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh the page. "The invite is still there. It's in a real database." Open the Supabase dashboard — show the data appearing in the table. "Remember — you connected this in M4. Now there's actually data in it." Prompt 2: paste, wait ~90 sec. Log out. Sign up as a new user. "Different user, different invites. Real multi-user behavior." Prompt 3: paste, wait ~60 sec. Disconnect WiFi (or use Supabase pause). "Connection error. The app tells you what happened instead of showing a blank screen." Reconnect. "And it recovers." Total: ~8 minutes. Let the moments land — the persistence moment and the multi-user moment are the biggest reactions you'll get all course.*
 
 ---
 
@@ -79,16 +77,16 @@ This is every prototype ever built. It looks real. It isn't.
 
 Same prototype. Same 5 screens. Same design.
 
-- **Data persists** — invites are stored in Supabase. Refresh, close tab, reopen — they're still there.
+- **Data persists** — invites are stored in Supabase tables you built on top of M4's connection. Refresh, close tab, reopen — they're still there.
 - **Users are real** — login, signup, personalized data. Different users see different things.
 - **Failures are handled** — connection errors, empty states, loading states, retry logic.
 
-Before: a visual facade with hardcoded data.
-After: a working product with a real backend.
+Before: connected infrastructure with no tables, no auth, no error handling.
+After: a working product with real schemas, real users, and graceful failures.
 
-That's the line between prototype and product.
+That's the line between infrastructure and product.
 
-*Speaker Notes: "This is the line. Everything before this was visual — it looked real but wasn't. Now the data persists, users are real, and errors are handled. You crossed from prototype to product. And you did it with 3 prompts." Transition to teaching: "Let me show you what's actually happening under the hood."*
+*Speaker Notes: "In M4, you connected the infrastructure. Today you built on top of it. The data persists, users are real, and errors are handled. You crossed from infrastructure to product. And you did it with 3 prompts." Transition to teaching: "Let me show you what's actually happening under the hood."*
 
 ---
 
@@ -108,7 +106,7 @@ Stripe for payments. SendGrid for email. Any API with documentation. The AI read
 
 You don't write the code. You describe what should happen. The AI integrates it.
 
-*Speaker Notes: Keep this at 3 minutes. Show the Supabase dashboard briefly — tables, auth users, RLS policies. "Supabase is the backend. Lovable talks to it. You describe what data to store and what happens when — the AI writes the integration code." Don't go deep on SQL or APIs — that's not the point. The point is: PMs can describe backend behavior in plain English and the AI makes it work.*
+*Speaker Notes: Keep this at 3 minutes. Show the Supabase dashboard — tables, auth users, RLS policies. "You connected Supabase in M4. Now you're building on it — tables, auth, security. Lovable talks to Supabase. You describe what data to store and what happens when — the AI writes the integration code." Don't go deep on SQL or APIs — that's not the point. The point is: PMs can describe backend behavior in plain English and the AI makes it work.*
 
 ---
 
@@ -151,7 +149,7 @@ This is NOT a technical spec. It's a PM's honest assessment of what's real and w
 
 INDIVIDUAL EXERCISE | 5 MINUTES
 
-Look at your M4 prototype. Answer three questions:
+Look at your M4 prototype (Supabase is already connected from M4). Answer three questions:
 
 **1.** What data is currently hardcoded that should come from a database? (User info, metrics, content, settings)
 
@@ -185,20 +183,20 @@ This is a prototype, not production. But good habits start now.
 
 ---
 
-## Slide 11 — Lab Part 1: Connect the Database
-**Hands-on Lab Part 1: Add a Real Database** | 15 Minutes
+## Slide 11 — Lab Part 1: Build the Database Schema
+**Hands-on Lab Part 1: Build Real Tables** | 15 Minutes
 
-Open the **Integration Planner** tool. Select your scenario.
+Open the **Integration Planner** tool. Select your scenario. Your Supabase is already connected from M4 — now you're building on it.
 
 **Step 1 (3 min):** Review the database schema the Planner suggests. What tables? What fields? Customize for your prototype.
 
-**Step 2 (10 min):** Copy the database prompt from the Planner into Lovable. Let it set up Supabase. Test: enter data, refresh the page. Is it still there?
+**Step 2 (10 min):** Copy the database prompt from the Planner into Lovable. It will create the tables in your connected Supabase project. Test: enter data, refresh the page. Is it still there?
 
 **Step 3 (2 min):** Document in the Planner: What data persists now? What's still hardcoded?
 
 The moment your data survives a page refresh — that's the line.
 
-*Speaker Notes: Drop the Integration Planner link in Slack. Walk the room. The database prompt usually takes 60-90 seconds to generate. The KEY MOMENT: when a student enters data, refreshes, and the data is still there. Watch for it — you'll see their reaction. "Your data just survived a page refresh. That's not a prototype anymore." Common issue: Supabase setup — if students get stuck on the Supabase connection, pair them with someone who has it working, or show the 3-line fix. After 15 min: "Who has persistent data? Show me a refresh."*
+*Speaker Notes: Drop the Integration Planner link in Slack. Walk the room. "You connected Supabase in M4. Now you're building real tables on top of it." The database prompt usually takes 60-90 seconds. The KEY MOMENT: when a student enters data, refreshes, and the data is still there. Watch for their reaction. "Your data just survived a page refresh. That database you connected last module? It's working." If anyone's Supabase isn't connected from M4, help them connect it now (one click). After 15 min: "Who has persistent data? Show me a refresh."*
 
 ---
 
@@ -274,26 +272,26 @@ Open five tabs.
 
 **Module 3:** 5+ screens, states, documented chain. Still a facade.
 
-**Module 4:** Clean code, Living PRD, engineering handoff. Still no backend.
+**Module 4:** Clean code in GitHub, Supabase connected, Living PRD, engineering handoff. Infrastructure ready.
 
 **Module 5:** Real database, real auth, real error handling. It actually works.
 
 Same tool. Same you. Five modules of progression.
 
-*Speaker Notes: Same pattern as M4's four-tab reveal — now five. Let students open all five. 30 seconds of silence. "In M1, you typed a prompt and got a page. In M5, you have a multi-user product with a real database, authentication, and error handling. That's not a prototype anymore." This is the crescendo of the production half. M6 is about deploying and shipping — M5 is where the product becomes real.*
+*Speaker Notes: Same pattern as M4's four-tab reveal — now five. Let students open all five. 30 seconds of silence. "In M1, you typed a prompt and got a page. In M4, you connected infrastructure. In M5, you built a multi-user product with real database schemas, authentication, and error handling on top of that infrastructure. That's not a prototype anymore." This is the crescendo of the production half. M6 is about deploying and shipping — M5 is where the product becomes real.*
 
 ---
 
 ## Slide 17 — What You Did Today
 **What You Did Today**
 
-**1. Real Database** — Your data persists in Supabase. Refresh, close, reopen — it's still there. No more hardcoded values.
+**1. Real Database Schemas** — You built real tables on top of M4's Supabase connection. Your data persists. Refresh, close, reopen — it's still there.
 
-**2. Authentication** — Real users with real accounts. Different people see different data. Login, logout, sessions.
+**2. Authentication** — Real users with real accounts. Different people see different data. Login, logout, sessions. Row-level security.
 
 **3. Edge Cases** — Your product handles failures gracefully: loading states while fetching, error messages when things break, empty states when there's no data yet.
 
-Your prototype crossed the line from facade to functional. Update your Living PRD and Engineering Handoff Note to reflect what's now real.
+Your prototype crossed the line from connected infrastructure to functional product. Update your Living PRD and Engineering Handoff Note to reflect what's now real.
 
 ---
 
@@ -315,7 +313,7 @@ Your prototype crossed the line from facade to functional. Update your Living PR
 
 Same product. Live URL.
 
-You've built fast (M1), built smart (M2), built precise (M3), graduated it (M4), and made it real (M5). Your product has a database, auth, and error handling. One thing left: put it in front of real people.
+You've built fast (M1), built smart (M2), built precise (M3), graduated it with real infrastructure (M4), and made it real (M5). Your product has real database schemas, auth, and error handling. One thing left: put it in front of real people.
 
 **Module 6 — The Ship Moment:**
 - Deploy to a live URL — anyone can access it
@@ -326,7 +324,7 @@ You've built fast (M1), built smart (M2), built precise (M3), graduated it (M4),
 Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
-Module 4: Build for real.
+Module 4: Graduate it.
 Module 5: Make it real.
 Module 6: Ship it.
 
@@ -343,7 +341,7 @@ Scan the QR code or use the link to share your feedback. Your insights help us i
 - Match Modules 1–4 visual template exactly (same fonts, colors, layout grid)
 - Slides are student-facing course material — keep content clean, instructional, and practical. Do NOT put pedagogical commentary, emotional cues, or "wow moment" labels on slides.
 - Slide 1 — Bold title, three waypoints as prominent numbered list (same pattern as M1–M4 slide 1)
-- Slide 3 — The facade demo: emphasize the "refresh and data disappears" moment visually
+- Slide 3 — The demo setup: show Supabase dashboard (connected but empty tables) alongside the prototype. Emphasize "refresh and data disappears" moment.
 - Slide 4 — Show the 3 prompts cleanly (Database / Auth / Edge Cases). Students should see the progression.
 - Slide 6 — Three integration patterns as distinct visual blocks with icons
 - Slide 7 — The 5 edge cases as a numbered checklist — memorable and scannable

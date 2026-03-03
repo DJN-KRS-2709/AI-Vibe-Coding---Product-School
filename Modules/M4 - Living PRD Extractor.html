@@ -118,6 +118,7 @@
   .prompt-card.extract { border-left-color: #3B6FE0; }
   .prompt-card.refactor { border-left-color: #d97706; }
   .prompt-card.handoff { border-left-color: #059669; }
+  .prompt-card.infra { border-left-color: #6366f1; }
 
   .prompt-card-header {
     padding: 18px 24px; display: flex; align-items: center;
@@ -132,6 +133,7 @@
   .num-extract { background: #3B6FE0; }
   .num-refactor { background: #d97706; }
   .num-handoff { background: #059669; }
+  .num-infra { background: #6366f1; }
 
   .prompt-card-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
   .prompt-card-desc { font-size: 11px; color: #888; margin-top: 2px; }
@@ -193,6 +195,69 @@
   .btn-copy-refactor:hover { background: #fef3c7; }
   .btn-copy-handoff { background: #ecfdf5; color: #059669; }
   .btn-copy-handoff:hover { background: #d1fae5; }
+  .btn-copy-infra { background: #eef2ff; color: #6366f1; }
+  .btn-copy-infra:hover { background: #e0e7ff; }
+
+  .infra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .infra-block {
+    background: #fafbfc; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 18px 20px; transition: border-color 0.2s;
+  }
+  .infra-block.connected { border-color: #059669; background: #f0fdf4; }
+
+  .infra-block-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .infra-block-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .infra-block-icon.github { background: #f6f8fa; }
+  .infra-block-icon.supabase { background: #ecfdf5; }
+  .infra-block-title { font-size: 14px; font-weight: 700; color: #1a1a2e; }
+  .infra-block-desc { font-size: 11px; color: #888; margin-top: 1px; }
+
+  .infra-toggle-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .infra-toggle {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border: 2px solid #e1e4e8; border-radius: 8px;
+    background: #fff; color: #888; cursor: pointer; transition: all 0.2s;
+    flex: 1; text-align: center;
+  }
+  .infra-toggle:hover { border-color: #d1d5db; }
+  .infra-toggle.connected { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .infra-toggle.not-connected { border-color: #d1d5db; background: #fff; color: #888; }
+
+  .infra-url-input {
+    font-family: 'Inter', sans-serif; font-size: 12px; color: #1a1a2e;
+    padding: 10px 14px; border: 1.5px solid #e1e4e8; border-radius: 8px;
+    background: #fff; width: 100%;
+  }
+  .infra-url-input:focus {
+    outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  }
+  .infra-url-input::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .infra-verify {
+    display: flex; align-items: center; gap: 8px; margin-top: 10px;
+    font-size: 11px; color: #888; line-height: 1.5;
+  }
+  .infra-verify-check {
+    width: 16px; height: 16px; border-radius: 4px;
+    border: 1.5px solid #d1d5db; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; flex-shrink: 0; font-size: 10px;
+  }
+  .infra-verify-check.checked { border-color: #059669; background: #059669; color: #fff; }
+
+  .infra-status {
+    margin-top: 14px; padding: 10px 14px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; text-align: center;
+  }
+  .infra-status.ready { background: #ecfdf5; color: #059669; }
+  .infra-status.pending { background: #fefce8; color: #a16207; }
 
   .prd-section {
     background: #fff; border-radius: 12px;
@@ -333,7 +398,7 @@
   <div class="header">
     <div class="badge">Module 4 — Living PRD</div>
     <h1>Living PRD Extractor</h1>
-    <p>Extract a Living PRD from your M3 prototype. Use this tool to guide your extraction prompt, capture PRD sections, refactor, and hand off to engineering.</p>
+    <p>Extract a Living PRD from your M3 prototype. Refactor the code, generate an engineering handoff, and connect real infrastructure (GitHub + Supabase). Your prototype graduates today.</p>
   </div>
 
   <!-- Scenario Selector -->
@@ -479,12 +544,69 @@
     </div>
   </div>
 
+  <div class="connector"><div class="connector-arrow"></div></div>
+
+  <!-- Infrastructure Connection -->
+  <div class="prompt-card infra">
+    <div class="prompt-card-header">
+      <div class="prompt-num num-infra">4</div>
+      <div>
+        <div class="prompt-card-title">Infrastructure Connection</div>
+        <div class="prompt-card-desc">Connect GitHub and Supabase — the graduation ceremony</div>
+      </div>
+    </div>
+    <div class="prompt-card-body">
+      <div class="template-hint">
+        <strong>One click each in Lovable:</strong> Top right → "Connect GitHub" and "Add Supabase." Create free accounts first if needed. This is what makes graduation real — your code is version-controlled and your prototype has a database.
+      </div>
+      <div class="infra-grid">
+        <div class="infra-block" id="infra-github-block">
+          <div class="infra-block-header">
+            <div class="infra-block-icon github">🐙</div>
+            <div>
+              <div class="infra-block-title">GitHub</div>
+              <div class="infra-block-desc">Version control for your code</div>
+            </div>
+          </div>
+          <div class="infra-toggle-row">
+            <button class="infra-toggle not-connected" id="infra-github-no" onclick="setInfra('github','no')">Not Connected</button>
+            <button class="infra-toggle" id="infra-github-yes" onclick="setInfra('github','yes')">Connected ✓</button>
+          </div>
+          <input class="infra-url-input" type="url" id="infra-github-url" placeholder="https://github.com/your-username/your-repo" oninput="debouncedSave()">
+          <div class="infra-verify">
+            <div class="infra-verify-check" id="infra-github-verify" onclick="toggleVerify('github')"></div>
+            <span>I can see my refactored code and README in the repo</span>
+          </div>
+        </div>
+        <div class="infra-block" id="infra-supabase-block">
+          <div class="infra-block-header">
+            <div class="infra-block-icon supabase">⚡</div>
+            <div>
+              <div class="infra-block-title">Supabase</div>
+              <div class="infra-block-desc">Real database for your prototype</div>
+            </div>
+          </div>
+          <div class="infra-toggle-row">
+            <button class="infra-toggle not-connected" id="infra-supabase-no" onclick="setInfra('supabase','no')">Not Connected</button>
+            <button class="infra-toggle" id="infra-supabase-yes" onclick="setInfra('supabase','yes')">Connected ✓</button>
+          </div>
+          <input class="infra-url-input" type="url" id="infra-supabase-url" placeholder="https://supabase.com/dashboard/project/your-project-id" oninput="debouncedSave()">
+          <div class="infra-verify">
+            <div class="infra-verify-check" id="infra-supabase-verify" onclick="toggleVerify('supabase')"></div>
+            <span>I can see the project in my Supabase dashboard</span>
+          </div>
+        </div>
+      </div>
+      <div class="infra-status pending" id="infra-status">Connect both to complete graduation</div>
+    </div>
+  </div>
+
   <!-- Final Output -->
   <div class="final-section">
     <div class="final-header">
       <div>
         <div class="final-title">Your Graduated Package</div>
-        <div class="final-subtitle">Living PRD + Engineering Handoff — ready for graduation</div>
+        <div class="final-subtitle">Living PRD + Engineering Handoff + GitHub + Supabase — graduated</div>
       </div>
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
@@ -518,6 +640,53 @@
   let isRestoring = false;
 
   const auditState = { states: 'yes', chain: 'yes' };
+  const infraState = { github: 'no', supabase: 'no', githubVerify: false, supabaseVerify: false };
+
+  function setInfra(service, val) {
+    infraState[service] = val;
+    ['yes','no'].forEach(v => {
+      const el = document.getElementById(`infra-${service}-${v === 'yes' ? 'yes' : 'no'}`);
+      if (!el) return;
+      if (v === val) {
+        el.className = 'infra-toggle ' + (v === 'yes' ? 'connected' : 'not-connected');
+      } else {
+        el.className = 'infra-toggle';
+      }
+    });
+    const block = document.getElementById(`infra-${service}-block`);
+    if (block) block.className = 'infra-block' + (val === 'yes' ? ' connected' : '');
+    updateInfraStatus();
+    debouncedSave();
+  }
+
+  function toggleVerify(service) {
+    const key = service + 'Verify';
+    infraState[key] = !infraState[key];
+    const el = document.getElementById(`infra-${service}-verify`);
+    if (el) {
+      el.className = 'infra-verify-check' + (infraState[key] ? ' checked' : '');
+      el.textContent = infraState[key] ? '✓' : '';
+    }
+    updateInfraStatus();
+    debouncedSave();
+  }
+
+  function updateInfraStatus() {
+    const el = document.getElementById('infra-status');
+    if (!el) return;
+    const ghOk = infraState.github === 'yes';
+    const sbOk = infraState.supabase === 'yes';
+    if (ghOk && sbOk) {
+      el.className = 'infra-status ready';
+      el.textContent = '✓ GitHub + Supabase connected — your prototype has graduated';
+    } else if (ghOk || sbOk) {
+      el.className = 'infra-status pending';
+      el.textContent = (ghOk ? 'GitHub connected' : 'Supabase connected') + ' — connect ' + (ghOk ? 'Supabase' : 'GitHub') + ' to complete graduation';
+    } else {
+      el.className = 'infra-status pending';
+      el.textContent = 'Connect both to complete graduation';
+    }
+  }
 
   const PRD_SECTION_IDS = [
     { id: 'overview', icon: '📄', title: 'Product Overview', hint: 'Product name\nOne-line description\nCompany stage & size\nTarget user (role, seniority, context)\nCore value proposition — what does the user get that they don\'t have today?\nProduct type: new 0→1 product, feature addition, or improvement to existing surface?' },
@@ -1269,6 +1438,12 @@ EXPERIMENT PLAN:
       resultRefactor: document.getElementById('result-refactor').value,
       promptHandoff: document.getElementById('prompt-handoff').value,
       resultHandoff: document.getElementById('result-handoff').value,
+      infraGithub: infraState.github,
+      infraGithubUrl: document.getElementById('infra-github-url').value,
+      infraGithubVerify: infraState.githubVerify,
+      infraSupabase: infraState.supabase,
+      infraSupabaseUrl: document.getElementById('infra-supabase-url').value,
+      infraSupabaseVerify: infraState.supabaseVerify,
       prdSections: {},
       savedAt: new Date().toISOString()
     };
@@ -1318,6 +1493,14 @@ EXPERIMENT PLAN:
     if (state.promptHandoff != null) document.getElementById('prompt-handoff').value = state.promptHandoff;
     if (state.resultHandoff != null) document.getElementById('result-handoff').value = state.resultHandoff;
 
+    if (state.infraGithub) setInfra('github', state.infraGithub);
+    if (state.infraGithubUrl != null) document.getElementById('infra-github-url').value = state.infraGithubUrl;
+    if (state.infraGithubVerify) { infraState.githubVerify = true; const el = document.getElementById('infra-github-verify'); if (el) { el.className = 'infra-verify-check checked'; el.textContent = '✓'; } }
+    if (state.infraSupabase) setInfra('supabase', state.infraSupabase);
+    if (state.infraSupabaseUrl != null) document.getElementById('infra-supabase-url').value = state.infraSupabaseUrl;
+    if (state.infraSupabaseVerify) { infraState.supabaseVerify = true; const el = document.getElementById('infra-supabase-verify'); if (el) { el.className = 'infra-verify-check checked'; el.textContent = '✓'; } }
+    updateInfraStatus();
+
     if (state.prdSections) {
       PRD_SECTION_IDS.forEach(s => {
         const ta = document.getElementById('prd-' + s.id + '-text');
@@ -1357,7 +1540,17 @@ EXPERIMENT PLAN:
     if (resultRefactor) prd += `── REFACTOR NOTES ──\n${resultRefactor}\n\n`;
 
     const resultHandoff = document.getElementById('result-handoff').value.trim();
-    if (resultHandoff) prd += `── ENGINEERING HANDOFF ──\n${resultHandoff}\n`;
+    if (resultHandoff) prd += `── ENGINEERING HANDOFF ──\n${resultHandoff}\n\n`;
+
+    const ghConnected = infraState.github === 'yes';
+    const sbConnected = infraState.supabase === 'yes';
+    const ghUrl = document.getElementById('infra-github-url').value.trim();
+    const sbUrl = document.getElementById('infra-supabase-url').value.trim();
+    if (ghConnected || sbConnected || ghUrl || sbUrl) {
+      prd += `── INFRASTRUCTURE ──\n`;
+      prd += `GitHub: ${ghConnected ? '✓ Connected' : '✗ Not connected'}${ghUrl ? ' — ' + ghUrl : ''}\n`;
+      prd += `Supabase: ${sbConnected ? '✓ Connected' : '✗ Not connected'}${sbUrl ? ' — ' + sbUrl : ''}\n`;
+    }
 
     const hasContent = PRD_SECTION_IDS.some(s => {
       const ta = document.getElementById('prd-' + s.id + '-text');
@@ -1483,6 +1676,18 @@ EXPERIMENT PLAN:
     document.getElementById('audit-screens').value = '5';
     setToggle('states', 'yes');
     setToggle('chain', 'yes');
+
+    setInfra('github', 'no');
+    setInfra('supabase', 'no');
+    document.getElementById('infra-github-url').value = '';
+    document.getElementById('infra-supabase-url').value = '';
+    infraState.githubVerify = false;
+    infraState.supabaseVerify = false;
+    const ghV = document.getElementById('infra-github-verify');
+    const sbV = document.getElementById('infra-supabase-verify');
+    if (ghV) { ghV.className = 'infra-verify-check'; ghV.textContent = ''; }
+    if (sbV) { sbV.className = 'infra-verify-check'; sbV.textContent = ''; }
+    updateInfraStatus();
 
     updateAudit();
     updatePreview();
