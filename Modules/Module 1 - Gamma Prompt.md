@@ -108,6 +108,21 @@ We're using the best tool in the market right now: **Lovable.** Partnership with
 
 ---
 
+## Slide 6b — Skills: Superpowers You Can Import
+**Skills — Like Downloading an App for Your AI**
+
+AI tools like Cursor, Claude, and Lovable can import **skills** — pre-made instruction sets in markdown format that give the AI specialized capabilities.
+
+**What's a skill?** A text file that tells the AI: "Here's how to build dashboards for enterprise SaaS" or "Here's our design system — always use these colors and components." The AI follows it on every prompt.
+
+**Where to find them:** Marketplaces and communities share skills for free. You don't need to create them — you can download what others have built. It's like installing an app on your phone.
+
+**Why this matters:** By Module 3, you'll be building your own skills — your Living Prompt Pack is a skill file. But you don't have to start from scratch. Stand on the shoulders of people who've already solved your problem.
+
+*Speaker Notes: Keep this to 2 minutes. Show one quick example — a skill file is just a markdown document with instructions. "You know how you can download apps to make your phone do new things? Skills do the same thing for AI tools. Someone else figured out how to make the AI great at building dashboards, and you can import their skill in one click. By Module 3, you'll be building your own. For now, just know they exist — it's a superpower you can acquire without writing a single line of code."*
+
+---
+
 ## Slide 7 — Hands-on Lab 1: Your First Vibe Build
 **Hands-on Lab 1: Your First Vibe Build** | 20 Minutes  
 *(Hands-on lab = students building in tool. Demo = instructor building.)*
@@ -345,5 +360,6 @@ Next up: Making sure you're building the right thing, not just building fast.
 - Slide 4 (Ground Rules) — Not a Lecture / Pre-work Done / Your Project / No Homework / Move Fast
 - Slide 5 (The Problem) — quote block + "reality of product work" paragraph
 - Slide 6 (The Tools We Use) — Lovable, partnerships, credits tip
+- Slide 6b (Skills) — Keep it visual: show a markdown file as an example. "Like downloading an app." Quick — 2 minutes max.
 - Slide 16 (Confidence Line retroactive) — "One Framework, Six Modules" title
 - Slides 22–23 — closing slides; celebratory tone

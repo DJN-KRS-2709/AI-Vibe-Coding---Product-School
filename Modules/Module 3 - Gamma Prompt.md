@@ -169,6 +169,10 @@ A collection of evolving prompt templates that encode your product context. NOT 
 
 Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). Build it in the **Living Prompt Pack Builder** — it evolves as you learn.
 
+**Remember skills from M1?** What you're building here IS a skill file. In M1, you learned that AI tools can import pre-made skills from marketplaces. Now you're creating your own. Your Living Prompt Pack is a skill that any AI tool can use — and that anyone on your team can import. By M6, this pack will be a portable, shareable asset you take with you.
+
+*Speaker Notes: Connect back to M1's skills slide: "In Module 1, I showed you that AI tools can import skills — pre-made instruction sets. What you're building right now in the Living Prompt Pack Builder is exactly that. It's YOUR skill file. When you export it as markdown, any AI tool that supports skills can import it. Your teammates can use it. Future you on a different project can use it. The prompt chain you write today is the first entry — it grows through M4, M5, and M6."*
+
 ---
 
 ## Slide 11 — Lab Part 1: Assess and Plan
@@ -300,12 +304,13 @@ You've built fast (M1), built smart (M2), and built precise (M3). Your prototype
 **Module 4 — The Graduation Moment:**
 - Extract the living PRD from what you've built (Deliverable #3)
 - Refactor the code — clean architecture, proper naming, separation of concerns
+- Connect real infrastructure — GitHub repo and Supabase database
 - The judgment call: when to stop exploring and start building for real
 
 Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
-Module 4: Build for real.
+Module 4: Graduate it.
 
 ---
 

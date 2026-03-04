@@ -183,7 +183,9 @@ One click in Lovable. Your prototype gets a real PostgreSQL database. In M5, you
 
 You're not engineering. You're **connecting the infrastructure** — the same way you directed the AI to add screens and states in M3.
 
-*Speaker Notes: "Connecting GitHub and Supabase is one click each in Lovable. It's the easiest thing you'll do today — and the most impactful. GitHub means your code isn't trapped inside Lovable. It's in a real repo any engineer can clone. Supabase means your prototype has a real database waiting for real data. You'll build on top of it in M5. Today, just connect it and see it. If you don't have accounts yet, you'll create them during the lab — it takes 2 minutes and it's free."*
+**Your Living Prompt Pack grows today.** Add your graduation prompts (extract, refactor, handoff) to the pack you started in M3. Export the pack as markdown — it's a portable skill file any AI tool can import. Your Living PRD + prompt pack together become a reusable product playbook: the next time you tackle a similar problem, you don't start from scratch.
+
+*Speaker Notes: "Connecting GitHub and Supabase is one click each in Lovable. It's the easiest thing you'll do today — and the most impactful. GitHub means your code isn't trapped inside Lovable. It's in a real repo any engineer can clone. Supabase means your prototype has a real database waiting for real data. You'll build on top of it in M5. Today, just connect it and see it. If you don't have accounts yet, you'll create them during the lab — it takes 2 minutes and it's free. And remember — add your graduation prompts to your Living Prompt Pack. That pack is becoming a real skill file. By M6, it's a playbook you can hand to anyone."*
 
 ---
 
