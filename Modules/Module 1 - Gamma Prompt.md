@@ -127,15 +127,19 @@ AI tools like Cursor, Claude, and Lovable can import **skills** — pre-made ins
 **Hands-on Lab 1: Your First Vibe Build** | 20 Minutes  
 *(Hands-on lab = students building in tool. Demo = instructor building.)*
 
-Pick ONE scenario below, or use the problem you posted in Slack. Today is exploration — you might keep what you build, or you might pivot next module. Both are fine.
+Pick ONE of the four course scenarios below, or bring your own. These are the same scenarios you'll commit to in Module 2 and carry through to your final project in Module 6 — so pick something you'd want to keep building on.
 
-**Option A — The Retention Engine:** A B2B SaaS project management tool is losing 30% of customers in the first 90 days. Users "sign up, poke around, and ghost." Build something that could help.
+**Scenario 1 — The Retention Engine:** B2B SaaS losing 30% of customers in 90 days. Users "sign up, poke around, and ghost." Team invites matter. What's the real blocker?
 
-**Option B — The Internal Tool Nobody Uses:** A 200-person sales team has a CRM note-taking tool with 18% adoption. Reps say "too many clicks." The VP wants "some kind of AI thing." Build something.
+**Scenario 2 — The Internal Tool Nobody Uses:** CRM with 18% adoption. Reps say "too many clicks." CEO wants Gong. Can you fix adoption without replacing the tool?
 
-**Option C — Your Product:** Use the problem from your Slack intro. Build a prototype for your real product challenge.
+**Scenario 3 — The Marketplace Trust Problem:** Bookings flat. Zero-review providers can't get their first customer. How do you solve cold-start trust?
 
-*These are two of four course scenarios you can carry through the entire course. Today is just exploration — try one and see what happens.*
+**Scenario 4 — The Dashboard Nobody Reads:** Analytics with 60% bounce rate. Power users love it, new users flee. How do you serve both?
+
+**Scenario 5 — Bring Your Own:** A real problem from your company. Needs a clear user, a measurable outcome, and enough ambiguity to test.
+
+*Today is exploration — you're not locked in yet. But what you build here might become your final project. If you can't decide, pick Scenario 1 or 4.*
 
 ---
 
