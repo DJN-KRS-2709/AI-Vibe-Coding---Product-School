@@ -8,9 +8,9 @@
 
 | | M1 | M2 | M3 | M4 |
 |---|---|---|---|---|
-| **What students build** | A single page from a vague prompt | A data-driven page with real quotes, metrics, design reference, and hypothesis | A multi-screen interactive product with states, expanded via documented 3-prompt chain | A graduated product: Living PRD, refactored code, engineering handoff — all extracted from what they built |
+| **What students build** | A single page from a vague prompt | A data-driven page with real quotes, metrics, design reference, and hypothesis | A multi-screen interactive product with states, expanded via documented 3-prompt chain | A structured product: Living PRD, refactored code, engineering handoff — all extracted from what they built |
 | **The wow** | "I just made an app" | "My prototype has real data and tests something" | "My M2 build is now a complete product — and my partner reproduced it from my prompts" | "My prototype wrote its own spec — and my partner understood the product without ever seeing it" |
-| **Build method** | One prompt, see what happens | Assemble context in prompt builder, paste into Lovable | 3-prompt chain: expand, states, refine | 3-prompt graduation chain: extract PRD, refactor code, generate handoff |
+| **Build method** | One prompt, see what happens | Assemble context in prompt builder, paste into Lovable | 3-prompt chain: expand, states, refine | 3-prompt structure chain: extract PRD, refactor code, generate handoff |
 | **VP reaction** | "Cool demo" | "What did you learn?" | "Wait, when did engineering build this?" | "Send me the spec and the code" |
 
 ---
@@ -31,7 +31,7 @@ That's the paradigm shift. The spec is the output, not the starting point.
 - **Beat 1 (after extraction):** A complete Living PRD appears — product overview, user flows, hypothesis, metrics, what's real vs. mocked, next steps for engineering. Students didn't write it. The AI extracted it from their working prototype. "I would have spent 2 weeks on this. It took 5 minutes — and it's based on something that actually works."
 - **Beat 2 (after refactoring):** Students switch to code view. `Component1` is now `OnboardingWelcome`. Data logic has its own folder. There's a README. Same product — now an engineer can read it on day one. The before/after in the code view is the visual payoff.
 
-**The partner test (the clincher):** Partner reads ONLY the Living PRD — not the prototype. Can they describe the product, the user, the hypothesis, what's mocked, and what engineering should build first? When the partner nails all 5 from just the spec, the student realizes: the prototype can survive without them. That's graduation.
+**The partner test (the clincher):** Partner reads ONLY the Living PRD — not the prototype. Can they describe the product, the user, the hypothesis, what's mocked, and what engineering should build first? When the partner nails all 5 from just the spec, the student realizes: the prototype can survive without them. That's the transition.
 
 **The four-tab reveal:** M1 on the left. M2 next. M3 next. M4 on the right. One prompt, one page → real data and hypothesis → 5 screens with states → clean code, a spec, and an engineering handoff. Same tool. Same student. Four modules of progression.
 
@@ -94,7 +94,7 @@ The key insight: In M1-M3, the prototype lived in the PM's head. They could demo
 | "Fireworks all the time" | The wow is in the students' hands — they extract their own spec, refactor their own code, test it with a partner. Not a lecture. |
 | "Export/deployment readiness — 'this could ship'" (M4 gap from Carlos session) | Living PRD + refactored code + engineering handoff = a PM who can hand this to engineering and say "build from this." |
 | "Each module should be significantly better than the previous" | M3: looks like a product. M4: has a spec, clean code, and a handoff. The gap is "prototype" vs. "shippable brief." |
-| "Advanced, not basic" | Comprehension debt, graduation judgment, extracted specs — these are senior PM concepts, not beginner material. |
+| "Advanced, not basic" | Comprehension debt, structure judgment, extracted specs — these are senior PM concepts, not beginner material. |
 
 ---
 
@@ -103,10 +103,10 @@ The key insight: In M1-M3, the prototype lived in the PM's head. They could demo
 1. **Opening (5 min)** — "Your M3 prototype looks real. Could engineering build from it?" Show the polished UI, then the messy code.
 2. **Instructor Demo (10 min)** — 3 prompts: extract PRD, refactor code, generate handoff. The AI writes the spec. The code transforms.
 3. **Mini Activity (5 min)** — Students open their own code view. "Could an engineer understand this?" Surfaces the gap.
-4. **Teaching (12 min)** — Graduation judgment, comprehension debt, Living PRD structure, refactoring for PMs. Light and fast.
+4. **Teaching (12 min)** — Structure judgment, comprehension debt, Living PRD structure, refactoring for PMs. Light and fast.
 5. **Hands-On Lab (30 min)** — THE FIREWORKS. Extract the Living PRD (10 min). Refactor + generate handoff (20 min). Use the Living PRD Extractor tool.
 6. **Peer Review (10 min)** — Partner reads only the PRD. Can they describe the product? The handoff test.
-7. **Break It (10 min)** — The prototype that never graduated: 500+ prompts, no spec, unmaintainable. Horror story.
+7. **Break It (10 min)** — The prototype that never made the transition: 500+ prompts, no spec, unmaintainable. Horror story.
 8. **Wrap (8 min)** — Four-tab reveal (M1/M2/M3/M4), three takeaways, accountability, M5 preview.
 
 **Hands-on ratio:** ~55% (lab + review + mini activity + break it)

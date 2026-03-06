@@ -7,7 +7,7 @@
 
 ## Where M5 Sits
 
-- M1 = speed, M2 = aim, M3 = precision, M4 = graduation, **M5 = integration**
+- M1 = speed, M2 = aim, M3 = precision, M4 = structure, **M5 = integration**
 - The hinge between "it looks real" and "it IS real"
 - Students go from owning infrastructure (GitHub + Supabase connected) → owning a **working product with real data, real users, and graceful error handling**
 - M4 connected the pipes. M5 turns on the water.

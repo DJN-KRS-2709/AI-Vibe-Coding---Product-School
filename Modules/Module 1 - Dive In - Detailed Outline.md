@@ -565,7 +565,7 @@ Connect to their real work:
 
 **4. What's Coming + Scenario Commitment (2 min)**
 
-> "Today was about raw building speed — exploration. Next module, you commit. You'll pick the scenario you're going to carry through the rest of the course: either your real company problem or one of the course scenarios. From Module 2 onward, every lab builds on the same product. Module 2 adds the lens: name the assumption you're testing. Module 3 gets precision — structured prompts, design system matching. Module 4 is the graduation moment. Module 5 connects to real backends — databases, APIs, payments. Module 6, you deploy and ship. One product, six modules. Each one adds a layer. And in every single one, you build."
+> "Today was about raw building speed — exploration. Next module, you commit. You'll pick the scenario you're going to carry through the rest of the course: either your real company problem or one of the course scenarios. From Module 2 onward, every lab builds on the same product. Module 2 adds the lens: name the assumption you're testing. Module 3 gets precision — structured prompts, design system matching. Module 4 is the transition point. Module 5 connects to real backends — databases, APIs, payments. Module 6, you deploy and ship. One product, six modules. Each one adds a layer. And in every single one, you build."
 
 ---
 

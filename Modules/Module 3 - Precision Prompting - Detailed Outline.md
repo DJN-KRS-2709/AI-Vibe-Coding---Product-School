@@ -311,10 +311,10 @@ Instructor takes a student's prototype that went off-rails (ask for a volunteer 
 > "Context → Prompt → Output → Refine. You're not guessing anymore. You're directing. That's the precision shift."
 
 **2. Confidence Line position — your final project is taking shape**
-> "Look at what you've built across three modules. M1: raw exploration. M2: you committed to a scenario and named what you're testing. M3: you rebuilt it with precision. Your final project is three modules in already. Next module: you graduate it. Extract the living PRD — that's Deliverable #3. Refactor the code. Structure it so an engineer could read it."
+> "Look at what you've built across three modules. M1: raw exploration. M2: you committed to a scenario and named what you're testing. M3: you rebuilt it with precision. Your final project is three modules in already. Next module: you structure it. Extract the living PRD — that's Deliverable #3. Refactor the code. Structure it so an engineer could read it."
 
 **3. What's coming (Module 4)**
-> "Next: From Vibe to Structure. The graduation moment. You take everything you've built and extract a living spec from it. Refactor the code. That's the midpoint of your final project — from exploration to structure."
+> "Next: From Vibe to Structure. The transition point. You take everything you've built and extract a living spec from it. Refactor the code. That's the midpoint of your final project — from exploration to structure."
 
 ---
 
@@ -328,7 +328,7 @@ Instructor takes a student's prototype that went off-rails (ask for a volunteer 
 > "Post your prototype + prompt chain in #builds. Caption: What made your prompts work? What would you add to your living prompt pack? Engage: look at 2 others. Could you use their prompt chain?"
 
 **Wrap + Preview:**
-> "No homework. Optional: build one more screen of your project using only your prompt chain — test its portability. Next: Module 4. The graduation moment. You take the prototype you've been building and you graduate it — extract the living PRD, refactor the code, get it structured for real. That's when your final project starts looking like a product, not a prototype. See you then."
+> "No homework. Optional: build one more screen of your project using only your prompt chain — test its portability. Next: Module 4. The transition point. You take the prototype you've been building and you structure it — extract the living PRD, refactor the code, get it structured for real. That's when your final project starts looking like a product, not a prototype. See you then."
 
 ---
 

@@ -6,12 +6,12 @@
 
 ## Instructions for Gamma
 
-Create a professional slide deck for teaching a 2-hour workshop called **"Module 4: From Vibe to Structure — The Graduation Moment"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–3 — they can build fast (M1), build smart with data and hypotheses (M2), and build precise with multi-screen flows, states, and documented prompt chains (M3); now they're learning when to stop exploring and start building for real. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–3 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
+Create a professional slide deck for teaching a 2-hour workshop called **"Module 4: From Vibe to Structure"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–3 — they can build fast (M1), build smart with data and hypotheses (M2), and build precise with multi-screen flows, states, and documented prompt chains (M3); now they're learning when to stop exploring and start building for real. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–3 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
 
 ---
 
 ## Slide 1 — Module 4 Title + 3 Waypoints
-**From Vibe to Structure — The Graduation Moment**
+**From Vibe to Structure**
 
 MODULE 4 | VIBE CODING CERTIFICATION
 
@@ -20,9 +20,9 @@ Three things today:
 2. **Real Infrastructure** — GitHub repo and Supabase database. Your code is version-controlled and your data has a real home.
 3. **Engineering Handoff** — The document that bridges PM prototype to engineering sprint.
 
-Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 is graduation.
+Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 is structure.
 
-*Speaker Notes: "Welcome back. You've built fast, built smart, and built precise. Your M3 prototype has 5+ screens, interactive states, and a documented prompt chain. It looks like a real product. But here's the thing — if you got hit by a bus tomorrow, could anyone pick up where you left off? No spec. No structured code. No version control. No backend. Today we fix all of that. Three waypoints: Living PRD, real infrastructure, engineering handoff. By the end of today, your prototype graduates — it has a spec, clean code in a GitHub repo, a Supabase database, and a handoff document an engineer can sprint from."*
+*Speaker Notes: "Welcome back. You've built fast, built smart, and built precise. Your M3 prototype has 5+ screens, interactive states, and a documented prompt chain. It looks like a real product. But here's the thing — if you got hit by a bus tomorrow, could anyone pick up where you left off? No spec. No structured code. No version control. No backend. Today we fix all of that. Three waypoints: Living PRD, real infrastructure, engineering handoff. By the end of today, your prototype makes the transition — it has a spec, clean code in a GitHub repo, a Supabase database, and a handoff document an engineer can sprint from."*
 
 ---
 
@@ -39,10 +39,10 @@ Your M3 build has multiple screens, interactive states, design-matched UI, and a
 
 Today's flow:
 1. **Demo** — Extract a spec. Refactor the code. Connect real infrastructure.
-2. **Teaching** — Living PRDs, the graduation judgment, infrastructure for PMs
-3. **Lab** — Graduate your M3 prototype: PRD, refactoring, GitHub, Supabase
+2. **Teaching** — Living PRDs, the structure judgment, infrastructure for PMs
+3. **Lab** — Structure your M3 prototype: PRD, refactoring, GitHub, Supabase
 4. **Peer Review** — Can your partner understand the product from just the PRD?
-5. **Break It** — The prototype that never graduated
+5. **Break It** — The prototype that never made the transition
 
 ---
 
@@ -67,8 +67,8 @@ Names like `div1`, `Section3`, `handleSubmit2`. Data fetching mixed into UI comp
 
 ---
 
-## Slide 4 — Live Build: The Graduation Chain
-**5 Steps to Graduate**
+## Slide 4 — Live Build: The Structure Chain
+**5 Steps to Structure**
 
 **Prompt 1 — Extract:** "Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the 5 screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering. Format it as a structured document with clear sections."
 
@@ -123,25 +123,25 @@ Open Lovable. Switch to code view on your M3 prototype. Answer:
 
 ---
 
-## Slide 7 — The Graduation Judgment + Comprehension Debt
+## Slide 7 — The Structure Judgment + Comprehension Debt
 **When Do You Stop Exploring and Start Building For Real?**
 
-Not every prototype should graduate. The graduation judgment is the most important PM skill in Vibe Coding.
+Not every prototype should make the transition. The structure judgment is the most important PM skill in Vibe Coding.
 
-**Graduate when:**
+**Structure when:**
 - The hypothesis is validated (or clearly invalidated)
 - Stakeholders have seen it and said "build this"
 - You can articulate what's real vs. what's mocked
 - The prototype answers a specific question with evidence
 
-**Don't graduate when:**
+**Don't structure when:**
 - You're still exploring which direction to go
 - You haven't shown it to anyone outside your team
 - You can't explain the hypothesis it tests
 
 **Watch for comprehension debt:** After 50+ prompts, the prototype knows more than you do. Signs: "Let me show you" (you can't describe it without the demo), features you didn't ask for, prompts breaking things that used to work. The Living PRD is your comprehension debt payoff.
 
-*Speaker Notes: "This is the judgment call that separates PMs who prototype from PMs who ship. Graduation isn't a code quality bar — it's a knowledge bar. Have you answered the question you set out to answer?" Ask 2-3 students: "Based on your M3 prototype, would you graduate today?" Then transition to comprehension debt: "Every module, your prototype got more capable. But did your understanding keep pace? If you can't write down what this does and who it's for, you've lost the thread. The Living PRD forces you to articulate it."*
+*Speaker Notes: "This is the judgment call that separates PMs who prototype from PMs who ship. This isn't a code quality bar — it's a knowledge bar. Have you answered the question you set out to answer?" Ask 2-3 students: "Based on your M3 prototype, would you structure it today?" Then transition to comprehension debt: "Every module, your prototype got more capable. But did your understanding keep pace? If you can't write down what this does and who it's for, you've lost the thread. The Living PRD forces you to articulate it."*
 
 ---
 
@@ -183,9 +183,9 @@ One click in Lovable. Your prototype gets a real PostgreSQL database. In M5, you
 
 You're not engineering. You're **connecting the infrastructure** — the same way you directed the AI to add screens and states in M3.
 
-**Your Living Prompt Pack grows today.** Add your graduation prompts (extract, refactor, handoff) to the pack you started in M3. Export the pack as markdown — it's a portable skill file any AI tool can import. Your Living PRD + prompt pack together become a reusable product playbook: the next time you tackle a similar problem, you don't start from scratch.
+**Your Living Prompt Pack grows today.** Add your structure prompts (extract, refactor, handoff) to the pack you started in M3. Export the pack as markdown — it's a portable skill file any AI tool can import. Your Living PRD + prompt pack together become a reusable product playbook: the next time you tackle a similar problem, you don't start from scratch.
 
-*Speaker Notes: "Connecting GitHub and Supabase is one click each in Lovable. It's the easiest thing you'll do today — and the most impactful. GitHub means your code isn't trapped inside Lovable. It's in a real repo any engineer can clone. Supabase means your prototype has a real database waiting for real data. You'll build on top of it in M5. Today, just connect it and see it. If you don't have accounts yet, you'll create them during the lab — it takes 2 minutes and it's free. And remember — add your graduation prompts to your Living Prompt Pack. That pack is becoming a real skill file. By M6, it's a playbook you can hand to anyone."*
+*Speaker Notes: "Connecting GitHub and Supabase is one click each in Lovable. It's the easiest thing you'll do today — and the most impactful. GitHub means your code isn't trapped inside Lovable. It's in a real repo any engineer can clone. Supabase means your prototype has a real database waiting for real data. You'll build on top of it in M5. Today, just connect it and see it. If you don't have accounts yet, you'll create them during the lab — it takes 2 minutes and it's free. And remember — add your structure prompts to your Living Prompt Pack. That pack is becoming a real skill file. By M6, it's a playbook you can hand to anyone."*
 
 ---
 
@@ -224,7 +224,7 @@ Paste the handoff into the Living PRD Extractor under "Engineering Handoff."
 ## Slide 12 — Lab Part 3: Connect GitHub + Supabase
 **Hands-on Lab Part 3: Real Infrastructure** | 10 Minutes
 
-THE GRADUATION CEREMONY
+INFRASTRUCTURE CONNECTION
 
 **Step 1 — Accounts (3 min):** Create a GitHub account and a Supabase account if you don't have them. Both are free. Links in Slack.
 
@@ -236,9 +236,9 @@ THE GRADUATION CEREMONY
 
 **Step 5 — Verify Supabase (2 min):** Open the Supabase dashboard. See the project. This is the database you'll build on in Module 5.
 
-Your prototype just graduated. It has version control and a database. This isn't a demo anymore.
+Your prototype just made the transition. It has version control and a database. This isn't a demo anymore.
 
-*Speaker Notes: THIS IS THE WOW MOMENT. It's one click each — but the impact is everything. Walk the room. When students open their GitHub repo and see their refactored code with the README: "That's your code. In a real repo. An engineer can clone it right now." When they connect Supabase: "Your prototype has a real PostgreSQL database. In M5, you'll build real tables and auth on top of it." The combined effect: 10 minutes ago this was code trapped in Lovable with hardcoded data. Now it has a spec, clean code in GitHub, and a real database. Students who already have GitHub/Supabase accounts will finish fast — have them help others. If anyone gets stuck on account creation, pair them up. After 10 min: "Who has their code in GitHub? Who has Supabase connected? Open your GitHub repo. That's graduation."*
+*Speaker Notes: THIS IS THE WOW MOMENT. It's one click each — but the impact is everything. Walk the room. When students open their GitHub repo and see their refactored code with the README: "That's your code. In a real repo. An engineer can clone it right now." When they connect Supabase: "Your prototype has a real PostgreSQL database. In M5, you'll build real tables and auth on top of it." The combined effect: 10 minutes ago this was code trapped in Lovable with hardcoded data. Now it has a spec, clean code in GitHub, and a real database. Students who already have GitHub/Supabase accounts will finish fast — have them help others. If anyone gets stuck on account creation, pair them up. After 10 min: "Who has their code in GitHub? Who has Supabase connected? Open your GitHub repo. That's the transition."*
 
 ---
 
@@ -258,7 +258,7 @@ Breakout rooms. Groups of 2.
 
 If Person B can answer all 5 from just the PRD, it's handoff-ready. If not, iterate.
 
-*Speaker Notes: Enforce the rule strictly: NO showing the prototype. PRD only. "If your partner can describe the product, the user, and the hypothesis from just reading your PRD — you've written a spec that stands on its own." Watch for the reaction when it works: the student realizes their prototype can exist independently of them. That's graduation. After both rounds: "Who had a partner that nailed all 5?"*
+*Speaker Notes: Enforce the rule strictly: NO showing the prototype. PRD only. "If your partner can describe the product, the user, and the hypothesis from just reading your PRD — you've written a spec that stands on its own." Watch for the reaction when it works: the student realizes their prototype can exist independently of them. That's the transition. After both rounds: "Who had a partner that nailed all 5?"*
 
 ---
 
@@ -271,7 +271,7 @@ The gap between what you built and what you can describe — that's comprehensio
 
 ---
 
-## Slide 15 — Break It: The Prototype That Never Graduated
+## Slide 15 — Break It: The Prototype That Never Made the Transition
 **"Break It" Exercise** — 500 Prompts Deep, No Spec, No Repo
 
 CAUTIONARY TALE
@@ -286,7 +286,7 @@ A PM built a prototype over 6 weeks. 500+ prompts. Features everywhere. No spec.
 - Code trapped in Lovable — no repo, no way to share with engineering
 - The AI can't explain it either — context window exceeded
 
-**The lesson:** If you can't extract the spec, nobody can. If the code isn't in GitHub, it doesn't exist outside your browser. Graduation isn't optional.
+**The lesson:** If you can't extract the spec, nobody can. If the code isn't in GitHub, it doesn't exist outside your browser. The transition isn't optional.
 
 *Speaker Notes: Make this visceral. Ask: "Has anyone inherited a project with no documentation?" Let them share horror stories. Then connect it: "This is what happens when you skip M4. Your beautiful M3 prototype becomes legacy code if nobody can explain what it does. The Living PRD is insurance. The GitHub repo is permanence. The Supabase connection is foundation. The refactored code is respect for the person who comes after you." Keep to 8 minutes.*
 
@@ -303,7 +303,7 @@ Open four tabs.
 
 **Module 3:** Your precision build. 5+ screens, states, documented chain.
 
-**Module 4:** Your graduated build. Living PRD, clean code in GitHub, Supabase connected, engineering handoff.
+**Module 4:** Your structured build. Living PRD, clean code in GitHub, Supabase connected, engineering handoff.
 
 Same tool. Same you. Four modules of progression.
 
@@ -320,7 +320,7 @@ Same tool. Same you. Four modules of progression.
 
 **3. Engineering Handoff** — You generated a start-here guide: component map, data model, technical decisions. A new engineer can clone the repo and orient in 5 minutes.
 
-Your prototype graduated. It's no longer just yours — it can survive without you.
+Your prototype made the transition. It's no longer just yours — it can survive without you.
 
 ---
 
@@ -340,7 +340,7 @@ Your prototype graduated. It's no longer just yours — it can survive without y
 
 Same product. Real backend. Real users.
 
-You've built fast (M1), built smart (M2), built precise (M3), and graduated it (M4). Your prototype has a spec, clean code in GitHub, and Supabase connected. Next: build on top of that infrastructure.
+You've built fast (M1), built smart (M2), built precise (M3), and structured it (M4). Your prototype has a spec, clean code in GitHub, and Supabase connected. Next: build on top of that infrastructure.
 
 **Module 5 — From Prototype to Product:**
 - Build real database schemas — your data persists across sessions
@@ -351,7 +351,7 @@ You've built fast (M1), built smart (M2), built precise (M3), and graduated it (
 Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
-Module 4: Graduate it.
+Module 4: Structure it.
 Module 5: Make it real.
 
 ---
@@ -369,10 +369,10 @@ Scan the QR code or use the link to share your feedback. Your insights help us i
 - Slide 1 — Bold title, three waypoints as prominent numbered list (same pattern as M1–M3 slide 1)
 - Slide 3 — Show the polished prototype vs. the messy code. The contrast is the hook.
 - Slide 4 — Show the 5 steps cleanly: 3 prompts + 2 infrastructure clicks. Visual progression from prompts to infrastructure.
-- Slide 7 — Two-column layout: "Graduate when" vs "Don't graduate when." Comprehension debt as a callout box below.
+- Slide 7 — Two-column layout: "Structure when" vs "Don't structure when." Comprehension debt as a callout box below.
 - Slide 8 — Living PRD table is the key reference visual. Students will revisit this during the lab.
 - Slide 9 — Three distinct blocks: Refactoring, GitHub, Supabase. Before/after code examples for refactoring. Screenshots/icons for GitHub and Supabase.
-- Slide 12 — THE KEY SLIDE. Make the 5 steps feel like a ceremony. Large step numbers. Screenshots of GitHub repo and Supabase dashboard. "Your prototype just graduated" should feel like a milestone.
+- Slide 12 — THE KEY SLIDE. Make the 5 steps feel like a ceremony. Large step numbers. Screenshots of GitHub repo and Supabase dashboard. "Your prototype just made the transition" should feel like a milestone.
 - Slide 15 — Break It: make it feel like a cautionary tale, not a lecture. Numbers (500+ prompts, 47 components) create visceral impact. Add "No repo" to the horror.
 - Slide 16 — Four-column layout (M1 | M2 | M3 | M4). Let the visual comparison speak — minimal text.
 - Slide 17 — Takeaways mirror slide 1's three waypoints (visual callback)

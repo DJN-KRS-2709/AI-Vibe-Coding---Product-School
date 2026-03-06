@@ -122,20 +122,20 @@ Complete these before the first live session:
 
 ---
 
-### Module 4: From Vibe to Structure -- The Graduation Moment
+### Module 4: From Vibe to Structure
 
 **Total time:** 2 hours (120 min)
 
 | Time | Duration | Activity | Notes |
 | --- | --- | --- | --- |
 | 0:00 | 5 min | Recap M3 + frame M4 | "You can build fast, smart, and precisely. Now: when do you stop exploring and commit?" |
-| 0:05 | 10 min | **Teaching: The Graduation Moment** | Signals to graduate, 73% failure stat, comprehension debt. Living spec concept. Graduating within existing products. |
-| 0:15 | 25 min | **Lab: Graduate your prototype** | Take M3 prototype. Write the living PRD (extracted, not planned). Refactor the codebase for structure. |
+| 0:05 | 10 min | **Teaching: From Vibe to Structure** | Signals to make the transition, 73% failure stat, comprehension debt. Living spec concept. Structuring within existing products. |
+| 0:15 | 25 min | **Lab: Structure your prototype** | Take M3 prototype. Write the living PRD (extracted, not planned). Refactor the codebase for structure. |
 | 0:40 | 15 min | **Lab: Group share** | Small groups compare living PRDs. What's different between 0-to-1 specs and existing-product feature specs? |
-| 0:55 | 10 min | **Break It exercise** | Product that never graduated from vibe coding. 500+ prompts deep, unmaintainable. |
-| 1:05 | 55 min | **Buffer** | Use for: extended refactoring time, PRD workshop, discussion on when THEIR real projects should graduate, debugging practice. |
+| 0:55 | 10 min | **Break It exercise** | Product that never made the transition from vibe coding. 500+ prompts deep, unmaintainable. |
+| 1:05 | 55 min | **Buffer** | Use for: extended refactoring time, PRD workshop, discussion on when THEIR real projects should make the transition, debugging practice. |
 
-**If running behind:** Cut the teaching to 7 min (just the graduation moment concept + 73% stat). The lab is essential.
+**If running behind:** Cut the teaching to 7 min (just the transition point concept + 73% stat). The lab is essential.
 
 **Common failure modes:**
 - Students don't know what to put in their living PRD -> Give them the template: "What does this do? Who is it for? What assumptions did it validate? What's the recommended direction? What's hacked vs. real?"

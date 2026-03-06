@@ -18,7 +18,7 @@ The course follows a single narrative arc: **The Confidence Line**. Students sta
 - **M1: Dive In -- Your First Full Cycle** -- No preamble. Build your first prototype in 15 minutes. Show it. Get feedback. Complete a full Build-Show-Learn-Decide loop in one session. Frameworks come after, not before.
 - **M2: What Are You Actually Testing?** -- Now that you can build fast, learn to build smart. Problem framing, validation design, divergent prototypes, fidelity mapping -- for both greenfield and existing products. The skill: name the assumption before you open the tool.
 - **M3: Precision Prompting** -- As confidence grows, shift from "build me something" to "build me exactly this." Master context layering (including for existing products), agentic prompting, and living prompt packs.
-- **M4: From Vibe to Structure** -- The graduation moment. When to stop exploring and start building for real. Extract living specs from your builds. Refactor messy prototypes into structured codebases. Learn to graduate within existing products too.
+- **M4: From Vibe to Structure** -- The transition point. When to stop exploring and start building for real. Extract living specs from your builds. Refactor messy prototypes into structured codebases. Learn to structure within existing products too.
 - **M5: Real-World Complexity** -- APIs, auth, data, and edge cases. Bridge the gap between clean prototypes and the messiness of production. Plus: the PM-to-engineering handoff -- how to present your prototype and living spec so engineering can build it for real.
 - **M6: Ship It** -- Individual ship day. Every student deploys to a live URL with real backend services. Peer gallery walk to see each other's work. Optional volunteer demos with live feedback. Leave with a deployed product, a Validation Evidence Brief, a living PRD, your prompt library, and an engineering handoff note.
 
@@ -121,7 +121,7 @@ The course is tool-agnostic in methodology but uses **one tool for all demos and
 ### What Nobody Does (Our 7 Innovations)
 
 1. **The full ambiguity-to-production arc.** Reforge stops at "find solutions to known problems." Maven stops at "build your first app." We follow the entire Confidence Line.
-2. **The "graduation moment."** When to stop vibing and start structuring. 73% of vibe-coded apps fail to reach production because teams never make this transition deliberately.
+2. **The "transition point."** When to stop vibing and start structuring. 73% of vibe-coded apps fail to reach production because teams never make this transition deliberately.
 3. **Comprehension debt management.** AI codebases show 8x code duplication. Nobody teaches how to bridge from prototype to maintainable code.
 4. **Agentic workflows for product development.** Planner/worker patterns, MCP, multi-agent orchestration -- the industry is moving here fast and courses haven't caught up.
 5. **Existing product prototyping.** Almost every course is 0-to-1 greenfield. Senior PMs primarily enhance existing products.
@@ -333,40 +333,40 @@ Live debugging: instructor takes a student's prototype that went off-rails and w
 
 ---
 
-### Module 4: From Vibe to Structure -- The Graduation Moment
+### Module 4: From Vibe to Structure
 
 > **Confidence Line position:** The inflection point. This is where exploration becomes commitment.
 
 **Timing (2 hrs total):** Teaching (15 min) + Lab (40 min) + Break It (10 min) = **65 min structured, 55 min buffer.** Buffer absorbs: refactoring is variable-time (some students' codebases are messier than others), PRD extraction discussion, and group share often sparks valuable debate about what to include in a spec.
 
-**Theme:** There's a moment where you stop exploring and start building for real. Recognizing that moment -- and knowing what to do when it arrives -- is the single most important judgment call in vibe coding. This module teaches three tightly linked skills: recognize the graduation moment, extract a living spec from what you've built, and refactor your messy prototype into something structured.
+**Theme:** There's a moment where you stop exploring and start building for real. Recognizing that moment -- and knowing what to do when it arrives -- is the single most important judgment call in vibe coding. This module teaches three tightly linked skills: recognize the transition point, extract a living spec from what you've built, and refactor your messy prototype into something structured.
 
-**Core skill:** The Graduation Moment + Living Specs + Refactoring. These three are inseparable: you recognize it's time to commit, you capture what you've learned into a spec, and you clean up the code to match.
+**Core skill:** From Vibe to Structure + Living Specs + Refactoring. These three are inseparable: you recognize it's time to commit, you capture what you've learned into a spec, and you clean up the code to match.
 
 **Learning Objectives:**
 
-- Recognize the signals that a prototype should graduate from exploration to structured product
+- Recognize the signals that a prototype should make the transition from exploration to structured product
 - Extract a living spec (PRD) from a working prototype -- capturing what you learned FROM building, not what you planned before
 - Use AI to refactor exploratory code into a maintainable, structured codebase
 
 **Key Talking Points:**
 
-- The graduation moment: what are the signals that you've validated enough? Convergent user feedback, repeated patterns across builds, stakeholder alignment, or simply the gut feeling that "this is the one." This judgment call is what separates senior practitioners from beginners. Nobody else teaches this -- it's our biggest differentiation.
-- The 73% failure stat: research shows 73% of vibe-coded apps fail to reach production. The #1 reason: teams never deliberately transition from exploration to structure. 8x code duplication, 153% more architectural problems, "comprehension debt" where you build faster than you understand. The graduation moment is the antidote.
+- The transition point: what are the signals that you've validated enough? Convergent user feedback, repeated patterns across builds, stakeholder alignment, or simply the gut feeling that "this is the one." This judgment call is what separates senior practitioners from beginners. Nobody else teaches this -- it's our biggest differentiation.
+- The 73% failure stat: research shows 73% of vibe-coded apps fail to reach production. The #1 reason: teams never deliberately transition from exploration to structure. 8x code duplication, 153% more architectural problems, "comprehension debt" where you build faster than you understand. The transition point is the antidote.
 - Living specs: the PRD is no longer a document you write *before* building -- it's a document that captures what you've learned *from* building. Show how to extract a PRD from a working prototype: what does this do, who is it for, what assumptions did it validate, what's the recommended architecture going forward? (Directly addresses the old course's "Simplified PRD vs PRO" confusion.)
 - Refactoring vibe code: your exploratory prototype works but it's messy. How to use AI tools to restructure it -- component architecture, naming conventions, separation of concerns. The goal: hand someone this codebase and they can understand it in 15 minutes.
-- **Graduating within an existing product:** When your prototype proves a feature works within an existing product, the living spec looks different. It's a feature spec that references existing architecture, not a standalone product spec. It needs to answer: what do we add, what do we change, and what existing components does this touch? This is the bridge from "PM prototype" to "engineering ticket."
+- **Structuring within an existing product:** When your prototype proves a feature works within an existing product, the living spec looks different. It's a feature spec that references existing architecture, not a standalone product spec. It needs to answer: what do we add, what do we change, and what existing components does this touch? This is the bridge from "PM prototype" to "engineering ticket."
 
-**Lab: The Graduation Sprint (40 min):**
+**Lab: The Structure Sprint (40 min):**
 
-- **Individual build (25 min):** Each student takes their M3 prototype and "graduates" it:
+- **Individual build (25 min):** Each student takes their M3 prototype and structures it:
   1. Write the living PRD -- extract from what they built, not from a template. What does it do? What assumption did it validate? What's the recommended direction?
   2. Refactor the codebase using AI -- restructure for clarity, name components properly, separate concerns. The target: an engineer could read this and understand the intent.
   - Students who built with the existing-product brief in M2 write their spec as a feature addition to the existing product, referencing the constraints they worked within.
 - **Group share (15 min):** Small groups (3-4) compare their living PRDs. What did each person prioritize? How does a 0-to-1 spec differ from an existing-product feature spec? Deliverable: a clean, documented prototype with a living PRD.
 
 **"Break It" Exercise (10 min):**
-Instructor shows a real example of what happens when you never graduate from vibe coding -- a product that grew organically with no structure until it became unmaintainable. 500+ prompts deep, features bolted on top of features, no one can explain how it works. Lesson: vibe coding is the start, not the end.
+Instructor shows a real example of what happens when you never make the transition from vibe coding -- a product that grew organically with no structure until it became unmaintainable. 500+ prompts deep, features bolted on top of features, no one can explain how it works. Lesson: vibe coding is the start, not the end.
 
 ---
 
@@ -450,7 +450,7 @@ Class exercise: instructor deploys a prototype with zero error handling. Student
     3. The product (live demo of the deployed app)
     4. The recommendation (ship it, pivot, or kill it -- and why)
   - Instructor gives direct feedback. Audience tries to break the live product (the embedded "Break It" moment). Presenting is optional but those who do benefit the most.
-- **Wrap-up and Confidence Line reflection (15 min):** Each student maps their real-work initiatives on the Confidence Line. What's stuck in ambiguity that could be moved right with a 2-hour build? What's been "vibed" too long and needs graduation? This is the bridge from course to daily practice.
+- **Wrap-up and Confidence Line reflection (15 min):** Each student maps their real-work initiatives on the Confidence Line. What's stuck in ambiguity that could be moved right with a 2-hour build? What's been "vibed" too long and needs to make the transition? This is the bridge from course to daily practice.
 
 ---
 
@@ -474,9 +474,9 @@ Class exercise: instructor deploys a prototype with zero error handling. Student
 | "Too much lecture, not enough hands-on" | 80/20 hands-on ratio; labs dominate every module; per-module buffer time ensures labs never get cut |
 | "Groups too large / only one person builds" | Individual builds in ALL modules (M1-M6). Group activities for networking/pair review only -- never dependency. No enforced group projects or presentations. (Carlos-approved) |
 | "No non-happy-path scenarios" | "Break It" exercise in every module |
-| "Want existing product use cases" | Existing product lens threaded through M2 (problem briefs), M3 (context layering), M4 (graduation within existing products), not isolated in one module |
+| "Want existing product use cases" | Existing product lens threaded through M2 (problem briefs), M3 (context layering), M4 (structuring within existing products), not isolated in one module |
 | "PRD confusion" | Living specs concept replaces static PRD; extracted from builds, not written before |
-| "Need prototype-to-production path" | M4 (graduation + living spec) -> M5 (integrations + engineering handoff) -> M6 (deployment) |
+| "Need prototype-to-production path" | M4 (structure + living spec) -> M5 (integrations + engineering handoff) -> M6 (deployment) |
 | "Instructor demo needs to be exciting" | M1 opens with 3-prototype ambiguity demo |
 | "Credit/subscription issues" | Lovable Pro partnership for accounts; pre-work verifies setup before Day 1; tool-agnostic removes single-tool dependency |
 | "Want competition element" | M6 includes pitch competition with audience voting |

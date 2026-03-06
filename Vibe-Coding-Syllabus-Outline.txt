@@ -20,7 +20,7 @@ Shift from "build me something" to "build me exactly this." Master context layer
 
 ---
 
-Module 4: The Graduation Moment
+Module 4: From Vibe to Structure
 
 Recognize when to stop exploring and start building for real. Extract a living spec from what you've built, refactor exploratory code into maintainable structure, and bridge from PM prototype to engineering-ready deliverable.
 

@@ -398,7 +398,7 @@
   <div class="header">
     <div class="badge">Module 4 — Living PRD</div>
     <h1>Living PRD Extractor</h1>
-    <p>Extract a Living PRD from your M3 prototype. Refactor the code, generate an engineering handoff, and connect real infrastructure (GitHub + Supabase). Your prototype graduates today.</p>
+    <p>Extract a Living PRD from your M3 prototype. Refactor the code, generate an engineering handoff, and connect real infrastructure (GitHub + Supabase). Your prototype makes the transition today.</p>
   </div>
 
   <!-- Scenario Selector -->
@@ -552,12 +552,12 @@
       <div class="prompt-num num-infra">4</div>
       <div>
         <div class="prompt-card-title">Infrastructure Connection</div>
-        <div class="prompt-card-desc">Connect GitHub and Supabase — the graduation ceremony</div>
+        <div class="prompt-card-desc">Connect GitHub and Supabase — the infrastructure connection</div>
       </div>
     </div>
     <div class="prompt-card-body">
       <div class="template-hint">
-        <strong>One click each in Lovable:</strong> Top right → "Connect GitHub" and "Add Supabase." Create free accounts first if needed. This is what makes graduation real — your code is version-controlled and your prototype has a database.
+        <strong>One click each in Lovable:</strong> Top right → "Connect GitHub" and "Add Supabase." Create free accounts first if needed. This is what makes the transition real — your code is version-controlled and your prototype has a database.
       </div>
       <div class="infra-grid">
         <div class="infra-block" id="infra-github-block">
@@ -597,7 +597,7 @@
           </div>
         </div>
       </div>
-      <div class="infra-status pending" id="infra-status">Connect both to complete graduation</div>
+      <div class="infra-status pending" id="infra-status">Connect both to complete the transition</div>
     </div>
   </div>
 
@@ -605,8 +605,8 @@
   <div class="final-section">
     <div class="final-header">
       <div>
-        <div class="final-title">Your Graduated Package</div>
-        <div class="final-subtitle">Living PRD + Engineering Handoff + GitHub + Supabase — graduated</div>
+        <div class="final-title">Your Structured Package</div>
+        <div class="final-subtitle">Living PRD + Engineering Handoff + GitHub + Supabase — transition complete</div>
       </div>
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
@@ -678,13 +678,13 @@
     const sbOk = infraState.supabase === 'yes';
     if (ghOk && sbOk) {
       el.className = 'infra-status ready';
-      el.textContent = '✓ GitHub + Supabase connected — your prototype has graduated';
+      el.textContent = '✓ GitHub + Supabase connected — your prototype has made the transition';
     } else if (ghOk || sbOk) {
       el.className = 'infra-status pending';
-      el.textContent = (ghOk ? 'GitHub connected' : 'Supabase connected') + ' — connect ' + (ghOk ? 'Supabase' : 'GitHub') + ' to complete graduation';
+      el.textContent = (ghOk ? 'GitHub connected' : 'Supabase connected') + ' — connect ' + (ghOk ? 'Supabase' : 'GitHub') + ' to complete the transition';
     } else {
       el.className = 'infra-status pending';
-      el.textContent = 'Connect both to complete graduation';
+      el.textContent = 'Connect both to complete the transition';
     }
   }
 

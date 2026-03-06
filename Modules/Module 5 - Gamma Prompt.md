@@ -6,7 +6,7 @@
 
 ## Instructions for Gamma
 
-Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — From Prototype to Product"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and graduate prototypes with living PRDs, GitHub repos, and Supabase connections (M4); now they're building real backend functionality on top of the infrastructure they connected. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
+Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — From Prototype to Product"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and structure prototypes with living PRDs, GitHub repos, and Supabase connections (M4); now they're building real backend functionality on top of the infrastructure they connected. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
 
 ---
 
@@ -20,9 +20,9 @@ Three things today:
 2. **Authentication** — Real users, real accounts. Different people see different data. Row-level security.
 3. **Edge Cases & API Integrations** — What happens when things break? Loading, errors, empty states. Plus: connect external APIs.
 
-Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was graduation. Module 5 is where it gets real.
+Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was structure. Module 5 is where it gets real.
 
-*Speaker Notes: "Welcome back. In M4, you connected GitHub and Supabase — your prototype graduated with real infrastructure. But that infrastructure is still empty. The database has no tables. There's no authentication. There are no API integrations. Today we build on top of what you connected. Three waypoints: real database schemas, authentication, and edge cases with API integrations. By the end of today, your prototype will have real data that persists, real user accounts, and graceful failure handling. It won't be a prototype anymore. It'll be a working product."*
+*Speaker Notes: "Welcome back. In M4, you connected GitHub and Supabase — your prototype made the transition with real infrastructure. But that infrastructure is still empty. The database has no tables. There's no authentication. There are no API integrations. Today we build on top of what you connected. Three waypoints: real database schemas, authentication, and edge cases with API integrations. By the end of today, your prototype will have real data that persists, real user accounts, and graceful failure handling. It won't be a prototype anymore. It'll be a working product."*
 
 ---
 
@@ -314,7 +314,7 @@ Your prototype crossed the line from connected infrastructure to functional prod
 
 **4. Start your Engineering Handoff Note:** What integrations are real? What's still mocked? What edge cases are handled? Use the Integration Planner's handoff section.
 
-*Speaker Notes: "Four things before next module. One — post in #builds with your link and 'refresh it.' Let people see the persistence. Two — try two other prototypes. Sign up. Does the data persist? Try to break it. Three — add your integration prompts to your Living Prompt Pack. You now have prompts for building, validating, precision, graduation, AND integration. Four — start the Handoff Note. Use the Integration Planner's handoff section. This is Deliverable #5 — what's real, what's mocked, where to start."*
+*Speaker Notes: "Four things before next module. One — post in #builds with your link and 'refresh it.' Let people see the persistence. Two — try two other prototypes. Sign up. Does the data persist? Try to break it. Three — add your integration prompts to your Living Prompt Pack. You now have prompts for building, validating, precision, structure, AND integration. Four — start the Handoff Note. Use the Integration Planner's handoff section. This is Deliverable #5 — what's real, what's mocked, where to start."*
 
 ---
 
@@ -323,7 +323,7 @@ Your prototype crossed the line from connected infrastructure to functional prod
 
 Same product. Live URL.
 
-You've built fast (M1), built smart (M2), built precise (M3), graduated it with real infrastructure (M4), and made it real (M5). Your product has real database schemas, auth, and error handling. One thing left: put it in front of real people.
+You've built fast (M1), built smart (M2), built precise (M3), structured it with real infrastructure (M4), and made it real (M5). Your product has real database schemas, auth, and error handling. One thing left: put it in front of real people.
 
 **Module 6 — The Ship Moment:**
 - Deploy to a live URL — anyone can access it
@@ -334,7 +334,7 @@ You've built fast (M1), built smart (M2), built precise (M3), graduated it with 
 Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
-Module 4: Graduate it.
+Module 4: Structure it.
 Module 5: Make it real.
 Module 6: Ship it.
 

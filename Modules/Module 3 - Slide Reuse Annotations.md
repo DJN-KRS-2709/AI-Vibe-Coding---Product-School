@@ -165,7 +165,7 @@ Also check: **Old M2, Slide: "Iterating on Prompts from V1 to V2"** — the V1�
 
 ## Slide 17 — Confidence Line + What's Next
 
-**NEW — no direct reuse.** The Confidence Line is original to the new course. The M4 preview ("graduation moment, living specs, refactoring") references concepts that draw from Old M3 (PRD/spec content) and Old M4 (debugging/refactoring), but the Confidence Line framing itself is new.
+**NEW — no direct reuse.** The Confidence Line is original to the new course. The M4 preview ("transition point, living specs, refactoring") references concepts that draw from Old M3 (PRD/spec content) and Old M4 (debugging/refactoring), but the Confidence Line framing itself is new.
 
 ---
 
@@ -179,7 +179,7 @@ The original had a "next session" closing slide. The accountability format (post
 ## Slide 19 — Wrap + Preview
 
 **EVOLVE from Old M2/M3 closing slides**
-Standard closing format. Pull the "no homework" + preview structure from original closing slides. The specific M4 preview content ("extract living PRD, refactor code, graduation moment") references new concepts.
+Standard closing format. Pull the "no homework" + preview structure from original closing slides. The specific M4 preview content ("extract living PRD, refactor code, transition point") references new concepts.
 
 ---
 

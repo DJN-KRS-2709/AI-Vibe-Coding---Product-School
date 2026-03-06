@@ -105,7 +105,7 @@ Use the product challenge you posted in your Slack intro during pre-work. Build 
 
 ### Track B: Course Scenario
 
-Pick one of the provided scenarios below. Each scenario is designed to carry through all 6 modules — it's messy enough for M1 exploration, has testable assumptions for M2, needs precision for M3, has a graduation moment in M4, requires real integrations in M5, and is deployable in M6.
+Pick one of the provided scenarios below. Each scenario is designed to carry through all 6 modules — it's messy enough for M1 exploration, has testable assumptions for M2, needs precision for M3, has a structure moment in M4, requires real integrations in M5, and is deployable in M6.
 
 **Best for:** Students who want a clean sandbox, don't have a current product problem, or can't share company-specific work.
 

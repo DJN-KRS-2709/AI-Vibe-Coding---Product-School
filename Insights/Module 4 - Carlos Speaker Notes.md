@@ -7,10 +7,10 @@
 
 ## Where M4 Sits
 
-- M1 = speed, M2 = aim, M3 = precision, **M4 = graduation**
+- M1 = speed, M2 = aim, M3 = precision, **M4 = structure**
 - The hinge of the entire course: first half ends here (build), second half begins (make it real)
 - Students go from owning a personal prototype → owning a **team-ready product with real infrastructure**
-- Graduation now means more than docs — it means GitHub repo + Supabase database + Living PRD + handoff
+- Structure now means more than docs — it means GitHub repo + Supabase database + Living PRD + handoff
 - Kills the "it's just a prototype" perception — this has real version control and a real database
 
 ---
@@ -28,9 +28,9 @@
 ## What Changed From the Previous Version (Carlos's Feedback, Mar 3)
 
 - **GitHub + Supabase moved from M5 into M4** — Carlos: "just forcing people to do that... go to that aha moment of like, holy shit, there is not only code, it's actually production code"
-- **Teaching compressed** — graduation judgment + comprehension debt combined into one slide (was two)
+- **Teaching compressed** — structure judgment + comprehension debt combined into one slide (was two)
 - **Demo now includes infrastructure clicks** — 3 prompts + 2 clicks instead of just 3 prompts
-- **New Lab Part 3** — dedicated 10-minute infrastructure connection section (the graduation ceremony)
+- **New Lab Part 3** — dedicated 10-minute infrastructure connection section (the infrastructure connection)
 - **M5 now starts with infrastructure already connected** — goes deeper into schemas, auth, APIs, edge cases
 - **Waypoints updated** — "Code Refactoring" replaced by "Real Infrastructure" (GitHub + Supabase)
 
@@ -48,7 +48,7 @@
 
 - "Your M3 prototype looks real. Could engineering build from it?"
 - Adds two new gaps to the call-out: no version control, no backend
-- Creates pull for the demo — they want the full graduation, not just the docs
+- Creates pull for the demo — they want the full transition, not just the docs
 
 ---
 
@@ -74,12 +74,12 @@
 
 ---
 
-## Slide 7 | Teaching: Graduation Judgment + Comprehension Debt (COMBINED)
+## Slide 7 | Teaching: Structure Judgment + Comprehension Debt (COMBINED)
 
 - Compressed from 2 slides to 1 (Carlos: "cutting something that's not super intense")
-- Two-column: "Graduate when" vs. "Don't graduate when"
+- Two-column: "Structure when" vs. "Don't structure when"
 - Comprehension debt as a callout box: after 50+ prompts, the prototype knows more than you
-- Ask 2–3 students: "Would you graduate your M3 today?"
+- Ask 2–3 students: "Would you structure your M3 today?"
 
 ---
 
@@ -98,7 +98,7 @@
 - GitHub = one click, real version control, engineers can clone the repo
 - Supabase = one click, real database, foundation for M5
 - Key message: "You're not engineering. You're connecting the infrastructure."
-- Addresses Carlos's point: "graduation actually means you have something with a backend logic, a commit button"
+- Addresses Carlos's point: "structure actually means you have something with a backend logic, a commit button"
 
 ---
 
@@ -113,7 +113,7 @@
 
 ---
 
-## Slide 12 | Lab Part 3: Connect GitHub + Supabase — THE GRADUATION CEREMONY
+## Slide 12 | Lab Part 3: Connect GitHub + Supabase — THE INFRASTRUCTURE CONNECTION
 
 - **This is the new wow moment Carlos asked for**
 - 5 steps, 10 minutes:
@@ -144,7 +144,7 @@
 
 ---
 
-## Slide 15 | Break It — The Prototype That Never Graduated
+## Slide 15 | Break It — The Prototype That Never Made the Transition
 
 - Same cautionary tale but now with added horror: "Not connected to GitHub — no repo, no way to share with engineering"
 - 500+ prompts, 47 unnamed components, code trapped in Lovable
@@ -174,8 +174,8 @@
 ## Tools
 
 - **Living PRD Extractor** — used DURING lab Parts 1 & 2. Students extract PRD, add handoff, document infrastructure status.
-- **Living Prompt Pack Builder** — continues from M3. Students add graduation prompts + infrastructure steps to their pack.
-- **Graduation Checklist** (NEW — recommended) — simple step-by-step for GitHub + Supabase connection with verification. Could be a section added to the PRD Extractor or a standalone lightweight tool.
+- **Living Prompt Pack Builder** — continues from M3. Students add structure prompts + infrastructure steps to their pack.
+- **Structure Checklist** (NEW — recommended) — simple step-by-step for GitHub + Supabase connection with verification. Could be a section added to the PRD Extractor or a standalone lightweight tool.
 
 ---
 
@@ -205,7 +205,7 @@ Hands-on ratio: ~55% (Lab Parts 1–3 + Mini Activity + Peer Review + Break It)
 - **"The magical moment... at least one in every class"** → Three beats: extraction, refactoring, infrastructure connection. The GitHub/Supabase clicks are the "holy shit" moment.
 - **"Bring some of M5 up... at least a connection to the database"** → Supabase connected in M4. GitHub connected in M4. M5 builds on top of it.
 - **"With Lovable it's one click... just forcing people to do that"** → Lab Part 3 is dedicated to exactly this. One click each.
-- **"Graduation actually means I have something with a backend logic, a commit button"** → GitHub = commit button. Supabase = backend logic. Both connected before leaving M4.
+- **"Structure actually means I have something with a backend logic, a commit button"** → GitHub = commit button. Supabase = backend logic. Both connected before leaving M4.
 - **"Allocate maybe 5 minutes for account creation"** → 3 min allocated in Lab Part 3, Step 1. Pair faster students with slower ones.
-- **"Maybe cutting something that's not super intense"** → Compressed graduation judgment + comprehension debt into one slide. Break It shortened to 8 min. Lab Part 2 trimmed from 20 to 12 min.
+- **"Maybe cutting something that's not super intense"** → Compressed structure judgment + comprehension debt into one slide. Break It shortened to 8 min. Lab Part 2 trimmed from 20 to 12 min.
 - **"Skills marketplace"** → Noted for M1 integration (Carlos: "this can be covered in module number one"). Not a major M4 element but can be mentioned when discussing the Living Prompt Pack Builder.

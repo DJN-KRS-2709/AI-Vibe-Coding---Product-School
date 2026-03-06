@@ -122,6 +122,6 @@ Carlos and Dejan converged on the idea of **bringing context into the prototype*
 | M1 | First build — "I just made an app" | None — this works | Maintain the fireworks |
 | M2 | Scenario commitment + methodology | Feels theoretical, no visual magic | Context injection — prototype looks like real product |
 | M3 | Precision prompting + design matching | TBD | Advanced prompt chains producing polished output |
-| M4 | Graduation moment — confidence threshold | TBD | Export/deployment readiness — "this could ship" |
+| M4 | Transition point — confidence threshold | TBD | Export/deployment readiness — "this could ship" |
 | M5 | Backend connections (Supabase, APIs) | TBD | "It actually works" — real data, real logic |
 | M6 | Push to production | TBD | Live URL — "I shipped a product" |

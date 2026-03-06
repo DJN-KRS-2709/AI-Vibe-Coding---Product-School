@@ -299,9 +299,9 @@ Same tool. Same you.
 
 Same product. Next level.
 
-You've built fast (M1), built smart (M2), and built precise (M3). Your prototype looks like a real product. Next: graduate it.
+You've built fast (M1), built smart (M2), and built precise (M3). Your prototype looks like a real product. Next: structure it.
 
-**Module 4 — The Graduation Moment:**
+**Module 4 — From Vibe to Structure:**
 - Extract the living PRD from what you've built (Deliverable #3)
 - Refactor the code — clean architecture, proper naming, separation of concerns
 - Connect real infrastructure — GitHub repo and Supabase database
@@ -310,7 +310,7 @@ You've built fast (M1), built smart (M2), and built precise (M3). Your prototype
 Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
-Module 4: Graduate it.
+Module 4: Structure it.
 
 ---
 

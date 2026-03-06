@@ -53,7 +53,7 @@ Casual talking points for each slide. Not a script -- just the key things to say
 
 > "On the left, you start in ambiguity. You don't know what to build. Modules 1 and 2 live here -- you build fast, you test assumptions, you figure out what's worth pursuing."
 
-> "In the middle, you gain clarity. Modules 3 and 4 -- you get precise with your prompting, you recognize when it's time to stop exploring and start committing. We call that the graduation moment."
+> "In the middle, you gain clarity. Modules 3 and 4 -- you get precise with your prompting, you recognize when it's time to stop exploring and start committing. We call that the transition point."
 
 > "On the right, you're confident. Modules 5 and 6 -- you add real integrations, handle edge cases, deploy to a live URL, and present to stakeholders."
 
@@ -77,7 +77,7 @@ Casual talking points for each slide. Not a script -- just the key things to say
 
 > "M3 -- precision prompting. Stop saying 'build me something' and start saying 'build me exactly this.'"
 
-> "M4 -- the graduation moment. This is our biggest differentiator. When do you stop vibing and start structuring? Nobody else teaches this."
+> "M4 -- the transition point. This is our biggest differentiator. When do you stop vibing and start structuring? Nobody else teaches this."
 
 > "M5 -- make it real. APIs, edge cases, and how to hand this off to engineering."
 
@@ -146,11 +146,11 @@ Casual talking points for each slide. Not a script -- just the key things to say
 
 > "We're the only ones teaching the full arc -- from 'I don't know what to build' all the way to 'here's a deployed product with validated evidence.'"
 
-> "Our second differentiator: the graduation moment. 73% of vibe-coded apps never make it to production. The reason? Teams never deliberately transition from exploring to building for real. We teach that exact moment."
+> "Our second differentiator: the transition point. 73% of vibe-coded apps never make it to production. The reason? Teams never deliberately transition from exploring to building for real. We teach that exact moment."
 
 > "And third: validation as the outcome. This is a PM course, not a coding course. The build is the instrument. The validated insight is the prize."
 
-- The 73% stat tends to land well. It makes the graduation moment feel urgent, not theoretical.
+- The 73% stat tends to land well. It makes the transition point feel urgent, not theoretical.
 - If Carlos asks "where's that stat from?" -- it's from research on vibe-coded applications and their production success rates, and the 8x code duplication data.
 
 ---
