@@ -124,6 +124,8 @@ Prototypes assume the happy path. Products don't.
 
 If you can describe the failure, the AI can handle it. Most prototypes fail because nobody described what should happen when things go wrong.
 
+*Speaker Notes: "Most prototypes only handle the happy path — everything works, data loads instantly, users do what you expect. Real products handle the unhappy paths too. Five edge cases. You don't need to code them — you need to describe them. 'When the API fails, show an error message with a retry button.' That's it. The AI builds it." Quick poll: "How many of you have thought about what happens when your prototype's data source is down?" Most won't have. "That's what M5 fixes."*
+
 ---
 
 ## Slide 8 — The Engineering Handoff Note
@@ -180,6 +182,8 @@ You're a PM, not a security engineer. But know the basics:
 - Trust user input — validate on the server side
 
 This is a prototype, not production. But good habits start now.
+
+*Speaker Notes: Keep this brief — 60 seconds max. Don't turn it into a security lecture. "You don't need to be a security expert. But if your prototype has a database, it needs auth. If it has auth, it needs RLS. Supabase handles most of this for you. The main rule: don't store data you don't need, and never expose API keys in frontend code." Quick enough that students absorb the habits without slowing the momentum before the lab.*
 
 ---
 
@@ -239,6 +243,8 @@ One insight: What was easier than expected? What was harder? What would you tell
 
 If you can describe what your backend does in one sentence, you can write the handoff note.
 
+*Speaker Notes: Quick share — 3 minutes max. Hands up: "What was easier than expected?" Most will say: "Adding a database was way easier than I thought." Then: "What was harder?" Usually: "Getting auth roles right" or "thinking about edge cases I never considered." Land the takeaway: "If you can describe your backend in one sentence — 'Users log in, their data persists in Supabase, and errors show helpful messages' — you can write the handoff note." Transition to Break It.*
+
 ---
 
 ## Slide 15 — Break It: Zero Error Handling
@@ -293,6 +299,8 @@ Same tool. Same you. Five modules of progression.
 
 Your prototype crossed the line from connected infrastructure to functional product. Update your Living PRD and Engineering Handoff Note to reflect what's now real.
 
+*Speaker Notes: Mirror slide 1. "Three waypoints. Real database — your data persists. Authentication — real users, real accounts. Edge cases — your product handles failures gracefully. You crossed the line from infrastructure to product. Now update your Living PRD to reflect what's real, and start your Engineering Handoff Note." Keep it tight — 2 minutes. The emotional beat already landed on Slide 16.*
+
 ---
 
 ## Slide 18 — Accountability
@@ -305,6 +313,8 @@ Your prototype crossed the line from connected infrastructure to functional prod
 **3. Update your Living Prompt Pack:** Add your integration prompts (database, auth, edge cases) to the Output Templates section.
 
 **4. Start your Engineering Handoff Note:** What integrations are real? What's still mocked? What edge cases are handled? Use the Integration Planner's handoff section.
+
+*Speaker Notes: "Four things before next module. One — post in #builds with your link and 'refresh it.' Let people see the persistence. Two — try two other prototypes. Sign up. Does the data persist? Try to break it. Three — add your integration prompts to your Living Prompt Pack. You now have prompts for building, validating, precision, graduation, AND integration. Four — start the Handoff Note. Use the Integration Planner's handoff section. This is Deliverable #5 — what's real, what's mocked, where to start."*
 
 ---
 
@@ -327,6 +337,8 @@ Module 3: Build precise.
 Module 4: Graduate it.
 Module 5: Make it real.
 Module 6: Ship it.
+
+*Speaker Notes: "M5 is the emotional high point of the second half. Your product has a database, auth, error handling, a Living PRD, and soon an Engineering Handoff Note. M6 is about shipping — deploy to a live URL, final polish, gallery walk where the class experiences each other's products, and an optional 5-minute pitch with a live demo. Your certification is almost complete. One module left."*
 
 ---
 

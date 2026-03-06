@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Hands-On Lab Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    color: #1a1a2e;
+  }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 16px;
+    color: white;
+  }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    color: #93c5fd; text-transform: uppercase; letter-spacing: 0.12em;
+    background: rgba(59,111,224,0.2); padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #8899bb; line-height: 1.6; max-width: 580px; margin: 0 auto; }
+
+  .overview-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: -20px 20px 32px; position: relative; z-index: 10;
+  }
+  .overview-item {
+    background: #fff; border-radius: 10px; padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
+  }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #3B6FE0; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  /* Phase headers */
+  .phase {
+    margin-top: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .phase-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
+  }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .phase-orange .phase-num { background: #d97706; }
+  .phase-blue .phase-num { background: #3B6FE0; }
+  .phase-green .phase-num { background: #059669; }
+  .phase-purple .phase-num { background: #7c3aed; }
+  .phase-pink .phase-num { background: #e11d48; }
+
+  /* Cards */
+  .card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .card-body { padding: 24px 28px; }
+
+  /* Steps */
+  .step {
+    display: flex; gap: 16px; padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-marker {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #3B6FE0; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  /* Tool link */
+  .tool-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #eff6ff; border: 1px solid #bfdbfe;
+    border-radius: 8px; padding: 10px 16px; margin: 8px 0;
+    font-size: 13px; font-weight: 700; color: #3B6FE0;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .tool-link:hover { background: #dbeafe; }
+  .tool-icon { font-size: 16px; }
+
+  /* Checklist */
+  .checklist { margin: 10px 0; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5;
+  }
+  .check-box {
+    width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 12px; color: transparent;
+  }
+  .check-box.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .check-item strong { color: #1a1a2e; }
+
+  /* Prompt template */
+  .prompt-template {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 20px 24px; margin: 12px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: #475569; line-height: 1.7;
+  }
+  .prompt-template .pt-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em; color: #3B6FE0;
+    margin-bottom: 4px;
+  }
+  .prompt-template .pt-block { margin-bottom: 12px; }
+  .prompt-template .pt-block:last-child { margin-bottom: 0; }
+  .prompt-template em { color: #94a3b8; font-style: italic; }
+
+  /* Warning / tip boxes */
+  .tip-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  /* Peer review questions */
+  .review-q {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .review-q:last-child { border-bottom: none; }
+  .review-num {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: #7c3aed; color: #fff; font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .review-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 3px; }
+
+  /* Reveal comparison */
+  .reveal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .reveal-card {
+    border-radius: 10px; padding: 20px 24px; text-align: center;
+  }
+  .reveal-m1 { background: #f8fafc; border: 1px solid #e2e8f0; }
+  .reveal-m2 { background: #eff6ff; border: 2px solid #3B6FE0; }
+  .reveal-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .reveal-m1 .reveal-label { color: #94a3b8; }
+  .reveal-m2 .reveal-label { color: #3B6FE0; }
+  .reveal-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .reveal-list { font-size: 13px; color: #666; line-height: 1.6; text-align: left; }
+  .reveal-list li { margin-bottom: 4px; }
+
+  /* Flow connector */
+  .flow-connector {
+    display: flex; justify-content: center; padding: 4px 0; margin: 4px 0;
+  }
+  .flow-arrow {
+    width: 2px; height: 20px; background: #d1d5db; position: relative;
+  }
+  .flow-arrow::after {
+    content: '▼'; position: absolute; bottom: -10px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  /* Scenario cards */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .scenario-card {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 18px; cursor: default;
+  }
+  .scenario-card .sc-num { font-size: 11px; font-weight: 800; color: #3B6FE0; margin-bottom: 4px; }
+  .scenario-card .sc-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .scenario-card .sc-desc { font-size: 12px; color: #777; line-height: 1.5; }
+
+  /* Big callout */
+  .callout {
+    background: #0d1117; border-radius: 12px; padding: 28px 32px;
+    text-align: center; margin: 24px 0;
+  }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #60a5fa; font-style: normal; font-weight: 700; }
+
+  /* Post template */
+  .post-template {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0;
+    font-size: 14px; color: #555; line-height: 1.7;
+  }
+  .post-template .pt-title {
+    font-size: 12px; font-weight: 700; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+
+  .footer-note {
+    text-align: center; margin-top: 40px; padding: 24px;
+    font-size: 13px; color: #888; line-height: 1.6;
+  }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Module 2 — Lab Guide</div>
+    <h1>Build Smart, Not Just Fast</h1>
+    <p>Step-by-step guide for the Module 2 hands-on lab. Follow each phase in order. Don't skip ahead — the preparation IS the skill.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">4</div><div class="oi-label">Tools</div></div>
+    <div class="overview-item"><div class="oi-num">47</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">5</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">Prototype</div></div>
+  </div>
+
+  <!-- ═══════════ PHASE 0: SCENARIO ═══════════ -->
+  <div class="phase phase-orange">
+    <div class="phase-num">0</div>
+    <div class="phase-text">
+      <h2>Choose Your Scenario</h2>
+      <div class="phase-time">Before the lab begins · 2 min</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Pick the scenario you'll carry through <strong>Modules 2–6</strong>. No switching after today. This is your final project starting point.</p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 1</div>
+          <div class="sc-title">The Retention Engine</div>
+          <div class="sc-desc">B2B SaaS, 30% churn in 90 days. Team invites matter. What's the real blocker?</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 2</div>
+          <div class="sc-title">The Internal Tool Nobody Uses</div>
+          <div class="sc-desc">CRM, 18% adoption. Reps hate it. CEO wants Gong. Fix adoption without replacing the tool.</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 3</div>
+          <div class="sc-title">The Marketplace Trust Problem</div>
+          <div class="sc-desc">Bookings flat. Zero-review providers. Solve cold-start trust.</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 4</div>
+          <div class="sc-title">The Dashboard Nobody Reads</div>
+          <div class="sc-desc">Analytics, 60% bounce. Power users love it, new users flee. Serve both.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Option 5 — Bring Your Own:</strong> A real problem from your company. Needs a clear user, a measurable outcome, and enough ambiguity to test. If you can't decide between scenarios, pick 1 or 4 — they work for almost any PM role.</div>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post in Slack</div>
+        "I'm building Scenario [#]: [name]. My first instinct for what to test: [one sentence]."
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ PHASE 1: VALIDATION BRIEF ═══════════ -->
+  <div class="phase phase-blue">
+    <div class="phase-num">1</div>
+    <div class="phase-text">
+      <h2>Fill Out Your Validation Brief</h2>
+      <div class="phase-time">Lab Part 1, Step 1 · 5 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="tip-box warning">
+        <div class="tip-icon">⛔</div>
+        <div class="tip-text"><strong>Do NOT open Lovable yet.</strong> You're preparing the inputs that will make your build dramatically better than M1. The discipline of framing before building is the M2 skill.</div>
+      </div>
+
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Open the <strong>Validation Brief</strong> tool and fill in each section for your scenario:</p>
+
+      <a class="tool-link" href="M2 - Validation Brief.html" target="_blank">
+        <span class="tool-icon">📋</span> Open Validation Brief Tool
+      </a>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Scenario selected</strong> — which of the 4 scenarios (or Bring Your Own)?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Hypothesis written</strong> — "If we [intervention], then [outcome], because [evidence]."</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Risk type identified</strong> — Value (will anyone want this?), Usability (will it make sense?), or Feasibility (will the logic work?)</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Kill switch named</strong> — which assumption, if wrong, kills the whole thing?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Success criteria defined</strong> — what does "validated" vs. "invalidated" look like?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Fidelity level chosen</strong> — landing page, clickable flow, or functional app?</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Stuck on the hypothesis?</strong> Ask: "What would kill this idea if we learned it was wrong?" That's your kill switch — and your hypothesis is the opposite of it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 2: CONTEXT DATA PACK ═══════════ -->
+  <div class="phase phase-blue">
+    <div class="phase-num">2</div>
+    <div class="phase-text">
+      <h2>Read Your Context Data Pack</h2>
+      <div class="phase-time">Lab Part 1, Step 2 · 4 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Open the <strong>Context Data Pack</strong> tool. Select your scenario. You're getting three types of real data:</p>
+
+      <a class="tool-link" href="M2 - Context Data Pack.html" target="_blank">
+        <span class="tool-icon">📦</span> Open Context Data Pack Tool
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">A</div>
+        <div class="step-body">
+          <div class="step-title">Read the user & stakeholder quotes</div>
+          <div class="step-desc">8–12 real-sounding quotes from interviews, surveys, and support tickets. <strong>Highlight 2–3 quotes</strong> that directly relate to your hypothesis. These go into your prompt.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">B</div>
+        <div class="step-body">
+          <div class="step-title">Scan the metrics</div>
+          <div class="step-desc">15–20 rows of realistic quantitative data: retention curves, adoption rates, conversion funnels. <strong>Circle 3–5 data points</strong> you want your prototype to display. Real numbers, not placeholder text.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">C</div>
+        <div class="step-body">
+          <div class="step-title">Review the scenario brief</div>
+          <div class="step-desc">The full problem context with competing stakeholder hypotheses. This is what gives your prototype grounding in reality.</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">⚠️</div>
+        <div class="tip-text"><strong>Don't include everything.</strong> Pick the 3–5 data points that matter most for your specific hypothesis. More data ≠ better prototype. Focused data = better prototype.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 3: VISUAL REFERENCE ═══════════ -->
+  <div class="phase phase-blue">
+    <div class="phase-num">3</div>
+    <div class="phase-text">
+      <h2>Find Your Visual Reference</h2>
+      <div class="phase-time">Lab Part 1, Step 3 · 3 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Open the <strong>Visual Reference Guide</strong> for tips, then find a screenshot that represents the look and feel you want:</p>
+
+      <a class="tool-link" href="M2 - Visual Reference Guide.html" target="_blank">
+        <span class="tool-icon">🎨</span> Open Visual Reference Guide
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">1</div>
+        <div class="step-body">
+          <div class="step-title">Find a screenshot</div>
+          <div class="step-desc">Go to <strong>Mobbin</strong> (free, mobbin.com) and search for screens in your domain. OR screenshot your own product, a competitor, or an app you admire. This is the visual anchor that transforms a generic build into a domain-specific one.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">2</div>
+        <div class="step-body">
+          <div class="step-title">Save it</div>
+          <div class="step-desc">Save the screenshot to your desktop. You'll attach it to Lovable in the next phase. <strong>Drop it in Slack</strong> alongside your Validation Brief.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>The only difference between a generic demo and a VP-ready prototype is <em>context</em>.</p>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post in Slack when done</div>
+        "Scenario: ___. Testing: ___. Risk type: ___."<br>
+        [Attach: screenshot + highlighted quotes/metrics]
+      </div>
+
+      <div class="tip-box success">
+        <div class="tip-icon">✅</div>
+        <div class="tip-text"><strong>Lab Part 1 complete!</strong> You now have four inputs ready: Validation Brief, highlighted quotes, key metrics, and a visual reference. NOW you open Lovable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 4: BUILD ═══════════ -->
+  <div class="phase phase-green">
+    <div class="phase-num">4</div>
+    <div class="phase-text">
+      <h2>Build With Context</h2>
+      <div class="phase-time">Lab Part 2 · 25 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Open the <strong>Structured Prompt Builder</strong> to assemble your prompt, then paste it into <strong>Lovable</strong>.</p>
+
+      <a class="tool-link" href="M2 - Structured Prompt Builder.html" target="_blank">
+        <span class="tool-icon">🔧</span> Open Structured Prompt Builder
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">1</div>
+        <div class="step-body">
+          <div class="step-title">Context — Paste your scenario brief</div>
+          <div class="step-time">In the Prompt Builder</div>
+          <div class="step-desc">Paste the scenario brief from your Data Pack. Include 2–3 user quotes: <em>"Here's what users are saying: [quote 1], [quote 2]."</em> This grounds the AI in your problem domain.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">2</div>
+        <div class="step-body">
+          <div class="step-title">Reference — Describe your visual anchor</div>
+          <div class="step-time">In the Prompt Builder</div>
+          <div class="step-desc">Reference your screenshot: <em>"Match this look and feel."</em> You'll attach the actual image when you paste into Lovable.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">3</div>
+        <div class="step-body">
+          <div class="step-title">Constraint — Add specific metrics</div>
+          <div class="step-time">In the Prompt Builder</div>
+          <div class="step-desc"><em>"Display these specific metrics: [metric 1], [metric 2], [metric 3]. Use these actual numbers, not placeholder data."</em> Add guardrails: max screens, what to prioritize, what to avoid.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">4</div>
+        <div class="step-body">
+          <div class="step-title">Output — Define what the tool should produce</div>
+          <div class="step-time">In the Prompt Builder</div>
+          <div class="step-desc"><em>"Build a [2–3 screen] flow that tests whether [your hypothesis]. Include: [screen 1], [screen 2], [screen 3]."</em></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">5</div>
+        <div class="step-body">
+          <div class="step-title">Copy → Paste into Lovable → Build</div>
+          <div class="step-time">Remaining time</div>
+          <div class="step-desc">Copy the assembled prompt from the Builder. Open Lovable. <strong>Attach your screenshot.</strong> Paste the prompt. Build. Iterate if needed — but focus on testing the hypothesis, not making it pretty.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:12px;">Your prompt should look like this:</p>
+
+      <div class="prompt-template">
+        <div class="pt-block">
+          <div class="pt-label">Context</div>
+          Build a [product type] for [audience]. [1–2 sentence problem statement]. Here's what users are saying: "[quote 1]" "[quote 2]" "[quote 3]"
+        </div>
+        <div class="pt-block">
+          <div class="pt-label">Reference</div>
+          Match this look and feel. <em>[screenshot attached]</em>
+        </div>
+        <div class="pt-block">
+          <div class="pt-label">Constraint</div>
+          Display these specific metrics: [metric 1: value], [metric 2: value], [metric 3: value]. Use these actual numbers. Prioritize [key flow]. Avoid generic patterns. Max [N] screens.
+        </div>
+        <div class="pt-block">
+          <div class="pt-label">Output</div>
+          Build a [N]-screen flow that tests whether [hypothesis]. Screen 1: [what it shows]. Screen 2: [what it shows]. Screen 3: [what it shows].
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">💰</div>
+        <div class="tip-text"><strong>Credits reminder:</strong> Plan your prompt in the Builder first — don't iterate inside Lovable. If a prompt fails twice, eject to ChatGPT to debug — don't burn credits.</div>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Prototype built</strong> — at least one working direction</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Shows real data</strong> — actual metrics and user quotes, not placeholder text</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Tests a hypothesis</strong> — not just a demo, but a prototype designed to answer a question</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Shareable link works</strong> — verify it opens for someone else</div>
+        </div>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post your link in Slack</div>
+        [Lovable prototype link] — "Testing: [hypothesis]. Risk type: [value/usability/feasibility]."
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 5: PEER REVIEW ═══════════ -->
+  <div class="phase phase-purple">
+    <div class="phase-num">5</div>
+    <div class="phase-text">
+      <h2>Peer Review: Does This Test It?</h2>
+      <div class="phase-time">Breakout groups of 2 · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">3 minutes of silence</div>
+          <div class="step-desc">Your partner shares their Validation Brief + prototype link. <strong>Explore the prototype cold.</strong> No explanation. Navigate it like a real user. Notice what works, what confuses you, and what feels like a demo vs. a real product.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Discuss — 4 questions</div>
+          <div class="step-desc">Swap roles after 4 minutes. Give honest feedback — the valuable kind, not the polite kind.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="review-q">
+          <div class="review-num">1</div>
+          <div class="review-text">Does this prototype actually <strong>test the stated hypothesis?</strong> Or is it just a demo?</div>
+        </div>
+        <div class="review-q">
+          <div class="review-num">2</div>
+          <div class="review-text">Where does the experience <strong>break beyond the happy path?</strong></div>
+        </div>
+        <div class="review-q">
+          <div class="review-num">3</div>
+          <div class="review-text">Can you see <strong>real data</strong> in here? Does it make the prototype more credible?</div>
+        </div>
+        <div class="review-q">
+          <div class="review-num">4</div>
+          <div class="review-text"><strong>Tool vs. Toy</strong> — would this help the builder make a decision, or does it just look good?</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>The question isn't "is this cool?"<br>It's <em>"does this test what you said you were testing?"</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ THE REVEAL ═══════════ -->
+  <div class="phase phase-pink">
+    <div class="phase-num">!</div>
+    <div class="phase-text">
+      <h2>The Reveal: M1 vs M2</h2>
+      <div class="phase-time">The wow moment · Pull up both prototypes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:16px;">Open your M1 prototype and your M2 prototype side by side. Same tool. Same you. Same amount of time.</p>
+
+      <div class="reveal-grid">
+        <div class="reveal-card reveal-m1">
+          <div class="reveal-label">Module 1</div>
+          <div class="reveal-title">Built from nothing</div>
+          <ul class="reveal-list">
+            <li>Blank page + vague prompt</li>
+            <li>Placeholder text, generic layout</li>
+            <li>No data, no design reference</li>
+            <li>Looks like a demo</li>
+          </ul>
+        </div>
+        <div class="reveal-card reveal-m2">
+          <div class="reveal-label">Module 2</div>
+          <div class="reveal-title">Built with context</div>
+          <ul class="reveal-list">
+            <li>Hypothesis + constraints + kill switch</li>
+            <li>Real user quotes, real metrics</li>
+            <li>Design-matched to a real product</li>
+            <li>Tests a specific question</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p><strong>Constraints + Context + Intent = The Validation Lens</strong><br><br>That leap didn't come from spending more time.<br>It came from <em>starting with better inputs.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOOLS REFERENCE ═══════════ -->
+  <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — All M2 Tools</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a class="tool-link" href="M2 - Validation Brief.html" target="_blank"><span class="tool-icon">📋</span> Validation Brief — Phase 1</a>
+        <a class="tool-link" href="M2 - Context Data Pack.html" target="_blank"><span class="tool-icon">📦</span> Context Data Pack — Phase 2</a>
+        <a class="tool-link" href="M2 - Visual Reference Guide.html" target="_blank"><span class="tool-icon">🎨</span> Visual Reference Guide — Phase 3</a>
+        <a class="tool-link" href="M2 - Structured Prompt Builder.html" target="_blank"><span class="tool-icon">🔧</span> Structured Prompt Builder — Phase 4</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Module 2: The Validation Lens</strong><br>
+    From this point forward, every prototype gets judged by what it validates — not how it looks.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+</script>
+
+</body>
+</html>
