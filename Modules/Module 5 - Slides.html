@@ -379,7 +379,7 @@
 </div>
 
 <!-- ===================== SLIDE 4: 3 Prompts ===================== -->
-<div class="slide" data-notes="Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh. 'The invite is still there. It's in a real database.' Open Supabase dashboard — show data in the table. Prompt 2: paste, wait ~90 sec. Log out. Sign up as new user. 'Different user, different invites.' Prompt 3: paste, wait ~60 sec. Disconnect WiFi. 'Connection error — the app tells you what happened.' Total: ~8 minutes. Let the persistence and multi-user moments land.">
+<div class="slide" data-notes="Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh. 'The invite is still there. It's in a real database.' Open Supabase dashboard — show data in the table. Prompt 2: paste, wait ~90 sec. Log out. Sign up as new user. 'Different user, different invites.' Prompt 3: paste, wait ~60 sec. DevTools (F12) → Network → Offline checkbox. 'Connection error — the app tells you what happened.' Uncheck to reconnect. Total: ~8 minutes. Let the persistence and multi-user moments land.">
   <div class="slide-inner">
     <div class="demo-tag tag-demo">Live Build</div>
     <h2>The Integration Chain — 3 Prompts</h2>
@@ -611,7 +611,7 @@
 </div>
 
 <!-- ===================== SLIDE 12: Lab Part 2 ===================== -->
-<div class="slide" data-notes="THIS IS THE WOW MOMENT. Walk the room. At auth: watch for the moment a student logs in as User A, sees their data, logs out, logs in as User B, and sees different data. 'You just built a multi-user product.' At edge cases: 'Disconnect your WiFi. Does your app crash or show an error message?' After 15 min: 'Stop. That's a working product.'">
+<div class="slide" data-notes="THIS IS THE WOW MOMENT. Walk the room. At auth: watch for the moment a student logs in as User A, sees their data, logs out, logs in as User B, and sees different data. 'You just built a multi-user product.' At edge cases: 'DevTools → Network → Offline. Does your app crash or show an error message?' After 15 min: 'Stop. That's a working product.'">
   <div class="slide-inner">
     <div class="demo-tag tag-lab">Hands-On Lab Part 2 · 15 Minutes</div>
     <h2>Auth & Edge Cases</h2>
@@ -634,7 +634,7 @@
 </div>
 
 <!-- ===================== SLIDE 13: Chaos Round ===================== -->
-<div class="slide" data-notes="Make this dramatic. Round 1: have students disconnect WiFi if possible. 'Look at your app. What does your user see?' For Round 2: hypothetical — most won't have rate limiting. Round 3: unexpected data format. Discuss: 'Which would you fix first?' Usually Round 1 — affects 100% of users. 10 minutes total.">
+<div class="slide" data-notes="Make this dramatic. Round 1: have students open Chrome DevTools (F12) → Network tab → check the Offline checkbox. This simulates a network failure for just that browser tab — their Zoom/video call stays connected. 'Look at your app. What does your user see?' Uncheck Offline to reconnect. (Alternative: right-click any Supabase request → Block request domain.) For Round 2: hypothetical — most won't have rate limiting. Round 3: unexpected data format. Discuss: 'Which would you fix first?' Usually Round 1 — affects 100% of users. 10 minutes total.">
   <div class="slide-inner">
     <div class="demo-tag tag-chaos">Instructor-Led Exercise · 10 Minutes</div>
     <h2>Chaos Round: Things Break</h2>

@@ -68,7 +68,7 @@ Watch: I enter an invite. Refresh the page. Gone. I "log in" — no password, no
 
 3 prompts. Real data. Real users. Real error handling.
 
-*Speaker Notes: Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh the page. "The invite is still there. It's in a real database." Open the Supabase dashboard — show the data appearing in the table. "Remember — you connected this in M4. Now there's actually data in it." Prompt 2: paste, wait ~90 sec. Log out. Sign up as a new user. "Different user, different invites. Real multi-user behavior." Prompt 3: paste, wait ~60 sec. Disconnect WiFi (or use Supabase pause). "Connection error. The app tells you what happened instead of showing a blank screen." Reconnect. "And it recovers." Total: ~8 minutes. Let the moments land — the persistence moment and the multi-user moment are the biggest reactions you'll get all course.*
+*Speaker Notes: Run the 3 prompts sequentially. Prompt 1: paste, wait ~90 sec. Send an invite. Refresh the page. "The invite is still there. It's in a real database." Open the Supabase dashboard — show the data appearing in the table. "Remember — you connected this in M4. Now there's actually data in it." Prompt 2: paste, wait ~90 sec. Log out. Sign up as a new user. "Different user, different invites. Real multi-user behavior." Prompt 3: paste, wait ~60 sec. Open DevTools (F12) → Network → check Offline (this only affects the browser tab, not Zoom). "Connection error. The app tells you what happened instead of showing a blank screen." Uncheck Offline. "And it recovers." Total: ~8 minutes. Let the moments land — the persistence moment and the multi-user moment are the biggest reactions you'll get all course.*
 
 ---
 
@@ -213,7 +213,7 @@ The moment your data survives a page refresh — that's the line.
 
 **Document in the Planner:** What integrations work? What's still mocked? What edge cases are handled?
 
-*Speaker Notes: THIS IS THE WOW MOMENT. Walk the room. At auth: watch for the moment a student logs in as User A, sees their data, logs out, logs in as User B, and sees different data. That's the multi-user moment. "You just built a multi-user product. Different people, different data, same prototype." At edge cases: "Disconnect your WiFi. What happens? Does your app crash or show an error message?" After 15 min: "Stop. You have a real database, real auth, and error handling. That's a working product."*
+*Speaker Notes: THIS IS THE WOW MOMENT. Walk the room. At auth: watch for the moment a student logs in as User A, sees their data, logs out, logs in as User B, and sees different data. That's the multi-user moment. "You just built a multi-user product. Different people, different data, same prototype." At edge cases: "Open DevTools → Network → Offline. What happens? Does your app crash or show an error message?" After 15 min: "Stop. You have a real database, real auth, and error handling. That's a working product."*
 
 ---
 
@@ -232,7 +232,7 @@ The instructor triggers chaos. You handle it.
 
 Discuss: Which of these would you prioritize fixing first? Why?
 
-*Speaker Notes: Make this dramatic. For Round 1: if students are on Supabase, you can actually pause the Supabase project temporarily (or just ask them to disconnect WiFi). "Look at your app. What does your user see?" Let them scramble. For Round 2: ask hypothetically — most won't have rate limiting. "That's a real production concern. How would you describe it to an engineer?" Round 3: "What if the invites table returns a date instead of a string?" Discuss as a group: "Which of these three would you fix first?" The answer is usually Round 1 (connection failure) because it affects 100% of users. 10 minutes total.*
+*Speaker Notes: Make this dramatic. For Round 1: have students open Chrome DevTools (F12) → Network tab → check the "Offline" checkbox. This simulates a network failure for just that browser tab — their Zoom/video call stays connected. "Look at your app. What does your user see?" Let them scramble. Uncheck "Offline" to reconnect. (Alternative: right-click any Supabase request → "Block request domain" to block only Supabase calls.) For Round 2: ask hypothetically — most won't have rate limiting. "That's a real production concern. How would you describe it to an engineer?" Round 3: "What if the invites table returns a date instead of a string?" Discuss as a group: "Which of these three would you fix first?" The answer is usually Round 1 (connection failure) because it affects 100% of users. 10 minutes total.*
 
 ---
 
@@ -263,7 +263,7 @@ A demo showing: a real product with a database, auth, and API integrations — b
 
 **The lesson:** A backend without error handling is worse than no backend at all. Users trust that "real" products work. When yours doesn't tell them what went wrong, they blame the product — not the network.
 
-*Speaker Notes: Use a prepared example or a volunteer's prototype. Try each failure mode live. "Watch — I'm going to turn off WiFi. What happens?" Let the room see the blank screen or crash. "Now watch the same thing with error handling." Show the graceful version. "Same failure. Completely different user experience." The contrast makes the point: backend without error handling creates a worse experience than a static prototype. 10 minutes.*
+*Speaker Notes: Use a prepared example or a volunteer's prototype. Try each failure mode live. "Watch — I'm going to simulate a network failure using DevTools." Open DevTools → Network → Offline. Let the room see the blank screen or crash. "Now watch the same thing with error handling." Show the graceful version. "Same failure. Completely different user experience." The contrast makes the point: backend without error handling creates a worse experience than a static prototype. 10 minutes.*
 
 ---
 

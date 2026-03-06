@@ -104,7 +104,7 @@
 
 - **Slide 12 — Part 2: Auth + Edge Cases (15 min)** — Auth prompt (10 min): signup/login, different users see different data. Edge case prompt (5 min): loading states, error handling.
   - **THIS IS BEAT 2.** The multi-user moment. Student logs in as User A, sees data. Logs out. Logs in as User B — different data. "You just built a multi-user product."
-  - Edge cases: "Disconnect your WiFi. What happens? Does your app crash or show an error message?"
+  - Edge cases: "Open DevTools (F12) → Network → check Offline. What happens? Does your app crash or show an error message?" (This only affects the browser tab — Zoom stays connected.)
   - After 15 min: "Stop. You have a real database, real auth, and error handling. That's a working product."
 
 - **Tool:** Integration Planner has pre-built prompts for all 4 scenarios. Students customize and copy.
@@ -116,10 +116,10 @@
 
 - **This is the memorable exercise Carlos asked for**
 - Instructor triggers chaos — three rounds:
-  - **Round 1:** Supabase paused / WiFi off. Error message vs. blank screen.
+  - **Round 1:** Chrome DevTools → Network → Offline checkbox. Error message vs. blank screen. (Only affects the browser tab — Zoom/video call stays connected.)
   - **Round 2:** 500 invites in 1 second. Rate limiting? Frozen UI?
   - **Round 3:** API returns unexpected data format. Validation? Graceful fallback?
-- Make it dramatic. For Round 1, actually have students disconnect WiFi if possible
+- Make it dramatic. For Round 1, walk students through DevTools (F12 → Network → Offline). Alternative: right-click any Supabase request → "Block request domain" to block only Supabase calls
 - Group discussion: "Which would you fix first?" → Usually Round 1 (connection failure, 100% of users)
 - 10 minutes total. Prioritization thinking is the real skill here.
 
