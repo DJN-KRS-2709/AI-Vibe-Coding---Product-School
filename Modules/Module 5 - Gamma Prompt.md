@@ -6,12 +6,12 @@
 
 ## Instructions for Gamma
 
-Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — The Backend Moment"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and graduate prototypes with living PRDs, GitHub repos, and Supabase connections (M4); now they're building real backend functionality on top of the infrastructure they connected. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
+Create a professional slide deck for teaching a 2-hour workshop called **"Module 5: Make It Real — From Prototype to Product"** in a Vibe Coding certification course. The audience is senior product managers who completed Modules 1–4 — they can build fast (M1), build smart with data (M2), build precise with prompt chains (M3), and graduate prototypes with living PRDs, GitHub repos, and Supabase connections (M4); now they're building real backend functionality on top of the infrastructure they connected. Tone: energetic, practical, technical. The deck supports live teaching, demos, and hands-on labs. Avoid corporate jargon. Use clean, modern design with clear typography and minimal text per slide. Match Modules 1–4 visual style. Important: the slides are student-facing — keep the content instructional and practical. Do not telegraph emotional beats or name "wow moments" on slides.
 
 ---
 
 ## Slide 1 — Module 5 Title + 3 Waypoints
-**Make It Real — The Backend Moment**
+**Make It Real — From Prototype to Product**
 
 MODULE 5 | VIBE CODING CERTIFICATION
 

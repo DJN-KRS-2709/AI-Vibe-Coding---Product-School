@@ -1,7 +1,7 @@
 # Module 5: Make It Real — Carlos Brief
 
 ## TL;DR
-M5 is the backend moment. The prototype stops being a facade and becomes a working product with a real database, real authentication, and real error handling. **Your prototype actually works now.**
+M5 is where the prototype becomes a product. It stops being a facade and becomes a working product with a real database, real authentication, and real error handling. **Your prototype actually works now.**
 
 Carlos's exact words: *"I can connect to a database. I can connect to Stripe. Oh, shit. I can push something to production. That would be magic."* M5 is that magic.
 

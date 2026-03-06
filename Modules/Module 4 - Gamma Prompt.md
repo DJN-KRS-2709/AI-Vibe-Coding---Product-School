@@ -342,7 +342,7 @@ Same product. Real backend. Real users.
 
 You've built fast (M1), built smart (M2), built precise (M3), and graduated it (M4). Your prototype has a spec, clean code in GitHub, and Supabase connected. Next: build on top of that infrastructure.
 
-**Module 5 — The Backend Moment:**
+**Module 5 — From Prototype to Product:**
 - Build real database schemas — your data persists across sessions
 - Add authentication — real users, real accounts, different people see different data
 - API integrations — Stripe, email, whatever your product needs
