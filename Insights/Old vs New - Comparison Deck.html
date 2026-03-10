@@ -409,6 +409,27 @@
     font-size: 24px; color: var(--accent); opacity: 0.4;
   }
 
+  /* ---- Speaker notes panel ---- */
+  .speaker-notes {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #1a1a22; border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 18px 32px 20px; z-index: 200;
+    max-height: 220px; overflow-y: auto;
+    transform: translateY(100%); transition: transform 0.3s ease;
+  }
+  .speaker-notes.visible { transform: translateY(0); }
+  .notes-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+  }
+  #notes-content {
+    font-size: 14px; color: var(--text); line-height: 1.65;
+    max-width: 900px;
+  }
+  #notes-content strong { color: var(--white); }
+  #notes-content em { color: var(--new-text); font-style: normal; font-weight: 600; }
+
   .two-line-hero { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
   .old-line {
     font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 600;
@@ -425,7 +446,7 @@
 <body>
 
 <!-- ====================== SLIDE 1: TITLE ====================== -->
-<div class="slide active">
+<div class="slide active" data-notes="<strong>Opening framing.</strong> This deck walks through the full transformation from AI Prototyping to Vibe Coding. The three headline numbers tell the story: every module was redesigned, every module now has 55%+ hands-on time, and students leave with 6 tangible deliverables instead of just a certificate.<br><br>Key message: this isn't a content refresh. It's a fundamentally different course built from the ground up around Carlos's vision and two cohorts of student feedback.">
   <div class="bg-glow" style="width:600px;height:600px;background:rgba(167,139,250,0.06);top:-200px;right:-100px;"></div>
   <div class="bg-glow" style="width:400px;height:400px;background:rgba(34,211,167,0.04);bottom:-100px;left:-50px;"></div>
   <div class="slide-inner" style="text-align:center;">
@@ -441,7 +462,7 @@
 </div>
 
 <!-- ====================== SLIDE 2: ONE-LINE SUMMARY ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>The knockout punch.</strong> Let the two lines sit for a moment. The old line — struck through — speaks for itself. The biggest single complaint across both cohorts was 'it felt like a Lovable tutorial.' That's what we killed.<br><br>The Carlos quote at the bottom is from the Feb 13 working session. He was emphatic: this is not playing designer, this is shipping real products. Everything in the new course is designed to deliver on that exact statement.">
   <div class="bg-glow" style="width:500px;height:500px;background:rgba(224,82,82,0.04);top:50%;left:-200px;transform:translateY(-50%);"></div>
   <div class="slide-inner">
     <div class="kicker">The Shift</div>
@@ -457,7 +478,7 @@
 </div>
 
 <!-- ====================== SLIDE 3: COURSE IDENTITY ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Walk down the table row by row.</strong><br><br><em>Positioning:</em> Old course said 'learn to prototype.' New course says 'build, ship, iterate.' Prototyping is a step in the process, not the destination.<br><br><em>Audience:</em> We stopped assuming people are beginners. These are senior PMs — they've built products before. They need a methodology, not a tool tutorial.<br><br><em>Deliverables:</em> This is the biggest gap. Old course: a group prototype and a certificate. New course: 6 real assets they can use at work tomorrow. A deployed product. A spec an engineer can read. A GitHub repo a developer can clone.<br><br><em>Tool dependency:</em> When Lovable ships a new model or changes their UI, the old course breaks. The new course doesn't — because we teach the methodology, not the buttons.<br><br><em>Arc:</em> Old course was flat. New course has the Confidence Line — a deliberate emotional progression from uncertainty to mastery.">
   <div class="slide-inner">
     <div class="kicker">Course Identity</div>
     <h2 style="font-size:32px;">Two fundamentally different courses</h2>
@@ -497,7 +518,7 @@
 </div>
 
 <!-- ====================== SLIDE 4: MODULE 1 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 1: The first impression problem.</strong><br><br>Old M1 spent the first 30+ minutes on slides about why AI is useful. The audience is senior PMs — they already know. Energy dropped before anyone touched a tool.<br><br>New M1 flips it: instructor demos a full build in 5 minutes, then every student builds their own working prototype within the first 15 minutes. The 'aha' is visceral — they just built something real, fast. Carlos in the Feb 13 session: 'You are going to be able to build your own applications end to end. Boom. That is fantastic. I don't think there is much more to add at this point.'<br><br>Hands-on went from ~30% to ~55%. Every student builds individually — no more one-person-builds-while-group-watches.">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M1</div>
@@ -533,7 +554,7 @@
 </div>
 
 <!-- ====================== SLIDE 5: MODULE 2 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 2: From prompt engineering to product validation.</strong><br><br>The old M2 feedback was brutal: 'too basic for an advanced course.' They were teaching system prompts and token windows to senior PMs. The guessing exercise was seen as low-value.<br><br>The reframe: prompting isn't a skill unto itself — it's a means to validate product assumptions. New M2 introduces Context Data Packs (real feedback, real metrics, real scenario briefs) so students aren't building in a vacuum. They build with data, form a hypothesis, and output a Validation Brief alongside their prototype.<br><br>This is the actual PM skill — not 'write a better prompt' but 'use AI to test whether you're building the right thing.'">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M2</div>
@@ -569,7 +590,7 @@
 </div>
 
 <!-- ====================== SLIDE 6: MODULE 3 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 3: Documentation that emerges from building, not before it.</strong><br><br>Old M3 had a terminology problem — students were confused between 'Simplified PRD' and 'PRO.' The first hour was overwhelming: links, docs, templates dumped all at once. Feedback called it 'messy.'<br><br>New M3 is a building module. Students learn a clean 3-prompt chain pattern (foundation → enhance → polish) and build multi-screen prototypes with interactive states. The Living Prompt Pack — the reusable artifact — emerges naturally from the work they do.<br><br>The key shift: old M3 said 'write documents, then build.' New M3 says 'build precisely, and the documentation writes itself.' That's a much more authentic PM workflow.">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M3</div>
@@ -605,7 +626,7 @@
 </div>
 
 <!-- ====================== SLIDE 7: MODULE 4 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 4: The infrastructure moment.</strong><br><br>Old M4 had the most damning feedback: 'An hour into the class, students still hadn't started building.' The instructor spent too long demoing debugging while students watched. Chat vs Agent mode was confusing and never properly explained.<br><br>New M4 is the transition point — from 'vibe' to 'structure.' Students connect their prototype to real infrastructure: GitHub for version control, Supabase for their database. They use AI to extract a Living PRD from their prototype and start an Engineering Handoff Note.<br><br>This is where Carlos's 'playing designer vs. building for real' distinction becomes concrete. Students now own real assets — a GitHub repo, a database project — not just a prototype file in someone else's tool.">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M4</div>
@@ -641,7 +662,7 @@
 </div>
 
 <!-- ====================== SLIDE 8: MODULE 5 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 5: Carlos's magic moment, delivered.</strong><br><br>This is the slide to pause on. In the Feb 13 working session, Carlos said exactly this: 'I can connect to a database. I can import from Cloud. I can connect to Stripe. Oh, shit. I can push something to production. I think that would be magic.'<br><br>Old M5 stopped at 'connected to an API.' New M5 delivers all of it: real database schemas, real authentication, real error handling — AND deployment to a live URL. Students pull out their phones and load their own product. That's the wow moment.<br><br>We moved deployment from M6 (where it was anti-climactic — just clicking a button) into M5 where it's the natural climax of 'make it real.' This freed M6 to become something much more valuable.">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M5</div>
@@ -679,7 +700,7 @@
 </div>
 
 <!-- ====================== SLIDE 9: MODULE 6 ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Module 6: The biggest redesign.</strong><br><br>Old M6 was the weakest module. Deployment was supposed to be the finale, but it was one click — anti-climactic. The rest was filler: polish checklist, presentations. Students knew it was padding.<br><br>New M6 is the most advanced module in the entire course. Now that deployment is done in M5, M6 closes the product lifecycle loop: Measure (connect analytics, review Lovable Insights, set up GA4), Learn (use AI to analyze product data against the original problem statement), Iterate (build one evidence-based improvement and redeploy).<br><br>The 'aha' is genuinely new: students paste their analytics data and problem statement into ChatGPT/Gemini, and AI produces an actionable analysis in 2 minutes. That's a skill they'll use at work immediately. This is what separates PMs from builders — the ability to learn from what you shipped.">
   <div class="slide-inner">
     <div class="module-header">
       <div class="module-num">M6</div>
@@ -717,7 +738,7 @@
 </div>
 
 <!-- ====================== SLIDE 10: STRUCTURAL CHANGES ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Beyond content — structural decisions that change everything.</strong><br><br>Walk through the rows quickly, but pause on three:<br><br><em>Build format:</em> This was the #1 hands-on problem. In groups of 4-5, only one person could actually use Lovable. Everyone else watched. Now every student builds in their own project, every session. Carlos's gym analogy: 'You should feel the pressure of showing these people something you built.'<br><br><em>Progression:</em> Old modules were disconnected — each one taught a different tool feature. New modules stack. By M6, students have a single product that evolved across all 6 sessions. The six-tab reveal at the end makes the transformation undeniable.<br><br><em>Instructor-proofing:</em> Two cohorts had instructor problems — one skipped labs, another didn't follow the revamp. New course has pre-built demo prototypes, detailed speaker notes, and Carlos Briefs. The structure forces the hands-on even if the instructor is weak.">
   <div class="slide-inner">
     <div class="kicker">Structural Changes</div>
     <h2 style="font-size:30px;">What changed beyond the content</h2>
@@ -769,7 +790,7 @@
 </div>
 
 <!-- ====================== SLIDE 11: CONFIDENCE LINE ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>The Confidence Line — the unifying arc the old course lacked.</strong><br><br>Old course had no narrative thread. Modules were disconnected features: prompting, PRDs, debugging, APIs, deployment. You could almost teach them in any order.<br><br>Vibe Coding has a deliberate emotional progression. Each module name is a verb that represents a growing level of confidence: Speed → Validation → Precision → Structure → Ship → Product. By the end, students haven't just learned tools — they've experienced the full product lifecycle from idea to data-driven iteration.<br><br>The six-tab reveal in the final module makes this visible: open all six browser tabs side by side — M1 through M6 — and see one product evolve from a rough prototype to a deployed, analytics-instrumented, evidence-improved product. The progression speaks for itself. Nobody needs slides to explain it.">
   <div class="bg-glow" style="width:700px;height:400px;background:rgba(34,211,167,0.04);bottom:-100px;left:50%;transform:translateX(-50%);"></div>
   <div class="slide-inner">
     <div class="kicker">The Confidence Line</div>
@@ -816,7 +837,7 @@
 </div>
 
 <!-- ====================== SLIDE 12: FEEDBACK → SOLUTIONS ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Direct mapping from complaints to fixes.</strong><br><br>This slide is the accountability slide. Every piece of feedback on the left came from real student surveys or in-class observations across the first two cohorts. Every answer on the right is a specific design decision in the new course.<br><br>The top two are the most important: 'felt like a Lovable tutorial' and 'too basic for an advanced course.' These were the systemic issues. The methodology-first approach and the M4–M6 depth ladder address both.<br><br>The bottom one — 'I wish we had individual projects' — is now done. Carlos was clear: individual builds, group accountability. No group dependencies. Every student presents their own deployed product.">
   <div class="slide-inner">
     <div class="kicker">Student Feedback &#8594; Solutions</div>
     <h2 style="font-size:28px;">Every complaint has a direct answer</h2>
@@ -854,7 +875,7 @@
 </div>
 
 <!-- ====================== SLIDE 13: CARLOS'S OWN WORDS ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>The receipts slide.</strong><br><br>Every row maps a specific Carlos quote from the Feb 13 working session to what the old course did (or didn't do) and how Vibe Coding delivers on it.<br><br>The most powerful row is the second one — 'I can connect to a database. I can push something to production. That would be magic.' The old course literally stopped at the prototype level. New course: students deploy real products with real databases to live URLs. Magic delivered.<br><br>The 'fireworks all the time' row is important too. Carlos wanted energy and wow moments in every session. Old course had 30% hands-on and no designed beats. New course has 55-60% hands-on with 2-3 named wow moments per module, each with specific instructor guidance so even a quieter instructor can deliver them.">
   <div class="slide-inner">
     <div class="kicker">In Carlos's Own Words</div>
     <h2 style="font-size:28px;">Every design decision maps to a request</h2>
@@ -894,7 +915,7 @@
 </div>
 
 <!-- ====================== SLIDE 14: BOTTOM LINE ====================== -->
-<div class="slide">
+<div class="slide" data-notes="<strong>Close with the bottom line.</strong><br><br>Let the two sentences land. The old course taught how to use a tool. The new course teaches how to build, ship, and learn from products.<br><br>The six green tags below are what students actually walk away with — not just knowledge, but tangible assets. A deployed product anyone can access. A spec any engineer can read. A codebase any developer can clone. Analytics showing real usage. And a methodology they can apply to their next product tomorrow.<br><br>That's not a certificate. That's a career skill.<br><br>If there's one thing to remember from this deck: the old course was about the tool. The new course is about the outcome.">
   <div class="bg-glow" style="width:600px;height:600px;background:rgba(34,211,167,0.05);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
   <div class="slide-inner" style="text-align:center;">
     <div class="kicker">Bottom Line</div>
@@ -926,12 +947,18 @@
 
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
 
-<div class="help-hint">&larr; &rarr; navigate &middot; F fullscreen</div>
+<div class="help-hint">&larr; &rarr; navigate &middot; S speaker notes &middot; F fullscreen</div>
+
+<div class="speaker-notes" id="speaker-notes">
+  <div class="notes-tag">Speaker Notes</div>
+  <div id="notes-content"></div>
+</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let current = 0;
+  let notesVisible = false;
 
   document.getElementById('total').textContent = total;
 
@@ -940,6 +967,8 @@
     current = idx;
     document.getElementById('current').textContent = idx + 1;
     document.getElementById('progress-bar').style.width = ((idx + 1) / total * 100) + '%';
+    const notes = slides[idx].getAttribute('data-notes') || '';
+    document.getElementById('notes-content').innerHTML = notes || '<em style="color:#555;">No notes for this slide.</em>';
   }
 
   function next() { if (current < total - 1) show(current + 1); }
@@ -948,6 +977,10 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    else if (e.key === 's' || e.key === 'S') {
+      notesVisible = !notesVisible;
+      document.getElementById('speaker-notes').classList.toggle('visible', notesVisible);
+    }
     else if (e.key === 'f' || e.key === 'F') {
       if (!document.fullscreenElement) document.documentElement.requestFullscreen();
       else document.exitFullscreen();
