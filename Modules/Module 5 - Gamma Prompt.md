@@ -243,7 +243,7 @@ One insight: What was easier than expected? What was harder? What would you tell
 
 If you can describe what your backend does in one sentence, you can write the handoff note.
 
-*Speaker Notes: Quick share — 3 minutes max. Hands up: "What was easier than expected?" Most will say: "Adding a database was way easier than I thought." Then: "What was harder?" Usually: "Getting auth roles right" or "thinking about edge cases I never considered." Land the takeaway: "If you can describe your backend in one sentence — 'Users log in, their data persists in Supabase, and errors show helpful messages' — you can write the handoff note." Transition to Break It.*
+*Speaker Notes: Quick share — 1 minute. Quick hands up: "What was easier than expected? What was harder?" One or two answers, that's it. Land the takeaway: "If you can describe your backend in one sentence, you can write the handoff note." Transition to Break It.*
 
 ---
 
@@ -263,7 +263,7 @@ A demo showing: a real product with a database, auth, and API integrations — b
 
 **The lesson:** A backend without error handling is worse than no backend at all. Users trust that "real" products work. When yours doesn't tell them what went wrong, they blame the product — not the network.
 
-*Speaker Notes: Use a prepared example or a volunteer's prototype. Try each failure mode live. "Watch — I'm going to simulate a network failure using DevTools." Open DevTools → Network → Offline. Let the room see the blank screen or crash. "Now watch the same thing with error handling." Show the graceful version. "Same failure. Completely different user experience." The contrast makes the point: backend without error handling creates a worse experience than a static prototype. 10 minutes.*
+*Speaker Notes: Use a prepared example. Pick the two most visceral failure modes — slow network (infinite spinner) and database unreachable (blank screen). Show each briefly, then show the graceful version. "Same failure. Completely different user experience." The contrast makes the point: backend without error handling creates a worse experience than a static prototype. Keep this to 5 minutes — the deployment demo is coming.*
 
 ---
 
@@ -284,11 +284,62 @@ Open five tabs.
 
 Same tool. Same you. Five modules of progression.
 
-*Speaker Notes: Same pattern as M4's four-tab reveal — now five. Let students open all five. 30 seconds of silence. "In M1, you typed a prompt and got a page. In M4, you connected infrastructure. In M5, you built a multi-user product with real database schemas, authentication, and error handling on top of that infrastructure. That's not a prototype anymore." This is the crescendo of the production half. M6 is about deploying and shipping — M5 is where the product becomes real.*
+*Speaker Notes: Same pattern as M4's four-tab reveal — now five. Let students open all five. 30 seconds of silence. "In M1, you typed a prompt and got a page. In M4, you connected infrastructure. In M5, you built a multi-user product with real database schemas, authentication, and error handling on top of that infrastructure. That's not a prototype anymore." This is the crescendo of the production half. And you're about to deploy it — right now.*
 
 ---
 
-## Slide 17 — What You Did Today
+## Slide 17 — Instructor Demo: Deploy
+**From Working Product to Live URL in One Click**
+
+INSTRUCTOR DEMO
+
+Your M5 product has real data, real auth, real error handling. It works. But it lives inside Lovable's preview. Share the link — it works. Close Lovable — it might not. Nobody outside this class has seen it.
+
+Watch: I click "Deploy." 30 seconds later, it has a live URL. I open it on my phone. I send the link in chat. You can open it right now.
+
+That's deployment. One click. Your product is in the world.
+
+*Speaker Notes: "Pull up the Retention Engine in Lovable. Show the preview — it works, data persists, auth works. Then: 'Watch.' Click the deploy button in Lovable (top right → Share → Deploy or Publish). Wait for the URL to generate. Open it in a new incognito window. Open it on your phone. Drop the link in the Zoom chat or Slack. 'Click it. You're using my product right now. That URL didn't exist 30 seconds ago.' This is the simplest demo in the course — one click — but the impact is huge. They just watched a PM deploy a real product to a live URL."*
+
+---
+
+## Slide 18 — Lab: Deploy Your Product
+**Hands-on Lab: Deploy** | 15 Minutes
+
+Open your M5 prototype in Lovable. You're going live.
+
+**Step 1 (3 min):** Click Deploy. Get your live URL. Open it in a new incognito window. Does it work?
+
+**Step 2 (2 min):** Test authentication. Create a new account on the live URL. Log in. Does your data persist?
+
+**Step 3 (2 min):** Open on your phone. Is it usable? Can you navigate, log in, see your data?
+
+**Step 4 (3 min):** Drop your live URL in Slack. Try 2 other classmates' live URLs. Sign up. Use them.
+
+**Step 5 (5 min):** If something broke during deploy — debug it. Common issues: Supabase auth redirect URL doesn't include the new deployment domain.
+
+The moment someone else signs up on YOUR product, from THEIR device — that's ship.
+
+*Speaker Notes: "This should take 15 minutes. Most deployments take under a minute. The remaining time is for testing. Walk the room. THE KEY MOMENT: when a student opens their product on their phone and it works. Watch for the reaction. 'That's your product. On your phone. With a real URL. Anyone in the world can open that right now.' If someone's deploy fails: most common issue is Supabase auth redirect URL not including the new domain — help them update it in Supabase settings. After deploy: 'Who's live? Drop your URL in Slack.'"*
+
+---
+
+## Slide 19 — Deploy Debrief
+**Your Product Is Live. What Changed?**
+
+Quick reactions:
+
+1. **What surprised you** about seeing your product on your phone?
+2. **What's the difference** between a Lovable preview and a deployed URL?
+3. **Who already got a sign-up from a classmate?**
+
+The difference is mostly psychological — but it matters. A live URL changes how people perceive your work. It's not a prototype anymore. It's a product. Anyone in the world can access it.
+
+*Speaker Notes: "Quick debrief — 3 minutes. 'What surprised you?' Most common answer: 'I can't believe it actually works on my phone.' Then: 'What's the difference between preview and deployed?' The answer is mostly psychological — but it matters. A live URL changes how people perceive your work. It's not a prototype anymore. Transition: 'Your product is live. You built it, made it real, and shipped it. Next module — we learn from it.'"*
+
+---
+
+## Slide 20 — What You Did Today
 **What You Did Today**
 
 **1. Real Database Schemas** — You built real tables on top of M4's Supabase connection. Your data persists. Refresh, close, reopen — it's still there.
@@ -297,37 +348,40 @@ Same tool. Same you. Five modules of progression.
 
 **3. Edge Cases** — Your product handles failures gracefully: loading states while fetching, error messages when things break, empty states when there's no data yet.
 
-Your prototype crossed the line from connected infrastructure to functional product. Update your Living PRD and Engineering Handoff Note to reflect what's now real.
+**4. Deployed** — Your product has a live URL. Anyone in the world can access it. It's not a preview anymore.
 
-*Speaker Notes: Mirror slide 1. "Three waypoints. Real database — your data persists. Authentication — real users, real accounts. Edge cases — your product handles failures gracefully. You crossed the line from infrastructure to product. Now update your Living PRD to reflect what's real, and start your Engineering Handoff Note." Keep it tight — 2 minutes. The emotional beat already landed on Slide 16.*
+Your prototype crossed the line from connected infrastructure to deployed product.
+
+*Speaker Notes: Mirror slide 1 but now with four accomplishments instead of three. "Real database — your data persists. Authentication — real users, real accounts. Edge cases — graceful failures. And deployed — live URL, accessible to anyone. You crossed the line from infrastructure to deployed product in one session." Keep it tight — 2 minutes.*
 
 ---
 
-## Slide 18 — Accountability
+## Slide 21 — Accountability
 **ACCOUNTABILITY** | Before We Wrap
 
-**1. Post in #builds:** Your prototype link. Caption: "Refresh it. The data persists." Show the before/after of one integration.
+**1. Post in #builds:** Your live URL. Caption: "It's live. Try it." Include your M1 link for comparison.
 
-**2. Engage:** Try 2 other prototypes. Can you sign up? Does your data persist? Try to break it — what happens?
+**2. Engage:** Try 2 other live products. Sign up. Does the data persist? Try to break it — what happens?
 
 **3. Update your Living Prompt Pack:** Add your integration prompts (database, auth, edge cases) to the Output Templates section.
 
-**4. Start your Engineering Handoff Note:** What integrations are real? What's still mocked? What edge cases are handled? Use the Integration Planner's handoff section.
+**4. Finalize your Engineering Handoff Note:** What integrations are real? What's still mocked? What edge cases are handled? Use the Integration Planner's handoff section.
 
-*Speaker Notes: "Four things before next module. One — post in #builds with your link and 'refresh it.' Let people see the persistence. Two — try two other prototypes. Sign up. Does the data persist? Try to break it. Three — add your integration prompts to your Living Prompt Pack. You now have prompts for building, validating, precision, structure, AND integration. Four — start the Handoff Note. Use the Integration Planner's handoff section. This is Deliverable #5 — what's real, what's mocked, where to start."*
+*Speaker Notes: "Four things before next module. One — post your live URL in #builds with your M1 link for comparison. Let people see the full journey. Two — try two other live products. Sign up. Does the data persist? Try to break it. Three — add your integration prompts to your Living Prompt Pack. Four — finalize the Handoff Note. This is Deliverable #5 — what's real, what's mocked, where to start."*
 
 ---
 
-## Slide 19 — Module 6 Preview
-**Module 6: Ship It**
+## Slide 22 — Module 6 Preview
+**Module 6: Measure, Learn, Iterate**
 
-Same product. Live URL.
+Your product is live. Now what?
 
-You've built fast (M1), built smart (M2), built precise (M3), structured it with real infrastructure (M4), and made it real (M5). Your product has real database schemas, auth, and error handling. One thing left: put it in front of real people.
+Real products never end. The next step is learning from real usage. Module 6 closes the loop: gather quantitative insights from your deployed product, use AI to analyze what's working and what isn't, and build evidence-based improvements.
 
-**Module 6 — The Ship Moment:**
-- Deploy to a live URL — anyone can access it
-- Final polish and QA pass
+**Module 6 — The Feedback Loop:**
+- Set up analytics on your live product
+- Use AI to evaluate your metrics against your problem statement
+- Build one data-driven improvement and redeploy
 - Gallery walk — the class experiences each other's products
 - Optional: 5-minute pitch with live demo
 
@@ -335,14 +389,14 @@ Module 1: Build fast.
 Module 2: Build smart.
 Module 3: Build precise.
 Module 4: Structure it.
-Module 5: Make it real.
-Module 6: Ship it.
+Module 5: Make it real. Ship it.
+Module 6: Learn from it.
 
-*Speaker Notes: "M5 is the emotional high point of the second half. Your product has a database, auth, error handling, a Living PRD, and soon an Engineering Handoff Note. M6 is about shipping — deploy to a live URL, final polish, gallery walk where the class experiences each other's products, and an optional 5-minute pitch with a live demo. Your certification is almost complete. One module left."*
+*Speaker Notes: "Your product is live. But shipping isn't the finish line — it's the starting line for learning. M6 is about the feedback loop: set up analytics, use AI to analyze your data against your problem statement, and make evidence-based improvements. Then the gallery walk — the class experiences each other's products — and optional presentations. One module left. See you then."*
 
 ---
 
-## Slide 20 — Survey
+## Slide 23 — Survey
 **Your Opinion Matters To Us**
 
 Scan the QR code or use the link to share your feedback. Your insights help us improve each cohort.
@@ -362,5 +416,7 @@ Scan the QR code or use the link to share your feedback. Your insights help us i
 - Slide 13 — Chaos Round: make the rounds feel dramatic and urgent. Bold the failure scenarios.
 - Slide 15 — Break It: the failure modes should feel visceral (blank screens, frozen UIs)
 - Slide 16 — Five-column layout (M1 | M2 | M3 | M4 | M5). Let the visual comparison speak.
-- Slide 17 — Takeaways mirror slide 1's three waypoints (visual callback)
-- Keep all lab slides (11, 12, 13) highly scannable — students reference these while building
+- Slide 17 — Deploy Demo: Keep it minimal. The simplicity IS the point. One click, one URL.
+- Slide 18 — Lab: Deploy steps must be scannable. Bold the key moments (live URL, phone test, Slack share).
+- Slide 20 — Takeaways now mirror slide 1's three waypoints plus deployment (visual callback, four items)
+- Keep all lab slides (11, 12, 13, 18) highly scannable — students reference these while building

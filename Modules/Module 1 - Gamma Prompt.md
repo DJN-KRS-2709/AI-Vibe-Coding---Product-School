@@ -281,33 +281,7 @@ The entire Vibe Coding course is about building tools, not toys. Speed without l
 
 ---
 
-## Slide 18 — "Break It" Exercise
-**"Break It" Exercise**
-
-**What we're breaking:** The illusion that speed = value.
-
-"I gave Lovable the laziest prompt: 'Build me an app for tracking stuff.' Here's what I got."
-
-[Instructor shows a generic, bloated app — task tracker, calendar, notes, dashboard, settings. None of it connected. None of it answering a real question. All of it built in 60 seconds.]
-
-**Lesson:** Vibe coding without a problem frame = toy, not tool. Speed is worthless if you're building the wrong thing fast.
-
----
-
-## Slide 19 — Reflection Moment
-**Reflection Moment**
-
-What assumption could this prototype test if we focused it?
-
-Take 60 seconds. Think about the bloated app we just saw. If you had to pick ONE user problem and ONE core screen, what would you build?
-
-Quick answers from 2–3 volunteers. No wrong answers—just practice framing.
-
-(That framing skill? That's Module 2.)
-
----
-
-## Slide 20 — Accountability: Before We Wrap
+## Slide 18 — Accountability: Before We Wrap
 **ACCOUNTABILITY** | Before We Wrap | 60 seconds
 
 **Post Your Builds** — Drop your best prototype link(s) in #builds—original + upgraded versions.
@@ -318,7 +292,7 @@ Quick answers from 2–3 volunteers. No wrong answers—just practice framing.
 
 ---
 
-## Slide 21 — Wrap + Preview
+## Slide 19 — Wrap + Preview
 **Wrap + Preview**
 
 **No Homework** — You're done. Optional: Rebuild for your real product. Use a screenshot from your actual app. Drop it in Slack if you do.
@@ -329,7 +303,7 @@ See you then.
 
 ---
 
-## Slide 22 — What You Accomplished Today
+## Slide 20 — What You Accomplished Today
 **What You Accomplished Today**
 
 **2 Prototypes Built** — From scratch to shareable in under an hour
@@ -342,7 +316,7 @@ You didn't just learn about AI-assisted prototyping. You experienced the full cy
 
 ---
 
-## Slide 23 — The Journey Starts Here
+## Slide 21 — The Journey Starts Here
 **The Journey Starts Here**
 
 Most PM courses teach theory. This course builds muscle memory. You've already done more prototyping in 2 hours than most teams do in 2 months.
@@ -366,4 +340,4 @@ Next up: Making sure you're building the right thing, not just building fast.
 - Slide 6 (The Tools We Use) — Lovable, partnerships, credits tip
 - Slide 6b (Skills) — Keep it visual: show a markdown file as an example. "Like downloading an app." Quick — 2 minutes max.
 - Slide 16 (Confidence Line retroactive) — "One Framework, Six Modules" title
-- Slides 22–23 — closing slides; celebratory tone
+- Slides 20–21 — closing slides; celebratory tone

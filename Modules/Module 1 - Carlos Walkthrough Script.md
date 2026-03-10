@@ -2,7 +2,7 @@
 
 **Purpose:** Slide-by-slide script to walk Carlos through the Module 1 deck. Use this as you advance through the slides.
 
-**Flow:** Slide 1 (Who Am I) → Open floor [if small] → Slide 2 (Confidence Line preview) → Slide 3+ → advance to each slide → read what's on it → say the script below. 23 slides + Final Project placeholder.
+**Flow:** Slide 1 (Who Am I) → Open floor [if small] → Slide 2 (Confidence Line preview) → Slide 3+ → advance to each slide → read what's on it → say the script below. 21 slides + Final Project placeholder.
 
 ---
 
@@ -251,36 +251,7 @@ The entire course is about building tools, not toys. Speed without learning is j
 
 ---
 
-## Slide 18 — "Break It" Exercise
-
-**On screen:**  
-"Break It" Exercise  
-What we're breaking: The illusion that speed = value  
-"I gave Lovable the laziest prompt: 'Build me an app for tracking stuff.' Here's what I got."  
-[Instructor shows generic, bloated app — task tracker, calendar, notes, dashboard, settings. None connected. All built in 60 seconds.]  
-Lesson: Vibe coding without a problem frame = toy, not tool. Speed is worthless if you're building the wrong thing fast.
-
-**Say:**
-
-> "Every module has a Break It. We're breaking the illusion that speed equals value. I show a prototype from the laziest prompt — task tracker, calendar, notes, dashboard. None connected. All built in 60 seconds. Looks impressive, validates nothing. Lesson: vibe coding without a problem frame = toy. Speed is worthless if you're building the wrong thing fast. Dana's feedback: explain clearly what we're breaking."
-
----
-
-## Slide 19 — Reflection Moment
-
-**On screen:**  
-What assumption could this prototype test if we focused it?  
-Take 60 seconds. Think about the bloated app. If you had to pick ONE user problem and ONE core screen, what would you build?  
-Quick answers from 2–3 volunteers. No wrong answers—just practice framing.  
-(That framing skill? That's Module 2.)
-
-**Say:**
-
-> "Reflection moment. Take 60 seconds. What assumption could this test if we focused it? Pick ONE user problem, ONE core screen. Quick answers from 2–3 volunteers. No wrong answers—practice framing. Teases Module 2."
-
----
-
-## Slide 20 — Accountability: Before We Wrap
+## Slide 18 — Accountability: Before We Wrap
 
 **On screen:**  
 ACCOUNTABILITY | Before We Wrap | 60 seconds  
@@ -294,7 +265,7 @@ Engage — Look at 2 other builds. React or comment. This is your cohort. Suppor
 
 ---
 
-## Slide 21 — Wrap + Preview
+## Slide 19 — Wrap + Preview
 
 **On screen:**  
 No Homework — You're done. Optional: Rebuild for your real product. Use a screenshot from your actual app. Drop in Slack if you do.  
@@ -307,7 +278,7 @@ See you then.
 
 ---
 
-## Slide 22 — What You Accomplished Today
+## Slide 20 — What You Accomplished Today
 
 **On screen:**  
 2 Prototypes Built — From scratch to shareable in under an hour  
@@ -321,7 +292,7 @@ You didn't just learn about AI-assisted prototyping. You experienced the full cy
 
 ---
 
-## Slide 23 — The Journey Starts Here
+## Slide 21 — The Journey Starts Here
 
 **On screen:**  
 Most PM courses teach theory. This course builds muscle memory. You've already done more prototyping in 2 hours than most teams do in 2 months.  
@@ -353,6 +324,5 @@ Next up: Making sure you're building the right thing, not just building fast.
 | 14    | 1:13–1:28  | Hands-on Lab 2                   |
 | 15    | 1:28–1:38  | Breakout: Did It Get Better?     |
 | 16–17 | 1:40–1:52  | Confidence Line, Tool vs Toy     |
-| 18–19 | 1:52–2:00  | Break It, Reflection Moment      |
-| 20–21 | 2:00–2:03  | Accountability, Wrap + Preview   |
-| 22–23 | 2:03–2:05  | What You Accomplished, The Journey Starts Here |
+| 18–19 | 1:52–1:57  | Accountability, Wrap + Preview   |
+| 20–21 | 1:57–2:00  | What You Accomplished, The Journey Starts Here |

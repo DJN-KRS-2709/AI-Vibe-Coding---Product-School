@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 6: Ship It — Go Live</title>
+<title>Module 6: Measure, Learn, Iterate</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -96,6 +96,7 @@
   }
   .tag-demo { background: rgba(249,115,22,0.15); color: #fdba74; }
   .tag-lab { background: rgba(5,150,105,0.12); color: #6ee7b7; }
+  .tag-teaching { background: rgba(234,179,8,0.15); color: #fde047; }
   .tag-gallery { background: rgba(168,85,247,0.12); color: #d8b4fe; }
   .tag-present { background: rgba(225,29,72,0.12); color: #fda4af; }
   .tag-celebrate { background: rgba(234,179,8,0.15); color: #fde047; }
@@ -114,19 +115,20 @@
   .lab-step-body .ls-title { font-size: 15px; font-weight: 700; color: #e0e0f0; margin-bottom: 2px; }
   .lab-step-body .ls-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
 
-  .checklist-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
-  .check-section {
+  .prompt-box {
+    background: #161822; border: 1px solid #252840; border-radius: 10px;
+    padding: 18px 22px; margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    color: #34d399; line-height: 1.7;
+  }
+
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .metric-card {
     background: #161822; border: 1px solid #252840; border-radius: 10px; padding: 18px 20px;
   }
-  .check-section-title {
-    font-size: 12px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.08em; margin-bottom: 10px;
-  }
-  .check-section-title.visual { color: #60a5fa; }
-  .check-section-title.functional { color: #34d399; }
-  .check-section-title.professional { color: #c084fc; }
-  .check-section li { font-size: 13px; padding: 3px 0 3px 20px; color: #8899bb; }
-  .check-section li::before { width: 6px; height: 6px; top: 10px; }
+  .metric-card .mc-title { font-size: 14px; font-weight: 800; color: #f97316; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .metric-card li { font-size: 14px; padding: 3px 0 3px 20px; }
+  .metric-card li::before { width: 6px; height: 6px; top: 10px; }
 
   .six-tabs {
     display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 24px 0;
@@ -168,7 +170,7 @@
     height: 6px; border-radius: 3px; flex: 1; position: relative; overflow: hidden;
   }
   .conf-bar-fill { height: 100%; border-radius: 3px; }
-  .conf-label { font-size: 14px; font-weight: 600; color: #e0e0f0; min-width: 160px; text-align: right; }
+  .conf-label { font-size: 14px; font-weight: 600; color: #e0e0f0; min-width: 200px; text-align: right; }
 
   .deliverable-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
   .deliverable {
@@ -196,6 +198,10 @@
     line-height: 1.5; text-align: center; max-width: 700px; margin: 0 auto;
   }
   .big-quote em { color: #fb923c; }
+
+  .checklist-compact { margin: 16px 0; }
+  .checklist-compact li { font-size: 15px; padding: 4px 0 4px 24px; }
+  .checklist-compact li::before { width: 6px; height: 6px; top: 12px; background: #34d399; }
 
   .flow-line { font-size: 16px; color: #555d6e; margin-top: 24px; }
 
@@ -251,571 +257,428 @@
 <body>
 
 <!-- ===================== SLIDE 1: Title ===================== -->
-<div class="slide active" data-notes="Welcome to the last module. Everything you've built — the prototype, the hypothesis, the precision prompts, the structured code, the real database and auth — it all leads here. Today your product goes live. A real URL. Anyone in the world can access it. We deploy, we polish, and then you present your work to the class. Three waypoints: deploy, polish, present. Let's ship.">
+<div class="slide active" data-notes="Welcome to the final module. Your product is live. People can use it. But shipping isn't the finish line — it's the starting line for learning. Today you'll set up analytics, use AI to analyze your data, and build one improvement based on what you find. Three waypoints: measure, learn, iterate. This is where PMs separate from builders.">
   <div class="slide-inner">
     <div class="module-tag">Module 6 | Vibe Coding Certification</div>
-    <h1>Ship It — Go Live</h1>
+    <h1>Measure, Learn, Iterate</h1>
     <div class="waypoints">
       <div class="waypoint">
         <div class="waypoint-num">1</div>
         <div class="waypoint-text">
-          <div class="wt-title">Deploy</div>
-          <div class="wt-desc">Your product goes live. A real URL anyone can access. No more localhost, no more preview links.</div>
+          <div class="wt-title">Measure</div>
+          <div class="wt-desc">Set up analytics on your deployed product. Know what's happening, not what you think is happening.</div>
         </div>
       </div>
       <div class="waypoint">
         <div class="waypoint-num">2</div>
         <div class="waypoint-text">
-          <div class="wt-title">Polish</div>
-          <div class="wt-desc">Final QA pass. Favicon, meta tags, mobile responsiveness. The details that separate a demo from a product.</div>
+          <div class="wt-title">Learn</div>
+          <div class="wt-desc">Use AI to analyze your product data against your problem statement. Is it solving the problem you defined?</div>
         </div>
       </div>
       <div class="waypoint">
         <div class="waypoint-num">3</div>
         <div class="waypoint-text">
-          <div class="wt-title">Present</div>
-          <div class="wt-desc">Gallery walk + optional pitch. The class experiences each other's products. You show what you built and why it matters.</div>
+          <div class="wt-title">Iterate</div>
+          <div class="wt-desc">Build one evidence-based improvement and redeploy. Not a guess — an improvement backed by data.</div>
         </div>
       </div>
     </div>
-    <div class="flow-line">M1: speed. M2: aim. M3: precision. M4: structure. M5: integration. <strong>M6: the finish line.</strong></div>
+    <p class="flow-line">Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was structure. Module 5 was ship. Module 6 is how you <em>learn from it</em>.</p>
   </div>
 </div>
 
 <!-- ===================== SLIDE 2: Bridge ===================== -->
-<div class="slide" data-notes="In M5, your product became real — data persists, users log in, errors are handled. But it still lives inside Lovable's preview. Today it gets a real URL. Anyone can access it — your manager, your engineering team, your users. We deploy, polish, and then the gallery walk: you'll experience each other's products as real users. After that, presentations. This is the finish line.">
+<div class="slide" data-notes="In M5, you deployed. You shared your URL. Classmates signed up. But here's the question every PM must answer: is it working? Not 'does it load' — you know it loads. Is it solving the problem? That requires data. This is the most advanced module in the course. The complete product lifecycle: understand it, think it, build it, ship it, tweak it.">
   <div class="slide-inner">
-    <h2>Your M5 Product Works. But Only You Can Access It.</h2>
-    <p style="margin-bottom:24px;">Real data persistence, real authentication, real error handling. A working product. But it lives inside Lovable's preview. <strong>Nobody outside this class has seen it.</strong></p>
-    <h3>Today it goes live.</h3>
+    <h2>Your Product Is Live. But How Do You Know It's Working?</h2>
+    <p class="subtitle">Your M5 product has a live URL, real data, real users. But is it solving the problem you defined in M2?</p>
+    <p style="font-size:22px; font-weight:700; color:#fb923c; margin-bottom:24px;">You shipped. Now you learn.</p>
     <div class="agenda">
-      <div class="agenda-item"><div class="agenda-num">1</div><div class="agenda-text"><strong>Deploy</strong> — One-click deployment to a live URL</div></div>
-      <div class="agenda-item"><div class="agenda-num">2</div><div class="agenda-text"><strong>Polish</strong> — Final QA checklist: mobile, performance, meta tags</div></div>
-      <div class="agenda-item"><div class="agenda-num">3</div><div class="agenda-text"><strong>Gallery Walk</strong> — Experience each other's products</div></div>
-      <div class="agenda-item"><div class="agenda-num">4</div><div class="agenda-text"><strong>Presentations</strong> — 5-minute pitch with live demo</div></div>
-      <div class="agenda-item"><div class="agenda-num">5</div><div class="agenda-text"><strong>The Full Journey</strong> — M1 through M6, side by side</div></div>
-      <div class="agenda-item"><div class="agenda-num">6</div><div class="agenda-text"><strong>Wrap</strong> — Certification, what's next</div></div>
+      <div class="agenda-item"><div class="agenda-num">1</div><div class="agenda-text"><strong>Analytics Demo</strong> — Setting up tracking (8 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">2</div><div class="agenda-text"><strong>Lab 1: Connect Analytics</strong> — Instrument your product (15 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">3</div><div class="agenda-text"><strong>AI Analysis</strong> — Evaluating metrics with AI (10 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">4</div><div class="agenda-text"><strong>Lab 2: Analysis Sprint</strong> — Pull data, analyze (15 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">5</div><div class="agenda-text"><strong>Lab 3: One Improvement</strong> — Data-driven fix + redeploy (10 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">6</div><div class="agenda-text"><strong>Gallery Walk + Presentations</strong> — Experience + pitch (55 min)</div></div>
     </div>
   </div>
 </div>
 
-<!-- ===================== SLIDE 3: Demo ===================== -->
-<div class="slide" data-notes="Pull up the M5 Retention Engine in Lovable. Show the preview — it works, data persists, auth works. Then: 'Watch.' Click Deploy. Wait for the URL. Open it in incognito. Open it on your phone. Drop the link in Zoom chat or Slack. 'Click it. You're using my product right now. That URL didn't exist 30 seconds ago.' This is the simplest demo in the course — one click — but the impact is huge.">
+<!-- ===================== SLIDE 3: Analytics Demo ===================== -->
+<div class="slide" data-notes="Pull up the deployed Retention Engine. Open Lovable insights — show page views, sessions, feature usage. Then show GA4 dashboard: real-time view, user flow, engagement. 'Your product has been live since M5. People have been using it. Did you know this data existed?' Keep this to about 5 minutes. The point: data is available, you just need to look.">
   <div class="slide-inner">
     <div class="demo-tag tag-demo">Instructor Demo</div>
-    <h2>From Preview to Production in One Click</h2>
-    <p style="margin-bottom:24px;">The M5 Retention Engine is a working product inside Lovable. Watch:</p>
+    <h2>What's Actually Happening on Your Product?</h2>
+    <p class="subtitle">Two ways to see what's happening on your deployed product:</p>
     <ul>
-      <li>I click <strong>"Deploy."</strong></li>
-      <li>30 seconds later, it has a <strong>live URL.</strong></li>
-      <li>I open it on <strong>my phone.</strong></li>
-      <li>I send the link in chat. <strong>You can open it right now.</strong></li>
+      <li><strong>Lovable Insights</strong> — Built-in analytics dashboard. Page views, user sessions, most-used features.</li>
+      <li><strong>Google Analytics (GA4)</strong> — Industry-standard tracking. Traffic sources, user flows, bounce rates, conversion funnels.</li>
     </ul>
-    <p style="margin-top:28px; font-size:22px; font-weight:700; color:#fff;">That's deployment.</p>
+    <p style="margin-top:24px; font-size:20px; color:#34d399; font-weight:600;">The data is already being collected. You just need to look at it.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 4: What Deployment Means ===================== -->
-<div class="slide" data-notes="Most PMs think deployment requires engineering. Servers, Docker, CI/CD — none of that. Lovable deploys to a CDN. Supabase stays connected. Existing user accounts still work. If you change something, redeploy — the URL updates instantly. One button. Keep this to 2 minutes.">
+<!-- ===================== SLIDE 4: What to Measure ===================== -->
+<div class="slide" data-notes="You don't need 50 metrics. You need 3–5 that map to your problem statement. If your M2 hypothesis was 'PMs will track invite status weekly' — your key metric is: do they? The engagement numbers tell you if people use it. The impact question tells you if it's solving the problem. Framework, not lecture. 3 minutes.">
   <div class="slide-inner">
-    <h2>What Just Happened</h2>
-    <div class="waypoints">
-      <div class="waypoint">
-        <div class="waypoint-num">1</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Your code goes to a CDN</div>
-          <div class="wt-desc">Served from the closest server to whoever opens it. Fast everywhere.</div>
-        </div>
+    <h2>What to Measure</h2>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="mc-title">Engagement</div>
+        <ul>
+          <li>How many users signed up?</li>
+          <li>How many completed the core flow?</li>
+          <li>Which features used most? Ignored?</li>
+        </ul>
       </div>
-      <div class="waypoint">
-        <div class="waypoint-num">2</div>
-        <div class="waypoint-text">
-          <div class="wt-title">You get a permanent URL</div>
-          <div class="wt-desc">Share it with anyone. Works on desktop, mobile, any browser.</div>
-        </div>
+      <div class="metric-card">
+        <div class="mc-title">Retention</div>
+        <ul>
+          <li>Do users come back?</li>
+          <li>Where do users drop off?</li>
+        </ul>
       </div>
-      <div class="waypoint">
-        <div class="waypoint-num">3</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Backend stays connected</div>
-          <div class="wt-desc">Same Supabase database, same auth. Users who signed up in preview still work.</div>
-        </div>
+      <div class="metric-card">
+        <div class="mc-title">Quality</div>
+        <ul>
+          <li>Page load time — under 3s?</li>
+          <li>Error rates — dead ends?</li>
+          <li>Mobile vs. desktop usage</li>
+        </ul>
       </div>
-      <div class="waypoint">
-        <div class="waypoint-num">4</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Updates are instant</div>
-          <div class="wt-desc">Change something in Lovable, redeploy. The live URL updates. No DevOps required.</div>
-        </div>
+      <div class="metric-card">
+        <div class="mc-title">Impact</div>
+        <ul>
+          <li>Does behavior match your M2 hypothesis?</li>
+          <li>Are users doing what you predicted?</li>
+        </ul>
       </div>
     </div>
-    <p style="margin-top:16px; font-size:17px; color:#8899bb;">You don't need to understand infrastructure. You need to click one button.</p>
+    <p style="margin-top:16px; text-align:center; font-size:17px;"><em>The metric that matters most: does user behavior confirm or contradict your original problem statement?</em></p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 5: Lab 1 - Deploy ===================== -->
-<div class="slide" data-notes="This should take 15 minutes. Most deployments take under a minute. THE KEY MOMENT: when a student opens their product on their phone and it works. 'That's your product. On your phone. With a real URL. Anyone in the world can open that right now.' Common issue: Supabase auth redirect URL — help them update it. After 15 min: 'Who's live? Drop your URL in Slack.'">
+<!-- ===================== SLIDE 5: Lab 1 ===================== -->
+<div class="slide" data-notes="15 minutes. Most students will get GA4 connected in under 5 minutes — it's one prompt. The hard part is finding the Measurement ID. Walk them through: analytics.google.com → create property → Web → get ID. If stuck, Lovable insights alone is enough. After 15 min: 'Who can see themselves in the real-time view?'">
   <div class="slide-inner">
-    <div class="demo-tag tag-lab">Hands-On Lab Part 1 · 15 Minutes</div>
-    <h2>Deploy Your Product</h2>
-    <div class="subtitle">Open your M5 prototype in Lovable. You're going live.</div>
+    <div class="demo-tag tag-lab">Hands-On Lab · 15 Minutes</div>
+    <h2>Lab 1: Connect Analytics</h2>
     <div class="lab-step">
       <div class="lab-step-num">1</div>
       <div class="lab-step-body">
-        <div class="ls-title">Click Deploy (3 min)</div>
-        <div class="ls-desc">Get your live URL. Open it in a new incognito window. Does it work?</div>
+        <div class="ls-title">Review Lovable Insights (5 min)</div>
+        <div class="ls-desc">Open your deployed product's insights panel. Screenshot your baseline metrics.</div>
       </div>
     </div>
     <div class="lab-step">
       <div class="lab-step-num">2</div>
       <div class="lab-step-body">
-        <div class="ls-title">Test authentication (2 min)</div>
-        <div class="ls-desc">Create a new account on the live URL. Log in. Does your data persist?</div>
+        <div class="ls-title">Set Up Google Analytics (5 min)</div>
+        <div class="ls-desc">Create a GA4 property → get Measurement ID → prompt Lovable to add the tag → redeploy.</div>
       </div>
     </div>
     <div class="lab-step">
       <div class="lab-step-num">3</div>
       <div class="lab-step-body">
-        <div class="ls-title">Test on mobile (2 min)</div>
-        <div class="ls-desc">Open on your phone. Can you navigate, log in, see your data?</div>
+        <div class="ls-title">Verify Tracking (5 min)</div>
+        <div class="ls-desc">Open your product → check GA4 real-time view → see yourself as a live user.</div>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:14px; color:#666;">If GA4 setup takes too long, Lovable insights alone is enough for the analysis sprint.</p>
+  </div>
+</div>
+
+<!-- ===================== SLIDE 6: AI Analysis Teaching ===================== -->
+<div class="slide" data-notes="This is the most advanced PM skill in the course. You're not asking AI to build something — you're asking it to think with you. Feed it three things: problem statement, hypothesis, data. The AI synthesizes what would take hours. But YOU make the decision. AI accelerates analysis. You own the judgment.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-teaching">Teaching</div>
+    <h2>The PM's New Superpower</h2>
+    <h3>AI + Data + Problem Statement</h3>
+    <p class="subtitle">Traditional: export → spreadsheet → charts → doc → days.<br>AI-powered: metrics + problem statement → AI → evaluation in minutes.</p>
+    <p style="font-size:17px; font-weight:700; color:#fff; margin-bottom:12px;">The formula:</p>
+    <ul>
+      <li><strong>Pull your product metrics</strong> (from Lovable insights or GA4)</li>
+      <li><strong>Pull your problem statement</strong> from your Living PRD (M4)</li>
+      <li><strong>Pull your M2 hypothesis</strong></li>
+      <li><strong>Feed all three to ChatGPT or Gemini</strong></li>
+    </ul>
+    <p style="margin-top:20px; font-size:17px;"><em>The AI doesn't replace your judgment. It accelerates your analysis.</em></p>
+  </div>
+</div>
+
+<!-- ===================== SLIDE 7: AI Demo ===================== -->
+<div class="slide" data-notes="Live demo. Have ChatGPT/Gemini open. Copy problem statement from Living PRD. Copy metrics. Paste together with the analysis prompt. Let students watch the AI response in real-time. Read the key findings aloud. The speed and quality of the response is the wow moment. 5 minutes.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-demo">Instructor Demo</div>
+    <h2>From Metrics to Insight in 2 Minutes</h2>
+    <p class="subtitle">Watch: I pull my Retention Engine metrics, copy my problem statement, and paste both into ChatGPT.</p>
+    <div class="prompt-box">
+      "Here is my problem statement: [X].<br>
+      Here is my hypothesis: [Y].<br>
+      Here are the metrics from my deployed product: [data].<br><br>
+      Evaluate whether we are solving the problem. What does the data suggest? What are the top 3 things I should improve?"
+    </div>
+    <p style="margin-top:16px; font-size:18px; text-align:center;"><em>That analysis would take a product team a day. You just did it in 2 minutes.</em></p>
+  </div>
+</div>
+
+<!-- ===================== SLIDE 8: Lab 2 ===================== -->
+<div class="slide" data-notes="15 minutes. Hardest part: finding the problem statement. If they can't find their Living PRD, a one-sentence version from memory is fine. After 15 min: 'What did AI tell you? Anyone surprised?' Get 2–3 students to share.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lab">Hands-On Lab · 15 Minutes</div>
+    <h2>Lab 2: AI Analysis Sprint</h2>
+    <div class="lab-step">
+      <div class="lab-step-num">1</div>
+      <div class="lab-step-body">
+        <div class="ls-title">Gather Your Metrics (3 min)</div>
+        <div class="ls-desc">Screenshot/copy key metrics from Lovable insights or GA4.</div>
+      </div>
+    </div>
+    <div class="lab-step">
+      <div class="lab-step-num">2</div>
+      <div class="lab-step-body">
+        <div class="ls-title">Find Your Problem Statement (2 min)</div>
+        <div class="ls-desc">Open your Living PRD. Copy problem statement + M2 hypothesis.</div>
+      </div>
+    </div>
+    <div class="lab-step">
+      <div class="lab-step-num">3</div>
+      <div class="lab-step-body">
+        <div class="ls-title">Run AI Analysis (5 min)</div>
+        <div class="ls-desc">Feed metrics + problem statement + hypothesis to ChatGPT or Gemini.</div>
       </div>
     </div>
     <div class="lab-step">
       <div class="lab-step-num">4</div>
       <div class="lab-step-body">
-        <div class="ls-title">Share + test others (3 min)</div>
-        <div class="ls-desc">Drop your URL in Slack. Try 2 classmates' URLs. Sign up. Use them.</div>
+        <div class="ls-title">Identify Top Finding (5 min)</div>
+        <div class="ls-desc">Read the analysis. Highlight the single highest-impact recommendation.</div>
       </div>
     </div>
-    <div class="lab-step">
-      <div class="lab-step-num">5</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Debug if needed (5 min)</div>
-        <div class="ls-desc">Common issues: Supabase auth redirect URL, environment variables.</div>
-      </div>
-    </div>
-    <p style="margin-top:14px; font-size:17px; font-weight:700; color:#fff;">The moment someone else signs up on YOUR product, from THEIR device — that's ship.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 6: Polish Checklist ===================== -->
-<div class="slide" data-notes="This is the pre-launch checklist. You don't need all green — but you should know which ones are red. The gallery walk is in 15 minutes. Your classmates are about to use your product as real users. 2 minutes to explain, then they work on it.">
+<!-- ===================== SLIDE 9: Iteration Prompt ===================== -->
+<div class="slide" data-notes="This is the mindset shift. In M1–M5, you were building. Adding features. Now you're improving based on evidence. The iteration prompt is different: not 'add X' but 'the data shows Y is broken, fix it.' Spotify calls it 'tweak it' — the stage after shipping. The best PMs spend more time here than in any other stage.">
   <div class="slide-inner">
-    <h2>The Details That Separate a Demo From a Product</h2>
-    <div class="checklist-grid">
-      <div class="check-section">
-        <div class="check-section-title visual">Visual</div>
-        <ul>
-          <li>Favicon — custom browser tab icon</li>
-          <li>Page title — not "Vite App"</li>
-          <li>Loading state — no blank flash</li>
-          <li>Mobile — no horizontal scroll</li>
-        </ul>
-      </div>
-      <div class="check-section">
-        <div class="check-section-title functional">Functional</div>
-        <ul>
-          <li>Auth — new user can sign up</li>
-          <li>Error handling — slow network</li>
-          <li>Empty states — new user view</li>
-          <li>Navigation — can get back</li>
-        </ul>
-      </div>
-      <div class="check-section">
-        <div class="check-section-title professional">Professional</div>
-        <ul>
-          <li>Meta tags — link preview</li>
-          <li>Performance — under 3 sec</li>
-          <li>Copy — no "Lorem ipsum"</li>
-        </ul>
-      </div>
+    <div class="demo-tag tag-teaching">Teaching</div>
+    <h2>Evidence-Based Improvement<br>vs. Guess-Based Improvement</h2>
+    <p class="subtitle">Most PMs iterate by instinct. Evidence-based iteration uses data to decide what to fix.</p>
+    <p style="font-size:16px; font-weight:700; color:#fff; margin-bottom:8px;">The Iteration Prompt Pattern:</p>
+    <div class="prompt-box">
+      "Based on this analysis: [paste AI findings].<br>
+      The highest-impact improvement is: [specific finding].<br>
+      Update the product to address this: [describe the change].<br>
+      Keep everything else working."
     </div>
-    <p style="font-size:16px; color:#8899bb; margin-top:8px;">You don't need all green. But you should know which ones are red.</p>
+    <p style="margin-top:16px; font-size:16px; color:#8899bb;">Spotify calls this <em>"tweak it"</em> — the fifth stage: understand it, think it, build it, ship it, tweak it.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 7: Polish Sprint ===================== -->
-<div class="slide" data-notes="15 minutes. Prioritize. Three fastest wins: page title/favicon — one prompt. Mobile responsive — one prompt. Empty states — one prompt. After each fix, redeploy. The URL updates instantly. Walk the room. After 15 min: 'Stop polishing. Redeploy one final time. Your product is about to have real users.'">
+<!-- ===================== SLIDE 10: Lab 3 ===================== -->
+<div class="slide" data-notes="10 minutes. ONE change. Resist the temptation to fix everything. The discipline of prioritization is the skill. After 10 min: 'Who redeployed? What did you change and why?' Every answer should reference the data.">
   <div class="slide-inner">
-    <div class="demo-tag tag-lab">Polish Sprint · 15 Minutes</div>
-    <h2>Fix What Matters Most</h2>
-    <div class="subtitle">Work through the checklist. Prioritize high-impact, fast fixes:</div>
+    <div class="demo-tag tag-lab">Hands-On Lab · 10 Minutes</div>
+    <h2>Lab 3: Build One Improvement</h2>
+    <p class="subtitle">Pick the single highest-impact finding. Build it.</p>
     <div class="lab-step">
-      <div class="lab-step-num" style="background:#f97316;">1</div>
+      <div class="lab-step-num">1</div>
       <div class="lab-step-body">
-        <div class="ls-title">Page title + favicon (1 prompt)</div>
-        <div class="ls-desc">High impact, 30 seconds. Your app has a name and icon in the browser tab.</div>
+        <div class="ls-title">Write your iteration prompt (2 min)</div>
+        <div class="ls-desc">Reference the specific data finding from your AI analysis.</div>
       </div>
     </div>
     <div class="lab-step">
-      <div class="lab-step-num" style="background:#f97316;">2</div>
+      <div class="lab-step-num">2</div>
       <div class="lab-step-body">
-        <div class="ls-title">Mobile responsiveness (1 prompt)</div>
-        <div class="ls-desc">Gallery walk includes phone testing. Make sure it works.</div>
+        <div class="ls-title">Build it in Lovable (5 min)</div>
+        <div class="ls-desc">Paste the prompt. Review the changes. Test.</div>
       </div>
     </div>
     <div class="lab-step">
-      <div class="lab-step-num" style="background:#f97316;">3</div>
+      <div class="lab-step-num">3</div>
       <div class="lab-step-body">
-        <div class="ls-title">Empty states for new users (1 prompt)</div>
-        <div class="ls-desc">Your classmates will sign up as new users. What do they see first?</div>
+        <div class="ls-title">Redeploy (3 min)</div>
+        <div class="ls-desc">Your live URL now reflects a data-driven improvement.</div>
       </div>
     </div>
-    <p style="margin-top:16px; font-size:16px; color:#f97316; font-weight:700;">After each fix → Redeploy. Your live URL updates instantly.</p>
+    <p style="margin-top:20px; text-align:center; font-size:16px;"><em>You just completed the full product lifecycle: understand → hypothesize → build → ship → measure → learn → improve.</em></p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 8: Gallery Walk ===================== -->
-<div class="slide" data-notes="This is the most unique exercise in the course. Students sign up on each other's products with real emails. Try the core flow. Try to break it. Post feedback: 'One thing that impressed me. One thing that confused me.' For online: everyone opens products in their own browser. Post URLs in Slack. 20 minutes. Highlight interesting moments.">
+<!-- ===================== SLIDE 11: Quick Polish ===================== -->
+<div class="slide" data-notes="5 minutes. Quick polish only. Page title, favicon, mobile check. One prompt each. Don't start new features. Redeploy. Gallery walk starts now.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lab">5 Minutes</div>
+    <h2>Quick Polish</h2>
+    <p class="subtitle">Final cleanup before the gallery walk.</p>
+    <ul class="checklist-compact">
+      <li>Page title shows your product name</li>
+      <li>Favicon is set</li>
+      <li>Mobile responsive — check on your phone</li>
+      <li>No placeholder text</li>
+      <li>Live URL works in incognito</li>
+    </ul>
+    <p style="margin-top:20px; font-size:16px;">One prompt per fix. Redeploy. <em>Your classmates are about to use your product.</em></p>
+  </div>
+</div>
+
+<!-- ===================== SLIDE 12: Gallery Walk ===================== -->
+<div class="slide" data-notes="This is the most unique exercise in the course. Products have been measured and improved with data. Sign up with your actual email. Try the core flow. Try to break it. 20 minutes. Monitor Slack for reactions.">
   <div class="slide-inner">
     <div class="demo-tag tag-gallery">Gallery Walk · 20 Minutes</div>
     <h2>Experience Each Other's Products</h2>
-    <div class="subtitle">This is not a demo. You're using real products, built by PMs, deployed to real URLs.</div>
     <div class="gallery-rule">
       <div class="gr-num">1</div>
       <div class="gr-text"><strong>Post your live URL</strong> in the Slack channel</div>
     </div>
     <div class="gallery-rule">
       <div class="gr-num">2</div>
-      <div class="gr-text"><strong>Open 4–5 classmates' products.</strong> You're a real user now.</div>
+      <div class="gr-text"><strong>Open 4–5 classmates' products</strong> — you're a real user now</div>
     </div>
     <div class="gallery-rule">
       <div class="gr-num">3</div>
-      <div class="gr-text"><strong>Real user test:</strong> Sign up. Try the core flow. Try to break it. Note: one thing that impressed you, one thing that confused you.</div>
+      <div class="gr-text"><strong>For each product:</strong> Sign up with a real email · Try the core flow · Try to break it · Note one thing that impressed you, one that confused you</div>
     </div>
     <div class="gallery-rule">
       <div class="gr-num">4</div>
-      <div class="gr-text"><strong>Post feedback in Slack</strong> — tag the builder with your one-line review.</div>
+      <div class="gr-text"><strong>Post feedback in Slack</strong> — tag the builder with your one-line review</div>
     </div>
+    <p style="margin-top:16px; font-size:15px; color:#8899bb;">These products have been <em>measured and improved with real data</em>. Can you tell?</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 9: Gallery Debrief ===================== -->
-<div class="slide" data-notes="Quick debrief — 5 minutes. 'What surprised you?' Most common: 'I was surprised how real it felt.' Then: 'A live URL changes how people perceive your work. It's not a prototype anymore. It's a product.' Transition: 'You've used each other's products. Now let's hear the stories behind them.'">
+<!-- ===================== SLIDE 13: Gallery Debrief ===================== -->
+<div class="slide" data-notes="Quick debrief. 'Which product felt the most real?' Then: 'Could you tell which had been improved based on data vs. just polished?' The answer reveals the M6 lesson: evidence-based iteration produces different results. Transition to presentations.">
   <div class="slide-inner">
     <h2>What Did You Notice?</h2>
-    <div class="waypoints">
-      <div class="waypoint">
-        <div class="waypoint-num">?</div>
-        <div class="waypoint-text">
-          <div class="wt-title">What surprised you about using someone else's product?</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">?</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Which product felt the most "real"? What made it feel that way?</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">?</div>
-        <div class="waypoint-text">
-          <div class="wt-title">What's the difference between a preview and a deployed product?</div>
-        </div>
-      </div>
-    </div>
-    <div class="big-quote" style="margin-top:32px;">
-      A live URL changes how people perceive your work. It's not a prototype anymore. <em>It's a product.</em>
-    </div>
+    <ul>
+      <li><strong>Which product felt the most "real"?</strong> What made it feel that way?</li>
+      <li><strong>Could you tell</strong> which products had been improved based on data?</li>
+      <li><strong>What's the difference</strong> between a product that's shipped and one that's been iterated on?</li>
+    </ul>
+    <p style="margin-top:28px; text-align:center; font-size:20px; font-weight:700; color:#fb923c;">The difference between M5 and M6: M5 products work. M6 products learn.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 10: Presentation Format ===================== -->
-<div class="slide" data-notes="5 minutes each. Strict time. No slides — the product is the presentation. The M1 vs M6 side-by-side is the most powerful moment. If 20+ students, select 6–8 for live presentations. Others post Loom walkthroughs in Slack.">
+<!-- ===================== SLIDE 14: Presentation Format ===================== -->
+<div class="slide" data-notes="5 minutes each. Strict time. No slides. The new element: 'What the Data Told You.' That's the M6 differentiator. If 20+ students, select 6–8 live; others post Loom walkthroughs.">
   <div class="slide-inner">
-    <div class="demo-tag tag-present">Student Presentations · 5 Min Each</div>
+    <div class="demo-tag tag-present">Student Presentations · 5 Minutes Each</div>
     <h2>Your 5-Minute Pitch</h2>
     <div class="pitch-format">
       <div class="pitch-step">
         <div class="pitch-time">0:30</div>
-        <div class="pitch-body">
-          <div class="pb-title">The Problem</div>
-          <div class="pb-desc">What user problem are you solving? One sentence.</div>
-        </div>
+        <div class="pitch-body"><div class="pb-title">The Problem</div><div class="pb-desc">What user problem are you solving? One sentence.</div></div>
       </div>
       <div class="pitch-step">
         <div class="pitch-time">0:30</div>
-        <div class="pitch-body">
-          <div class="pb-title">The Hypothesis</div>
-          <div class="pb-desc">What did you test? What was your M2 assumption?</div>
-        </div>
+        <div class="pitch-body"><div class="pb-title">The Hypothesis</div><div class="pb-desc">What did you test? Your M2 assumption?</div></div>
       </div>
       <div class="pitch-step">
         <div class="pitch-time">2:00</div>
-        <div class="pitch-body">
-          <div class="pb-title">Live Demo</div>
-          <div class="pb-desc">Show your deployed product. Walk through the core flow. Show one integration.</div>
-        </div>
+        <div class="pitch-body"><div class="pb-title">Live Demo</div><div class="pb-desc">Show your deployed product. Core flow + one key integration.</div></div>
       </div>
       <div class="pitch-step">
         <div class="pitch-time">1:00</div>
-        <div class="pitch-body">
-          <div class="pb-title">What You Learned</div>
-          <div class="pb-desc">What worked? What surprised you? What would you change?</div>
-        </div>
+        <div class="pitch-body"><div class="pb-title">What the Data Told You</div><div class="pb-desc">Analytics findings. AI analysis. What you improved based on evidence.</div></div>
       </div>
       <div class="pitch-step">
         <div class="pitch-time">1:00</div>
-        <div class="pitch-body">
-          <div class="pb-title">The Journey</div>
-          <div class="pb-desc">M1 build vs. M6 build. Side by side. What changed?</div>
-        </div>
+        <div class="pitch-body"><div class="pb-title">The Journey</div><div class="pb-desc">M1 vs M6 side by side. What changed?</div></div>
       </div>
     </div>
-    <p style="font-size:17px; font-weight:700; color:#fff;">No slides required. Your product IS the presentation.</p>
+    <p style="text-align:center; font-size:16px;"><em>No slides required. Your product IS the presentation.</em></p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 11: Presentations ===================== -->
-<div class="slide" data-notes="Call presenters by name. After each, invite 1–2 questions. Encourage fire emoji and 'one thing I'd steal' reactions. If more students than slots: remaining post 2-min Loom walkthroughs. Keep energy celebratory. Applaud after each one.">
+<!-- ===================== SLIDE 15: Presentations Begin ===================== -->
+<div class="slide" data-notes="Call presenters by name. 1–2 audience questions after each. Encourage reactions in chat. Keep energy celebratory. This is the culmination of the course.">
   <div class="slide-inner">
     <div class="demo-tag tag-present">Live Presentations</div>
-    <h2>Let's See What You Built</h2>
-    <div class="subtitle" style="max-width:600px;">Selected students present their 5-minute pitch with live demo.</div>
-    <div style="background:#161822; border:1px solid #252840; border-radius:12px; padding:24px 28px; margin:24px 0;">
-      <p style="font-size:15px; color:#8899bb; margin-bottom:12px;">Feedback format for audience:</p>
-      <p style="font-size:18px; color:#e0e0f0; margin-bottom:8px;">🔥 Drop a fire emoji when something impresses you</p>
-      <p style="font-size:18px; color:#e0e0f0; margin-bottom:8px;">💡 <em>"One thing I'd steal from this product: ___"</em></p>
-      <p style="font-size:18px; color:#e0e0f0;">❓ <em>"One question I'd ask as a PM: ___"</em></p>
-    </div>
+    <h2>Let's See What You Built — and What You Learned</h2>
+    <p class="subtitle" style="text-align:center;">Feedback format for audience:</p>
+    <ul>
+      <li>Drop a <strong>fire emoji</strong> in chat when something impresses you</li>
+      <li><strong>"One thing I'd steal from this product: ___"</strong></li>
+      <li><strong>"One question I'd ask as a PM: ___"</strong></li>
+    </ul>
   </div>
 </div>
 
-<!-- ===================== SLIDE 12: Six-Tab Reveal ===================== -->
-<div class="slide" data-notes="The final reveal. If students have all six versions — have them open all six tabs. 30 seconds of silence. 'In Module 1, you typed one prompt and got a page. In Module 6, you deployed a multi-user product with a live URL that anyone in the world can access. You built this. All of it.' Don't rush. Let it land.">
+<!-- ===================== SLIDE 16: Six-Tab Reveal ===================== -->
+<div class="slide" data-notes="This is the emotional peak. Have students open all six tabs. 30 seconds of silence. 'In Module 1, you typed one prompt and got a page. In Module 6, you used AI to analyze your deployed product's data and made an evidence-based improvement. That's not prototyping. That's product management.' Don't rush.">
   <div class="slide-inner">
     <h2>M1. M2. M3. M4. M5. M6.</h2>
-    <div class="subtitle">Open six tabs. The complete arc.</div>
+    <h3 style="color:#8899bb; font-weight:400;">The Complete Arc.</h3>
     <div class="six-tabs">
-      <div class="tab">
-        <div class="tab-mod m1">M1</div>
-        <div class="tab-name">Speed</div>
-        <div class="tab-desc">One prompt. Static. No data.</div>
-      </div>
-      <div class="tab">
-        <div class="tab-mod m2">M2</div>
-        <div class="tab-name">Aim</div>
-        <div class="tab-desc">Hypothesis. Design-matched. Hardcoded.</div>
-      </div>
-      <div class="tab">
-        <div class="tab-mod m3">M3</div>
-        <div class="tab-name">Precision</div>
-        <div class="tab-desc">5+ screens. States. Prompt chain.</div>
-      </div>
-      <div class="tab">
-        <div class="tab-mod m4">M4</div>
-        <div class="tab-name">Structure</div>
-        <div class="tab-desc">GitHub. Supabase. Living PRD.</div>
-      </div>
-      <div class="tab">
-        <div class="tab-mod m5">M5</div>
-        <div class="tab-name">Integration</div>
-        <div class="tab-desc">Real DB. Auth. Error handling.</div>
-      </div>
-      <div class="tab active-tab">
-        <div class="tab-mod m6">M6</div>
-        <div class="tab-name">Ship</div>
-        <div class="tab-desc">Deployed. Live URL. Shipped.</div>
-      </div>
+      <div class="tab"><div class="tab-mod m1">Module 1</div><div class="tab-name">Speed</div><div class="tab-desc">One prompt, one page. Static.</div></div>
+      <div class="tab"><div class="tab-mod m2">Module 2</div><div class="tab-name">Aim</div><div class="tab-desc">Real data, hypothesis. Hardcoded.</div></div>
+      <div class="tab"><div class="tab-mod m3">Module 3</div><div class="tab-name">Precision</div><div class="tab-desc">5+ screens, states, chain.</div></div>
+      <div class="tab"><div class="tab-mod m4">Module 4</div><div class="tab-name">Structure</div><div class="tab-desc">Clean code, Living PRD.</div></div>
+      <div class="tab"><div class="tab-mod m5">Module 5</div><div class="tab-name">Ship</div><div class="tab-desc">Database, auth, deployed.</div></div>
+      <div class="tab active-tab"><div class="tab-mod m6">Module 6</div><div class="tab-name">Learn</div><div class="tab-desc">Measured. Analyzed. Iterated.</div></div>
     </div>
-    <p style="margin-top:24px; font-size:20px; font-weight:700; color:#fff; text-align:center;">Same tool. Same you. Six modules.</p>
+    <p style="margin-top:24px; text-align:center; font-size:18px;"><strong>Same tool. Same you. Six modules.</strong> The complete product lifecycle.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 13: Deliverables ===================== -->
-<div class="slide" data-notes="Name what they actually have. Not what they learned — what they built. A deployed product, a spec, a codebase, a handoff note, a reusable prompt library, and a presentation. That's a portfolio. If you walked into a stakeholder meeting with this package, you'd be further along than most product teams after a quarter.">
+<!-- ===================== SLIDE 17: Deliverables ===================== -->
+<div class="slide" data-notes="Name what they actually have. A deployed product. A spec. A codebase. A handoff note. A reusable prompt library. And a presentation backed by real data. That's a portfolio. More convincing than most quarterly reviews.">
   <div class="slide-inner">
     <h2>Your Complete Product Package</h2>
-    <div class="subtitle">Over six modules, you built:</div>
     <div class="deliverable-grid">
-      <div class="deliverable">
-        <div class="del-num">1</div>
-        <div class="del-title">A Deployed Product</div>
-        <div class="del-desc">Live URL, real database, real auth, error handling. Desktop + mobile.</div>
-      </div>
-      <div class="deliverable">
-        <div class="del-num">2</div>
-        <div class="del-title">A Living PRD</div>
-        <div class="del-desc">AI-extracted spec: what it does, who it's for, what's tested, what's next.</div>
-      </div>
-      <div class="deliverable">
-        <div class="del-num">3</div>
-        <div class="del-title">A GitHub Repository</div>
-        <div class="del-desc">Version-controlled, refactored code with README. Any engineer can clone.</div>
-      </div>
-      <div class="deliverable">
-        <div class="del-num">4</div>
-        <div class="del-title">An Engineering Handoff</div>
-        <div class="del-desc">What's real, what's mocked, edge cases handled, where to start.</div>
-      </div>
-      <div class="deliverable">
-        <div class="del-num">5</div>
-        <div class="del-title">A Living Prompt Pack</div>
-        <div class="del-desc">Full prompt chain: build, validate, precision, structure, integration, deploy.</div>
-      </div>
-      <div class="deliverable">
-        <div class="del-num">6</div>
-        <div class="del-title">A Presentation</div>
-        <div class="del-desc">You pitched a live product to an audience of PMs. The product spoke for itself.</div>
-      </div>
+      <div class="deliverable"><div class="del-num">1</div><div class="del-title">Deployed Product</div><div class="del-desc">Live URL, real database, real auth. Improved based on data.</div></div>
+      <div class="deliverable"><div class="del-num">2</div><div class="del-title">Living PRD</div><div class="del-desc">AI-extracted spec: what it does, who it's for, what's next.</div></div>
+      <div class="deliverable"><div class="del-num">3</div><div class="del-title">GitHub Repository</div><div class="del-desc">Version-controlled code. Any engineer can clone and continue.</div></div>
+      <div class="deliverable"><div class="del-num">4</div><div class="del-title">Engineering Handoff Note</div><div class="del-desc">What's real, what's mocked, edge cases, where to start.</div></div>
+      <div class="deliverable"><div class="del-num">5</div><div class="del-title">Living Prompt Pack</div><div class="del-desc">Full prompt chain M1–M6 including analytics + iteration.</div></div>
+      <div class="deliverable"><div class="del-num">6</div><div class="del-title">Data-Driven Presentation</div><div class="del-desc">You pitched what you built AND what the data told you.</div></div>
     </div>
-    <p style="margin-top:16px; font-size:17px; font-weight:600; color:#e0e0f0; text-align:center;">This is not a course artifact. This is a product portfolio.</p>
+    <p style="margin-top:16px; text-align:center; font-size:16px;">This is not a course artifact. This is a <em>product portfolio</em>.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 14: Confidence Line ===================== -->
-<div class="slide" data-notes="This is the full confidence line. In M1, most weren't sure AI tools could build anything useful. Now you've shipped a multi-user product. That's not because the tool is magic — it's because you learned how to describe what you want, when to validate, how to be precise, when to structure, how to integrate, and when to ship. That methodology doesn't expire.">
+<!-- ===================== SLIDE 18: Confidence Line ===================== -->
+<div class="slide" data-notes="This is the full confidence line. M5 was ship confidence. M6 adds the final layer: product confidence. You don't just build. You ship, measure, learn, and iterate. That's the complete PM skill set. It doesn't expire when you leave this course.">
   <div class="slide-inner">
     <h2>The Vibe Coding Confidence Line</h2>
     <div class="confidence-line">
-      <div class="conf-item" style="background:rgba(96,165,250,0.06);">
-        <div class="conf-mod" style="color:#60a5fa;">M1</div>
-        <div class="conf-bar" style="background:rgba(96,165,250,0.15);"><div class="conf-bar-fill" style="width:16%; background:#60a5fa;"></div></div>
-        <div class="conf-label">Speed confidence</div>
-      </div>
-      <div class="conf-item" style="background:rgba(251,191,36,0.06);">
-        <div class="conf-mod" style="color:#fbbf24;">M2</div>
-        <div class="conf-bar" style="background:rgba(251,191,36,0.15);"><div class="conf-bar-fill" style="width:33%; background:#fbbf24;"></div></div>
-        <div class="conf-label">Validation confidence</div>
-      </div>
-      <div class="conf-item" style="background:rgba(52,211,153,0.06);">
-        <div class="conf-mod" style="color:#34d399;">M3</div>
-        <div class="conf-bar" style="background:rgba(52,211,153,0.15);"><div class="conf-bar-fill" style="width:50%; background:#34d399;"></div></div>
-        <div class="conf-label">Precision confidence</div>
-      </div>
-      <div class="conf-item" style="background:rgba(192,132,252,0.06);">
-        <div class="conf-mod" style="color:#c084fc;">M4</div>
-        <div class="conf-bar" style="background:rgba(192,132,252,0.15);"><div class="conf-bar-fill" style="width:66%; background:#c084fc;"></div></div>
-        <div class="conf-label">Structure confidence</div>
-      </div>
-      <div class="conf-item" style="background:rgba(248,113,113,0.06);">
-        <div class="conf-mod" style="color:#f87171;">M5</div>
-        <div class="conf-bar" style="background:rgba(248,113,113,0.15);"><div class="conf-bar-fill" style="width:83%; background:#f87171;"></div></div>
-        <div class="conf-label">Integration confidence</div>
-      </div>
-      <div class="conf-item" style="background:rgba(249,115,22,0.08);">
-        <div class="conf-mod" style="color:#f97316;">M6</div>
-        <div class="conf-bar" style="background:rgba(249,115,22,0.15);"><div class="conf-bar-fill" style="width:100%; background:#f97316;"></div></div>
-        <div class="conf-label">Ship confidence</div>
-      </div>
+      <div class="conf-item"><div class="conf-mod" style="color:#60a5fa;">M1</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:17%; background:#60a5fa;"></div></div><div class="conf-label">"I can build something in 10 min"</div></div>
+      <div class="conf-item"><div class="conf-mod" style="color:#fbbf24;">M2</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:33%; background:#fbbf24;"></div></div><div class="conf-label">"I can test the right thing"</div></div>
+      <div class="conf-item"><div class="conf-mod" style="color:#34d399;">M3</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:50%; background:#34d399;"></div></div><div class="conf-label">"I can build exactly what I describe"</div></div>
+      <div class="conf-item"><div class="conf-mod" style="color:#c084fc;">M4</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:67%; background:#c084fc;"></div></div><div class="conf-label">"I can structure it for a real team"</div></div>
+      <div class="conf-item"><div class="conf-mod" style="color:#f87171;">M5</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:83%; background:#f87171;"></div></div><div class="conf-label">"I can make it real and ship it"</div></div>
+      <div class="conf-item"><div class="conf-mod" style="color:#f97316;">M6</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:100%; background:#f97316;"></div></div><div class="conf-label">"I can learn from it and make it better"</div></div>
     </div>
-    <div class="big-quote" style="margin-top:20px; font-size:20px;">
-      From "I wonder if AI can build things" to <em>"I just shipped a product."</em>
-    </div>
+    <p style="margin-top:20px; text-align:center; font-size:16px;">From "I wonder if AI can build things" to <em>"I just shipped, measured, and improved a product."</em></p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 15: What's Next ===================== -->
-<div class="slide" data-notes="Three paths. Ship to real users — your product is live, run a real pilot. Hand off to engineering — you have the complete package. Start your next product — your prompt pack is portable, you'll move 10x faster. Most PMs apply this methodology to a real project within two weeks.">
-  <div class="slide-inner">
-    <h2>This Doesn't End Here</h2>
-    <div class="waypoints">
-      <div class="waypoint">
-        <div class="waypoint-num" style="background:#059669;">1</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Ship to Real Users</div>
-          <div class="wt-desc">Your product has a live URL. Show it to real users. Run a pilot. Collect feedback. Iterate: build-show-learn-decide.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num" style="background:#059669;">2</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Hand Off to Engineering</div>
-          <div class="wt-desc">Living PRD + GitHub repo + Engineering Handoff Note = the complete package. An engineer can clone and start tomorrow.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num" style="background:#059669;">3</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Start Your Next Product</div>
-          <div class="wt-desc">Your Living Prompt Pack is portable. Import your prompts. You'll move 10x faster the second time.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 16: Certification ===================== -->
-<div class="slide" data-notes="You've completed the Vibe Coding Certification. You can build, validate, and ship products using AI tools — and you've proven it by doing it. Keep building. Keep shipping. If digital certificates exist, share them now. Celebrate.">
+<!-- ===================== SLIDE 19: Certification ===================== -->
+<div class="slide" data-notes="Celebrate. Share digital certificates. You can build, validate, ship, measure, and iterate products using AI tools — and you've proven it. Your prompt pack is portable. Your methodology is transferable. Keep building. Keep shipping. Keep learning.">
   <div class="slide-inner" style="text-align:center;">
     <div class="cert-badge">🎓</div>
-    <div class="module-tag">Vibe Coding Certification</div>
-    <h1>Complete</h1>
-    <p style="margin:20px auto; max-width:600px;">You can take a product idea from zero to deployed in hours, not months. You can validate hypotheses with working prototypes, not slide decks. You can ship — to a live URL, with a real backend, ready for real users.</p>
-    <div style="display:flex; gap:20px; justify-content:center; margin-top:28px; flex-wrap:wrap;">
-      <div style="background:#161822; border:1px solid #252840; border-radius:8px; padding:12px 20px; font-size:14px; color:#8899bb;">🌐 Your deployed product URL</div>
-      <div style="background:#161822; border:1px solid #252840; border-radius:8px; padding:12px 20px; font-size:14px; color:#8899bb;">📦 Your GitHub repository</div>
-      <div style="background:#161822; border:1px solid #252840; border-radius:8px; padding:12px 20px; font-size:14px; color:#8899bb;">👥 Alumni community access</div>
-    </div>
+    <h2>Vibe Coding Certification — Complete</h2>
+    <p class="subtitle" style="margin:0 auto 24px;">You've earned it.</p>
+    <ul style="text-align:left; max-width:600px; margin:0 auto;">
+      <li>You can take a product idea from <strong>zero to deployed</strong> in hours</li>
+      <li>You can <strong>ship to real users</strong> AND measure whether it's working</li>
+      <li>You can use AI to <strong>analyze, iterate, and improve</strong> based on evidence</li>
+    </ul>
+    <p style="margin-top:28px; font-size:18px; font-weight:700; color:#fff;">Keep building. Keep shipping. <span class="accent">Keep learning.</span></p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 17: Accountability ===================== -->
-<div class="slide" data-notes="Five things before you leave. Verify your live URL in incognito. Finalize the Engineering Handoff Note. Export your Living Prompt Pack. Post your final build with M1 link for comparison. Celebrate — you shipped a product.">
-  <div class="slide-inner">
-    <h2>Before You Close Your Laptop</h2>
-    <div class="waypoints">
-      <div class="waypoint">
-        <div class="waypoint-num">1</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Verify your live URL</div>
-          <div class="wt-desc">Open in incognito. Send to someone outside this class. Does it work?</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">2</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Finalize your Engineering Handoff Note</div>
-          <div class="wt-desc">What's real, what's mocked, what's next.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">3</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Export your Living Prompt Pack</div>
-          <div class="wt-desc">M1–M6 prompt chain. Save as markdown. Your portable skill.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">4</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Post your final build in #builds</div>
-          <div class="wt-desc">Live URL + one-sentence summary. Include your M1 link for comparison.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">5</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Celebrate</div>
-          <div class="wt-desc">You just shipped a product. Most product teams take quarters. You did it in six sessions.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 18: Thank You ===================== -->
-<div class="slide" data-notes="Simple close. 'Thank you for showing up and building. You came in wondering if AI tools were real. You're leaving with a deployed product, a spec, a codebase, and a methodology you can apply tomorrow. That's Vibe Coding. Now go ship something.' If energy allows, invite one student for a final reflection.">
+<!-- ===================== SLIDE 20: Survey ===================== -->
+<div class="slide" data-notes="Standard end-of-module survey. QR code or link.">
   <div class="slide-inner" style="text-align:center;">
-    <h1 style="font-size:42px; margin-bottom:28px;">Thank You</h1>
-    <div class="big-quote">
-      You came in wondering if AI tools were real.<br>
-      You're leaving with a <em>deployed product.</em>
-    </div>
-    <p style="margin-top:32px; font-size:20px; color:#8899bb;">That's Vibe Coding.</p>
-    <p style="margin-top:12px; font-size:17px; color:#555d6e;">Keep building. Keep shipping. Stay curious.</p>
+    <h2>Your Opinion Matters To Us</h2>
+    <p class="subtitle" style="margin:0 auto;">Scan the QR code or use the link to share your feedback.<br>Your insights help us improve each cohort.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 19: Survey ===================== -->
-<div class="slide" data-notes="">
-  <div class="slide-inner" style="text-align:center;">
-    <div class="module-tag">Module 6 Complete</div>
-    <h1>Your Opinion Matters To Us</h1>
-    <div class="subtitle" style="margin:20px auto;">Scan the QR code or use the link to share your feedback.<br>Your insights help us improve each cohort.</div>
-    <div style="width:180px; height:180px; background:#1a1a2e; border:2px solid #252840; border-radius:16px; margin:32px auto; display:flex; align-items:center; justify-content:center; color:#444; font-size:14px; font-weight:600;">QR Code</div>
-  </div>
-</div>
 
 <!-- ===================== UI CHROME ===================== -->
 <div class="nav">
@@ -823,7 +686,7 @@
   <button class="nav-btn" onclick="next()" title="Next (→)">&#8250;</button>
 </div>
 
-<div class="slide-counter"><span id="current">1</span> / <span id="total">19</span></div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">20</span></div>
 
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
 

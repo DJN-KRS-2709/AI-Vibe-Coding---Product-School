@@ -1,7 +1,7 @@
 # Module 5: Make It Real — Speaker Notes for Carlos
 
 > For Carlos only. High-level bullets explaining what we're doing and why.
-> Slide numbers match the Gamma Prompt (slides 1–20). Update if Gamma reorders.
+> Slide numbers match the Gamma Prompt (slides 1–23). Update if Gamma reorders.
 
 ---
 
@@ -15,12 +15,13 @@
 
 ---
 
-## The M5 Wow (Two Beats + Chaos)
+## The M5 Wow (Three Beats + Chaos)
 
 - **Beat 1 — The Persistence Moment (after database):** Student enters data. Refreshes the page. The data is still there. Opens Supabase dashboard — the data is sitting in a real table. "This isn't a mockup anymore." This is the single biggest reaction in the course.
 - **Beat 2 — The Multi-User Moment (after auth):** Student logs in as User A. Sees their data. Logs out. Signs up as User B. Completely different data. "This is a real product." The room shifts.
 - **Chaos Round (bonus beat):** Instructor triggers failures. Students who handled edge cases see error messages. Students who didn't see blank screens. Visceral contrast. "Real products break. Yours should break gracefully."
-- **Crescendo:** Five-tab reveal — M1 / M2 / M3 / M4 / M5 side by side. The progression from single page to multi-user product with a real backend.
+- **Beat 3 — The Deploy Moment (after five-tab reveal):** Instructor clicks Deploy in Lovable. Gets a live URL. Opens it on phone. Drops it in Slack. Students deploy their own products. They open them on their phones. They share URLs with classmates. "That's your product. On your phone. With a real URL." This is the emotional climax.
+- **Crescendo:** Five-tab reveal → deploy → product on their phone. The progression from single page to live deployed product.
 
 ---
 
@@ -128,7 +129,7 @@
 ## Slide 14 | Quick Share
 
 - "What was easier than expected? What was harder?"
-- Surface insights — fast, 3 minutes
+- Surface insights — fast, 1 minute
 - Transition line: "If you can describe your backend in one sentence, you can write the handoff note"
 
 ---
@@ -136,10 +137,10 @@
 ## Slide 15 | Break It — Zero Error Handling
 
 - The cautionary tale: a real product with database, auth, APIs — but zero error handling
-- Try breaking it live: slow network, invalid email, database unreachable, concurrent edits, 10k results
+- Pick the two most visceral failures: slow network (infinite spinner) and database unreachable (blank screen)
 - Show the WITH vs. WITHOUT error handling side by side. Same failure. Completely different user experience.
 - Key message: "A backend without error handling is worse than no backend at all. Users trust that 'real' products work."
-- 10 minutes. The visceral contrast makes the point.
+- 5 minutes. Compressed to make room for deployment. The contrast still makes the point.
 
 ---
 
@@ -148,25 +149,34 @@
 - Same pattern as M4's four-tab reveal — now five
 - Let students open all five. 30 seconds of silence.
 - "In M1, you typed a prompt and got a page. In M5, you have a multi-user product with a real database, authentication, and error handling. That's not a prototype anymore."
-- This is the crescendo of the production half. M6 is about shipping — M5 is where the product becomes real.
+- This is the crescendo — and you're about to deploy it right now.
 
 ---
 
-## Slides 17–20 | Wrap
+## Slides 17–19 | Deploy — THE CLIMAX
 
-- **Slide 17 — What You Did Today:** Real Database, Authentication, Edge Cases (mirrors slide 1's three waypoints)
-- **Slide 18 — Accountability:** Post prototype link ("Refresh it. The data persists."), try 2 others, update Living Prompt Pack with integration prompts, start Engineering Handoff Note
-- **Slide 19 — M6 Preview:** "Deploy to a live URL. Gallery walk. Optional pitch." One module left.
-- **Slide 20 — Survey**
+- **Slide 17 — Instructor Demo: Deploy:** Pull up the Retention Engine in Lovable. Click Deploy. Get the live URL. Open on phone. Drop in Slack. "One click. 30 seconds. Live." The simplicity IS the point. Students watch a PM deploy a real product.
+- **Slide 18 — Lab: Students Deploy (15 min):** Students deploy their own products. Step by step: click deploy, get URL, test in incognito, test on phone, share in Slack, try classmates' URLs. THE KEY MOMENT: when a student opens their product on their phone and it works. Walk the room. If deploy fails, most common issue is Supabase auth redirect URL not including the new deployment domain.
+- **Slide 19 — Deploy Debrief (3 min):** "What surprised you?" "What's the difference between preview and deployed?" Quick reactions. The difference is mostly psychological but it matters. A live URL changes perception. "It's not a prototype anymore. It's a product."
+
+---
+
+## Slides 20–23 | Wrap
+
+- **Slide 20 — What You Did Today:** Real Database, Authentication, Edge Cases, Deployed (mirrors slide 1 but now four accomplishments). "You crossed the line from infrastructure to deployed product in one session."
+- **Slide 21 — Accountability:** Post live URL ("It's live. Try it." + M1 link for comparison), try 2 other live products, update Living Prompt Pack, finalize Engineering Handoff Note
+- **Slide 22 — M6 Preview:** "Measure, Learn, Iterate. Your product is live. Now what?" Analytics, AI-powered analysis, evidence-based improvements, gallery walk, presentations. One module left.
+- **Slide 23 — Survey**
 
 ---
 
 ## Tools
 
 - **Integration Planner** — used DURING lab (slides 11–12). Scenario auto-populate, database schema planning, auth flow, edge case checklist, 3 prompt cards with templates, Engineering Handoff Note section. Full preview + export.
+- **Lovable Deploy** — used DURING deploy lab (slide 18). One-click deploy from Lovable's Share menu. Students get a live URL.
 - **Living Prompt Pack Builder** (from M3) — continues growing. Students add integration prompts (database, auth, edge cases) to their pack.
 - **Living PRD Extractor** (from M4) — students update their Living PRD to reflect what's now real vs. mocked after integration.
-- Together: plan → build → document → hand off
+- Together: plan → build → document → deploy → hand off
 
 ---
 
@@ -182,25 +192,29 @@
 | Lab Part 1: Database | 11 | ~15 min |
 | Lab Part 2: Auth + Edge Cases | 12 | ~15 min |
 | Chaos Round | 13 | ~10 min |
-| Quick Share | 14 | ~3 min |
-| Break It | 15 | ~10 min |
+| Quick Share | 14 | ~1 min |
+| Break It | 15 | ~5 min |
 | Five-Tab Reveal | 16 | ~3 min |
-| Wrap | 17–20 | ~8 min |
-| **Total** | | **~107 min** |
+| Deploy Demo | 17 | ~3 min |
+| Lab: Deploy | 18 | ~15 min |
+| Deploy Debrief | 19 | ~3 min |
+| Wrap | 20–23 | ~8 min |
+| **Total** | | **~121 min** |
 
-Hands-on ratio: ~55% (Lab Parts 1–2 + Mini Activity + Chaos Round + Break It)
-Buffer: ~13 min for extended lab time or troubleshooting
+Hands-on ratio: ~58% (Lab Parts 1–2 + Mini Activity + Chaos Round + Break It + Deploy Lab)
+Buffer: ~1 min. If tight, compress Deploy Lab to 10 min or trim Chaos Round to 7 min.
 
 ---
 
 ## How It Addresses Carlos's Feedback
 
-- **"Every module should come with a wow moment"** → Two distinct beats: The Persistence Moment (data survives refresh — Beat 1) and The Multi-User Moment (different users see different data — Beat 2). Plus Chaos Round as a bonus beat.
-- **"Fireworks all the time"** → 55% hands-on. The wow happens in students' hands, not instructor's. Walk the room for both beats.
+- **"Every module should come with a wow moment"** → Three distinct beats: The Persistence Moment (Beat 1), The Multi-User Moment (Beat 2), and The Deploy Moment (Beat 3). Plus Chaos Round as a bonus beat.
+- **"Fireworks all the time"** → 58% hands-on. The wow happens in students' hands, not instructor's. Walk the room for all three beats.
 - **"I can connect to a database"** → This IS the module. Students see their data in the Supabase dashboard. Carlos's exact quote is the design principle.
 - **"I can connect to Stripe. Oh, shit."** → External APIs covered in teaching (Slide 6). Stripe, SendGrid, any documented API. The pattern is: describe the trigger, describe the action, AI writes the integration.
+- **"I can push something to production. That would be magic."** → Deployment is now the M5 climax. One-click deploy, live URL, product on their phone. Carlos's exact words become reality.
 - **"Bring some of M5 up... at least a connection to the database"** → Done in M4. M5 now starts with Supabase already connected and builds real schemas, auth, edge cases on top.
-- **"Lovable doesn't want to say prototyping anymore"** → M5 explicitly crosses from prototyping to building. "It won't be a prototype anymore. It'll be a working product."
-- **"Each module significantly better"** → Five-tab reveal makes the progression undeniable. M4: infrastructure connected. M5: infrastructure working. The jump is from "has a database" to "has data in the database."
-- **"Break It is memorable"** → Break It with zero error handling: blank screens, crashes, silent failures. Side-by-side contrast with the handled version. Visceral.
-- **"The magical moment... at least one in every class"** → Beat 1 (persistence) is the most universal reaction in the course. Every student will have it. Beat 2 (multi-user) is the "oh shit, this is a real product" moment.
+- **"Lovable doesn't want to say prototyping anymore"** → M5 explicitly crosses from prototyping to shipping. Students deploy a live product.
+- **"Each module significantly better"** → Five-tab reveal makes the progression undeniable. Then deployment makes it permanent — live URL, accessible to anyone.
+- **"Break It is memorable"** → Break It with zero error handling: blank screens, crashes, silent failures. Compressed to 5 min but the visceral contrast still lands.
+- **"The magical moment... at least one in every class"** → Beat 1 (persistence) is the most universal reaction. Beat 3 (deploy — product on their phone) is the emotional climax of the entire course.

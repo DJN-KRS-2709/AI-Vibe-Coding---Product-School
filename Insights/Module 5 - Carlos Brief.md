@@ -1,9 +1,9 @@
 # Module 5: Make It Real — Carlos Brief
 
 ## TL;DR
-M5 is where the prototype becomes a product. It stops being a facade and becomes a working product with a real database, real authentication, and real error handling. **Your prototype actually works now.**
+M5 is where the prototype becomes a product AND goes live. It stops being a facade and becomes a working product with a real database, real authentication, real error handling — and then deploys to a live URL anyone can access. **Your prototype actually works now. And it's in the world.**
 
-Carlos's exact words: *"I can connect to a database. I can connect to Stripe. Oh, shit. I can push something to production. That would be magic."* M5 is that magic.
+Carlos's exact words: *"I can connect to a database. I can connect to Stripe. Oh, shit. I can push something to production. That would be magic."* M5 delivers every part of that quote — including the production push.
 
 ---
 
@@ -15,14 +15,14 @@ Carlos's exact words: *"I can connect to a database. I can connect to Stripe. Oh
 | M2 | Hypothesis-driven prototype | "It has real data" | "What did you learn?" |
 | M3 | Multi-screen product with states | "It behaves like software" | "When did engineering build this?" |
 | M4 | Living PRD + clean code | "It wrote its own spec" | "Send me the spec" |
-| **M5** | **Real database, auth, error handling** | **"It actually works"** | **"Wait — this has a real database?"** |
-| M6 | Live deployed product | "It's in production" | "Can I share this?" |
+| **M5** | **Real database, auth, error handling + deployed** | **"It's live. On my phone."** | **"Wait — this has a real URL?"** |
+| M6 | Analytics, AI analysis, iteration | "It's getting better from data" | "How did you measure that?" |
 
 ---
 
 ## The M5 WOW Moment
 
-**The paradigm shift:** Everything through M4 was visual. Beautiful, polished, but a facade — hardcoded data, no persistence, no real users. M5 is when the facade becomes real.
+**The paradigm shift:** Everything through M4 was visual. Beautiful, polished, but a facade — hardcoded data, no persistence, no real users. M5 is when the facade becomes real — and then goes live.
 
 **Beat 1 — The Persistence Moment (after database):**
 Student enters data. Refreshes the page. The data is still there. They close the tab, reopen it — still there. *"It persists. This isn't a mockup anymore."*
@@ -35,7 +35,10 @@ Student logs in as User A. Sees their data. Logs out. Creates a new account as U
 **The Chaos Round (bonus beat):**
 Instructor triggers a "chaos event" — API returns an error, database connection drops. Students who handled edge cases see error messages. Students who didn't see blank screens. *"Real products break. Yours should break gracefully."*
 
-**The Partner Test:** Try to break your partner's prototype — disconnect WiFi, enter bad data, create edge cases. If it handles failures gracefully, it's production-ready.
+**Beat 3 — The Deploy Moment (after five-tab reveal):**
+Instructor clicks Deploy in Lovable. Gets a live URL. Opens it on their phone. Drops it in Slack. Students deploy their own products. They open them on their phones. They share URLs with classmates. Someone signs up on your product from THEIR device. *"That's your product. On your phone. With a real URL. Anyone in the world can open that right now."*
+
+This is the emotional climax of the entire course. Every student will have this moment.
 
 ---
 
@@ -77,16 +80,16 @@ Students apply the same 3-prompt pattern to their M3/M4 prototypes:
 
 ## What Makes M5 Different
 
-### M4 graduated the prototype. M5 makes it functional.
+### M4 graduated the prototype. M5 makes it functional and ships it.
 
 In M4, the prototype "wrote its own spec" — the Living PRD described the product, the code was clean, an engineer could read it. But the product itself was still a facade. Hardcoded data. No users. No persistence.
 
-M5 is the moment the facade falls away. Data persists. Users are real. Errors are handled. The prototype stops being a demonstration and becomes a working system.
+M5 is the moment the facade falls away AND the product goes live. Data persists. Users are real. Errors are handled. Then it deploys to a live URL. The prototype stops being a demonstration and becomes a shipped product.
 
 This matters because:
-- **Stakeholders can test it** — not just see a demo, but actually use it. Sign up, enter data, come back tomorrow.
+- **Stakeholders can use it** — not just see a demo, but open a URL on their phone. Sign up, enter data, come back tomorrow. Share it with anyone.
 - **Engineers can evaluate the backend** — real schema, real auth model, real edge case handling. The technical handoff becomes concrete.
-- **The PM can answer "is this real?"** — not "it looks real" but "yes, the data is in Supabase, the auth works, and it handles failures."
+- **The PM can answer "is this real?"** — not "it looks real" but "yes, it's deployed. Here's the URL."
 
 ---
 
@@ -94,13 +97,13 @@ This matters because:
 
 | Carlos Principle | How M5 Delivers |
 |-----------------|----------------|
-| **Every module has fireworks** | The persistence moment (data survives refresh) and the multi-user moment (different users, different data). Two distinct "oh shit" beats. |
-| **Hands-on over slides** | 30 min lab (database + auth + edge cases) + 10 min chaos round + 10 min Break It = 50 min hands-on. Students build real integrations, not watch demos. |
+| **Every module has fireworks** | Three distinct beats: persistence moment (Beat 1), multi-user moment (Beat 2), deploy moment (Beat 3). Plus Chaos Round. |
+| **Hands-on over slides** | 30 min lab (database + auth + edge cases) + 10 min chaos round + 5 min Break It + 15 min deploy lab = 60 min hands-on. 58% hands-on ratio. |
 | **"I can connect to a database"** | Directly delivers Carlos's vision. Students see Supabase dashboard with their data. It's real. |
-| **Production readiness** | M5 is the production threshold. After M5, the prototype has a real backend. M6 is about deploying it. |
+| **"I can push something to production"** | Deployment is now the M5 climax. One-click deploy, live URL, product on their phone. Carlos's exact words become reality. |
 | **Engineering handoff** | Handoff Note (Deliverable #5) starts here — honest assessment of what's real vs. mocked. Engineers can inherit it. |
-| **Not just prototyping** | M5 explicitly crosses the line from prototyping to building. "Lovable doesn't want to say prototyping anymore." |
-| **Break It is memorable** | Break It exercise: prototype with zero error handling. Blank screens, crashes, silent failures. Visceral contrast with the handled version. |
+| **Not just prototyping** | M5 explicitly crosses the line from prototyping to shipping. Students deploy a live product. |
+| **Break It is memorable** | Break It exercise: compressed to 5 min but the visceral contrast still lands. |
 
 ---
 
@@ -115,11 +118,14 @@ This matters because:
 | 10 | Teaching | 3 min | Security checklist (60-second version) |
 | 11-12 | Lab | 30 min | Part 1: Database (15 min). Part 2: Auth + Edge Cases (15 min). Using Integration Planner. |
 | 13 | Chaos | 10 min | Instructor triggers failures. Students handle them. Group discussion. |
-| 14 | Share | 3 min | Quick share: what surprised you? |
-| 15 | Break It | 10 min | The prototype with zero error handling |
+| 14 | Share | 1 min | Quick share: what surprised you? |
+| 15 | Break It | 5 min | The prototype with zero error handling (compressed) |
 | 16 | Wow | 3 min | Five-tab reveal: M1 → M2 → M3 → M4 → M5 side by side |
-| 17-20 | Wrap | 8 min | Takeaways, accountability, M6 preview, survey |
-| | | **~107 min** | **Buffer: ~13 min for extended lab time or troubleshooting** |
+| 17 | Demo | 3 min | Instructor deploys in Lovable. Live URL. Opens on phone. Drops in Slack. |
+| 18 | Lab | 15 min | Students deploy. Test on phone. Share URLs. Try classmates' products. |
+| 19 | Debrief | 3 min | Deploy debrief: "What's the difference between preview and deployed?" |
+| 20-23 | Wrap | 8 min | Takeaways, accountability, M6 preview, survey |
+| | | **~121 min** | **Buffer: ~1 min. If tight, compress Deploy Lab to 10 min.** |
 
 ---
 
@@ -140,4 +146,4 @@ The lab companion for M5. Guides students through planning and executing their b
 
 ## One Sentence
 
-M5 is the moment the prototype stops being a facade and starts being a product — real data, real users, real error handling — delivering Carlos's "oh shit, I can connect to a database" moment.
+M5 is the moment the prototype stops being a facade and becomes a deployed product — real data, real users, real error handling, live URL — delivering Carlos's entire quote: "I can connect to a database. I can push something to production."

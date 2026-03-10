@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 6 — Measure, Learn, Iterate Deck Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0f0f13;
+    color: #e0e0e5;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b1a 50%, #3d1f0f 100%);
+    padding: 60px 48px 48px;
+    border-bottom: 3px solid #e97316;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #e97316; margin-bottom: 12px;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .hero .sub { font-size: 16px; color: #a08870; line-height: 1.6; max-width: 780px; }
+
+  .stats-bar { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-size: 28px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; font-weight: 600; color: #6b7fa3; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .wow-banner {
+    background: #1a1510;
+    border: 1px solid #3d2a1a;
+    border-radius: 10px;
+    margin-top: 28px;
+    padding: 20px 24px;
+  }
+  .wow-banner h3 {
+    font-size: 13px; font-weight: 700; color: #fb923c;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .wow-banner p {
+    font-size: 13px; color: #9898a8; line-height: 1.7; margin-bottom: 6px;
+  }
+  .wow-banner p:last-child { margin-bottom: 0; }
+  .wow-banner strong { color: #fdba74; }
+  .wow-banner em { color: #f472b6; font-style: normal; font-weight: 600; }
+
+  .m5-recap {
+    background: #151520;
+    border: 1px solid #2a2a40;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .m5-recap h3 {
+    font-size: 14px; font-weight: 800; color: #e97316;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
+  }
+  .m5-recap .m5-flow {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .m5-block {
+    background: #1a1a2e; border: 1px solid #2a2a45; border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .m5-block-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #e97316; margin-bottom: 6px;
+  }
+  .m5-block-title { font-size: 13px; font-weight: 700; color: #c8c8d8; margin-bottom: 4px; }
+  .m5-block-desc { font-size: 11px; color: #777; line-height: 1.5; }
+  .m5-block-note {
+    font-size: 10px; font-weight: 700; color: #fb923c;
+    margin-top: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 20px 48px; background: #13131a;
+    border-bottom: 1px solid #1e1e2e;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #888; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .content { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .section-header {
+    margin: 48px 0 20px; padding: 20px 28px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .section-header:first-child { margin-top: 8px; }
+  .section-header h2 { font-size: 20px; font-weight: 800; color: #fff; }
+  .section-header .section-time {
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.1);
+    padding: 6px 14px; border-radius: 8px;
+  }
+
+  .section-opening { background: linear-gradient(135deg, #1e293b, #1e3a5f); border-left: 4px solid #60a5fa; }
+  .section-demo { background: linear-gradient(135deg, #2d1b4e, #4c1d95); border-left: 4px solid #a78bfa; }
+  .section-lab { background: linear-gradient(135deg, #1a3a2a, #065f46); border-left: 4px solid #34d399; }
+  .section-teaching { background: linear-gradient(135deg, #2a2a1a, #78350f); border-left: 4px solid #fbbf24; }
+  .section-gallery { background: linear-gradient(135deg, #3b2a1a, #92400e); border-left: 4px solid #fbbf24; }
+  .section-present { background: linear-gradient(135deg, #3b1a2a, #9f1239); border-left: 4px solid #f472b6; }
+  .section-wrap { background: linear-gradient(135deg, #2d1b1a, #7c2d12); border-left: 4px solid #fb923c; }
+
+  .slide-card {
+    background: #1a1a24; border: 1px solid #2a2a3a; border-radius: 12px;
+    margin-bottom: 16px; overflow: hidden; transition: border-color 0.2s;
+  }
+  .slide-card:hover { border-color: #3a3a5a; }
+
+  .slide-top { display: flex; align-items: flex-start; gap: 20px; padding: 24px 28px 20px; }
+  .slide-number {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .slide-main { flex: 1; min-width: 0; }
+  .slide-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+
+  .slide-type {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 5px;
+  }
+  .type-title { background: #1e3a5f; color: #60a5fa; }
+  .type-demo { background: #4c1d95; color: #c4b5fd; }
+  .type-handson { background: #065f46; color: #6ee7b7; }
+  .type-teaching { background: #78350f; color: #fcd34d; }
+  .type-gallery { background: #78350f; color: #fcd34d; }
+  .type-debrief { background: #3b1a2a; color: #f9a8d4; }
+  .type-present { background: #9f1239; color: #fda4af; }
+  .type-wrap { background: #7c2d12; color: #fdba74; }
+  .type-wow { background: #7c2d12; color: #fdba74; }
+
+  .slide-title { font-size: 18px; font-weight: 700; color: #e8e8f0; margin-bottom: 8px; line-height: 1.3; }
+  .slide-content { font-size: 13px; color: #9898a8; line-height: 1.7; }
+  .slide-content strong { color: #c0c0d0; font-weight: 600; }
+  .slide-content em { color: #fb923c; font-style: normal; font-weight: 600; }
+  .slide-content ul { margin: 8px 0 4px 18px; }
+  .slide-content li { margin-bottom: 4px; }
+
+  .six-tabs {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 12px 0;
+  }
+  .tab-card {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 10px 8px; text-align: center;
+  }
+  .tab-module {
+    font-size: 9px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 4px;
+  }
+  .tab-label { font-size: 10px; font-weight: 600; color: #c8c8d8; margin-bottom: 3px; }
+  .tab-desc { font-size: 9px; color: #666; line-height: 1.4; }
+  .tab-m1 .tab-module { color: #60a5fa; }
+  .tab-m2 .tab-module { color: #fbbf24; }
+  .tab-m3 .tab-module { color: #34d399; }
+  .tab-m4 .tab-module { color: #c084fc; }
+  .tab-m5 .tab-module { color: #f87171; }
+  .tab-m6 .tab-module { color: #fb923c; }
+  .tab-m6 { border-color: #fb923c; background: #1a1812; }
+
+  .deliverables-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;
+  }
+  .deliverable-item {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .deliverable-item .d-num {
+    font-size: 10px; font-weight: 800; color: #fb923c;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
+  }
+  .deliverable-item .d-title { font-size: 12px; font-weight: 700; color: #c8c8d8; margin-bottom: 2px; }
+  .deliverable-item .d-desc { font-size: 11px; color: #777; line-height: 1.4; }
+
+  .confidence-line {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 12px 0;
+  }
+  .conf-step {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 10px 8px; text-align: center;
+  }
+  .conf-step .conf-module {
+    font-size: 9px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.04em; margin-bottom: 4px;
+  }
+  .conf-step .conf-label { font-size: 10px; font-weight: 600; color: #c8c8d8; margin-bottom: 2px; }
+  .conf-step .conf-desc { font-size: 9px; color: #666; line-height: 1.3; }
+
+  .slide-notes {
+    background: #15151e; border-top: 1px solid #252535;
+    padding: 16px 28px 18px; padding-left: 96px;
+  }
+  .notes-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #555; margin-bottom: 6px;
+  }
+  .slide-notes p { font-size: 12px; color: #777; line-height: 1.65; margin-bottom: 6px; }
+  .slide-notes p:last-child { margin-bottom: 0; }
+  .slide-notes strong { color: #999; }
+
+  .time-badge {
+    font-size: 11px; font-weight: 700; color: #666;
+    margin-left: auto; white-space: nowrap; flex-shrink: 0;
+  }
+
+  .prompt-box {
+    background: #13131e; border: 1px solid #252540; border-radius: 8px;
+    padding: 12px 16px; margin: 8px 0; font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; color: #34d399; line-height: 1.6;
+  }
+
+  .bg-opening { background: #2563eb; }
+  .bg-demo { background: #7c3aed; }
+  .bg-lab { background: #059669; }
+  .bg-teaching { background: #d97706; }
+  .bg-gallery { background: #d97706; }
+  .bg-present { background: #e11d48; }
+  .bg-wrap { background: #ea580c; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Deck Plan — Module 6: Measure, Learn, Iterate</div>
+  <h1>Module 6: Measure, Learn, Iterate</h1>
+  <div class="sub">
+    Students' products are already live from M5. Now they close the product lifecycle loop: set up analytics, use AI to analyze data against their problem statement, build one evidence-based improvement, and present the full journey. This is the most advanced PM module in the course.
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">20</span><span class="stat-label">Slides</span></div>
+    <div class="stat"><span class="stat-num">~140</span><span class="stat-label">min</span></div>
+    <div class="stat"><span class="stat-num">~56%</span><span class="stat-label">Hands-On</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">Deliverables</span></div>
+  </div>
+
+  <div class="wow-banner">
+    <h3>THE M6 WOW MOMENTS</h3>
+    <p><strong>Beat 1 — The Data Reveal:</strong> Students open analytics and see real usage data from their deployed product. They didn't know this data existed. <em>"People have been using my product and I can see exactly what they did."</em></p>
+    <p><strong>Beat 2 — AI-Powered Analysis:</strong> Students feed metrics + problem statement to AI and get a coherent product analysis in 2 minutes. <em>"AI just told me what to fix — and it referenced my original problem statement."</em></p>
+    <p><strong>The Iteration Close:</strong> Students build one improvement based on AI analysis and redeploy. The full product lifecycle complete: understand → hypothesize → build → ship → measure → learn → improve.</p>
+    <p><strong>Crescendo — Six-Tab Reveal + Presentations:</strong> M1 through M6 side by side. Students pitch what they built AND what the data told them. <em>The M1 vs M6 comparison is the most powerful moment in the course.</em></p>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div> Opening</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Demo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Teaching</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> Hands-On Lab</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div> Gallery Walk</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e11d48"></div> Presentations</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ea580c"></div> Wrap-Up</div>
+</div>
+
+<div class="content">
+
+<!-- M5 RECAP -->
+<div class="m5-recap">
+  <h3>WHAT M5 ESTABLISHED (Starting Point for M6)</h3>
+  <div class="m5-flow">
+    <div class="m5-block">
+      <div class="m5-block-label">M5 Core</div>
+      <div class="m5-block-title">Real Database + Auth</div>
+      <div class="m5-block-desc">Supabase tables, persistent data, real authentication. Different users see different data.</div>
+      <div class="m5-block-note">LIVE &amp; DEPLOYED</div>
+    </div>
+    <div class="m5-block">
+      <div class="m5-block-label">M5 Core</div>
+      <div class="m5-block-title">Error Handling</div>
+      <div class="m5-block-desc">Loading states, error messages, empty states, retry logic.</div>
+      <div class="m5-block-note">LIVE &amp; DEPLOYED</div>
+    </div>
+    <div class="m5-block">
+      <div class="m5-block-label">M5 New</div>
+      <div class="m5-block-title">Deployed to Live URL</div>
+      <div class="m5-block-desc">Product accessible to anyone. Tested on phone. Shared with classmates.</div>
+      <div class="m5-block-note">THE STARTING POINT FOR M6</div>
+    </div>
+    <div class="m5-block">
+      <div class="m5-block-label">M4 Core</div>
+      <div class="m5-block-title">Engineering Handoff</div>
+      <div class="m5-block-desc">Living PRD, clean code, GitHub repo, handoff note.</div>
+      <div class="m5-block-note">FINALIZED IN M6</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: OPENING ═══════════ -->
+<div class="section-header section-opening">
+  <h2>Opening</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 1 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">1</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-title">Title + Waypoints</span></div>
+      <div class="slide-title">Measure, Learn, Iterate</div>
+      <div class="slide-content">
+        <strong>Three things today:</strong><br>
+        <strong>1. Measure</strong> — Set up analytics on your deployed product. Know what's happening.<br>
+        <strong>2. Learn</strong> — Use AI to analyze your data against your problem statement.<br>
+        <strong>3. Iterate</strong> — Build one evidence-based improvement and redeploy.<br><br>
+        Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was structure. Module 5 was ship. Module 6 is how you learn from it.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"Welcome to the final module. Your product is live. People can use it. But shipping isn't the finish line — it's the starting line for learning. Today you'll set up analytics, use AI to analyze your data, and build one improvement based on what you find. Three waypoints: measure, learn, iterate."</p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-opening">2</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-title">Bridge + Agenda</span></div>
+      <div class="slide-title">Your Product Is Live. But How Do You Know It's Working?</div>
+      <div class="slide-content">
+        Your M5 product has a live URL, real data, real users. But is it solving the problem you defined in M2?<br><br>
+        <strong>You shipped. Now you learn.</strong><br><br>
+        Today's flow: Analytics Demo → Lab 1: Connect Analytics → AI Analysis → Lab 2: Analysis Sprint → Iteration → Lab 3: One Improvement → Polish → Gallery Walk → Presentations → Wrap
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"In M5, you deployed. You shared your URL. Classmates signed up. But here's the question every PM must answer: is it working? Not 'does it load' — you know it loads. Is it solving the problem? That requires data. This is the most advanced module. The complete product lifecycle: understand it, think it, build it, ship it, tweak it."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: ANALYTICS DEMO ═══════════ -->
+<div class="section-header section-demo">
+  <h2>Analytics Demo + What to Measure</h2>
+  <span class="section-time">8 min</span>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">3</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-demo">Live Demo</span></div>
+      <div class="slide-title">What's Actually Happening on Your Product?</div>
+      <div class="slide-content">
+        <strong>INSTRUCTOR DEMO</strong><br><br>
+        Two ways to see what's happening on your deployed product:<br><br>
+        <strong>1. Lovable Insights</strong> — Built-in analytics. Page views, sessions, feature usage.<br>
+        <strong>2. Google Analytics (GA4)</strong> — Industry-standard. Traffic sources, user flows, bounce rates, funnels.<br><br>
+        Watch: I open my deployed Retention Engine. I pull up the insights panel. Then I show what GA4 adds on top.<br><br>
+        <em>The data is already being collected. You just need to look at it.</em>
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Pull up the deployed Retention Engine. Open Lovable insights — show metrics. Then show GA4 dashboard: real-time view, user flow, engagement. "Your product has been live since M5. People have been using it. Did you know this data existed?" Don't go deep on GA4 setup — the lab covers that.</p>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">4</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">What to Measure</div>
+      <div class="slide-content">
+        Focus on four categories:<br><br>
+        <strong>Engagement:</strong> How many signed up? Completed the core flow? Which features used most?<br>
+        <strong>Retention:</strong> Do users come back? Where do they drop off?<br>
+        <strong>Quality:</strong> Page load time, error rates, mobile vs desktop<br>
+        <strong>Impact:</strong> Does user behavior match your M2 hypothesis?<br><br>
+        The metric that matters most: <em>does user behavior confirm or contradict your original problem statement?</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"You don't need 50 metrics. You need 3–5 that map to your problem statement. If your M2 hypothesis was 'PMs will track invite status weekly' — your key metric is: do they? The engagement numbers tell you if people use it. The impact question tells you if it's solving the problem." Framework, not lecture. 3 minutes.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: LAB 1 ═══════════ -->
+<div class="section-header section-lab">
+  <h2>Lab 1 — Connect Analytics</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">5</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Lab Part 1</span></div>
+      <div class="slide-title">Set Up Tracking on Your Product</div>
+      <div class="slide-content">
+        <strong>Step 1 (5 min):</strong> Open your deployed product's Lovable insights panel. Review what's tracked. Screenshot your baseline.<br><br>
+        <strong>Step 2 (5 min):</strong> Set up Google Analytics. Create a GA4 property. Get the Measurement ID. Prompt Lovable:<br>
+        <div class="prompt-box">"Add Google Analytics tracking to this project. Use Measurement ID: G-XXXXXXXXXX. Add the gtag script to the head of the main HTML file. Track page views automatically."</div>
+        Redeploy after adding the tag.<br><br>
+        <strong>Step 3 (5 min):</strong> Verify — open your product, check GA4 real-time view. You should see yourself as a live user.<br><br>
+        If GA4 takes too long, Lovable insights alone is enough for today.
+      </div>
+    </div>
+    <span class="time-badge">15 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Most students will get GA4 connected in under 5 min — it's one prompt. The hard part is finding the Measurement ID. Walk them through: analytics.google.com → create property → Web → get ID. If stuck on GA4, Lovable insights alone is enough. After 15 min: "Who can see themselves in the real-time view? That's your product, being measured, right now."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: AI ANALYSIS ═══════════ -->
+<div class="section-header section-demo">
+  <h2>AI-Powered Product Analysis</h2>
+  <span class="section-time">10 min</span>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">6</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">The PM's New Superpower: AI + Data + Problem Statement</div>
+      <div class="slide-content">
+        Traditional: export → spreadsheet → charts → doc → days.<br>
+        AI-powered: metrics + problem statement → AI → evaluation in minutes.<br><br>
+        <strong>The formula:</strong><br>
+        1. Pull your product metrics<br>
+        2. Pull your problem statement from your Living PRD<br>
+        3. Pull your M2 hypothesis<br>
+        4. Feed all three to ChatGPT or Gemini<br><br>
+        <em>The AI doesn't replace your judgment. It accelerates your analysis.</em>
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"This is the most advanced PM skill in the course. You're not asking AI to build something — you're asking it to think with you. Feed it three things: problem statement, hypothesis, actual data. The AI synthesizes what would take you hours. It flags patterns you might miss. But YOU make the decision. AI accelerates analysis. You own the judgment."</p>
+  </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-demo">7</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-demo">Live Demo</span></div>
+      <div class="slide-title">Watch: From Metrics to Insight in 2 Minutes</div>
+      <div class="slide-content">
+        <strong>INSTRUCTOR DEMO</strong><br><br>
+        Live: Pull Retention Engine metrics. Copy problem statement from Living PRD. Paste both into ChatGPT.<br><br>
+        <strong>Input:</strong> Problem statement + hypothesis + metrics data<br><br>
+        <strong>Output:</strong><br>
+        • AI evaluation of whether the hypothesis is confirmed<br>
+        • Patterns in user behavior<br>
+        • Suggested improvements ranked by impact<br><br>
+        <em>That analysis would take a product team a day. You just did it in 2 minutes.</em>
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>THIS IS BEAT 2.</strong> Have ChatGPT/Gemini open. Copy problem statement from Living PRD. Copy metrics from insights/GA4. Paste together with the analysis prompt. Let students watch the AI response in real-time. Read the key findings aloud. The speed and quality of the response is the wow moment.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: LAB 2 ═══════════ -->
+<div class="section-header section-lab">
+  <h2>Lab 2 — AI Analysis Sprint</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">8</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Lab Part 2</span></div>
+      <div class="slide-title">Analyze Your Product with AI</div>
+      <div class="slide-content">
+        <strong>Step 1 (3 min):</strong> Open insights or GA4. Screenshot/copy your key metrics.<br><br>
+        <strong>Step 2 (2 min):</strong> Open your Living PRD (from M4). Copy problem statement + M2 hypothesis.<br><br>
+        <strong>Step 3 (5 min):</strong> Open ChatGPT or Gemini. Use this prompt:<br>
+        <div class="prompt-box">"I built a product to solve this problem: [problem statement]. My hypothesis was: [hypothesis]. Here are the metrics from my deployed product: [paste metrics]. Evaluate: is this product solving the problem? What does the data suggest? What are the top 3 things I should improve, ranked by likely impact?"</div>
+        <strong>Step 4 (5 min):</strong> Read the AI analysis. Highlight the single highest-impact recommendation.
+      </div>
+    </div>
+    <span class="time-badge">15 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Hardest part: finding the problem statement. If they can't find their Living PRD, a one-sentence problem statement from memory is fine. After 15 min: "What did AI tell you? Anyone surprised?" Get 2–3 students to share. The learning moment: data told them something they didn't expect about their own product.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: ITERATION ═══════════ -->
+<div class="section-header section-teaching">
+  <h2>Iteration — Evidence Over Guesses</h2>
+  <span class="section-time">15 min</span>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-teaching">9</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-teaching">Teaching</span></div>
+      <div class="slide-title">The Iteration Prompt: Evidence-Based Improvement</div>
+      <div class="slide-content">
+        Most PMs iterate by instinct: "I think the onboarding is confusing."<br>
+        Evidence-based: "Users drop off at step 3. The CTA is unclear. Rewrite step 3."<br><br>
+        <strong>The Iteration Prompt Pattern:</strong><br>
+        <div class="prompt-box">"Based on this analysis: [paste AI findings]. The highest-impact improvement is: [specific finding]. Update the product to address this: [describe the change]. Keep everything else working."</div>
+        This is different from M1–M5 prompts. Not building new features — improving existing ones based on evidence.<br><br>
+        Spotify calls this <em>"tweak it"</em> — the fifth stage: understand it, think it, build it, ship it, tweak it.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"This is the mindset shift. In M1–M5 you were building — adding features. Now you're improving based on evidence. The iteration prompt is different: not 'add X' but 'the data shows Y is broken, fix it like this.' Spotify calls it 'tweak it.' The best PMs spend more time here than in any other stage."</p>
+  </div>
+</div>
+
+<!-- Slide 10 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">10</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Lab Part 3</span></div>
+      <div class="slide-title">Build One Data-Driven Improvement</div>
+      <div class="slide-content">
+        Pick the single highest-impact finding from your AI analysis. Build it.<br><br>
+        <strong>Step 1 (2 min):</strong> Write your iteration prompt using the pattern above.<br>
+        <strong>Step 2 (5 min):</strong> Paste into Lovable. Review the changes. Test.<br>
+        <strong>Step 3 (3 min):</strong> Redeploy. Your live URL now reflects a data-driven improvement.<br><br>
+        <em>You just completed the full product lifecycle: understand → hypothesize → build → ship → measure → learn → improve.</em>
+      </div>
+    </div>
+    <span class="time-badge">10 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>ONE change. The temptation is to fix everything — resist it. The discipline of prioritization is the skill. After 10 min: "Who redeployed? What did you change and why?" Every answer should reference the data that drove the decision.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: POLISH ═══════════ -->
+<div class="section-header section-lab">
+  <h2>Quick Polish</h2>
+  <span class="section-time">5 min</span>
+</div>
+
+<!-- Slide 11 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-lab">11</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-handson">Quick Polish</span></div>
+      <div class="slide-title">Final Cleanup</div>
+      <div class="slide-content">
+        Quick checklist before gallery walk:<br><br>
+        ☐ Page title shows your product name<br>
+        ☐ Favicon is set<br>
+        ☐ Mobile responsive<br>
+        ☐ No placeholder text<br>
+        ☐ Live URL works in incognito<br><br>
+        One prompt per fix. Redeploy. Your classmates are about to use your product.
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"5 minutes. Quick polish only. Page title, favicon, mobile check. One prompt each. Don't start new features. Just clean up what's there. Redeploy. Gallery walk starts now."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: GALLERY WALK ═══════════ -->
+<div class="section-header section-gallery">
+  <h2>Gallery Walk — Experience Each Other's Products</h2>
+  <span class="section-time">25 min</span>
+</div>
+
+<!-- Slide 12 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-gallery">12</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-gallery">Gallery Walk</span></div>
+      <div class="slide-title">Gallery Walk: Use Each Other's Products</div>
+      <div class="slide-content">
+        <strong>Rules:</strong><br>
+        1. Post your live URL in Slack<br>
+        2. Open 4–5 classmates' products — you're a real user now<br>
+        3. For each product:<br>
+        &nbsp;&nbsp;&nbsp;• Sign up with a real email<br>
+        &nbsp;&nbsp;&nbsp;• Try the core flow<br>
+        &nbsp;&nbsp;&nbsp;• Try to break it<br>
+        &nbsp;&nbsp;&nbsp;• One thing that impressed you, one thing that confused you<br>
+        4. Post feedback in Slack — tag the builder<br><br>
+        These products have been <em>measured and improved with real data</em>. Can you tell?
+      </div>
+    </div>
+    <span class="time-badge">20 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"Your classmates built real, deployed products — and just improved them based on data analysis. Use them as a real user. Sign up. Try the core flow. Try to break it. 'One thing that impressed me. One thing that confused me.' 20 minutes. Monitor Slack for reactions."</p>
+  </div>
+</div>
+
+<!-- Slide 13 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-gallery">13</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-debrief">Debrief</span></div>
+      <div class="slide-title">What Did You Notice?</div>
+      <div class="slide-content">
+        <strong>1.</strong> Which product felt the most "real"? What made it feel that way?<br>
+        <strong>2.</strong> Could you tell which products had been improved based on data?<br>
+        <strong>3.</strong> What's the difference between a product that's shipped and one that's been iterated on?<br><br>
+        <em>The difference between M5 and M6: M5 products work. M6 products learn.</em>
+      </div>
+    </div>
+    <span class="time-badge">5 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"Which product felt the most real?" Then: "Could you tell which had been improved based on data vs. just polished?" The answer reveals the M6 lesson: evidence-based iteration produces different results than instinct-based iteration. Transition: "You've used each other's products. Now let's hear the stories."</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: PRESENTATIONS ═══════════ -->
+<div class="section-header section-present">
+  <h2>Student Presentations</h2>
+  <span class="section-time">30 min</span>
+</div>
+
+<!-- Slide 14 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-present">14</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-present">Format</span></div>
+      <div class="slide-title">Your 5-Minute Pitch</div>
+      <div class="slide-content">
+        <strong>1. The Problem (30 sec)</strong> — What user problem are you solving?<br>
+        <strong>2. The Hypothesis (30 sec)</strong> — What did you test? Your M2 assumption?<br>
+        <strong>3. Live Demo (2 min)</strong> — Show your deployed product. Core flow + one integration.<br>
+        <strong>4. What the Data Told You (1 min)</strong> — Analytics findings. AI analysis. What you improved based on evidence.<br>
+        <strong>5. The Journey (1 min)</strong> — M1 vs M6 side by side. What changed?<br><br>
+        <em>No slides required. Your product IS the presentation.</em>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>"5 minutes each. Strict time. No slides. The new element: 'What the Data Told You.' That's the M6 differentiator — not just what you built, but what you learned and improved based on evidence." If 20+ students, select 6–8 live; others post Loom walkthroughs.</p>
+  </div>
+</div>
+
+<!-- Slide 15 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-present">15</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-present">Live Presentations</span></div>
+      <div class="slide-title">Let's See What You Built — and What You Learned</div>
+      <div class="slide-content">
+        [Instructor manages presentation queue]<br><br>
+        <strong>Feedback format:</strong><br>
+        • Fire emoji when something impresses you<br>
+        • "One thing I'd steal from this product: ___"<br>
+        • "One question I'd ask as a PM: ___"
+      </div>
+    </div>
+    <span class="time-badge">28 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Call presenters by name. 1–2 audience questions after each. Keep energy celebratory. Applaud after each one. Students who don't present live post 2-minute Loom walkthroughs. Everyone's product gets seen.</p>
+  </div>
+</div>
+
+
+<!-- ═══════════ SECTION: WRAP ═══════════ -->
+<div class="section-header section-wrap">
+  <h2>The Full Journey + Wrap</h2>
+  <span class="section-time">12 min</span>
+</div>
+
+<!-- Slide 16 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">16</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wow">Wow Moment</span></div>
+      <div class="slide-title">M1. M2. M3. M4. M5. M6. The Complete Arc.</div>
+      <div class="slide-content">
+        Open six tabs.<br><br>
+        <div class="six-tabs">
+          <div class="tab-card tab-m1">
+            <div class="tab-module">Module 1</div>
+            <div class="tab-label">Speed</div>
+            <div class="tab-desc">One prompt, one page. Static.</div>
+          </div>
+          <div class="tab-card tab-m2">
+            <div class="tab-module">Module 2</div>
+            <div class="tab-label">Aim</div>
+            <div class="tab-desc">Real data, hypothesis. Hardcoded.</div>
+          </div>
+          <div class="tab-card tab-m3">
+            <div class="tab-module">Module 3</div>
+            <div class="tab-label">Precision</div>
+            <div class="tab-desc">5+ screens, states, chain. Facade.</div>
+          </div>
+          <div class="tab-card tab-m4">
+            <div class="tab-module">Module 4</div>
+            <div class="tab-label">Structure</div>
+            <div class="tab-desc">Clean code, Living PRD. No backend.</div>
+          </div>
+          <div class="tab-card tab-m5">
+            <div class="tab-module">Module 5</div>
+            <div class="tab-label">Ship</div>
+            <div class="tab-desc">Database, auth, deployed. Live URL.</div>
+          </div>
+          <div class="tab-card tab-m6">
+            <div class="tab-module">Module 6</div>
+            <div class="tab-label">Learn</div>
+            <div class="tab-desc">Measured. Analyzed. Iterated.</div>
+          </div>
+        </div>
+        <br>
+        <strong>Same tool. Same you. Six modules. The complete product lifecycle.</strong>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p><strong>This is the emotional peak.</strong> Have students open all six tabs. 30 seconds of silence. "In Module 1, you typed one prompt and got a page. In Module 6, you used AI to analyze your deployed product's data and made an evidence-based improvement. That's not prototyping. That's product management." Don't rush.</p>
+  </div>
+</div>
+
+<!-- Slide 17 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">17</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Deliverables</span></div>
+      <div class="slide-title">Your Complete Product Package</div>
+      <div class="slide-content">
+        Over six modules, you built:<br><br>
+        <div class="deliverables-grid">
+          <div class="deliverable-item">
+            <div class="d-num">1</div>
+            <div class="d-title">Deployed Product</div>
+            <div class="d-desc">Live URL, real database, real auth. Improved based on data.</div>
+          </div>
+          <div class="deliverable-item">
+            <div class="d-num">2</div>
+            <div class="d-title">Living PRD</div>
+            <div class="d-desc">AI-extracted spec: what it does, who it's for, what's tested.</div>
+          </div>
+          <div class="deliverable-item">
+            <div class="d-num">3</div>
+            <div class="d-title">GitHub Repository</div>
+            <div class="d-desc">Version-controlled code. Any engineer can clone and continue.</div>
+          </div>
+          <div class="deliverable-item">
+            <div class="d-num">4</div>
+            <div class="d-title">Engineering Handoff Note</div>
+            <div class="d-desc">What's real, what's mocked, edge cases, where to start.</div>
+          </div>
+          <div class="deliverable-item">
+            <div class="d-num">5</div>
+            <div class="d-title">Living Prompt Pack</div>
+            <div class="d-desc">Full prompt chain M1–M6 including analytics + iteration.</div>
+          </div>
+          <div class="deliverable-item">
+            <div class="d-num">6</div>
+            <div class="d-title">Data-Driven Presentation</div>
+            <div class="d-desc">You pitched what you built AND what the data told you.</div>
+          </div>
+        </div>
+        <br>
+        This is not a course artifact. This is a <em>product portfolio</em>.
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+<!-- Slide 18 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">18</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Confidence Line</span></div>
+      <div class="slide-title">The Vibe Coding Confidence Line</div>
+      <div class="slide-content">
+        <div class="confidence-line">
+          <div class="conf-step">
+            <div class="conf-module" style="color:#60a5fa;">M1</div>
+            <div class="conf-label">Speed</div>
+            <div class="conf-desc">"I can build something in 10 min"</div>
+          </div>
+          <div class="conf-step">
+            <div class="conf-module" style="color:#fbbf24;">M2</div>
+            <div class="conf-label">Validation</div>
+            <div class="conf-desc">"I can test the right thing"</div>
+          </div>
+          <div class="conf-step">
+            <div class="conf-module" style="color:#34d399;">M3</div>
+            <div class="conf-label">Precision</div>
+            <div class="conf-desc">"I can build exactly what I describe"</div>
+          </div>
+          <div class="conf-step">
+            <div class="conf-module" style="color:#c084fc;">M4</div>
+            <div class="conf-label">Structure</div>
+            <div class="conf-desc">"I can structure it for a real team"</div>
+          </div>
+          <div class="conf-step">
+            <div class="conf-module" style="color:#f87171;">M5</div>
+            <div class="conf-label">Ship</div>
+            <div class="conf-desc">"I can make it real and ship it"</div>
+          </div>
+          <div class="conf-step" style="border-color:#fb923c; background:#1a1812;">
+            <div class="conf-module" style="color:#fb923c;">M6</div>
+            <div class="conf-label">Product</div>
+            <div class="conf-desc">"I can learn from it and make it better"</div>
+          </div>
+        </div>
+        <br>
+        The entire arc: from "I wonder if AI can build things" to <em>"I just shipped, measured, and improved a product."</em>
+      </div>
+    </div>
+    <span class="time-badge">2 min</span>
+  </div>
+</div>
+
+<!-- Slide 19 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">19</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Certification + Close</span></div>
+      <div class="slide-title">Vibe Coding Certification — Complete</div>
+      <div class="slide-content">
+        <strong>What it means:</strong><br>
+        • You can take a product idea from zero to deployed in hours<br>
+        • You can ship to real users AND measure whether it's working<br>
+        • You can use AI to analyze, iterate, and improve based on evidence<br><br>
+        <strong>Three paths:</strong> Ship to real users (with analytics) · Hand off to engineering (with data) · Start your next product (with your prompt pack)<br><br>
+        Keep building. Keep shipping. <em>Keep learning.</em>
+      </div>
+    </div>
+    <span class="time-badge">3 min</span>
+  </div>
+  <div class="slide-notes">
+    <div class="notes-label">Speaker Notes</div>
+    <p>Celebrate. This is the moment. Share digital certificates. "You've completed the Vibe Coding Certification. You can build, validate, ship, measure, and iterate products using AI tools — and you've proven it. Your prompt pack is portable. Your methodology is transferable. Keep building. Keep shipping. Keep learning."</p>
+  </div>
+</div>
+
+<!-- Slide 20 -->
+<div class="slide-card">
+  <div class="slide-top">
+    <div class="slide-number bg-wrap">20</div>
+    <div class="slide-main">
+      <div class="slide-meta"><span class="slide-type type-wrap">Survey</span></div>
+      <div class="slide-title">Your Opinion Matters To Us</div>
+      <div class="slide-content">
+        Scan the QR code or use the link to share your feedback.
+      </div>
+    </div>
+    <span class="time-badge">1 min</span>
+  </div>
+</div>
+
+
+</div><!-- end content -->
+</body>
+</html>

@@ -569,35 +569,15 @@ Connect to their real work:
 
 ---
 
-#### 1:52 - 2:00 | "Break It" Exercise (8 min)
-
-**Purpose:** Show what happens when you vibe-code without any direction. The cautionary tale.
-
-**What we're trying to break (Slide 17):** The illusion that *speed = value*.
-
-**How it works:**
-
-Instructor pulls up a pre-built "bad" prototype (prepared in advance):
-
-> "I gave Lovable the laziest prompt: 'Build me an app for tracking stuff.' Here's what I got."
-
-Show the result: a generic, bloated app — task tracker, calendar, notes, dashboard, settings. None connected. None answering a real question. All built in 60 seconds.
-
-> "It looks impressive. It validates absolutely nothing. Vibe coding without a problem frame = toy, not tool. Speed is worthless if you're building the wrong thing fast."
-
-**Reflection Moment (Slide 18):** "What assumption could this prototype test if we focused it?" Take 60 seconds. Ask students to pick ONE user problem and ONE core screen. Quick answers from 2–3 volunteers. No wrong answers—just practice framing. Tease: "That framing skill? That's Module 2."
+### Block 5: Close (1:52 - 2:00)
 
 ---
 
-### Block 5: Close (2:00 - 2:05)
-
----
-
-#### 2:00 - 2:05 | Accountability Setup (5 min)
+#### 1:52 - 2:00 | Accountability Setup (8 min)
 
 **Purpose:** Set the tone for the rest of the course. Every student leaves M1 with clear accountability.
 
-**The ask (Slide 19 — ACCOUNTABILITY: Before We Wrap, 60 seconds):**
+**The ask (Slide 18 — ACCOUNTABILITY: Before We Wrap, 60 seconds):**
 
 > "Before we wrap. Three things in the next 60 seconds:
 >
@@ -611,23 +591,23 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
 
 ---
 
-#### Wrap-Up and Preview (Slide 20)
+#### Wrap-Up and Preview (Slide 19)
 
 **No homework.** Deliver during or immediately after the accountability activity:
 
 > "No homework. You're done. But before next session, think about this: which scenario do you want to carry through the rest of the course? Your real company problem? One of the course scenarios? Module 2 is where you commit — and everything you build from that point forward adds a layer to the same product. That product is what you deploy in Module 6. Optional: rebuild for your real product — use a screenshot from your actual app, drop it in Slack if you do. Next: Module 2. You can build fast. Now: are you building the right thing? We'll add the lens that turns speed into strategy. See you then."
 
-#### Slide 21: What You Accomplished Today
+#### Slide 20: What You Accomplished Today
 
 **Content:** Celebratory recap. 2 Prototypes Built (from scratch to shareable in under an hour). 4 Feedback Loops (real users testing your assumptions). 100% Hands-On (zero lectures, all building). "You didn't just learn about AI-assisted prototyping. You experienced the full cycle: prompt, build, test, iterate, improve. That's the foundation for everything ahead."
 
-#### Slide 22: The Journey Starts Here
+#### Slide 21: The Journey Starts Here
 
 **Content:** Closing reframe. "Most PM courses teach theory. This course builds muscle memory. You've already done more prototyping in 2 hours than most teams do in 2 months. The confidence you felt when someone clicked through your prototype? That's what we're building toward—except by Module 6, it'll be a live product with real users. Module 1 complete. From 'I don't know where to start' to 'here's a working prototype' in one session. Next up: Making sure you're building the right thing, not just building fast."
 
 **What we're covering next time (Carlos feedback):** Include in the wrap: "Next session: Module 2. We'll make sure you're building the right thing, not just building fast. Design systems, prompts, templates — we'll go deeper."
 
-**Note on timing:** Adding the Tools section (5 min) extends the session to ~2h 5min. If you must stay at 2 hours, trim Tools to 3 min or trim Accountability. Slides 21–22 can be shown quickly (30–60 seconds each) during the close.
+**Note on timing:** Adding the Tools section (5 min) extends the session to ~2h 5min. If you must stay at 2 hours, trim Tools to 3 min or trim Accountability. Slides 20–21 can be shown quickly (30–60 seconds each) during the close.
 
 ---
 
@@ -651,8 +631,7 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
 | Breakout: Did It Get Better? | 1:28 - 1:38 | 10 min | Breakout group activity |
 | Pulse Check | 1:38 - 1:40 | 2 min | Quick poll |
 | Retroactive Framework | 1:40 - 1:52 | 12 min | Instructor talk (framing) |
-| Break It + Reflection Moment | 1:52 - 2:00 | 8 min | Instructor demo + discussion |
-| Accountability + Wrap (Slides 19-22) | 2:00 - 2:05 | 5 min | Slack posting + close |
+| Accountability + Wrap (Slides 18-21) | 1:52 - 2:00 | 8 min | Slack posting + close |
 
 ### Time Distribution
 
@@ -663,7 +642,7 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
 | **Instructor live building (Demos 1+2)** | 25 min | 21% |
 | **Class discussion / sharing** | 14 min | 12% |
 | **Framework teaching** | 12 min | 10% |
-| **Break It + accountability** | 14 min | 12% |
+| **Accountability + wrap** | 14 min | 12% |
 | **Total hands-on (building + pairs + instructor builds)** | **80 min** | **67%** |
 | **Total teaching/talking** | **40 min** | **33%** |
 
@@ -689,15 +668,13 @@ Wait 60 seconds. Let the Slack channel fill up. This creates the gallery / FOMO 
    - A team collaboration tool (Notion-like)
    - Pick whichever matches the demo problem best
 
-6. **"Break It" prototype** pre-built: the unfocused, lazy-prompt result that validates nothing. Purpose: break the illusion that speed = value; show that directionless building produces a toy, not a tool.
+6. **Lab briefs** written up and ready to paste into Slack (see Lab 1 and Lab 2 briefs above)
 
-7. **Lab briefs** written up and ready to paste into Slack (see Lab 1 and Lab 2 briefs above)
-
-8. **Slack channels set up:**
+7. **Slack channels set up:**
    - `#builds` -- where all prototype links get posted
    - Main cohort channel -- for discussions and polls
 
-9. **Pre-work check:** Review all Slack intro posts before class. Know who completed pre-work and who didn't. DM stragglers during Lab 1.
+8. **Pre-work check:** Review all Slack intro posts before class. Know who completed pre-work and who didn't. DM stragglers during Lab 1.
 
 ### Student Requirements
 
