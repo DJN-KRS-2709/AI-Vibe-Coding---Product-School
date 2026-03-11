@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding — Tools Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #fafaf8;
+    --surface: #fff;
+    --border: #e8e6e1;
+    --text-primary: #1a1917;
+    --text-secondary: #6b6860;
+    --text-muted: #9e9a90;
+    --accent-m1: #e85d26;
+    --accent-m2: #2563eb;
+    --accent-m3: #059669;
+    --accent-m4: #d97706;
+    --accent-m5: #7c3aed;
+    --accent-m6: #e11d48;
+    --tag-new: #dcfce7;
+    --tag-new-text: #166534;
+    --tag-reuse: #f0f0ff;
+    --tag-reuse-text: #4338ca;
+    --tag-deliverable: #fef9c3;
+    --tag-deliverable-text: #854d0e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 60px 28px 100px;
+  }
+
+  header {
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  header p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 640px;
+  }
+
+  .summary-strip {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .summary-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .summary-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .module-section {
+    margin-bottom: 48px;
+  }
+
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .module-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .module-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .module-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .module-tagline {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .tool-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+    cursor: default;
+  }
+
+  a.tool-card {
+    cursor: pointer;
+  }
+
+  a.tool-card:hover {
+    border-color: #c8c5be;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .tool-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .tool-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tool-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .tool-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .tool-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .tag-new {
+    background: var(--tag-new);
+    color: var(--tag-new-text);
+  }
+
+  .tag-reuse {
+    background: var(--tag-reuse);
+    color: var(--tag-reuse-text);
+  }
+
+  .tag-deliverable {
+    background: var(--tag-deliverable);
+    color: var(--tag-deliverable-text);
+  }
+
+  .tag-recommended {
+    background: #fce7f3;
+    color: #9d174d;
+  }
+
+  .tool-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .tool-file {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tool-file .arrow {
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateX(-4px);
+  }
+
+  a.tool-card:hover .tool-file .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reuse-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .lifecycle-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 48px;
+  }
+
+  .lifecycle-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .lifecycle-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .lifecycle-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    min-width: 100px;
+  }
+
+  .lifecycle-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .lifecycle-module {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .lifecycle-verb {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .lifecycle-connector {
+    width: 40px;
+    height: 2px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .persistent-tools {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .persistent-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .persistent-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .persistent-chip {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .persistent-chip .span-dots {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: inherit;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 32px 18px 60px; }
+    h1 { font-size: 28px; }
+    .module-header { flex-wrap: wrap; gap: 8px; }
+    .module-tagline { margin-left: 0; }
+    .lifecycle-track { justify-content: flex-start; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    a.tool-card:hover { transform: none; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">Vibe Coding Certification</div>
+    <h1>Tools Overview</h1>
+    <p>Every interactive tool across all six modules — lab guides, builders, planners, and extractors. The two persistent tools (Prompt Pack Builder and PRD Extractor) carry forward and grow throughout the course.</p>
+    <div class="summary-strip">
+      <div class="summary-item">
+        <span class="summary-num">11</span>
+        <span class="summary-label">Unique tools</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-num">6</span>
+        <span class="summary-label">Modules</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-num">2</span>
+        <span class="summary-label">Persistent tools</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-num">2</span>
+        <span class="summary-label">Deliverables</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════ MODULE 1 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m1)"></div>
+      <span class="module-label">M1</span>
+      <span class="module-name">Speed</span>
+      <span class="module-tagline">Build fast</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M1 - Lab Guide.html" target="_blank">
+        <div class="tool-icon" style="background:#fef2e8;">📋</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Lab Guide</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Four scenarios with starter prompts. Students pick one and build their first working prototype in Lovable in under 10 minutes.</div>
+          <div class="tool-file">M1 - Lab Guide.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ════ MODULE 2 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m2)"></div>
+      <span class="module-label">M2</span>
+      <span class="module-name">Validation</span>
+      <span class="module-tagline">Build smart</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M2 - Lab Guide.html" target="_blank">
+        <div class="tool-icon" style="background:#eff4ff;">📋</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Lab Guide</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Step-by-step lab instructions for the validation build.</div>
+          <div class="tool-file">M2 - Lab Guide.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <a class="tool-card" href="Modules/M2 - Structured Prompt Builder.html" target="_blank">
+        <div class="tool-icon" style="background:#eff4ff;">🔧</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Structured Prompt Builder</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Assembles a single full-context prompt — data pack + screenshot + hypothesis + guardrails — before pasting into Lovable. One well-assembled prompt vs. five trial-and-error burns.</div>
+          <div class="tool-file">M2 - Structured Prompt Builder.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <a class="tool-card" href="Modules/M2 - Context Data Pack.html" target="_blank">
+        <div class="tool-icon" style="background:#eff4ff;">📊</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Context Data Pack</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Pre-loaded real user quotes, real metrics, and a full problem brief for each scenario. The raw material that makes prototypes feel real.</div>
+          <div class="tool-file">M2 - Context Data Pack.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <a class="tool-card" href="Modules/M2 - Validation Brief.html" target="_blank">
+        <div class="tool-icon" style="background:#eff4ff;">🎯</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Validation Brief</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Hypothesis, risk type, kill switch, and success criteria. Forces students to define what they're testing before they build.</div>
+          <div class="tool-file">M2 - Validation Brief.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <a class="tool-card" href="Modules/M2 - Visual Reference Guide.html" target="_blank">
+        <div class="tool-icon" style="background:#eff4ff;">🖼</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Visual Reference Guide</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Mobbin, competitor, or product screenshots as design references. Ensures the AI matches existing visual language instead of generating generic UI.</div>
+          <div class="tool-file">M2 - Visual Reference Guide.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ════ MODULE 3 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m3)"></div>
+      <span class="module-label">M3</span>
+      <span class="module-name">Precision</span>
+      <span class="module-tagline">Build precise</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M3 - Prompt Chain Planner.html" target="_blank">
+        <div class="tool-icon" style="background:#ecfdf5;">⛓</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Prompt Chain Planner</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Plan-before-build tool. Documents a 3-prompt chain (Expand → Behavior → Refine) before opening Lovable. Forces intentional sequencing instead of trial-and-error.</div>
+          <div class="tool-file">M3 - Prompt Chain Planner.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <a class="tool-card" href="Modules/M3 - Living Prompt Pack Builder.html" target="_blank">
+        <div class="tool-icon" style="background:#ecfdf5;">📦</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living Prompt Pack Builder</span>
+            <span class="tool-tag tag-new">New</span>
+            <span class="tool-tag tag-deliverable">Deliverable #4</span>
+          </div>
+          <div class="tool-desc">Reusable, evolving prompt toolkit — product context block, design system reference, constraint templates, output templates, and a growing library of chain entries. Persists and grows through M4–M6.</div>
+          <div class="tool-file">M3 - Living Prompt Pack Builder.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ════ MODULE 4 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m4)"></div>
+      <span class="module-label">M4</span>
+      <span class="module-name">Structure</span>
+      <span class="module-tagline">Build for real</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M4 - Living PRD Extractor.html" target="_blank">
+        <div class="tool-icon" style="background:#fef9ee;">📄</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living PRD Extractor</span>
+            <span class="tool-tag tag-new">New</span>
+            <span class="tool-tag tag-deliverable">Deliverable #3</span>
+          </div>
+          <div class="tool-desc">Extracts a living PRD from what students have already built. Adds handoff notes and documents infrastructure status (GitHub, Supabase). Updated again in M5 and M6.</div>
+          <div class="tool-file">M4 - Living PRD Extractor.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#fef9ee;">📦</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living Prompt Pack Builder</span>
+            <span class="tool-tag tag-reuse">Reused from M3</span>
+          </div>
+          <div class="tool-desc">Students add structure prompts and infrastructure steps to their pack.</div>
+          <div class="reuse-note">→ Same tool, growing content</div>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#fef9ee;">✅</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Structure Checklist</span>
+            <span class="tool-tag tag-recommended">Recommended</span>
+          </div>
+          <div class="tool-desc">Step-by-step checklist for GitHub + Supabase connection with verification gates. Referenced in Carlos's notes — may be a section in the PRD Extractor or a standalone lightweight tool.</div>
+          <div class="reuse-note">→ Referenced in speaker notes, standalone file TBD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ MODULE 5 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m5)"></div>
+      <span class="module-label">M5</span>
+      <span class="module-name">Ship</span>
+      <span class="module-tagline">Ship it</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M5 - Integration Planner.html" target="_blank">
+        <div class="tool-icon" style="background:#f5f0ff;">🔌</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Integration Planner</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Database schema planning, auth flow, edge case checklist, 3 prompt cards with templates, and an Engineering Handoff Note section. Full preview and export.</div>
+          <div class="tool-file">M5 - Integration Planner.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#f5f0ff;">📦</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living Prompt Pack Builder</span>
+            <span class="tool-tag tag-reuse">Reused from M3</span>
+          </div>
+          <div class="tool-desc">Students add integration prompts — database, auth, and edge case patterns — to their pack.</div>
+          <div class="reuse-note">→ Same tool, growing content</div>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#f5f0ff;">📄</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living PRD Extractor</span>
+            <span class="tool-tag tag-reuse">Reused from M4</span>
+          </div>
+          <div class="tool-desc">Students update their PRD to reflect what's now real vs. mocked after integration and deploy.</div>
+          <div class="reuse-note">→ Same tool, updated content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ MODULE 6 ════ -->
+  <div class="module-section">
+    <div class="module-header">
+      <div class="module-dot" style="background:var(--accent-m6)"></div>
+      <span class="module-label">M6</span>
+      <span class="module-name">Product</span>
+      <span class="module-tagline">Close the loop</span>
+    </div>
+    <div class="tool-grid">
+      <a class="tool-card" href="Modules/M6 - Lab Guide.html" target="_blank">
+        <div class="tool-icon" style="background:#fef2f2;">📋</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Lab Guide</span>
+            <span class="tool-tag tag-new">New</span>
+          </div>
+          <div class="tool-desc">Lab instructions for analytics setup (Lovable Insights + GA4), AI-powered product analysis, and the data-driven iteration cycle.</div>
+          <div class="tool-file">M6 - Lab Guide.html <span class="arrow">→</span></div>
+        </div>
+      </a>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#fef2f2;">📄</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living PRD Extractor</span>
+            <span class="tool-tag tag-reuse">Reused from M4</span>
+          </div>
+          <div class="tool-desc">Students pull their problem statement and hypothesis for the analytics analysis prompt.</div>
+          <div class="reuse-note">→ Same tool, referenced for analysis</div>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon" style="background:#fef2f2;">📦</div>
+        <div class="tool-info">
+          <div class="tool-name-row">
+            <span class="tool-name">Living Prompt Pack Builder</span>
+            <span class="tool-tag tag-reuse">Reused from M3</span>
+          </div>
+          <div class="tool-desc">Students add analytics and iteration prompts. Final state of Deliverable #4.</div>
+          <div class="reuse-note">→ Same tool, final content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ LIFECYCLE BAR ════ -->
+  <div class="lifecycle-bar">
+    <div class="lifecycle-title">Course Progression</div>
+    <div class="lifecycle-track">
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m1)">1</div>
+        <span class="lifecycle-module">M1</span>
+        <span class="lifecycle-verb">Speed</span>
+      </div>
+      <div class="lifecycle-connector"></div>
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m2)">2</div>
+        <span class="lifecycle-module">M2</span>
+        <span class="lifecycle-verb">Validate</span>
+      </div>
+      <div class="lifecycle-connector"></div>
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m3)">3</div>
+        <span class="lifecycle-module">M3</span>
+        <span class="lifecycle-verb">Precision</span>
+      </div>
+      <div class="lifecycle-connector"></div>
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m4)">4</div>
+        <span class="lifecycle-module">M4</span>
+        <span class="lifecycle-verb">Structure</span>
+      </div>
+      <div class="lifecycle-connector"></div>
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m5)">5</div>
+        <span class="lifecycle-module">M5</span>
+        <span class="lifecycle-verb">Ship</span>
+      </div>
+      <div class="lifecycle-connector"></div>
+      <div class="lifecycle-node">
+        <div class="lifecycle-circle" style="background:var(--accent-m6)">6</div>
+        <span class="lifecycle-module">M6</span>
+        <span class="lifecycle-verb">Product</span>
+      </div>
+    </div>
+    <div class="persistent-tools">
+      <div class="persistent-label">Persistent tools that grow across modules</div>
+      <div class="persistent-row">
+        <div class="persistent-chip" style="background:#ecfdf5;color:#065f46;">
+          📦 Living Prompt Pack Builder
+          <span class="span-dots">M3 → M4 → M5 → M6</span>
+        </div>
+        <div class="persistent-chip" style="background:#fef9ee;color:#92400e;">
+          📄 Living PRD Extractor
+          <span class="span-dots">M4 → M5 → M6</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
