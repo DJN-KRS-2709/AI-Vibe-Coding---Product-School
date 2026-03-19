@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 4 — Hands-On Lab Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    color: #1a1a2e;
+  }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, #0a2e1f 0%, #064e3b 50%, #065f46 100%);
+    border-radius: 16px;
+    color: white;
+  }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.12em;
+    background: rgba(5,150,105,0.25); padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #a7c4b8; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+  .overview-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: -20px 20px 32px; position: relative; z-index: 10;
+  }
+  .overview-item {
+    background: #fff; border-radius: 10px; padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
+  }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #059669; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  .phase {
+    margin-top: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .phase-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
+  }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .card-body { padding: 24px 28px; }
+
+  .step {
+    display: flex; gap: 16px; padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-marker {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #059669; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  .tool-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #ecfdf5; border: 1px solid #a7f3d0;
+    border-radius: 8px; padding: 10px 16px; margin: 8px 0;
+    font-size: 13px; font-weight: 700; color: #059669;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .tool-link:hover { background: #d1fae5; }
+  .tool-icon { font-size: 16px; flex-shrink: 0; }
+
+  .checklist { margin: 10px 0; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5;
+  }
+  .check-box {
+    width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 12px; color: transparent;
+  }
+  .check-box.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .check-item strong { color: #1a1a2e; }
+
+  .prompt-template {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 20px 24px; margin: 12px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: #475569; line-height: 1.7;
+  }
+  .prompt-template .pt-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .prompt-template .pt-block { margin-bottom: 12px; }
+  .prompt-template .pt-block:last-child { margin-bottom: 0; }
+  .prompt-template em { color: #94a3b8; font-style: italic; }
+  .label-extract { color: #3B6FE0; }
+  .label-refactor { color: #d97706; }
+  .label-handoff { color: #059669; }
+
+  .tip-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.danger { background: #fff1f2; border-color: #fecdd3; }
+  .tip-box.info { background: #eff6ff; border-color: #bfdbfe; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .review-q {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .review-q:last-child { border-bottom: none; }
+  .review-num {
+    width: 28px; height: 28px; border-radius: 6px;
+    color: #fff; font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .review-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 3px; }
+
+  .callout {
+    background: #0d1117; border-radius: 12px; padding: 28px 32px;
+    text-align: center; margin: 24px 0;
+  }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #6ee7b7; font-style: normal; font-weight: 700; }
+
+  .notes-area {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0; min-height: 80px;
+  }
+  .notes-area .na-title {
+    font-size: 12px; font-weight: 700; color: #059669;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .notes-area .na-hint {
+    font-size: 13px; color: #999; line-height: 1.5;
+  }
+  .notes-area textarea {
+    width: 100%; min-height: 60px; border: none; background: transparent;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #333;
+    line-height: 1.6; resize: vertical; outline: none; margin-top: 4px;
+  }
+
+  .post-template {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0;
+    font-size: 14px; color: #555; line-height: 1.7;
+  }
+  .post-template .pt-title {
+    font-size: 12px; font-weight: 700; color: #059669;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+
+  .flow-connector {
+    display: flex; justify-content: center; padding: 4px 0; margin: 4px 0;
+  }
+  .flow-arrow {
+    width: 2px; height: 20px; background: #d1d5db; position: relative;
+  }
+  .flow-arrow::after {
+    content: '▼'; position: absolute; bottom: -10px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  .code-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .code-block {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7;
+  }
+  .code-block-label {
+    font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .code-before .code-block-label { color: #ef4444; }
+  .code-after .code-block-label { color: #059669; }
+  .code-before { color: #b91c1c; border-color: #fecaca; background: #fef2f2; }
+  .code-after { color: #047857; border-color: #a7f3d0; background: #ecfdf5; }
+
+  .reveal-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0;
+  }
+  .reveal-card {
+    border-radius: 10px; padding: 16px 14px; text-align: center;
+    background: #f8fafc; border: 1px solid #e2e8f0;
+  }
+  .reveal-card.active { background: #ecfdf5; border: 2px solid #059669; }
+  .reveal-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px; color: #94a3b8;
+  }
+  .reveal-card.active .reveal-label { color: #059669; }
+  .reveal-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .reveal-desc { font-size: 11px; color: #888; line-height: 1.4; }
+
+  .footer-note {
+    text-align: center; margin-top: 40px; padding: 24px;
+    font-size: 13px; color: #888; line-height: 1.6;
+  }
+  .footer-note strong { color: #555; }
+
+  .infra-step {
+    display: flex; gap: 16px; padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .infra-step:last-child { border-bottom: none; }
+  .infra-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .infra-body { flex: 1; }
+  .infra-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+  .infra-desc { font-size: 13px; color: #666; line-height: 1.5; }
+  .infra-desc strong { color: #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ════════════════════ HEADER ════════════════════ -->
+  <div class="header">
+    <div class="badge">Module 4 — Lab Guide</div>
+    <h1>From Vibe to Structure</h1>
+    <p>Extract your Living PRD, refactor your code, connect real infrastructure, and generate an engineering handoff. Your prototype stops being yours and starts being the team's.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Prompts</div></div>
+    <div class="overview-item"><div class="oi-num">~42</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">4</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Deliverables</div></div>
+  </div>
+
+
+  <!-- ════════════════════ WHAT YOU'RE STARTING WITH ════════════════════ -->
+  <div class="card" style="border: 2px solid #059669;">
+    <div class="card-body">
+      <p style="font-size:14px; font-weight:800; color:#059669; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Before You Begin</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">You are working on your <strong>Module 3 prototype</strong> — the one with 5+ screens, interactive states, and a documented prompt chain. Open it in Lovable now.</p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>M3 prototype open in Lovable</strong> — this is the build you carried from M2 through M3</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Living PRD Extractor tool open</strong> — link is in Slack</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>GitHub account active</strong> — free account at github.com (should be set up before class)</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#9888;&#65039;</div>
+        <div class="tip-text"><strong>No GitHub account yet?</strong> Create one now at <strong>github.com</strong> — it takes 2 minutes and it's free. Your instructor will not pause to troubleshoot login issues.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 1: EXTRACT THE LIVING PRD                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#3B6FE0;">1</div>
+    <div class="phase-text">
+      <h2>Extract Your Living PRD</h2>
+      <div class="phase-time">Individual Exercise · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:6px;">Use the <strong>Living PRD Extractor</strong> tool to interrogate your current build and generate a professional specification. Your goal is to capture a truth report of your prototype's functional logic, screen map, and technical reality.</p>
+
+      <div class="tip-box danger">
+        <div class="tip-icon">&#128721;</div>
+        <div class="tip-text"><strong>Do NOT attempt to "fix" the code yet.</strong> This is pre-work to document the current state of your prototype, even if it's not perfect. Document the reality first.</div>
+      </div>
+
+      <a class="tool-link" href="#" target="_blank">
+        <span class="tool-icon">&#128279;</span> Open Living PRD Extractor Tool
+      </a>
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">1</div>
+        <div class="step-body">
+          <div class="step-title">Configure the Extractor</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">
+            Open the Living PRD Extractor and select the scenario you've been building. The tool generates a baseline <strong>Extraction Prompt</strong> with bracketed variables you must customize:<br><br>
+            <strong>Replace the brackets</strong> with your actual product details — your screens, your hypothesis, your metrics. The AI needs to know which evidence to audit.
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Pro Tip:</strong> Don't overthink the hypothesis or metrics. Use the ones you've been building toward since Module 1. They're already embedded in your prototype.</div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">2</div>
+        <div class="step-body">
+          <div class="step-title">Run the Technical Interrogation</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">
+            Copy your customized prompt from the Extractor tool and paste it into your <strong>existing Lovable chat</strong> for your M3 project. Hit enter and wait for the AI to output the structured report.<br><br>
+            <strong>If the AI starts asking you what the product is</strong> instead of auditing the code, respond with:
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <div class="pt-label label-extract">Fallback Prompt</div>
+        "Audit the existing files and our previous conversation to find these details."
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">3</div>
+        <div class="step-body">
+          <div class="step-title">Paste the Output Back Into the Extractor</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">
+            Once the AI finishes generating the specification, <strong>copy the entire response</strong> and paste it back into the Living PRD Extractor. This populates your engineering-ready blocks.<br><br>
+            Read through each block and verify:
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Functional Architecture</strong> — does it accurately list the screens you built?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Technical Reality</strong> — does it correctly identify what is real (connected code) versus mocked (static UI)?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Hypothesis and Metrics</strong> — do they match what you've been testing since M2?</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">&#9989;</div>
+        <div class="tip-text"><strong>It is completely okay (and expected!) if your PRD shows that your database isn't connected or your logic is still mocked.</strong> You aren't losing points for missing features — you are gaining points for documenting the truth.</div>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Living PRD — Notes</div>
+        <div class="na-hint">Flag anything the AI misrepresented, missed, or any mocked features you need to revisit during the next lab.</div>
+        <textarea placeholder="Write your notes here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 2: REFACTOR + ENGINEERING HANDOFF                       -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#d97706;">2</div>
+    <div class="phase-text">
+      <h2>Refactor Your Code &amp; Generate Handoff</h2>
+      <div class="phase-time">Lab Exercise · 12 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Return to your M3 prototype in Lovable and refactor the code into something an engineer can inherit. Then generate a professional engineering handoff document.</p>
+
+      <!-- Step 1: Refactor -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">1</div>
+        <div class="step-body">
+          <div class="step-title">Copy and Customize the Refactor Prompt</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">
+            Return to the Living PRD Extractor and copy the <strong>Refactoring Prompt</strong>. Before pasting it into Lovable, you must customize the <code>[list]</code> variable with your actual screen names.<br><br>
+            <strong>Where to find your list:</strong> Look at the <strong>User Flows &amp; Screen Map</strong> section of the Living PRD you just generated. Replace <code>[list]</code> with the actual names of your screens.
+          </div>
+        </div>
+      </div>
+
+      <div class="prompt-template">
+        <div class="pt-label label-refactor">Example — Customized [list]</div>
+        <div class="pt-block">
+          Rename components: AccountList, RiskDetail, TeamDashboard, OnboardingFlow, SettingsPanel
+        </div>
+        <div class="pt-block">
+          <em>Use the names from YOUR PRD — not these examples.</em>
+        </div>
+      </div>
+
+      <!-- Step 2: Audit -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">2</div>
+        <div class="step-body">
+          <div class="step-title">Run the Refactor and Audit the File Tree</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">
+            Paste your customized prompt into the Lovable chat and wait for the AI to finish the refactor. Then verify the results:
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify in the Code tab:</p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div>From the nav bar, click <strong>"Code"</strong> to open the code sidebar</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div>Expand the <strong>src</strong> folder, then the <strong>pages</strong> folder inside it</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>File names match your PRD</strong> — you should see descriptive names, not generic ones</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div>Find <strong>README.md</strong> in the file tree and click to open — it should list your screens and explain the flow</div>
+        </div>
+      </div>
+
+      <div class="code-compare">
+        <div class="code-block code-before">
+          <div class="code-block-label">Before (what you'll see if refactor failed)</div>
+          src/pages/<br>
+          &nbsp;&nbsp;Component_1.tsx<br>
+          &nbsp;&nbsp;Screen_2.tsx<br>
+          &nbsp;&nbsp;Page_3.tsx
+        </div>
+        <div class="code-block code-after">
+          <div class="code-block-label">After (what success looks like)</div>
+          src/pages/<br>
+          &nbsp;&nbsp;OnboardingWelcome.tsx<br>
+          &nbsp;&nbsp;TeamInviteForm.tsx<br>
+          &nbsp;&nbsp;PMDashboard.tsx
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#128260;</div>
+        <div class="tip-text"><strong>If you still see generic names</strong> like Component_1.tsx or Screen_2.tsx, the refactor failed. Re-prompt: <strong>"Rename the files in the src/pages directory to match the names in my PRD."</strong></div>
+      </div>
+
+      <!-- Step 3: Handoff -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">3</div>
+        <div class="step-body">
+          <div class="step-title">Generate the Engineering Handoff</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">
+            Return to the Living PRD Extractor and copy the <strong>Engineering Handoff Prompt</strong>. Paste it into Lovable.<br><br>
+            <strong>You do not need to edit this prompt.</strong> Since you just finished the refactor, the AI already knows your new component names and file structure.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; color:#555; margin:8px 0;">Once the AI generates your "Start Here" guide, read it. It should clearly explain which files handle data and which ones handle UI. <strong>Copy the full output and paste it into the designated box in the Extractor tool.</strong></p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Handoff generated</strong> — component map, data model, start-here guide</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Pasted back into Extractor tool</strong></div>
+        </div>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Refactor — Notes</div>
+        <div class="na-hint">Document the specific changes your refactor prompt produced. If something didn't work, document what you changed to get the results you wanted.</div>
+        <textarea placeholder="Write your notes here..."></textarea>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">"Start Here" Handoff Document — Backup Copy</div>
+        <div class="na-hint">Paste your engineering handoff here for safekeeping. You'll need it for the next lab.</div>
+        <textarea placeholder="Paste your handoff document here..." style="min-height:100px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 3: CONNECT INFRASTRUCTURE                                -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#059669;">3</div>
+    <div class="phase-text">
+      <h2>Connect Your Infrastructure</h2>
+      <div class="phase-time">Lab Exercise · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:6px;">Move your project from a temporary session to permanent version control and a real database. This infrastructure is a <strong>mandatory prerequisite for Module 5</strong>, where you'll build real authentication and data relationships.</p>
+
+      <div class="callout" style="margin-top:16px;">
+        <p>Two clicks. Your code gets a <em>real GitHub repository</em> and a <em>real database</em>.<br>This is the moment your prototype stops being a demo.</p>
+      </div>
+
+      <!-- GitHub Section -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:20px 0 12px;">Part A — Version Control with GitHub</p>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">1</div>
+        <div class="infra-body">
+          <div class="infra-title">Open the GitHub Connection</div>
+          <div class="infra-desc">From the navigation bar of your Lovable project, click the <strong>GitHub icon</strong> in the top-right corner.</div>
+        </div>
+      </div>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">2</div>
+        <div class="infra-body">
+          <div class="infra-title">Connect to GitHub</div>
+          <div class="infra-desc">Click <strong>"Connect to GitHub"</strong> and follow the authorization steps. You'll be prompted to authorize lovable.dev access to your GitHub account. Grant the access.</div>
+        </div>
+      </div>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">3</div>
+        <div class="infra-body">
+          <div class="infra-title">Confirm the Transfer</div>
+          <div class="infra-desc">You may see a confirmation message about transferring your project to set up <strong>2-way sync</strong>. This is expected — it means your code is being upgraded from a temporary Lovable file to a permanent GitHub repository.</div>
+        </div>
+      </div>
+
+      <div class="tip-box danger">
+        <div class="tip-icon">&#128165;</div>
+        <div class="tip-text"><strong>Don't Panic:</strong> If you see a warning about "moving the only instance" — that's exactly what we want. You're upgrading your project to real version control. Confirm the transfer.</div>
+      </div>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">4</div>
+        <div class="infra-body">
+          <div class="infra-title">Verify in GitHub</div>
+          <div class="infra-desc">Open your GitHub repo URL in a new browser tab. <strong>Browse the code.</strong> Find your refactored component names. See the README. This is what an engineer sees when they clone your project.</div>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>GitHub connected</strong> — your code is in a real repository</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Repo verified</strong> — you can see your refactored files and README in GitHub</div>
+        </div>
+      </div>
+
+      <!-- Backend Section -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:24px 0 12px;">Part B — Connect Your Database Backend</p>
+
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Transition your data from mocked variables to a real, live database. This allows your app to save information across sessions.</p>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">1</div>
+        <div class="infra-body">
+          <div class="infra-title">Trigger the Backend Connection</div>
+          <div class="infra-desc">In Lovable, prompt the AI with a feature that requires a database. For example: <strong>"Save user onboarding progress to the database so returning users resume where they left off."</strong> Lovable will prompt you to enable the backend — click <strong>Allow</strong>.</div>
+        </div>
+      </div>
+
+      <div class="infra-step">
+        <div class="infra-num" style="background:#059669;">2</div>
+        <div class="infra-body">
+          <div class="infra-title">Verify the Backend</div>
+          <div class="infra-desc">Open the backend dashboard (check <strong>Settings</strong> in Lovable). You should see a live database, authentication, and storage provisioned for your project. This is the infrastructure you'll build on in Module 5.</div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Depending on your Lovable setup</strong>, the backend may be Lovable Cloud (built-in) or a Supabase connection. Either way, you'll end up with a real PostgreSQL database. If your instructor directs you to connect a separate Supabase account, follow those instructions instead.</div>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Backend connected</strong> — your prototype has a real database</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Dashboard verified</strong> — you can see the database in the settings/dashboard</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Your prototype just made the transition.<br>It has a <em>spec</em>, <em>clean code in GitHub</em>, and a <em>real database</em>.<br><strong>This isn't a demo anymore.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 4: PEER REVIEW                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#7c3aed;">4</div>
+    <div class="phase-text">
+      <h2>Peer Review: The Handoff Test</h2>
+      <div class="phase-time">Breakout Groups of 2 · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="callout" style="margin-top:0;">
+        <p>Share <em>ONLY</em> your Living PRD and Engineering Handoff.<br><strong>Do NOT show the prototype.</strong></p>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">3 minutes of silent reading</div>
+          <div class="step-desc">Your partner reads your Living PRD and Engineering Handoff in silence. <strong>Do not explain your logic.</strong> If they pause or look confused, let them stay confused — that is your data.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Answer these 5 questions</div>
+          <div class="step-desc">After 3 minutes, your partner answers from memory. If they can answer all 5 from just the PRD, it's handoff-ready.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="review-q">
+          <div class="review-num" style="background:#7c3aed;">1</div>
+          <div class="review-text">Can you identify the <strong>Product Value</strong> (what / who / hypothesis) in under 60 seconds?</div>
+        </div>
+        <div class="review-q">
+          <div class="review-num" style="background:#7c3aed;">2</div>
+          <div class="review-text">Is the <strong>Technical Reality</strong> (real vs. mocked) clear enough that you aren't guessing what works?</div>
+        </div>
+        <div class="review-q">
+          <div class="review-num" style="background:#7c3aed;">3</div>
+          <div class="review-text">Does the Engineering Handoff tell you exactly <strong>which file or feature to open and build first?</strong></div>
+        </div>
+        <div class="review-q">
+          <div class="review-num" style="background:#7c3aed;">4</div>
+          <div class="review-text">What hypothesis does this prototype test?</div>
+        </div>
+        <div class="review-q">
+          <div class="review-num" style="background:#7c3aed;">5</div>
+          <div class="review-text">What's real vs. mocked — and what should engineering build first?</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; color:#555; margin:16px 0 8px;"><strong>Swap roles after 5 minutes.</strong> Both partners take a turn as the reviewer.</p>
+
+      <div class="notes-area">
+        <div class="na-title">Peer Review — Partner's Answers</div>
+        <div class="na-hint">Record your partner's answers to the 5 questions. These gaps are your revision priorities.</div>
+        <textarea placeholder="Write your partner's answers here..." style="min-height:120px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  THE FOUR-TAB REVEAL                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#059669;">!</div>
+    <div class="phase-text">
+      <h2>The Reveal: M1 &rarr; M4</h2>
+      <div class="phase-time">Open all four prototypes side by side</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:16px;">Open four browser tabs. Same tool. Same you. Four modules of progression.</p>
+
+      <div class="reveal-grid">
+        <div class="reveal-card">
+          <div class="reveal-label">Module 1</div>
+          <div class="reveal-title">Speed</div>
+          <div class="reveal-desc">One prompt, one page. No data. A demo.</div>
+        </div>
+        <div class="reveal-card">
+          <div class="reveal-label">Module 2</div>
+          <div class="reveal-title">Aim</div>
+          <div class="reveal-desc">Real data, hypothesis, design-matched.</div>
+        </div>
+        <div class="reveal-card">
+          <div class="reveal-label">Module 3</div>
+          <div class="reveal-title">Precision</div>
+          <div class="reveal-desc">5+ screens, states, documented chain.</div>
+        </div>
+        <div class="reveal-card active">
+          <div class="reveal-label">Module 4</div>
+          <div class="reveal-title">Structure</div>
+          <div class="reveal-desc">Living PRD, GitHub, database, handoff.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>That's not a prototype anymore.<br>That's a <em>product brief with real infrastructure</em><br>an engineering team can sprint on.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  POST + ACCOUNTABILITY                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="card" style="margin-top:32px;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Accountability — Before We Wrap</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">1</div>
+        <div class="step-body">
+          <div class="step-title">Post in #builds</div>
+          <div class="step-desc">Your prototype link + GitHub repo link + Living PRD.</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">2</div>
+        <div class="step-body">
+          <div class="step-title">Caption: What did the AI get right?</div>
+          <div class="step-desc">What did the AI get right about your product that you hadn't written down?</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">3</div>
+        <div class="step-body">
+          <div class="step-title">Engage with 2 others</div>
+          <div class="step-desc">Read 2 other PRDs. Could you understand the product without seeing the prototype?</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">4</div>
+        <div class="step-body">
+          <div class="step-title">Optional challenge</div>
+          <div class="step-desc">Share your GitHub repo with an actual engineer. What questions do they have?</div>
+        </div>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post in Slack</div>
+        [Lovable link] + [GitHub repo link]<br>
+        "What the AI nailed about my product: ___. What it missed: ___."
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  QUICK LINKS                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — All M4 Tools</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a class="tool-link" href="#" target="_blank"><span class="tool-icon">&#128279;</span> Living PRD Extractor — Phases 1 &amp; 2</a>
+        <a class="tool-link" href="#" target="_blank"><span class="tool-icon">&#128220;</span> Living Prompt Pack Builder — Add your structure prompts</a>
+      </div>
+      <div class="tip-box" style="margin-top:12px;">
+        <div class="tip-icon">&#128218;</div>
+        <div class="tip-text"><strong>Your Living Prompt Pack grows today.</strong> Add your structure prompts (extract, refactor, handoff) to the pack you started in M3. This pack becomes a reusable product playbook.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Module 4: From Vibe to Structure</strong><br>
+    Your prototype made the transition. It's no longer just yours — it can survive without you.<br><br>
+    <strong>Next up — Module 5: Make It Real.</strong> Real database schemas, authentication, API integrations, and edge case handling.<br>Your infrastructure is connected. Now you build on top of it.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+</script>
+
+</body>
+</html>
