@@ -428,6 +428,9 @@
 
   .scenario-hint strong { color: #1a1a2e; }
 
+  .byos-pick { color: #7c3aed !important; }
+  .byos-pick.active { border-color: #7c3aed !important; background: #f3f0ff !important; color: #7c3aed !important; }
+
   .scenario-hint .focus-block {
     display: inline-block;
     font-size: 10px;
@@ -466,11 +469,12 @@
   <!-- Scenario Selector -->
   <div style="background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);padding:20px 28px;margin-bottom:16px;">
     <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:10px;">Which scenario are you building for?</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
       <button class="scenario-pick active" onclick="pickScenario('retention',this)">Retention Engine</button>
       <button class="scenario-pick" onclick="pickScenario('internal',this)">Internal Tool</button>
       <button class="scenario-pick" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
       <button class="scenario-pick" onclick="pickScenario('dashboard',this)">Dashboard</button>
+      <button class="scenario-pick byos-pick" onclick="pickScenario('byos',this)" style="border-style:dashed;">Bring Your Own</button>
     </div>
     <div class="scenario-hint" id="scenario-hint"></div>
   </div>
@@ -808,6 +812,11 @@ Key metrics:
       focus: 'ctx',
       label: 'Blocks 1 + 2 — Context & Reference',
       text: 'Two distinct audiences (power users vs. non-technical) plus a visual hierarchy problem. <strong>Both your Context and Visual Reference blocks carry weight.</strong> The Context block needs to clearly define the two segments. The Reference block should show what good information hierarchy looks like — find a clean dashboard on Mobbin.'
+    },
+    byos: {
+      focus: 'ctx',
+      label: 'All blocks — your own data',
+      text: 'Since this is your own scenario, <strong>every block matters equally.</strong> If you used the "Bring Your Own" tab in the Context Data Pack, paste that generated output into Block 1. Your Validation Brief auto-fills Block 3. Make sure Block 2 has a screenshot from your actual product or a competitor — the AI needs a visual anchor for your domain.'
     }
   };
 
@@ -818,6 +827,44 @@ Key metrics:
     const hintEl = document.getElementById('scenario-hint');
     hintEl.innerHTML = `<span class="focus-block ${hint.focus}">${hint.label}</span> carries the most weight<br><br>${hint.text}`;
     hintEl.classList.add('visible');
+    if (id === 'byos') importBriefToBuilder();
+  }
+
+  function importBriefToBuilder() {
+    const raw = localStorage.getItem('vibe-validation-brief');
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      const constraintField = document.getElementById('constraint-input');
+      if (constraintField.value.trim()) return;
+
+      let lines = [];
+      if (data.hypIf && data.hypThen) {
+        lines.push('- HYPOTHESIS: If ' + data.hypIf + ', then ' + data.hypThen + (data.hypBecause ? ', because ' + data.hypBecause : ''));
+      }
+      if (data.killSwitch) {
+        lines.push('- KILL SWITCH: ' + data.killSwitch);
+      }
+      if (data.explore) {
+        lines.push('- EXPLORING: ' + data.explore);
+      }
+      if (data.fidelity) {
+        lines.push('- FIDELITY: ' + data.fidelity);
+      }
+      if (data.validated) {
+        lines.push('- VALIDATED IF: ' + data.validated);
+      }
+      if (data.invalidated) {
+        lines.push('- INVALIDATED IF: ' + data.invalidated);
+      }
+      lines.push('- COPY: Use real user quotes in the UI, not placeholder text');
+      lines.push('- CRITICAL: Build a product a user interacts with, NOT a dashboard or analysis');
+
+      if (lines.length > 2) {
+        constraintField.value = lines.join('\n');
+        updatePreview();
+      }
+    } catch (e) {}
   }
 
   pickScenario('retention', document.querySelector('.scenario-pick.active'));
