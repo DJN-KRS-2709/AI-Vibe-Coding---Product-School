@@ -38,7 +38,7 @@
 
   .scenario-tabs {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     margin-bottom: 28px;
   }
@@ -300,6 +300,104 @@
   }
 
   .copy-everything-btn:hover { background: #2D5BC4; }
+
+  .scenario-tab.byos { border-style: dashed; }
+  .scenario-tab.byos.active { border-style: solid; border-color: #7c3aed; background: #f3f0ff; }
+  .scenario-tab.byos .scenario-tab-title { color: #7c3aed; }
+
+  .byos-form { display: flex; flex-direction: column; gap: 16px; }
+
+  .byos-field label {
+    display: block; font-size: 12px; font-weight: 700; color: #444;
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  .byos-field label .byos-hint {
+    font-weight: 400; text-transform: none; letter-spacing: 0; color: #888;
+    font-size: 11px; display: block; margin-top: 2px;
+  }
+
+  .byos-field textarea, .byos-field input {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 13px;
+    border: 2px solid #e1e4e8; border-radius: 8px; padding: 10px 14px;
+    color: #1a1a2e; line-height: 1.6; resize: vertical; transition: border-color 0.2s;
+  }
+
+  .byos-field textarea:focus, .byos-field input:focus {
+    outline: none; border-color: #7c3aed;
+  }
+
+  .byos-field textarea { min-height: 72px; }
+  .byos-field textarea.tall { min-height: 100px; }
+
+  .byos-generate-btn {
+    font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif;
+    color: #fff; background: #7c3aed; border: none; border-radius: 10px;
+    padding: 14px 28px; cursor: pointer; transition: all 0.2s; width: 100%;
+  }
+
+  .byos-generate-btn:hover { background: #6d28d9; }
+
+  .byos-output-area {
+    display: none; margin-top: 20px;
+  }
+
+  .byos-output-area.visible { display: block; }
+
+  .byos-prompt-preview {
+    background: #f8f7ff; border: 2px solid #e1e4e8; border-radius: 10px;
+    padding: 20px; font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    color: #444; line-height: 1.7; white-space: pre-wrap; max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .byos-copy-prompt-btn {
+    font-size: 13px; font-weight: 700; font-family: 'Inter', sans-serif;
+    color: #fff; background: #7c3aed; border: none; border-radius: 8px;
+    padding: 12px 22px; cursor: pointer; transition: all 0.2s; margin-top: 12px;
+  }
+
+  .byos-copy-prompt-btn:hover { background: #6d28d9; }
+
+  .byos-step-badge {
+    display: inline-block; font-size: 10px; font-weight: 800; color: #7c3aed;
+    background: #f3f0ff; border-radius: 20px; padding: 4px 12px;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+  }
+
+  .byos-instructions {
+    font-size: 13px; color: #666; line-height: 1.65; margin-bottom: 16px;
+  }
+
+  .byos-instructions strong { color: #1a1a2e; }
+
+  .byos-paste-area {
+    display: none; margin-top: 20px;
+  }
+
+  .byos-paste-area.visible { display: block; }
+
+  .byos-paste-field textarea {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 13px;
+    border: 2px solid #e1e4e8; border-radius: 8px; padding: 14px;
+    color: #1a1a2e; line-height: 1.6; resize: vertical; min-height: 200px;
+    transition: border-color 0.2s;
+  }
+
+  .byos-paste-field textarea:focus { outline: none; border-color: #7c3aed; }
+
+  .byos-parse-btn {
+    font-size: 13px; font-weight: 700; font-family: 'Inter', sans-serif;
+    color: #7c3aed; background: #f3f0ff; border: 2px solid #7c3aed;
+    border-radius: 8px; padding: 12px 22px; cursor: pointer; transition: all 0.2s;
+    margin-top: 12px;
+  }
+
+  .byos-parse-btn:hover { background: #ece7ff; }
+
+  @media (max-width: 640px) {
+    .scenario-tabs { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -334,6 +432,10 @@
     <div class="scenario-tab" onclick="switchScenario('dashboard')">
       <div class="scenario-tab-title">Dashboard</div>
       <div class="scenario-tab-desc">Analytics · 60% bounce</div>
+    </div>
+    <div class="scenario-tab byos" onclick="switchScenario('byos')">
+      <div class="scenario-tab-title">Bring Your Own</div>
+      <div class="scenario-tab-desc">Your company · your data</div>
     </div>
   </div>
 
@@ -653,6 +755,114 @@
     </div>
   </div>
 
+  <!-- ==================== BRING YOUR OWN ==================== -->
+  <div class="scenario-content" id="scenario-byos">
+
+    <div class="instructions-banner" id="byos-import-banner" style="display: none; border-left: 4px solid #7c3aed;">
+      <div class="instructions-icon" style="background: #7c3aed;">✓</div>
+      <div class="instructions-text byos-import-text"></div>
+    </div>
+
+    <!-- Step 1: Fill Your Brief -->
+    <div class="card">
+      <div class="card-header" style="cursor: default;">
+        <div class="card-header-left">
+          <div class="card-icon" style="background: #f3f0ff;">✏️</div>
+          <div>
+            <div class="card-title">Step 1 — Describe Your Product Problem</div>
+            <div class="card-subtitle">Fill in what you know — this generates your full Context Data Pack</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="byos-instructions">
+          You don't need a pre-built scenario. <strong>Fill in the fields below from your Validation Brief</strong>, then we'll generate a prompt that creates your full data pack — scenario brief, user quotes, stakeholder quotes, and metrics — all grounded in your actual problem.
+        </div>
+        <div class="byos-form">
+          <div class="byos-field">
+            <label>Company / Product
+              <span class="byos-hint">What does the company do? Stage, size, revenue if known.</span>
+            </label>
+            <textarea id="byos-company" placeholder="e.g. B2B expense management SaaS. Series B. 12,000 customers. $18M ARR."></textarea>
+          </div>
+          <div class="byos-field">
+            <label>Core Problem
+              <span class="byos-hint">What's broken? Be specific about the impact.</span>
+            </label>
+            <textarea id="byos-problem" placeholder="e.g. 45% of submitted expense reports have errors requiring manual correction. Finance team spends 30 hours/week on corrections. Average reimbursement takes 14 days."></textarea>
+          </div>
+          <div class="byos-field">
+            <label>Hypothesis
+              <span class="byos-hint">If we [intervention], then [outcome], because [evidence].</span>
+            </label>
+            <textarea id="byos-hypothesis" placeholder="e.g. If we add real-time validation during expense entry, error rate drops from 45% to under 15%, because most errors are policy violations that could be caught at submission."></textarea>
+          </div>
+          <div class="byos-field">
+            <label>Any Known Metrics (optional)
+              <span class="byos-hint">Real numbers you already have — the AI will build around these and fill gaps.</span>
+            </label>
+            <textarea id="byos-metrics" placeholder="e.g. 45% error rate, 14-day avg reimbursement, 30 hrs/week manual correction, NPS -8 from employees"></textarea>
+          </div>
+          <div class="byos-field">
+            <label>Target Users
+              <span class="byos-hint">Who uses this? What are their roles and frustrations?</span>
+            </label>
+            <textarea id="byos-users" placeholder="e.g. Employees submitting expenses (mostly field sales and consultants), finance team reviewing/correcting, managers approving"></textarea>
+          </div>
+          <div class="byos-field">
+            <label>Constraints (optional)
+              <span class="byos-hint">Budget, timeline, technical limits, organizational blockers.</span>
+            </label>
+            <textarea id="byos-constraints" placeholder="e.g. Must integrate with existing SAP backend. No budget for new tools. Finance team resistant to workflow changes."></textarea>
+          </div>
+          <button class="byos-generate-btn" onclick="generateByosPrompt()">Generate My Data Pack Prompt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Generated Prompt -->
+    <div class="card byos-output-area" id="byos-output">
+      <div class="card-header" style="cursor: default;">
+        <div class="card-header-left">
+          <div class="card-icon" style="background: #f3f0ff;">📋</div>
+          <div>
+            <div class="card-title">Step 2 — Copy This Prompt into ChatGPT or Claude</div>
+            <div class="card-subtitle">The AI will generate your full Context Data Pack</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="byos-instructions">
+          Copy the prompt below and paste it into <strong>ChatGPT or Claude</strong>. It will generate a scenario brief, 8-10 user quotes, 3-4 stakeholder quotes, and 12-15 metrics — all specific to your problem. Then come back here and paste the result.
+        </div>
+        <div class="byos-prompt-preview" id="byos-prompt-text"></div>
+        <button class="byos-copy-prompt-btn" onclick="copyByosPrompt()">Copy Prompt</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Paste Back -->
+    <div class="card byos-paste-area" id="byos-paste">
+      <div class="card-header" style="cursor: default;">
+        <div class="card-header-left">
+          <div class="card-icon" style="background: #f3f0ff;">📦</div>
+          <div>
+            <div class="card-title">Step 3 — Paste Your Generated Data Pack</div>
+            <div class="card-subtitle">Paste the ChatGPT/Claude output, then use "Copy Everything" to feed it into the Prompt Builder</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="byos-instructions">
+          Paste the full output from ChatGPT/Claude below. Review it — edit any quotes or metrics that don't feel right. Then click <strong>"Copy My Data Pack"</strong> to grab it all and take it to the Structured Prompt Builder.
+        </div>
+        <div class="byos-paste-field">
+          <textarea id="byos-paste-input" placeholder="Paste the ChatGPT/Claude output here..."></textarea>
+        </div>
+        <button class="byos-copy-prompt-btn" onclick="copyByosPaste()">Copy My Data Pack</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Selection Bar -->
   <div class="selection-bar" id="selection-bar">
     <div class="selection-info">
@@ -671,11 +881,47 @@
   function switchScenario(id) {
     currentScenario = id;
     document.querySelectorAll('.scenario-tab').forEach((t,i) => {
-      t.classList.toggle('active', ['retention','internal','marketplace','dashboard'][i] === id);
+      t.classList.toggle('active', ['retention','internal','marketplace','dashboard','byos'][i] === id);
     });
     document.querySelectorAll('.scenario-content').forEach(c => c.classList.remove('active'));
     document.getElementById('scenario-' + id).classList.add('active');
+    const bar = document.getElementById('selection-bar');
+    bar.style.display = (id === 'byos') ? 'none' : 'flex';
+    if (id === 'byos') importFromValidationBrief();
     updateCount();
+  }
+
+  function importFromValidationBrief() {
+    const raw = localStorage.getItem('vibe-validation-brief');
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      const banner = document.getElementById('byos-import-banner');
+
+      const hypothesis = [data.hypIf ? 'If ' + data.hypIf : '', data.hypThen ? 'then ' + data.hypThen : '', data.hypBecause ? 'because ' + data.hypBecause : ''].filter(Boolean).join(', ');
+
+      const companyField = document.getElementById('byos-company');
+      const problemField = document.getElementById('byos-problem');  // not directly in brief
+      const hypothesisField = document.getElementById('byos-hypothesis');
+      const constraintsField = document.getElementById('byos-constraints');
+      const usersField = document.getElementById('byos-users');
+
+      if (hypothesis && !hypothesisField.value) hypothesisField.value = hypothesis;
+
+      const scenarioDesc = data.scenario || '';
+      if (scenarioDesc && scenarioDesc.includes('—') && !companyField.value) {
+        companyField.value = scenarioDesc;
+      }
+
+      if (data.killSwitch && !constraintsField.value) {
+        constraintsField.value = 'Kill switch: ' + data.killSwitch;
+      }
+
+      if (banner) {
+        banner.style.display = 'flex';
+        banner.querySelector('.byos-import-text').textContent = 'Imported from your Validation Brief — review and fill in the remaining fields.';
+      }
+    } catch (e) {}
   }
 
   function toggleHighlight(el) {
@@ -807,12 +1053,102 @@
     updateCount();
   }
 
+  if (window.location.hash === '#byos') {
+    switchScenario('byos');
+  }
+
   function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const orig = btn.textContent;
       btn.textContent = 'Copied!';
       setTimeout(() => { btn.textContent = orig; }, 2000);
     });
+  }
+
+  function generateByosPrompt() {
+    const company = document.getElementById('byos-company').value.trim();
+    const problem = document.getElementById('byos-problem').value.trim();
+    const hypothesis = document.getElementById('byos-hypothesis').value.trim();
+    const metrics = document.getElementById('byos-metrics').value.trim();
+    const users = document.getElementById('byos-users').value.trim();
+    const constraints = document.getElementById('byos-constraints').value.trim();
+
+    if (!company || !problem || !hypothesis) {
+      alert('Please fill in at least Company, Problem, and Hypothesis.');
+      return;
+    }
+
+    let prompt = `Generate a Context Data Pack for prototyping. I'm building a prototype to test a product hypothesis and I need realistic research data to inject into my build.
+
+HERE IS MY PRODUCT CONTEXT:
+
+Company/Product: ${company}
+
+Core Problem: ${problem}
+
+Hypothesis: ${hypothesis}`;
+
+    if (users) prompt += `\n\nTarget Users: ${users}`;
+    if (metrics) prompt += `\n\nMetrics I Already Know: ${metrics}`;
+    if (constraints) prompt += `\n\nConstraints: ${constraints}`;
+
+    prompt += `
+
+GENERATE THE FOLLOWING — formatted exactly as described:
+
+1. SCENARIO BRIEF
+Write a structured brief with these exact sections:
+- Company: (1-2 sentences — what the company does, stage, size, revenue)
+- Problem: (2-3 sentences — the core issue and its business impact, bold the key stat)
+- Key Data: (4-5 data points that frame the problem — use any real metrics I provided above, fill gaps with realistic estimates)
+- Constraints: (2-3 real-world limitations)
+- Your Job: (1-2 sentences — what the prototype needs to prove)
+- Competing Hypotheses: (3 stakeholders with different perspectives on the root cause — give each a title like "VP of X" and a quoted opinion)
+
+2. USER & STAKEHOLDER FEEDBACK
+Generate 8-10 user quotes that sound like real interview excerpts:
+- Mix of frustrated users, churned users, satisfied users, and at-risk users
+- Each quote should be 1-3 sentences, conversational, specific, and emotional
+- Include the speaker's role and context (e.g. "Senior AE" or "Churned user, Day 3")
+- At least 2 quotes should directly relate to the hypothesis
+
+Then generate 3-4 stakeholder quotes:
+- Different perspectives (executive, technical lead, ops, customer-facing)
+- Each should reveal a different angle on the problem
+
+3. QUANTITATIVE METRICS TABLE
+Generate 12-15 metrics in this exact format:
+Metric | Value | Segment | Notes
+
+- Include any real metrics I provided above (use exact values)
+- Fill remaining rows with realistic estimates that a PM would find in analytics
+- Mix leading indicators, lagging indicators, and comparison metrics
+- Include at least one NPS or satisfaction score
+- Include at least one cost/revenue impact metric
+
+IMPORTANT:
+- Make all data feel specific and grounded — no generic placeholders
+- Quotes should sound like things real people actually said, with emotion and detail
+- Metrics should be realistic for the company stage and industry
+- The competing hypotheses should create genuine tension — not everyone agrees on the root cause`;
+
+    document.getElementById('byos-prompt-text').textContent = prompt;
+    document.getElementById('byos-output').classList.add('visible');
+    document.getElementById('byos-paste').classList.add('visible');
+    document.getElementById('byos-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function copyByosPrompt() {
+    const text = document.getElementById('byos-prompt-text').textContent;
+    const btn = document.querySelector('.byos-copy-prompt-btn');
+    copyText(text, btn);
+  }
+
+  function copyByosPaste() {
+    const text = document.getElementById('byos-paste-input').value.trim();
+    if (!text) { alert('Paste the ChatGPT/Claude output first.'); return; }
+    const btn = document.querySelectorAll('.byos-copy-prompt-btn')[1];
+    copyText(text, btn);
   }
 </script>
 </body>

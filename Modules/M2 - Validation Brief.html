@@ -592,7 +592,10 @@
       <strong>Done?</strong> Copy this to Slack and move to Lab Part 2.<br>
       Your hypothesis, risk type, and kill switch feed directly into your prompt.
     </div>
-    <button class="export-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <div style="display: flex; gap: 10px;">
+      <button class="export-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <button class="export-btn" onclick="sendToDataPack()" style="background: #7c3aed;" id="send-to-dp-btn">Send to Data Pack →</button>
+    </div>
   </div>
 </div>
 
@@ -668,11 +671,56 @@
   function selectRisk(el) {
     document.querySelectorAll('.risk-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
+    saveBriefToStorage();
   }
 
   function selectFidelity(el) {
     document.querySelectorAll('.fidelity-option').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
+    saveBriefToStorage();
+  }
+
+  function gatherBriefData() {
+    const scenario = document.getElementById('scenario');
+    const scenarioText = scenario.options[scenario.selectedIndex]?.text || '';
+    const scenarioVal = scenario.value || '';
+    return {
+      scenario: scenarioText,
+      scenarioValue: scenarioVal,
+      hypIf: document.getElementById('hyp-if').value || '',
+      hypThen: document.getElementById('hyp-then').value || '',
+      hypBecause: document.getElementById('hyp-because').value || '',
+      explore: document.getElementById('explore').value || '',
+      riskType: document.querySelector('.risk-card.selected')?.dataset.risk || '',
+      killSwitch: document.getElementById('kill-switch').value || '',
+      fidelity: document.querySelector('.fidelity-option.selected .fidelity-label')?.textContent || '',
+      validated: document.querySelector('.success-cell.validated textarea').value || '',
+      invalidated: document.querySelector('.success-cell.invalidated textarea').value || ''
+    };
+  }
+
+  function saveBriefToStorage() {
+    const data = gatherBriefData();
+    if (data.hypIf || data.hypThen || data.killSwitch) {
+      localStorage.setItem('vibe-validation-brief', JSON.stringify(data));
+    }
+  }
+
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', saveBriefToStorage);
+    el.addEventListener('change', saveBriefToStorage);
+  });
+
+  function sendToDataPack() {
+    saveBriefToStorage();
+    const btn = document.getElementById('send-to-dp-btn');
+    btn.textContent = 'Saved! Opening Data Pack...';
+    btn.style.background = '#1a7f37';
+    setTimeout(() => {
+      window.open('M2 - Context Data Pack.html#byos', '_blank');
+      btn.textContent = 'Send to Data Pack →';
+      btn.style.background = '#7c3aed';
+    }, 800);
   }
 
   function copyToClipboard() {
