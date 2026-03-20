@@ -1097,15 +1097,13 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
   function sanitizeContextBlock() {
     const ctx = document.getElementById('context-block');
     const val = ctx.value.trim();
-    if (val.startsWith('PROMPT CHAIN') || val.startsWith('# Prompt Chain')) {
-      const isAlreadyChainEntry = chainEntries.some(e => e.text === val);
-      if (!isAlreadyChainEntry) {
-        chainEntries.push({
-          text: val,
-          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        });
-        renderChainEntries();
-      }
+    const looksLikeChain = val.includes('PROMPT CHAIN') ||
+      val.includes('# Prompt Chain') ||
+      val.includes('PROMPT 1') ||
+      val.includes('## Prompt 1') ||
+      (val.includes('EXPAND') && val.includes('BEHAVIOR') && val.includes('REFINE'));
+
+    if (looksLikeChain) {
       ctx.value = '';
       updatePreview();
       saveToLocalStorage();
