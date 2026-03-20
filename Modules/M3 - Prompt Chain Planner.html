@@ -422,6 +422,7 @@
         <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
       </div>
 
+      <!-- M2 data found — offer import -->
       <div class="m2-import-banner" id="m2-import-banner">
         <div class="m2-import-header">
           <span class="m2-import-badge">M2 Data Found</span>
@@ -434,9 +435,28 @@
         </div>
       </div>
 
+      <!-- No M2 data — tell them how to get it -->
+      <div class="m2-import-banner" id="m2-no-data-banner" style="border-color:#d97706;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);">
+        <div class="m2-import-header">
+          <span class="m2-import-badge" style="background:#d97706;">No M2 Data Yet</span>
+          <span class="m2-import-title">Connect your M2 work in 2 steps</span>
+        </div>
+        <div class="m2-import-body">
+          <strong>Step 1:</strong> Open the <a href="M2%20-%20Prototype%20Builder.html" target="_blank" style="color:#3B6FE0;font-weight:700;text-decoration:none;">M2 Prototype Builder ↗</a> and complete all 3 steps (Frame → Evidence → Build).<br>
+          <strong>Step 2:</strong> Click <strong>"Copy Prompt to Clipboard"</strong> in Step 3 — this saves your data automatically.<br>
+          <strong>Step 3:</strong> Come back here, click <strong>"Build Your Own"</strong> again, and your M2 data will appear.
+        </div>
+        <div class="m2-import-actions">
+          <a href="M2%20-%20Prototype%20Builder.html" target="_blank" class="m2-import-btn primary" style="text-decoration:none;text-align:center;">Open M2 Prototype Builder</a>
+          <button class="m2-import-btn secondary" onclick="dismissNoData()">Skip — I'll Start Blank</button>
+        </div>
+      </div>
+
+      <!-- Imported M2 context display -->
       <div class="byo-context" id="byo-context">
-        <div class="byo-context-label">Your M2 Prompt (imported)</div>
+        <div class="byo-context-label">Your M2 Prompt (imported from Prototype Builder)</div>
         <div class="byo-context-text" id="byo-m2-prompt"></div>
+        <div style="margin-top:10px;font-size:11px;color:#888;line-height:1.5;">Use this as context while writing your Expand, Behavior, and Refine prompts below. Your M2 prototype is the starting point — your chain builds on top of it.</div>
       </div>
 
       <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Your references:</div>
@@ -661,8 +681,14 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     const banner = document.getElementById('m2-import-banner');
     const byoCtx = document.getElementById('byo-context');
 
+    const noDataBanner = document.getElementById('m2-no-data-banner');
+
     if (id === 'byo') {
       byoCtx.classList.remove('visible');
+      noDataBanner.classList.remove('visible');
+
+      try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
+
       if (m2Handoff) {
         const hyp = m2Handoff.hypothesis || {};
         let summary = `<strong>Scenario:</strong> ${m2Handoff.scenarioLabel || 'Custom'}`;
@@ -673,6 +699,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
         banner.classList.add('visible');
       } else {
         banner.classList.remove('visible');
+        noDataBanner.classList.add('visible');
       }
       document.getElementById('prompt-expand').value = '';
       document.getElementById('prompt-behavior').value = '';
@@ -689,6 +716,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     }
 
     banner.classList.remove('visible');
+    noDataBanner.classList.remove('visible');
     byoCtx.classList.remove('visible');
 
     const hasExisting = ['prompt-expand','prompt-behavior','prompt-refine'].some(
@@ -737,6 +765,10 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
 
   function dismissM2Import() {
     document.getElementById('m2-import-banner').classList.remove('visible');
+  }
+
+  function dismissNoData() {
+    document.getElementById('m2-no-data-banner').classList.remove('visible');
   }
 
   function setToggle(field, val) {
