@@ -957,11 +957,12 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     else text = buildPlainText(d);
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('copy-current-btn');
-      btn.textContent = 'Copied!';
+      btn.textContent = 'Copied! Opening Pack Builder…';
       btn.style.background = '#047857';
-      setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2500);
     });
     saveChainForPackBuilder(d);
+    setTimeout(() => window.open('M3%20-%20Living%20Prompt%20Pack%20Builder.html', '_blank'), 300);
   }
 
   function saveChainForPackBuilder(d) {
