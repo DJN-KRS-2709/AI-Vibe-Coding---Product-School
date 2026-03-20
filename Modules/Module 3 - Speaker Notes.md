@@ -251,7 +251,7 @@ Four steps:
 
 **Step 3 — Gather your references.** For the COT expansion, get screenshots of the layouts you want to match for your new screens. Same Mobbin workflow from M2.
 
-**Step 4 — Copy your finalized prompts into your exercise document.** You'll need them for peer review and the lab. This documentation becomes part of your Living Prompt Pack — a final project deliverable.
+**Step 4 — Finalize your chain in the Prompt Chain Planner.** Make sure all three prompts (Expand, Behavior, Refine) are written. Use "Copy Full Chain" or "Copy as GitHub XML" to export them for peer review and the lab. This documented chain becomes the first entry in your Living Prompt Pack — a final project deliverable.
 
 **ACTION: Walk the room. Watch for:**
 1. **Students who jump to Lovable** — "Close it. Plan first. Your chain isn't ready until it's written down."
@@ -350,7 +350,7 @@ If you're 5+ prompts deep on the same issue, the problem isn't the tool — it's
 
 ## Slide 22 — Living Prompt Packs
 
-This is where your work today becomes a permanent asset. A Living Prompt Pack is a markdown file that encodes your product's DNA into four reusable blocks:
+This is where your work today becomes a permanent asset. A Living Prompt Pack is a reusable text document that encodes your product's DNA into four reusable blocks:
 
 **Product Context** — your source of truth for every new session. Company, users, hypothesis, constraints.
 
