@@ -1106,6 +1106,25 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     }
   }
 
+  // ── Sanitize: catch chain data that ended up in the wrong field ──
+  function sanitizeContextBlock() {
+    const ctx = document.getElementById('context-block');
+    const val = ctx.value.trim();
+    if (val.startsWith('PROMPT CHAIN') || val.startsWith('# Prompt Chain')) {
+      const isAlreadyChainEntry = chainEntries.some(e => e.text === val);
+      if (!isAlreadyChainEntry) {
+        chainEntries.push({
+          text: val,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        });
+        renderChainEntries();
+      }
+      ctx.value = '';
+      updatePreview();
+      saveToLocalStorage();
+    }
+  }
+
   // ── Initialize ──
   const restored = restoreFromLocalStorage();
   if (!restored) {
@@ -1113,6 +1132,7 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     renderTemplateRows();
     updatePreview();
   }
+  sanitizeContextBlock();
   checkChainHandoff();
 </script>
 </body>
