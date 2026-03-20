@@ -538,11 +538,23 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     }
   }
 
+  function looksLikeChainData(text) {
+    if (!text) return false;
+    return text.includes('PROMPT CHAIN') ||
+      text.includes('# Prompt Chain') ||
+      text.includes('PROMPT 1') ||
+      text.includes('## Prompt 1') ||
+      (text.includes('EXPAND') && text.includes('BEHAVIOR') && text.includes('REFINE'));
+  }
+
   function applyState(state) {
     isRestoring = true;
 
-    if (state.contextBlock != null) {
+    if (state.contextBlock != null && !looksLikeChainData(state.contextBlock)) {
       document.getElementById('context-block').value = state.contextBlock;
+    } else if (state.contextBlock != null) {
+      state.contextBlock = '';
+      document.getElementById('context-block').value = '';
     }
     if (state.figmaLink != null) {
       document.getElementById('figma-link').value = state.figmaLink;
@@ -1093,22 +1105,7 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     }
   }
 
-  // ── Sanitize: catch chain data that ended up in the wrong field ──
-  function sanitizeContextBlock() {
-    const ctx = document.getElementById('context-block');
-    const val = ctx.value.trim();
-    const looksLikeChain = val.includes('PROMPT CHAIN') ||
-      val.includes('# Prompt Chain') ||
-      val.includes('PROMPT 1') ||
-      val.includes('## Prompt 1') ||
-      (val.includes('EXPAND') && val.includes('BEHAVIOR') && val.includes('REFINE'));
-
-    if (looksLikeChain) {
-      ctx.value = '';
-      updatePreview();
-      saveToLocalStorage();
-    }
-  }
+  // sanitizeContextBlock logic is now handled in applyState() and init block
 
   // ── Initialize ──
   const restored = restoreFromLocalStorage();
@@ -1117,7 +1114,15 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     renderTemplateRows();
     updatePreview();
   }
-  sanitizeContextBlock();
+
+  // Force-clean stale localStorage if context block had chain data
+  const ctxVal = document.getElementById('context-block').value;
+  if (looksLikeChainData(ctxVal)) {
+    document.getElementById('context-block').value = '';
+    updatePreview();
+    saveToLocalStorage();
+  }
+
   checkChainHandoff();
 </script>
 </body>
