@@ -919,6 +919,29 @@ function copyFinal() {
   if (!text || text.startsWith('Select a scenario')) return;
   const btn = document.getElementById('copy-final-btn');
   copyText(text, btn);
+  saveForM3(text);
+}
+
+function saveForM3(promptText) {
+  try {
+    const scenarioEl = document.getElementById('scenario');
+    const scenarioLabel = scenarioEl.options[scenarioEl.selectedIndex]?.text || '';
+    const scenarioVal = scenarioEl.value;
+    localStorage.setItem('vc-m2-handoff', JSON.stringify({
+      ts: Date.now(),
+      scenario: scenarioVal,
+      scenarioLabel: scenarioLabel,
+      hypothesis: {
+        if: document.getElementById('hyp-if').value,
+        then: document.getElementById('hyp-then').value,
+        because: document.getElementById('hyp-because').value
+      },
+      killSwitch: document.getElementById('kill-switch').value,
+      quotes: getSelectedQuotesText(),
+      metrics: getSelectedMetricsText(),
+      prompt: promptText
+    }));
+  } catch(e) {}
 }
 
 // ═══════════════════════════════════════════════

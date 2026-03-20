@@ -81,7 +81,7 @@
   .card-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
 
   .scenario-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
     margin-bottom: 10px;
   }
 
@@ -94,6 +94,55 @@
   }
   .scenario-btn:hover { border-color: #a0d8c0; background: #f0fdf8; color: #059669; }
   .scenario-btn.active { border-color: #059669; background: #ecfdf5; color: #059669; font-weight: 700; }
+  .scenario-btn.byo { border-style: dashed; }
+  .scenario-btn.byo.active { border-style: solid; }
+
+  .m2-import-banner {
+    display: none;
+    background: linear-gradient(135deg, #eef3ff 0%, #ecfdf5 100%);
+    border: 2px solid #3B6FE0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    animation: fadeIn 0.3s ease;
+  }
+  .m2-import-banner.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .m2-import-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .m2-import-badge {
+    font-size: 10px; font-weight: 700; color: #fff; background: #3B6FE0;
+    padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .m2-import-title { font-size: 14px; font-weight: 700; color: #1a1a2e; }
+  .m2-import-body { font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 12px; }
+  .m2-import-body strong { color: #1a1a2e; }
+
+  .m2-import-actions { display: flex; gap: 8px; }
+  .m2-import-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+    border: none;
+  }
+  .m2-import-btn.primary { background: #3B6FE0; color: #fff; }
+  .m2-import-btn.primary:hover { background: #2d5bc7; }
+  .m2-import-btn.secondary { background: #e8e8ee; color: #555; }
+  .m2-import-btn.secondary:hover { background: #d1d5db; }
+
+  .byo-context {
+    display: none;
+    background: #f6f8fa; border: 1.5px solid #e1e4e8; border-radius: 10px;
+    padding: 18px 22px; margin-top: 12px;
+  }
+  .byo-context.visible { display: block; }
+  .byo-context-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .byo-context-text { font-size: 13px; color: #333; line-height: 1.6; white-space: pre-wrap; max-height: 180px; overflow-y: auto; }
+  .byo-field { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; padding: 10px 14px; border: 1.5px solid #e1e4e8; border-radius: 8px; background: #fff; color: #333; resize: vertical; min-height: 48px; margin-top: 6px; }
+  .byo-field:focus { outline: none; border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
 
   .m2-links {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
@@ -370,7 +419,26 @@
         <button class="scenario-btn" onclick="pickScenario('internal',this)">Internal Tool</button>
         <button class="scenario-btn" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
         <button class="scenario-btn" onclick="pickScenario('dashboard',this)">Dashboard</button>
+        <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
       </div>
+
+      <div class="m2-import-banner" id="m2-import-banner">
+        <div class="m2-import-header">
+          <span class="m2-import-badge">M2 Data Found</span>
+          <span class="m2-import-title" id="m2-import-scenario"></span>
+        </div>
+        <div class="m2-import-body" id="m2-import-body"></div>
+        <div class="m2-import-actions">
+          <button class="m2-import-btn primary" onclick="importM2Data()">Import M2 Data</button>
+          <button class="m2-import-btn secondary" onclick="dismissM2Import()">Start Blank</button>
+        </div>
+      </div>
+
+      <div class="byo-context" id="byo-context">
+        <div class="byo-context-label">Your M2 Prompt (imported)</div>
+        <div class="byo-context-text" id="byo-m2-prompt"></div>
+      </div>
+
       <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Your references:</div>
       <div class="m2-links" style="grid-template-columns:1fr 1fr; gap:10px;">
         <a class="m2-link" href="M2%20-%20Prototype%20Builder.html" target="_blank" style="flex-direction:row;gap:12px;justify-content:flex-start;">
@@ -542,7 +610,17 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
 <script>
   const auditState = { states: 'no', repro: 'no' };
 
+  let m2Handoff = null;
+  try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
+
   const SCENARIO_DATA = {
+    byo: {
+      label: 'Build Your Own',
+      audit: { screens: 1, states: 'no', repro: 'no' },
+      expand: '',
+      behavior: '',
+      refine: ''
+    },
     retention: {
       label: 'Retention Engine',
       audit: { screens: 3, states: 'no', repro: 'no' },
@@ -580,6 +658,39 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     const data = SCENARIO_DATA[id];
     if (!data) return;
 
+    const banner = document.getElementById('m2-import-banner');
+    const byoCtx = document.getElementById('byo-context');
+
+    if (id === 'byo') {
+      byoCtx.classList.remove('visible');
+      if (m2Handoff) {
+        const hyp = m2Handoff.hypothesis || {};
+        let summary = `<strong>Scenario:</strong> ${m2Handoff.scenarioLabel || 'Custom'}`;
+        if (hyp.if) summary += `<br><strong>Hypothesis:</strong> If ${hyp.if}, then ${hyp.then || '…'}`;
+        if (m2Handoff.quotes?.length) summary += `<br><strong>${m2Handoff.quotes.length} quotes</strong> and <strong>${(m2Handoff.metrics||[]).length} metrics</strong> selected`;
+        document.getElementById('m2-import-scenario').textContent = m2Handoff.scenarioLabel || 'Your M2 build';
+        document.getElementById('m2-import-body').innerHTML = summary;
+        banner.classList.add('visible');
+      } else {
+        banner.classList.remove('visible');
+      }
+      document.getElementById('prompt-expand').value = '';
+      document.getElementById('prompt-behavior').value = '';
+      document.getElementById('prompt-refine').value = '';
+      document.getElementById('result-expand').value = '';
+      document.getElementById('result-behavior').value = '';
+      document.getElementById('result-refine').value = '';
+      document.getElementById('audit-screens').value = 1;
+      setToggle('states', 'no');
+      setToggle('repro', 'no');
+      updateAudit();
+      updatePreview();
+      return;
+    }
+
+    banner.classList.remove('visible');
+    byoCtx.classList.remove('visible');
+
     const hasExisting = ['prompt-expand','prompt-behavior','prompt-refine'].some(
       fid => document.getElementById(fid).value.trim() !== ''
     );
@@ -605,6 +716,27 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     updatePreview();
 
     document.querySelector('.prompt-card.expand').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function importM2Data() {
+    if (!m2Handoff) return;
+    const banner = document.getElementById('m2-import-banner');
+    const byoCtx = document.getElementById('byo-context');
+
+    if (m2Handoff.prompt) {
+      document.getElementById('byo-m2-prompt').textContent = m2Handoff.prompt;
+      byoCtx.classList.add('visible');
+    }
+
+    banner.classList.remove('visible');
+
+    updateAudit();
+    updatePreview();
+    document.querySelector('.prompt-card.expand').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function dismissM2Import() {
+    document.getElementById('m2-import-banner').classList.remove('visible');
   }
 
   function setToggle(field, val) {
@@ -646,42 +778,104 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     document.getElementById('audit-summary').innerHTML = msg;
   }
 
+  let currentFormat = 'plain';
+
+  function setFormat(fmt, btn) {
+    currentFormat = fmt;
+    document.querySelectorAll('.format-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePreview();
+  }
+
+  function getChainData() {
+    return {
+      scenario: document.querySelector('.scenario-btn.active')?.textContent || 'Unknown',
+      screens: document.getElementById('audit-screens').value || '?',
+      hasStates: auditState.states === 'yes',
+      isRepro: auditState.repro === 'yes',
+      p1: document.getElementById('prompt-expand').value.trim(),
+      p2: document.getElementById('prompt-behavior').value.trim(),
+      p3: document.getElementById('prompt-refine').value.trim(),
+      r1: document.getElementById('result-expand').value.trim(),
+      r2: document.getElementById('result-behavior').value.trim(),
+      r3: document.getElementById('result-refine').value.trim(),
+    };
+  }
+
+  function escXml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function buildPlainText(d) {
+    let chain = `PROMPT CHAIN — Module 3\n━━━━━━━━━━━━━━━━━━━━━━\nScenario: ${d.scenario}\nStarting point: M2 prototype (${d.screens} screens, ${d.hasStates ? 'has states' : 'no states'}, ${d.isRepro ? 'reproducible' : 'not reproducible'})\n`;
+    if (d.p1) { chain += `\nPROMPT 1 — EXPAND\n${d.p1}\n`; if (d.r1) chain += `Result: ${d.r1}\n`; }
+    if (d.p2) { chain += `\nPROMPT 2 — BEHAVIOR\n${d.p2}\n`; if (d.r2) chain += `Result: ${d.r2}\n`; }
+    if (d.p3) { chain += `\nPROMPT 3 — REFINE\n${d.p3}\n`; if (d.r3) chain += `Result: ${d.r3}\n`; }
+    return chain;
+  }
+
+  function buildXML(d) {
+    const ts = new Date().toISOString().slice(0, 10);
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+    xml += `<!-- Prompt Chain — paste into your repo or attach to a PR -->\n`;
+    xml += `<prompt-chain module="3" scenario="${escXml(d.scenario)}" date="${ts}">\n\n`;
+    xml += `  <starting-point\n`;
+    xml += `    screens="${escXml(d.screens)}"\n`;
+    xml += `    has-states="${d.hasStates}"\n`;
+    xml += `    reproducible="${d.isRepro}"\n`;
+    xml += `  />\n`;
+
+    const steps = [
+      { num: 1, type: 'expand',   prompt: d.p1, result: d.r1 },
+      { num: 2, type: 'behavior', prompt: d.p2, result: d.r2 },
+      { num: 3, type: 'refine',   prompt: d.p3, result: d.r3 },
+    ];
+
+    for (const s of steps) {
+      if (!s.prompt) continue;
+      xml += `\n  <prompt step="${s.num}" type="${s.type}">\n`;
+      xml += `    <instruction>\n${escXml(s.prompt).split('\n').map(l => '      ' + l).join('\n')}\n    </instruction>\n`;
+      if (s.result) {
+        xml += `    <result>\n${escXml(s.result).split('\n').map(l => '      ' + l).join('\n')}\n    </result>\n`;
+      }
+      xml += `  </prompt>\n`;
+    }
+
+    xml += `\n</prompt-chain>`;
+    return xml;
+  }
+
+  function syntaxHighlightXML(xml) {
+    return xml
+      .replace(/&amp;/g, '\x00AMP')
+      .replace(/&lt;/g, '\x00LT')
+      .replace(/&gt;/g, '\x00GT')
+      .replace(/&quot;/g, '\x00QUOT')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\x00AMP/g, '&amp;amp;').replace(/\x00LT/g, '&amp;lt;')
+      .replace(/\x00GT/g, '&amp;gt;').replace(/\x00QUOT/g, '&amp;quot;')
+      .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="xml-comment">$1</span>')
+      .replace(/(&lt;\/?[\w-]+)/g, '<span class="xml-tag">$1</span>')
+      .replace(/(\/?&gt;)/g, '<span class="xml-tag">$1</span>')
+      .replace(/([\w-]+)=(&quot;|")(.*?)(&quot;|")/g,
+        '<span class="xml-attr">$1</span>=<span class="xml-val">"$3"</span>');
+  }
+
   function updatePreview() {
-    const scenario = document.querySelector('.scenario-btn.active')?.textContent || 'Unknown';
-    const screens = document.getElementById('audit-screens').value || '?';
-    const hasStates = auditState.states === 'yes' ? 'has states' : 'no states';
-    const isRepro = auditState.repro === 'yes' ? 'reproducible' : 'not reproducible';
+    const d = getChainData();
+    const preview = document.getElementById('chain-preview');
 
-    const p1 = document.getElementById('prompt-expand').value.trim();
-    const p2 = document.getElementById('prompt-behavior').value.trim();
-    const p3 = document.getElementById('prompt-refine').value.trim();
-    const r1 = document.getElementById('result-expand').value.trim();
-    const r2 = document.getElementById('result-behavior').value.trim();
-    const r3 = document.getElementById('result-refine').value.trim();
-
-    if (!p1 && !p2 && !p3) {
-      document.getElementById('chain-preview').textContent = 'Write your prompts above to see the full chain here...';
+    if (!d.p1 && !d.p2 && !d.p3) {
+      preview.textContent = 'Write your prompts above to see the full chain here...';
       return;
     }
 
-    let chain = `PROMPT CHAIN — Module 3\n━━━━━━━━━━━━━━━━━━━━━━\nScenario: ${scenario}\nStarting point: M2 prototype (${screens} screens, ${hasStates}, ${isRepro})\n`;
-
-    if (p1) {
-      chain += `\nPROMPT 1 — EXPAND\n${p1}\n`;
-      if (r1) chain += `Result: ${r1}\n`;
+    if (currentFormat === 'xml') {
+      const xml = buildXML(d);
+      preview.innerHTML = syntaxHighlightXML(xml);
+    } else {
+      preview.textContent = buildPlainText(d);
     }
-
-    if (p2) {
-      chain += `\nPROMPT 2 — BEHAVIOR\n${p2}\n`;
-      if (r2) chain += `Result: ${r2}\n`;
-    }
-
-    if (p3) {
-      chain += `\nPROMPT 3 — REFINE\n${p3}\n`;
-      if (r3) chain += `Result: ${r3}\n`;
-    }
-
-    document.getElementById('chain-preview').textContent = chain;
   }
 
   function copyField(id) {
@@ -698,13 +892,24 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
   }
 
   function copyChain() {
-    const text = document.getElementById('chain-preview').textContent;
-    if (!text || text.startsWith('Write your')) return;
-    navigator.clipboard.writeText(text).then(() => {
+    const d = getChainData();
+    if (!d.p1 && !d.p2 && !d.p3) return;
+    navigator.clipboard.writeText(buildPlainText(d)).then(() => {
       const btn = document.getElementById('copy-chain-btn');
       btn.textContent = 'Copied!';
       btn.style.background = '#047857';
       setTimeout(() => { btn.textContent = 'Copy Full Chain'; btn.style.background = '#059669'; }, 2000);
+    });
+  }
+
+  function copyXML() {
+    const d = getChainData();
+    if (!d.p1 && !d.p2 && !d.p3) return;
+    navigator.clipboard.writeText(buildXML(d)).then(() => {
+      const btn = document.getElementById('copy-xml-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#1a5cd4';
+      setTimeout(() => { btn.textContent = 'Copy as GitHub XML'; btn.style.background = '#1f6feb'; }, 2000);
     });
   }
 
