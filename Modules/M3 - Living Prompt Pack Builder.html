@@ -229,10 +229,30 @@
   }
   .btn-copy-main { background: #7c3aed; color: white; }
   .btn-copy-main:hover { background: #6d28d9; }
+  .btn-xml { background: #1f6feb; color: white; }
+  .btn-xml:hover { background: #1a5cd4; }
   .btn-markdown { background: #21262d; color: #9ca3af; }
   .btn-markdown:hover { background: #30363d; }
   .btn-clear { background: #21262d; color: #555d6e; }
   .btn-clear:hover { background: #30363d; color: #9ca3af; }
+
+  .format-toggle {
+    display: flex; gap: 4px; background: #21262d;
+    border-radius: 8px; padding: 3px; margin-bottom: 16px;
+  }
+  .format-toggle button {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600; border: none; border-radius: 6px;
+    padding: 7px 16px; cursor: pointer; transition: all 0.2s;
+    background: transparent; color: #8b949e;
+  }
+  .format-toggle button.active { background: #30363d; color: #e6edf3; }
+  .format-toggle button:hover:not(.active) { color: #c9d1d9; }
+
+  .xml-tag { color: #7ee787; }
+  .xml-attr { color: #d2a8ff; }
+  .xml-val { color: #a5d6ff; }
+  .xml-comment { color: #8b949e; font-style: italic; }
 
   .final-preview {
     background: #161b22; border: 1px solid #30363d; border-radius: 10px;
@@ -392,10 +412,10 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     </div>
     <div class="card-body">
       <div class="helper-text">
-        Paste documented chains from the <a href="M3%20-%20Prompt%20Chain%20Planner.html" target="_blank" style="color:#059669;font-weight:600;text-decoration:none;">Prompt Chain Planner ↗</a>. Each entry becomes a reusable reference — what prompts did you use, what worked, what didn't.
+        Chains auto-import when you click "Copy to Clipboard" or the Pack Builder link in the <a href="M3%20-%20Prompt%20Chain%20Planner.html" target="_blank" style="color:#059669;font-weight:600;text-decoration:none;">Prompt Chain Planner ↗</a>. You can also paste manually below.
       </div>
       <div id="chain-entries"></div>
-      <textarea class="chain-paste-area" id="chain-paste" placeholder="Paste your documented chain here (from the Prompt Chain Planner's 'Copy Full Chain' button)..." rows="4"></textarea>
+      <textarea class="chain-paste-area" id="chain-paste" placeholder="Or paste a chain manually here..." rows="4"></textarea>
       <button class="btn-add-chain" id="add-chain-btn" onclick="addChainEntry()">Add Chain Entry</button>
     </div>
   </div>
@@ -410,10 +430,15 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
         <button class="final-btn btn-import" onclick="document.getElementById('import-file-input').click()">Import .md</button>
-        <input type="file" id="import-file-input" accept=".md,.txt,.json" style="display:none" onchange="importPack(event)">
+        <input type="file" id="import-file-input" accept=".md,.txt,.json,.xml" style="display:none" onchange="importPack(event)">
         <button class="final-btn btn-markdown" onclick="downloadMarkdown()">Export .md</button>
+        <button class="final-btn btn-xml" id="copy-xml-btn" onclick="copyPackXML()">Copy as GitHub XML</button>
         <button class="final-btn btn-copy-main" id="copy-pack-btn" onclick="copyPack()">Copy Full Pack</button>
       </div>
+    </div>
+    <div class="format-toggle">
+      <button class="active" onclick="setFormat('plain', this)">Plain Text</button>
+      <button onclick="setFormat('xml', this)">GitHub XML</button>
     </div>
     <div class="final-preview" id="pack-preview">Fill in the sections above to see your prompt pack here...</div>
   </div>
@@ -697,58 +722,165 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     });
   }
 
-  // ── Preview ──
-  function buildPackText() {
-    const contextBlock = document.getElementById('context-block').value.trim();
-    const figmaLink = document.getElementById('figma-link').value.trim();
-    const dsInstructions = document.getElementById('ds-instructions').value.trim();
-    const imgCount = document.querySelectorAll('#ds-gallery .upload-thumb').length;
+  // ── Format state ──
+  let currentFormat = 'plain';
 
+  function setFormat(fmt, btn) {
+    currentFormat = fmt;
+    document.querySelectorAll('.format-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePreview();
+  }
+
+  function escXml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Preview ──
+  function getPackData() {
+    return {
+      contextBlock: document.getElementById('context-block').value.trim(),
+      figmaLink: document.getElementById('figma-link').value.trim(),
+      dsInstructions: document.getElementById('ds-instructions').value.trim(),
+      imgCount: document.querySelectorAll('#ds-gallery .upload-thumb').length,
+      constraints: defaultConstraints.filter(c => c.always || c.never),
+      templates: defaultTemplates.filter(t => t.label || t.text),
+      chains: chainEntries,
+    };
+  }
+
+  function buildPackText() {
+    const d = getPackData();
     let pack = `LIVING PROMPT PACK\n━━━━━━━━━━━━━━━━━━━━━━\n`;
 
-    if (contextBlock) {
-      pack += `\n── PRODUCT CONTEXT BLOCK ──\n${contextBlock}\n`;
+    if (d.contextBlock) {
+      pack += `\n── PRODUCT CONTEXT BLOCK ──\n${d.contextBlock}\n`;
     }
 
-    if (figmaLink || dsInstructions || imgCount > 0) {
+    if (d.figmaLink || d.dsInstructions || d.imgCount > 0) {
       pack += `\n── DESIGN SYSTEM REFERENCE ──\n`;
-      if (imgCount > 0) pack += `[${imgCount} screenshot${imgCount > 1 ? 's' : ''} attached]\n`;
-      if (figmaLink) pack += `Figma: ${figmaLink}\n`;
-      if (dsInstructions) pack += `Instructions: ${dsInstructions}\n`;
+      if (d.imgCount > 0) pack += `[${d.imgCount} screenshot${d.imgCount > 1 ? 's' : ''} attached]\n`;
+      if (d.figmaLink) pack += `Figma: ${d.figmaLink}\n`;
+      if (d.dsInstructions) pack += `Instructions: ${d.dsInstructions}\n`;
     }
 
-    const activeConstraints = defaultConstraints.filter(c => c.always || c.never);
-    if (activeConstraints.length > 0) {
+    if (d.constraints.length > 0) {
       pack += `\n── CONSTRAINT TEMPLATES ──\n`;
-      activeConstraints.forEach(c => {
+      d.constraints.forEach(c => {
         if (c.always) pack += `ALWAYS: ${c.always}\n`;
         if (c.never) pack += `NEVER: ${c.never}\n`;
       });
     }
 
-    const activeTemplates = defaultTemplates.filter(t => t.label || t.text);
-    if (activeTemplates.length > 0) {
+    if (d.templates.length > 0) {
       pack += `\n── OUTPUT TEMPLATES ──\n`;
-      activeTemplates.forEach(t => {
+      d.templates.forEach(t => {
         const label = t.label || 'Untitled';
         pack += `[${label}]: ${t.text}\n`;
       });
     }
 
-    if (chainEntries.length > 0) {
+    if (d.chains.length > 0) {
       pack += `\n── CHAIN ENTRIES ──\n`;
-      chainEntries.forEach((entry, i) => {
+      d.chains.forEach((entry, i) => {
         pack += `\n--- Entry ${i + 1} (${entry.date}) ---\n${entry.text}\n`;
       });
     }
 
-    return { pack, hasContent: !!(contextBlock || figmaLink || dsInstructions || imgCount > 0 || activeConstraints.length > 0 || activeTemplates.length > 0 || chainEntries.length > 0) };
+    const hasContent = !!(d.contextBlock || d.figmaLink || d.dsInstructions || d.imgCount > 0 || d.constraints.length > 0 || d.templates.length > 0 || d.chains.length > 0);
+    return { pack, hasContent };
+  }
+
+  function buildPackXMLString() {
+    const d = getPackData();
+    const ts = new Date().toISOString().slice(0, 10);
+
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+    xml += `<!-- Living Prompt Pack — paste into your repo or attach to a PR -->\n`;
+    xml += `<prompt-pack date="${ts}">\n`;
+
+    if (d.contextBlock) {
+      xml += `\n  <product-context>\n`;
+      xml += d.contextBlock.split('\n').map(l => '    ' + escXml(l)).join('\n') + '\n';
+      xml += `  </product-context>\n`;
+    }
+
+    if (d.figmaLink || d.dsInstructions || d.imgCount > 0) {
+      xml += `\n  <design-system`;
+      if (d.imgCount > 0) xml += ` screenshots="${d.imgCount}"`;
+      xml += `>\n`;
+      if (d.figmaLink) xml += `    <figma-link>${escXml(d.figmaLink)}</figma-link>\n`;
+      if (d.dsInstructions) xml += `    <instructions>${escXml(d.dsInstructions)}</instructions>\n`;
+      xml += `  </design-system>\n`;
+    }
+
+    if (d.constraints.length > 0) {
+      xml += `\n  <constraints>\n`;
+      d.constraints.forEach(c => {
+        xml += `    <rule>\n`;
+        if (c.always) xml += `      <always>${escXml(c.always)}</always>\n`;
+        if (c.never) xml += `      <never>${escXml(c.never)}</never>\n`;
+        xml += `    </rule>\n`;
+      });
+      xml += `  </constraints>\n`;
+    }
+
+    if (d.templates.length > 0) {
+      xml += `\n  <output-templates>\n`;
+      d.templates.forEach(t => {
+        const label = t.label || 'Untitled';
+        xml += `    <template type="${escXml(label)}">\n`;
+        xml += `      ${escXml(t.text)}\n`;
+        xml += `    </template>\n`;
+      });
+      xml += `  </output-templates>\n`;
+    }
+
+    if (d.chains.length > 0) {
+      xml += `\n  <chain-entries>\n`;
+      d.chains.forEach((entry, i) => {
+        xml += `    <entry index="${i + 1}" date="${escXml(entry.date)}">\n`;
+        xml += entry.text.split('\n').map(l => '      ' + escXml(l)).join('\n') + '\n';
+        xml += `    </entry>\n`;
+      });
+      xml += `  </chain-entries>\n`;
+    }
+
+    xml += `\n</prompt-pack>`;
+    return xml;
+  }
+
+  function syntaxHighlightXML(xml) {
+    return xml
+      .replace(/&amp;/g, '\x00AMP')
+      .replace(/&lt;/g, '\x00LT')
+      .replace(/&gt;/g, '\x00GT')
+      .replace(/&quot;/g, '\x00QUOT')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\x00AMP/g, '&amp;amp;').replace(/\x00LT/g, '&amp;lt;')
+      .replace(/\x00GT/g, '&amp;gt;').replace(/\x00QUOT/g, '&amp;quot;')
+      .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="xml-comment">$1</span>')
+      .replace(/(&lt;\/?[\w-]+)/g, '<span class="xml-tag">$1</span>')
+      .replace(/(\/?&gt;)/g, '<span class="xml-tag">$1</span>')
+      .replace(/([\w-]+)=(&quot;|")(.*?)(&quot;|")/g,
+        '<span class="xml-attr">$1</span>=<span class="xml-val">"$3"</span>');
   }
 
   function updatePreview() {
-    const { pack, hasContent } = buildPackText();
     const preview = document.getElementById('pack-preview');
-    preview.textContent = hasContent ? pack : 'Fill in the sections above to see your prompt pack here...';
+
+    if (currentFormat === 'xml') {
+      const d = getPackData();
+      const hasContent = !!(d.contextBlock || d.figmaLink || d.dsInstructions || d.imgCount > 0 || d.constraints.length > 0 || d.templates.length > 0 || d.chains.length > 0);
+      if (!hasContent) {
+        preview.textContent = 'Fill in the sections above to see your prompt pack here...';
+        return;
+      }
+      preview.innerHTML = syntaxHighlightXML(buildPackXMLString());
+    } else {
+      const { pack, hasContent } = buildPackText();
+      preview.textContent = hasContent ? pack : 'Fill in the sections above to see your prompt pack here...';
+    }
   }
 
   // ── Attach save to main text fields ──
@@ -758,13 +890,25 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
 
   // ── Copy / Export / Import ──
   function copyPack() {
-    const text = document.getElementById('pack-preview').textContent;
-    if (!text || text.startsWith('Fill in')) return;
-    navigator.clipboard.writeText(text).then(() => {
+    const { pack, hasContent } = buildPackText();
+    if (!hasContent) return;
+    navigator.clipboard.writeText(pack).then(() => {
       const btn = document.getElementById('copy-pack-btn');
       btn.textContent = 'Copied!';
       btn.style.background = '#059669';
       setTimeout(() => { btn.textContent = 'Copy Full Pack'; btn.style.background = '#7c3aed'; }, 2000);
+    });
+  }
+
+  function copyPackXML() {
+    const d = getPackData();
+    const hasContent = !!(d.contextBlock || d.figmaLink || d.dsInstructions || d.imgCount > 0 || d.constraints.length > 0 || d.templates.length > 0 || d.chains.length > 0);
+    if (!hasContent) return;
+    navigator.clipboard.writeText(buildPackXMLString()).then(() => {
+      const btn = document.getElementById('copy-xml-btn');
+      btn.textContent = 'Copied!';
+      btn.style.background = '#1a5cd4';
+      setTimeout(() => { btn.textContent = 'Copy as GitHub XML'; btn.style.background = '#1f6feb'; }, 2000);
     });
   }
 
@@ -917,6 +1061,37 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     showSaveIndicator('Pack cleared', 'saving');
   }
 
+  // ── Auto-import from Prompt Chain Planner ──
+  function checkChainHandoff() {
+    try {
+      const raw = localStorage.getItem('vc-m3-chain-handoff');
+      if (!raw) return;
+      const handoff = JSON.parse(raw);
+      if (!handoff.markdown && !handoff.plainText) return;
+
+      const alreadyImported = chainEntries.some(e =>
+        e.text === handoff.markdown || e.text === handoff.plainText
+      );
+      if (alreadyImported) return;
+
+      const chainText = handoff.markdown || handoff.plainText;
+      chainEntries.push({
+        text: chainText,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      });
+
+      renderChainEntries();
+      updatePreview();
+      saveToLocalStorage();
+      showSaveIndicator('Chain imported from Prompt Chain Planner', 'saved');
+
+      const chainSection = document.getElementById('chain-entries');
+      if (chainSection) {
+        setTimeout(() => chainSection.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+      }
+    } catch(e) {}
+  }
+
   // ── Initialize ──
   const restored = restoreFromLocalStorage();
   if (!restored) {
@@ -924,6 +1099,7 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
     renderTemplateRows();
     updatePreview();
   }
+  checkChainHandoff();
 </script>
 </body>
 </html>

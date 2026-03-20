@@ -620,7 +620,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
   <div class="tip-bar" style="margin-top:12px;">
     <div class="tip-icon" style="background:#eff6ff;color:#3B6FE0;">→</div>
     <div class="tip-text">
-      <strong>Take-home:</strong> After class, paste your chain into the <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html" style="color:#059669;font-weight:700;text-decoration:none;">Living Prompt Pack Builder ↗</a> — your personal prompt toolkit that grows across modules and becomes a portable asset you use at work.
+      <strong>Take-home:</strong> After class, send your chain to the <a href="#" onclick="goToPackBuilder();return false;" style="color:#059669;font-weight:700;text-decoration:none;">Living Prompt Pack Builder ↗</a> — your personal prompt toolkit that grows across modules and becomes a portable asset you use at work. Clicking the link saves your chain and opens the Pack Builder with your data ready.
     </div>
   </div>
 </div>
@@ -961,6 +961,26 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
       btn.style.background = '#047857';
       setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2000);
     });
+    saveChainForPackBuilder(d);
+  }
+
+  function saveChainForPackBuilder(d) {
+    if (!d) d = getChainData();
+    if (!d.p1 && !d.p2 && !d.p3) return;
+    try {
+      localStorage.setItem('vc-m3-chain-handoff', JSON.stringify({
+        ts: Date.now(),
+        markdown: buildMarkdown(d),
+        plainText: buildPlainText(d),
+        scenario: d.scenario
+      }));
+    } catch(e) {}
+  }
+
+  function goToPackBuilder() {
+    const d = getChainData();
+    saveChainForPackBuilder(d);
+    window.open('M3%20-%20Living%20Prompt%20Pack%20Builder.html', '_blank');
   }
 
   function syntaxHighlightMD(md) {
