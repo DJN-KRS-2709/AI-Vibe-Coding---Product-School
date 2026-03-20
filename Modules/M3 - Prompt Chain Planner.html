@@ -285,8 +285,28 @@
   }
   .btn-copy-main { background: #059669; color: white; }
   .btn-copy-main:hover { background: #047857; }
+  .btn-xml { background: #1f6feb; color: white; }
+  .btn-xml:hover { background: #1a5cd4; }
   .btn-clear { background: #21262d; color: #9ca3af; }
   .btn-clear:hover { background: #30363d; }
+
+  .format-toggle {
+    display: flex; gap: 4px; background: #21262d;
+    border-radius: 8px; padding: 3px; margin-bottom: 16px;
+  }
+  .format-toggle button {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600; border: none; border-radius: 6px;
+    padding: 7px 16px; cursor: pointer; transition: all 0.2s;
+    background: transparent; color: #8b949e;
+  }
+  .format-toggle button.active { background: #30363d; color: #e6edf3; }
+  .format-toggle button:hover:not(.active) { color: #c9d1d9; }
+
+  .xml-tag { color: #7ee787; }
+  .xml-attr { color: #d2a8ff; }
+  .xml-val { color: #a5d6ff; }
+  .xml-comment { color: #8b949e; font-style: italic; }
 
   .final-preview {
     background: #161b22; border: 1px solid #30363d; border-radius: 10px;
@@ -351,11 +371,15 @@
         <button class="scenario-btn" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
         <button class="scenario-btn" onclick="pickScenario('dashboard',this)">Dashboard</button>
       </div>
-      <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Need to revisit your M2 work? Everything is in one place:</div>
-      <div class="m2-links" style="grid-template-columns:1fr;">
+      <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Your references:</div>
+      <div class="m2-links" style="grid-template-columns:1fr 1fr; gap:10px;">
         <a class="m2-link" href="M2%20-%20Prototype%20Builder.html" target="_blank" style="flex-direction:row;gap:12px;justify-content:flex-start;">
           <span class="m2-link-dot" style="background:#3B6FE0;">M2</span>
-          <div><strong>Prototype Builder ↗</strong><br><span>Your hypothesis, scenario data, quotes, metrics — all in one tool</span></div>
+          <div><strong>Prototype Builder ↗</strong><br><span>Your hypothesis, scenario data, quotes, metrics</span></div>
+        </a>
+        <a class="m2-link" href="M3%20-%20Prompt%20Techniques%20Template.html" target="_blank" style="flex-direction:row;gap:12px;justify-content:flex-start;">
+          <span class="m2-link-dot" style="background:#7c3aed;">PT</span>
+          <div><strong>Prompt Techniques ↗</strong><br><span>COT, chaining, few-shot — pick the right strategy</span></div>
         </a>
       </div>
     </div>
@@ -489,8 +513,13 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
       </div>
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
+        <button class="final-btn btn-xml" id="copy-xml-btn" onclick="copyXML()">Copy as GitHub XML</button>
         <button class="final-btn btn-copy-main" id="copy-chain-btn" onclick="copyChain()">Copy Full Chain</button>
       </div>
+    </div>
+    <div class="format-toggle">
+      <button class="active" onclick="setFormat('plain', this)">Plain Text</button>
+      <button onclick="setFormat('xml', this)">GitHub XML</button>
     </div>
     <div class="final-preview" id="chain-preview">Write your prompts above to see the full chain here...</div>
   </div>

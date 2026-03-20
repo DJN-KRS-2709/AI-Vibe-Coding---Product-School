@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding — Prompt Techniques Template</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page { max-width: 820px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 36px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    background: #eef3ff; padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .header h1 { font-size: 30px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #666; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Category navigation */
+  .cat-nav {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 32px; flex-wrap: wrap;
+  }
+
+  .cat-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    padding: 8px 16px; border-radius: 8px;
+    border: 2px solid #e1e4e8; background: #fff; color: #555;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cat-btn:hover { border-color: #b0b8c4; }
+  .cat-btn.active { border-color: var(--cat-color); background: var(--cat-bg); color: var(--cat-color); }
+
+  /* Category sections */
+  .category {
+    margin-bottom: 32px;
+  }
+
+  .cat-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 2px solid var(--cat-color);
+  }
+
+  .cat-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: white; flex-shrink: 0;
+    background: var(--cat-color);
+  }
+
+  .cat-title { font-size: 16px; font-weight: 700; color: #1a1a2e; }
+  .cat-hint { font-size: 12px; color: #888; margin-top: 2px; }
+
+  /* Technique cards */
+  .techniques { display: flex; flex-direction: column; gap: 0; }
+
+  .technique {
+    background: #fff;
+    padding: 24px 28px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .technique:last-child { border-bottom: none; border-radius: 0 0 12px 12px; }
+  .category > .techniques > .technique:first-child { border-top: none; }
+
+  .tech-name {
+    font-size: 15px; font-weight: 700; color: #1a1a2e;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 10px;
+  }
+
+  .tech-tag {
+    font-size: 10px; font-weight: 700; color: var(--cat-color);
+    background: var(--cat-bg); padding: 3px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .tech-desc {
+    font-size: 13px; color: #555; line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .prompt-field {
+    position: relative;
+  }
+
+  .prompt-label {
+    font-size: 11px; font-weight: 700; color: #888;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .prompt-textarea {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.6;
+    padding: 14px 16px;
+    border: 2px solid #e8e8ee;
+    border-radius: 8px;
+    background: #fafbfc;
+    color: #333;
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .prompt-textarea:focus {
+    outline: none;
+    border-color: var(--cat-color);
+    box-shadow: 0 0 0 3px var(--cat-bg);
+  }
+  .prompt-textarea::placeholder { color: #bbb; font-style: italic; }
+
+  .prompt-textarea.has-content { border-color: #34d399; background: #f0fdf8; }
+
+  .example {
+    margin-top: 8px;
+    font-size: 12px; color: #888; line-height: 1.5;
+    background: #f6f8fa;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid #e1e4e8;
+  }
+  .example strong { color: #666; font-weight: 600; }
+
+  /* Progress bar */
+  .progress-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff; border-top: 1px solid #e8e8ee;
+    padding: 12px 24px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    z-index: 100;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  }
+
+  .progress-fill-track {
+    width: 240px; height: 6px; background: #e8e8ee; border-radius: 3px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, #3B6FE0, #059669);
+    border-radius: 3px; transition: width 0.4s ease;
+  }
+
+  .progress-text { font-size: 12px; font-weight: 600; color: #555; }
+
+  .export-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 700;
+    padding: 8px 20px; border: none; border-radius: 8px;
+    background: #1a1a2e; color: white;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .export-btn:hover { background: #2d2d4e; }
+  .export-btn.copied { background: #059669; }
+
+  /* Spacing for fixed bottom bar */
+  .bottom-spacer { height: 72px; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 24px; }
+    .cat-nav { gap: 6px; }
+    .cat-btn { font-size: 11px; padding: 6px 12px; }
+    .technique { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="badge">Reference Tool · All Modules</div>
+    <h1>Prompt Techniques Template</h1>
+    <p>Select the right prompting strategy for your current build stage. Fill in your own prompts as you work — your progress is saved in-browser and can be exported as a reusable reference.</p>
+  </div>
+
+  <div class="cat-nav">
+    <button class="cat-btn active" style="--cat-color:#3B6FE0;--cat-bg:#eef3ff;" onclick="scrollToCat('foundational')">1. Fast Start</button>
+    <button class="cat-btn" style="--cat-color:#7c3aed;--cat-bg:#f3f0ff;" onclick="scrollToCat('structural')">2. Structural</button>
+    <button class="cat-btn" style="--cat-color:#d97706;--cat-bg:#fffbeb;" onclick="scrollToCat('constraint')">3. Constraints</button>
+    <button class="cat-btn" style="--cat-color:#059669;--cat-bg:#ecfdf5;" onclick="scrollToCat('refinement')">4. Refinement</button>
+  </div>
+
+  <!-- ═══════ 1. FOUNDATIONAL ═══════ -->
+  <div class="category" id="cat-foundational" style="--cat-color:#3B6FE0;--cat-bg:#eef3ff;">
+    <div class="cat-header">
+      <div class="cat-icon">1</div>
+      <div>
+        <div class="cat-title">The Fast Start: Foundational Prompts</div>
+        <div class="cat-hint">Use when moving from a blank page to a functional V1</div>
+      </div>
+    </div>
+    <div class="techniques">
+
+      <div class="technique">
+        <div class="tech-name">Meta Prompting <span class="tech-tag">Blank Page Cure</span></div>
+        <div class="tech-desc">Ask the AI to act as an expert PM and rewrite your vague ideas into detailed, high-fidelity specifications. Cures "Blank Page Syndrome" by turning fuzzy thinking into structured specs before any code is generated.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="meta" placeholder="Write your Meta Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Act as a Senior PM. Rewrite my vague request for [Feature] into a detailed FUDI (Functionality, User Flow, Design, Interaction) specification. Then, use that spec to generate the prototype."</div>
+      </div>
+
+      <div class="technique">
+        <div class="tech-name">Zero-Shot Prompting <span class="tech-tag">0→1 · Cold Start</span></div>
+        <div class="tech-desc">Use for rapid ideation when you have no assets. Tests the AI's baseline understanding to generate an initial V1 based purely on your instructions — no examples, no references.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="zero-shot" placeholder="Write your Zero-Shot Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Create a [Screen Type] for a [User Persona] that allows them to [Core Action]. Include [Specific Components]."</div>
+      </div>
+
+      <div class="technique">
+        <div class="tech-name">Few-Shot Prompting <span class="tech-tag">1→N · Design Matching</span></div>
+        <div class="tech-desc">Force consistency by providing examples. Guides the AI to match a specific coding style, format, or design pattern you already have. Best when you need new features to look and feel like existing ones.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="few-shot" placeholder="Write your Few-Shot Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Here are 3 examples of our [Component] code: [ADD SCREENSHOT / Examples]. Generate a new [Feature] that matches this exact syntax and styling."</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ 2. STRUCTURAL ═══════ -->
+  <div class="category" id="cat-structural" style="--cat-color:#7c3aed;--cat-bg:#f3f0ff;">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#7c3aed;">2</div>
+      <div>
+        <div class="cat-title">Architectural Tools: Structural Prompts</div>
+        <div class="cat-hint">Use to build multi-screen systems and handle complex logic without the fragility gap</div>
+      </div>
+    </div>
+    <div class="techniques">
+
+      <div class="technique">
+        <div class="tech-name">Chain-of-Thought (COT) <span class="tech-tag">Complex Logic</span></div>
+        <div class="tech-desc">Prompt the AI to explain its reasoning step-by-step before writing code. Prevents logic errors in multi-step user flows by making the AI "think out loud" through validation rules, state transitions, and edge cases.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="cot" placeholder="Write your COT Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Think step-by-step to define the state logic for [Flow]. First, outline the validation rules for each step. Then, write the code."</div>
+      </div>
+
+      <div class="technique">
+        <div class="tech-name">Prompt Chaining <span class="tech-tag">Full-Stack Features</span></div>
+        <div class="tech-desc">Break complex builds into sequential steps (e.g., Database → API → UI) so the AI doesn't lose context or hallucinate. Each prompt builds on the verified output of the previous one.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="chaining" placeholder="Write your Prompt Chain here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Create a JSON schema for [Data Type]." …WAIT FOR OUTPUT… "Build a Dashboard UI that strictly follows that schema."</div>
+      </div>
+
+      <div class="technique">
+        <div class="tech-name">Multimodal COT <span class="tech-tag">Design Cloning</span></div>
+        <div class="tech-desc">Upload a screenshot or sketch and ask the AI to "reason" through the visual layout. Translates pixels into functional code by having the AI analyze spacing, hierarchy, and component structure before generating.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="multimodal" placeholder="Write your Multimodal COT Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Analyze this screenshot. Explain the layout logic step-by-step, then generate the code to replicate this component."</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ 3. CONSTRAINTS ═══════ -->
+  <div class="category" id="cat-constraint" style="--cat-color:#d97706;--cat-bg:#fffbeb;">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#d97706;">3</div>
+      <div>
+        <div class="cat-title">Enforcement Tools: Constraint Prompts</div>
+        <div class="cat-hint">Use to ground the AI in your business rules, brand standards, and technical boundaries</div>
+      </div>
+    </div>
+    <div class="techniques">
+
+      <div class="technique">
+        <div class="tech-name">Context Grounding (RAG) <span class="tech-tag">External Constraints</span></div>
+        <div class="tech-desc">Ground the AI in your specific documents — brand guides, API docs, compliance rules. Ensures accuracy and compliance by giving the AI authoritative reference material instead of relying on its training data.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="rag" placeholder="Write your Context Grounding Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Using the attached [Document], style this [Screen]. Ensure it follows the [Specific Rule / Hex Code] exactly."</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ 4. REFINEMENT ═══════ -->
+  <div class="category" id="cat-refinement" style="--cat-color:#059669;--cat-bg:#ecfdf5;">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#059669;">4</div>
+      <div>
+        <div class="cat-title">Optimization Tools: Refinement Prompts</div>
+        <div class="cat-hint">Use to surgically steer and polish your build without triggering a foundation reset</div>
+      </div>
+    </div>
+    <div class="techniques">
+
+      <div class="technique">
+        <div class="tech-name">Self-Consistency <span class="tech-tag">UI/UX Options</span></div>
+        <div class="tech-desc">Ask the AI to generate multiple variations of a layout or flow, then select the best one based on specific criteria. Gives you options instead of a single take-it-or-leave-it output.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="self-consistency" placeholder="Write your Self-Consistency Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Generate 3 different layout concepts for a [Screen Name]. Evaluate each for [Metric, e.g., Mobile Usability] and write the code for the best one."</div>
+      </div>
+
+      <div class="technique">
+        <div class="tech-name">Reflection (Self-Assessment) <span class="tech-tag">Auto-Debug</span></div>
+        <div class="tech-desc">Force the AI to critique its own output and identify flaws, accessibility issues, or bugs before you test. A built-in code review step that catches problems the AI itself introduced.</div>
+        <div class="prompt-field">
+          <div class="prompt-label">Your prompt</div>
+          <textarea class="prompt-textarea" data-id="reflection" placeholder="Write your Reflection Prompt here…"></textarea>
+        </div>
+        <div class="example"><strong>E.g.</strong> "Review the code you just generated. Identify any accessibility flaws or hardcoded values. Then, rewrite the code to fix those issues."</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bottom-spacer"></div>
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar">
+  <div class="progress-text"><span id="filled-count">0</span> / 9 prompts filled</div>
+  <div class="progress-fill-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  <button class="export-btn" onclick="exportAll()">Export All Prompts</button>
+</div>
+
+<script>
+const STORAGE_KEY = 'vc-prompt-techniques';
+const textareas = document.querySelectorAll('.prompt-textarea');
+const totalFields = textareas.length;
+
+function loadSaved() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    textareas.forEach(ta => {
+      const id = ta.dataset.id;
+      if (saved[id]) {
+        ta.value = saved[id];
+        ta.classList.toggle('has-content', ta.value.trim().length > 0);
+      }
+    });
+    updateProgress();
+  } catch(e) {}
+}
+
+function save() {
+  const data = {};
+  textareas.forEach(ta => { data[ta.dataset.id] = ta.value; });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function updateProgress() {
+  let filled = 0;
+  textareas.forEach(ta => {
+    const has = ta.value.trim().length > 0;
+    ta.classList.toggle('has-content', has);
+    if (has) filled++;
+  });
+  document.getElementById('filled-count').textContent = filled;
+  document.getElementById('progress-fill').style.width = (filled / totalFields * 100) + '%';
+}
+
+textareas.forEach(ta => {
+  ta.addEventListener('input', () => {
+    save();
+    updateProgress();
+  });
+});
+
+function scrollToCat(id) {
+  document.getElementById('cat-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id.replace('cat-', '');
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.toLowerCase().includes(
+          id === 'foundational' ? 'fast' : id === 'structural' ? 'structural' : id === 'constraint' ? 'constraint' : 'refinement'
+        ));
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.category').forEach(cat => observer.observe(cat));
+
+function exportAll() {
+  const techniques = [
+    { cat: '1. THE FAST START: FOUNDATIONAL PROMPTS', items: ['meta', 'zero-shot', 'few-shot'] },
+    { cat: '2. ARCHITECTURAL TOOLS: STRUCTURAL PROMPTS', items: ['cot', 'chaining', 'multimodal'] },
+    { cat: '3. ENFORCEMENT TOOLS: CONSTRAINT PROMPTS', items: ['rag'] },
+    { cat: '4. OPTIMIZATION TOOLS: REFINEMENT PROMPTS', items: ['self-consistency', 'reflection'] }
+  ];
+
+  const names = {
+    'meta': 'Meta Prompting',
+    'zero-shot': 'Zero-Shot Prompting',
+    'few-shot': 'Few-Shot Prompting',
+    'cot': 'Chain-of-Thought (COT)',
+    'chaining': 'Prompt Chaining',
+    'multimodal': 'Multimodal COT',
+    'rag': 'Context Grounding (RAG)',
+    'self-consistency': 'Self-Consistency',
+    'reflection': 'Reflection (Self-Assessment)'
+  };
+
+  let out = 'PROMPT TECHNIQUES — MY TEMPLATES\n';
+  out += '━'.repeat(40) + '\n\n';
+
+  techniques.forEach(cat => {
+    out += cat.cat + '\n';
+    out += '─'.repeat(cat.cat.length) + '\n\n';
+    cat.items.forEach(id => {
+      const ta = document.querySelector(`[data-id="${id}"]`);
+      const val = ta ? ta.value.trim() : '';
+      out += `${names[id]}:\n`;
+      out += val ? val + '\n\n' : '(not yet filled)\n\n';
+    });
+  });
+
+  navigator.clipboard.writeText(out).then(() => {
+    const btn = document.querySelector('.export-btn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Export All Prompts'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+loadSaved();
+</script>
+</body>
+</html>
