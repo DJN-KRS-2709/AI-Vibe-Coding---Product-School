@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 — Prototype Builder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    padding: 0;
+    color: #1a1a2e;
+  }
+
+  .top-bar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 28px 32px 20px;
+    text-align: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  }
+  .top-bar .badge { display: inline-block; font-size: 10px; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(59,111,224,0.2); padding: 4px 14px; border-radius: 20px; margin-bottom: 8px; }
+  .top-bar h1 { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+  .top-bar .sub { font-size: 12px; color: #8899bb; }
+
+  .stepper { display: flex; justify-content: center; gap: 0; margin-top: 18px; }
+  .step-pill { display: flex; align-items: center; gap: 8px; padding: 8px 20px; font-size: 12px; font-weight: 700; color: #556; cursor: pointer; transition: all 0.2s; border-radius: 8px; background: rgba(255,255,255,0.06); margin: 0 4px; }
+  .step-pill .pill-num { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); color: #667; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; transition: all 0.2s; }
+  .step-pill.active { background: rgba(59,111,224,0.25); color: #93c5fd; }
+  .step-pill.active .pill-num { background: #3B6FE0; color: #fff; }
+  .step-pill.done { color: #6ee7b7; }
+  .step-pill.done .pill-num { background: #059669; color: #fff; }
+  .step-arrow { color: #334; font-size: 14px; display: flex; align-items: center; margin: 0 2px; }
+
+  .page { max-width: 800px; margin: 0 auto; padding: 28px 20px 120px; }
+
+  .step-container { display: none; }
+  .step-container.active { display: block; }
+
+  .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px; overflow: hidden; }
+  .card-body { padding: 24px 28px; }
+
+  .section-header { display: flex; align-items: center; gap: 12px; padding: 20px 28px 0; }
+  .section-number { width: 32px; height: 32px; border-radius: 50%; background: #3B6FE0; color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
+  .section-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .section-subtitle { font-size: 12px; color: #888; margin-top: 1px; }
+
+  .field-group { margin-bottom: 20px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-label { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .field-hint { font-size: 12px; color: #999; margin-bottom: 8px; line-height: 1.5; }
+  .field-input { width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 14px; color: #1a1a2e; background: #fafbfc; transition: border-color 0.2s, box-shadow 0.2s; resize: vertical; }
+  .field-input:focus { outline: none; border-color: #3B6FE0; box-shadow: 0 0 0 3px rgba(59,111,224,0.12); background: #fff; }
+  .field-input::placeholder { color: #b0b0b0; font-style: italic; }
+  textarea.field-input { min-height: 72px; }
+
+  .scenario-select { width: 100%; border: 1.5px solid #e1e4e8; border-radius: 8px; padding: 14px 16px; font-family: 'Inter', sans-serif; font-size: 14px; color: #1a1a2e; background: #fafbfc; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+  .scenario-select:focus { outline: none; border-color: #3B6FE0; box-shadow: 0 0 0 3px rgba(59,111,224,0.12); }
+
+  .hypothesis-frame { background: #f6f8fa; border: 1.5px solid #e1e4e8; border-radius: 10px; padding: 20px 24px; }
+  .hypothesis-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+  .hypothesis-row:last-child { margin-bottom: 0; }
+  .hypothesis-keyword { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #3B6FE0; flex-shrink: 0; min-width: 72px; }
+  .hypothesis-input { flex: 1; border: none; border-bottom: 1.5px solid #d1d5db; padding: 4px 0; font-family: 'Inter', sans-serif; font-size: 14px; color: #1a1a2e; background: transparent; transition: border-color 0.2s; }
+  .hypothesis-input:focus { outline: none; border-bottom-color: #3B6FE0; }
+  .hypothesis-input::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .risk-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .risk-card { border: 2px solid #e1e4e8; border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.2s; text-align: center; background: #fafbfc; }
+  .risk-card:hover { border-color: #a0b8f0; background: #f8faff; }
+  .risk-card.selected { border-color: #3B6FE0; background: #EBF0FE; }
+  .risk-card-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .risk-card.selected .risk-card-title { color: #3B6FE0; }
+  .risk-card-question { font-size: 11px; color: #888; line-height: 1.4; margin-bottom: 6px; }
+  .risk-card-build { font-size: 10px; font-weight: 700; color: #3B6FE0; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .fidelity-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .fidelity-option { border: 2px solid #e1e4e8; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.2s; text-align: center; background: #fafbfc; }
+  .fidelity-option:hover { border-color: #a0b8f0; }
+  .fidelity-option.selected { border-color: #3B6FE0; background: #EBF0FE; }
+  .fidelity-label { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+  .fidelity-desc { font-size: 10px; color: #888; }
+
+  .kill-switch-box { background: #0d1117; border-radius: 10px; padding: 20px 24px; }
+  .kill-switch-label { font-size: 11px; font-weight: 700; color: #da3633; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .kill-switch-prompt { font-size: 13px; color: #9ca3af; margin-bottom: 10px; line-height: 1.5; }
+  .kill-switch-input { width: 100%; border: 1.5px solid #30363d; border-radius: 8px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 14px; color: #e5e7eb; background: #161b22; }
+  .kill-switch-input:focus { outline: none; border-color: #da3633; box-shadow: 0 0 0 3px rgba(218,54,51,0.15); }
+  .kill-switch-input::placeholder { color: #555d6e; font-style: italic; }
+
+  .success-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .success-cell { background: #f6f8fa; border: 1.5px solid #e1e4e8; border-radius: 10px; padding: 16px; }
+  .success-cell-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .success-cell.validated .success-cell-label { color: #1a7f37; }
+  .success-cell.invalidated .success-cell-label { color: #da3633; }
+  .success-cell textarea { width: 100%; border: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 13px; color: #1a1a2e; resize: vertical; min-height: 48px; }
+  .success-cell textarea:focus { outline: none; }
+  .success-cell textarea::placeholder { color: #b0b0b0; font-style: italic; }
+
+  /* Step 2: Data Pack */
+  .brief-grid { display: grid; grid-template-columns: 110px 1fr; gap: 0; }
+  .brief-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .brief-value { font-size: 13px; color: #444; line-height: 1.6; padding: 10px 0 10px 16px; border-bottom: 1px solid #f0f0f0; }
+  .brief-value strong { color: #1a1a2e; }
+  .brief-grid > :nth-last-child(-n+2) { border-bottom: none; }
+
+  .hypothesis-item { padding: 10px 16px; border-left: 3px solid #e5e7eb; margin-bottom: 8px; border-radius: 0 6px 6px 0; background: #fafbfc; }
+  .hypothesis-role { font-size: 11px; font-weight: 700; color: #3B6FE0; margin-bottom: 3px; }
+  .hypothesis-text { font-size: 13px; color: #444; line-height: 1.5; }
+
+  .quote-type-label { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; padding: 14px 0 6px; }
+  .quote-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #f5f5f5; cursor: pointer; transition: background 0.15s; border-radius: 6px; margin-bottom: 2px; }
+  .quote-item:hover { background: #fafbfc; }
+  .quote-item.highlighted { background: #fffbeb; border-left: 3px solid #f59e0b; }
+  .quote-check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #d1d5db; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.2s; }
+  .quote-item.highlighted .quote-check { background: #f59e0b; border-color: #f59e0b; color: white; }
+  .quote-text { font-size: 13px; color: #444; line-height: 1.6; font-style: italic; }
+  .quote-source { font-size: 11px; color: #888; font-style: normal; margin-top: 3px; }
+
+  .metrics-table { width: 100%; border-collapse: collapse; }
+  .metrics-table th { text-align: left; font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; border-bottom: 2px solid #e5e7eb; background: #fafbfc; }
+  .metrics-table td { font-size: 12px; color: #444; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; vertical-align: top; line-height: 1.4; }
+  .metrics-table tr { cursor: pointer; transition: background 0.15s; }
+  .metrics-table tr:hover { background: #fafbfc; }
+  .metrics-table tr.highlighted { background: #f0fdf4; }
+  .metrics-table tr.highlighted td:first-child::before { content: "●"; color: #1a7f37; margin-right: 6px; font-size: 8px; }
+  .metric-value { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: #1a1a2e; }
+
+  .selected-count { font-size: 12px; font-weight: 600; color: #059669; margin-top: 8px; }
+
+  /* Step 3: Builder */
+  .prompt-area { width: 100%; border: 1.5px solid #e1e4e8; border-radius: 10px; padding: 16px 20px; font-family: 'Inter', sans-serif; font-size: 13px; color: #1a1a2e; line-height: 1.65; background: #fafbfc; resize: vertical; min-height: 100px; transition: border-color 0.2s, box-shadow 0.2s; }
+  .prompt-area:focus { outline: none; border-color: #3B6FE0; box-shadow: 0 0 0 3px rgba(59,111,224,0.12); background: #fff; }
+  .prompt-area::placeholder { color: #b0b0b0; font-style: italic; }
+
+  .upload-zone { border: 2px dashed #d1d5db; border-radius: 10px; padding: 28px; text-align: center; cursor: pointer; transition: all 0.2s; background: #fafbfc; }
+  .upload-zone:hover { border-color: #7c3aed; background: #f8f5ff; }
+  .upload-zone-icon { font-size: 28px; margin-bottom: 6px; }
+  .upload-zone-text { font-size: 13px; color: #666; }
+  .upload-zone-text strong { color: #1a1a2e; }
+
+  .upload-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .upload-gallery:empty { display: none; }
+  .upload-thumb { position: relative; border-radius: 10px; overflow: hidden; border: 2px solid #7c3aed; }
+  .upload-thumb img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; }
+  .upload-thumb .remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 2px 8px; font-size: 10px; cursor: pointer; font-weight: 700; }
+
+  .constraint-input { width: 100%; border: 1.5px solid #30363d; border-radius: 10px; padding: 16px 20px; font-family: 'Inter', sans-serif; font-size: 13px; color: #e5e7eb; line-height: 1.65; background: #0d1117; resize: vertical; min-height: 80px; }
+  .constraint-input:focus { outline: none; border-color: #555d6e; box-shadow: 0 0 0 3px rgba(255,255,255,0.05); }
+  .constraint-input::placeholder { color: #555d6e; font-style: italic; }
+
+  .output-grid { display: grid; grid-template-columns: 90px 1fr; gap: 10px; align-items: start; }
+  .output-label { font-size: 12px; font-weight: 700; color: #1a7f37; padding-top: 12px; }
+  .output-input { width: 100%; border: 1.5px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; font-family: 'Inter', sans-serif; font-size: 13px; color: #1a1a2e; background: #f0fdf4; }
+  .output-input:focus { outline: none; border-color: #1a7f37; box-shadow: 0 0 0 3px rgba(26,127,55,0.1); }
+  .output-input::placeholder { color: #86efac; }
+
+  .final-section { background: #0d1117; border-radius: 12px; padding: 24px 28px; margin-top: 24px; }
+  .final-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .final-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .final-subtitle { font-size: 11px; color: #555d6e; margin-top: 2px; }
+  .final-preview { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #c9d1d9; line-height: 1.8; white-space: pre-wrap; max-height: 400px; overflow-y: auto; min-height: 100px; }
+
+  .btn { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; border: none; border-radius: 8px; padding: 12px 28px; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: #3B6FE0; color: white; }
+  .btn-primary:hover { background: #2D5BC4; }
+  .btn-secondary { background: #e5e7eb; color: #555; }
+  .btn-secondary:hover { background: #d1d5db; }
+  .btn-copy { background: #3B6FE0; color: white; }
+  .btn-copy:hover { background: #2D5BC4; }
+  .btn-success { background: #059669; color: white; }
+
+  .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+
+  .tip-box { display: flex; gap: 12px; align-items: flex-start; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.danger { background: #fef2f2; border-color: #fecaca; }
+  .tip-box.success { background: #f0fdf4; border-color: #bbf7d0; }
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 12px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .card-header-row { padding: 18px 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0f0f0; }
+  .card-header-left { display: flex; align-items: center; gap: 10px; }
+  .card-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .card-title { font-size: 15px; font-weight: 700; color: #1a1a2e; }
+
+  .copy-btn { font-size: 11px; font-weight: 700; color: #3B6FE0; background: #EBF0FE; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: all 0.2s; }
+  .copy-btn:hover { background: #d6e0f5; }
+
+  .auto-badge { display: inline-block; font-size: 9px; font-weight: 800; color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.06em; margin-left: 8px; vertical-align: middle; }
+
+  .selection-badge { font-size: 11px; font-weight: 700; color: #888; background: #f0f0f0; border-radius: 6px; padding: 5px 12px; transition: all 0.3s; }
+  .selection-badge.has-selection { color: #059669; background: #ecfdf5; border: 1px solid #a7f3d0; }
+
+  @media (max-width: 640px) {
+    .risk-cards, .fidelity-row { grid-template-columns: 1fr; }
+    .stepper { flex-wrap: wrap; }
+    .step-pill { padding: 6px 12px; font-size: 11px; }
+    .brief-grid { grid-template-columns: 1fr; }
+    .brief-label { padding: 8px 0 2px; border-bottom: none; }
+    .brief-value { padding: 0 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ TOP BAR ════════════════════ -->
+<div class="top-bar">
+  <div class="badge">Module 2</div>
+  <h1>Prototype Builder</h1>
+  <div class="sub">Frame your hypothesis, gather evidence, and build a prompt — all in one place.</div>
+  <div class="stepper">
+    <div class="step-pill active" onclick="goToStep(1)" id="pill-1"><span class="pill-num">1</span> Frame</div>
+    <span class="step-arrow">→</span>
+    <div class="step-pill" onclick="goToStep(2)" id="pill-2"><span class="pill-num">2</span> Evidence</div>
+    <span class="step-arrow">→</span>
+    <div class="step-pill" onclick="goToStep(3)" id="pill-3"><span class="pill-num">3</span> Build</div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  STEP 1: FRAME YOUR HYPOTHESIS                                  -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="step-container active" id="step-1">
+
+  <div class="tip-box warning" style="margin-top:0;">
+    <span class="tip-icon">⛔</span>
+    <div class="tip-text"><strong>Do NOT open Lovable yet.</strong> Fill this out first. Every field feeds your build prompt. This is the difference between a generic demo and a prototype that tests a real hypothesis.</div>
+  </div>
+
+  <!-- Scenario -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">1</div><div><div class="section-title">Your Scenario</div></div></div>
+    <div class="card-body">
+      <select class="scenario-select" id="scenario" onchange="onScenarioChange()">
+        <option value="" disabled selected>Choose your scenario...</option>
+        <option value="retention">The Retention Engine — B2B SaaS, 30% churn in 90 days</option>
+        <option value="internal">The Internal Tool Nobody Uses — CRM, 18% adoption</option>
+        <option value="marketplace">The Marketplace Trust Problem — Bookings flat, zero reviews</option>
+        <option value="dashboard">The Dashboard Nobody Reads — Analytics, 60% bounce</option>
+        <option value="byo">Bring Your Own — Your company, your problem</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Hypothesis -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">2</div><div><div class="section-title">Your Hypothesis</div></div></div>
+    <div class="card-body">
+      <div class="field-hint">Write this as a testable statement. If you can't finish the sentence, you're not ready to build.</div>
+      <div class="hypothesis-frame">
+        <div class="hypothesis-row"><span class="hypothesis-keyword">If</span><input type="text" class="hypothesis-input" placeholder="we surface team invites during first-run onboarding" id="hyp-if"></div>
+        <div class="hypothesis-row"><span class="hypothesis-keyword">then</span><input type="text" class="hypothesis-input" placeholder="day-3 invite rate increases from 12% to 25%" id="hyp-then"></div>
+        <div class="hypothesis-row"><span class="hypothesis-keyword">because</span><input type="text" class="hypothesis-input" placeholder="solo users churn at 3x the rate and they don't know the invite feature exists" id="hyp-because"></div>
+      </div>
+      <div class="field-group" style="margin-top:16px;">
+        <div class="field-label">What are you learning?</div>
+        <div class="field-hint">Not what you're building — what you're trying to find out.</div>
+        <input type="text" class="field-input" placeholder="Is the blocker discoverability or motivation?" id="explore">
+      </div>
+    </div>
+  </div>
+
+  <!-- Risk Type -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">3</div><div><div class="section-title">Risk Type</div></div></div>
+    <div class="card-body">
+      <div class="field-hint" style="margin-bottom:12px;">Your risk type determines what you build. Click one.</div>
+      <div class="risk-cards">
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="value"><div class="risk-card-title">Value</div><div class="risk-card-question">Will anyone want this?</div><div class="risk-card-build">Build: Landing page</div></div>
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="usability"><div class="risk-card-title">Usability</div><div class="risk-card-question">Will the experience make sense?</div><div class="risk-card-build">Build: Clickable mockup</div></div>
+        <div class="risk-card" onclick="selectRisk(this)" data-risk="feasibility"><div class="risk-card-title">Feasibility</div><div class="risk-card-question">Will the logic actually work?</div><div class="risk-card-build">Build: Functional app</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kill Switch -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">4</div><div><div class="section-title">Kill Switch</div></div></div>
+    <div class="card-body">
+      <div class="kill-switch-box">
+        <div class="kill-switch-label">The assumption that kills it</div>
+        <div class="kill-switch-prompt">Which assumption, if wrong, makes the whole thing worthless? This is what you build to test first.</div>
+        <input type="text" class="kill-switch-input" placeholder="Users actually want to collaborate — if the tool is fundamentally solo, invites won't matter" id="kill-switch">
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Criteria -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">5</div><div><div class="section-title">Success Criteria</div></div></div>
+    <div class="card-body">
+      <div class="field-hint" style="margin-bottom:12px;">Define what validated and invalidated look like before you build. Not after.</div>
+      <div class="success-grid">
+        <div class="success-cell validated"><div class="success-cell-label">Validated if...</div><textarea id="validated" placeholder="Users click the invite prompt within the first 3 screens."></textarea></div>
+        <div class="success-cell invalidated"><div class="success-cell-label">Invalidated if...</div><textarea id="invalidated" placeholder="Users dismiss or skip the invite prompt entirely."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fidelity -->
+  <div class="card">
+    <div class="section-header"><div class="section-number">6</div><div><div class="section-title">Fidelity Level</div></div></div>
+    <div class="card-body">
+      <div class="field-hint" style="margin-bottom:12px;">How much do you need to build to test your hypothesis? Don't overbuild.</div>
+      <div class="fidelity-row">
+        <div class="fidelity-option" onclick="selectFidelity(this)"><div class="fidelity-label">Landing Page</div><div class="fidelity-desc">Static. Tests value/demand.</div></div>
+        <div class="fidelity-option" onclick="selectFidelity(this)"><div class="fidelity-label">Clickable Flow</div><div class="fidelity-desc">2-4 screens. Tests usability.</div></div>
+        <div class="fidelity-option" onclick="selectFidelity(this)"><div class="fidelity-label">Functional App</div><div class="fidelity-desc">Working logic. Tests feasibility.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div></div>
+    <button class="btn btn-primary" onclick="goToStep(2)">Next: Gather Evidence →</button>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  STEP 2: GATHER YOUR EVIDENCE                                   -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="step-container" id="step-2">
+
+  <div class="tip-box" style="margin-top:0;">
+    <span class="tip-icon">📦</span>
+    <div class="tip-text">Your scenario data is loaded based on Step 1. <strong>Click quotes and metrics to select them</strong> — everything you select here auto-populates your prompt in the next step. The scenario brief is always included.</div>
+  </div>
+
+  <!-- Brief -->
+  <div class="card">
+    <div class="card-header-row">
+      <div class="card-header-left"><div class="card-icon" style="background:#EBF0FE;">📋</div><div class="card-title">Scenario Brief</div></div>
+      <span class="auto-badge" style="margin-left:0;">Included in prompt</span>
+    </div>
+    <div class="card-body" id="brief-container"></div>
+  </div>
+
+  <!-- Quotes -->
+  <div class="card">
+    <div class="card-header-row">
+      <div class="card-header-left"><div class="card-icon" style="background:#fef3c7;">💬</div><div class="card-title">User & Stakeholder Feedback</div></div>
+      <span class="selection-badge" id="quote-badge">Click to select</span>
+    </div>
+    <div class="card-body" id="quotes-container"></div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="card">
+    <div class="card-header-row">
+      <div class="card-header-left"><div class="card-icon" style="background:#f0fdf4;">📊</div><div class="card-title">Quantitative Metrics</div></div>
+      <span class="selection-badge" id="metric-badge">Click to select</span>
+    </div>
+    <div class="card-body" id="metrics-container" style="overflow-x:auto;"></div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="selection-badge has-selection" id="nav-selection-badge" style="font-size:12px;">0 quotes, 0 metrics</span>
+      <button class="btn btn-primary" onclick="goToStep(3)">Next: Build Your Prompt →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!--  STEP 3: BUILD YOUR PROMPT                                      -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="step-container" id="step-3">
+
+  <div class="tip-box success" style="margin-top:0;">
+    <span class="tip-icon">✅</span>
+    <div class="tip-text"><strong>Your prompt is ready.</strong> Everything from Steps 1 and 2 is assembled below. Upload a visual reference if you have one, review the prompt, and copy it into Lovable.</div>
+  </div>
+
+  <!-- Visual Reference (only thing user actively fills in) -->
+  <div class="card" style="border:2px solid #7c3aed;">
+    <div class="section-header"><div class="section-number" style="background:#7c3aed;">📸</div><div><div class="section-title">Visual Reference <span style="font-size:12px;font-weight:500;color:#7c3aed;margin-left:6px;">(optional)</span></div><div class="section-subtitle">Drop a screenshot to show the AI what it should look like</div></div></div>
+    <div class="card-body">
+      <div class="tip-box" style="margin-top:0;">
+        <span class="tip-icon">🔍</span>
+        <div class="tip-text">Go to <strong><a href="https://mobbin.com" target="_blank" style="color:#3B6FE0;">mobbin.com</a></strong> and search for your pattern (e.g. "team invite onboarding", "CRM call log", "provider profile"). Screenshot one that matches. Drop it below — it gets attached alongside your text prompt in Lovable.</div>
+      </div>
+      <div class="upload-gallery" id="upload-gallery"></div>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+        <div class="upload-zone-icon">📸</div>
+        <div class="upload-zone-text"><strong>Drop a screenshot here</strong> or click to browse</div>
+      </div>
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleUpload(event)">
+      <textarea class="prompt-area" id="reference-input" style="margin-top:12px;" placeholder="Match this look and feel. Use the same layout structure, typography scale, and spacing." rows="2" oninput="updatePreview()"></textarea>
+    </div>
+  </div>
+
+  <!-- Final Assembled Prompt -->
+  <div class="final-section">
+    <div class="final-header">
+      <div><div class="final-title">Your Complete Prompt</div><div class="final-subtitle">Auto-assembled from Steps 1 + 2 + your visual reference above</div></div>
+      <button class="btn" style="background:#21262d;color:#9ca3af;font-size:11px;padding:8px 14px;" onclick="toggleEditPrompt()" id="edit-toggle-btn">Edit</button>
+    </div>
+    <div class="final-preview" id="final-preview">Your prompt will appear here...</div>
+    <textarea class="prompt-area" id="final-edit" style="display:none;margin-top:12px;background:#161b22;color:#c9d1d9;border-color:#30363d;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;min-height:300px;" oninput="onManualEdit()"></textarea>
+  </div>
+
+  <div class="tip-box warning" style="margin-top:20px;">
+    <span class="tip-icon">💰</span>
+    <div class="tip-text"><strong>Credits strategy:</strong> Review this prompt in ChatGPT or Gemini first. Iterate on wording there — zero credits burned. When it reads exactly how you want, paste into Lovable in one shot.</div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+    <button class="btn btn-success" onclick="copyFinal()" id="copy-final-btn" style="font-size:15px;padding:16px 40px;">Copy Prompt to Clipboard</button>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  SCENARIO DATA
+// ═══════════════════════════════════════════════
+const SCENARIOS = {
+  retention: {
+    defaults: {
+      hypIf: "we surface team invites prominently during first-run onboarding",
+      hypThen: "day-3 invite rate increases from 12% to 25%",
+      hypBecause: "solo users churn at 3x the rate, and the invite button is buried in Settings > Team > Members",
+      explore: "Is the blocker discoverability (users can't find the invite) or motivation (users don't see the value of inviting)?",
+      risk: "usability", killSwitch: "Users actually want to collaborate — if the tool is fundamentally solo, nothing about invites will matter",
+      validated: "Users engage with the invite prompt within the first 3 screens and complete the invite flow without help",
+      invalidated: "Users dismiss or skip the invite prompt entirely, even when it's prominently placed", fidelity: 1
+    },
+    brief: [
+      ["Company", "B2B project management SaaS. 5,000 paying teams. $4.2M ARR. Series A. 18 months old."],
+      ["Problem", "<strong>30% of new customers churn within 90 days.</strong> The company cannot raise Series B with this churn rate. The board has given the team one quarter to show measurable improvement."],
+      ["Key Data", "Users who invite a teammate in the first 3 days retain at 3x the rate (68% vs 22%). Only 12% of new users send an invite in the first 3 days. The invite button is buried in Settings > Team > Members. 60% of new users never create their first task."],
+      ["Constraints", "No engineering resources for 6 weeks. Must work within the existing product. Prototype only."],
+      ["Your Job", "Prototype the intervention with the highest likelihood of reducing 90-day churn. Identify the riskiest assumption, then build to test it."]
+    ],
+    hypotheses: [
+      ["VP Customer Success", "\"It's a team activation problem. Make inviting effortless.\""],
+      ["Head of Product", "\"It's a feature discovery problem. Users don't find the features that make us sticky.\""],
+      ["CEO", "\"I don't care what it is. Cut 90-day churn in half.\""]
+    ],
+    userQuotes: [
+      ["I signed up because my manager told me to. I opened it once, couldn't figure out where my tasks were, and went back to Notion.", "Churned user, Day 3"],
+      ["The onboarding asked me to set up a project, but I don't even know what a 'workspace' is in your tool. I just need a to-do list.", "Churned user, Day 1"],
+      ["I actually liked it once I figured out the board view. But it took me two weeks to find it. By then my trial was almost over.", "Retained user"],
+      ["I invited my co-founder on Day 2 and we started using it together. That's when it clicked — it's a team tool, not a solo tool.", "Retained user, power user"],
+      ["Why can't I just share a link to my board? I had to explain to my teammate how to sign up, create an account, join the workspace... she gave up.", "Churned user, Day 7"],
+      ["The weekly summary email is the only reason I come back. Without it I'd forget this tool exists.", "At-risk user"],
+      ["I tried to invite my team but the invite flow asked for their 'role' and 'department.' I don't know their department codes. I just want to add them.", "At-risk user, Day 4"],
+      ["Your competitor lets me import my existing tasks from Trello. You don't. So I'm running two tools and that's not sustainable.", "Churned user, Day 14"]
+    ],
+    stakeholderQuotes: [
+      ["The data is clear — users who invite a teammate in the first 3 days retain at 3x the rate. But only 12% of new users send an invite in that window.", "VP of Customer Success"],
+      ["We buried the invite button in Settings > Team > Members. I know. It's on the roadmap to move it.", "Head of Product"],
+      ["I don't care if it's onboarding or invites or whatever. I need the 90-day churn number to drop by half or we're not raising our Series B.", "CEO"],
+      ["There's a weird correlation — users who create their first task within 10 minutes of signup retain at 2x. But 60% of users never create a task at all.", "Data Analyst"]
+    ],
+    metrics: [
+      ["Signup to first task", "8.2 min", "Retained users", "Median for users who stay past 90 days"],
+      ["Signup to first task", "Never", "Churned users", "60% never create a task"],
+      ["Day-3 invite rate", "12%", "All users", "Only 12% invite a teammate"],
+      ["90-day retention (with invite)", "68%", "Invited teammate", "3x retention vs solo"],
+      ["90-day retention (without invite)", "22%", "Solo users", "Solo users churn fast"],
+      ["Board view discovery", "31%", "All users", "In first 2 weeks"],
+      ["Board view discovery", "89%", "Retained users", "Retained users find it"],
+      ["Onboarding completion", "44%", "All users", "Drop-off at workspace setup"],
+      ["Weekly email open rate", "62%", "All users", "Drives 35% of return visits"],
+      ["NPS", "24", "All users", "Below benchmark of 40"],
+      ["NPS", "71", "Power users", "Power users love it"],
+      ["90-day churn rate", "30%", "All users", "Target: reduce to 15%"],
+      ["MAU/DAU ratio", "0.18", "All users", "Low daily engagement"],
+      ["Support tickets (onboarding)", "342/mo", "All users", "38% of all tickets"]
+    ]
+  },
+  internal: {
+    defaults: {
+      hypIf: "we reduce call logging to a one-tap voice-note capture that auto-fills CRM fields",
+      hypThen: "daily call logging rate increases from 0.8 to 3+ calls per rep",
+      hypBecause: "reps skip logging because it takes 4.5 minutes and requires 9 fields — not because they don't see the value",
+      explore: "Is the blocker friction (too many steps/fields) or motivation (no immediate value to the rep)?",
+      risk: "usability", killSwitch: "Reps don't actually have useful call notes to log — if calls don't produce loggable insights, faster entry won't help",
+      validated: "Reps can complete a call log in under 30 seconds and the captured data is useful for pipeline reviews",
+      invalidated: "Even with a simplified flow, reps still don't log — the problem is motivation, not friction", fidelity: 1
+    },
+    brief: [
+      ["Company", "Mid-market SaaS. 200-person sales team across 3 offices + remote. $45M ARR. Series C."],
+      ["Problem", "<strong>Internal CRM note-taking tool has 18% adoption.</strong> Sales reps prefer Google Docs or text messages. Losing institutional knowledge with every rep departure (34% annual turnover). CEO mentioned buying Gong at all-hands."],
+      ["Key Data", "Average time to log a call: 4.5 minutes. Reps make ~6 calls/day but log fewer than 1. Tool requires 9 fields; reps fill 3.2 on average. Mobile app crashes 23% of sessions. 67% bulk-update the night before quarterly reviews."],
+      ["Constraints", "Cannot replace the existing CRM (CTO's initiative). Must layer on top. Prototype only. Sales team won't attend training."],
+      ["Your Job", "Prototype an intervention that gets adoption above 50% without requiring training. Identify the real blocker, then build to test."]
+    ],
+    hypotheses: [
+      ["VP Sales", "\"Make it so easy they can't NOT use it. Under 30 seconds per call.\""],
+      ["Engineering", "\"The tool works. It's a training problem.\""],
+      ["Revenue Ops", "\"The real cost isn't the tool — it's the $2.3M in lost deal intelligence annually.\""],
+      ["CEO", "\"Just buy Gong.\""]
+    ],
+    userQuotes: [
+      ["I know I'm supposed to log my calls. But by the time I open the CRM, find the right contact, click through three screens, and type my notes... I've forgotten half of what was said.", "Senior AE"],
+      ["I just text myself after calls and paste it into a Google Doc. I know that's not ideal but at least I can find it later.", "SDR"],
+      ["The CRM wants me to fill out 'Next Steps,' 'Decision Maker,' 'Budget Range,' 'Timeline' after every single call. Most of the time I don't have that info yet. So I just skip it.", "AE"],
+      ["I used it for a week when I started. Then I realized nobody else on the team uses it either, so why bother?", "New hire, 2 months in"],
+      ["If it could just listen to my calls and fill itself out, I'd use it every day. The problem isn't the tool — it's the data entry.", "Senior AE"],
+      ["My manager checks the CRM once a quarter for pipeline reviews. That's literally the only time it matters.", "AE"],
+      ["I actually like the reporting features. But the data in there is garbage because nobody enters it consistently.", "Sales Manager"],
+      ["The mobile app crashes constantly. I'm usually in my car between meetings. If I can't do it from my phone, it's not happening.", "Field Sales Rep"]
+    ],
+    stakeholderQuotes: [
+      ["We spent $180K building this tool. 18% adoption. I need to either fix it or justify buying Gong to the board.", "VP of Sales"],
+      ["The tool works fine. The problem is user behavior, not the software. We've offered training three times — nobody shows up.", "Engineering Lead"],
+      ["Maybe we should just buy Gong. I've heard good things.", "CEO (from all-hands)"],
+      ["We're losing an estimated $2.3M annually in deal intelligence because reps don't document.", "Revenue Ops"]
+    ],
+    metrics: [
+      ["Adoption rate", "18%", "All reps", "Active weekly users"],
+      ["Daily active users", "11", "All reps", "Out of 200 reps"],
+      ["Time to log a call", "4.5 min", "Active users", "Per call"],
+      ["Calls per rep per day", "6.2", "All reps", "Average"],
+      ["Calls logged per rep per day", "0.8", "All reps", "Most go unlogged"],
+      ["Fields completed per entry", "3.2 / 9", "Active users", "Out of 9 required"],
+      ["Mobile crash rate", "23%", "Mobile users", "Per session"],
+      ["Bulk update before review", "67%", "All reps", "Night before pipeline review"],
+      ["Rep turnover", "34%", "Annual", "Knowledge walks out the door"],
+      ["Knowledge loss per departure", "~47 deals", "Per event", "Deals with no CRM context"],
+      ["Gong annual cost", "$285K", "Company", "Alternative solution"],
+      ["Internal NPS", "-12", "All reps", "Negative NPS"]
+    ]
+  },
+  marketplace: {
+    defaults: {
+      hypIf: "we enrich provider profiles with verification badges, work samples, response time, and a satisfaction guarantee",
+      hypThen: "browse-to-book conversion increases from 6% to 15% and provider page bounce drops below 50%",
+      hypBecause: "71% of customers bounce from provider pages that show only a name and photo — they need proof before they'll book a stranger",
+      explore: "Is the primary trust blocker the lack of provider information, or the absence of a platform guarantee?",
+      risk: "usability", killSwitch: "Customers won't book unreviewed providers regardless of trust signals — if reviews are the only thing that matters, profile enrichment alone won't help",
+      validated: "Users browse an enhanced provider profile and initiate a booking with a zero-review provider who has trust signals",
+      invalidated: "Users still won't book zero-review providers even with rich profiles, verification badges, and guarantees visible", fidelity: 1
+    },
+    brief: [
+      ["Company", "Peer-to-peer home services marketplace. 50K registered users, 8K MAU. Pre-Series A. 2 years old."],
+      ["Problem", "<strong>Bookings flat despite 22% QoQ signup growth.</strong> Funnel breaks at provider selection — 71% bounce. 64% of providers have zero reviews. New providers wait 47 days median for first booking; 72% churn within 90 days."],
+      ["Key Data", "Platform never prompts for reviews. 73% would pay a premium for \"verified\" providers. Provider profiles show only name and photo. Top 10% of providers capture 58% of bookings. Repeat booking rate is 41%."],
+      ["Constraints", "Small team (8 people). Must work within existing marketplace UX. Cannot offer actual financial guarantees. Must show traction within one quarter."],
+      ["Your Job", "Prototype the trust mechanism with highest impact on first bookings for new providers."]
+    ],
+    hypotheses: [
+      ["Growth", "\"It's a cold-start problem. Get new providers their first 3 reviews and bookings will follow.\""],
+      ["Product", "\"It's a profile problem. Richer profiles = more trust signals = more bookings.\""],
+      ["CEO", "\"It's a guarantee problem. Offer a money-back guarantee like Airbnb.\""]
+    ],
+    userQuotes: [
+      ["I found three providers who looked good. None had reviews. I'm not going to be the guinea pig who finds out they're terrible.", "Browsed, didn't book"],
+      ["I booked once. The provider was 45 minutes late and didn't apologize. There was no way to report it or get a refund. I deleted the app.", "One-time booker, churned"],
+      ["On Airbnb I trust the system because of the guarantee. Here, if something goes wrong, I'm on my own.", "Browsed, didn't book"],
+      ["I would pay more for a 'verified' provider. I don't care about the cheapest option — I care about not having a stranger in my house who I know nothing about.", "Browsed, didn't book"],
+      ["The provider profiles are just a name and a photo. No bio, no work samples, no response time. How am I supposed to decide?", "Browsed, didn't book"],
+      ["I actually had a great experience! But the app never asked me to leave a review. I would have.", "Satisfied booker"]
+    ],
+    providerQuotes: [
+      ["I signed up a month ago. Zero bookings. No one will take a chance on the new person.", "New provider"],
+      ["I do great work but I can't get my first review. I offered 50% off for my first 3 customers and the platform doesn't even let me do that.", "New provider"],
+      ["The top providers have 50+ reviews and get all the bookings. The rest of us get nothing. There's no way to break in.", "Provider, 3 months, 0 reviews"]
+    ],
+    stakeholderQuotes: [
+      ["Signups are up 22% QoQ. Bookings are flat. The funnel breaks at the provider selection page.", "Head of Growth"],
+      ["We need to solve the cold-start problem for new providers. If we can't get them their first 3 bookings, we lose them.", "Head of Product"],
+      ["I want a guarantee program. Airbnb has one. We need one. But the team keeps telling me it's complicated.", "CEO"]
+    ],
+    metrics: [
+      ["Signup to first booking", "14%", "Customers", "Only 14% ever book"],
+      ["Browse to book conversion", "6%", "Monthly", "Very low"],
+      ["Provider page bounce rate", "71%", "Customers", "Leave without action"],
+      ["Providers with zero reviews", "64%", "All providers", "No social proof"],
+      ["New provider first booking", "47 days", "Median", "Nearly 7 weeks"],
+      ["New provider 90-day churn", "72%", "New providers", "Most leave"],
+      ["Top 10% booking share", "58%", "Top providers", "Winner-takes-most"],
+      ["Willingness to pay for verified", "73%", "Surveyed", "Strong signal"],
+      ["Repeat booking rate", "41%", "Booked customers", "Trust builds loyalty"],
+      ["Review prompts sent", "0", "All", "Platform never asks"],
+      ["NPS", "18", "All users", "Low trust drags NPS"]
+    ]
+  },
+  dashboard: {
+    defaults: {
+      hypIf: "we replace the 12-chart default view with a role-based 3-metric summary for new users",
+      hypThen: "first-visit bounce rate drops from 60% to below 30%",
+      hypBecause: "new users are overwhelmed by information overload — they need one clear answer, not 12 charts with equal visual weight",
+      explore: "Is the problem information overload (too many charts) or irrelevant defaults (wrong charts for this user's role)?",
+      risk: "usability", killSwitch: "Non-technical users don't actually need the dashboard at all — if they're fully served by the weekly email summary, no redesign will bring them back",
+      validated: "New users find their key metric within 30 seconds and take an action (filter, drill down, or share)",
+      invalidated: "New users still bounce even with a simplified view — the problem is deeper than information overload", fidelity: 1
+    },
+    brief: [
+      ["Company", "Customer-facing analytics platform. 14,200 MAU. $8.5M ARR. Series B. 3 years old."],
+      ["Problem", "<strong>60% first-visit bounce rate.</strong> Dashboard built for data analysts but user base is now 80% non-technical business users. New users see 12 charts and leave within 30 seconds. Power users (20%) love it — NPS of 72."],
+      ["Key Data", "12 charts on default view with no hierarchy. Only 8% discover custom views (76% of power users use them). 54% rely on weekly email summary. 19% export to Google Sheets. 38% of support tickets (~412/mo) are dashboard comprehension questions."],
+      ["Constraints", "Cannot remove charts from power user view. Must serve both audiences. Data pipeline is solid — problem is presentation. Prototype only."],
+      ["Your Job", "Prototype the intervention that gets first-visit bounce below 30% for non-technical users while preserving the power user experience."]
+    ],
+    hypotheses: [
+      ["PM Lead", "\"Information overload. We need a simplified default view for non-technical users.\""],
+      ["Designer", "\"It's a hierarchy problem. Nothing tells users where to look first.\""],
+      ["Engineering", "\"Just add a tutorial. Problem solved.\""],
+      ["Customer Success", "\"We're drowning in tickets. Whatever you build, make it self-explanatory.\""]
+    ],
+    userQuotes: [
+      ["I log in, see 12 charts, and immediately feel overwhelmed. I don't know which one matters. So I close the tab.", "New user, marketing manager"],
+      ["I just want to know: is my campaign working? Yes or no. I don't need a scatter plot to tell me that.", "New user, small business owner"],
+      ["I love the dashboard. But I've been using it for 2 years and I know exactly where to look. My new team members are completely lost.", "Power user, head of analytics"],
+      ["The filters are confusing. I selected 'Last 30 days' but one of the charts is still showing all-time data. I don't trust the numbers anymore.", "New user, product manager"],
+      ["Someone showed me the 'custom view' feature and it changed everything. But I never would have found it on my own.", "Retained user"],
+      ["I get the weekly email summary. That's all I need. I never actually open the dashboard.", "Casual user"],
+      ["I exported the data to Google Sheets and built my own charts. Your dashboard has the data — it just doesn't present it in a way I can use.", "Frustrated user, ops manager"],
+      ["What am I looking at? — Literally what I said when I first opened it. And I have an MBA.", "New user, VP of Marketing"]
+    ],
+    stakeholderQuotes: [
+      ["We built this for data analysts. Then we 10x'd our user base with non-technical users. The product didn't evolve with the audience.", "PM Lead"],
+      ["The information hierarchy is broken. Everything has equal visual weight. Nothing says 'look here first.'", "Designer"],
+      ["38% of our support tickets are some variation of 'I don't understand the dashboard.' That's 400+ tickets a month.", "Head of Customer Success"],
+      ["Bounce rate is embarrassing. If new users can't get value in the first minute, we have a product problem, not a training problem.", "CEO"]
+    ],
+    metrics: [
+      ["First-visit bounce rate", "60%", "New users", "Leave within 30 seconds"],
+      ["Time to first insight", "Never", "New users", "Most never find actionable data"],
+      ["Time to first insight", "45 sec", "Power users", "Know where to look"],
+      ["Charts on default view", "12", "All", "Information overload"],
+      ["Filter usage", "22%", "New users", "First 30 days"],
+      ["Filter usage", "91%", "Power users", "Per session"],
+      ["Custom view discovery", "8%", "New users", "Hidden feature"],
+      ["Custom view usage", "76%", "Power users", "Per session"],
+      ["Weekly email reliance", "54%", "All users", "Never open dashboard"],
+      ["Data export rate", "19%", "All users", "Build own charts"],
+      ["Support tickets (dashboard)", "412/mo", "All users", "38% of all tickets"],
+      ["NPS (new users)", "11", "New users", "Very low"],
+      ["NPS (power users)", "72", "Power users", "Love it"],
+      ["User base composition", "80% / 20%", "Non-tech / Tech", "Audience shifted"]
+    ]
+  }
+};
+
+let currentStep = 1;
+let selectedQuoteEls = [];
+let selectedMetricEls = [];
+
+// ═══════════════════════════════════════════════
+//  STEP NAVIGATION
+// ═══════════════════════════════════════════════
+function goToStep(n) {
+  if (n === 2) renderStep2();
+  if (n === 3) assembleStep3();
+  document.querySelectorAll('.step-container').forEach(c => c.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  document.querySelectorAll('.step-pill').forEach((p, i) => {
+    p.classList.remove('active', 'done');
+    if (i + 1 === n) p.classList.add('active');
+    else if (i + 1 < n) p.classList.add('done');
+  });
+  currentStep = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════════════════
+//  STEP 1: SCENARIO + HYPOTHESIS
+// ═══════════════════════════════════════════════
+function onScenarioChange() {
+  const val = document.getElementById('scenario').value;
+  const data = SCENARIOS[val];
+  if (!data) return;
+  const d = data.defaults;
+  document.getElementById('hyp-if').value = d.hypIf;
+  document.getElementById('hyp-then').value = d.hypThen;
+  document.getElementById('hyp-because').value = d.hypBecause;
+  document.getElementById('explore').value = d.explore;
+  document.getElementById('kill-switch').value = d.killSwitch;
+  document.getElementById('validated').value = d.validated;
+  document.getElementById('invalidated').value = d.invalidated;
+  document.querySelectorAll('.risk-card').forEach(c => c.classList.toggle('selected', c.dataset.risk === d.risk));
+  document.querySelectorAll('.fidelity-option').forEach((c, i) => c.classList.toggle('selected', i === d.fidelity));
+}
+
+function selectRisk(el) {
+  document.querySelectorAll('.risk-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function selectFidelity(el) {
+  document.querySelectorAll('.fidelity-option').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ═══════════════════════════════════════════════
+//  STEP 2: RENDER SCENARIO DATA
+// ═══════════════════════════════════════════════
+function renderStep2() {
+  const val = document.getElementById('scenario').value;
+  const data = SCENARIOS[val];
+  if (!data) {
+    document.getElementById('brief-container').innerHTML = '<p style="color:#888;font-size:14px;">Please select a scenario in Step 1 first.</p>';
+    document.getElementById('quotes-container').innerHTML = '';
+    document.getElementById('metrics-container').innerHTML = '';
+    return;
+  }
+
+  // Brief
+  let briefHtml = '<div class="brief-grid">';
+  data.brief.forEach(([label, value]) => {
+    briefHtml += `<div class="brief-label">${label}</div><div class="brief-value">${value}</div>`;
+  });
+  briefHtml += '</div>';
+  if (data.hypotheses.length) {
+    briefHtml += '<div class="quote-type-label">Competing Hypotheses</div>';
+    data.hypotheses.forEach(([role, text]) => {
+      briefHtml += `<div class="hypothesis-item"><div class="hypothesis-role">${role}</div><div class="hypothesis-text">${text}</div></div>`;
+    });
+  }
+  document.getElementById('brief-container').innerHTML = briefHtml;
+
+  // Quotes
+  let quotesHtml = '<div class="quote-type-label">User Quotes</div>';
+  data.userQuotes.forEach(([text, source], i) => {
+    quotesHtml += `<div class="quote-item" onclick="toggleQuote(this)" data-idx="u${i}"><span class="quote-check">✓</span><div><div class="quote-text">"${text}"</div><div class="quote-source">${source}</div></div></div>`;
+  });
+  if (data.providerQuotes) {
+    quotesHtml += '<div class="quote-type-label">Provider Quotes</div>';
+    data.providerQuotes.forEach(([text, source], i) => {
+      quotesHtml += `<div class="quote-item" onclick="toggleQuote(this)" data-idx="p${i}"><span class="quote-check">✓</span><div><div class="quote-text">"${text}"</div><div class="quote-source">${source}</div></div></div>`;
+    });
+  }
+  quotesHtml += '<div class="quote-type-label">Stakeholder Quotes</div>';
+  data.stakeholderQuotes.forEach(([text, source], i) => {
+    quotesHtml += `<div class="quote-item" onclick="toggleQuote(this)" data-idx="s${i}"><span class="quote-check">✓</span><div><div class="quote-text">"${text}"</div><div class="quote-source">${source}</div></div></div>`;
+  });
+  document.getElementById('quotes-container').innerHTML = quotesHtml;
+
+  // Metrics
+  let metricsHtml = '<table class="metrics-table"><thead><tr><th>Metric</th><th>Value</th><th>Segment</th><th>Notes</th></tr></thead><tbody>';
+  data.metrics.forEach(([metric, value, segment, notes], i) => {
+    metricsHtml += `<tr onclick="toggleMetric(this)" data-idx="${i}"><td>${metric}</td><td><span class="metric-value">${value}</span></td><td>${segment}</td><td>${notes}</td></tr>`;
+  });
+  metricsHtml += '</tbody></table>';
+  document.getElementById('metrics-container').innerHTML = metricsHtml;
+
+  updateSelectionCount();
+}
+
+function toggleQuote(el) { el.classList.toggle('highlighted'); updateSelectionCount(); }
+function toggleMetric(el) { el.classList.toggle('highlighted'); updateSelectionCount(); }
+
+function updateSelectionCount() {
+  const quotes = document.querySelectorAll('#quotes-container .quote-item.highlighted').length;
+  const metrics = document.querySelectorAll('#metrics-container tr.highlighted').length;
+
+  const quoteBadge = document.getElementById('quote-badge');
+  const metricBadge = document.getElementById('metric-badge');
+  const summaryText = document.getElementById('selection-count-text');
+
+  if (quotes > 0) { quoteBadge.textContent = quotes + ' selected'; quoteBadge.classList.add('has-selection'); }
+  else { quoteBadge.textContent = 'Click to select'; quoteBadge.classList.remove('has-selection'); }
+
+  if (metrics > 0) { metricBadge.textContent = metrics + ' selected'; metricBadge.classList.add('has-selection'); }
+  else { metricBadge.textContent = 'Click to select'; metricBadge.classList.remove('has-selection'); }
+
+  const navBadge = document.getElementById('nav-selection-badge');
+  if (quotes > 0 || metrics > 0) {
+    navBadge.textContent = quotes + ' quotes, ' + metrics + ' metrics';
+    navBadge.classList.add('has-selection');
+  } else {
+    navBadge.textContent = 'None selected';
+    navBadge.classList.remove('has-selection');
+  }
+}
+
+function getSelectedQuotesText() {
+  const items = document.querySelectorAll('#quotes-container .quote-item.highlighted');
+  return Array.from(items).map(item => {
+    const text = item.querySelector('.quote-text').textContent;
+    const source = item.querySelector('.quote-source').textContent;
+    return `${text} — ${source}`;
+  });
+}
+
+function getSelectedMetricsText() {
+  const rows = document.querySelectorAll('#metrics-container tr.highlighted');
+  return Array.from(rows).map(row => {
+    const cells = row.querySelectorAll('td');
+    return `${cells[0].textContent}: ${cells[1].textContent} (${cells[2].textContent}) — ${cells[3].textContent}`;
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  STEP 3: AUTO-ASSEMBLE PROMPT
+// ═══════════════════════════════════════════════
+let manuallyEdited = false;
+
+function assembleStep3() {
+  manuallyEdited = false;
+  document.getElementById('final-edit').style.display = 'none';
+  document.getElementById('final-preview').style.display = 'block';
+  document.getElementById('edit-toggle-btn').textContent = 'Edit';
+  updatePreview();
+}
+
+function buildPromptText() {
+  const val = document.getElementById('scenario').value;
+  const data = SCENARIOS[val];
+
+  let prompt = '';
+
+  // CONTEXT: brief + quotes + metrics
+  prompt += 'CONTEXT:\n';
+  if (data) {
+    prompt += 'Build a product prototype for the following scenario:\n\n';
+    data.brief.forEach(([label, value]) => { prompt += label + ': ' + value.replace(/<[^>]*>/g, '') + '\n'; });
+    prompt += '\n';
+  }
+
+  const quotes = getSelectedQuotesText();
+  if (quotes.length) {
+    prompt += 'Here\'s what real users are saying:\n';
+    quotes.forEach(q => { prompt += '- ' + q + '\n'; });
+    prompt += '\n';
+  }
+
+  const metrics = getSelectedMetricsText();
+  if (metrics.length) {
+    prompt += 'Key metrics — display these actual numbers in the prototype:\n';
+    metrics.forEach(m => { prompt += '- ' + m + '\n'; });
+    prompt += '\n';
+  }
+
+  // REFERENCE
+  const reference = document.getElementById('reference-input').value.trim();
+  const imgCount = document.querySelectorAll('.upload-thumb').length;
+  if (reference || imgCount > 0) {
+    prompt += 'REFERENCE:\n';
+    if (imgCount === 1) prompt += '[1 screenshot attached]\n';
+    else if (imgCount > 1) prompt += '[' + imgCount + ' screenshots attached]\n';
+    if (reference) prompt += reference + '\n';
+    prompt += '\n';
+  }
+
+  // CONSTRAINTS: from Step 1
+  const hypIf = document.getElementById('hyp-if').value;
+  const hypThen = document.getElementById('hyp-then').value;
+  const hypBecause = document.getElementById('hyp-because').value;
+  const killSwitch = document.getElementById('kill-switch').value;
+  const fidelityEl = document.querySelector('.fidelity-option.selected .fidelity-label');
+  const fidelity = fidelityEl ? fidelityEl.textContent : '';
+  const validated = document.getElementById('validated').value;
+  const riskEl = document.querySelector('.risk-card.selected');
+  const riskType = riskEl ? riskEl.querySelector('.risk-card-title').textContent : '';
+
+  prompt += 'CONSTRAINTS:\n';
+  if (hypIf && hypThen) prompt += '- HYPOTHESIS: If ' + hypIf + ', then ' + hypThen + (hypBecause ? ', because ' + hypBecause : '') + '\n';
+  if (killSwitch) prompt += '- KILL SWITCH: ' + killSwitch + '\n';
+  if (riskType) prompt += '- RISK TYPE: ' + riskType + '\n';
+  if (fidelity) prompt += '- FIDELITY: ' + fidelity + '\n';
+  if (validated) prompt += '- VALIDATED IF: ' + validated + '\n';
+  prompt += '- Use real user quotes in the UI, not placeholder text\n';
+  prompt += '- Avoid generic patterns — this should feel specific to the domain\n';
+  prompt += '- CRITICAL: Build a product a user interacts with, NOT a dashboard or analysis\n\n';
+
+  // OUTPUT
+  prompt += 'OUTPUT:\n';
+  if (fidelity) prompt += 'Build: A ' + fidelity.toLowerCase() + ' that a real user can interact with\n';
+  if (hypIf) prompt += 'This prototype tests: Whether ' + hypIf + ' leads to ' + (hypThen || 'the expected outcome') + '\n';
+
+  return prompt.trim();
+}
+
+function updatePreview() {
+  if (manuallyEdited) return;
+  const prompt = buildPromptText();
+  document.getElementById('final-preview').textContent = prompt || 'Select a scenario and fill in your hypothesis to see your prompt here...';
+}
+
+function toggleEditPrompt() {
+  const preview = document.getElementById('final-preview');
+  const edit = document.getElementById('final-edit');
+  const btn = document.getElementById('edit-toggle-btn');
+  if (edit.style.display === 'none') {
+    edit.value = preview.textContent;
+    edit.style.display = 'block';
+    preview.style.display = 'none';
+    btn.textContent = 'Done editing';
+    btn.style.background = '#3B6FE0'; btn.style.color = '#fff';
+  } else {
+    preview.textContent = edit.value;
+    edit.style.display = 'none';
+    preview.style.display = 'block';
+    btn.textContent = 'Edit';
+    btn.style.background = '#21262d'; btn.style.color = '#9ca3af';
+    manuallyEdited = true;
+  }
+}
+
+function onManualEdit() {
+  manuallyEdited = true;
+}
+
+document.getElementById('reference-input').addEventListener('input', updatePreview);
+
+function copyFinal() {
+  const edit = document.getElementById('final-edit');
+  const preview = document.getElementById('final-preview');
+  const text = (edit.style.display !== 'none') ? edit.value : preview.textContent;
+  if (!text || text.startsWith('Select a scenario')) return;
+  const btn = document.getElementById('copy-final-btn');
+  copyText(text, btn);
+}
+
+// ═══════════════════════════════════════════════
+//  UPLOAD
+// ═══════════════════════════════════════════════
+let uploadCounter = 0;
+
+(function initDragDrop() {
+  const zone = document.getElementById('upload-zone');
+  zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.style.borderColor = '#7c3aed'; });
+  zone.addEventListener('dragleave', function() { zone.style.borderColor = ''; });
+  zone.addEventListener('drop', function(e) {
+    e.preventDefault(); zone.style.borderColor = '';
+    if (e.dataTransfer.files.length) handleUploadFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+  });
+})();
+
+function handleUpload(event) { handleUploadFiles(Array.from(event.target.files)); }
+
+function handleUploadFiles(files) {
+  if (!files.length) return;
+  const gallery = document.getElementById('upload-gallery');
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    const id = 'upload-' + (++uploadCounter);
+    reader.onload = function(e) {
+      const thumb = document.createElement('div');
+      thumb.className = 'upload-thumb'; thumb.id = id;
+      thumb.innerHTML = `<img src="${e.target.result}"><button class="remove-btn" onclick="removeImage('${id}')">✕</button>`;
+      gallery.appendChild(thumb);
+      updatePreview();
+    };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('file-input').value = '';
+}
+
+function removeImage(id) { const el = document.getElementById(id); if (el) el.remove(); updatePreview(); }
+
+// ═══════════════════════════════════════════════
+//  UTILITY
+// ═══════════════════════════════════════════════
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.background = '#059669'; btn.style.color = '#fff';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
