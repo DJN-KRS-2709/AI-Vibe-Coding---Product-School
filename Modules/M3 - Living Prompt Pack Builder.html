@@ -1065,25 +1065,12 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
   function checkChainHandoff() {
     let chainText = null;
 
-    // Primary: check URL hash (works across all hosting, no localStorage dependency)
     try {
-      const hash = window.location.hash;
-      if (hash.startsWith('#chain=')) {
-        chainText = decodeURIComponent(hash.substring(7));
-        window.history.replaceState(null, '', window.location.pathname);
-      }
-    } catch(e) {}
-
-    // Fallback: check localStorage
-    if (!chainText) {
-      try {
-        const raw = localStorage.getItem('vc-m3-chain-handoff');
-        if (raw) {
-          const handoff = JSON.parse(raw);
-          chainText = handoff.markdown || handoff.plainText || null;
-        }
-      } catch(e) {}
-    }
+      const raw = localStorage.getItem('vc-m3-chain-handoff');
+      if (!raw) return;
+      const handoff = JSON.parse(raw);
+      chainText = handoff.markdown || handoff.plainText || null;
+    } catch(e) { return; }
 
     if (!chainText) return;
 

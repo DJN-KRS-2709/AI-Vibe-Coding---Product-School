@@ -948,32 +948,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     });
   }
 
-  function buildPackBuilderURL(d) {
-    if (!d) d = getChainData();
-    const chainText = buildMarkdown(d);
-    const encoded = encodeURIComponent(chainText);
-    return 'M3%20-%20Living%20Prompt%20Pack%20Builder.html#chain=' + encoded;
-  }
-
-  function copyCurrent() {
-    const d = getChainData();
-    if (!d.p1 && !d.p2 && !d.p3) return;
-    let text;
-    if (currentFormat === 'markdown') text = buildMarkdown(d);
-    else if (currentFormat === 'xml') text = buildXML(d);
-    else text = buildPlainText(d);
-
-    saveChainForPackBuilder(d);
-    const packURL = buildPackBuilderURL(d);
-    const newTab = window.open(packURL, '_blank');
-
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById('copy-current-btn');
-      btn.textContent = 'Copied! Opening Pack Builder…';
-      btn.style.background = '#047857';
-      setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2500);
-    });
-  }
+  const PACK_BUILDER_PATH = 'M3 - Living Prompt Pack Builder.html';
 
   function saveChainForPackBuilder(d) {
     if (!d) d = getChainData();
@@ -988,10 +963,39 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     } catch(e) {}
   }
 
+  function openPackBuilder() {
+    const w = window.open(PACK_BUILDER_PATH, '_blank');
+    if (!w) {
+      const link = document.createElement('a');
+      link.href = PACK_BUILDER_PATH;
+      link.target = '_blank';
+      link.click();
+    }
+  }
+
+  function copyCurrent() {
+    const d = getChainData();
+    if (!d.p1 && !d.p2 && !d.p3) return;
+    let text;
+    if (currentFormat === 'markdown') text = buildMarkdown(d);
+    else if (currentFormat === 'xml') text = buildXML(d);
+    else text = buildPlainText(d);
+
+    saveChainForPackBuilder(d);
+    openPackBuilder();
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-current-btn');
+      btn.textContent = 'Copied! Opening Pack Builder…';
+      btn.style.background = '#047857';
+      setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2500);
+    });
+  }
+
   function goToPackBuilder() {
     const d = getChainData();
     saveChainForPackBuilder(d);
-    window.open(buildPackBuilderURL(d), '_blank');
+    openPackBuilder();
   }
 
   function syntaxHighlightMD(md) {
