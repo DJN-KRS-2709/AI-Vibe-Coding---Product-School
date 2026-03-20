@@ -1063,33 +1063,47 @@ Example: &quot;Company: TaskFlow, Series A, 5,000 paying teams. Product: B2B pro
 
   // ── Auto-import from Prompt Chain Planner ──
   function checkChainHandoff() {
+    let chainText = null;
+
+    // Primary: check URL hash (works across all hosting, no localStorage dependency)
     try {
-      const raw = localStorage.getItem('vc-m3-chain-handoff');
-      if (!raw) return;
-      const handoff = JSON.parse(raw);
-      if (!handoff.markdown && !handoff.plainText) return;
-
-      const alreadyImported = chainEntries.some(e =>
-        e.text === handoff.markdown || e.text === handoff.plainText
-      );
-      if (alreadyImported) return;
-
-      const chainText = handoff.markdown || handoff.plainText;
-      chainEntries.push({
-        text: chainText,
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-      });
-
-      renderChainEntries();
-      updatePreview();
-      saveToLocalStorage();
-      showSaveIndicator('Chain imported from Prompt Chain Planner', 'saved');
-
-      const chainSection = document.getElementById('chain-entries');
-      if (chainSection) {
-        setTimeout(() => chainSection.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+      const hash = window.location.hash;
+      if (hash.startsWith('#chain=')) {
+        chainText = decodeURIComponent(hash.substring(7));
+        window.history.replaceState(null, '', window.location.pathname);
       }
     } catch(e) {}
+
+    // Fallback: check localStorage
+    if (!chainText) {
+      try {
+        const raw = localStorage.getItem('vc-m3-chain-handoff');
+        if (raw) {
+          const handoff = JSON.parse(raw);
+          chainText = handoff.markdown || handoff.plainText || null;
+        }
+      } catch(e) {}
+    }
+
+    if (!chainText) return;
+
+    const alreadyImported = chainEntries.some(e => e.text === chainText);
+    if (alreadyImported) return;
+
+    chainEntries.push({
+      text: chainText,
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    });
+
+    renderChainEntries();
+    updatePreview();
+    saveToLocalStorage();
+    showSaveIndicator('Chain imported from Prompt Chain Planner', 'saved');
+
+    const chainSection = document.getElementById('chain-entries');
+    if (chainSection) {
+      setTimeout(() => chainSection.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400);
+    }
   }
 
   // ── Initialize ──

@@ -948,6 +948,13 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     });
   }
 
+  function buildPackBuilderURL(d) {
+    if (!d) d = getChainData();
+    const chainText = buildMarkdown(d);
+    const encoded = encodeURIComponent(chainText);
+    return 'M3%20-%20Living%20Prompt%20Pack%20Builder.html#chain=' + encoded;
+  }
+
   function copyCurrent() {
     const d = getChainData();
     if (!d.p1 && !d.p2 && !d.p3) return;
@@ -955,14 +962,17 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     if (currentFormat === 'markdown') text = buildMarkdown(d);
     else if (currentFormat === 'xml') text = buildXML(d);
     else text = buildPlainText(d);
+
+    saveChainForPackBuilder(d);
+    const packURL = buildPackBuilderURL(d);
+    const newTab = window.open(packURL, '_blank');
+
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('copy-current-btn');
       btn.textContent = 'Copied! Opening Pack Builder…';
       btn.style.background = '#047857';
       setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2500);
     });
-    saveChainForPackBuilder(d);
-    setTimeout(() => window.open('M3%20-%20Living%20Prompt%20Pack%20Builder.html', '_blank'), 300);
   }
 
   function saveChainForPackBuilder(d) {
@@ -981,7 +991,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
   function goToPackBuilder() {
     const d = getChainData();
     saveChainForPackBuilder(d);
-    window.open('M3%20-%20Living%20Prompt%20Pack%20Builder.html', '_blank');
+    window.open(buildPackBuilderURL(d), '_blank');
   }
 
   function syntaxHighlightMD(md) {
