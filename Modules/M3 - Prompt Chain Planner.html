@@ -334,8 +334,6 @@
   }
   .btn-copy-main { background: #059669; color: white; }
   .btn-copy-main:hover { background: #047857; }
-  .btn-xml { background: #1f6feb; color: white; }
-  .btn-xml:hover { background: #1a5cd4; }
   .btn-clear { background: #21262d; color: #9ca3af; }
   .btn-clear:hover { background: #30363d; }
 
@@ -601,12 +599,12 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
       </div>
       <div class="final-actions">
         <button class="final-btn btn-clear" onclick="clearAll()">Start Over</button>
-        <button class="final-btn btn-xml" id="copy-xml-btn" onclick="copyXML()">Copy as GitHub XML</button>
-        <button class="final-btn btn-copy-main" id="copy-chain-btn" onclick="copyChain()">Copy Full Chain</button>
+        <button class="final-btn btn-copy-main" id="copy-current-btn" onclick="copyCurrent()">Copy to Clipboard</button>
       </div>
     </div>
     <div class="format-toggle">
-      <button class="active" onclick="setFormat('plain', this)">Plain Text</button>
+      <button class="active" onclick="setFormat('markdown', this)">Markdown</button>
+      <button onclick="setFormat('plain', this)">Plain Text</button>
       <button onclick="setFormat('xml', this)">GitHub XML</button>
     </div>
     <div class="final-preview" id="chain-preview">Write your prompts above to see the full chain here...</div>
@@ -810,7 +808,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     document.getElementById('audit-summary').innerHTML = msg;
   }
 
-  let currentFormat = 'plain';
+  let currentFormat = 'markdown';
 
   function setFormat(fmt, btn) {
     currentFormat = fmt;
@@ -844,6 +842,32 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     if (d.p2) { chain += `\nPROMPT 2 — BEHAVIOR\n${d.p2}\n`; if (d.r2) chain += `Result: ${d.r2}\n`; }
     if (d.p3) { chain += `\nPROMPT 3 — REFINE\n${d.p3}\n`; if (d.r3) chain += `Result: ${d.r3}\n`; }
     return chain;
+  }
+
+  function buildMarkdown(d) {
+    const ts = new Date().toISOString().slice(0, 10);
+    let md = `# Prompt Chain — Module 3\n\n`;
+    md += `**Date:** ${ts}  \n`;
+    md += `**Scenario:** ${d.scenario}  \n`;
+    md += `**Starting point:** M2 prototype (${d.screens} screens, ${d.hasStates ? 'has states' : 'no states'}, ${d.isRepro ? 'reproducible' : 'not reproducible'})\n\n`;
+    md += `---\n\n`;
+
+    if (d.p1) {
+      md += `## Prompt 1 — Expand\n\n`;
+      md += '```\n' + d.p1 + '\n```\n\n';
+      if (d.r1) md += `**Result:** ${d.r1}\n\n`;
+    }
+    if (d.p2) {
+      md += `## Prompt 2 — Behavior\n\n`;
+      md += '```\n' + d.p2 + '\n```\n\n';
+      if (d.r2) md += `**Result:** ${d.r2}\n\n`;
+    }
+    if (d.p3) {
+      md += `## Prompt 3 — Refine\n\n`;
+      md += '```\n' + d.p3 + '\n```\n\n';
+      if (d.r3) md += `**Result:** ${d.r3}\n\n`;
+    }
+    return md.trim();
   }
 
   function buildXML(d) {
@@ -903,8 +927,9 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     }
 
     if (currentFormat === 'xml') {
-      const xml = buildXML(d);
-      preview.innerHTML = syntaxHighlightXML(xml);
+      preview.innerHTML = syntaxHighlightXML(buildXML(d));
+    } else if (currentFormat === 'markdown') {
+      preview.innerHTML = syntaxHighlightMD(buildMarkdown(d));
     } else {
       preview.textContent = buildPlainText(d);
     }
@@ -923,26 +948,29 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     });
   }
 
-  function copyChain() {
+  function copyCurrent() {
     const d = getChainData();
     if (!d.p1 && !d.p2 && !d.p3) return;
-    navigator.clipboard.writeText(buildPlainText(d)).then(() => {
-      const btn = document.getElementById('copy-chain-btn');
+    let text;
+    if (currentFormat === 'markdown') text = buildMarkdown(d);
+    else if (currentFormat === 'xml') text = buildXML(d);
+    else text = buildPlainText(d);
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-current-btn');
       btn.textContent = 'Copied!';
       btn.style.background = '#047857';
-      setTimeout(() => { btn.textContent = 'Copy Full Chain'; btn.style.background = '#059669'; }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy to Clipboard'; btn.style.background = '#059669'; }, 2000);
     });
   }
 
-  function copyXML() {
-    const d = getChainData();
-    if (!d.p1 && !d.p2 && !d.p3) return;
-    navigator.clipboard.writeText(buildXML(d)).then(() => {
-      const btn = document.getElementById('copy-xml-btn');
-      btn.textContent = 'Copied!';
-      btn.style.background = '#1a5cd4';
-      setTimeout(() => { btn.textContent = 'Copy as GitHub XML'; btn.style.background = '#1f6feb'; }, 2000);
-    });
+  function syntaxHighlightMD(md) {
+    let html = md
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/^(#{1,3} .+)$/gm, '<span style="color:#7ee787;font-weight:700;">$1</span>')
+      .replace(/\*\*(.+?)\*\*/g, '<span style="color:#d2a8ff;font-weight:600;">**$1**</span>')
+      .replace(/^(---)$/gm, '<span style="color:#8b949e;">$1</span>')
+      .replace(/^```$/gm, '<span style="color:#8b949e;">```</span>');
+    return html;
   }
 
   function clearAll() {
