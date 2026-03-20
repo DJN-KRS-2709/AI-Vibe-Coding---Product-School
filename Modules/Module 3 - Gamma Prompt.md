@@ -167,11 +167,11 @@ A collection of evolving prompt templates that encode your product context. NOT 
 - Constraint templates ("Always do X. Never do Y.")
 - Output templates ("Build me a [component] with [features] matching [design system]")
 
-Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). Build it in the **Living Prompt Pack Builder** — it evolves as you learn.
+Your prompt chain from today becomes the first entry in your Prompt Library (Deliverable #4). After class, paste it into the **Living Prompt Pack Builder** — a take-home toolkit that grows with every module.
 
 **Remember skills from M1?** What you're building here IS a skill file. In M1, you learned that AI tools can import pre-made skills from marketplaces. Now you're creating your own. Your Living Prompt Pack is a skill that any AI tool can use — and that anyone on your team can import. By M6, this pack will be a portable, shareable asset you take with you.
 
-*Speaker Notes: Connect back to M1's skills slide: "In Module 1, I showed you that AI tools can import skills — pre-made instruction sets. What you're building right now in the Living Prompt Pack Builder is exactly that. It's YOUR skill file. When you export it as markdown, any AI tool that supports skills can import it. Your teammates can use it. Future you on a different project can use it. The prompt chain you write today is the first entry — it grows through M4, M5, and M6."*
+*Speaker Notes: Connect back to M1's skills slide: "In Module 1, I showed you that AI tools can import skills — pre-made instruction sets. The Living Prompt Pack Builder is where you assemble YOUR skill file between classes. You don't need to do it now — focus on building your chain. After class, paste today's chain into the Pack Builder as your first entry. When you export it as markdown, any AI tool that supports skills can import it. Your teammates can use it. Future you on a different project can use it. It grows through M4, M5, and M6."*
 
 ---
 
