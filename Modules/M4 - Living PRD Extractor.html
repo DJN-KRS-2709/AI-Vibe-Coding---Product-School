@@ -57,7 +57,7 @@
   .card-body { padding: 20px 28px 24px; }
 
   .scenario-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
     margin-bottom: 10px;
   }
 
@@ -70,6 +70,8 @@
   }
   .scenario-btn:hover { border-color: #c4b5fd; background: #f5f3ff; color: #7c3aed; }
   .scenario-btn.active { border-color: #7c3aed; background: #f3f0ff; color: #7c3aed; font-weight: 700; }
+  .scenario-btn.byo { border-style: dashed; }
+  .scenario-btn.byo.active { border-style: solid; }
 
   .audit-grid {
     display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
@@ -390,6 +392,38 @@
   }
   .save-bar.saving { background: #eff6ff; color: #3b82f6; border-color: #bfdbfe; }
   .save-bar.saving .save-dot { background: #3b82f6; }
+
+  .m3-import-banner {
+    display: none; margin-top: 12px; padding: 16px 20px;
+    border: 2px solid #c4b5fd; border-radius: 10px;
+    background: #f5f3ff;
+  }
+  .m3-import-banner.visible { display: block; }
+  .m3-import-banner-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+  }
+  .m3-import-banner-title {
+    font-size: 13px; font-weight: 700; color: #7c3aed;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .m3-import-banner-body { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
+  .m3-import-banner-actions { display: flex; gap: 8px; }
+  .m3-import-btn {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .m3-import-btn.primary { background: #7c3aed; color: white; }
+  .m3-import-btn.primary:hover { background: #6d28d9; }
+  .m3-import-btn.dismiss { background: #e9e5f5; color: #7c3aed; }
+  .m3-import-btn.dismiss:hover { background: #ddd6fe; }
+
+  .m3-no-data-banner {
+    display: none; margin-top: 12px; padding: 14px 20px;
+    border: 1.5px dashed #d1d5db; border-radius: 10px;
+    background: #fafbfc; font-size: 12px; color: #888; line-height: 1.6;
+  }
+  .m3-no-data-banner.visible { display: block; }
+  .m3-no-data-banner strong { color: #555; }
 </style>
 </head>
 <body>
@@ -416,6 +450,24 @@
         <button class="scenario-btn" onclick="pickScenario('internal',this)">Internal Tool</button>
         <button class="scenario-btn" onclick="pickScenario('marketplace',this)">Marketplace Trust</button>
         <button class="scenario-btn" onclick="pickScenario('dashboard',this)">Dashboard</button>
+        <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
+      </div>
+
+      <!-- M3 data found — offer import -->
+      <div class="m3-import-banner" id="m3-import-banner">
+        <div class="m3-import-banner-header">
+          <div class="m3-import-banner-title">📦 <span id="m3-import-scenario">Your M3 build</span></div>
+        </div>
+        <div class="m3-import-banner-body" id="m3-import-body">We found data from your previous modules.</div>
+        <div class="m3-import-banner-actions">
+          <button class="m3-import-btn primary" onclick="importPreviousModuleData()">Import My Data</button>
+          <button class="m3-import-btn dismiss" onclick="dismissImport()">Start Fresh</button>
+        </div>
+      </div>
+
+      <!-- No M3 data — guide them -->
+      <div class="m3-no-data-banner" id="m3-no-data-banner">
+        <strong>No previous module data found.</strong> That's fine — fill in the prompts and PRD sections manually using your own prototype. If you used the M2 Prototype Builder or M3 Prompt Chain Planner on a different browser, export from there and import here.
       </div>
     </div>
   </div>
@@ -629,7 +681,7 @@
   <div class="tip-bar" style="margin-top:12px;">
     <div class="tip-icon" style="background:#eff6ff;color:#3B6FE0;">→</div>
     <div class="tip-text">
-      <strong>Related tools:</strong> <a href="M3%20-%20Prompt%20Chain%20Planner.html">Prompt Chain Planner</a> · <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html">Living Prompt Pack Builder</a>
+      <strong>Data flows in from:</strong> <a href="M2%20-%20Prototype%20Builder.html">M2 Prototype Builder</a> (hypothesis, quotes, metrics) · <a href="M3%20-%20Prompt%20Chain%20Planner.html">M3 Prompt Chain Planner</a> (chain, screen count) · <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html">M3 Prompt Pack Builder</a> (constraints, context)
     </div>
   </div>
 </div>
@@ -641,6 +693,14 @@
 
   const auditState = { states: 'yes', chain: 'yes' };
   const infraState = { github: 'no', supabase: 'no', githubVerify: false, supabaseVerify: false };
+
+  let m2Handoff = null;
+  let m3ChainHandoff = null;
+  let m3PackData = null;
+  try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
+  try { m3ChainHandoff = JSON.parse(localStorage.getItem('vc-m3-chain-handoff')); } catch(e) {}
+  try { m3PackData = JSON.parse(localStorage.getItem('living-prompt-pack-v1')); } catch(e) {}
+  const hasPreviousData = !!(m2Handoff || m3ChainHandoff || m3PackData);
 
   function setInfra(service, val) {
     infraState[service] = val;
@@ -700,6 +760,14 @@
   ];
 
   const SCENARIO_DATA = {
+    byo: {
+      label: 'Build Your Own',
+      audit: { screens: 1, states: 'no', chain: 'no' },
+      extract: '',
+      refactor: '',
+      handoff: '',
+      prd: {}
+    },
     retention: {
       label: 'Retention Engine',
       audit: { screens: 5, states: 'yes', chain: 'yes' },
@@ -1352,6 +1420,63 @@ EXPERIMENT PLAN:
     const data = SCENARIO_DATA[id];
     if (!data) return;
 
+    const banner = document.getElementById('m3-import-banner');
+    const noDataBanner = document.getElementById('m3-no-data-banner');
+
+    if (id === 'byo') {
+      noDataBanner.classList.remove('visible');
+      banner.classList.remove('visible');
+
+      try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
+      try { m3ChainHandoff = JSON.parse(localStorage.getItem('vc-m3-chain-handoff')); } catch(e) {}
+      try { m3PackData = JSON.parse(localStorage.getItem('living-prompt-pack-v1')); } catch(e) {}
+
+      if (m2Handoff || m3ChainHandoff || m3PackData) {
+        let summary = '';
+        if (m2Handoff) {
+          const hyp = m2Handoff.hypothesis || {};
+          summary += `<strong>M2:</strong> ${m2Handoff.scenarioLabel || 'Custom scenario'}`;
+          if (hyp.if) summary += ` — "If ${hyp.if}…"`;
+          if (m2Handoff.quotes?.length) summary += `<br>${m2Handoff.quotes.length} user quotes, ${(m2Handoff.metrics||[]).length} metrics`;
+        }
+        if (m3ChainHandoff) {
+          if (summary) summary += '<br>';
+          summary += `<strong>M3:</strong> Prompt chain (${m3ChainHandoff.scenario || 'custom'})`;
+        }
+        if (m3PackData) {
+          const chainCount = (m3PackData.chainEntries || []).length;
+          const constraintCount = (m3PackData.constraints || []).length;
+          if (summary) summary += '<br>';
+          summary += `<strong>Prompt Pack:</strong> ${chainCount} chain${chainCount !== 1 ? 's' : ''}, ${constraintCount} constraint${constraintCount !== 1 ? 's' : ''}`;
+        }
+        document.getElementById('m3-import-scenario').textContent = m2Handoff?.scenarioLabel || m3ChainHandoff?.scenario || 'Your build';
+        document.getElementById('m3-import-body').innerHTML = summary;
+        banner.classList.add('visible');
+      } else {
+        noDataBanner.classList.add('visible');
+      }
+
+      document.getElementById('prompt-extract').value = '';
+      document.getElementById('prompt-refactor').value = '';
+      document.getElementById('prompt-handoff').value = '';
+      document.getElementById('result-extract').value = '';
+      document.getElementById('result-refactor').value = '';
+      document.getElementById('result-handoff').value = '';
+      document.getElementById('audit-screens').value = 1;
+      setToggle('states', 'no');
+      setToggle('chain', 'no');
+      PRD_SECTION_IDS.forEach(s => {
+        const ta = document.getElementById('prd-' + s.id + '-text');
+        if (ta) ta.value = '';
+      });
+      updateAudit();
+      updatePreview();
+      return;
+    }
+
+    banner.classList.remove('visible');
+    noDataBanner.classList.remove('visible');
+
     const hasExisting = ['prompt-extract', 'prompt-refactor', 'prompt-handoff'].some(
       fid => document.getElementById(fid)?.value?.trim() !== ''
     ) || PRD_SECTION_IDS.some(s => document.getElementById('prd-' + s.id + '-text')?.value?.trim() !== '');
@@ -1384,6 +1509,77 @@ EXPERIMENT PLAN:
     saveToLocalStorage();
 
     document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function importPreviousModuleData() {
+    const banner = document.getElementById('m3-import-banner');
+    banner.classList.remove('visible');
+
+    const hyp = m2Handoff?.hypothesis || {};
+    const scenarioLabel = m2Handoff?.scenarioLabel || m3ChainHandoff?.scenario || 'my prototype';
+    const quotes = m2Handoff?.quotes || [];
+    const metrics = m2Handoff?.metrics || [];
+    const killSwitch = m2Handoff?.killSwitch || '';
+
+    let screenCount = 1;
+    const chainText = m3ChainHandoff?.plainText || m3ChainHandoff?.markdown || '';
+    const screenMatch = chainText.match(/(\d+)\s*screens?/i);
+    if (screenMatch) screenCount = parseInt(screenMatch[1]);
+
+    document.getElementById('audit-screens').value = screenCount;
+    setToggle('states', chainText.toLowerCase().includes('loading') || chainText.toLowerCase().includes('empty state') ? 'yes' : 'no');
+    setToggle('chain', m3ChainHandoff ? 'yes' : 'no');
+
+    let extractPrompt = `Look at this prototype — ${scenarioLabel}.`;
+    if (hyp.if) extractPrompt += ` The hypothesis: if ${hyp.if}, then ${hyp.then || '…'}, because ${hyp.because || '…'}.`;
+    extractPrompt += ` Write a product requirements document covering: what this product does, who it's for, the problem it solves, the ${screenCount} screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering.`;
+    document.getElementById('prompt-extract').value = extractPrompt;
+
+    let refactorPrompt = `Refactor this codebase. Rename all components to be descriptive — replace generic names like Component1 with names that describe what each screen and module does. Separate data logic from display components. Group files by feature, not by type. Add a README.md that explains the project structure and screen flow.`;
+    document.getElementById('prompt-refactor').value = refactorPrompt;
+
+    let handoffPrompt = `Generate an engineering handoff for this prototype: list every component and what it does. Describe the data model — what entities exist and how they relate. Note what's mocked vs. real. Identify the top 3 technical decisions an engineer would need to make. Write a 'start here' guide.`;
+    document.getElementById('prompt-handoff').value = handoffPrompt;
+
+    if (hyp.if || quotes.length || killSwitch) {
+      let problemText = '';
+      if (hyp.if) {
+        problemText += `THE HYPOTHESIS:\nIf ${hyp.if},\nthen ${hyp.then || '…'},\nbecause ${hyp.because || '…'}.\n`;
+      }
+      if (killSwitch) {
+        problemText += `\nKILL SWITCH:\n${killSwitch}\n`;
+      }
+      if (quotes.length) {
+        problemText += `\nEVIDENCE:\n`;
+        quotes.forEach(q => { problemText += `- "${q}"\n`; });
+      }
+      const ta = document.getElementById('prd-problem-text');
+      if (ta) ta.value = problemText.trim();
+    }
+
+    if (metrics.length) {
+      let metricsText = 'KEY METRICS FROM M2:\n';
+      metrics.forEach(m => { metricsText += `- ${m}\n`; });
+      const ta = document.getElementById('prd-metrics-text');
+      if (ta) ta.value = metricsText.trim();
+    }
+
+    if (m2Handoff?.scenarioLabel) {
+      const ta = document.getElementById('prd-overview-text');
+      if (ta && !ta.value.trim()) {
+        ta.value = `Product: ${m2Handoff.scenarioLabel}\nOne-line: [describe what it does in one sentence]\nTarget user: [who uses this and in what context]\nCore value proposition: [what the user gets that they don't have today]`;
+      }
+    }
+
+    updateAudit();
+    updatePreview();
+    saveToLocalStorage();
+    showSaveIndicator('M2/M3 data imported', 'saved');
+    document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function dismissImport() {
+    document.getElementById('m3-import-banner').classList.remove('visible');
   }
 
   function setToggle(field, val) {
@@ -1516,6 +1712,9 @@ EXPERIMENT PLAN:
       }
     }
 
+    document.getElementById('m3-import-banner').classList.remove('visible');
+    document.getElementById('m3-no-data-banner').classList.remove('visible');
+
     updateAudit();
     updatePreview();
     isRestoring = false;
@@ -1588,6 +1787,32 @@ EXPERIMENT PLAN:
       btn.style.background = '#059669';
       setTimeout(() => { btn.textContent = 'Copy Full PRD'; btn.style.background = '#7c3aed'; }, 2000);
     });
+    saveForM5();
+  }
+
+  function saveForM5() {
+    try {
+      const scenario = document.querySelector('.scenario-btn.active')?.textContent || 'Unknown';
+      const prdSections = {};
+      PRD_SECTION_IDS.forEach(s => {
+        const ta = document.getElementById('prd-' + s.id + '-text');
+        if (ta?.value?.trim()) prdSections[s.id] = ta.value.trim();
+      });
+      const ghConnected = infraState.github === 'yes';
+      const sbConnected = infraState.supabase === 'yes';
+      localStorage.setItem('vc-m4-prd-handoff', JSON.stringify({
+        ts: Date.now(),
+        scenario: scenario,
+        screens: document.getElementById('audit-screens').value,
+        prdSections: prdSections,
+        handoff: document.getElementById('result-handoff').value.trim(),
+        refactorNotes: document.getElementById('result-refactor').value.trim(),
+        githubConnected: ghConnected,
+        githubUrl: document.getElementById('infra-github-url').value.trim(),
+        supabaseConnected: sbConnected,
+        supabaseUrl: document.getElementById('infra-supabase-url').value.trim()
+      }));
+    } catch(e) {}
   }
 
   function downloadMarkdown() {
@@ -1600,6 +1825,7 @@ EXPERIMENT PLAN:
     a.download = 'Living-PRD.md';
     a.click();
     URL.revokeObjectURL(url);
+    saveForM5();
   }
 
   function importPRD(event) {
@@ -1689,9 +1915,13 @@ EXPERIMENT PLAN:
     if (sbV) { sbV.className = 'infra-verify-check'; sbV.textContent = ''; }
     updateInfraStatus();
 
+    document.getElementById('m3-import-banner').classList.remove('visible');
+    document.getElementById('m3-no-data-banner').classList.remove('visible');
+
     updateAudit();
     updatePreview();
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('vc-m4-prd-handoff');
     showSaveIndicator('Cleared', 'saving');
   }
 

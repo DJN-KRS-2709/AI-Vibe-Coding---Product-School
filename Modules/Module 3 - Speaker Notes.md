@@ -239,24 +239,28 @@ Notice the pattern: Expand builds structure, Behavior adds resilience, Refine ad
 
 ## Slide 13 — Individual Exercise: Plan Your Prompt Chain
 
-**ACTION: This is individual work. Give students the full time. Do NOT let them open Lovable yet.**
+**ACTION: This is individual work. Give students the full time. Do NOT let them open Lovable yet. Drop the Living Prompt Pack Builder link in Slack now.**
 
-Before you build, you plan. This is the same discipline from M2 — preparation is what makes the build dramatically better.
+Before you build, you plan. This is the same discipline from M2 — preparation is what makes the build dramatically better. And this time, you're planning directly inside the tool that becomes your permanent asset.
 
 Four steps:
 
 **Step 1 — Audit your M2 prototype.** Open it and identify 3-5 flow gaps (missing screens, dead ends), 3 specific friction points (no loading states, no error handling), and 1 targeted UI element you want to refine.
 
-**Step 2 — Draft your 3-step chain.** Write your Expand, Behavior, and Refine prompts. If you get stuck, use the Prompt Chain Planner — the link is in Slack. It helps you structure each prompt.
+**Step 2 — Draft your 3-step chain in the Living Prompt Pack Builder.** Open the Pack Builder link from Slack. Start in the **Chain Entries** section — click "Add Chain Entry" and write your Expand, Behavior, and Refine prompts directly there. The Builder structures each prompt for you and keeps everything in one place. If you completed M2 in the Prototype Builder, your data auto-imports — your scenario context, hypothesis, and design references carry forward automatically.
 
-**Step 3 — Gather your references.** For the COT expansion, get screenshots of the layouts you want to match for your new screens. Same Mobbin workflow from M2.
+**Step 3 — Gather your references and fill in your Design System Reference.** For the COT expansion, get screenshots of the layouts you want to match for your new screens — same Mobbin workflow from M2. While you're in the Pack Builder, drop your screenshot or Figma link into the **Design System Reference** section so the AI has your visual direction locked in for every prompt going forward.
 
-**Step 4 — Finalize your chain in the Prompt Chain Planner.** Make sure all three prompts (Expand, Behavior, Refine) are written. Use "Copy Full Chain" or "Copy as GitHub XML" to export them for peer review and the lab. This documented chain becomes the first entry in your Living Prompt Pack — a final project deliverable.
+**Step 4 — Finalize your chain and start building your pack.** Make sure all three prompts (Expand, Behavior, Refine) are written in Chain Entries. Then fill in two more sections: your **Product Context Block** — one paragraph that briefs the AI on your product so you never have to re-explain it — and any **Constraint Templates** you've already discovered ("Always do X. Never do Y."). Use "Copy Full Pack" or "Export .md" to create your Markdown file. This documented chain and its surrounding context become the foundation of your Living Prompt Pack — a final project deliverable that grows through M4, M5, and M6.
+
+**Why the Pack Builder instead of a separate doc?** The Pack Builder isn't just for today's chain — it's your portable prompt toolkit. Every section you fill in (product context, design reference, constraints, output templates) gets reused in every future prompt session. By M6, this pack is a complete, shareable skill file that any AI tool can import and any teammate can follow. Start it now so it compounds.
 
 **ACTION: Walk the room. Watch for:**
 1. **Students who jump to Lovable** — "Close it. Plan first. Your chain isn't ready until it's written down."
-2. **Students writing one mega-prompt instead of three** — "Split it. One prompt per stage. Expand, Behavior, Refine."
-3. **Students with vague Behavior prompts** — "What exact message appears when data is empty? What exact error text shows? Be specific."
+2. **Students who haven't opened the Pack Builder** — "The link is in Slack. Open it now. Your chain goes directly into Chain Entries — that's where you plan."
+3. **Students writing one mega-prompt instead of three** — "Split it. One prompt per stage. Expand, Behavior, Refine."
+4. **Students with vague Behavior prompts** — "What exact message appears when data is empty? What exact error text shows? Be specific."
+5. **Students only filling Chain Entries** — "While you're in there, fill in your Product Context Block and Design System Reference too. Those sections make every future prompt stronger."
 
 
 ## Slide 14 — Breakout: Show and Swap Your Prompt Chain
