@@ -418,12 +418,21 @@
   .m3-import-btn.dismiss:hover { background: #ddd6fe; }
 
   .m3-no-data-banner {
-    display: none; margin-top: 12px; padding: 14px 20px;
-    border: 1.5px dashed #d1d5db; border-radius: 10px;
-    background: #fafbfc; font-size: 12px; color: #888; line-height: 1.6;
+    display: none; margin-top: 12px; padding: 20px;
+    border: 2px dashed #c4b5fd; border-radius: 10px;
+    background: #faf8ff; font-size: 12px; color: #555; line-height: 1.6;
+    text-align: center; cursor: pointer; transition: all 0.2s;
   }
   .m3-no-data-banner.visible { display: block; }
-  .m3-no-data-banner strong { color: #555; }
+  .m3-no-data-banner:hover, .m3-no-data-banner.dragover {
+    border-color: #7c3aed; background: #f3f0ff;
+  }
+  .m3-no-data-banner strong { color: #1a1a2e; }
+  .m3-no-data-banner .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .m3-no-data-banner .upload-hint { font-size: 11px; color: #999; margin-top: 6px; }
+
+  .m3-import-btn.upload { background: #f6f8fa; color: #555; border: 1.5px dashed #d1d5db; }
+  .m3-import-btn.upload:hover { border-color: #7c3aed; color: #7c3aed; background: #f5f3ff; }
 </style>
 </head>
 <body>
@@ -461,14 +470,19 @@
         <div class="m3-import-banner-body" id="m3-import-body">We found data from your previous modules.</div>
         <div class="m3-import-banner-actions">
           <button class="m3-import-btn primary" onclick="importPreviousModuleData()">Import My Data</button>
+          <button class="m3-import-btn upload" onclick="document.getElementById('scenario-import-file').click()">Upload .md Instead</button>
           <button class="m3-import-btn dismiss" onclick="dismissImport()">Start Fresh</button>
         </div>
       </div>
 
-      <!-- No M3 data — guide them -->
-      <div class="m3-no-data-banner" id="m3-no-data-banner">
-        <strong>No previous module data found.</strong> That's fine — fill in the prompts and PRD sections manually using your own prototype. If you used the M2 Prototype Builder or M3 Prompt Chain Planner on a different browser, export from there and import here.
+      <!-- No M3 data — offer file upload -->
+      <div class="m3-no-data-banner" id="m3-no-data-banner" onclick="document.getElementById('scenario-import-file').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); handleScenarioFileDrop(event)">
+        <div class="upload-icon">📄</div>
+        <strong>No previous module data found.</strong><br>
+        Drop a <code>.md</code> or <code>.json</code> file here to import your PRD — or click to browse.
+        <div class="upload-hint">Exported from the M2 Prototype Builder, M3 Prompt Chain Planner, or a previous PRD Extractor session.</div>
       </div>
+      <input type="file" id="scenario-import-file" accept=".md,.txt,.json" style="display:none" onchange="handleScenarioFileUpload(event)">
     </div>
   </div>
 
@@ -1580,6 +1594,41 @@ EXPERIMENT PLAN:
 
   function dismissImport() {
     document.getElementById('m3-import-banner').classList.remove('visible');
+  }
+
+  function handleScenarioFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) processImportFile(file);
+    event.target.value = '';
+  }
+
+  function handleScenarioFileDrop(event) {
+    const file = event.dataTransfer.files[0];
+    if (file) processImportFile(file);
+  }
+
+  function processImportFile(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const content = e.target.result;
+      document.getElementById('m3-import-banner').classList.remove('visible');
+      document.getElementById('m3-no-data-banner').classList.remove('visible');
+      if (file.name.endsWith('.json')) {
+        try {
+          const state = JSON.parse(content);
+          applyState(state);
+        } catch (err) {
+          alert('Could not parse JSON file.');
+          return;
+        }
+      } else {
+        parseMarkdownImport(content);
+      }
+      saveToLocalStorage();
+      showSaveIndicator('File imported — ' + file.name, 'saved');
+      document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    reader.readAsText(file);
   }
 
   function setToggle(field, val) {

@@ -1,6 +1,6 @@
 # Module 4: Transition From Prototypes to Production Specs — Speaker Notes
 
-Casual talking points for each slide. Not a script — just the key things to say, what to do on screen, and the energy to bring. Module 4 is the hinge of the course — the first half ends here. The vibe shifts from "build" to "make it durable." Real examples from companies like Instagram, Stripe, GitHub, and WhatsApp to ground every concept.
+Casual talking points for each slide. Not a script — just the key things to say, what to do on screen, and the energy to bring. Module 4 is the hinge of the course — the first half ends here. The vibe shifts from "build" to "make it durable." Real examples from companies like Slack, Stripe, GitHub, and WhatsApp to ground every concept.
 
 **Tools referenced in this module:**
 - Lovable (building, refactoring, connecting infrastructure)
@@ -201,7 +201,7 @@ The slide shows two workflows side by side. Let the visual do the work — your 
 
 Point to the right side of the slide: "Now look at what you've already been doing for three modules. You built first. You tested live. Today you'll extract the spec and connect the infrastructure. The documentation is the *output*, not the starting point."
 
-Bring it to life with Instagram: "Kevin Systrom didn't sit in a conference room writing requirements for a photo-sharing app. He built Burbn — a messy, overloaded check-in app with a dozen features. Then he watched what users actually did. One feature kept winning: photos. The product spec wasn't written — it was discovered inside a working build. That's the vibe loop. That's what you're doing today."
+Bring it to life with Shopify: "Tobias Lütke didn't write a spec for an e-commerce platform. He needed to sell snowboards online, couldn't find a tool he liked, so he built his own store. The store worked. Then his friends wanted one. Then strangers wanted one. The platform spec was extracted from a store that already had real customers and real transactions. He didn't predict the product — the product revealed itself through the build. That's the vibe loop. That's what you're doing today."
 
 
 ## Slide 9 — How to Move From Prototype to Production
@@ -310,16 +310,18 @@ Welcome back! Quick reminder — it's always better to see your smiling face. Be
 
 ## Slide 19 — Refactor Your Prototype Code and Generate Your Eng Handoff
 
-Time to get our hands dirty. You're about to clean up the black box and produce a document that makes your code legible to anyone.
+Connect this back to the demo: "Remember the five things I did to the Retention Engine in 8 minutes? You already did the first one — you extracted your Living PRD. Now you're going to do the rest: refactor the code, get the README, generate the engineering handoff, connect GitHub, and connect the backend. Same five steps. Your build, your hands."
 
 
 ## Slide 20 — Hands-On Lab: Refactor & Generate Handoff
 
 **ACTION: Give students 15-20 minutes. Walk the room continuously.**
 
-"Steps are on screen. Before you dive in — two things. First, start by opening Code View and looking at your file tree. Notice how messy it is. That's your before picture. Second, after you paste the refactor prompt, switch back to Code View immediately and watch the file names change in real time. That transformation is the moment it clicks."
+Frame this as steps 2, 3, and 4 of the five-step transformation from the demo: "You've already got your Living PRD from the earlier exercise. Now you're doing the next three steps — clean code, README, and engineering handoff. After this lab, you'll connect GitHub and your backend. By the end of today you'll have the complete package — exactly what I showed you in the demo."
 
-Guide the flow without reading the slide: "Refactor first, then handoff. The refactor prompt cleans up names and file structure. The handoff prompt generates your 'Start Here' guide. Both outputs go back into your Living PRD Extractor — that's your single source of truth now."
+"Before you dive in — start by opening Code View and looking at your file tree. Notice how messy it is. That's your before picture. After you paste the refactor prompt, switch back to Code View immediately and watch the file names change in real time. That transformation is the moment it clicks."
+
+Guide the flow: "Refactor first — that gives you clean component names and a README. Then handoff — that generates the 'Start Here' guide and data model documentation. Both outputs go back into your Living PRD Extractor — that's your single source of truth now."
 
 **Watch for:** After the refactor, walk up to students and ask: "Find your dashboard component. What was it called 5 minutes ago?" That contrast sticks.
 
@@ -345,7 +347,7 @@ Stripe runs this exact test with new hires. Day one: here's the docs, here's the
 
 ## Slide 22 — Connect Your Infrastructure with GitHub and Supabase
 
-The final lab. This is where your prototype moves from a local preview to a real engineering environment.
+"Two steps left. You've got the Living PRD, the clean code, the README, and the engineering handoff. Now we finish the job — GitHub for version control, and a real backend for your data. These are steps 5 and 6 from the demo. After this, your prototype has the complete package."
 
 
 ## Slide 23 — Hands-On Lab: Connect GitHub and Supabase
@@ -380,19 +382,17 @@ Land the project deliverable reminder: "Before you close out — copy your Livin
 
 ## Slide 25 — Key Takeaways
 
-The slide shows three formal takeaways. You're going to deliver them through a single story instead of reading bullets.
+The slide shows three formal takeaways. Deliver them through a story they'll remember.
 
-"Let me close with a story you've been living through all day — you just didn't know it was someone else's story too."
+"Quick story. In 2007, Justin Kan strapped a camera to his head and launched Justin.tv — a platform where anyone could livestream anything. General purpose. No focus. Lifecasting, cooking shows, people filming their cats. It had users, it had investors, and it had no identity. The platform was a black box of content with no clear product thesis."
 
-"In 2010, Kevin Systrom had a build that looked like a product but wasn't. Burbn — check-ins, photo sharing, gaming, social features, a dozen things crammed together. Users were on it. Investors had funded it. And nobody — including Systrom — could explain what it actually *was*. Sounds a lot like a Module 3 prototype with no Living PRD, right? Features everywhere, no clarity."
+"But the data told a different story. One category kept growing while everything else flatlined: gaming. Gamers were streaming themselves playing, watching each other play, building communities around specific games. The Justin.tv team didn't plan for this. They discovered it by looking at what users were actually doing — not what the team hoped they'd do. So they extracted the spec from the evidence: gaming livestreaming is the product. That's the first takeaway — **extract instead of predict.** Your Living PRD does the same thing. It pulls the product definition from a working build, not from a brainstorm."
 
-"So he did exactly what you did today. He looked at the evidence — not what he hoped users would do, but what they were already doing. One feature dominated: photos. He didn't write a spec first. He let the build tell him what the product was. That's the shift from guessing to extracting. Your Living PRD does the same thing — it pulls the spec from reality, not from a planning meeting."
+"Then came the hard part. Justin.tv's codebase was built for general-purpose streaming. To turn the gaming category into a real product, they had to refactor everything — new component names that reflected gaming, separate data models for channels and viewers, documentation that any new engineer could follow. They didn't rebuild from zero. They restructured what already worked and made it legible. That refactoring is what allowed them to go from a small team to a platform that could onboard hundreds of engineers. That's the second takeaway — **document as a byproduct of building.** When you refactored your code and generated the handoff today, you weren't doing extra work. You were making the build transferable."
 
-"Then Systrom and Krieger refactored. Same codebase, radically restructured. Generic modules became purposeful features. They stripped everything that didn't serve the photo-sharing flow. Renamed, reorganized, documented. That refactoring — from tangled experiment to clean architecture — is why 13 engineers could serve 30 million users. Sound familiar? You just did that to your code 20 minutes ago."
+"In 2011, they spun the gaming product out as its own thing — Twitch. Its own repo, its own infrastructure, its own database, its own brand. Justin.tv eventually shut down. Twitch didn't just survive — Amazon acquired it for nearly a billion dollars. It outlived the platform it was born inside because it had independent infrastructure. That's the third takeaway — **make the infrastructure real before you hand it off.** Your prototype just got a GitHub repo and a live database. It exists outside of Lovable now. It can survive without the tool that built it — and without you in the room."
 
-"And when Facebook acquired them for a billion dollars, hundreds of engineers needed to understand what 13 people had built. They could — because the code was readable, the architecture was documented, and the infrastructure was real. GitHub. Real databases. Clean handoffs. That's why we connected your prototype to version control and a live backend today. Your build can now survive without you in the room."
-
-Pause. Then: "Three takeaways on screen. But you already lived them. Extract instead of predict. Document as a byproduct of building. And make the infrastructure real before you hand it off."
+Pause. Then: "Three takeaways on screen. You already lived them. You extracted your spec from evidence. You documented your build by restructuring it. And you gave your prototype infrastructure that stands on its own. That's the transition from prototype to production."
 
 
 ## Slide 26 — Extra Practice and Next Session
