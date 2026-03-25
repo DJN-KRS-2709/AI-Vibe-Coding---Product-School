@@ -393,46 +393,19 @@
   .save-bar.saving { background: #eff6ff; color: #3b82f6; border-color: #bfdbfe; }
   .save-bar.saving .save-dot { background: #3b82f6; }
 
-  .m3-import-banner {
-    display: none; margin-top: 12px; padding: 16px 20px;
-    border: 2px solid #c4b5fd; border-radius: 10px;
-    background: #f5f3ff;
-  }
-  .m3-import-banner.visible { display: block; }
-  .m3-import-banner-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
-  }
-  .m3-import-banner-title {
-    font-size: 13px; font-weight: 700; color: #7c3aed;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .m3-import-banner-body { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 12px; }
-  .m3-import-banner-actions { display: flex; gap: 8px; }
-  .m3-import-btn {
-    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
-    padding: 8px 16px; border-radius: 6px; cursor: pointer; border: none; transition: all 0.2s;
-  }
-  .m3-import-btn.primary { background: #7c3aed; color: white; }
-  .m3-import-btn.primary:hover { background: #6d28d9; }
-  .m3-import-btn.dismiss { background: #e9e5f5; color: #7c3aed; }
-  .m3-import-btn.dismiss:hover { background: #ddd6fe; }
-
-  .m3-no-data-banner {
+  .m3-upload-banner {
     display: none; margin-top: 12px; padding: 20px;
     border: 2px dashed #c4b5fd; border-radius: 10px;
     background: #faf8ff; font-size: 12px; color: #555; line-height: 1.6;
     text-align: center; cursor: pointer; transition: all 0.2s;
   }
-  .m3-no-data-banner.visible { display: block; }
-  .m3-no-data-banner:hover, .m3-no-data-banner.dragover {
+  .m3-upload-banner.visible { display: block; }
+  .m3-upload-banner:hover, .m3-upload-banner.dragover {
     border-color: #7c3aed; background: #f3f0ff;
   }
-  .m3-no-data-banner strong { color: #1a1a2e; }
-  .m3-no-data-banner .upload-icon { font-size: 28px; margin-bottom: 8px; }
-  .m3-no-data-banner .upload-hint { font-size: 11px; color: #999; margin-top: 6px; }
-
-  .m3-import-btn.upload { background: #f6f8fa; color: #555; border: 1.5px dashed #d1d5db; }
-  .m3-import-btn.upload:hover { border-color: #7c3aed; color: #7c3aed; background: #f5f3ff; }
+  .m3-upload-banner strong { color: #1a1a2e; }
+  .m3-upload-banner .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .m3-upload-banner .upload-hint { font-size: 11px; color: #999; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -462,23 +435,10 @@
         <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
       </div>
 
-      <!-- M3 data found — offer import -->
-      <div class="m3-import-banner" id="m3-import-banner">
-        <div class="m3-import-banner-header">
-          <div class="m3-import-banner-title">📦 <span id="m3-import-scenario">Your M3 build</span></div>
-        </div>
-        <div class="m3-import-banner-body" id="m3-import-body">We found data from your previous modules.</div>
-        <div class="m3-import-banner-actions">
-          <button class="m3-import-btn primary" onclick="importPreviousModuleData()">Import My Data</button>
-          <button class="m3-import-btn upload" onclick="document.getElementById('scenario-import-file').click()">Upload .md Instead</button>
-          <button class="m3-import-btn dismiss" onclick="dismissImport()">Start Fresh</button>
-        </div>
-      </div>
-
-      <!-- No M3 data — offer file upload -->
-      <div class="m3-no-data-banner" id="m3-no-data-banner" onclick="document.getElementById('scenario-import-file').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); handleScenarioFileDrop(event)">
+      <!-- File upload zone for BYO scenario -->
+      <div class="m3-upload-banner" id="m3-upload-banner" onclick="document.getElementById('scenario-import-file').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); handleScenarioFileDrop(event)">
         <div class="upload-icon">📄</div>
-        <strong>No previous module data found.</strong><br>
+        <strong>Upload your data</strong><br>
         Drop a <code>.md</code> or <code>.json</code> file here to import your PRD — or click to browse.
         <div class="upload-hint">Exported from the M2 Prototype Builder, M3 Prompt Chain Planner, or a previous PRD Extractor session.</div>
       </div>
@@ -707,14 +667,6 @@
 
   const auditState = { states: 'yes', chain: 'yes' };
   const infraState = { github: 'no', supabase: 'no', githubVerify: false, supabaseVerify: false };
-
-  let m2Handoff = null;
-  let m3ChainHandoff = null;
-  let m3PackData = null;
-  try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
-  try { m3ChainHandoff = JSON.parse(localStorage.getItem('vc-m3-chain-handoff')); } catch(e) {}
-  try { m3PackData = JSON.parse(localStorage.getItem('living-prompt-pack-v1')); } catch(e) {}
-  const hasPreviousData = !!(m2Handoff || m3ChainHandoff || m3PackData);
 
   function setInfra(service, val) {
     infraState[service] = val;
@@ -1434,41 +1386,10 @@ EXPERIMENT PLAN:
     const data = SCENARIO_DATA[id];
     if (!data) return;
 
-    const banner = document.getElementById('m3-import-banner');
-    const noDataBanner = document.getElementById('m3-no-data-banner');
+    const uploadBanner = document.getElementById('m3-upload-banner');
 
     if (id === 'byo') {
-      noDataBanner.classList.remove('visible');
-      banner.classList.remove('visible');
-
-      try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
-      try { m3ChainHandoff = JSON.parse(localStorage.getItem('vc-m3-chain-handoff')); } catch(e) {}
-      try { m3PackData = JSON.parse(localStorage.getItem('living-prompt-pack-v1')); } catch(e) {}
-
-      if (m2Handoff || m3ChainHandoff || m3PackData) {
-        let summary = '';
-        if (m2Handoff) {
-          const hyp = m2Handoff.hypothesis || {};
-          summary += `<strong>M2:</strong> ${m2Handoff.scenarioLabel || 'Custom scenario'}`;
-          if (hyp.if) summary += ` — "If ${hyp.if}…"`;
-          if (m2Handoff.quotes?.length) summary += `<br>${m2Handoff.quotes.length} user quotes, ${(m2Handoff.metrics||[]).length} metrics`;
-        }
-        if (m3ChainHandoff) {
-          if (summary) summary += '<br>';
-          summary += `<strong>M3:</strong> Prompt chain (${m3ChainHandoff.scenario || 'custom'})`;
-        }
-        if (m3PackData) {
-          const chainCount = (m3PackData.chainEntries || []).length;
-          const constraintCount = (m3PackData.constraints || []).length;
-          if (summary) summary += '<br>';
-          summary += `<strong>Prompt Pack:</strong> ${chainCount} chain${chainCount !== 1 ? 's' : ''}, ${constraintCount} constraint${constraintCount !== 1 ? 's' : ''}`;
-        }
-        document.getElementById('m3-import-scenario').textContent = m2Handoff?.scenarioLabel || m3ChainHandoff?.scenario || 'Your build';
-        document.getElementById('m3-import-body').innerHTML = summary;
-        banner.classList.add('visible');
-      } else {
-        noDataBanner.classList.add('visible');
-      }
+      uploadBanner.classList.add('visible');
 
       document.getElementById('prompt-extract').value = '';
       document.getElementById('prompt-refactor').value = '';
@@ -1488,8 +1409,7 @@ EXPERIMENT PLAN:
       return;
     }
 
-    banner.classList.remove('visible');
-    noDataBanner.classList.remove('visible');
+    uploadBanner.classList.remove('visible');
 
     const hasExisting = ['prompt-extract', 'prompt-refactor', 'prompt-handoff'].some(
       fid => document.getElementById(fid)?.value?.trim() !== ''
@@ -1525,77 +1445,6 @@ EXPERIMENT PLAN:
     document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function importPreviousModuleData() {
-    const banner = document.getElementById('m3-import-banner');
-    banner.classList.remove('visible');
-
-    const hyp = m2Handoff?.hypothesis || {};
-    const scenarioLabel = m2Handoff?.scenarioLabel || m3ChainHandoff?.scenario || 'my prototype';
-    const quotes = m2Handoff?.quotes || [];
-    const metrics = m2Handoff?.metrics || [];
-    const killSwitch = m2Handoff?.killSwitch || '';
-
-    let screenCount = 1;
-    const chainText = m3ChainHandoff?.plainText || m3ChainHandoff?.markdown || '';
-    const screenMatch = chainText.match(/(\d+)\s*screens?/i);
-    if (screenMatch) screenCount = parseInt(screenMatch[1]);
-
-    document.getElementById('audit-screens').value = screenCount;
-    setToggle('states', chainText.toLowerCase().includes('loading') || chainText.toLowerCase().includes('empty state') ? 'yes' : 'no');
-    setToggle('chain', m3ChainHandoff ? 'yes' : 'no');
-
-    let extractPrompt = `Look at this prototype — ${scenarioLabel}.`;
-    if (hyp.if) extractPrompt += ` The hypothesis: if ${hyp.if}, then ${hyp.then || '…'}, because ${hyp.because || '…'}.`;
-    extractPrompt += ` Write a product requirements document covering: what this product does, who it's for, the problem it solves, the ${screenCount} screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering.`;
-    document.getElementById('prompt-extract').value = extractPrompt;
-
-    let refactorPrompt = `Refactor this codebase. Rename all components to be descriptive — replace generic names like Component1 with names that describe what each screen and module does. Separate data logic from display components. Group files by feature, not by type. Add a README.md that explains the project structure and screen flow.`;
-    document.getElementById('prompt-refactor').value = refactorPrompt;
-
-    let handoffPrompt = `Generate an engineering handoff for this prototype: list every component and what it does. Describe the data model — what entities exist and how they relate. Note what's mocked vs. real. Identify the top 3 technical decisions an engineer would need to make. Write a 'start here' guide.`;
-    document.getElementById('prompt-handoff').value = handoffPrompt;
-
-    if (hyp.if || quotes.length || killSwitch) {
-      let problemText = '';
-      if (hyp.if) {
-        problemText += `THE HYPOTHESIS:\nIf ${hyp.if},\nthen ${hyp.then || '…'},\nbecause ${hyp.because || '…'}.\n`;
-      }
-      if (killSwitch) {
-        problemText += `\nKILL SWITCH:\n${killSwitch}\n`;
-      }
-      if (quotes.length) {
-        problemText += `\nEVIDENCE:\n`;
-        quotes.forEach(q => { problemText += `- "${q}"\n`; });
-      }
-      const ta = document.getElementById('prd-problem-text');
-      if (ta) ta.value = problemText.trim();
-    }
-
-    if (metrics.length) {
-      let metricsText = 'KEY METRICS FROM M2:\n';
-      metrics.forEach(m => { metricsText += `- ${m}\n`; });
-      const ta = document.getElementById('prd-metrics-text');
-      if (ta) ta.value = metricsText.trim();
-    }
-
-    if (m2Handoff?.scenarioLabel) {
-      const ta = document.getElementById('prd-overview-text');
-      if (ta && !ta.value.trim()) {
-        ta.value = `Product: ${m2Handoff.scenarioLabel}\nOne-line: [describe what it does in one sentence]\nTarget user: [who uses this and in what context]\nCore value proposition: [what the user gets that they don't have today]`;
-      }
-    }
-
-    updateAudit();
-    updatePreview();
-    saveToLocalStorage();
-    showSaveIndicator('M2/M3 data imported', 'saved');
-    document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function dismissImport() {
-    document.getElementById('m3-import-banner').classList.remove('visible');
-  }
-
   function handleScenarioFileUpload(event) {
     const file = event.target.files[0];
     if (file) processImportFile(file);
@@ -1611,8 +1460,7 @@ EXPERIMENT PLAN:
     const reader = new FileReader();
     reader.onload = e => {
       const content = e.target.result;
-      document.getElementById('m3-import-banner').classList.remove('visible');
-      document.getElementById('m3-no-data-banner').classList.remove('visible');
+      document.getElementById('m3-upload-banner').classList.remove('visible');
       if (file.name.endsWith('.json')) {
         try {
           const state = JSON.parse(content);
@@ -1761,8 +1609,7 @@ EXPERIMENT PLAN:
       }
     }
 
-    document.getElementById('m3-import-banner').classList.remove('visible');
-    document.getElementById('m3-no-data-banner').classList.remove('visible');
+    document.getElementById('m3-upload-banner').classList.remove('visible');
 
     updateAudit();
     updatePreview();
@@ -1964,8 +1811,7 @@ EXPERIMENT PLAN:
     if (sbV) { sbV.className = 'infra-verify-check'; sbV.textContent = ''; }
     updateInfraStatus();
 
-    document.getElementById('m3-import-banner').classList.remove('visible');
-    document.getElementById('m3-no-data-banner').classList.remove('visible');
+    document.getElementById('m3-upload-banner').classList.remove('visible');
 
     updateAudit();
     updatePreview();
