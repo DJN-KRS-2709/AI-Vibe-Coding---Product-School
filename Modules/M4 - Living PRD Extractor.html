@@ -1749,31 +1749,68 @@ EXPERIMENT PLAN:
   }
 
   function parseMarkdownImport(text) {
+    const sectionMatchers = [
+      { id: 'overview', keywords: ['product overview', 'scenario brief'] },
+      { id: 'problem', keywords: ['problem statement', 'hypothesis', 'stakeholder feedback', 'user feedback'] },
+      { id: 'flows', keywords: ['user flow', 'screen map', 'output template'] },
+      { id: 'metrics', keywords: ['success metric', 'measurement plan', 'key metric', 'quantitative metric', 'metrics table'] },
+      { id: 'technical', keywords: ['technical reality', 'real vs'] },
+      { id: 'assumptions', keywords: ['assumption', 'risk', 'kill switch', 'constraint'] },
+      { id: 'scope', keywords: ['scope definition', 'in vs'] },
+      { id: 'nextsteps', keywords: ['next step', 'engineering recommendation'] },
+      { id: 'result-extract', keywords: ['extracted prd', 'chain entr', 'prompt chain'] },
+      { id: 'result-refactor', keywords: ['refactor note'] },
+      { id: 'result-handoff', keywords: ['engineering handoff'] },
+    ];
+
+    function matchHeading(heading) {
+      const h = heading.toLowerCase();
+      for (const m of sectionMatchers) {
+        if (m.keywords.some(kw => h.includes(kw))) return m.id;
+      }
+      return null;
+    }
+
     const sections = {};
-    let currentSection = null;
+    let currentId = null;
     const lines = text.split('\n');
 
     for (const line of lines) {
+      let heading = null;
       if (line.startsWith('── ') && line.endsWith(' ──')) {
-        currentSection = line.replace(/── /g, '').replace(/ ──/g, '').trim().toLowerCase().replace(/\s+/g, '').replace(/&/g, '');
-        sections[currentSection] = [];
-      } else if (currentSection) {
-        sections[currentSection].push(line);
+        heading = line.replace(/^──\s*/, '').replace(/\s*──$/, '').trim();
+      } else if (/^#{1,3}\s+/.test(line)) {
+        heading = line.replace(/^#{1,3}\s+/, '').trim();
+      }
+
+      if (heading) {
+        const matched = matchHeading(heading);
+        if (matched) {
+          currentId = matched;
+          if (!sections[currentId]) sections[currentId] = [];
+        } else if (currentId) {
+          sections[currentId].push(line);
+        }
+      } else if (currentId) {
+        sections[currentId].push(line);
       }
     }
 
-    const idMap = { productoverview: 'overview', problemhypothesis: 'problem', userflows: 'flows', keymetrics: 'metrics', technicalreality: 'technical', assumptionsrisks: 'assumptions', assumptions: 'assumptions', recommendednextsteps: 'nextsteps', extractedprdraw: 'result-extract', refactornotes: 'result-refactor', engineeringhandoff: 'result-handoff' };
-
-    for (const [key, lines] of Object.entries(sections)) {
-      const val = lines.join('\n').trim();
+    let anyMatched = false;
+    for (const [id, sectionLines] of Object.entries(sections)) {
+      const val = sectionLines.join('\n').trim();
       if (!val) continue;
-      const mapped = idMap[key] || key;
-      if (PRD_SECTION_IDS.some(s => s.id === mapped)) {
-        const ta = document.getElementById('prd-' + mapped + '-text');
+      anyMatched = true;
+      if (PRD_SECTION_IDS.some(s => s.id === id)) {
+        const ta = document.getElementById('prd-' + id + '-text');
         if (ta) ta.value = val;
-      } else if (mapped === 'result-extract') document.getElementById('result-extract').value = val;
-      else if (mapped === 'result-refactor') document.getElementById('result-refactor').value = val;
-      else if (mapped === 'result-handoff') document.getElementById('result-handoff').value = val;
+      } else if (id === 'result-extract') document.getElementById('result-extract').value = val;
+      else if (id === 'result-refactor') document.getElementById('result-refactor').value = val;
+      else if (id === 'result-handoff') document.getElementById('result-handoff').value = val;
+    }
+
+    if (!anyMatched && text.trim()) {
+      document.getElementById('result-extract').value = text.trim();
     }
 
     updatePreview();
