@@ -20,6 +20,20 @@ Casual talking points for each slide. Not a script — just the key things to sa
 
 ---
 
+## Before We Start
+
+Before we jump in — thank you. The feedback you're sharing after each session genuinely helps shape how we run this course, so keep it coming.
+
+One thing that came through clearly: you want to stay in the flow. Questions are always welcome — I never want you to hold back — but here's how we'll handle them so everyone gets the most out of our time together:
+
+1. **Raise your hand** if you want to ask something live. I'll give you your turn — I just might not take it immediately if we're mid-exercise, so bear with me.
+2. **Drop it in the chat.** I see everything, and I'll address it when the moment is right. Bonus: other participants often jump in with great answers too.
+3. **Slack me anytime.** Before, during, after — I'll get back to you.
+
+This way nothing gets lost, and we keep the momentum going.
+
+---
+
 ## Slide 1 — Title
 
 Welcome to Module 4 — Transition From Prototypes to Production Specs.
@@ -87,9 +101,7 @@ Feel free to unmute and share, or post your thoughts in the chat.
 > Instructor demo: **The Customer Vibe — Retention Engine** (B2B PM SaaS — 30% churn, team invites — carried from M2/M3 demos)
 > Total demo time: ~8 minutes. Pre-type all 3 prompts before class.
 
-Here's the problem we're solving. Your prototype looks like a finished product — high-fidelity visuals, solid hypothesis, interactive states, the works. But if an engineer asked "How does the data flow?" or "Where is the logic for this screen?" — you'd be stuck digging through a messy file tree.
-
-Stripe had this exact problem in their early days. Their first payment integration was brilliant from the user's perspective — 7 lines of code to accept payments. But behind the scenes, the early codebase was a tangle that only the Collison brothers could navigate. The moment they needed to scale the team, they had to stop and restructure everything. That's the transition we're making today — except you'll do it in 8 minutes instead of 3 months.
+Here's the problem we're solving. Your prototype looks like a finished product — high-fidelity visuals, solid hypothesis, interactive states — but if an engineer asked "How does the data flow?" or "Where is the logic for this screen?" — you'd be stuck digging through a messy file tree.
 
 ### STEP 1: Show the Facade (~2 min)
 
@@ -99,21 +111,9 @@ Stripe had this exact problem in their early days. Their first payment integrati
 
 **Then:** Switch to Lovable's code view. Let the mess sit on screen for 10 seconds. Don't explain it.
 
-**What you say:** "Now look at the code. `Component1`. `handleClick2`. All logic in one file. No README. No documentation. This is what the engineer who inherits your prototype actually sees. This is the black box. Three prompts, two clicks — watch."
+**What you say:** "Now look at the code. `screen five`. `handleClick2`. All logic in one file. No README. No documentation. This is what the engineer who inherits your prototype actually sees. This is the black box. Three prompts, two clicks — watch."
 
-### STEP 2: Prompt 1 — Extract the Living PRD (~60 sec)
-
-**Paste this prompt:**
-
-> "Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering."
-
-**While it generates:** Stay quiet. Let the class watch the PRD appear.
-
-**When it's done:** Read 2-3 sections aloud — Product Overview and Technical Reality are the most impactful.
-
-**What you say:** "I didn't write this. The prototype wrote its own spec. The hypothesis — 'surfacing team invites during first-run onboarding increases Day-3 invite rate from 12% to 25%' — extracted from what we built, not imagined before building."
-
-### STEP 3: Prompt 2 — Refactor the Code (~60 sec)
+### STEP 2: Prompt 1 — Refactor the Code (~60 sec)
 
 **Paste this prompt:**
 
@@ -125,11 +125,23 @@ Stripe had this exact problem in their early days. Their first payment integrati
 
 **What you say:** "`Component1` is now `TeamValueScreen`. `Component3` is now `InviteFlow`. There's a `/services` folder for data logic. There's a README. An engineer can read this on day one. Same product — readable code."
 
+### STEP 3: Prompt 2 — Extract the Living PRD (~60 sec)
+
+**Paste this prompt:**
+
+> "Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering. Create me a livingprd.md that stores this info."
+
+**While it generates:** Stay quiet. Let the class watch the PRD appear.
+
+**When it's done:** Read 2-3 sections aloud — Product Overview and Technical Reality are the most impactful.
+
+**What you say:** "I didn't write this. The prototype wrote its own spec. The hypothesis — 'surfacing team invites during first-run onboarding increases Day-3 invite rate from 12% to 25%' — extracted from what we built, not imagined before building."
+
 ### STEP 4: Prompt 3 — Engineering Handoff (~40 sec)
 
 **Paste this prompt:**
 
-> "Generate an engineering handoff document: list every component and what it does, describe the data model (what's real vs. mocked), identify the 3 biggest technical decisions an engineer would need to make, and write a 'start here' guide."
+> "Generate an engineering handoff document: list every component and what it does, describe the data model (what's real vs. mocked), identify the 3 biggest technical decisions an engineer would need to make, and write a 'start here' guide. Create me a engineeringhandoff.md that stores this info."
 
 **When it's done:** Read the "start here" section and one technical decision aloud.
 
@@ -159,8 +171,8 @@ Stripe had this exact problem in their early days. Their first payment integrati
 
 "Same prototype. Same onboarding flow. Same screens testing the team invite hypothesis. But now it has:
 
-- A Living PRD — complete spec, extracted from the build
 - Clean code — `TeamValueScreen`, `InviteFlow`, not `Component1`
+- A Living PRD — complete spec, extracted from the build
 - An engineering handoff — component map, data model, start-here guide
 - A GitHub repo — real version control
 - A real backend — database, auth, and storage
@@ -172,14 +184,14 @@ You'll do all of this to your own build in the labs. But first — let's talk ab
 ### THE PROMPTS (copy-paste version for your text file)
 
 ```
-Prompt 1 — Extract:
-Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering.
-
-Prompt 2 — Refactor:
+Prompt 1 — Refactor:
 Refactor the codebase. Rename all components to be descriptive (e.g., TeamValueScreen, InviteFlow, CollaborationPayoff, RetentionDashboard, ExperimentSummary). Separate data logic from display components. Group files by feature, not by type. Add a README.md that explains the project structure.
 
+Prompt 2 — Extract:
+Look at this entire prototype. Write a product requirements document that covers: what this product does, who it's for, the problem it solves, the screens and their purpose, the user flow from first screen to last, the hypothesis it tests, the key metrics, what's currently mocked vs. what would need real data, and recommended next steps for engineering. Create me a livingprd.md that stores this info.
+
 Prompt 3 — Handoff:
-Generate an engineering handoff document: list every component and what it does, describe the data model (what's real vs. mocked), identify the 3 biggest technical decisions an engineer would need to make, and write a 'start here' guide.
+Generate an engineering handoff document: list every component and what it does, describe the data model (what's real vs. mocked), identify the 3 biggest technical decisions an engineer would need to make, and write a 'start here' guide. Create me a engineeringhandoff.md that stores this info.
 ```
 
 ### WHAT TO PRE-BUILD (the night before)
@@ -310,14 +322,14 @@ Welcome back! Quick reminder — it's always better to see your smiling face. Be
 
 ## Slide 19 — Refactor Your Prototype Code and Generate Your Eng Handoff
 
-Connect this back to the demo: "Remember the five things I did to the Retention Engine in 8 minutes? You already did the first one — you extracted your Living PRD. Now you're going to do the rest: refactor the code, get the README, generate the engineering handoff, connect GitHub, and connect the backend. Same five steps. Your build, your hands."
+Connect this back to the demo: "Remember what I did to the Retention Engine in 8 minutes? You already extracted your Living PRD in the earlier exercise. Now you're going to do the rest: refactor the code, get the README, generate the engineering handoff, connect GitHub, and connect the backend. Same steps. Your build, your hands."
 
 
 ## Slide 20 — Hands-On Lab: Refactor & Generate Handoff
 
 **ACTION: Give students 15-20 minutes. Walk the room continuously.**
 
-Frame this as steps 2, 3, and 4 of the five-step transformation from the demo: "You've already got your Living PRD from the earlier exercise. Now you're doing the next three steps — clean code, README, and engineering handoff. After this lab, you'll connect GitHub and your backend. By the end of today you'll have the complete package — exactly what I showed you in the demo."
+Frame this as the next phase of the transformation from the demo: "You've already got your Living PRD from the earlier exercise. Now you're doing what I did first in the demo — refactoring the code and generating the engineering handoff. After this lab, you'll connect GitHub and the backend. By the end of today you'll have the complete package — exactly what I showed you in the demo."
 
 "Before you dive in — start by opening Code View and looking at your file tree. Notice how messy it is. That's your before picture. After you paste the refactor prompt, switch back to Code View immediately and watch the file names change in real time. That transformation is the moment it clicks."
 
@@ -347,14 +359,14 @@ Stripe runs this exact test with new hires. Day one: here's the docs, here's the
 
 ## Slide 22 — Connect Your Infrastructure with GitHub and Supabase
 
-"Two steps left. You've got the Living PRD, the clean code, the README, and the engineering handoff. Now we finish the job — GitHub for version control, and a real backend for your data. These are steps 5 and 6 from the demo. After this, your prototype has the complete package."
+"Two steps left. You've got the Living PRD, the clean code, the README, and the engineering handoff. Now we finish the job — GitHub for version control, and a real backend for your data. These are the final two steps from the demo. After this, your prototype has the complete package."
 
 
 ## Slide 23 — Hands-On Lab: Connect GitHub and Supabase
 
 **ACTION: Give students 10-15 minutes. Walk the room. This is the infrastructure moment.**
 
-"Steps are on screen. This is the fastest lab of the day — most of you will finish in under 10 minutes. Start with GitHub: hit the icon in the Lovable sidebar, follow the prompts, and check your GitHub account for the initial commit. Once that's confirmed, prompt Lovable to add a database feature, and watch the backend spin up."
+"Steps are on screen. This is the fastest lab of the day — most of you will finish in under 10 minutes. Start with GitHub: hit the icon in the Lovable sidebar, follow the prompts, and check your GitHub account for the initial commit. Once that's confirmed, prompt Lovable to add a database feature and watch the backend spin up."
 
 The emotional arc matters more than the mechanics here. This is the wow moment of the module. When they open their GitHub account and see real code in a real repo, let that land. When database tables appear that match their prototype's data model, that's the second hit.
 
@@ -377,7 +389,7 @@ Tick through the wins conversationally: "You've got a Living PRD — eight secti
 
 "And your prototype now lives outside of Lovable. It's in GitHub with version history. It's backed by a real database. If your laptop caught fire right now, your work survives."
 
-Land the project deliverable reminder: "Before you close out — copy your Living PRD into slide 7 and your Engineering Handoff into slide 9 of your final deliverables deck. Do it today while it's fresh."
+Land the project deliverable reminder: "Before you close out — copy your `livingprd.md` into slide 7 and your `engineeringhandoff.md` into slide 9 of your final deliverables deck. Do it today while it's fresh."
 
 
 ## Slide 25 — Key Takeaways
