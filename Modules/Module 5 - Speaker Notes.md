@@ -211,17 +211,17 @@ Don't column: "Never leave a database open because 'it's just a prototype.' If i
 "When you're done, push your Integration Plan to GitHub. It lives in your repo alongside your Living PRD."
 
 
-## Slide 17 — Break
+## Slide 14 — Break
 
 Quick 5-minute break. You've earned it — that was the hardest lab of the course. Grab some water, stretch, and we'll be right back.
 
 
-## Slide 18 — Cameras On
+## Slide 15 — Cameras On
 
 Welcome back! Quick reminder — it's always better to see your smiling face. Be present and visible to stay engaged and keep interactions valuable.
 
 
-## Slide 19 — Reflection Moment: Post-Lab Q&A
+## Slide 16 — Reflection Moment: Post-Lab Q&A
 
 Give students 5 minutes. Let 2-3 volunteers share.
 
@@ -234,12 +234,12 @@ Most students will find that getting the database to work was fast, but realizin
 "Anyone can prompt a pretty UI. A Product Manager's value lies in orchestrating the logic that makes that UI resilient — and you've successfully done that today."
 
 
-## Slide 20 — Rapid-Fire Stress Test and Deploy Your Product Live
+## Slide 17 — Rapid-Fire Stress Test and Deploy Your Product Live
 
 "We're in the final stretch. You've built the backend. Now you stress-test it, and then you ship it live."
 
 
-## Slide 21 — Chaos Round: Pick Your Stress Test
+## Slide 18 — Chaos Round: Pick Your Stress Test
 
 Keep everyone in the main room. 15 minutes total. Suggest one volunteer to share their screen.
 
@@ -282,7 +282,7 @@ Pause. Let the room react.
 Have students publish their own builds, test in incognito, open on their phone, post their URL in Slack, and open 2 classmates' URLs to try to break them.
 
 
-## Slide 22 — Your Evolved Engineering Handoff
+## Slide 19 — Your Evolved Engineering Handoff
 
 "In Module 4, your engineering handoff was a technical inventory — a catalog of components, notes on what's mocked versus real, and a 'Start Here' guide for an engineer. The infrastructure was connected but the handoff documented what *could* be built."
 
@@ -293,7 +293,7 @@ Have students publish their own builds, test in incognito, open on their phone, 
 "Your Living PRD from Module 4 says *what* the product does and *why*. Your new handoff note says *what's technically real*. Together, an engineer can inherit your project without reverse-engineering anything."
 
 
-## Slide 23 — Future-Proofing Your Product with APIs
+## Slide 20 — Future-Proofing Your Product with APIs
 
 "A product is only as real as its ability to handle live, dynamic data. Your next level of growth comes from moving beyond your internal database and plugging into the global API economy."
 
@@ -306,7 +306,7 @@ Have students publish their own builds, test in incognito, open on their phone, 
 "You don't need to write the integration — you can ask your AI for that. But you do need to define the data contract. You must know what parameters your app needs to send and what specific fields it needs back. This is what turns your live product into a dynamic one that reacts to the world in real-time."
 
 
-## Slide 24 — Module 5 Complete: What You Accomplished Today
+## Slide 21 — Module 5 Complete: What You Accomplished Today
 
 "Let's take stock. Think back to Module 1, when this was nothing more than a few sentences in a prompt. You have taken that raw strategic intent and transformed it into a 100% live production environment."
 
@@ -323,7 +323,7 @@ Have students publish their own builds, test in incognito, open on their phone, 
 "Before you close out — update the 'Integrations & Data Model' and 'Edge Cases & Known Gaps' sections on Slide 9 of your final project deck. Ensure your Live URL is saved and your Handoff Note is exported. Do it today while it's fresh."
 
 
-## Slide 25 — Key Takeaways
+## Slide 22 — Key Takeaways
 
 "Quick story. When Jason Citron launched Discord in 2015, it was just a voice channel with a text sidebar for gamers. Nothing fancy. But from day one, they got the data architecture right — servers, channels, users, roles, permissions. Every message tied to a specific user in a specific channel. You can't have User A hearing User B's private conversation. That's the first takeaway — **PMs orchestrate integrations by defining the schema, ownership rules, and data contracts.** You define the blueprint. That's what you did today."
 
@@ -336,7 +336,7 @@ Have students publish their own builds, test in incognito, open on their phone, 
 "Four takeaways on screen. You already lived them today. That's the shift from prototype to production."
 
 
-## Slide 26 — Extra Practice and Next Session
+## Slide 23 — Extra Practice and Next Session
 
 "Two optional exercises for anyone who wants to push further — both are on screen."
 
@@ -347,21 +347,21 @@ Have students publish their own builds, test in incognito, open on their phone, 
 "Module 6 is where we transition from a finished product to a continuous cycle of improvement. You'll analyze live user interactions against your original hypothesis, leverage AI-driven analytics to identify high-impact friction points, and redeploy targeted updates that secure the confidence line of your product. If Module 5 made your product real, Module 6 makes it better."
 
 
-## Slide 27 — Survey
+## Slide 24 — Survey
 
 At the end of each session, please scan the QR code or use the link to share your feedback. Your insights help us improve and make each cohort better than the last. We'd love to hear about your experience!
 
 
-## Slide 28 — Bonus Resources
+## Slide 25 — Bonus Resources
 
 "All the links for today are on this slide — lab guide walkthrough, Integration Plan Prompt, everything. Bookmark the prompt in particular — if you ever want to regenerate your plan after making changes, just paste it again and Lovable will re-scan your project. The Integration Plan markdown lives in your repo alongside your Living PRD."
 
 
-## Slide 29 — Q&A
+## Slide 26 — Q&A
 
 Alright, before we close — any final questions? Anything about the database integration, authentication, edge cases, the stress test, deployment, or how this feeds into Module 6. Feel free to unmute or drop your question in the chat. And as always, share questions in Slack if something comes up later. See you next session!
 
 
-## Slide 30 — End
+## Slide 27 — End
 
 Thank you, everyone. What you accomplished today is genuinely impressive — you went from a facade to a live, deployed product with a real database, real users, and real error handling. That's not a small thing. Go update your deliverables deck, share your live URLs, and try to break each other's products. See you in Module 6!
