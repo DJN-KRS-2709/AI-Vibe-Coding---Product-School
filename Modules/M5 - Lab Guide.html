@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 5 — Hands-On Lab Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    color: #1a1a2e;
+  }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%);
+    border-radius: 16px;
+    color: white;
+  }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    color: #a5b4fc; text-transform: uppercase; letter-spacing: 0.12em;
+    background: rgba(99,102,241,0.25); padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #c4b5fd; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+  .overview-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: -20px 20px 32px; position: relative; z-index: 10;
+  }
+  .overview-item {
+    background: #fff; border-radius: 10px; padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
+  }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #4f46e5; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  .phase {
+    margin-top: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .phase-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
+  }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .card-body { padding: 24px 28px; }
+
+  .step {
+    display: flex; gap: 16px; padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-marker {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #4f46e5; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  .checklist { margin: 10px 0; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5;
+  }
+  .check-box {
+    width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 12px; color: transparent;
+  }
+  .check-box.checked { border-color: #4f46e5; background: #eef2ff; color: #4f46e5; }
+  .check-item strong { color: #1a1a2e; }
+
+  .prompt-template {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 20px 24px; margin: 12px 0; position: relative;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: #475569; line-height: 1.7; max-height: 300px; overflow-y: auto;
+  }
+  .prompt-template .pt-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .prompt-template em { color: #94a3b8; font-style: italic; }
+  .label-plan { color: #4f46e5; }
+  .label-build { color: #d97706; }
+  .label-deploy { color: #dc2626; }
+
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #4f46e5; color: #fff; border: none; border-radius: 8px;
+    padding: 10px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; margin: 8px 0;
+  }
+  .copy-btn:hover { background: #4338ca; }
+  .copy-btn.copied { background: #059669; }
+
+  .tip-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.danger { background: #fff1f2; border-color: #fecdd3; }
+  .tip-box.info { background: #eff6ff; border-color: #bfdbfe; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .callout {
+    background: #0d1117; border-radius: 12px; padding: 28px 32px;
+    text-align: center; margin: 24px 0;
+  }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #a5b4fc; font-style: normal; font-weight: 700; }
+
+  .notes-area {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0; min-height: 80px;
+  }
+  .notes-area .na-title {
+    font-size: 12px; font-weight: 700; color: #4f46e5;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .notes-area .na-hint { font-size: 13px; color: #999; line-height: 1.5; }
+  .notes-area textarea {
+    width: 100%; min-height: 60px; border: none; background: transparent;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #333;
+    line-height: 1.6; resize: vertical; outline: none; margin-top: 4px;
+  }
+
+  .flow-connector {
+    display: flex; justify-content: center; padding: 4px 0; margin: 4px 0;
+  }
+  .flow-arrow {
+    width: 2px; height: 20px; background: #d1d5db; position: relative;
+  }
+  .flow-arrow::after {
+    content: '▼'; position: absolute; bottom: -10px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  .stress-option {
+    border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 18px 20px; margin: 10px 0; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .stress-option:hover { border-color: #dc2626; background: #fff5f5; }
+  .stress-option.selected { border-color: #dc2626; background: #fff5f5; }
+  .stress-label { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .stress-desc { font-size: 13px; color: #666; line-height: 1.5; }
+
+  .result-toggle {
+    display: inline-flex; gap: 0; margin: 8px 0;
+  }
+  .result-btn {
+    padding: 8px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 700; border: 2px solid #e2e8f0;
+    background: #fff; color: #888; cursor: pointer; transition: all 0.2s;
+  }
+  .result-btn:first-child { border-radius: 8px 0 0 8px; }
+  .result-btn:last-child { border-radius: 0 8px 8px 0; }
+  .result-btn.pass { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .result-btn.fail { border-color: #dc2626; background: #fff1f2; color: #dc2626; }
+
+  .post-template {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0;
+    font-size: 14px; color: #555; line-height: 1.7;
+  }
+  .post-template .pt-title {
+    font-size: 12px; font-weight: 700; color: #4f46e5;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+
+  .reveal-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 16px 0;
+  }
+  .reveal-card {
+    border-radius: 10px; padding: 16px 14px; text-align: center;
+    background: #f8fafc; border: 1px solid #e2e8f0;
+  }
+  .reveal-card.active { background: #eef2ff; border: 2px solid #4f46e5; }
+  .reveal-label {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px; color: #94a3b8;
+  }
+  .reveal-card.active .reveal-label { color: #4f46e5; }
+  .reveal-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .reveal-desc { font-size: 11px; color: #888; line-height: 1.4; }
+
+  .footer-note {
+    text-align: center; margin-top: 40px; padding: 24px;
+    font-size: 13px; color: #888; line-height: 1.6;
+  }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div class="badge">Module 5 — Lab Guide</div>
+    <h1>Ship Live Products with Full-Stack Logic</h1>
+    <p>Generate your Integration Plan, wire real data, secure your users with Row-Level Security, stress-test for failure, and deploy to a live URL.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Prompts</div></div>
+    <div class="overview-item"><div class="oi-num">~60</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">Live URL</div></div>
+  </div>
+
+
+  <!-- ════════════════════ BEFORE YOU BEGIN ════════════════════ -->
+  <div class="card" style="border: 2px solid #4f46e5;">
+    <div class="card-body">
+      <p style="font-size:14px; font-weight:800; color:#4f46e5; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Before You Begin</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">You are working on your <strong>Module 4 prototype</strong> — the one with clean code, a Living PRD, GitHub connected, and Supabase/Lovable Cloud enabled. Open it in Lovable now.</p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>M4 prototype open in Lovable</strong> — this is the build you carried from M2 through M4</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>GitHub connected</strong> — verify in the Lovable sidebar</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Supabase / Lovable Cloud connected</strong> — verify in Settings > Integrations</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#9888;&#65039;</div>
+        <div class="tip-text"><strong>Infrastructure not connected?</strong> If GitHub or Supabase aren't linked from Module 4, connect them now before proceeding. Your instructor will not pause for setup.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 1: GENERATE & EXECUTE YOUR INTEGRATION PLAN             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#4f46e5;">1</div>
+    <div class="phase-text">
+      <h2>Generate &amp; Execute Your Integration Plan</h2>
+      <div class="phase-time">Individual Exercise · 45 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Paste the prompt below into Lovable with your prototype open. It will scan your project, generate a personalized <strong>Integration Plan</strong> with three customized prompts, and then you'll execute those prompts one at a time.</p>
+
+      <!-- Part A: Generate -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:20px 0 12px;">Part A — Generate Your Plan</p>
+
+      <div class="step">
+        <div class="step-marker" style="background:#4f46e5;">1</div>
+        <div class="step-body">
+          <div class="step-title">Copy the Integration Plan Prompt</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Click the button below to copy the full prompt. Then paste it into your Lovable chat.</div>
+        </div>
+      </div>
+
+      <button class="copy-btn" onclick="copyPrompt(this)">&#128203; Copy Integration Plan Prompt</button>
+
+      <div class="prompt-template" id="integration-prompt" style="max-height:200px;">
+        <div class="pt-label label-plan">Integration Plan Prompt</div>
+Analyze this project and generate a markdown file called "Integration Plan.md" with the following sections. Base everything on what actually exists in this codebase — don't make up features or data that isn't here.
+
+## Section 1: M4 Status Check
+Create a table listing:
+- How many screens this prototype has (count them)
+- Whether a Living PRD or product requirements document exists
+- Whether the code uses clean, descriptive variable and function names
+- Whether GitHub is connected
+- Whether Supabase or a database backend is connected
+For each item, fill in the actual status based on what you can see in the project.
+
+## Section 2: Data Audit — What's Still Hardcoded?
+Scan every screen and component. Find every value that is hardcoded in the UI instead of coming from a real database query — metrics, counts, user names, dates, status labels, sample data. Create a table with three columns:
+- Screen / Component (where you found it)
+- Hardcoded Value (the exact value)
+- What It Should Query (the database table and calculation that should replace it)
+
+## Section 3: Schema Design
+List every database table that currently exists. Then, based on the Data Audit, propose any new tables or fields needed to replace hardcoded values. For each table, list every field with its type (uuid, text, int, boolean, timestamp, jsonb) and a short note on its purpose. Mark which tables are new vs. existing from M4.
+
+## Section 4: Auth Model &amp; Permissions
+Based on this product's screens and user flows, define:
+- What user roles exist or should exist (e.g., regular user vs. admin, buyer vs. seller)
+- What each role can see and do
+- Row-Level Security rules — which tables need per-user data isolation, and what the policy should be
+
+## Section 5: Prompts
+Generate three ready-to-use prompts that I can paste back into this tool one at a time. Each prompt should be specific to THIS project — use real table names, real screen names, real field names from this codebase.
+
+### Prompt 1 — Schema Expansion
+A prompt to extend the database schema, create any new tables from Section 3, and replace all hardcoded UI values identified in Section 2 with real database queries.
+
+### Prompt 2 — Auth UI + Row-Level Security
+A prompt to add a login/signup screen, implement the roles and RLS policies from Section 4, show the logged-in user's name in the header, add a logout button, and ensure different users see different data.
+
+### Prompt 3 — Edge Cases
+A prompt to handle these failure modes across the entire app:
+- Database connection failure → error message with retry button (not a blank screen)
+- Empty data states → helpful message with a call-to-action (not an empty list)
+- Form submission failure → inline error that preserves user input
+- Loading states → skeleton screens on every screen that fetches data
+- Session expiry → redirect to login with a message
+
+Each prompt should be inside a code block so I can copy it easily.
+
+## Section 6: Edge Case Checklist
+Generate a checklist of every edge case this specific product should handle. Include the five from Prompt 3 plus any product-specific ones. Each checkbox should have a bold label and a one-line description.
+
+## Section 7: Stress Test Plan
+Create three named stress tests tailored to this product:
+- One that tests connection failure (e.g., going offline mid-action)
+- One that tests empty/new user experience (signing up fresh, zero data)
+- One that tests rapid repeated actions (spam-clicking submit, double-booking, etc.)
+For each test, describe exactly what to do and what the expected behavior should be.
+
+## Section 8: Handoff Note
+Create a handoff note template pre-filled based on what currently exists:
+- What's Real vs. What's Mocked (table with every major feature)
+- Database Schema Summary (one line per table)
+- Auth &amp; RLS Model (who can see what)
+- Edge Cases Handled (leave blank — to be filled after the lab)
+- Known Gaps (leave blank — to be filled after stress testing)
+- Live URL (leave blank — to be filled after deployment)
+
+Format the entire output as clean markdown.
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Pro Tip:</strong> If the prompt is too long for Lovable's chat, break it into two messages. Send Sections 1–4 first, then Sections 5–8 with: "Continue generating the Integration Plan — now add these sections."</div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#4f46e5;">2</div>
+        <div class="step-body">
+          <div class="step-title">Review Your Plan</div>
+          <div class="step-time">10 minutes</div>
+          <div class="step-desc">Don't just accept it — cross-check against your actual prototype through these three lenses.</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Audit your Data Status:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Hardcoded values found</strong> — did it catch all the placeholder metrics, counts, and user info in your UI?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Schema makes sense</strong> — are the proposed tables and fields correct for your product?</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Define your User Status:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Roles are correct</strong> — does it know who your users are and what each role can do?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>RLS rules make sense</strong> — is it clear which tables need per-user isolation?</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Map your Error &amp; Data Handling Status:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Edge cases covered</strong> — are the critical failure modes for your product included?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Prompts use real names</strong> — do the three prompts reference your actual tables, screens, and fields?</div>
+        </div>
+      </div>
+
+      <!-- Part B: Execute -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:28px 0 12px;">Part B — Execute Your Prompts</p>
+
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Your Integration Plan has three prompts customized to your project. Run them in order — each one builds on the last.</p>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">3</div>
+        <div class="step-body">
+          <div class="step-title">Run Prompt 1 — Schema Expansion</div>
+          <div class="step-time">10 minutes</div>
+          <div class="step-desc">
+            Copy <strong>Prompt 1</strong> from your Integration Plan and paste it into Lovable. This extends your database and wires your UI to real queries — replacing every hardcoded value the plan identified.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify it worked:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Enter data and refresh</strong> — does the data survive a page refresh?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Dashboard metrics updated</strong> — are numbers now computed from real data, not hardcoded?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Change data, see numbers change</strong> — modify something in the app and watch the metrics update</div>
+        </div>
+      </div>
+
+      <div class="tip-box danger">
+        <div class="tip-icon">&#128680;</div>
+        <div class="tip-text"><strong>Data didn't persist?</strong> Check <strong>Settings > Integrations</strong> in Lovable — is Supabase still connected? If the tables exist but data is gone, the issue is your fetch logic. Re-prompt: <em>"The [table] exists in Supabase, but the UI is still showing hardcoded numbers. Update [Screen Name] to fetch from the [table]."</em></div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">4</div>
+        <div class="step-body">
+          <div class="step-title">Run Prompt 2 — Auth + Row-Level Security</div>
+          <div class="step-time">10 minutes</div>
+          <div class="step-desc">
+            Copy <strong>Prompt 2</strong> from your Integration Plan and paste it into Lovable. This adds a login/signup screen and partitions your data by user.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify with the two-account test:</p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Create Account A</strong> — sign up, log in, enter some data</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Log out completely</strong></div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Create Account B</strong> — sign up with a different email</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Account B cannot see Account A's data</strong> — Row-Level Security verified!</div>
+        </div>
+      </div>
+
+      <div class="tip-box danger">
+        <div class="tip-icon">&#128680;</div>
+        <div class="tip-text"><strong>Can't log in or access is blocked?</strong> In your Supabase Dashboard, go to <strong>Authentication > Providers</strong> and ensure Email/Password is enabled. If you can log in but see "Access Restricted" everywhere, re-prompt: <em>"I am logged in as a [Role], but I cannot see the [Table] data. Update the RLS policy to allow [Role] to read from the [Table] where the ID matches."</em></div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">5</div>
+        <div class="step-body">
+          <div class="step-title">Run Prompt 3 — Edge Cases</div>
+          <div class="step-time">10 minutes</div>
+          <div class="step-desc">
+            Copy <strong>Prompt 3</strong> from your Integration Plan and paste it into Lovable. This adds loading skeletons, error messages, empty states, and retry logic across your app.
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify at least two:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Loading test</strong> — refresh your most data-heavy screen. Do you see skeleton screens while data loads?</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Error test</strong> — open DevTools > Network > Offline. Does a clear error message appear instead of a frozen screen?</div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Skeleton screen too fast to see?</strong> Your connection might be too quick. Tell the AI: <em>"Artificially delay the data fetch by 2 seconds so I can verify the loading skeleton is rendering correctly."</em></div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Frozen UI with no error message?</strong> The error isn't being caught. Tell the AI: <em>"The app is failing silently on a network error. Add a try/catch block to the fetch function and display a visible error message to the user."</em></div>
+      </div>
+
+      <!-- Wrap up -->
+      <div class="step">
+        <div class="step-marker" style="background:#4f46e5;">6</div>
+        <div class="step-body">
+          <div class="step-title">Push to GitHub</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Commit your Integration Plan markdown to GitHub. It lives alongside your Living PRD and engineering handoff from Module 4.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Two checkpoints before you move on:<br><em>Dashboard data is computed from real queries</em>, not hardcoded.<br><em>Different accounts see different data.</em></p>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Build Notes</div>
+        <div class="na-hint">Document what worked, what needed re-prompting, and any adjustments you made to the generated prompts.</div>
+        <textarea placeholder="Write your notes here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 2: STRESS TEST & DEPLOY                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#dc2626;">2</div>
+    <div class="phase-text">
+      <h2>Stress Test &amp; Deploy</h2>
+      <div class="phase-time">Lab Exercise · 15 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Pick a chaos stressor. Run it. Document the result. Then ship it.</p>
+
+      <div class="step">
+        <div class="step-marker" style="background:#dc2626;">1</div>
+        <div class="step-body">
+          <div class="step-title">Choose Your Stress Test</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">Pick one. Don't spend more than 2 minutes deciding — the goal is to see how your system handles a single point of failure.</div>
+        </div>
+      </div>
+
+      <div class="stress-option" onclick="selectStress(this)">
+        <div class="stress-label">&#9889; The Kill Switch</div>
+        <div class="stress-desc">Open DevTools > Network > set to "Offline." Does your UI acknowledge the disconnection, or does it simply hang?</div>
+      </div>
+
+      <div class="stress-option" onclick="selectStress(this)">
+        <div class="stress-label">&#128123; The Ghost User</div>
+        <div class="stress-desc">Sign up with a brand new email. Does the user see an active empty state with a CTA, or a blank screen?</div>
+      </div>
+
+      <div class="stress-option" onclick="selectStress(this)">
+        <div class="stress-label">&#128293; The Spam Click</div>
+        <div class="stress-desc">Hit your "submit" button 5 times rapidly. Does your database create 5 duplicate records, or is the transaction handled correctly?</div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:16px 0 8px;">Result:</p>
+      <div class="result-toggle">
+        <button class="result-btn" onclick="setResult(this,'pass')">&#9989; PASS</button>
+        <button class="result-btn" onclick="setResult(this,'fail')">&#10060; FAIL</button>
+      </div>
+
+      <div class="notes-area" style="margin-top:12px;">
+        <div class="na-title">Stress Test — What Happened?</div>
+        <div class="na-hint">Describe exactly what you observed. If it failed, what broke?</div>
+        <textarea placeholder="Write your observations here..."></textarea>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#128221;</div>
+        <div class="tip-text"><strong>If it failed:</strong> You have two options. Fix it now with one final prompt, or document it as a "Known Gap" in your Integration Plan handoff section and deploy anyway. Both are valid PM moves. Ignoring the flaw is the only mistake.</div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#dc2626;">2</div>
+        <div class="step-body">
+          <div class="step-title">Update Your Handoff Note</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Open Section 8 of your Integration Plan. Fill in <strong>Edge Cases Handled</strong> and <strong>Known Gaps</strong> based on your stress test results. This is the honest record of what your product does under pressure.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#dc2626;">3</div>
+        <div class="step-body">
+          <div class="step-title">Deploy Your Product</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">Click <strong>Share</strong> (top-right in Lovable) → then <strong>Publish</strong>. Click "Continue" and then "Publish." Your product will be live in about 30 seconds.</div>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Live URL generated</strong> — copy it and paste into your Integration Plan</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Tested in incognito</strong> — open the URL in an incognito/private window</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Tested on your phone</strong> — open the URL on your mobile device</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Posted in Slack</strong> — share your live URL with the class</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>That URL is live. <em>On the internet. Right now.</em><br>Anyone with that link can sign up, enter data, and use your product.<br><strong>That's not a prototype anymore. That's a product.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  THE REVEAL                                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#4f46e5;">!</div>
+    <div class="phase-text">
+      <h2>The Journey: M1 &rarr; M5</h2>
+      <div class="phase-time">Five modules of progression</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="reveal-grid">
+        <div class="reveal-card">
+          <div class="reveal-label">Module 1</div>
+          <div class="reveal-title">Speed</div>
+          <div class="reveal-desc">One prompt, one page.</div>
+        </div>
+        <div class="reveal-card">
+          <div class="reveal-label">Module 2</div>
+          <div class="reveal-title">Aim</div>
+          <div class="reveal-desc">Data, hypothesis, design.</div>
+        </div>
+        <div class="reveal-card">
+          <div class="reveal-label">Module 3</div>
+          <div class="reveal-title">Precision</div>
+          <div class="reveal-desc">5+ screens, prompt chain.</div>
+        </div>
+        <div class="reveal-card">
+          <div class="reveal-label">Module 4</div>
+          <div class="reveal-title">Structure</div>
+          <div class="reveal-desc">PRD, GitHub, database.</div>
+        </div>
+        <div class="reveal-card active">
+          <div class="reveal-label">Module 5</div>
+          <div class="reveal-title">Ship</div>
+          <div class="reveal-desc">Secured, tested, live.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Your product is <em>live on the internet</em>, with <em>real data</em>,<br><em>user isolation</em>, and <em>edge case handling</em>.<br><strong>Anyone with the URL can use it.</strong></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  ACCOUNTABILITY                                                 -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="card" style="margin-top:32px;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Accountability — Before We Wrap</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#4f46e5;">1</div>
+        <div class="step-body">
+          <div class="step-title">Post in Slack</div>
+          <div class="step-desc">Your <strong>live URL</strong> + a one-line description of what your product does.</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#4f46e5;">2</div>
+        <div class="step-body">
+          <div class="step-title">Try to break 2 classmates' products</div>
+          <div class="step-desc">Open their URLs. Sign up. Run a stress test on their build. Report what you found.</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#4f46e5;">3</div>
+        <div class="step-body">
+          <div class="step-title">Update your deliverables deck</div>
+          <div class="step-desc">Add your live URL, integration details, and edge case results to your final project slides.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker" style="background:#4f46e5;">4</div>
+        <div class="step-body">
+          <div class="step-title">Commit your Integration Plan to GitHub</div>
+          <div class="step-desc">Make sure your completed Integration Plan .md is pushed to your repo alongside your Living PRD.</div>
+        </div>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post in Slack</div>
+        [Live URL]<br>
+        "My product does ___. Stress test result: ___. Known gap: ___."
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footer-note">
+    <strong>Module 5: Ship Live Products with Full-Stack Logic</strong><br>
+    Your prototype is now a live, secured, deployed product.<br>Real data. User isolation. Edge case handling. A public URL.<br><br>
+    <strong>Next up — Module 6: Measure &amp; Iterate.</strong><br>Analyze real user behavior, identify friction points, and redeploy targeted improvements.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+
+  function copyPrompt(btn) {
+    const el = document.getElementById('integration-prompt');
+    const text = el.textContent.replace('Integration Plan Prompt', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.innerHTML = '&#9989; Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '&#128203; Copy Integration Plan Prompt';
+      }, 2000);
+    });
+  }
+
+  function selectStress(el) {
+    document.querySelectorAll('.stress-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function setResult(btn, type) {
+    const sibs = btn.parentElement.querySelectorAll('.result-btn');
+    sibs.forEach(b => { b.classList.remove('pass'); b.classList.remove('fail'); });
+    btn.classList.add(type);
+  }
+</script>
+
+</body>
+</html>
