@@ -56,7 +56,7 @@ Quick refresher on where we are. Six modules across three weeks.
 
 Module 1 was speed — you activated the build cycle and proved you can go from nothing to a working prototype. Module 2 was validation — you learned to build prototypes that prove something, not just look like something. Module 3 was precision — you used prompt chaining to maintain consistency and prevent breakage as complexity scaled.
 
-Module 4 — that's today — is where we enforce technical rigor. You'll convert your build into a version-controlled GitHub repository, formalize your logic into a Living PRD, and bridge the gap between your vision and an engineering handoff. This is where you stop being the only person who understands your product.
+Module 4 — that's today — is where we enforce technical rigor. You'll formalize your logic into a Living PRD, refactor your code so it's readable, connect your backend, and bridge the gap between your vision and an engineering handoff. Your code has been in GitHub since Module 2 — today we make what's inside that repo worth inheriting.
 
 Module 5 ships it live — real databases, secure APIs, live URL, real users. And Module 6 closes the loop — you measure performance, use AI-driven analytics, and iterate based on evidence.
 
@@ -71,7 +71,7 @@ Second — How to Move From Prototype to Production. The theory behind the trans
 
 Third — Hands-on lab: Refactor your prototype code and generate your engineering handoff. You'll clean up the mess and produce a document an engineer can sprint from.
 
-Fourth — Hands-on lab: Connect your infrastructure with GitHub and Supabase. One-click connections that move your prototype from a local preview to version-controlled code with a real database.
+Fourth — Hands-on lab: Connect your backend with Supabase. Your code is already in GitHub from Module 2 — now we give your prototype a real database.
 
 
 ## Slide 5 — The Black Box Gap of AI-Generated Code
@@ -147,15 +147,7 @@ Here's the problem we're solving. Your prototype looks like a finished product �
 
 **What you say:** "A new engineer joins the team Monday. They open this document. In 5 minutes, they know what the onboarding flow does, what's real, what's mocked, and where to start. That's the handoff."
 
-### STEP 5: Connect GitHub (~30 sec)
-
-**What you do:** In Lovable, click the GitHub integration button. One click. Code pushes to a real repo.
-
-**What you do next:** Open the GitHub repo URL in a new browser tab. Show the file tree, the README, the refactored components.
-
-**What you say:** "One click. Your code is now in a real GitHub repository. An engineer can clone this right now. It's not trapped in Lovable anymore — it's real version control."
-
-### STEP 6: Connect the Backend (~30 sec)
+### STEP 5: Connect the Backend (~30 sec)
 
 **What you do:** Trigger the backend by prompting Lovable to add a feature that requires a database (e.g., "Save user onboarding progress to the database so returning users resume where they left off"). Lovable Cloud prompts you to enable — click Allow. Database, auth, storage, and edge functions are now live.
 
@@ -165,7 +157,7 @@ Here's the problem we're solving. Your prototype looks like a finished product �
 
 **Pause. Let it land.**
 
-### STEP 7: Debrief (~2 min)
+### STEP 6: Debrief (~2 min)
 
 **What you say:**
 
@@ -174,7 +166,7 @@ Here's the problem we're solving. Your prototype looks like a finished product �
 - Clean code — `TeamValueScreen`, `InviteFlow`, not `Component1`
 - A Living PRD — complete spec, extracted from the build
 - An engineering handoff — component map, data model, start-here guide
-- A GitHub repo — real version control
+- GitHub — already connected since Module 2, now with refactored code and a proper README
 - A real backend — database, auth, and storage
 
 Traditional PM workflow: research, spec, build, test. Vibe Coding workflow: build, test, extract the spec. The spec is the output, not the starting point. And the infrastructure follows the prototype — not the other way around.
@@ -303,11 +295,11 @@ Set the pace: "You've got about 10 minutes. Don't try to perfect every section. 
 
 The slide lists the three pillars. Frame them as problems students already feel, not abstract requirements.
 
-"You've got three problems right now. First — your code is unreadable. You saw that in the reflection. That's what refactoring solves. Second — your code lives inside Lovable. If Lovable goes down, your work vanishes. That's what GitHub solves. Third — every piece of data in your prototype is fake. Hardcoded names, dummy metrics, simulated flows. That's what Supabase solves."
+"You've got three problems right now. First — your code is unreadable. You saw that in the reflection. That's what refactoring solves. Second — your code is in GitHub from Module 2, but what's in that repo is a mess. Unreadable component names, no README, no structure. Version control doesn't help if what you're versioning is chaos. That's what today's refactor fixes. Third — every piece of data in your prototype is fake. Hardcoded names, dummy metrics, simulated flows. That's what Supabase solves."
 
-Make the engineering connection relatable: "None of this requires you to become a developer. You already did the hard part — you built the product. These three steps are about making the build *portable*. Think of refactoring as giving your code a proper filing system. GitHub is like saving your work to the cloud instead of a USB drive. And Supabase swaps out the cardboard props for real furniture."
+Make the engineering connection relatable: "None of this requires you to become a developer. You already did the hard part — you built the product. These steps are about making the build *portable*. Think of refactoring as giving your code a proper filing system. Your GitHub repo is already there — now we make what's inside it worth cloning. And Supabase swaps out the cardboard props for real furniture."
 
-The key reassurance: "You'll do all three in the labs. Each one is a click or a prompt. Lovable handles the wiring. Your job is to decide *what* gets structured, not *how* — and that's a product decision, not an engineering one."
+The key reassurance: "You'll do all of this in the labs. Each one is a click or a prompt. Lovable handles the wiring. Your job is to decide *what* gets structured, not *how* — and that's a product decision, not an engineering one."
 
 
 ## Slide 17 — Break
@@ -357,24 +349,22 @@ Stripe runs this exact test with new hires. Day one: here's the docs, here's the
 **Watch for:** The moment a partner accurately describes their classmate's product without any verbal help — that's the breakthrough. Point it out when you see it. "Your docs just survived the handoff test."
 
 
-## Slide 22 — Connect Your Infrastructure with GitHub and Supabase
+## Slide 22 — Connect Your Backend with Supabase
 
-"Two steps left. You've got the Living PRD, the clean code, the README, and the engineering handoff. Now we finish the job — GitHub for version control, and a real backend for your data. These are the final two steps from the demo. After this, your prototype has the complete package."
+"One step left. You've got the Living PRD, clean code, a README, the engineering handoff, and your code has been in GitHub since Module 2. Now we give your prototype a real backend. This is the last piece from the demo."
 
 
-## Slide 23 — Hands-On Lab: Connect GitHub and Supabase
+## Slide 23 — Hands-On Lab: Connect Supabase
 
 **ACTION: Give students 10-15 minutes. Walk the room. This is the infrastructure moment.**
 
-"Steps are on screen. This is the fastest lab of the day — most of you will finish in under 10 minutes. Start with GitHub: hit the icon in the Lovable sidebar, follow the prompts, and check your GitHub account for the initial commit. Once that's confirmed, prompt Lovable to add a database feature and watch the backend spin up."
+"Steps are on screen. This is the fastest lab of the day — most of you will finish in under 10 minutes. Prompt Lovable to add a database feature — something like saving user progress or storing form submissions. Lovable Cloud will prompt you to enable — click Allow. Database, auth, storage, and edge functions are now live."
 
-The emotional arc matters more than the mechanics here. This is the wow moment of the module. When they open their GitHub account and see real code in a real repo, let that land. When database tables appear that match their prototype's data model, that's the second hit.
+The emotional arc matters here. When database tables appear that match their prototype's data model, that's the wow moment.
 
-Walk the room and narrate what you see: "Who's got their first commit? Open that repo — look at the README, the refactored components. That's yours. An engineer could clone it right now and start building." And: "Who's got database tables? Go look at them. Those column names match your prototype. That's not a preview anymore — that's infrastructure."
+Walk the room and narrate what you see: "Who's got database tables? Go look at them. Those column names match your prototype. That's not a preview anymore — that's infrastructure." And: "Open your GitHub repo. Your refactored code is already there from Module 2, but now look at it — clean component names, a README, the engineering handoff. That repo went from messy M2 code to something an engineer could clone and sprint from."
 
-Students who already have GitHub accounts will breeze through — have them pair up with anyone who's creating accounts for the first time. Don't let setup friction kill the energy.
-
-Last step they often forget: updating their Living PRD with the new repo and database URLs. Remind them — the PRD is the single source of truth, and it needs to reflect the infrastructure they just connected.
+Last step they often forget: updating their Living PRD with the database URL. Remind them — the PRD is the single source of truth, and it needs to reflect the infrastructure they just connected.
 
 
 ## Slide 24 — Module 4 Complete: What You Accomplished Today
@@ -387,7 +377,7 @@ Tick through the wins conversationally: "You've got a Living PRD — eight secti
 
 "Your code has real names. An engineer can open your file tree and immediately understand the structure. And you've got a handoff document that tells them where to start — not 'figure it out,' but 'open this file, here's the data model, here are the three biggest decisions you need to make.'"
 
-"And your prototype now lives outside of Lovable. It's in GitHub with version history. It's backed by a real database. If your laptop caught fire right now, your work survives."
+"And your prototype lives outside of Lovable. It's been in GitHub since Module 2 — but now what's in that repo is clean, documented, and structured. And it's backed by a real database. If your laptop caught fire right now, your work survives."
 
 Land the project deliverable reminder: "Before you close out — copy your `livingprd.md` into slide 7 and your `engineeringhandoff.md` into slide 9 of your final deliverables deck. Do it today while it's fresh."
 
@@ -415,7 +405,7 @@ Frame them as challenges, not homework: "The first one is fun and a little scary
 
 "The second one tests whether your prototype can handle reality. Open your Supabase dashboard, manually insert some garbage data — a negative price, a blank required field — and see what happens. Does your UI handle it gracefully, or does everything fall apart? This is the kind of thing that happens the moment real users touch a live product."
 
-Preview the next session: "Module 5 is where your prototype goes live. Real URL. Real users. Real database with security rules. Everything we set up today — GitHub, Supabase, the Living PRD — becomes the foundation for shipping. If Module 4 was about making your build legible, Module 5 is about making it durable under pressure."
+Preview the next session: "Module 5 is where your prototype goes live. Real URL. Real users. Real database with security rules. Everything we've set up — GitHub since Module 2, Supabase and the Living PRD today — becomes the foundation for shipping. If Module 4 was about making your build legible, Module 5 is about making it durable under pressure."
 
 
 ## Slide 27 — Survey

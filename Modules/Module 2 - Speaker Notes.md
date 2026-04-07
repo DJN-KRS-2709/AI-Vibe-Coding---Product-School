@@ -49,7 +49,7 @@ Module 2 — that's today — is about sharpening your intent. You're going to l
 
 Module 3 is precision — context engineering, prompt chains, building exactly what you describe.
 
-Module 4 translates your prototype into production specs — Living PRDs, GitHub, clean code structure. The engineering handoff.
+Module 4 translates your prototype into production specs — Living PRDs, clean code structure, and the engineering handoff.
 
 Module 5 makes it real — databases, auth, edge cases, and you deploy it. Live URL. Real users. Your prototype becomes a working product.
 
@@ -380,6 +380,8 @@ You have everything you need — Validation Brief, Context Data Pack, Visual Ref
 
 **Step 5 — When your prompt is tight, take it into Lovable and trigger the build.**
 
+**Step 6 — Connect GitHub.** As soon as your first build lands, connect GitHub. In Lovable, click the GitHub icon in the top right → authorize → done. Your code is now in a real repository. From this point forward, every change you make across Modules 3, 4, 5, and 6 is version-controlled. This is your safety net — if a prompt ever breaks your build, you can roll back to the last working version.
+
 Your goal is NOT to build something pretty. Your goal is to build something that shows real data, tests your specific hypothesis, and looks like it belongs in your product's domain — because of the screenshot reference, the metrics, and the user voice you injected.
 
 **ACTION: Watch for three failure modes as you walk the room:**
@@ -389,7 +391,7 @@ Your goal is NOT to build something pretty. Your goal is to build something that
 
 **At the 15-minute mark:** "You should have at least one working direction in Lovable. If your first prompt didn't land, refine it — don't start over."
 
-**At the 20-minute mark:** "5 minutes. Verify your shareable link works. Copy it to Slack."
+**At the 20-minute mark:** "5 minutes. Verify your shareable link works. Copy it to Slack. And if you haven't connected GitHub yet — do it now. One click. Your final project needs version control from day one."
 
 **Credit reminder:** This is exactly why we use the Structured Prompt Builder first. One well-assembled prompt instead of five trial-and-error burns in Lovable.
 
