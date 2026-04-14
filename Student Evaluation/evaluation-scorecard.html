@@ -297,8 +297,8 @@
   <h1>Student Evaluation Scorecard</h1>
   <p>AI Prototyping &amp; Vibe Coding — Final Project Deliverables</p>
   <div class="stats-bar">
-    <div class="stat-pill"><div class="num">16</div><div class="label">Students</div></div>
-    <div class="stat-pill"><div class="num">89.3</div><div class="label">Avg Score</div></div>
+    <div class="stat-pill"><div class="num">18</div><div class="label">Students</div></div>
+    <div class="stat-pill"><div class="num">88.6</div><div class="label">Avg Score</div></div>
     <div class="stat-pill"><div class="num">96</div><div class="label">Highest</div></div>
     <div class="stat-pill"><div class="num">80</div><div class="label">Lowest</div></div>
   </div>
@@ -333,10 +333,10 @@
   </div>
   <div class="podium-card third">
     <div class="medal">&#129353;</div>
-    <div class="podium-name">Katie Elliott &amp; Mahni Shayganfar</div>
-    <div class="podium-product">HealthBloom &amp; Aethon SIM</div>
-    <div class="podium-score">93</div>
-    <div class="podium-reason">Tied — real startup context with 15+ live tables, and the most technically ambitious build in the cohort.</div>
+    <div class="podium-name">David Ninidze</div>
+    <div class="podium-product">VibePay — Georgian Neobank</div>
+    <div class="podium-score">95</div>
+    <div class="podium-reason">Tied #2 — the most production-ready architecture in the cohort with 11 live tables, real RLS, and extraordinary market framing.</div>
   </div>
 </div>
 
@@ -407,11 +407,42 @@
     </div>
   </div>
 
-  <!-- #3 Katie -->
+  <!-- #3 David Ninidze -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
         <div class="fc-rank top3">3</div>
+        <div><div class="fc-name">David Ninidze</div><div class="fc-product">VibePay — Georgian Neobank for the Diaspora</div></div>
+      </div>
+      <div class="fc-score s-high">95</div>
+    </div>
+    <div class="fc-breakdown">
+      <div class="fc-dim"><div class="dl">Proto</div><div class="dv">15</div></div>
+      <div class="fc-dim"><div class="dl">Valid</div><div class="dv">15</div></div>
+      <div class="fc-dim"><div class="dl">PRD</div><div class="dv">15</div></div>
+      <div class="fc-dim"><div class="dl">Prompt</div><div class="dv">14</div></div>
+      <div class="fc-dim"><div class="dl">Eng</div><div class="dv">18</div></div>
+      <div class="fc-dim"><div class="dl">Insight</div><div class="dv">9</div></div>
+      <div class="fc-dim"><div class="dl">Quality</div><div class="dv">9</div></div>
+    </div>
+    <div class="fc-toggle">Click to see feedback</div>
+    <div class="fc-expand">
+      <div class="fc-feedback">
+        <div class="fc-feedback-title">Personalized Feedback</div>
+        <p>David, VibePay is absolutely extraordinary — <span class="highlight">one of the strongest and most complete submissions in the entire cohort</span>. Your problem framing is breathtaking in its specificity: 1.6 million people in the Georgian diaspora, paying 7-8% in remittance fees on every dollar they send home, juggling three separate financial systems with zero interoperability. You didn't just identify a problem — you quantified a market opportunity with the precision of a founding PM pitching to investors. That's a genuinely rare skill, and you should be very proud of it.</p>
+        <p>The depth of your technical execution is remarkable. Eleven live database tables with row-level security, real authentication with session management, production-ready error handling with retry logic and skeleton loading states — this isn't a prototype that just looks good. This is infrastructure that's genuinely ready to grow. And the fact that you solved Supabase's RLS recursion problem with a SECURITY DEFINER function shows real engineering problem-solving. You hit a wall that would have stopped many people, and you found an elegant solution. That resilience and resourcefulness is something that will serve you incredibly well.</p>
+        <p>Your validation results tell a powerful story: sub-2-minute onboarding, zero step-level abandonment in the KYC flow, and the 0% fee message emerging as the strongest conversion driver. Those aren't opinions — they're evidence. You tested systematically across 19 screens including empty states, error handling, session expiry, and offline scenarios. That thoroughness is what gives stakeholders genuine confidence in a product.</p>
+        <p>Your aha moment — that a single developer with AI tooling can build what used to require a five-person team, not just a mockup but production-ready architecture with real security — captures the entire spirit of this course beautifully. You didn't just learn the tools; you proved what's possible with them. VibePay genuinely feels like a product that could ship, and I'm excited to see where you take it. Incredible work, David.</p>
+        <span class="callout">Standout: Most production-ready architecture — real auth, RLS, and 11 live tables</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- #4 Katie -->
+  <div class="feedback-card" onclick="this.classList.toggle('open')">
+    <div class="fc-head">
+      <div class="fc-head-left">
+        <div class="fc-rank">4</div>
         <div><div class="fc-name">Katie Elliott</div><div class="fc-product">HealthBloom — AI Wellness for Women 35+</div></div>
       </div>
       <div class="fc-score s-high">93</div>
@@ -438,11 +469,11 @@
     </div>
   </div>
 
-  <!-- #4 Mahni -->
+  <!-- #5 Mahni -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank top3">4</div>
+        <div class="fc-rank">5</div>
         <div><div class="fc-name">Mahni Shayganfar</div><div class="fc-product">Aethon SIM — Drone Flight Simulation</div></div>
       </div>
       <div class="fc-score s-high">93</div>
@@ -469,11 +500,11 @@
     </div>
   </div>
 
-  <!-- #5 Effrosyni -->
+  <!-- #6 Effrosyni -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">5</div>
+        <div class="fc-rank">6</div>
         <div><div class="fc-name">Effrosyni Theodoratou</div><div class="fc-product">SubShield — Fintech Subscription Manager</div></div>
       </div>
       <div class="fc-score s-high">92</div>
@@ -500,11 +531,11 @@
     </div>
   </div>
 
-  <!-- #6 Giuliana -->
+  <!-- #7 Giuliana -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">6</div>
+        <div class="fc-rank">7</div>
         <div><div class="fc-name">Giuliana Sperotto</div><div class="fc-product">WaveUp — Peer-to-Peer Instructor Marketplace</div></div>
       </div>
       <div class="fc-score s-high">92</div>
@@ -531,11 +562,11 @@
     </div>
   </div>
 
-  <!-- #7 Conservation Connect -->
+  <!-- #8 Conservation Connect -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">7</div>
+        <div class="fc-rank">8</div>
         <div><div class="fc-name">Thomas Zielhorst-Kessels</div><div class="fc-product">Conservation Connect — Wildlife Project Health Platform</div></div>
       </div>
       <div class="fc-score s-high">91</div>
@@ -562,11 +593,11 @@
     </div>
   </div>
 
-  <!-- #8 Rihab -->
+  <!-- #9 Rihab -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">8</div>
+        <div class="fc-rank">9</div>
         <div><div class="fc-name">Rihab Belhaj</div><div class="fc-product">DawnDesk — Async Standup Tool</div></div>
       </div>
       <div class="fc-score s-high">89</div>
@@ -593,11 +624,11 @@
     </div>
   </div>
 
-  <!-- #9 Katia -->
+  <!-- #10 Katia -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">9</div>
+        <div class="fc-rank">10</div>
         <div><div class="fc-name">Katia De Juan</div><div class="fc-product">Voice CRM Companion</div></div>
       </div>
       <div class="fc-score s-mid">88</div>
@@ -624,11 +655,11 @@
     </div>
   </div>
 
-  <!-- #10 Vikrant -->
+  <!-- #11 Vikrant -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">10</div>
+        <div class="fc-rank">11</div>
         <div><div class="fc-name">Vikrant Shukla</div><div class="fc-product">LocalVouch Hub — Marketplace Trust Solution</div></div>
       </div>
       <div class="fc-score s-mid">87</div>
@@ -655,11 +686,11 @@
     </div>
   </div>
 
-  <!-- #11 Wendy -->
+  <!-- #12 Wendy -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">11</div>
+        <div class="fc-rank">12</div>
         <div><div class="fc-name">Wendy Voon</div><div class="fc-product">V-Pulse — B2B Retention Dashboard</div></div>
       </div>
       <div class="fc-score s-mid">87</div>
@@ -686,11 +717,11 @@
     </div>
   </div>
 
-  <!-- #12 Hwanchul -->
+  <!-- #13 Hwanchul -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">12</div>
+        <div class="fc-rank">13</div>
         <div><div class="fc-name">Hwanchul Seong</div><div class="fc-product">Bounce — Insight-First Analytics Dashboard</div></div>
       </div>
       <div class="fc-score s-mid">86</div>
@@ -717,11 +748,42 @@
     </div>
   </div>
 
-  <!-- #13 Shifali -->
+  <!-- #14 Bandar -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">13</div>
+        <div class="fc-rank">14</div>
+        <div><div class="fc-name">Bandar Alassmi</div><div class="fc-product">Namaa — AI-Powered Adaptive Learning Platform</div></div>
+      </div>
+      <div class="fc-score s-mid">85</div>
+    </div>
+    <div class="fc-breakdown">
+      <div class="fc-dim"><div class="dl">Proto</div><div class="dv">13</div></div>
+      <div class="fc-dim"><div class="dl">Valid</div><div class="dv">13</div></div>
+      <div class="fc-dim"><div class="dl">PRD</div><div class="dv">13</div></div>
+      <div class="fc-dim"><div class="dl">Prompt</div><div class="dv">13</div></div>
+      <div class="fc-dim"><div class="dl">Eng</div><div class="dv">15</div></div>
+      <div class="fc-dim"><div class="dl">Insight</div><div class="dv">9</div></div>
+      <div class="fc-dim"><div class="dl">Quality</div><div class="dv">9</div></div>
+    </div>
+    <div class="fc-toggle">Click to see feedback</div>
+    <div class="fc-expand">
+      <div class="fc-feedback">
+        <div class="fc-feedback-title">Personalized Feedback</div>
+        <p>Bandar, what you've built with Namaa is genuinely thoughtful and shows <span class="highlight">real intellectual curiosity and a research-first mindset</span> that sets you apart. Your decision to dive deep into learning science literature before writing a single line of code is exactly the kind of discipline that separates builders who create valuable products from those who build shiny features nobody needs. That decision to lead with research paid off beautifully in every section of your submission.</p>
+        <p>Your aha moment is one of the most intellectually compelling in the entire cohort: discovering that the entire "learning styles" industry (VARK, Kolb, etc.) has been scientifically debunked, yet most EdTech platforms still use it as their core personalization method. That insight doesn't just inform your product — it <em>is</em> your competitive advantage. The fact that Namaa uses evidence-based methods (Knowledge Tracing, Cognitive Load Theory, spaced repetition) instead of pseudoscientific preference matching gives you a genuinely defensible position in a crowded market. That's the kind of product insight that matters.</p>
+        <p>Your prompt grounding rules are well-structured and specific: the mastery threshold system (&lt;0.4 → foundational review, 0.4-0.7 → guided practice, &gt;0.7 → advance) gives the AI clear guardrails, and the time-on-task and error-pattern triggers show you've thought carefully about how learners actually struggle. The engineering handoff is solid, with a clear functional truth table, a well-designed data model, and honest documentation of gaps.</p>
+        <p>The exciting next step is bringing Bayesian Knowledge Tracing into the prototype to replace the rule-based logic — and you clearly know that's the path forward. You've laid a genuinely strong foundation with Namaa, and the research-driven differentiation gives you something most EdTech builders don't have: a defensible, evidence-based thesis. Keep building on that, Bandar — the thinking behind this product is genuinely impressive, and I can't wait to see where it goes.</p>
+        <span class="callout">Standout: Most research-driven product thesis — evidence-based learning personalization</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- #15 Shifali -->
+  <div class="feedback-card" onclick="this.classList.toggle('open')">
+    <div class="fc-head">
+      <div class="fc-head-left">
+        <div class="fc-rank">15</div>
         <div><div class="fc-name">Shifali Gupta</div><div class="fc-product">Meal Plan Done — AI Meal Planner</div></div>
       </div>
       <div class="fc-score s-low">83</div>
@@ -748,11 +810,11 @@
     </div>
   </div>
 
-  <!-- #14 Omar -->
+  <!-- #16 Omar -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">14</div>
+        <div class="fc-rank">16</div>
         <div><div class="fc-name">Omar Bahgat</div><div class="fc-product">Pulseboard — Customer Ops Dashboard</div></div>
       </div>
       <div class="fc-score s-low">82</div>
@@ -779,11 +841,11 @@
     </div>
   </div>
 
-  <!-- #15 Parametric Insurance -->
+  <!-- #17 Parametric Insurance -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">15</div>
+        <div class="fc-rank">17</div>
         <div><div class="fc-name">David Mitchell-Dawson</div><div class="fc-product">Parametric Business Interruption Insurance</div></div>
       </div>
       <div class="fc-score s-low">81</div>
@@ -810,11 +872,11 @@
     </div>
   </div>
 
-  <!-- #16 Rishika -->
+  <!-- #18 Rishika -->
   <div class="feedback-card" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
-        <div class="fc-rank">16</div>
+        <div class="fc-rank">18</div>
         <div><div class="fc-name">Rishika Verma</div><div class="fc-product">Passport AI — Onboarding Flow</div></div>
       </div>
       <div class="fc-score s-low">80</div>
@@ -844,7 +906,7 @@
 </div>
 
 <footer>
-  AI Prototyping &amp; Vibe Coding — Student Evaluation (16 Students) &bull; Generated April 13, 2026
+  AI Prototyping &amp; Vibe Coding — Student Evaluation (18 Students) &bull; Generated April 14, 2026
 </footer>
 
 <script>
