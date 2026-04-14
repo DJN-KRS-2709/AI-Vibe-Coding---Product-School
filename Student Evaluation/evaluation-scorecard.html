@@ -162,6 +162,28 @@
 
   .feedback-card:hover { border-color: var(--accent); }
 
+  .feedback-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(240,192,64,0.06), var(--surface));
+    box-shadow: 0 0 24px rgba(240,192,64,0.08);
+    position: relative;
+  }
+
+  .feedback-card.featured::before {
+    content: "★ Featured";
+    position: absolute;
+    top: -0.65rem;
+    right: 1.5rem;
+    background: linear-gradient(135deg, var(--gold), #e6a817);
+    color: #1a1d27;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.75rem;
+    border-radius: 6px;
+  }
+
   .fc-head {
     display: flex;
     justify-content: space-between;
@@ -408,7 +430,7 @@
   </div>
 
   <!-- #3 David Ninidze -->
-  <div class="feedback-card" onclick="this.classList.toggle('open')">
+  <div class="feedback-card featured" onclick="this.classList.toggle('open')">
     <div class="fc-head">
       <div class="fc-head-left">
         <div class="fc-rank top3">3</div>
