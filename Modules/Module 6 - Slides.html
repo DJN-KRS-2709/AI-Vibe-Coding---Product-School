@@ -177,6 +177,33 @@
   /* Title-slide logo */
   .title-logo { height: 44px; width: auto; margin-bottom: 18px; opacity: 0.92; mix-blend-mode: lighten; filter: drop-shadow(0 0 18px rgba(96,165,250,0.20)); }
 
+  /* Q&A end slide */
+  .slide.qa-slide { padding: 0; }
+  .qa-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(18,65,176,0.40) 0%, #07162C 60%); display: flex; align-items: center; justify-content: center; }
+  .qa-stack { display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; padding: 40px; max-width: 720px; }
+  .qa-logo { height: 64px; width: auto; opacity: 0.95; mix-blend-mode: lighten; filter: drop-shadow(0 0 28px rgba(96,165,250,0.32)); margin-bottom: 4px; }
+  .qa-mark { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; color: #60a5fa; text-transform: uppercase; }
+  .qa-headline { font-family: 'Poppins', sans-serif; font-size: 96px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+  .qa-headline span { color: #3b82f6; }
+  .qa-sub { font-size: 19px; color: #8899bb; max-width: 560px; line-height: 1.65; margin: 0; }
+  .qa-pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 22px; border: 1px solid rgba(96,165,250,0.30); border-radius: 999px; background: rgba(18,65,176,0.10); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #93c5fd; text-transform: uppercase; }
+
+  /* Thank You end slide */
+  .slide.end-slide { padding: 0; }
+  .end-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #07162C 0%, #0c2244 40%, #1241B0 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .end-bg::before, .end-bg::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; filter: blur(80px); }
+  .end-bg::before { width: 380px; height: 380px; background: rgba(96,165,250,0.30); top: -100px; left: -80px; }
+  .end-bg::after { width: 420px; height: 420px; background: rgba(124,58,237,0.20); bottom: -120px; right: -100px; }
+  .end-stack { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; padding: 40px; max-width: 720px; }
+  .end-logo { height: 76px; width: auto; opacity: 0.95; mix-blend-mode: lighten; filter: drop-shadow(0 0 40px rgba(96,165,250,0.45)); animation: endFloat 5s ease-in-out infinite; }
+  @keyframes endFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .end-mark { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; color: #93c5fd; text-transform: uppercase; }
+  .end-title { font-family: 'Poppins', sans-serif; font-size: 88px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+  .end-sub { font-size: 17px; color: rgba(255,255,255,0.78); max-width: 540px; line-height: 1.65; margin: 0; }
+  .end-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #fff; text-transform: uppercase; }
+  .end-cta .end-cta-arrow { color: #60a5fa; }
+  .end-cta strong { color: #93c5fd; font-weight: 700; }
+
   /* Cameras On photo layout */
   .slide.cameras-photo-slide { padding: 0; }
   .cameras-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #07162C 0%, #0c2244 50%, #1241B0 100%); display: flex; align-items: center; justify-content: center; }
@@ -720,19 +747,28 @@
 </div>
 
 <!-- ===== SLIDE 27: Q&A ===== -->
-<div class="slide" data-notes="Final Q&amp;A. Open the floor wide — anything from the whole 6 modules.">
-  <div class="slide-inner" style="text-align:center;">
-    <div class="demo-tag tag-activity">Q&amp;A</div>
-    <div class="mega" style="font-size:80px;">Questions?</div>
-    <div class="mega-sub">Anything from any of the six modules. Drop questions in Slack any time after class.</div>
+<div class="slide qa-slide" data-notes="Final Q&amp;A. Open the floor wide — anything from the whole 6 modules.">
+  <div class="qa-bg">
+    <div class="qa-stack">
+      <img class="qa-logo" src="../Design/Product-School-Logo.png" alt="Product School">
+      <div class="qa-mark">Final Q&amp;A · Module 6</div>
+      <div class="qa-headline">Questions<span>?</span></div>
+      <p class="qa-sub">Anything from any of the six modules. The floor is open — and Slack is open after class.</p>
+      <div class="qa-pill">💬 Drop questions in Slack any time</div>
+    </div>
   </div>
 </div>
 
 <!-- ===== SLIDE 28: End ===== -->
-<div class="slide" data-notes="Thank you. You're certified Vibe Coders. Go ship things.">
-  <div class="slide-inner" style="text-align:center;">
-    <div class="mega">Thank you 💥</div>
-    <div class="mega-sub">You're now Vibe Coding certified. Go ship things — with conviction, backed by data.</div>
+<div class="slide end-slide" data-notes="Thank you. You're certified Vibe Coders. Go ship things.">
+  <div class="end-bg">
+    <div class="end-stack">
+      <img class="end-logo" src="../Design/Product-School-Logo.png" alt="Product School">
+      <div class="end-mark">Vibe Coding · Certified</div>
+      <div class="end-title">Thank You</div>
+      <p class="end-sub">You're now <em style="color:#93c5fd; font-style:normal; font-weight:700;">Vibe Coding certified</em>. Go ship things — with conviction, backed by data.</p>
+      <div class="end-cta"><span class="end-cta-arrow">🚀</span> Submit final deliverables · <strong>7 days</strong> to certify</div>
+    </div>
   </div>
 </div>
 
