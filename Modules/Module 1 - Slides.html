@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1: Activate Vibe Coding Speed</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; background: #07162C; }
+  body { font-family: 'Lato', -apple-system, sans-serif; color: #e8e8f0; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+
+  /* Slide container */
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 56px 80px; opacity: 0; transition: opacity 0.35s ease; overflow-y: auto; }
+  .slide.active { display: flex; opacity: 1; }
+  .slide-inner { max-width: 1000px; width: 100%; }
+
+  /* Typography */
+  .module-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1241B0; margin-bottom: 16px; }
+  h1 { font-size: 48px; font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 20px; }
+  h2 { font-size: 36px; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 18px; }
+  h3 { font-size: 22px; font-weight: 700; line-height: 1.3; color: #e0e0f0; margin-bottom: 12px; }
+  .subtitle { font-size: 18px; font-weight: 400; color: #8899bb; line-height: 1.6; margin-bottom: 24px; max-width: 800px; }
+  p, li { font-size: 17px; color: #b0b4c8; line-height: 1.65; }
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 5px 0 5px 24px; position: relative; }
+  ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 2px; background: #1241B0; }
+  strong { color: #fff; font-weight: 700; }
+  em { color: #60a5fa; font-style: normal; font-weight: 600; }
+  .accent { color: #60a5fa; }
+  .muted { color: #8899bb; }
+  .warn { color: #f87171; }
+  .success { color: #34d399; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  /* Slide-type tags */
+  .demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; }
+  .tag-lecture { background: rgba(96,165,250,0.12); color: #93c5fd; }
+  .tag-framework { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-case { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-demo { background: rgba(124,58,237,0.18); color: #c4b5fd; }
+  .tag-exercise { background: rgba(52,211,153,0.14); color: #6ee7b7; }
+  .tag-activity { background: rgba(192,132,252,0.14); color: #d8b4fe; }
+  .tag-debrief { background: rgba(244,114,182,0.14); color: #f9a8d4; }
+  .tag-break { background: rgba(100,116,139,0.16); color: #94a3b8; }
+  .tag-recall { background: rgba(59,130,246,0.14); color: #93c5fd; }
+  .tag-section { background: rgba(18,65,176,0.20); color: #93c5fd; }
+
+  /* Waypoint cards (used on title + recall) */
+  .waypoints { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+  .waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(18,65,176,0.08); border: 1px solid rgba(18,65,176,0.22); border-radius: 12px; padding: 18px 22px; }
+  .waypoint-num { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; background: #1241B0; font-family: 'Poppins', sans-serif; }
+  .waypoint-text { flex: 1; }
+  .wt-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .wt-desc { font-size: 14px; color: #8899bb; line-height: 1.55; }
+
+  /* Generic dark card */
+  .card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 18px 22px; }
+  .card-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .card-desc { font-size: 14px; color: #b0b4c8; line-height: 1.55; }
+  .card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+
+  /* Grid helpers */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+  @media (min-width: 1100px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+  .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+
+  /* Class expectations icons */
+  .ce-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .ce-icon { font-size: 22px; }
+  .ce-body .ce-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: 0.02em; }
+  .ce-body .ce-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+
+  /* Module syllabus cards */
+  .syllabus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .syllabus-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .syllabus-card.syl-active { border-color: #1241B0; background: rgba(18,65,176,0.16); box-shadow: 0 0 14px rgba(18,65,176,0.25); }
+  .syl-mod { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .syl-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.25; }
+  .syl-desc { font-size: 12px; color: #8899bb; line-height: 1.5; }
+
+  /* Agenda */
+  .agenda { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+  .agenda-item { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; }
+  .agenda-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; min-width: 28px; }
+  .agenda-text { font-size: 16px; color: #b0b4c8; }
+  .agenda-text strong { color: #fff; }
+
+  /* Big section divider */
+  .section-frame { text-align: left; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; letter-spacing: 0.18em; margin-bottom: 14px; }
+  .section-title { font-family: 'Poppins', sans-serif; font-size: 56px; font-weight: 800; line-height: 1.05; color: #fff; max-width: 900px; }
+
+  /* Demo / lab problem block */
+  .problem-block { background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.22); border-radius: 12px; padding: 22px 26px; margin: 16px 0; }
+  .problem-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #f87171; margin-bottom: 8px; }
+  .problem-text { font-size: 17px; color: #e0e0f0; line-height: 1.6; }
+  .problem-zinger { font-size: 16px; color: #fff; font-weight: 700; margin-top: 12px; }
+
+  /* Lab / step list */
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.18); border-radius: 10px; }
+  .step-num { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; background: #059669; font-family: 'Poppins', sans-serif; }
+  .step-body .step-title { font-size: 15px; font-weight: 700; color: #e8e8f0; margin-bottom: 2px; }
+  .step-body .step-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+
+  /* Goal / takeaway box */
+  .goal-box { background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.22); border-radius: 10px; padding: 16px 20px; margin-top: 14px; }
+  .goal-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #60a5fa; margin-bottom: 6px; }
+  .goal-text { font-size: 15px; color: #e8e8f0; line-height: 1.55; }
+
+  /* Bottom CTA / lab guide link */
+  .bottom-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 10px 16px; background: rgba(18,65,176,0.18); border: 1px solid rgba(18,65,176,0.35); border-radius: 8px; font-size: 13px; font-weight: 700; color: #93c5fd; text-decoration: none; }
+
+  /* Debrief (shareable / pair prompt) */
+  .debrief-box { background: rgba(192,132,252,0.06); border: 1px solid rgba(192,132,252,0.20); border-radius: 12px; padding: 24px 28px; margin: 18px 0; text-align: left; }
+  .debrief-prompt { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 10px; }
+  .debrief-meta { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d8b4fe; margin-bottom: 10px; }
+  .debrief-sub { font-size: 14px; color: #8899bb; line-height: 1.55; }
+
+  /* Score scale */
+  .score-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
+  .score-cell { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .score-num { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #60a5fa; margin-bottom: 4px; }
+  .score-label { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.3; }
+  .score-desc { font-size: 11px; color: #8899bb; margin-top: 3px; line-height: 1.3; }
+
+  /* Tool stack callout */
+  .callout { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+  .callout-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fde68a; margin-bottom: 6px; }
+  .callout-text { font-size: 14px; color: #e0e0f0; line-height: 1.55; }
+
+  /* Confidence line phases */
+  .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .phase-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 18px 20px; position: relative; }
+  .phase-card.p1 { border-top: 3px solid #f87171; }
+  .phase-card.p2 { border-top: 3px solid #fbbf24; }
+  .phase-card.p3 { border-top: 3px solid #34d399; }
+  .phase-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #8899bb; margin-bottom: 6px; }
+  .phase-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .phase-card ul li { font-size: 13px; padding: 3px 0 3px 18px; }
+  .phase-card ul li::before { width: 5px; height: 5px; top: 12px; }
+  .phase-tag { font-size: 12px; color: #60a5fa; font-weight: 700; margin-top: 8px; }
+
+  /* Toy vs Tool */
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .vs-card { border-radius: 12px; padding: 20px 22px; }
+  .vs-toy { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.18); }
+  .vs-tool { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.18); }
+  .vs-label { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+  .vs-toy .vs-label { color: #fca5a5; }
+  .vs-tool .vs-label { color: #6ee7b7; }
+  .vs-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .vs-card p { font-size: 14px; color: #b0b4c8; margin-bottom: 6px; }
+
+  /* Stats / completion */
+  .complete-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 18px 20px; text-align: left; }
+  .stat-num { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 800; color: #60a5fa; line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .stat-desc { font-size: 12px; color: #8899bb; line-height: 1.4; }
+
+  /* Shifts */
+  .shifts { display: flex; flex-direction: column; gap: 12px; margin: 14px 0; }
+  .shift-card { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.18); border-radius: 10px; padding: 16px 20px; }
+  .shift-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .shift-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .shift-desc { font-size: 13px; color: #b0b4c8; line-height: 1.55; }
+
+  /* Big quote / synthesis */
+  .big-quote { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; color: #e0e0f0; line-height: 1.45; text-align: center; max-width: 760px; margin: 0 auto; }
+  .big-quote em { color: #60a5fa; }
+  .flow-line { font-size: 16px; color: #6f7d97; margin-top: 18px; }
+
+  /* Resource cards */
+  .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .res-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .res-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .res-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+  .res-link { font-size: 12px; font-weight: 700; color: #93c5fd; }
+
+  /* Q&A / End big text */
+  .mega { font-family: 'Poppins', sans-serif; font-size: 96px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; text-align: center; }
+  .mega-sub { font-size: 18px; color: #8899bb; text-align: center; margin-top: 16px; }
+
+  /* Navigation chrome */
+  .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; z-index: 100; }
+  .nav-btn { width: 42px; height: 42px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+  .nav-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
+  .progress { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.05); z-index: 100; }
+  .progress-bar { height: 100%; background: #1241B0; transition: width 0.35s ease; }
+  .slide-counter { position: fixed; bottom: 26px; left: 24px; font-size: 13px; font-weight: 600; color: #455168; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  .help-hint { position: fixed; top: 16px; right: 24px; font-size: 11px; color: #334156; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+
+  /* Speaker notes */
+  .speaker-notes { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0a1c33; border-top: 2px solid #1241B0; padding: 16px 32px; max-height: 240px; overflow-y: auto; font-size: 14px; color: #b0b4c8; line-height: 1.6; z-index: 200; }
+  .speaker-notes.visible { display: block; }
+  .speaker-notes strong { color: #fff; }
+  .notes-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #60a5fa; margin-bottom: 6px; }
+
+  /* Skip slide feature */
+  .skip-badge { display: none; position: fixed; top: 16px; left: 24px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #f87171; background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.30); padding: 5px 14px; border-radius: 6px; z-index: 150; cursor: pointer; }
+  .skip-badge.visible { display: block; }
+
+  /* Slide sorter */
+  .slide-sorter { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(7,22,44,0.97); overflow-y: auto; padding: 60px 40px 40px; }
+  .slide-sorter.visible { display: block; }
+  .sorter-header { display: flex; align-items: center; justify-content: space-between; margin: 0 auto 24px; max-width: 1200px; }
+  .sorter-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+  .sorter-subtitle { font-size: 13px; color: #556; margin-top: 4px; }
+  .sorter-close { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .sorter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; max-width: 1200px; margin: 0 auto; }
+  .sorter-item { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.15s ease; }
+  .sorter-item:hover { border-color: #1241B0; }
+  .sorter-item.sorter-active { border-color: #1241B0; box-shadow: 0 0 12px rgba(18,65,176,0.30); }
+  .sorter-item.sorter-skipped { opacity: 0.4; }
+  .sorter-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
+  .sorter-label { font-size: 13px; font-weight: 600; color: #e0e0f0; line-height: 1.4; margin-bottom: 10px; min-height: 36px; }
+  .sorter-skip-btn { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer; }
+  .sorter-skip-btn.skip-off { background: rgba(255,255,255,0.06); color: #556; }
+  .sorter-skip-btn.skip-on { background: rgba(248,113,113,0.16); color: #fca5a5; }
+  .sorter-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-notes="Welcome to Module 1 — Activate Vibe Coding Speed. Let's get started. Set the energy: today is the full Build–Show–Learn–Decide cycle in one session.">
+  <div class="slide-inner">
+    <div class="module-tag">Module 1 | Vibe Coding Certification</div>
+    <h1>Activate Vibe Coding Speed</h1>
+    <h2 style="font-size:24px; font-weight:600; color:#8899bb; margin-bottom:24px;">Experience the full Build–Show–Learn–Decide cycle in one session.</h2>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Deploy functional prototypes from ambiguous problems</div><div class="wt-desc">Move from concept to clickable URL in minutes — no engineering wait.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Generate evidence, not opinions</div><div class="wt-desc">Use rapid feedback loops to validate or kill ideas with real users.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Apply the Confidence Line framework</div><div class="wt-desc">Prove you can build at lightspeed and start moving from vibe to validated tool.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Class Expectations ===== -->
+<div class="slide" data-notes="Set the ground rules before diving in. Keep this brief — students know the drill but it sets the energy. Note for instructors: don't share the deck link directly; send students to the LMS (Docebo).">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Class Expectations</div>
+    <h2>How We Work Together</h2>
+    <div class="grid-6">
+      <div class="ce-card"><div class="ce-icon">📹</div><div class="ce-body"><div class="ce-title">Cameras On</div><div class="ce-desc">Be present and visible to stay engaged in class.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">⏰</div><div class="ce-body"><div class="ce-title">Arrive On Time</div><div class="ce-desc">Respect everyone's time by joining promptly.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">✋</div><div class="ce-body"><div class="ce-title">Active Engagement</div><div class="ce-desc">Participate fully in exercises, labs, and discussions.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🌐</div><div class="ce-body"><div class="ce-title">Network</div><div class="ce-desc">Connect with peers and build your learning network.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">💬</div><div class="ce-body"><div class="ce-title">Use Slack</div><div class="ce-desc">All communication in Slack so nothing gets lost.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🎓</div><div class="ce-body"><div class="ce-title">Instructor Support</div><div class="ce-desc">Save deeper questions for after class to keep flow.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Introductions ===== -->
+<div class="slide" data-notes="Introduce yourself: background, how you got into PM, milestones. Then ask 2–3 students to introduce themselves live; with large cohorts, push intros to Slack to keep timing on track.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Introductions</div>
+    <h2>Meet Your Instructor &amp; Cohort</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Meet Your Instructor 👋</div>
+        <ul style="margin-top:6px;">
+          <li><strong>Background</strong> — name, location, current role.</li>
+          <li><strong>Career</strong> — how you got into your field.</li>
+          <li><strong>Milestones</strong> — significant career moments.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Introduce Yourself 🧑‍💻</div>
+        <ul style="margin-top:6px;">
+          <li><strong>Background</strong> — name, location, current role.</li>
+          <li><strong>Course Goals</strong> — what you hope to learn.</li>
+          <li><strong>Fun Fact</strong> — a hobby outside of work.</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:15px; color:#8899bb;">Drop your intro and LinkedIn in the Slack channel to connect with your peers.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Syllabus ===== -->
+<div class="slide" data-notes="Quick walk through the 6-module arc. Today (M1) is highlighted. Land the through-line: each module compounds — speed → aim → precision → structure → integration → measurement.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Vibe Coding Syllabus</div>
+    <h2>Six Modules. Three Weeks. One Builder.</h2>
+    <div class="syllabus-grid">
+      <div class="syllabus-card syl-active">
+        <div class="syl-mod">Module 1</div>
+        <div class="syl-title">Activate Vibe Coding Speed</div>
+        <div class="syl-desc">Full Build–Show–Learn–Decide cycle. Functional prototype from a vague problem in minutes.</div>
+      </div>
+      <div class="syllabus-card">
+        <div class="syl-mod">Module 2</div>
+        <div class="syl-title">Sharpen Intent with Strategic Prototypes</div>
+        <div class="syl-desc">Map assumptions and pick the right fidelity. Validate the "why" before opening the toolkit.</div>
+      </div>
+      <div class="syllabus-card">
+        <div class="syl-mod">Module 3</div>
+        <div class="syl-title">Architect Precision Prototypes</div>
+        <div class="syl-desc">Constraint injection and structural logic. Prompt packs for professional-grade consistency.</div>
+      </div>
+      <div class="syllabus-card">
+        <div class="syl-mod">Module 4</div>
+        <div class="syl-title">Translate Prototypes to Production Specs</div>
+        <div class="syl-desc">Convert functional builds into living specifications. Command the engineering handoff.</div>
+      </div>
+      <div class="syllabus-card">
+        <div class="syl-mod">Module 5</div>
+        <div class="syl-title">Ship Live Products with Tactical Authority</div>
+        <div class="syl-desc">From localhost to a live URL. Use your build as evidence and lead with high-integrity narratives.</div>
+      </div>
+      <div class="syllabus-card">
+        <div class="syl-mod">Module 6</div>
+        <div class="syl-title">Power Complex Full-Stack Logic</div>
+        <div class="syl-desc">Connect prototypes to live databases and secure APIs. Production-ready integrations.</div>
+      </div>
+    </div>
+    <p style="font-size:14px; color:#8899bb;">Build end-to-end applications faster — without a technical background.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Final Project Explanation ===== -->
+<div class="slide" data-notes="Play the 4.5-minute video that explains the final project. Don't paraphrase the video — let it carry the heavy lifting, then handle questions on the next slide.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Final Project</div>
+    <h2>Final Project: Watch the Brief</h2>
+    <div class="card" style="margin:18px 0; padding:34px; text-align:center;">
+      <div style="font-size:38px; margin-bottom:8px;">🎬</div>
+      <div class="card-title" style="font-size:18px;">Play the Final Project Explanation Video (~4.5 min)</div>
+      <div class="card-desc" style="margin-top:6px;">Walks through requirements, deliverables, and timing for certification.</div>
+    </div>
+    <p style="font-size:15px; color:#8899bb;">After the video, we'll open the brief together for any questions.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Final Project Deliverable ===== -->
+<div class="slide" data-notes="After the video, open the Final Project Brief and Deliverables Template on screen. Reinforce three things: walk the requirements, confirm the no-homework policy, set expectations that you'll map course content to deliverables as topics arise.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Final Project Deliverable</div>
+    <h2>What You'll Submit</h2>
+    <div class="grid-2" style="margin-bottom:14px;">
+      <div class="card"><div class="card-label">🎯 Goal</div><div class="card-desc">Demonstrate your live, deployed prototype and prove your solution can solve the core business problem you chose.</div></div>
+      <div class="card"><div class="card-label">📝 Deliverable</div><div class="card-desc">Final Project Deliverables Deck (Google Slides or PDF) submitted to the LMS.</div></div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">🕙 Timing</div>
+      <div class="callout-text"><strong>[Optional]</strong> 5-minute live demo per student in Module 6 for those who volunteer. Not required for certification — but every student must submit the deck.</div>
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <div class="card-label">Include in your deck</div>
+      <ul style="margin-top:6px;">
+        <li>Live, deployed prototype link</li>
+        <li>Key sections from your <strong>Validation Brief</strong></li>
+        <li>Key sections from your <strong>Living PRD</strong></li>
+        <li>Highlights from your <strong>Prompt Library and Logic</strong></li>
+        <li>Key sections from your <strong>Engineering Handoff</strong></li>
+        <li>Individual insights into your build process</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Agenda ===== -->
+<div class="slide" data-notes="Four blocks today: (1) the high-velocity prototyping cycle, (2) Lab 1 — your first vibe build, (3) Lab 2 — strategic refinement, (4) from prompt to functional strategy and the Confidence Line.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Today's Agenda</div>
+    <h2>Four Blocks to Activate Speed</h2>
+    <div class="agenda">
+      <div class="agenda-item"><div class="agenda-num">01</div><div class="agenda-text"><strong>The High-Velocity Prototyping Cycle</strong> — instructor demo + tool stack + credit strategy</div></div>
+      <div class="agenda-item"><div class="agenda-num">02</div><div class="agenda-text"><strong>Hands-On Lab</strong> — Your First Vibe Build in Lovable</div></div>
+      <div class="agenda-item"><div class="agenda-num">03</div><div class="agenda-text"><strong>Hands-On Lab</strong> — Strategically Refine Your Build in Lovable</div></div>
+      <div class="agenda-item"><div class="agenda-num">04</div><div class="agenda-text"><strong>From Prompt to Functional Strategy</strong> — the Confidence Line + Toy vs. Tool</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Section divider ===== -->
+<div class="slide" data-notes="Section opener for block 01. Pause briefly. Frame: today you'll see prototyping at its purest — speed and divergence.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">01 — SECTION</div>
+    <div class="section-title">The High-Velocity Prototyping Cycle</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: Instructor Demo — Triple-Threat Build ===== -->
+<div class="slide" data-notes="Instructor-Led Demo (15 min). Set up: Lovable Pro tab open, Mobbin SaaS dashboard screenshot ready. Build 3 prototypes from the same enterprise churn problem: (1) customer onboarding dashboard 4 min, (2) churn early warning operations tool 4 min, (3) design-matched analytics dashboard 7 min. Land: in 15 min you visualized 3 competing exec opinions — you're managing outcomes, not debating requirements.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-demo">Instructor-Led Demo · 15 Minutes</div>
+    <h2>The Triple-Threat Build</h2>
+    <div class="subtitle">Three directions in fifteen minutes. Same problem, three competing executive opinions, three functional prototypes.</div>
+    <div class="problem-block">
+      <div class="problem-label">The Problem</div>
+      <div class="problem-text">Enterprise customers are churning 30 days after onboarding. The VP of Customer Success thinks it's a UX issue. The Head of Product thinks you need better feature discovery. The CEO thinks we should add a self-serve analytics dashboard.</div>
+      <div class="problem-zinger">Nobody has data. Everybody has opinions.</div>
+    </div>
+    <div class="grid-3">
+      <div class="card"><div class="card-label">4 min · Prototype 1</div><div class="card-title">The Customer "Vibe"</div><div class="card-desc">Onboarding dashboard with progress tracker, recommended actions, help section.</div></div>
+      <div class="card"><div class="card-label">4 min · Prototype 2</div><div class="card-title">The Internal Reframe</div><div class="card-desc">Churn early-warning ops tool — risk scores, last login, adoption %, reach-out CTA.</div></div>
+      <div class="card"><div class="card-label">7 min · Prototype 3</div><div class="card-title">The Design Match</div><div class="card-desc">Customer health dashboard cloned from a Mobbin design system — VP-ready.</div></div>
+    </div>
+    <p style="margin-top:14px; font-size:16px; font-weight:700; color:#fff;">While others debate requirements, you are now a builder.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: Tool Stack — Lovable ===== -->
+<div class="slide" data-notes="Cover quickly. The principles work across Cursor, Bolt, Claude Code, Replit — but Lovable is the classroom standard for lowest barrier to entry. Pro access is free via Product School partnership. ~100 credits/month — encourage students to draft prompts in ChatGPT/Gemini first.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Your Vibe Coding Tool Stack</div>
+    <h2>Why Lovable?</h2>
+    <div class="subtitle">Lovable's visual-first interface offers the lowest barrier for non-technical PMs. You don't need to understand code to build functional prototypes — and it's our main tool throughout the course.</div>
+    <div class="callout">
+      <div class="callout-label">💡 Important</div>
+      <div class="callout-text">Through our partnership with Product School, you get <strong>Pro access for free</strong> throughout the course. Your Pro package includes <strong>~100 credits per month — not unlimited</strong>.</div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <div class="card-label">Credit-Saving Tip</div>
+      <div class="card-desc">Do your prompt planning in <strong>Gemini or ChatGPT</strong>. Paste the polished prompt into Lovable only when it's time to build. You're welcome to explore other tools in our AI Tools Perks on your own.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 11: Skill Markdowns ===== -->
+<div class="slide" data-notes="Skills = system prompts packaged as markdown that turn a generalist LLM into a niche expert. By Module 3 students will build their own in their Living Prompt Pack. For now, just plant the concept.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Skill Markdowns</div>
+    <h2>Your New Superpower for Speed</h2>
+    <div class="subtitle">AI tools like Cursor, Claude, and Lovable can import <strong>skills</strong> — pre-made instruction sets in markdown that give the AI specialized capabilities.</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-label">What's a Skill?</div>
+        <div class="card-desc">A text file that tells the AI: <em>"Here's how to build dashboards for enterprise SaaS"</em> or <em>"Here's our design system: always use these colors."</em> The AI follows it on every prompt.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Where to Find Them</div>
+        <div class="card-desc">Marketplaces and communities share skills for free — you don't need to create them. Download what others have built, like installing an app.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Why It Matters</div>
+        <div class="card-desc">By Module 3, you'll build your own skills inside your <strong>Living Prompt Pack</strong>. For now, know they exist. A superpower you can acquire without writing code.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 12: Bridging Design and Build ===== -->
+<div class="slide" data-notes="Modern Vibe Coding tools are multimodal — they read text, pixels, and code. Three entry points: text-to-app (0→1), screenshot-to-app (1→N pattern matching), design-to-code (Figma/brand). The takeaway: you're not ignoring your company's design system — you're ingesting it.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Bridging Design and Build</div>
+    <h2>Three Ways to Bridge Design</h2>
+    <div class="subtitle">Modern Vibe Coding tools are <strong>multimodal</strong> — they ingest your existing assets and match your design system instantly.</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-label">1 · Text-to-App</div>
+        <div class="card-title">Natural language prompts</div>
+        <div class="card-desc"><strong>Best for:</strong> new concepts where no design exists.<br><strong>Strategic choice:</strong> 0-to-1 products.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">2 · Screenshot-to-App</div>
+        <div class="card-title">Upload a screenshot</div>
+        <div class="card-desc"><strong>Best for:</strong> cloning existing product patterns or ideas.<br><strong>Strategic choice:</strong> 1-to-N products.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">3 · Design-to-Code</div>
+        <div class="card-title">Figma imports / design system docs</div>
+        <div class="card-desc"><strong>Best for:</strong> on-brand prototypes from existing systems (also code-to-design).<br><strong>Strategic choice:</strong> 1-to-N products.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:15px; color:#8899bb;">You're not ignoring your design system — you're <em>ingesting</em> it.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 13: Credit Efficiency ===== -->
+<div class="slide" data-notes="Strategic credit management = build runway. Three steps: plan in a sandbox (Gemini/ChatGPT), paste into tool when locked, adjust code directly for cosmetic fixes. The Eject Rule: if a prompt fails twice, stop — export to debug externally before re-prompting the same broken logic.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Vibe Coding Credit Efficiency</div>
+    <h2>Spend Credits on Architecture, Not Trial-and-Error</h2>
+    <div class="subtitle">Your credits represent your total capacity for experimentation. Strategic resource management ensures they're spent on high-value architectural shifts.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Plan in a Sandbox</div><div class="step-desc">Structure prompts and iterate logic in an external LLM. Do ~60% of refinement here before burning a single credit.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Paste into Tool</div><div class="step-desc">Move to Lovable only when the prompt is polished. Aim for one generation, not trial-and-error iterations on half-baked instructions.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Adjust Code Directly</div><div class="step-desc">Fix typos, colors, alignment in code. Save credits for major structural changes or new feature injections.</div></div></div>
+    </div>
+    <div class="problem-block" style="margin-top:14px;">
+      <div class="problem-label">⚠️ The Eject Rule</div>
+      <div class="problem-text">If a prompt fails twice, stop. Export the code to an external tool to debug, then paste the fix back. <strong>Never enter a "credit death spiral"</strong> by re-prompting the same broken logic.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 14: Section divider — Lab 1 ===== -->
+<div class="slide" data-notes="Section opener for block 02 — first hands-on lab. Energy shift: students go from watching to doing.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">02 — HANDS-ON LAB</div>
+    <div class="section-title">Your First Vibe Build in Lovable</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 15: Lab Exercise — Your First Vibe Build ===== -->
+<div class="slide" data-notes="Individual Exercise (20 min). Drop the lab guide link in chat before opening breakout rooms. Force action — clickable beats perfect. Pop into rooms after 2 min: anyone stuck → push to Copy &amp; Customize template. Final 2 min: warn that everyone needs a shareable link for the Show &amp; Swap.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-exercise">Individual Exercise · 20 Minutes</div>
+    <h2>Your First Vibe Build in Lovable</h2>
+    <div class="subtitle">Dive straight into the cycle. Move from a vague problem to a clickable solution in under 20 minutes. Success = a shareable link, not a polished product.</div>
+    <div class="grid-2" style="margin-bottom:6px;">
+      <div class="step-list" style="margin:0;">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open Lovable</div><div class="step-desc">Choose one of four scenarios from the lab guide to anchor your build.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Write your prompts</div><div class="step-desc"><strong>Option A — Copy &amp; Customize:</strong> use the starter prompt and replace the [brackets].<br><strong>Option B — First Screen Method:</strong> visualize the very first thing your user sees and prompt for exactly that.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Build on instinct</div><div class="step-desc">No methodology. No framework. Speed and execution. If the output isn't right — prompt again or prompt differently. Aim for clickable, not perfect.</div></div></div>
+      </div>
+      <div>
+        <div class="goal-box">
+          <div class="goal-label">🎯 Goal</div>
+          <div class="goal-text">A functional, shareable prototype URL by minute 20. You'll trade links with a partner immediately after.</div>
+        </div>
+        <div class="callout" style="margin-top:10px;">
+          <div class="callout-label">Keep in mind</div>
+          <div class="callout-text">Solo build. Tests your <strong>speed</strong> and <strong>intuition</strong>. There are no technical barriers — just your instincts and the prompt box.</div>
+        </div>
+        <a class="bottom-cta" href="#">✍️ Open the Module 1 Lab Guide</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 16: Breakout — Show and Swap ===== -->
+<div class="slide" data-notes="Breakout Group Exercise (10 min). Pairs of 2. Swap links in chat immediately. 3 min silent navigation each — no guidance, just watch. Then 2 min discussion using the 3 questions. Swap and repeat.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Breakout Group Exercise · 10 Minutes</div>
+    <h2>Show and Swap Your Prototype</h2>
+    <div class="subtitle">Pair up with a peer and experience their build as a real user. Mirrors actual user behavior and gives you raw feedback on whether your "vibe" translates into a functional tool.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Swap prototype links in the chat</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Explore your partner's build silently for 3 minutes</div><div class="step-desc">No verbal context given or received. Just navigate as a real user would.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Discuss, then swap roles and repeat</div></div></div>
+    </div>
+    <div class="debrief-box">
+      <div class="debrief-meta">Feedback Discussion</div>
+      <ul>
+        <li>What you understood <strong>immediately</strong> about the product's purpose.</li>
+        <li>What <strong>confused you</strong> about the prototype.</li>
+        <li>What <strong>assumption</strong> you thought this prototype was testing.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 17: Quick Debrief — Key Learning ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Have students post one sentence in Slack. Read responses aloud, comment on patterns. Land: weeks of assumption-testing compressed into 30 minutes.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Key Learning Statement</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">What was something <em>surprising</em> you learned from watching someone use your prototype?</div>
+      <div class="debrief-sub">You just compressed weeks of assumption-testing into 30 minutes. Most teams spend months debating in conference rooms. You shipped, tested, and learned in the time of one meeting.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 18: Break ===== -->
+<div class="slide" data-notes="5-minute break. Stretch, hydrate, off-screen.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-break">Break</div>
+    <div class="mega" style="font-size:120px;">5:00</div>
+    <div class="mega-sub">Time for a 5-minute break — you've earned it ☕</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 19: Cameras On reminder ===== -->
+<div class="slide" data-notes="Quick re-energy reminder. Cameras back on, present and visible.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-recall">Welcome Back</div>
+    <h2>Cameras On 🎥</h2>
+    <div class="subtitle" style="margin:0 auto;">It's always better to see your smiling face. Be present and visible to stay engaged and keep interactions valuable.</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 20: Instructor Demo — Basic to Pro ===== -->
+<div class="slide" data-notes="Instructor-Led Demo 2 (15 min). Use a Demo 1 prototype as starting point. Three steps: (1) Design system matching with Mobbin screenshot — 5 min, (2) Add interactivity — progress tracker, recommendation cards, loading skeleton — 5 min, (3) Surgical multi-prompt refinement on one weak section — 5 min. Land: speed + direction + quality through compounding iteration.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-demo">Instructor-Led Demo · 15 Minutes</div>
+    <h2>Moving From Basic to Pro — The Art of Iteration</h2>
+    <div class="subtitle">Demo 1 answered <em>"What should I build?"</em> Demo 2 answers <em>"How do I make this real?"</em></div>
+    <div class="problem-block">
+      <div class="problem-label">The Problem</div>
+      <div class="problem-text">You have three working prototypes — but they all look like "vibe" sketches. Your VP of Design won't look at them because they don't match the brand. Your Engineering Lead says they're too generic to be useful.</div>
+      <div class="problem-zinger">Speed got you the idea. Now strategic iteration must get you the buy-in.</div>
+    </div>
+    <div class="grid-3">
+      <div class="card"><div class="card-label">5 min · Step 1</div><div class="card-title">Design System Matching</div><div class="card-desc">Feed a Mobbin screenshot into Lovable; redesign the prototype to match aesthetics, layout, and palette.</div></div>
+      <div class="card"><div class="card-label">5 min · Step 2</div><div class="card-title">Add Interactivity</div><div class="card-desc">Functional progress tracker, actionable recommendation cards, loading skeleton — clickable, not just pretty.</div></div>
+      <div class="card"><div class="card-label">5 min · Step 3</div><div class="card-title">Surgical Refinement</div><div class="card-desc">Use focused prompts to fix one weak section without rebuilding. Compounding improvements > starting over.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 21: Section divider — Lab 2 ===== -->
+<div class="slide" data-notes="Section opener for block 03 — second hands-on lab. Energy shift: from speed to precision.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">03 — HANDS-ON LAB</div>
+    <div class="section-title">Strategically Refine Your Build in Lovable</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 22: Lab Exercise — Strategically Refine ===== -->
+<div class="slide" data-notes="Individual Exercise (15 min). Students return to their Lab 1 prototype. Push them to choose two distinct upgrades. If a student is stuck on a bug for &gt;3 min, pivot to a different upgrade. Watch credit drain — script refinements outside Lovable. Final 2 min: shareable link warning before the Before/After breakout.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-exercise">Individual Exercise · 15 Minutes</div>
+    <h2>Strategically Refine Your Build in Lovable</h2>
+    <div class="subtitle">Take your Lab 1 prototype and apply at least <strong>two strategic upgrades</strong> to move it from a "vibe" sketch to a professional tool a VP would credibly review.</div>
+    <div class="grid-2">
+      <div>
+        <div class="step-list" style="margin:0;">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Identify the weakest section</div><div class="step-desc">Return to your Lab 1 prototype in Lovable. Where does the "vibe" feel thinnest?</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Pick at least two upgrades</div><div class="step-desc">Choose from the four upgrade paths on the right.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Generate the upgraded link</div><div class="step-desc">Prepare to share before/after screenshots in Slack.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card"><div class="card-label">Upgrade Paths</div>
+          <ul style="margin-top:6px;">
+            <li><strong>Design Match</strong> — clone colors, layout, navigation from a Mobbin screenshot.</li>
+            <li><strong>Add Interactivity</strong> — functional filter, working detail view, validating form.</li>
+            <li><strong>Refine without Rebuilding</strong> — focused surgical prompt on one specific section.</li>
+            <li><strong>Existing Product Track</strong> — match your company's design system; layer your new feature on top.</li>
+          </ul>
+        </div>
+        <div class="callout" style="margin-top:10px;">
+          <div class="callout-label">Keep in mind</div>
+          <div class="callout-text">Solo build. Final prototype should feel like something you'd <strong>proudly show your VP</strong>. Watch your credits — build prompts outside Lovable when possible.</div>
+        </div>
+        <a class="bottom-cta" href="#">✍️ Return to the Module 1 Lab Guide</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 23: Breakout — Swap and Review Refined ===== -->
+<div class="slide" data-notes="Breakout Group Exercise (10 min). New pairs. Same protocol — swap links, 3 min silent exploration, 2 min feedback on the 3 questions. Swap and repeat. This is a blind stress test of the iteration.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Breakout Group Exercise · 10 Minutes</div>
+    <h2>Swap and Review Your Refined Prototype</h2>
+    <div class="subtitle">Pair with a <strong>new</strong> peer to see if your refinements stand up to fresh eyes. A blind stress test — has your iteration moved the build from rough sketch to professional tool?</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Swap prototype links in the chat</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Explore silently for 3 minutes</div><div class="step-desc">No verbal context given or received.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Discuss, then swap and repeat</div></div></div>
+    </div>
+    <div class="debrief-box">
+      <div class="debrief-meta">Feedback Discussion</div>
+      <ul>
+        <li>Does this feel like a <strong>real product</strong> or just a visual mockup?</li>
+        <li>Where did the <strong>interactivity fail</strong> to meet your expectations as a user?</li>
+        <li>Would you show this to your <strong>VP</strong> as a credible representation of a solution?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 24: Quick Debrief — Production-Readiness Score ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Have students post their 1–5 score in Slack with before/after screenshots and a brief 'why'. Encourage naming the specific upgrade that bumped their score. For 1s and 2s — ask if it was the tool's output or their prompting strategy.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Prototype-Readiness Score</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">Share before/after screenshots, score your refined prototype <em>1–5</em>, and explain why.</div>
+    </div>
+    <div class="score-row">
+      <div class="score-cell"><div class="score-num">1</div><div class="score-label">Just a Sketch</div><div class="score-desc">Exists, but not ready for eyes.</div></div>
+      <div class="score-cell"><div class="score-num">2</div><div class="score-label">Rough Direction</div><div class="score-desc">Good idea, no execution.</div></div>
+      <div class="score-cell"><div class="score-num">3</div><div class="score-label">Getting There</div><div class="score-desc">Recognizable, not functional.</div></div>
+      <div class="score-cell"><div class="score-num">4</div><div class="score-label">Team Ready</div><div class="score-desc">I'd show my immediate team.</div></div>
+      <div class="score-cell"><div class="score-num">5</div><div class="score-label">VP Ready</div><div class="score-desc">I'd show leadership tomorrow.</div></div>
+    </div>
+    <p style="margin-top:8px; font-size:14px; color:#8899bb;">Example: <em>"4/5 — design matching makes it look official, even if the data is fake."</em></p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 25: Section divider — From Prompt to Functional Strategy ===== -->
+<div class="slide" data-notes="Section opener for block 04 — synthesis. Move from doing to thinking strategically about what was just done.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">04 — SYNTHESIS</div>
+    <div class="section-title">From Prompt to Functional Strategy</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 26: The Confidence Line ===== -->
+<div class="slide" data-notes="The Confidence Line is the North Star for the whole course. Three phases: Phase 1 High Ambiguity (today), Phase 2 Gaining Clarity (M3–M4), Phase 3 Production Confidence (M5–M6). Every prompt is a choice — explore or refine. To move from ambiguity to confidence, stop building toys and start building tools.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">The Confidence Line</div>
+    <h2>Move Your Idea Across the Confidence Line</h2>
+    <div class="subtitle">The goal of Vibe Coding is to systematically <strong>kill ambiguity</strong> and replace it with <strong>evidence</strong>. Every module pushes you further across this line.</div>
+    <div class="phase-grid">
+      <div class="phase-card p1">
+        <div class="phase-num">PHASE 1</div>
+        <div class="phase-title">🌫️ High Ambiguity</div>
+        <ul>
+          <li>Explore multiple product directions</li>
+          <li>Compress feedback to hours</li>
+          <li>Kill or validate ideas</li>
+        </ul>
+        <div class="phase-tag">Thrive in the unknown. Build to think.</div>
+      </div>
+      <div class="phase-card p2">
+        <div class="phase-num">PHASE 2</div>
+        <div class="phase-title">🔍 Gaining Clarity</div>
+        <ul>
+          <li>Apply context and intent</li>
+          <li>Build functional, living specs</li>
+          <li>Debug and refactor logic</li>
+        </ul>
+        <div class="phase-tag">Master precision. Vibe → structure.</div>
+      </div>
+      <div class="phase-card p3">
+        <div class="phase-num">PHASE 3</div>
+        <div class="phase-title">✅ Production Confidence</div>
+        <ul>
+          <li>Integrate APIs and data</li>
+          <li>Test messy real-world cases</li>
+          <li>Deploy live, production URLs</li>
+        </ul>
+        <div class="phase-tag">Handle complexity. Bridge to reality.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:15px; color:#8899bb;">Your job as a PM is to <em>manage</em> this line.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 27: From Toy to Tool ===== -->
+<div class="slide" data-notes="Connect today's score to the bigger frame. Toy = looks impressive, proves nothing, dies after the demo. Tool = looks real, validates an assumption, survives use. The score they gave their prototype is the gap the rest of the course closes.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">📦 Prototype</div>
+    <h2>From Toy to Tool</h2>
+    <div class="vs-grid">
+      <div class="vs-card vs-toy">
+        <div class="vs-label">The Old Way</div>
+        <h3>The Toy</h3>
+        <p>Looks impressive. <strong>Proves nothing.</strong></p>
+        <p>Generates applause, not insights.</p>
+        <p>No logic behind the screen.</p>
+        <p>Dies after the demo.</p>
+      </div>
+      <div class="vs-card vs-tool">
+        <div class="vs-label">The New Way</div>
+        <h3>The Tool</h3>
+        <p>Looks real. <strong>Proves something works.</strong></p>
+        <p>Validates an assumption with clickable evidence.</p>
+        <p>Handles at least one real user flow end-to-end.</p>
+        <p>Survives when someone else uses it.</p>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:16px; color:#e0e0f0; font-weight:600;">The score you gave your prototype — was it a toy or a tool? <em>That gap is what the rest of this course closes.</em></p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 28: Quick Debrief — Accountability ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Have students post one learning sentence in Slack and reply to two peers. Read aloud, comment on patterns. Acknowledging others' insights matters more than 'liking'.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Accountability Statement</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">What is one thing you learned about your product idea that you didn't know <em>60 minutes ago</em>?</div>
+      <div class="debrief-sub">Then reply to <strong>2 other learning sentences</strong> from your peers.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 29: Module 1 Complete ===== -->
+<div class="slide" data-notes="Land the plane. Shift students' identity from PM to Builder. They collapsed a two-week cycle into one afternoon — that isn't faster, that's independence. Set up M2: now you have raw speed, M2 applies the validation lens.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Module 1 Complete</div>
+    <h2>What You Accomplished Today</h2>
+    <div class="complete-stats">
+      <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Prototypes Built</div><div class="stat-desc">From first prompt to shareable URL in under 60 minutes — twice.</div></div>
+      <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Feedback Loops</div><div class="stat-desc">Real users testing your assumptions, not your opinions.</div></div>
+      <div class="stat-card"><div class="stat-num">67%</div><div class="stat-label">Hands-On Time</div><div class="stat-desc">More time building than any PM course on the market.</div></div>
+    </div>
+    <div class="shifts">
+      <div class="shift-card">
+        <div class="shift-label">Shift 1</div>
+        <div class="shift-title">The Mental Barrier — Removed</div>
+        <div class="shift-desc">You built functional software without writing a single line of code. The wall between thinking and building is gone. You're no longer waiting on engineering to validate your product instincts — you validated them yourself, today, in real time.</div>
+      </div>
+      <div class="shift-card">
+        <div class="shift-label">Shift 2</div>
+        <div class="shift-title">Tool vs. Toy — Learned</div>
+        <div class="shift-desc">If your prototype helped you decide something, it's a tool. If it only looked cool, it's a toy. You built tools today. That distinction sharpens everything you ship from here.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:16px; color:#fff; font-weight:700;">Next: Module 2 — You can build fast. Now, are you building the <em>right thing</em>?</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 30: Key Takeaways ===== -->
+<div class="slide" data-notes="Quick recap of three principles. Don't add new content — anchor the day in three sentences students can repeat tomorrow.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Key Takeaways</div>
+    <h2>Activate Vibe Coding Speed</h2>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">PMs use AI to bypass technical bottlenecks</div><div class="wt-desc">Move from concept to functional URL. Build to <em>think</em> — the prototype is the primary vehicle for exploration.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">PMs evolve prototypes from vibes to functional tools</div><div class="wt-desc">Layer interactivity and precise intent. Rapid loops validate user intent and refine logic — weeks compressed into one session.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Every build must move the Confidence Line</div><div class="wt-desc">A prototype is a tool only when it answers a product question rather than providing visual polish.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 31: Next Session + Extra Practice ===== -->
+<div class="slide" data-notes="Preview Module 2 + offer optional extra practice. Dig Deeper is for students who want more — not required.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Next Session &amp; Extra Practice</div>
+    <h2>Module 2 — Sharpen Intent with Strategic Prototypes</h2>
+    <div class="subtitle">Move beyond "vibe" coding by naming the assumption and defining exactly what you're testing <strong>before</strong> you open the tool. Apply the validation framework and choose the right fidelity for your build intent.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">⏩ Extra Practice 1</div>
+        <div class="card-title">Pick an Alternative Lab Scenario</div>
+        <div class="card-desc">Return to Lab 1, choose a <em>different</em> scenario, and try your vibe build again. Pick one you're less familiar with to challenge your speed.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">⏩ Extra Practice 2</div>
+        <div class="card-title">Swap Your Vibe Coding Tool</div>
+        <div class="card-desc">Try the same scenario in <strong>Bolt or Cursor</strong>. Compare outputs. Which was easier? Which gave you the best V1?</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:14px; color:#8899bb;">Optional. For anyone who wants to push further on their own time.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 32: Survey ===== -->
+<div class="slide" data-notes="Daily survey at the end of every class. 1–2 min max. Reinforce: like real PMs, we iterate based on signal. Drop the link in chat.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-lecture">Your Opinion Matters</div>
+    <h2>Day 1 Survey</h2>
+    <div class="subtitle" style="margin:0 auto;">At the end of each session, scan the QR or use the link to share your feedback. Your insights help us improve and make each cohort better than the last.</div>
+    <div class="card" style="margin:18px auto 0; max-width:340px; text-align:center;">
+      <div style="font-size:64px; line-height:1;">📋</div>
+      <div class="card-title" style="margin-top:12px;">🔗 Day 1 Survey Link</div>
+      <div class="card-desc">Takes ~2 minutes. We read every response.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 33: Bonus Resources ===== -->
+<div class="slide" data-notes="Point students to the Module 1 Lab Guide, the Final Project Brief, and the Deliverables Template. All linked in Slack and the LMS.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Bonus Resources</div>
+    <h2>Resources &amp; Templates</h2>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-tag">Hands-On Lab Walkthrough</div>
+        <div class="res-title">Module 1 Lab Guide</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Vibe Coding Certification</div>
+        <div class="res-title">Final Project Brief &amp; Deliverables</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Vibe Coding Certification</div>
+        <div class="res-title">Final Project Deliverables Template</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:14px; color:#8899bb;">Bookmark these — you'll return to them across all six modules.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 34: Q&A ===== -->
+<div class="slide" data-notes="Open the floor. Encourage Slack follow-ups for questions that arise after class.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-activity">Q&amp;A</div>
+    <div class="mega" style="font-size:80px;">Questions?</div>
+    <div class="mega-sub">Dive deeper into anything we covered — or drop questions in Slack any time.</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 35: End ===== -->
+<div class="slide" data-notes="Thank you. See you in Module 2.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="mega">Thank you 💥</div>
+    <div class="mega-sub">See you in Module 2 — Sharpen Intent with Strategic Prototypes</div>
+  </div>
+</div>
+
+<!-- ===== UI CHROME ===== -->
+<div class="nav">
+  <button class="nav-btn" onclick="prev()" title="Previous (←)">‹</button>
+  <button class="nav-btn" onclick="next()" title="Next (→)">›</button>
+</div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">1</span></div>
+<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+<div class="help-hint">← → navigate · S notes · F fullscreen · K skip · M sorter</div>
+<div class="speaker-notes" id="speaker-notes">
+  <div class="notes-tag">Speaker Notes</div>
+  <div id="notes-content"></div>
+</div>
+<div class="skip-badge" id="skip-badge" onclick="toggleSkip(current)" title="Click to unskip (K)">SKIPPED</div>
+<div class="slide-sorter" id="slide-sorter">
+  <div class="sorter-header">
+    <div><div class="sorter-title">Slide Sorter</div><div class="sorter-subtitle">Click a slide to jump · Toggle skip to hide during presentation</div></div>
+    <button class="sorter-close" onclick="closeSorter()" title="Close (M / Esc)">✕</button>
+  </div>
+  <div class="sorter-grid" id="sorter-grid"></div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let notesVisible = false;
+  let sorterVisible = false;
+
+  const STORAGE_KEY = 'skip-slides-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
+  const skippedSlides = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+  function saveSkips() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...skippedSlides]));
+  }
+
+  function getActiveSlides() {
+    return [...Array(total).keys()].filter(i => !skippedSlides.has(i));
+  }
+
+  function show(idx) {
+    slides.forEach((s, i) => { s.classList.toggle('active', i === idx); });
+    current = idx;
+    const active = getActiveSlides();
+    const posInActive = active.indexOf(idx);
+    const displayPos = posInActive >= 0 ? posInActive + 1 : '•';
+    document.getElementById('current').textContent = displayPos;
+    document.getElementById('total').textContent = active.length;
+    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
+    document.getElementById('progress-bar').style.width = progress + '%';
+    const notes = slides[idx].getAttribute('data-notes') || '';
+    document.getElementById('notes-content').innerHTML = notes || '<em style="color:#444;">No notes for this slide.</em>';
+    document.getElementById('skip-badge').classList.toggle('visible', skippedSlides.has(idx));
+  }
+
+  function nextActive(from, dir) {
+    let i = from + dir;
+    while (i >= 0 && i < total) {
+      if (!skippedSlides.has(i)) return i;
+      i += dir;
+    }
+    return -1;
+  }
+
+  function next() { const n = nextActive(current, 1); if (n >= 0) show(n); }
+  function prev() { const n = nextActive(current, -1); if (n >= 0) show(n); }
+
+  function toggleSkip(idx) {
+    if (skippedSlides.has(idx)) skippedSlides.delete(idx);
+    else skippedSlides.add(idx);
+    saveSkips();
+    show(current);
+    if (sorterVisible) renderSorter();
+  }
+
+  function getSlideLabel(el) {
+    const h = el.querySelector('h1, h2');
+    if (h) return h.textContent.trim().substring(0, 50);
+    const sectionTitle = el.querySelector('.section-title');
+    if (sectionTitle) return sectionTitle.textContent.trim().substring(0, 50);
+    const tag = el.querySelector('.module-tag, .demo-tag');
+    if (tag) return tag.textContent.trim();
+    return 'Slide';
+  }
+
+  function getSlideTag(el) {
+    const tag = el.querySelector('.demo-tag');
+    if (!tag) return '';
+    const cls = [...tag.classList].find(c => c.startsWith('tag-'));
+    const label = tag.textContent.trim().substring(0, 28);
+    const style = cls ? `class="sorter-tag ${cls}"` : 'class="sorter-tag" style="background:rgba(255,255,255,0.06);color:#556;"';
+    return `<span ${style}>${label}</span>`;
+  }
+
+  function renderSorter() {
+    const grid = document.getElementById('sorter-grid');
+    grid.innerHTML = '';
+    slides.forEach((s, i) => {
+      const isSkipped = skippedSlides.has(i);
+      const isCurrent = i === current;
+      const div = document.createElement('div');
+      div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
+      div.innerHTML = `
+        <div class="sorter-num">Slide ${i + 1}</div>
+        ${getSlideTag(s)}
+        <div class="sorter-label">${getSlideLabel(s)}</div>
+        <button class="sorter-skip-btn ${isSkipped ? 'skip-on' : 'skip-off'}"
+                onclick="event.stopPropagation(); toggleSkip(${i})">
+          ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
+        </button>`;
+      div.addEventListener('click', () => { show(i); closeSorter(); });
+      grid.appendChild(div);
+    });
+  }
+
+  function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
+  function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
+
+  document.addEventListener('keydown', e => {
+    if (sorterVisible) {
+      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    else if (e.key === 's' || e.key === 'S') {
+      notesVisible = !notesVisible;
+      document.getElementById('speaker-notes').classList.toggle('visible', notesVisible);
+    }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+    else if (e.key === 'k' || e.key === 'K') { toggleSkip(current); }
+    else if (e.key === 'm' || e.key === 'M') { e.preventDefault(); openSorter(); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) { diff > 0 ? next() : prev(); }
+  });
+
+  show(0);
+</script>
+</body>
+</html>

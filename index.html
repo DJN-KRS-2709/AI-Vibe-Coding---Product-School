@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding — Course Modules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Lato:wght@300;400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #07162C;
+  color: #e8e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+.bg-glow {
+  position: fixed; top: -20%; left: -10%; width: 60%; height: 70%;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.13) 0%, transparent 70%);
+  z-index: 0; pointer-events: none;
+}
+.bg-glow-2 {
+  position: fixed; bottom: -30%; right: -15%; width: 55%; height: 60%;
+  background: radial-gradient(ellipse, rgba(18,65,176,0.10) 0%, transparent 70%);
+  z-index: 0; pointer-events: none;
+}
+
+.container {
+  position: relative; z-index: 1;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 64px 40px 80px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 64px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #8899bb;
+  margin-bottom: 28px;
+}
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #1241B0; box-shadow: 0 0 12px rgba(18,65,176,0.6);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.label {
+  display: inline-block;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #60a5fa; margin-bottom: 22px;
+  background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.18);
+  padding: 6px 18px; border-radius: 20px;
+}
+
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 56px; font-weight: 900; color: #fff; line-height: 1.05;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+h1 span { color: #3b82f6; }
+
+.subtitle {
+  font-size: 18px; color: #8899bb; max-width: 580px; margin: 0 auto; line-height: 1.65;
+}
+.subtitle em { color: #60a5fa; font-style: normal; font-weight: 600; }
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.module-card {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  padding: 36px 32px 36px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  animation: fadeUp 0.6s ease both;
+  display: block;
+}
+.module-card:nth-child(1) { animation-delay: 0.08s; }
+.module-card:nth-child(2) { animation-delay: 0.14s; }
+.module-card:nth-child(3) { animation-delay: 0.20s; }
+.module-card:nth-child(4) { animation-delay: 0.26s; }
+.module-card:nth-child(5) { animation-delay: 0.32s; }
+.module-card:nth-child(6) { animation-delay: 0.38s; }
+
+.module-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.module-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--accent-glow), transparent 60%);
+  opacity: 0; transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.module-card:hover::before { transform: scaleX(1); }
+.module-card:hover::after { opacity: 0.18; }
+.module-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px var(--accent-glow);
+  background: rgba(255,255,255,0.05);
+}
+
+.module-card-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.module-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.module-phase {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 700; color: #556;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.module-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px; font-weight: 800; color: #fff;
+  margin-bottom: 10px; line-height: 1.2;
+}
+
+.module-question {
+  font-size: 15px; color: var(--accent); font-weight: 600;
+  margin-bottom: 14px; font-style: italic;
+}
+
+.module-desc {
+  font-size: 14px; color: #8899bb; line-height: 1.65;
+  padding-right: 44px;
+}
+
+.module-arrow {
+  position: absolute; bottom: 30px; right: 30px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #556;
+  transition: all 0.3s;
+}
+.module-card:hover .module-arrow {
+  background: var(--accent); border-color: var(--accent);
+  color: #fff; transform: translateX(2px);
+}
+
+/* Confidence Line strip */
+.confidence-strip {
+  margin: 56px 0 0;
+  padding: 28px 32px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  animation: fadeUp 0.8s ease 0.45s both;
+}
+.cl-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #60a5fa;
+  margin-bottom: 14px; text-align: center;
+}
+.cl-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+}
+.cl-cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  border-top: 3px solid var(--cl);
+}
+.cl-phase {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px; font-weight: 700; color: #fff;
+  margin-bottom: 4px;
+}
+.cl-mods {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; color: #556; letter-spacing: 0.10em;
+  margin-bottom: 6px;
+}
+.cl-desc {
+  font-size: 12px; color: #8899bb; line-height: 1.5;
+}
+
+footer {
+  text-align: center; margin-top: 56px;
+  animation: fadeUp 0.8s ease 0.55s both;
+}
+.footer-line {
+  font-size: 13px; color: #445; letter-spacing: 0.04em;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.footer-line strong { color: #8899bb; font-weight: 600; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .container { padding: 44px 20px 60px; }
+  h1 { font-size: 38px; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .module-title { font-size: 22px; }
+  .module-desc { padding-right: 0; }
+  .cl-bar { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+
+<div class="container">
+  <header>
+    <div class="brand"><span class="brand-dot"></span><span>Product School · Vibe Coding</span></div>
+    <div class="label">6-Module Certification</div>
+    <h1>Vibe <span>Coding</span></h1>
+    <p class="subtitle">Six sessions. One shipped product. Each module moves you across the <em>Confidence Line</em> — from ambiguity to a live, data-validated build.</p>
+  </header>
+
+  <div class="modules-grid">
+    <a class="module-card" style="--accent:#60a5fa; --accent-glow:rgba(96,165,250,0.16);" href="Modules/Module%201%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 1</div>
+        <div class="module-phase">Phase 1 · High Ambiguity</div>
+      </div>
+      <div class="module-title">Activate Vibe Coding Speed</div>
+      <div class="module-question">How fast can you go from ambiguity to evidence?</div>
+      <div class="module-desc">Run the full Build–Show–Learn–Decide cycle in a single session. Apply the Confidence Line to ship a working prototype from a vague problem statement.</div>
+      <div class="module-arrow">→</div>
+    </a>
+
+    <a class="module-card" style="--accent:#fbbf24; --accent-glow:rgba(251,191,36,0.18);" href="Modules/Module%202%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 2</div>
+        <div class="module-phase">Phase 1 · High Ambiguity</div>
+      </div>
+      <div class="module-title">Sharpen Prototyping Intent</div>
+      <div class="module-question">Are you solving the right problem?</div>
+      <div class="module-desc">Map assumptions and apply a validation lens before opening the toolkit. Inject hypotheses, real data, and user voice to build prototypes that answer the why.</div>
+      <div class="module-arrow">→</div>
+    </a>
+
+    <a class="module-card" style="--accent:#c4b5fd; --accent-glow:rgba(196,181,253,0.18);" href="Modules/Module%203%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 3</div>
+        <div class="module-phase">Phase 2 · Gaining Clarity</div>
+      </div>
+      <div class="module-title">Ensure Complex System Stability</div>
+      <div class="module-question">Can your build hold up across multiple screens?</div>
+      <div class="module-desc">Master context layering and constraint grounding. Orchestrate multi-screen architectures with prompt chaining to maintain fidelity as complexity scales.</div>
+      <div class="module-arrow">→</div>
+    </a>
+
+    <a class="module-card" style="--accent:#6ee7b7; --accent-glow:rgba(110,231,183,0.16);" href="Modules/Module%204%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 4</div>
+        <div class="module-phase">Phase 2 · Gaining Clarity</div>
+      </div>
+      <div class="module-title">Transition to Production Specs</div>
+      <div class="module-question">Is your build ready for engineering hands?</div>
+      <div class="module-desc">Refactor the prototype into a Living PRD. Connect Lovable to GitHub and Supabase. Formalize the logic to command the engineering handoff with technical rigor.</div>
+      <div class="module-arrow">→</div>
+    </a>
+
+    <a class="module-card" style="--accent:#f472b6; --accent-glow:rgba(244,114,182,0.18);" href="Modules/Module%205%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 5</div>
+        <div class="module-phase">Phase 3 · Production Confidence</div>
+      </div>
+      <div class="module-title">Ship Live with Full-Stack Logic</div>
+      <div class="module-question">Is your product live, secure, and resilient?</div>
+      <div class="module-desc">Connect to live databases and secure APIs. Lock down with RLS, harden against edge cases, and deploy an integrated, production-ready product to a live URL.</div>
+      <div class="module-arrow">→</div>
+    </a>
+
+    <a class="module-card" style="--accent:#34d399; --accent-glow:rgba(52,211,153,0.16);" href="Modules/Module%206%20-%20Slides.html">
+      <div class="module-card-head">
+        <div class="module-num">Module 6</div>
+        <div class="module-phase">Phase 3 · Production Confidence</div>
+      </div>
+      <div class="module-title">Measure for AI-Driven Iteration</div>
+      <div class="module-question">Does the data confirm or contradict your hypothesis?</div>
+      <div class="module-desc">Replace "I think" with "the data shows." Use AI-driven analytics to identify friction across three layers, then redeploy improvements that secure the Confidence Line.</div>
+      <div class="module-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="confidence-strip">
+    <div class="cl-label">⎯⎯  The Confidence Line  ⎯⎯</div>
+    <div class="cl-bar">
+      <div class="cl-cell" style="--cl:#60a5fa;">
+        <div class="cl-phase">Phase 1 · High Ambiguity</div>
+        <div class="cl-mods">Modules 1–2</div>
+        <div class="cl-desc">Velocity and validation. Move from blank page to evidence.</div>
+      </div>
+      <div class="cl-cell" style="--cl:#c4b5fd;">
+        <div class="cl-phase">Phase 2 · Gaining Clarity</div>
+        <div class="cl-mods">Modules 3–4</div>
+        <div class="cl-desc">Architecture and rigor. Stable systems, handoff-ready specs.</div>
+      </div>
+      <div class="cl-cell" style="--cl:#34d399;">
+        <div class="cl-phase">Phase 3 · Production Confidence</div>
+        <div class="cl-mods">Modules 5–6</div>
+        <div class="cl-desc">Ship live, then iterate from real-world signal.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-line"><strong>Product School</strong> &nbsp;·&nbsp; Vibe Coding Certification</p>
+  </footer>
+</div>
+
+</body>
+</html>

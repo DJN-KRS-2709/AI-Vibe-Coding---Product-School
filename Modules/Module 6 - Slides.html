@@ -3,698 +3,730 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 6: Measure, Learn, Iterate</title>
+<title>Module 6: Measure Product Performance for AI-Driven Iteration</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; background: #07162C; }
+  body { font-family: 'Lato', -apple-system, sans-serif; color: #e8e8f0; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: 'Poppins', sans-serif; }
 
-  html, body { height: 100%; overflow: hidden; background: #0f0f13; }
-
-  body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    color: #e8e8f0;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .slide {
-    position: absolute; inset: 0;
-    display: none; flex-direction: column;
-    justify-content: center; align-items: center;
-    padding: 60px 80px;
-    opacity: 0; transition: opacity 0.35s ease;
-  }
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 56px 80px; opacity: 0; transition: opacity 0.35s ease; overflow-y: auto; }
   .slide.active { display: flex; opacity: 1; }
+  .slide-inner { max-width: 1000px; width: 100%; }
 
-  .slide-inner { max-width: 960px; width: 100%; }
-
-  .module-tag {
-    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
-    text-transform: uppercase; color: #f97316; margin-bottom: 16px;
-  }
-
-  h1 {
-    font-size: 48px; font-weight: 900; line-height: 1.1;
-    color: #fff; margin-bottom: 20px;
-  }
-  h2 {
-    font-size: 38px; font-weight: 800; line-height: 1.15;
-    color: #fff; margin-bottom: 18px;
-  }
-  h3 {
-    font-size: 24px; font-weight: 700; line-height: 1.3;
-    color: #e0e0f0; margin-bottom: 12px;
-  }
-
-  .subtitle {
-    font-size: 18px; font-weight: 400; color: #8899bb;
-    line-height: 1.6; margin-bottom: 28px; max-width: 720px;
-  }
-  p, li { font-size: 18px; color: #b0b4c8; line-height: 1.7; }
-
+  .module-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1241B0; margin-bottom: 16px; }
+  h1 { font-size: 48px; font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 20px; }
+  h2 { font-size: 36px; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 18px; }
+  h3 { font-size: 22px; font-weight: 700; line-height: 1.3; color: #e0e0f0; margin-bottom: 12px; }
+  .subtitle { font-size: 18px; font-weight: 400; color: #8899bb; line-height: 1.6; margin-bottom: 24px; max-width: 820px; }
+  p, li { font-size: 17px; color: #b0b4c8; line-height: 1.65; }
   ul { list-style: none; padding: 0; }
-  ul li { padding: 6px 0; padding-left: 24px; position: relative; }
-  ul li::before {
-    content: ''; position: absolute; left: 0; top: 14px;
-    width: 8px; height: 8px; border-radius: 2px; background: #f97316;
-  }
+  ul li { padding: 5px 0 5px 24px; position: relative; }
+  ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 2px; background: #1241B0; }
   strong { color: #fff; font-weight: 700; }
-  em { color: #fdba74; font-style: normal; font-weight: 600; }
-
-  .accent { color: #fb923c; }
+  em { color: #60a5fa; font-style: normal; font-weight: 600; }
+  .accent { color: #60a5fa; }
+  .muted { color: #8899bb; }
+  .warn { color: #f87171; }
   .success { color: #34d399; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
 
-  .waypoints { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
-  .waypoint {
-    display: flex; align-items: flex-start; gap: 18px;
-    background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.15);
-    border-radius: 12px; padding: 20px 24px;
-  }
-  .waypoint-num {
-    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 800; color: #fff; background: #f97316;
-  }
+  .demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; }
+  .tag-lecture { background: rgba(96,165,250,0.12); color: #93c5fd; }
+  .tag-framework { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-case { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-demo { background: rgba(124,58,237,0.18); color: #c4b5fd; }
+  .tag-exercise { background: rgba(52,211,153,0.14); color: #6ee7b7; }
+  .tag-activity { background: rgba(192,132,252,0.14); color: #d8b4fe; }
+  .tag-debrief { background: rgba(244,114,182,0.14); color: #f9a8d4; }
+  .tag-break { background: rgba(100,116,139,0.16); color: #94a3b8; }
+  .tag-recall { background: rgba(59,130,246,0.14); color: #93c5fd; }
+  .tag-section { background: rgba(18,65,176,0.20); color: #93c5fd; }
+
+  .waypoints { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+  .waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(18,65,176,0.08); border: 1px solid rgba(18,65,176,0.22); border-radius: 12px; padding: 18px 22px; }
+  .waypoint-num { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; background: #1241B0; font-family: 'Poppins', sans-serif; }
   .waypoint-text { flex: 1; }
-  .waypoint-text .wt-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-  .waypoint-text .wt-desc { font-size: 15px; color: #8899bb; line-height: 1.5; }
+  .wt-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .wt-desc { font-size: 14px; color: #8899bb; line-height: 1.55; }
 
-  .agenda { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
-  .agenda-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 18px; background: #161822; border-radius: 8px;
-  }
-  .agenda-num { font-size: 14px; font-weight: 800; color: #f97316; min-width: 24px; }
+  .card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 18px 22px; }
+  .card-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .card-desc { font-size: 14px; color: #b0b4c8; line-height: 1.55; }
+  .card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+  @media (min-width: 1100px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+  .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+
+  .ce-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .ce-icon { font-size: 22px; }
+  .ce-body .ce-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .ce-body .ce-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+
+  .syllabus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .syllabus-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .syllabus-card.syl-active { border-color: #1241B0; background: rgba(18,65,176,0.16); box-shadow: 0 0 14px rgba(18,65,176,0.25); }
+  .syl-mod { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .syl-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.25; }
+  .syl-desc { font-size: 12px; color: #8899bb; line-height: 1.5; }
+
+  .agenda { display: flex; flex-direction: column; gap: 9px; margin: 18px 0; }
+  .agenda-item { display: flex; align-items: center; gap: 16px; padding: 12px 18px; background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; }
+  .agenda-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; min-width: 28px; }
   .agenda-text { font-size: 15px; color: #b0b4c8; }
-  .agenda-text strong { color: #e0e0f0; }
+  .agenda-text strong { color: #fff; }
 
-  .demo-tag {
-    display: inline-block; font-size: 11px; font-weight: 800;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 6px 16px; border-radius: 6px; margin-bottom: 18px;
-  }
-  .tag-demo { background: rgba(249,115,22,0.15); color: #fdba74; }
-  .tag-lab { background: rgba(5,150,105,0.12); color: #6ee7b7; }
-  .tag-teaching { background: rgba(234,179,8,0.15); color: #fde047; }
-  .tag-gallery { background: rgba(168,85,247,0.12); color: #d8b4fe; }
-  .tag-present { background: rgba(225,29,72,0.12); color: #fda4af; }
-  .tag-celebrate { background: rgba(234,179,8,0.15); color: #fde047; }
+  .section-frame { text-align: left; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; letter-spacing: 0.18em; margin-bottom: 14px; }
+  .section-title { font-family: 'Poppins', sans-serif; font-size: 56px; font-weight: 800; line-height: 1.05; color: #fff; max-width: 900px; }
 
-  .lab-step {
-    display: flex; gap: 16px; align-items: flex-start;
-    margin: 12px 0; padding: 16px 20px;
-    background: rgba(5,150,105,0.05); border: 1px solid rgba(5,150,105,0.15);
-    border-radius: 10px;
-  }
-  .lab-step-num {
-    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 800; color: #fff; background: #059669;
-  }
-  .lab-step-body .ls-title { font-size: 15px; font-weight: 700; color: #e0e0f0; margin-bottom: 2px; }
-  .lab-step-body .ls-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.18); border-radius: 10px; }
+  .step-num { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; background: #059669; font-family: 'Poppins', sans-serif; }
+  .step-body .step-title { font-size: 15px; font-weight: 700; color: #e8e8f0; margin-bottom: 2px; }
+  .step-body .step-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
 
-  .prompt-box {
-    background: #161822; border: 1px solid #252840; border-radius: 10px;
-    padding: 18px 22px; margin: 16px 0;
-    font-family: 'JetBrains Mono', monospace; font-size: 14px;
-    color: #34d399; line-height: 1.7;
-  }
+  .goal-box { background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.22); border-radius: 10px; padding: 16px 20px; margin-top: 14px; }
+  .goal-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #60a5fa; margin-bottom: 6px; }
+  .goal-text { font-size: 15px; color: #e8e8f0; line-height: 1.55; }
 
-  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
-  .metric-card {
-    background: #161822; border: 1px solid #252840; border-radius: 10px; padding: 18px 20px;
-  }
-  .metric-card .mc-title { font-size: 14px; font-weight: 800; color: #f97316; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-  .metric-card li { font-size: 14px; padding: 3px 0 3px 20px; }
-  .metric-card li::before { width: 6px; height: 6px; top: 10px; }
+  .bottom-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 10px 16px; background: rgba(18,65,176,0.18); border: 1px solid rgba(18,65,176,0.35); border-radius: 8px; font-size: 13px; font-weight: 700; color: #93c5fd; text-decoration: none; }
 
-  .six-tabs {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 24px 0;
-  }
-  .tab {
-    background: #161822; border: 1px solid #252840; border-radius: 10px;
-    padding: 16px 10px; text-align: center;
-  }
-  .tab.active-tab { border-color: #f97316; background: rgba(249,115,22,0.06); }
-  .tab-mod {
-    font-size: 10px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.08em; margin-bottom: 4px;
-  }
-  .tab-mod.m1 { color: #60a5fa; } .tab-mod.m2 { color: #fbbf24; }
-  .tab-mod.m3 { color: #34d399; } .tab-mod.m4 { color: #c084fc; }
-  .tab-mod.m5 { color: #f87171; } .tab-mod.m6 { color: #f97316; }
-  .tab-name { font-size: 14px; font-weight: 700; color: #e0e0f0; margin-bottom: 3px; }
-  .tab-desc { font-size: 11px; color: #666; line-height: 1.3; }
+  .callout { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+  .callout-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fde68a; margin-bottom: 6px; }
+  .callout-text { font-size: 14px; color: #e0e0f0; line-height: 1.55; }
 
-  .pitch-format { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
-  .pitch-step {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 14px 20px; background: #161822; border-radius: 10px;
-  }
-  .pitch-time {
-    font-size: 12px; font-weight: 800; color: #f97316;
-    white-space: nowrap; min-width: 50px; padding-top: 2px;
-  }
-  .pitch-body .pb-title { font-size: 15px; font-weight: 700; color: #e0e0f0; margin-bottom: 2px; }
-  .pitch-body .pb-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+  .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .res-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .res-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .res-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+  .res-link { font-size: 12px; font-weight: 700; color: #93c5fd; }
 
-  .confidence-line { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
-  .conf-item {
-    display: flex; align-items: center; gap: 16px;
-    padding: 12px 20px; border-radius: 8px;
-  }
-  .conf-mod { font-size: 12px; font-weight: 800; min-width: 30px; }
-  .conf-bar {
-    height: 6px; border-radius: 3px; flex: 1; position: relative; overflow: hidden;
-  }
-  .conf-bar-fill { height: 100%; border-radius: 3px; }
-  .conf-label { font-size: 14px; font-weight: 600; color: #e0e0f0; min-width: 200px; text-align: right; }
+  .mega { font-family: 'Poppins', sans-serif; font-size: 96px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; text-align: center; }
+  .mega-sub { font-size: 18px; color: #8899bb; text-align: center; margin-top: 16px; }
 
-  .deliverable-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-  .deliverable {
-    background: #161822; border: 1px solid #252840; border-radius: 10px;
-    padding: 18px 20px;
-  }
-  .deliverable .del-num { font-size: 12px; font-weight: 800; color: #f97316; margin-bottom: 4px; }
-  .deliverable .del-title { font-size: 15px; font-weight: 700; color: #e0e0f0; margin-bottom: 4px; }
-  .deliverable .del-desc { font-size: 13px; color: #8899bb; line-height: 1.4; }
+  /* Iteration mindset */
+  .mindset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .mind-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 18px 20px; border-top: 3px solid #1241B0; }
+  .mind-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #60a5fa; letter-spacing: 0.14em; margin-bottom: 6px; }
+  .mind-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .mind-desc { font-size: 13px; color: #b0b4c8; line-height: 1.55; }
 
-  .gallery-rule {
-    display: flex; gap: 14px; align-items: flex-start;
-    padding: 14px 0; border-bottom: 1px solid #1e1e30;
-  }
-  .gallery-rule:last-child { border-bottom: none; }
-  .gr-num {
-    width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800; color: #fff; background: #7c3aed;
-  }
-  .gr-text { font-size: 15px; color: #b0b4c8; line-height: 1.5; padding-top: 3px; }
+  /* Metrics buckets */
+  .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 14px 0; }
+  @media (min-width: 1100px) { .metrics-grid { grid-template-columns: repeat(4, 1fr); } }
+  .metric-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 14px 16px; }
+  .metric-name { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .metric-q { font-size: 12px; color: #b0b4c8; line-height: 1.5; }
+  .metric-q em { color: #60a5fa; }
 
-  .big-quote {
-    font-size: 28px; font-weight: 700; color: #e0e0f0;
-    line-height: 1.5; text-align: center; max-width: 700px; margin: 0 auto;
-  }
-  .big-quote em { color: #fb923c; }
+  /* Analytics layers */
+  .layers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .layer-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 16px 18px; }
+  .layer-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #1241B0; letter-spacing: 0.14em; margin-bottom: 6px; }
+  .layer-name { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .layer-type { font-size: 12px; color: #fbbf24; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.04em; }
+  .layer-data { font-size: 13px; color: #b0b4c8; line-height: 1.55; }
 
-  .checklist-compact { margin: 16px 0; }
-  .checklist-compact li { font-size: 15px; padding: 4px 0 4px 24px; }
-  .checklist-compact li::before { width: 6px; height: 6px; top: 12px; background: #34d399; }
+  /* Old vs New */
+  .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .vs-card { border-radius: 12px; padding: 20px 22px; }
+  .vs-old { background: rgba(100,116,139,0.10); border: 1px solid rgba(100,116,139,0.22); }
+  .vs-new { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.20); }
+  .vs-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+  .vs-old .vs-tag { color: #94a3b8; }
+  .vs-new .vs-tag { color: #6ee7b7; }
+  .vs-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .vs-card p { font-size: 14px; color: #b0b4c8; line-height: 1.55; }
 
-  .flow-line { font-size: 16px; color: #555d6e; margin-top: 24px; }
+  /* Strategic prompt block */
+  .prompt-card { background: rgba(18,65,176,0.12); border: 1px solid rgba(18,65,176,0.30); border-radius: 12px; padding: 18px 22px; margin: 14px 0; }
+  .prompt-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; margin-bottom: 8px; }
+  .prompt-text { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.6; }
 
-  .cert-badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 120px; height: 120px; border-radius: 50%;
-    background: linear-gradient(135deg, #f97316, #ea580c);
-    font-size: 40px; margin: 0 auto 24px; box-shadow: 0 0 40px rgba(249,115,22,0.3);
-  }
+  /* Learner journey */
+  .journey-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
+  @media (min-width: 1100px) { .journey-grid { grid-template-columns: repeat(3, 1fr); } }
+  .journey-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 14px 16px; border-left: 3px solid #1241B0; }
+  .journey-mod { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; color: #60a5fa; letter-spacing: 0.12em; margin-bottom: 4px; }
+  .journey-shift { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .journey-desc { font-size: 12px; color: #8899bb; line-height: 1.45; }
 
-  .speaker-notes {
-    display: none; position: fixed; bottom: 0; left: 0; right: 0;
-    background: #1a1a24; border-top: 2px solid #f97316;
-    padding: 16px 32px; max-height: 200px; overflow-y: auto;
-    font-size: 14px; color: #8899bb; line-height: 1.6; z-index: 200;
-  }
+  /* Phase indicator */
+  .phase-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 12px 0 18px; padding: 12px 14px; background: rgba(18,65,176,0.06); border: 1px solid rgba(18,65,176,0.18); border-radius: 8px; font-size: 12px; }
+  .phase-cell { text-align: center; padding: 6px 10px; border-radius: 6px; font-weight: 700; }
+  .phase-cell.p1 { background: rgba(248,113,113,0.10); color: #fca5a5; }
+  .phase-cell.p2 { background: rgba(251,191,36,0.10); color: #fde68a; }
+  .phase-cell.p3 { background: rgba(52,211,153,0.10); color: #6ee7b7; }
+
+  /* Showcase deliverables list */
+  .deliv-list { display: flex; flex-direction: column; gap: 8px; margin: 14px 0; }
+  .deliv-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; background: #0c2340; border: 1px solid #1a3a5c; border-radius: 8px; }
+  .deliv-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #1241B0; letter-spacing: 0.10em; min-width: 56px; padding-top: 2px; }
+  .deliv-text { font-size: 14px; color: #b0b4c8; line-height: 1.5; }
+  .deliv-text strong { color: #fff; }
+
+  /* Nav chrome */
+  .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; z-index: 100; }
+  .nav-btn { width: 42px; height: 42px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+  .nav-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
+  .progress { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.05); z-index: 100; }
+  .progress-bar { height: 100%; background: #1241B0; transition: width 0.35s ease; }
+  .slide-counter { position: fixed; bottom: 26px; left: 24px; font-size: 13px; font-weight: 600; color: #455168; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  .help-hint { position: fixed; top: 16px; right: 24px; font-size: 11px; color: #334156; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+
+  .speaker-notes { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0a1c33; border-top: 2px solid #1241B0; padding: 16px 32px; max-height: 240px; overflow-y: auto; font-size: 14px; color: #b0b4c8; line-height: 1.6; z-index: 200; }
   .speaker-notes.visible { display: block; }
-  .speaker-notes strong { color: #b0b4c8; }
-  .notes-tag {
-    font-size: 10px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #f97316; margin-bottom: 6px;
-  }
+  .speaker-notes strong { color: #fff; }
+  .notes-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #60a5fa; margin-bottom: 6px; }
 
-  .nav {
-    position: fixed; bottom: 20px; right: 24px;
-    display: flex; gap: 8px; z-index: 100;
-  }
-  .nav-btn {
-    width: 42px; height: 42px; border-radius: 8px;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-    color: #888; font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; font-family: 'Inter', sans-serif;
-  }
-  .nav-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .skip-badge { display: none; position: fixed; top: 16px; left: 24px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #f87171; background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.30); padding: 5px 14px; border-radius: 6px; z-index: 150; cursor: pointer; }
+  .skip-badge.visible { display: block; }
 
-  .progress {
-    position: fixed; bottom: 0; left: 0; right: 0; height: 3px;
-    background: rgba(255,255,255,0.05); z-index: 100;
-  }
-  .progress-bar { height: 100%; background: #f97316; transition: width 0.35s ease; }
-
-  .slide-counter {
-    position: fixed; bottom: 26px; left: 24px;
-    font-size: 13px; font-weight: 600; color: #444; z-index: 100;
-  }
-  .help-hint {
-    position: fixed; top: 16px; right: 24px;
-    font-size: 11px; color: #333; z-index: 100;
-  }
+  .slide-sorter { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(7,22,44,0.97); overflow-y: auto; padding: 60px 40px 40px; }
+  .slide-sorter.visible { display: block; }
+  .sorter-header { display: flex; align-items: center; justify-content: space-between; margin: 0 auto 24px; max-width: 1200px; }
+  .sorter-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+  .sorter-subtitle { font-size: 13px; color: #556; margin-top: 4px; }
+  .sorter-close { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .sorter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; max-width: 1200px; margin: 0 auto; }
+  .sorter-item { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.15s ease; }
+  .sorter-item:hover { border-color: #1241B0; }
+  .sorter-item.sorter-active { border-color: #1241B0; box-shadow: 0 0 12px rgba(18,65,176,0.30); }
+  .sorter-item.sorter-skipped { opacity: 0.4; }
+  .sorter-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
+  .sorter-label { font-size: 13px; font-weight: 600; color: #e0e0f0; line-height: 1.4; margin-bottom: 10px; min-height: 36px; }
+  .sorter-skip-btn { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer; }
+  .sorter-skip-btn.skip-off { background: rgba(255,255,255,0.06); color: #556; }
+  .sorter-skip-btn.skip-on { background: rgba(248,113,113,0.16); color: #fca5a5; }
+  .sorter-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; }
 </style>
 </head>
 <body>
 
-<!-- ===================== SLIDE 1: Title ===================== -->
-<div class="slide active" data-notes="Welcome to the final module. Your product is live. People can use it. But shipping isn't the finish line — it's the starting line for learning. Today you'll set up analytics, use AI to analyze your data, and build one improvement based on what you find. Three waypoints: measure, learn, iterate. This is where PMs separate from builders.">
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-notes="Welcome to Module 6 — the final session. Measure Product Performance for AI-Driven Iteration. The product is live; today you close the loop. Replace 'I think' with 'the data shows'.">
   <div class="slide-inner">
     <div class="module-tag">Module 6 | Vibe Coding Certification</div>
-    <h1>Measure, Learn, Iterate</h1>
+    <h1>Measure Product Performance for AI-Driven Iteration</h1>
+    <h2 style="font-size:24px; font-weight:600; color:#8899bb; margin-bottom:24px;">Analyze real-world interactions against your hypothesis. Identify friction. Redeploy.</h2>
     <div class="waypoints">
-      <div class="waypoint">
-        <div class="waypoint-num">1</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Measure</div>
-          <div class="wt-desc">Set up analytics on your deployed product. Know what's happening, not what you think is happening.</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">2</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Learn</div>
-          <div class="wt-desc">Use AI to analyze your product data against your problem statement. Is it solving the problem you defined?</div>
-        </div>
-      </div>
-      <div class="waypoint">
-        <div class="waypoint-num">3</div>
-        <div class="waypoint-text">
-          <div class="wt-title">Iterate</div>
-          <div class="wt-desc">Build one evidence-based improvement and redeploy. Not a guess — an improvement backed by data.</div>
-        </div>
-      </div>
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Replace "I think" with "the data shows"</div><div class="wt-desc">Shipping is the start of the loop, not the finish. Every change backed by evidence.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Read the three layers — system, behavioral, sentiment</div><div class="wt-desc">Lovable Insights, GA4, custom feedback loops. Multi-layered signal.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Run an AI-driven iteration sprint and ship V1.1</div><div class="wt-desc">Synthesis in minutes, surgical fix, redeploy — with conviction, not instinct.</div></div></div>
     </div>
-    <p class="flow-line">Module 1 was speed. Module 2 was aim. Module 3 was precision. Module 4 was structure. Module 5 was ship. Module 6 is how you <em>learn from it</em>.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 2: Bridge ===================== -->
-<div class="slide" data-notes="In M5, you deployed. You shared your URL. Classmates signed up. But here's the question every PM must answer: is it working? Not 'does it load' — you know it loads. Is it solving the problem? That requires data. This is the most advanced module in the course. The complete product lifecycle: understand it, think it, build it, ship it, tweak it.">
+<!-- ===== SLIDE 2: Class Expectations ===== -->
+<div class="slide" data-notes="Final session. Same ground rules. Tools active before class.">
   <div class="slide-inner">
-    <h2>Your Product Is Live. But How Do You Know It's Working?</h2>
-    <p class="subtitle">Your M5 product has a live URL, real data, real users. But is it solving the problem you defined in M2?</p>
-    <p style="font-size:22px; font-weight:700; color:#fb923c; margin-bottom:24px;">You shipped. Now you learn.</p>
+    <div class="demo-tag tag-lecture">Class Expectations</div>
+    <h2>How We Work Together</h2>
+    <div class="grid-6">
+      <div class="ce-card"><div class="ce-icon">📹</div><div class="ce-body"><div class="ce-title">Cameras On</div><div class="ce-desc">Be present and visible to stay engaged.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">⏰</div><div class="ce-body"><div class="ce-title">Arrive On Time</div><div class="ce-desc">Respect everyone's time.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🤝</div><div class="ce-body"><div class="ce-title">Engage to Network</div><div class="ce-desc">Participate in labs to build your network.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🛠️</div><div class="ce-body"><div class="ce-title">Tool Readiness</div><div class="ce-desc">Tools and accounts active before class.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">💬</div><div class="ce-body"><div class="ce-title">Use Slack</div><div class="ce-desc">All communication in Slack.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🎓</div><div class="ce-body"><div class="ce-title">Class Momentum</div><div class="ce-desc">Deep-dives move to after-class support.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Syllabus ===== -->
+<div class="slide" data-notes="Module 6 closes the cycle.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Vibe Coding Syllabus</div>
+    <h2>Six Modules. Where We Are Today.</h2>
+    <div class="syllabus-grid">
+      <div class="syllabus-card"><div class="syl-mod">Module 1</div><div class="syl-title">Activate Vibe Coding Speed</div><div class="syl-desc">Full Build–Show–Learn–Decide cycle.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 2</div><div class="syl-title">Sharpen Intent with Strategic Prototypes</div><div class="syl-desc">Validation lens. Hypothesis, real data, user voice.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 3</div><div class="syl-title">Ensure Complex System Stability</div><div class="syl-desc">Prompt chaining for multi-screen architecture.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 4</div><div class="syl-title">Transition to Production Specs</div><div class="syl-desc">Living PRD. Refactor. Connect GitHub + Supabase.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 5</div><div class="syl-title">Ship Live Products with Full-Stack Logic</div><div class="syl-desc">RLS, edge cases, deployed to a live URL.</div></div>
+      <div class="syllabus-card syl-active"><div class="syl-mod">Module 6</div><div class="syl-title">Measure Product Performance</div><div class="syl-desc">AI-driven analytics. Friction. Iterate. Ship V1.1.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Agenda ===== -->
+<div class="slide" data-notes="Five blocks today: shift to proving with data, lab on Lovable Insights, how to run AI-driven iteration, lab to run iteration sprint, final project showcase.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Today's Agenda</div>
+    <h2>Five Blocks to Close the Loop</h2>
     <div class="agenda">
-      <div class="agenda-item"><div class="agenda-num">1</div><div class="agenda-text"><strong>Analytics Demo</strong> — Setting up tracking (8 min)</div></div>
-      <div class="agenda-item"><div class="agenda-num">2</div><div class="agenda-text"><strong>Lab 1: Connect Analytics</strong> — Instrument your product (15 min)</div></div>
-      <div class="agenda-item"><div class="agenda-num">3</div><div class="agenda-text"><strong>AI Analysis</strong> — Evaluating metrics with AI (10 min)</div></div>
-      <div class="agenda-item"><div class="agenda-num">4</div><div class="agenda-text"><strong>Lab 2: Analysis Sprint</strong> — Pull data, analyze (15 min)</div></div>
-      <div class="agenda-item"><div class="agenda-num">5</div><div class="agenda-text"><strong>Lab 3: One Improvement</strong> — Data-driven fix + redeploy (10 min)</div></div>
-      <div class="agenda-item"><div class="agenda-num">6</div><div class="agenda-text"><strong>Gallery Walk + Presentations</strong> — Experience + pitch (55 min)</div></div>
+      <div class="agenda-item"><div class="agenda-num">01</div><div class="agenda-text"><strong>Shift From Shipping to Proving With Data</strong> — peer feedback loop, mindset, metrics, three layers</div></div>
+      <div class="agenda-item"><div class="agenda-num">02</div><div class="agenda-text"><strong>Hands-On Lab</strong> — Read Your Lovable Insights for Deeper Signals</div></div>
+      <div class="agenda-item"><div class="agenda-num">03</div><div class="agenda-text"><strong>How to Run AI-Driven Product Iteration</strong> — synthesis, signal-to-fix translation</div></div>
+      <div class="agenda-item"><div class="agenda-num">04</div><div class="agenda-text"><strong>Hands-On Lab</strong> — Run an AI-Driven Iteration Sprint, ship V1.1</div></div>
+      <div class="agenda-item"><div class="agenda-num">05</div><div class="agenda-text"><strong>Final Project Showcase</strong> — demo your live product to the cohort</div></div>
     </div>
   </div>
 </div>
 
-<!-- ===================== SLIDE 3: Analytics Demo ===================== -->
-<div class="slide" data-notes="Pull up the deployed Retention Engine. Open Lovable insights — show page views, sessions, feature usage. Then show GA4 dashboard: real-time view, user flow, engagement. 'Your product has been live since M5. People have been using it. Did you know this data existed?' Keep this to about 5 minutes. The point: data is available, you just need to look.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-demo">Instructor Demo</div>
-    <h2>What's Actually Happening on Your Product?</h2>
-    <p class="subtitle">Two ways to see what's happening on your deployed product:</p>
-    <ul>
-      <li><strong>Lovable Insights</strong> — Built-in analytics dashboard. Page views, user sessions, most-used features.</li>
-      <li><strong>Google Analytics (GA4)</strong> — Industry-standard tracking. Traffic sources, user flows, bounce rates, conversion funnels.</li>
-    </ul>
-    <p style="margin-top:24px; font-size:20px; color:#34d399; font-weight:600;">The data is already being collected. You just need to look at it.</p>
+<!-- ===== SLIDE 5: Section divider ===== -->
+<div class="slide" data-notes="Section opener.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">01 — SECTION</div>
+    <div class="section-title">Shift From Shipping to Proving With Data</div>
   </div>
 </div>
 
-<!-- ===================== SLIDE 4: What to Measure ===================== -->
-<div class="slide" data-notes="You don't need 50 metrics. You need 3–5 that map to your problem statement. If your M2 hypothesis was 'PMs will track invite status weekly' — your key metric is: do they? The engagement numbers tell you if people use it. The impact question tells you if it's solving the problem. Framework, not lecture. 3 minutes.">
+<!-- ===== SLIDE 6: Lab — Rapid-Fire Feedback Loop ===== -->
+<div class="slide" data-notes="Individual Activity (10 min). Stress that any student who hasn't shared a deployed URL must do it now. Cohort Slack channel — at least 4 classmates' links — leave one specific feedback per product, tag the builder. Four feedback types — Bug, Friction, Compliment, Feature Idea.">
   <div class="slide-inner">
-    <h2>What to Measure</h2>
-    <div class="metric-grid">
+    <div class="demo-tag tag-activity">Individual Activity · 10 Minutes</div>
+    <h2>Rapid-Fire Feedback Loop</h2>
+    <div class="subtitle">Head to your cohort Slack channel. Test at least <strong>four</strong> different deployed Lovable links shared by your classmates and leave specific, tagged feedback in the same thread.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Pick four classmate links</div><div class="step-desc">From your designated cohort Slack channel.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Test each product</div><div class="step-desc">Sign up with your email, test the core flow, try to break it with edge cases.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Leave specific feedback in the same thread, tag the builder</div></div></div>
+    </div>
+    <div class="grid-4">
+      <div class="card"><div class="card-label">🐛 A Bug</div><div class="card-desc">"I clicked X and nothing happened."</div></div>
+      <div class="card"><div class="card-label">🤔 Friction</div><div class="card-desc">"I was confused by the label on the submit button."</div></div>
+      <div class="card"><div class="card-label">🤩 Compliment</div><div class="card-desc">"I was so impressed with X!"</div></div>
+      <div class="card"><div class="card-label">💡 Feature Idea</div><div class="card-desc">"It would be cool if this could also do X."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: The Iteration Mindset ===== -->
+<div class="slide" data-notes="Shipping is the start of the feedback loop, not the finish. Three reasons to measure: feature prioritization (Pareto), friction identification (you're too biased to see), hypothesis validation (objective proof).">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">The Iteration Mindset</div>
+    <h2>Shipping Isn't the Finish Line</h2>
+    <div class="subtitle">Up until now, every decision has been based on your intuition. From this point forward, your <strong>intuition is just a hypothesis</strong> that the data either proves or kills.</div>
+    <div class="mindset-grid">
+      <div class="mind-card">
+        <div class="mind-num">01</div>
+        <div class="mind-title">Feature Prioritization</div>
+        <div class="mind-desc">Most V1s have <em>"ghost features"</em> — things you thought were critical that no one touches. Data identifies the 20% of your product driving 80% of the value.</div>
+      </div>
+      <div class="mind-card">
+        <div class="mind-num">02</div>
+        <div class="mind-title">Friction Identification</div>
+        <div class="mind-desc">You know how the app works because you built it. Real users don't. Data exposes the leaks and dead ends in your UI that your bias makes you blind to.</div>
+      </div>
+      <div class="mind-card">
+        <div class="mind-num">03</div>
+        <div class="mind-title">Hypothesis Validation</div>
+        <div class="mind-desc">Comparing the workflow you designed against how a human actually navigates. Data is the only objective way to see if your solution operates the way you engineered it.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:15px; color:#fff; font-weight:700;">Your goal: replace <em>"I think"</em> with <em>"the data shows."</em></p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Metrics That Matter ===== -->
+<div class="slide" data-notes="Don't track 50 things. 3-5 specific signals mapped to your problem statement. Engagement (core flow not logins), Retention (honesty metric), Quality (technical friction kills adoption), Impact (so what). North Star: does behavior confirm or contradict your hypothesis? Contradicts = pivot, not tweak.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Metrics That Matter</div>
+    <h2>3–5 Signals Mapped to Your Problem</h2>
+    <div class="subtitle">You don't need 50 metrics to evaluate your V1. You need <strong>3–5 specific signals</strong> that map directly to your problem statement.</div>
+    <div class="metrics-grid">
       <div class="metric-card">
-        <div class="mc-title">Engagement</div>
-        <ul>
-          <li>How many users signed up?</li>
-          <li>How many completed the core flow?</li>
-          <li>Which features used most? Ignored?</li>
-        </ul>
+        <div class="metric-name">Engagement</div>
+        <div class="metric-q">How many users signed up? Which features are used most — and which are <em>ignored</em>?</div>
       </div>
       <div class="metric-card">
-        <div class="mc-title">Retention</div>
-        <ul>
-          <li>Do users come back?</li>
-          <li>Where do users drop off?</li>
-        </ul>
+        <div class="metric-name">Retention</div>
+        <div class="metric-q">Do users return after their first session? Where exactly do they <em>drop off</em> in the flow?</div>
       </div>
       <div class="metric-card">
-        <div class="mc-title">Quality</div>
-        <ul>
-          <li>Page load time — under 3s?</li>
-          <li>Error rates — dead ends?</li>
-          <li>Mobile vs. desktop usage</li>
-        </ul>
+        <div class="metric-name">Quality</div>
+        <div class="metric-q">Is the page load under 3 seconds? Are users hitting <em>dead ends</em> or high error rates?</div>
       </div>
       <div class="metric-card">
-        <div class="mc-title">Impact</div>
-        <ul>
-          <li>Does behavior match your M2 hypothesis?</li>
-          <li>Are users doing what you predicted?</li>
-        </ul>
+        <div class="metric-name">Impact</div>
+        <div class="metric-q">Does user behavior <em>match your hypothesis</em>? Is what you predicted actually happening?</div>
       </div>
     </div>
-    <p style="margin-top:16px; text-align:center; font-size:17px;"><em>The metric that matters most: does user behavior confirm or contradict your original problem statement?</em></p>
+    <div class="goal-box">
+      <div class="goal-label">⭐ The North Star</div>
+      <div class="goal-text">Does user behavior <strong>confirm or contradict</strong> your original problem statement? If the data says no, your V2 isn't an update — it's a <em>pivot</em>.</div>
+    </div>
   </div>
 </div>
 
-<!-- ===================== SLIDE 5: Lab 1 ===================== -->
-<div class="slide" data-notes="15 minutes. Most students will get GA4 connected in under 5 minutes — it's one prompt. The hard part is finding the Measurement ID. Walk them through: analytics.google.com → create property → Web → get ID. If stuck, Lovable insights alone is enough. After 15 min: 'Who can see themselves in the real-time view?'">
+<!-- ===== SLIDE 9: Three Layers of Analytics ===== -->
+<div class="slide" data-notes="Most teams fly blind after deployment. Three layers: internal (Lovable Insights, passive system), external (GA4, behavioral journey), custom (Supabase-piped sentiment, qualitative). Data you own is data you can act on.">
   <div class="slide-inner">
-    <div class="demo-tag tag-lab">Hands-On Lab · 15 Minutes</div>
-    <h2>Lab 1: Connect Analytics</h2>
-    <div class="lab-step">
-      <div class="lab-step-num">1</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Review Lovable Insights (5 min)</div>
-        <div class="ls-desc">Open your deployed product's insights panel. Screenshot your baseline metrics.</div>
+    <div class="demo-tag tag-framework">Three Layers of Analytics</div>
+    <h2>Capture What Users Do, Feel, and Say</h2>
+    <div class="subtitle">To truly iterate, you need a <strong>multi-layered approach</strong> — what users do, what they feel, and what they say.</div>
+    <div class="layers-grid">
+      <div class="layer-card">
+        <div class="layer-num">LAYER 01 — INTERNAL</div>
+        <div class="layer-name">Lovable Insights</div>
+        <div class="layer-type">Passive System Tracking</div>
+        <div class="layer-data">Surface-level engagement: active users, sessions, page views. Your "Day Zero" pulse, no extra setup.</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">LAYER 02 — EXTERNAL</div>
+        <div class="layer-name">GA4</div>
+        <div class="layer-type">Passive Behavior Tracking</div>
+        <div class="layer-data">Deep-funnel signal: traffic sources, bounce rates, conversion paths. Where users abandon flow.</div>
+      </div>
+      <div class="layer-card">
+        <div class="layer-num">LAYER 03 — CUSTOM</div>
+        <div class="layer-name">Supabase Feedback Loop</div>
+        <div class="layer-type">Active Sentiment Tracking</div>
+        <div class="layer-data">Direct qualitative data: star ratings, bug reports, feature requests piped to your own tables.</div>
       </div>
     </div>
-    <div class="lab-step">
-      <div class="lab-step-num">2</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Set Up Google Analytics (5 min)</div>
-        <div class="ls-desc">Create a GA4 property → get Measurement ID → prompt Lovable to add the tag → redeploy.</div>
-      </div>
-    </div>
-    <div class="lab-step">
-      <div class="lab-step-num">3</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Verify Tracking (5 min)</div>
-        <div class="ls-desc">Open your product → check GA4 real-time view → see yourself as a live user.</div>
-      </div>
-    </div>
-    <p style="margin-top:16px; font-size:14px; color:#666;">If GA4 setup takes too long, Lovable insights alone is enough for the analysis sprint.</p>
+    <p style="margin-top:14px; font-size:15px; color:#fff; font-weight:700;">Data you <em>own</em> is data you can <em>act on</em>.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 6: AI Analysis Teaching ===================== -->
-<div class="slide" data-notes="This is the most advanced PM skill in the course. You're not asking AI to build something — you're asking it to think with you. Feed it three things: problem statement, hypothesis, data. The AI synthesizes what would take hours. But YOU make the decision. AI accelerates analysis. You own the judgment.">
+<!-- ===== SLIDE 10: Section divider — Lab 1 ===== -->
+<div class="slide" data-notes="Section opener.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">02 — HANDS-ON LAB</div>
+    <div class="section-title">Read Your Lovable Insights for Deeper Signals</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 11: Lab — Read Lovable Insights ===== -->
+<div class="slide" data-notes="Instructor-Led Exercise (10 min). All students stay in main room. Volunteer shares their Lovable Insights screen, others follow along. Stress: while one student walks, others should be doing the task simultaneously. Copy metrics as text — needed for Lab 2.">
   <div class="slide-inner">
-    <div class="demo-tag tag-teaching">Teaching</div>
-    <h2>The PM's New Superpower</h2>
-    <h3>AI + Data + Problem Statement</h3>
-    <p class="subtitle">Traditional: export → spreadsheet → charts → doc → days.<br>AI-powered: metrics + problem statement → AI → evaluation in minutes.</p>
-    <p style="font-size:17px; font-weight:700; color:#fff; margin-bottom:12px;">The formula:</p>
-    <ul>
-      <li><strong>Pull your product metrics</strong> (from Lovable insights or GA4)</li>
-      <li><strong>Pull your problem statement</strong> from your Living PRD (M4)</li>
-      <li><strong>Pull your M2 hypothesis</strong></li>
-      <li><strong>Feed all three to ChatGPT or Gemini</strong></li>
-    </ul>
-    <p style="margin-top:20px; font-size:17px;"><em>The AI doesn't replace your judgment. It accelerates your analysis.</em></p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 7: AI Demo ===================== -->
-<div class="slide" data-notes="Live demo. Have ChatGPT/Gemini open. Copy problem statement from Living PRD. Copy metrics. Paste together with the analysis prompt. Let students watch the AI response in real-time. Read the key findings aloud. The speed and quality of the response is the wow moment. 5 minutes.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-demo">Instructor Demo</div>
-    <h2>From Metrics to Insight in 2 Minutes</h2>
-    <p class="subtitle">Watch: I pull my Retention Engine metrics, copy my problem statement, and paste both into ChatGPT.</p>
-    <div class="prompt-box">
-      "Here is my problem statement: [X].<br>
-      Here is my hypothesis: [Y].<br>
-      Here are the metrics from my deployed product: [data].<br><br>
-      Evaluate whether we are solving the problem. What does the data suggest? What are the top 3 things I should improve?"
+    <div class="demo-tag tag-exercise">Instructor-Led Exercise · 10 Minutes</div>
+    <h2>Read Your Lovable Insights for Deeper Signals</h2>
+    <div class="subtitle">Open the Lovable Insights panel, capture key metrics, and identify your <strong>lowest engagement screen</strong>.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open Lovable Insights and screenshot</div><div class="step-desc">Capture your current engagement data. This is your internal behavioral baseline.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Copy your key metrics as text</div><div class="step-desc">Total sessions, unique visitors, feature usage — you'll paste them into a prompt later.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Identify your lowest engagement screen</div><div class="step-desc">Where are users dropping off or not engaging?</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Honest reflection</div><div class="step-desc">Does this match what you expected? Are users behaving the way you predicted?</div></div></div>
     </div>
-    <p style="margin-top:16px; font-size:18px; text-align:center;"><em>That analysis would take a product team a day. You just did it in 2 minutes.</em></p>
+    <a class="bottom-cta" href="#">✍️ Find detailed steps in the lab guide</a>
   </div>
 </div>
 
-<!-- ===================== SLIDE 8: Lab 2 ===================== -->
-<div class="slide" data-notes="15 minutes. Hardest part: finding the problem statement. If they can't find their Living PRD, a one-sentence version from memory is fine. After 15 min: 'What did AI tell you? Anyone surprised?' Get 2–3 students to share.">
+<!-- ===== SLIDE 12: Section divider — Run AI-Driven Iteration ===== -->
+<div class="slide" data-notes="Section opener.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">03 — SECTION</div>
+    <div class="section-title">How to Run AI-Driven Product Iteration</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 13: AI-Powered Analysis ===== -->
+<div class="slide" data-notes="Move from Data Cruncher to Decision Maker. Old way: CSVs and pivot tables. New way: feed metrics + problem + hypothesis to AI for synthesized eval in minutes. AI provides synthesis, you provide conviction.">
   <div class="slide-inner">
-    <div class="demo-tag tag-lab">Hands-On Lab · 15 Minutes</div>
-    <h2>Lab 2: AI Analysis Sprint</h2>
-    <div class="lab-step">
-      <div class="lab-step-num">1</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Gather Your Metrics (3 min)</div>
-        <div class="ls-desc">Screenshot/copy key metrics from Lovable insights or GA4.</div>
+    <div class="demo-tag tag-framework">AI-Powered Analysis · The PM's New Superpower</div>
+    <h2>From Data Cruncher to Decision Maker</h2>
+    <div class="vs-grid">
+      <div class="vs-card vs-old">
+        <div class="vs-tag">🕰️ OLD WAY</div>
+        <h3>Manual Analysis</h3>
+        <p>Exporting CSVs, building pivot tables, spending 6 hours writing a "findings" doc that no one reads. <strong>Days of effort.</strong></p>
+      </div>
+      <div class="vs-card vs-new">
+        <div class="vs-tag">⚡ NEW WAY</div>
+        <h3>AI-Powered Synthesis</h3>
+        <p>Feed metrics, problem statements, and hypotheses to the AI. Get a prioritized backlog of high-impact fixes. <strong>Minutes, not days.</strong></p>
       </div>
     </div>
-    <div class="lab-step">
-      <div class="lab-step-num">2</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Find Your Problem Statement (2 min)</div>
-        <div class="ls-desc">Open your Living PRD. Copy problem statement + M2 hypothesis.</div>
-      </div>
+    <div class="prompt-card">
+      <div class="prompt-label">The Strategic Prompt</div>
+      <div class="prompt-text">"I built a product to solve this problem: [Problem Statement]. My hypothesis was: [Hypothesis]. Here are the metrics from my live product after 3 days: [Paste GA4/Lovable Data]. Evaluate: Is this product solving the problem? What does the data suggest? What are the top 3 things I should improve, ranked by likely impact?"</div>
     </div>
-    <div class="lab-step">
-      <div class="lab-step-num">3</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Run AI Analysis (5 min)</div>
-        <div class="ls-desc">Feed metrics + problem statement + hypothesis to ChatGPT or Gemini.</div>
-      </div>
-    </div>
-    <div class="lab-step">
-      <div class="lab-step-num">4</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Identify Top Finding (5 min)</div>
-        <div class="ls-desc">Read the analysis. Highlight the single highest-impact recommendation.</div>
-      </div>
-    </div>
+    <p style="margin-top:10px; font-size:15px; color:#fff; font-weight:700;">The AI provides synthesis. <em>You</em> provide conviction. You own the final decision on which "tweak" actually moves the needle.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 9: Iteration Prompt ===================== -->
-<div class="slide" data-notes="This is the mindset shift. In M1–M5, you were building. Adding features. Now you're improving based on evidence. The iteration prompt is different: not 'add X' but 'the data shows Y is broken, fix it.' Spotify calls it 'tweak it' — the stage after shipping. The best PMs spend more time here than in any other stage.">
+<!-- ===== SLIDE 14: From Data Signal to Technical Fix ===== -->
+<div class="slide" data-notes="Every prompt in this phase starts with 'Based on the data...'. Three translation patterns: Sentiment → Persona Refinement, Behavioral → Visual Branching, System → Logic Guardrails. Walk through each row.">
   <div class="slide-inner">
-    <div class="demo-tag tag-teaching">Teaching</div>
-    <h2>Evidence-Based Improvement<br>vs. Guess-Based Improvement</h2>
-    <p class="subtitle">Most PMs iterate by instinct. Evidence-based iteration uses data to decide what to fix.</p>
-    <p style="font-size:16px; font-weight:700; color:#fff; margin-bottom:8px;">The Iteration Prompt Pattern:</p>
-    <div class="prompt-box">
-      "Based on this analysis: [paste AI findings].<br>
-      The highest-impact improvement is: [specific finding].<br>
-      Update the product to address this: [describe the change].<br>
-      Keep everything else working."
-    </div>
-    <p style="margin-top:16px; font-size:16px; color:#8899bb;">Spotify calls this <em>"tweak it"</em> — the fifth stage: understand it, think it, build it, ship it, tweak it.</p>
+    <div class="demo-tag tag-framework">From Data Signal to Technical Fix</div>
+    <h2>Translate Findings Into Surgical Prompts</h2>
+    <div class="subtitle">Every prompt in this phase starts with: <em>"Based on the data..."</em></div>
+    <table style="width:100%; margin-top:8px; border-collapse:collapse;">
+      <thead>
+        <tr style="border-bottom:1px solid #1a3a5c;">
+          <th style="text-align:left; padding:10px 12px; font-size:11px; font-weight:800; color:#60a5fa; letter-spacing:0.10em; text-transform:uppercase; width:18%;">Signal Layer</th>
+          <th style="text-align:left; padding:10px 12px; font-size:11px; font-weight:800; color:#fbbf24; letter-spacing:0.10em; text-transform:uppercase; width:30%;">PM Translation</th>
+          <th style="text-align:left; padding:10px 12px; font-size:11px; font-weight:800; color:#60a5fa; letter-spacing:0.10em; text-transform:uppercase;">Surgical Prompt Pattern</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:12px; color:#b0b4c8;">
+        <tr style="border-bottom:1px solid #122a48;">
+          <td style="padding:10px 12px; font-weight:700; color:#fff; vertical-align:top;">Layer 3 — Sentiment</td>
+          <td style="padding:10px 12px; vertical-align:top;"><strong>Persona Refinement</strong> — convert qualitative friction into strict output constraints.</td>
+          <td style="padding:10px 12px; vertical-align:top;"><em>"Based on this data… update the System Persona to 'Efficiency Expert'. Enforce a max-3-sentence rule per response and prioritize quantitative data over prose."</em></td>
+        </tr>
+        <tr style="border-bottom:1px solid #122a48;">
+          <td style="padding:10px 12px; font-weight:700; color:#fff; vertical-align:top;">Layer 2 — Behavioral</td>
+          <td style="padding:10px 12px; vertical-align:top;"><strong>Visual Branching</strong> — pivot UI architecture by swapping a failing component for a more intuitive visualization.</td>
+          <td style="padding:10px 12px; vertical-align:top;"><em>"Based on this data… user behavior shows high friction on the Table component. Replace it with a Kanban Board layout to help users visualize workflow status at a glance."</em></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px; font-weight:700; color:#fff; vertical-align:top;">Layer 1 — System</td>
+          <td style="padding:10px 12px; vertical-align:top;"><strong>Logic Guardrails</strong> — convert functional failures into hardcoded conditional rules.</td>
+          <td style="padding:10px 12px; vertical-align:top;"><em>"Based on this data… there is logic failure in the submission flow. Inject a hard guardrail: IF {field_A} is empty, THEN prevent submission and trigger an error toast."</em></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- ===================== SLIDE 10: Lab 3 ===================== -->
-<div class="slide" data-notes="10 minutes. ONE change. Resist the temptation to fix everything. The discipline of prioritization is the skill. After 10 min: 'Who redeployed? What did you change and why?' Every answer should reference the data.">
+<!-- ===== SLIDE 15: Section divider — Lab 2 ===== -->
+<div class="slide" data-notes="Section opener.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">04 — HANDS-ON LAB</div>
+    <div class="section-title">Run an AI-Driven Iteration Sprint</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 16: Lab — AI-Driven Iteration Sprint ===== -->
+<div class="slide" data-notes="Individual Exercise (15 min). Closing the product loop — real behavioral data + peer feedback + AI analysis = single data-driven improvement shipped. Identify ONE high-impact recommendation. If something breaks during test — re-prompt before redeploying.">
   <div class="slide-inner">
-    <div class="demo-tag tag-lab">Hands-On Lab · 10 Minutes</div>
-    <h2>Lab 3: Build One Improvement</h2>
-    <p class="subtitle">Pick the single highest-impact finding. Build it.</p>
-    <div class="lab-step">
-      <div class="lab-step-num">1</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Write your iteration prompt (2 min)</div>
-        <div class="ls-desc">Reference the specific data finding from your AI analysis.</div>
+    <div class="demo-tag tag-exercise">Individual Exercise · 15 Minutes</div>
+    <h2>Run an AI-Driven Iteration Sprint</h2>
+    <div class="subtitle">Feed your Lovable Insights data and Slack peer feedback into an LLM. Identify your <strong>highest-impact improvement</strong>. Implement and redeploy that single fix.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Gather your inputs</div><div class="step-desc">Copy your key metrics from Lovable. Open your Living PRD for the problem statement and M2 hypothesis. Pull peer feedback from Slack.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Run the AI Analysis prompt</div><div class="step-desc">Open your LLM of choice. Paste in all three inputs. <strong>The goal is one finding, not a full rebuild.</strong></div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Identify the single highest-impact recommendation</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Write your Lovable prompt using the pattern</div><div class="step-desc">Sentiment → Persona, Behavioral → Branching, System → Guardrail. Run it.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Test, redeploy, push to GitHub</div><div class="step-desc">If something broke — re-prompt first. Don't redeploy a broken state.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 17: Prepare & Finalize Project Deliverables ===== -->
+<div class="slide" data-notes="Individual Exercise (15 min). Polish content, verify links/URLs work, ensure screenshots are clear. Not perfection — strategic logic and what they learned. Walk through the slide-by-slide deliverables. After break we'll start hearing from volunteers.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-exercise">Individual Exercise · 15 Minutes</div>
+    <h2>Prepare &amp; Finalize Your Project Deliverables Deck</h2>
+    <div class="subtitle">15 minutes to polish before the showcase. <strong>Each student must submit a copy individually to the LMS.</strong></div>
+    <div class="deliv-list">
+      <div class="deliv-item"><div class="deliv-num">SLIDE 5</div><div class="deliv-text"><strong>Deployed Product</strong> — link, hypothesis, scenario the product was built to solve.</div></div>
+      <div class="deliv-item"><div class="deliv-num">SLIDE 6</div><div class="deliv-text"><strong>Validation Brief</strong> — assumptions tested and what data confirmed or challenged.</div></div>
+      <div class="deliv-item"><div class="deliv-num">SLIDE 7</div><div class="deliv-text"><strong>Living PRD</strong> — key elements bridging prototype and engineering handoff.</div></div>
+      <div class="deliv-item"><div class="deliv-num">SLIDE 8</div><div class="deliv-text"><strong>Prompt Library</strong> — core prompt chain prompts powering your multi-screen architecture.</div></div>
+      <div class="deliv-item"><div class="deliv-num">SLIDE 9</div><div class="deliv-text"><strong>Engineering Handoff</strong> — the production-ready spec that bridges vision and execution.</div></div>
+      <div class="deliv-item"><div class="deliv-num">SLIDE 10</div><div class="deliv-text"><strong>Individual Insights</strong> — friction encountered, key learnings, biggest aha moment.</div></div>
+    </div>
+    <a class="bottom-cta" href="#">🔗 Vibe Coding Final Project Deliverables Template</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 18: Learner Journey ===== -->
+<div class="slide" data-notes="The whole arc. Six modules across the Confidence Line. M1-M2 = High Ambiguity, M3-M4 = Gaining Clarity, M5-M6 = Production Confidence. End with: you're ready to build, ship, and iterate on real products with total confidence.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Learner Journey</div>
+    <h2>Six Modules Across the Confidence Line</h2>
+    <div class="phase-bar">
+      <div class="phase-cell p1">PHASE 1 · High Ambiguity</div>
+      <div class="phase-cell p2">PHASE 2 · Gaining Clarity</div>
+      <div class="phase-cell p3">PHASE 3 · Production Confidence</div>
+    </div>
+    <div class="journey-grid">
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 1 · MINDSET SHIFT</div>
+        <div class="journey-shift">Activate Vibe Coding Velocity</div>
+        <div class="journey-desc">Win: a functional prototype from an ambiguous problem in a single session.</div>
+      </div>
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 2 · VALIDATION PIVOT</div>
+        <div class="journey-shift">Validate via Risk-Based Prototyping</div>
+        <div class="journey-desc">Win: prototypes that answer the why — solving the right problem before building.</div>
+      </div>
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 3 · ARCHITECTURE LEAP</div>
+        <div class="journey-shift">Ensure System Stability with Prompt Chaining</div>
+        <div class="journey-desc">Win: multi-screen systems that don't break under complexity.</div>
+      </div>
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 4 · ENGINEERING BRIDGE</div>
+        <div class="journey-shift">Transition to Production Specs</div>
+        <div class="journey-desc">Win: handoff-ready specs bridging vision and engineering execution.</div>
+      </div>
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 5 · PRODUCTION LEAP</div>
+        <div class="journey-shift">Ship Live with Full-Stack Logic</div>
+        <div class="journey-desc">Win: integrated, production-ready products on a live URL.</div>
+      </div>
+      <div class="journey-card">
+        <div class="journey-mod">MODULE 6 · ITERATION ENGINE</div>
+        <div class="journey-shift">Measure for AI-Driven Iteration</div>
+        <div class="journey-desc">Win: AI-driven analytics, redeploy improvements, secure the confidence line.</div>
       </div>
     </div>
-    <div class="lab-step">
-      <div class="lab-step-num">2</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Build it in Lovable (5 min)</div>
-        <div class="ls-desc">Paste the prompt. Review the changes. Test.</div>
-      </div>
-    </div>
-    <div class="lab-step">
-      <div class="lab-step-num">3</div>
-      <div class="lab-step-body">
-        <div class="ls-title">Redeploy (3 min)</div>
-        <div class="ls-desc">Your live URL now reflects a data-driven improvement.</div>
-      </div>
-    </div>
-    <p style="margin-top:20px; text-align:center; font-size:16px;"><em>You just completed the full product lifecycle: understand → hypothesize → build → ship → measure → learn → improve.</em></p>
+    <p style="margin-top:14px; font-size:16px; color:#fff; font-weight:700; text-align:center;">You're ready to build, ship, and iterate on real products with <em>total confidence</em>.</p>
   </div>
 </div>
 
-<!-- ===================== SLIDE 11: Quick Polish ===================== -->
-<div class="slide" data-notes="5 minutes. Quick polish only. Page title, favicon, mobile check. One prompt each. Don't start new features. Redeploy. Gallery walk starts now.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-lab">5 Minutes</div>
-    <h2>Quick Polish</h2>
-    <p class="subtitle">Final cleanup before the gallery walk.</p>
-    <ul class="checklist-compact">
-      <li>Page title shows your product name</li>
-      <li>Favicon is set</li>
-      <li>Mobile responsive — check on your phone</li>
-      <li>No placeholder text</li>
-      <li>Live URL works in incognito</li>
-    </ul>
-    <p style="margin-top:20px; font-size:16px;">One prompt per fix. Redeploy. <em>Your classmates are about to use your product.</em></p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 12: Gallery Walk ===================== -->
-<div class="slide" data-notes="This is the most unique exercise in the course. Products have been measured and improved with data. Sign up with your actual email. Try the core flow. Try to break it. 20 minutes. Monitor Slack for reactions.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-gallery">Gallery Walk · 20 Minutes</div>
-    <h2>Experience Each Other's Products</h2>
-    <div class="gallery-rule">
-      <div class="gr-num">1</div>
-      <div class="gr-text"><strong>Post your live URL</strong> in the Slack channel</div>
-    </div>
-    <div class="gallery-rule">
-      <div class="gr-num">2</div>
-      <div class="gr-text"><strong>Open 4–5 classmates' products</strong> — you're a real user now</div>
-    </div>
-    <div class="gallery-rule">
-      <div class="gr-num">3</div>
-      <div class="gr-text"><strong>For each product:</strong> Sign up with a real email · Try the core flow · Try to break it · Note one thing that impressed you, one that confused you</div>
-    </div>
-    <div class="gallery-rule">
-      <div class="gr-num">4</div>
-      <div class="gr-text"><strong>Post feedback in Slack</strong> — tag the builder with your one-line review</div>
-    </div>
-    <p style="margin-top:16px; font-size:15px; color:#8899bb;">These products have been <em>measured and improved with real data</em>. Can you tell?</p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 13: Gallery Debrief ===================== -->
-<div class="slide" data-notes="Quick debrief. 'Which product felt the most real?' Then: 'Could you tell which had been improved based on data vs. just polished?' The answer reveals the M6 lesson: evidence-based iteration produces different results. Transition to presentations.">
-  <div class="slide-inner">
-    <h2>What Did You Notice?</h2>
-    <ul>
-      <li><strong>Which product felt the most "real"?</strong> What made it feel that way?</li>
-      <li><strong>Could you tell</strong> which products had been improved based on data?</li>
-      <li><strong>What's the difference</strong> between a product that's shipped and one that's been iterated on?</li>
-    </ul>
-    <p style="margin-top:28px; text-align:center; font-size:20px; font-weight:700; color:#fb923c;">The difference between M5 and M6: M5 products work. M6 products learn.</p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 14: Presentation Format ===================== -->
-<div class="slide" data-notes="5 minutes each. Strict time. No slides. The new element: 'What the Data Told You.' That's the M6 differentiator. If 20+ students, select 6–8 live; others post Loom walkthroughs.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-present">Student Presentations · 5 Minutes Each</div>
-    <h2>Your 5-Minute Pitch</h2>
-    <div class="pitch-format">
-      <div class="pitch-step">
-        <div class="pitch-time">0:30</div>
-        <div class="pitch-body"><div class="pb-title">The Problem</div><div class="pb-desc">What user problem are you solving? One sentence.</div></div>
-      </div>
-      <div class="pitch-step">
-        <div class="pitch-time">0:30</div>
-        <div class="pitch-body"><div class="pb-title">The Hypothesis</div><div class="pb-desc">What did you test? Your M2 assumption?</div></div>
-      </div>
-      <div class="pitch-step">
-        <div class="pitch-time">2:00</div>
-        <div class="pitch-body"><div class="pb-title">Live Demo</div><div class="pb-desc">Show your deployed product. Core flow + one key integration.</div></div>
-      </div>
-      <div class="pitch-step">
-        <div class="pitch-time">1:00</div>
-        <div class="pitch-body"><div class="pb-title">What the Data Told You</div><div class="pb-desc">Analytics findings. AI analysis. What you improved based on evidence.</div></div>
-      </div>
-      <div class="pitch-step">
-        <div class="pitch-time">1:00</div>
-        <div class="pitch-body"><div class="pb-title">The Journey</div><div class="pb-desc">M1 vs M6 side by side. What changed?</div></div>
-      </div>
-    </div>
-    <p style="text-align:center; font-size:16px;"><em>No slides required. Your product IS the presentation.</em></p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 15: Presentations Begin ===================== -->
-<div class="slide" data-notes="Call presenters by name. 1–2 audience questions after each. Encourage reactions in chat. Keep energy celebratory. This is the culmination of the course.">
-  <div class="slide-inner">
-    <div class="demo-tag tag-present">Live Presentations</div>
-    <h2>Let's See What You Built — and What You Learned</h2>
-    <p class="subtitle" style="text-align:center;">Feedback format for audience:</p>
-    <ul>
-      <li>Drop a <strong>fire emoji</strong> in chat when something impresses you</li>
-      <li><strong>"One thing I'd steal from this product: ___"</strong></li>
-      <li><strong>"One question I'd ask as a PM: ___"</strong></li>
-    </ul>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 16: Six-Tab Reveal ===================== -->
-<div class="slide" data-notes="This is the emotional peak. Have students open all six tabs. 30 seconds of silence. 'In Module 1, you typed one prompt and got a page. In Module 6, you used AI to analyze your deployed product's data and made an evidence-based improvement. That's not prototyping. That's product management.' Don't rush.">
-  <div class="slide-inner">
-    <h2>M1. M2. M3. M4. M5. M6.</h2>
-    <h3 style="color:#8899bb; font-weight:400;">The Complete Arc.</h3>
-    <div class="six-tabs">
-      <div class="tab"><div class="tab-mod m1">Module 1</div><div class="tab-name">Speed</div><div class="tab-desc">One prompt, one page. Static.</div></div>
-      <div class="tab"><div class="tab-mod m2">Module 2</div><div class="tab-name">Aim</div><div class="tab-desc">Real data, hypothesis. Hardcoded.</div></div>
-      <div class="tab"><div class="tab-mod m3">Module 3</div><div class="tab-name">Precision</div><div class="tab-desc">5+ screens, states, chain.</div></div>
-      <div class="tab"><div class="tab-mod m4">Module 4</div><div class="tab-name">Structure</div><div class="tab-desc">Clean code, Living PRD.</div></div>
-      <div class="tab"><div class="tab-mod m5">Module 5</div><div class="tab-name">Ship</div><div class="tab-desc">Database, auth, deployed.</div></div>
-      <div class="tab active-tab"><div class="tab-mod m6">Module 6</div><div class="tab-name">Learn</div><div class="tab-desc">Measured. Analyzed. Iterated.</div></div>
-    </div>
-    <p style="margin-top:24px; text-align:center; font-size:18px;"><strong>Same tool. Same you. Six modules.</strong> The complete product lifecycle.</p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 17: Deliverables ===================== -->
-<div class="slide" data-notes="Name what they actually have. A deployed product. A spec. A codebase. A handoff note. A reusable prompt library. And a presentation backed by real data. That's a portfolio. More convincing than most quarterly reviews.">
-  <div class="slide-inner">
-    <h2>Your Complete Product Package</h2>
-    <div class="deliverable-grid">
-      <div class="deliverable"><div class="del-num">1</div><div class="del-title">Deployed Product</div><div class="del-desc">Live URL, real database, real auth. Improved based on data.</div></div>
-      <div class="deliverable"><div class="del-num">2</div><div class="del-title">Living PRD</div><div class="del-desc">AI-extracted spec: what it does, who it's for, what's next.</div></div>
-      <div class="deliverable"><div class="del-num">3</div><div class="del-title">GitHub Repository</div><div class="del-desc">Version-controlled code. Any engineer can clone and continue.</div></div>
-      <div class="deliverable"><div class="del-num">4</div><div class="del-title">Engineering Handoff Note</div><div class="del-desc">What's real, what's mocked, edge cases, where to start.</div></div>
-      <div class="deliverable"><div class="del-num">5</div><div class="del-title">Living Prompt Pack</div><div class="del-desc">Full prompt chain M1–M6 including analytics + iteration.</div></div>
-      <div class="deliverable"><div class="del-num">6</div><div class="del-title">Data-Driven Presentation</div><div class="del-desc">You pitched what you built AND what the data told you.</div></div>
-    </div>
-    <p style="margin-top:16px; text-align:center; font-size:16px;">This is not a course artifact. This is a <em>product portfolio</em>.</p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 18: Confidence Line ===================== -->
-<div class="slide" data-notes="This is the full confidence line. M5 was ship confidence. M6 adds the final layer: product confidence. You don't just build. You ship, measure, learn, and iterate. That's the complete PM skill set. It doesn't expire when you leave this course.">
-  <div class="slide-inner">
-    <h2>The Vibe Coding Confidence Line</h2>
-    <div class="confidence-line">
-      <div class="conf-item"><div class="conf-mod" style="color:#60a5fa;">M1</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:17%; background:#60a5fa;"></div></div><div class="conf-label">"I can build something in 10 min"</div></div>
-      <div class="conf-item"><div class="conf-mod" style="color:#fbbf24;">M2</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:33%; background:#fbbf24;"></div></div><div class="conf-label">"I can test the right thing"</div></div>
-      <div class="conf-item"><div class="conf-mod" style="color:#34d399;">M3</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:50%; background:#34d399;"></div></div><div class="conf-label">"I can build exactly what I describe"</div></div>
-      <div class="conf-item"><div class="conf-mod" style="color:#c084fc;">M4</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:67%; background:#c084fc;"></div></div><div class="conf-label">"I can structure it for a real team"</div></div>
-      <div class="conf-item"><div class="conf-mod" style="color:#f87171;">M5</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:83%; background:#f87171;"></div></div><div class="conf-label">"I can make it real and ship it"</div></div>
-      <div class="conf-item"><div class="conf-mod" style="color:#f97316;">M6</div><div class="conf-bar" style="background:#1e293b;"><div class="conf-bar-fill" style="width:100%; background:#f97316;"></div></div><div class="conf-label">"I can learn from it and make it better"</div></div>
-    </div>
-    <p style="margin-top:20px; text-align:center; font-size:16px;">From "I wonder if AI can build things" to <em>"I just shipped, measured, and improved a product."</em></p>
-  </div>
-</div>
-
-<!-- ===================== SLIDE 19: Certification ===================== -->
-<div class="slide" data-notes="Celebrate. Share digital certificates. You can build, validate, ship, measure, and iterate products using AI tools — and you've proven it. Your prompt pack is portable. Your methodology is transferable. Keep building. Keep shipping. Keep learning.">
+<!-- ===== SLIDE 19: Break ===== -->
+<div class="slide" data-notes="5-minute break before the showcase.">
   <div class="slide-inner" style="text-align:center;">
-    <div class="cert-badge">🎓</div>
-    <h2>Vibe Coding Certification — Complete</h2>
-    <p class="subtitle" style="margin:0 auto 24px;">You've earned it.</p>
-    <ul style="text-align:left; max-width:600px; margin:0 auto;">
-      <li>You can take a product idea from <strong>zero to deployed</strong> in hours</li>
-      <li>You can <strong>ship to real users</strong> AND measure whether it's working</li>
-      <li>You can use AI to <strong>analyze, iterate, and improve</strong> based on evidence</li>
-    </ul>
-    <p style="margin-top:28px; font-size:18px; font-weight:700; color:#fff;">Keep building. Keep shipping. <span class="accent">Keep learning.</span></p>
+    <div class="demo-tag tag-break">Break</div>
+    <div class="mega" style="font-size:120px;">5:00</div>
+    <div class="mega-sub">Time for a 5-minute break — you've earned it ☕</div>
   </div>
 </div>
 
-<!-- ===================== SLIDE 20: Survey ===================== -->
-<div class="slide" data-notes="Standard end-of-module survey. QR code or link.">
+<!-- ===== SLIDE 20: Cameras On ===== -->
+<div class="slide" data-notes="Welcome back. Cameras on for the showcase.">
   <div class="slide-inner" style="text-align:center;">
-    <h2>Your Opinion Matters To Us</h2>
-    <p class="subtitle" style="margin:0 auto;">Scan the QR code or use the link to share your feedback.<br>Your insights help us improve each cohort.</p>
+    <div class="demo-tag tag-recall">Welcome Back</div>
+    <h2>Cameras On 🎥</h2>
+    <div class="subtitle" style="margin:0 auto;">It's always better to see your smiling face. Be present and visible — and let's celebrate the showcase together.</div>
   </div>
 </div>
 
+<!-- ===== SLIDE 21: Section divider — Showcase ===== -->
+<div class="slide" data-notes="Section opener — the showcase.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">05 — FINAL PROJECT SHOWCASE</div>
+    <div class="section-title">Demo Your Live Product</div>
+  </div>
+</div>
 
-<!-- ===================== UI CHROME ===================== -->
+<!-- ===== SLIDE 22: LMS Submission Reminder ===== -->
+<div class="slide" data-notes="All students must submit final deliverables in Docebo for certification. They have 7 days from course end to submit.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-recall">Important Reminder</div>
+    <h2>🚀 Launch Your Submission to the LMS</h2>
+    <div class="subtitle" style="margin:0 auto;">To qualify for certification, please ensure you upload and submit your copy of the <strong>final project deliverables</strong> to our LMS.</div>
+    <div class="callout" style="text-align:left; max-width:520px; margin:18px auto 0;">
+      <div class="callout-label">Deadline</div>
+      <div class="callout-text">You have <strong>7 days after the course completes</strong> to submit your final project deliverables to Docebo.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 23: Presentation Kick-Off ===== -->
+<div class="slide" data-notes="Call on the first volunteer to present. ~10 min per student. Give a 6-7 min warning. Live feedback should mirror the rubric: Project Clarity, Credibility & Reasoning, Strategic Thinking, Application of Concepts.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Presentation Kick-Off · Your Time to Shine 🌟</div>
+    <h2>Demo Your Live Product</h2>
+    <div class="subtitle">Make sure to keep track of time! You'll have roughly <strong>10 minutes</strong> to demo and share your insights.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">What to Cover</div>
+        <ul style="margin-top:6px;">
+          <li>The problem and your hypothesis</li>
+          <li>Live demo of your deployed product</li>
+          <li>Key insights and your biggest aha moment</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Rubric Lens</div>
+        <ul style="margin-top:6px;">
+          <li><strong>Project Clarity</strong></li>
+          <li><strong>Credibility &amp; Reasoning</strong></li>
+          <li><strong>Strategic Thinking</strong></li>
+          <li><strong>Application of Concepts</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">Important</div>
+      <div class="callout-text">You have <strong>7 days after the course completes</strong> to submit your final deliverables to Docebo.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 24: Key Takeaways ===== -->
+<div class="slide" data-notes="Three principles. Shipping is the start. Multi-layered analytics. AI synthesis turns data into a prioritized backlog.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Key Takeaways</div>
+    <h2>Measure Product Performance for AI-Driven Iteration</h2>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Shipping is the start of the loop, not the finish</div><div class="wt-desc">PMs replace "I think" with "the data shows" by tracking metrics that validate or challenge their original hypothesis.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Use a multi-layered analytics approach</div><div class="wt-desc">System engagement (Lovable Insights), behavioral signals (GA4), and qualitative sentiment (custom feedback) together surface the evidence to prioritize fixes.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Transform data into a prioritized backlog with AI synthesis</div><div class="wt-desc">Feeding a problem statement, hypothesis, and real metrics into an LLM replaces hours of manual analysis with a synthesized, actionable evaluation.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 25: Survey ===== -->
+<div class="slide" data-notes="Day 6 / final survey.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-lecture">Your Opinion Matters</div>
+    <h2>Day 6 — Final Survey</h2>
+    <div class="subtitle" style="margin:0 auto;">Last one! Your insights help us iterate the course just like you iterate a product.</div>
+    <div class="card" style="margin:18px auto 0; max-width:340px; text-align:center;">
+      <div style="font-size:64px; line-height:1;">📋</div>
+      <div class="card-title" style="margin-top:12px;">🔗 Day 6 Survey Link</div>
+      <div class="card-desc">Takes ~2 minutes. We read every response.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 26: Bonus Resources ===== -->
+<div class="slide" data-notes="Module 6 Lab Guide and final project template.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Bonus Resources</div>
+    <h2>Resources &amp; Templates</h2>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-tag">Hands-On Lab Walkthrough</div>
+        <div class="res-title">Module 6 Lab Guide</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Vibe Coding Certification</div>
+        <div class="res-title">Final Project Deliverables Template</div>
+        <div class="res-link">→ View template</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Reference</div>
+        <div class="res-title">AI Analysis Prompt Library</div>
+        <div class="res-link">→ View library</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 27: Q&A ===== -->
+<div class="slide" data-notes="Final Q&amp;A. Open the floor wide — anything from the whole 6 modules.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-activity">Q&amp;A</div>
+    <div class="mega" style="font-size:80px;">Questions?</div>
+    <div class="mega-sub">Anything from any of the six modules. Drop questions in Slack any time after class.</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 28: End ===== -->
+<div class="slide" data-notes="Thank you. You're certified Vibe Coders. Go ship things.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="mega">Thank you 💥</div>
+    <div class="mega-sub">You're now Vibe Coding certified. Go ship things — with conviction, backed by data.</div>
+  </div>
+</div>
+
+<!-- ===== UI CHROME ===== -->
 <div class="nav">
-  <button class="nav-btn" onclick="prev()" title="Previous (←)">&#8249;</button>
-  <button class="nav-btn" onclick="next()" title="Next (→)">&#8250;</button>
+  <button class="nav-btn" onclick="prev()" title="Previous (←)">‹</button>
+  <button class="nav-btn" onclick="next()" title="Next (→)">›</button>
 </div>
-
-<div class="slide-counter"><span id="current">1</span> / <span id="total">20</span></div>
-
+<div class="slide-counter"><span id="current">1</span> / <span id="total">1</span></div>
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-
-<div class="help-hint">&larr; &rarr; navigate &middot; S speaker notes &middot; F fullscreen</div>
-
+<div class="help-hint">← → navigate · S notes · F fullscreen · K skip · M sorter</div>
 <div class="speaker-notes" id="speaker-notes">
   <div class="notes-tag">Speaker Notes</div>
   <div id="notes-content"></div>
+</div>
+<div class="skip-badge" id="skip-badge" onclick="toggleSkip(current)" title="Click to unskip (K)">SKIPPED</div>
+<div class="slide-sorter" id="slide-sorter">
+  <div class="sorter-header">
+    <div><div class="sorter-title">Slide Sorter</div><div class="sorter-subtitle">Click a slide to jump · Toggle skip to hide during presentation</div></div>
+    <button class="sorter-close" onclick="closeSorter()" title="Close (M / Esc)">✕</button>
+  </div>
+  <div class="sorter-grid" id="sorter-grid"></div>
 </div>
 
 <script>
@@ -702,20 +734,86 @@
   const total = slides.length;
   let current = 0;
   let notesVisible = false;
+  let sorterVisible = false;
+
+  const STORAGE_KEY = 'skip-slides-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
+  const skippedSlides = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+  function saveSkips() { localStorage.setItem(STORAGE_KEY, JSON.stringify([...skippedSlides])); }
+  function getActiveSlides() { return [...Array(total).keys()].filter(i => !skippedSlides.has(i)); }
 
   function show(idx) {
     slides.forEach((s, i) => { s.classList.toggle('active', i === idx); });
     current = idx;
-    document.getElementById('current').textContent = idx + 1;
-    document.getElementById('progress-bar').style.width = ((idx + 1) / total * 100) + '%';
+    const active = getActiveSlides();
+    const posInActive = active.indexOf(idx);
+    const displayPos = posInActive >= 0 ? posInActive + 1 : '•';
+    document.getElementById('current').textContent = displayPos;
+    document.getElementById('total').textContent = active.length;
+    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
+    document.getElementById('progress-bar').style.width = progress + '%';
     const notes = slides[idx].getAttribute('data-notes') || '';
     document.getElementById('notes-content').innerHTML = notes || '<em style="color:#444;">No notes for this slide.</em>';
+    document.getElementById('skip-badge').classList.toggle('visible', skippedSlides.has(idx));
   }
 
-  function next() { if (current < total - 1) show(current + 1); }
-  function prev() { if (current > 0) show(current - 1); }
+  function nextActive(from, dir) {
+    let i = from + dir;
+    while (i >= 0 && i < total) { if (!skippedSlides.has(i)) return i; i += dir; }
+    return -1;
+  }
+  function next() { const n = nextActive(current, 1); if (n >= 0) show(n); }
+  function prev() { const n = nextActive(current, -1); if (n >= 0) show(n); }
+
+  function toggleSkip(idx) {
+    if (skippedSlides.has(idx)) skippedSlides.delete(idx); else skippedSlides.add(idx);
+    saveSkips(); show(current); if (sorterVisible) renderSorter();
+  }
+
+  function getSlideLabel(el) {
+    const h = el.querySelector('h1, h2');
+    if (h) return h.textContent.trim().substring(0, 50);
+    const sectionTitle = el.querySelector('.section-title');
+    if (sectionTitle) return sectionTitle.textContent.trim().substring(0, 50);
+    const tag = el.querySelector('.module-tag, .demo-tag');
+    if (tag) return tag.textContent.trim();
+    return 'Slide';
+  }
+  function getSlideTag(el) {
+    const tag = el.querySelector('.demo-tag');
+    if (!tag) return '';
+    const cls = [...tag.classList].find(c => c.startsWith('tag-'));
+    const label = tag.textContent.trim().substring(0, 28);
+    const style = cls ? `class="sorter-tag ${cls}"` : 'class="sorter-tag" style="background:rgba(255,255,255,0.06);color:#556;"';
+    return `<span ${style}>${label}</span>`;
+  }
+  function renderSorter() {
+    const grid = document.getElementById('sorter-grid');
+    grid.innerHTML = '';
+    slides.forEach((s, i) => {
+      const isSkipped = skippedSlides.has(i);
+      const isCurrent = i === current;
+      const div = document.createElement('div');
+      div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
+      div.innerHTML = `
+        <div class="sorter-num">Slide ${i + 1}</div>
+        ${getSlideTag(s)}
+        <div class="sorter-label">${getSlideLabel(s)}</div>
+        <button class="sorter-skip-btn ${isSkipped ? 'skip-on' : 'skip-off'}" onclick="event.stopPropagation(); toggleSkip(${i})">
+          ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
+        </button>`;
+      div.addEventListener('click', () => { show(i); closeSorter(); });
+      grid.appendChild(div);
+    });
+  }
+  function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
+  function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
 
   document.addEventListener('keydown', e => {
+    if (sorterVisible) {
+      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
+      return;
+    }
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
     else if (e.key === 's' || e.key === 'S') {
@@ -726,6 +824,8 @@
       if (!document.fullscreenElement) document.documentElement.requestFullscreen();
       else document.exitFullscreen();
     }
+    else if (e.key === 'k' || e.key === 'K') { toggleSkip(current); }
+    else if (e.key === 'm' || e.key === 'M') { e.preventDefault(); openSorter(); }
   });
 
   let touchStartX = 0;
@@ -737,6 +837,5 @@
 
   show(0);
 </script>
-
 </body>
 </html>

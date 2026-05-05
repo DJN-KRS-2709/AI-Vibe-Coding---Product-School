@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2: Sharpen Intent with Strategic Prototypes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; background: #07162C; }
+  body { font-family: 'Lato', -apple-system, sans-serif; color: #e8e8f0; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: 'Poppins', sans-serif; }
+
+  .slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 56px 80px; opacity: 0; transition: opacity 0.35s ease; overflow-y: auto; }
+  .slide.active { display: flex; opacity: 1; }
+  .slide-inner { max-width: 1000px; width: 100%; }
+
+  .module-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1241B0; margin-bottom: 16px; }
+  h1 { font-size: 48px; font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 20px; }
+  h2 { font-size: 36px; font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 18px; }
+  h3 { font-size: 22px; font-weight: 700; line-height: 1.3; color: #e0e0f0; margin-bottom: 12px; }
+  .subtitle { font-size: 18px; font-weight: 400; color: #8899bb; line-height: 1.6; margin-bottom: 24px; max-width: 800px; }
+  p, li { font-size: 17px; color: #b0b4c8; line-height: 1.65; }
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 5px 0 5px 24px; position: relative; }
+  ul li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 8px; border-radius: 2px; background: #1241B0; }
+  strong { color: #fff; font-weight: 700; }
+  em { color: #60a5fa; font-style: normal; font-weight: 600; }
+  .accent { color: #60a5fa; }
+  .muted { color: #8899bb; }
+  .warn { color: #f87171; }
+  .success { color: #34d399; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  .demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; }
+  .tag-lecture { background: rgba(96,165,250,0.12); color: #93c5fd; }
+  .tag-framework { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-case { background: rgba(251,191,36,0.12); color: #fde68a; }
+  .tag-demo { background: rgba(124,58,237,0.18); color: #c4b5fd; }
+  .tag-exercise { background: rgba(52,211,153,0.14); color: #6ee7b7; }
+  .tag-activity { background: rgba(192,132,252,0.14); color: #d8b4fe; }
+  .tag-debrief { background: rgba(244,114,182,0.14); color: #f9a8d4; }
+  .tag-break { background: rgba(100,116,139,0.16); color: #94a3b8; }
+  .tag-recall { background: rgba(59,130,246,0.14); color: #93c5fd; }
+  .tag-section { background: rgba(18,65,176,0.20); color: #93c5fd; }
+
+  .waypoints { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
+  .waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(18,65,176,0.08); border: 1px solid rgba(18,65,176,0.22); border-radius: 12px; padding: 18px 22px; }
+  .waypoint-num { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; background: #1241B0; font-family: 'Poppins', sans-serif; }
+  .waypoint-text { flex: 1; }
+  .wt-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .wt-desc { font-size: 14px; color: #8899bb; line-height: 1.55; }
+
+  .card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 18px 22px; }
+  .card-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .card-desc { font-size: 14px; color: #b0b4c8; line-height: 1.55; }
+  .card-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+  @media (min-width: 1100px) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+  .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+
+  .ce-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .ce-icon { font-size: 22px; }
+  .ce-body .ce-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: 0.02em; }
+  .ce-body .ce-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+
+  .syllabus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .syllabus-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .syllabus-card.syl-active { border-color: #1241B0; background: rgba(18,65,176,0.16); box-shadow: 0 0 14px rgba(18,65,176,0.25); }
+  .syl-mod { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .syl-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.25; }
+  .syl-desc { font-size: 12px; color: #8899bb; line-height: 1.5; }
+
+  .agenda { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+  .agenda-item { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; }
+  .agenda-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; min-width: 28px; }
+  .agenda-text { font-size: 16px; color: #b0b4c8; }
+  .agenda-text strong { color: #fff; }
+
+  .section-frame { text-align: left; }
+  .section-num { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: #1241B0; letter-spacing: 0.18em; margin-bottom: 14px; }
+  .section-title { font-family: 'Poppins', sans-serif; font-size: 56px; font-weight: 800; line-height: 1.05; color: #fff; max-width: 900px; }
+
+  .problem-block { background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.22); border-radius: 12px; padding: 22px 26px; margin: 16px 0; }
+  .problem-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #f87171; margin-bottom: 8px; }
+  .problem-text { font-size: 17px; color: #e0e0f0; line-height: 1.6; }
+  .problem-zinger { font-size: 16px; color: #fff; font-weight: 700; margin-top: 12px; }
+
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.18); border-radius: 10px; }
+  .step-num { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; background: #059669; font-family: 'Poppins', sans-serif; }
+  .step-body .step-title { font-size: 15px; font-weight: 700; color: #e8e8f0; margin-bottom: 2px; }
+  .step-body .step-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+
+  .goal-box { background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.22); border-radius: 10px; padding: 16px 20px; margin-top: 14px; }
+  .goal-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #60a5fa; margin-bottom: 6px; }
+  .goal-text { font-size: 15px; color: #e8e8f0; line-height: 1.55; }
+
+  .bottom-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 10px 16px; background: rgba(18,65,176,0.18); border: 1px solid rgba(18,65,176,0.35); border-radius: 8px; font-size: 13px; font-weight: 700; color: #93c5fd; text-decoration: none; }
+
+  .debrief-box { background: rgba(192,132,252,0.06); border: 1px solid rgba(192,132,252,0.20); border-radius: 12px; padding: 24px 28px; margin: 18px 0; text-align: left; }
+  .debrief-prompt { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 10px; }
+  .debrief-meta { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d8b4fe; margin-bottom: 10px; }
+  .debrief-sub { font-size: 14px; color: #8899bb; line-height: 1.55; }
+
+  .score-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
+  .score-cell { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .score-num { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #60a5fa; margin-bottom: 4px; }
+  .score-label { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.3; }
+  .score-desc { font-size: 11px; color: #8899bb; margin-top: 3px; line-height: 1.3; }
+
+  .callout { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+  .callout-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fde68a; margin-bottom: 6px; }
+  .callout-text { font-size: 14px; color: #e0e0f0; line-height: 1.55; }
+
+  .complete-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .stat-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 18px 20px; text-align: left; }
+  .stat-num { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 800; color: #60a5fa; line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .stat-desc { font-size: 12px; color: #8899bb; line-height: 1.4; }
+
+  .shifts { display: flex; flex-direction: column; gap: 12px; margin: 14px 0; }
+  .shift-card { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.18); border-radius: 10px; padding: 16px 20px; }
+  .shift-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .shift-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .shift-desc { font-size: 13px; color: #b0b4c8; line-height: 1.55; }
+
+  .big-quote { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; color: #e0e0f0; line-height: 1.45; text-align: center; max-width: 760px; margin: 0 auto; }
+  .big-quote em { color: #60a5fa; }
+  .flow-line { font-size: 16px; color: #6f7d97; margin-top: 18px; }
+
+  .res-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .res-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .res-tag { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .res-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+  .res-link { font-size: 12px; font-weight: 700; color: #93c5fd; }
+
+  .mega { font-family: 'Poppins', sans-serif; font-size: 96px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; text-align: center; }
+  .mega-sub { font-size: 18px; color: #8899bb; text-align: center; margin-top: 16px; }
+
+  /* Validation loop */
+  .loop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .loop-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; position: relative; }
+  .loop-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: #1241B0; margin-bottom: 6px; }
+  .loop-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .loop-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
+  .loop-tag { font-size: 11px; color: #60a5fa; margin-top: 8px; font-weight: 700; }
+
+  /* Risk table */
+  .risk-table { width: 100%; margin: 14px 0; border-collapse: collapse; }
+  .risk-table th { text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.10em; color: #60a5fa; border-bottom: 1px solid #1a3a5c; }
+  .risk-table td { padding: 12px 14px; border-bottom: 1px solid #122a48; font-size: 14px; color: #b0b4c8; line-height: 1.5; vertical-align: top; }
+  .risk-table td:first-child { font-weight: 700; color: #fff; white-space: nowrap; }
+
+  /* Scenario picker */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .scenario-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .scenario-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #1241B0; letter-spacing: 0.12em; margin-bottom: 4px; }
+  .scenario-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .scenario-meta { font-size: 12px; color: #fbbf24; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.06em; }
+  .scenario-desc { font-size: 13px; color: #b0b4c8; line-height: 1.5; }
+
+  /* Six-part checklist */
+  .checklist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .check-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 16px 18px; }
+  .check-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #1241B0; letter-spacing: 0.12em; margin-bottom: 4px; }
+  .check-title { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .check-q { font-size: 12px; color: #60a5fa; font-weight: 700; margin-bottom: 4px; }
+  .check-desc { font-size: 12px; color: #8899bb; line-height: 1.5; }
+
+  /* Nav chrome (shared) */
+  .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; z-index: 100; }
+  .nav-btn { width: 42px; height: 42px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+  .nav-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
+  .progress { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.05); z-index: 100; }
+  .progress-bar { height: 100%; background: #1241B0; transition: width 0.35s ease; }
+  .slide-counter { position: fixed; bottom: 26px; left: 24px; font-size: 13px; font-weight: 600; color: #455168; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  .help-hint { position: fixed; top: 16px; right: 24px; font-size: 11px; color: #334156; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+
+  .speaker-notes { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0a1c33; border-top: 2px solid #1241B0; padding: 16px 32px; max-height: 240px; overflow-y: auto; font-size: 14px; color: #b0b4c8; line-height: 1.6; z-index: 200; }
+  .speaker-notes.visible { display: block; }
+  .speaker-notes strong { color: #fff; }
+  .notes-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: #60a5fa; margin-bottom: 6px; }
+
+  .skip-badge { display: none; position: fixed; top: 16px; left: 24px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #f87171; background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.30); padding: 5px 14px; border-radius: 6px; z-index: 150; cursor: pointer; }
+  .skip-badge.visible { display: block; }
+
+  .slide-sorter { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(7,22,44,0.97); overflow-y: auto; padding: 60px 40px 40px; }
+  .slide-sorter.visible { display: block; }
+  .sorter-header { display: flex; align-items: center; justify-content: space-between; margin: 0 auto 24px; max-width: 1200px; }
+  .sorter-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #fff; }
+  .sorter-subtitle { font-size: 13px; color: #556; margin-top: 4px; }
+  .sorter-close { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .sorter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; max-width: 1200px; margin: 0 auto; }
+  .sorter-item { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.15s ease; }
+  .sorter-item:hover { border-color: #1241B0; }
+  .sorter-item.sorter-active { border-color: #1241B0; box-shadow: 0 0 12px rgba(18,65,176,0.30); }
+  .sorter-item.sorter-skipped { opacity: 0.4; }
+  .sorter-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
+  .sorter-label { font-size: 13px; font-weight: 600; color: #e0e0f0; line-height: 1.4; margin-bottom: 10px; min-height: 36px; }
+  .sorter-skip-btn { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer; }
+  .sorter-skip-btn.skip-off { background: rgba(255,255,255,0.06); color: #556; }
+  .sorter-skip-btn.skip-on { background: rgba(248,113,113,0.16); color: #fca5a5; }
+  .sorter-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- ===== SLIDE 1: Title ===== -->
+<div class="slide active" data-notes="Welcome back to Module 2 — Sharpen Intent with Strategic Prototypes. Today we move from speed to aim. You can build anything; the question is whether you're building the right thing.">
+  <div class="slide-inner">
+    <div class="module-tag">Module 2 | Vibe Coding Certification</div>
+    <h1>Sharpen Intent with Strategic Prototypes</h1>
+    <h2 style="font-size:24px; font-weight:600; color:#8899bb; margin-bottom:24px;">Map assumptions and apply a validation lens to master fidelity selection — before opening the toolkit.</h2>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Use divergent prototypes to zero in on the "why"</div><div class="wt-desc">Make sure you're solving the right problem before you optimize the wrong one.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Inject context — hypothesis, real data, user voice</div><div class="wt-desc">Replace generic placeholders with strategic intent the AI can actually act on.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Commit to your final project scenario</div><div class="wt-desc">The build you anchor today will carry you through Modules 2–6.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Class Expectations ===== -->
+<div class="slide" data-notes="Same ground rules as M1. Quick reset — most students know the drill. Reminder: don't share the deck link, send students to the LMS (Docebo).">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Class Expectations</div>
+    <h2>How We Work Together</h2>
+    <div class="grid-6">
+      <div class="ce-card"><div class="ce-icon">📹</div><div class="ce-body"><div class="ce-title">Cameras On</div><div class="ce-desc">Be present and visible to stay engaged in class.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">⏰</div><div class="ce-body"><div class="ce-title">Arrive On Time</div><div class="ce-desc">Respect everyone's time by joining promptly.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">✋</div><div class="ce-body"><div class="ce-title">Active Engagement</div><div class="ce-desc">Participate fully in exercises, labs, and discussions.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🌐</div><div class="ce-body"><div class="ce-title">Network</div><div class="ce-desc">Connect with peers and build your learning network.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">💬</div><div class="ce-body"><div class="ce-title">Use Slack</div><div class="ce-desc">All communication in Slack so nothing gets lost.</div></div></div>
+      <div class="ce-card"><div class="ce-icon">🎓</div><div class="ce-body"><div class="ce-title">Instructor Support</div><div class="ce-desc">Save deeper questions for after class to keep flow.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Syllabus ===== -->
+<div class="slide" data-notes="Quick syllabus refresh — show today's spot in the arc. Module 2 is the validation lens that takes M1 speed and aims it at a specific test.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Vibe Coding Syllabus</div>
+    <h2>Six Modules. Where We Are Today.</h2>
+    <div class="syllabus-grid">
+      <div class="syllabus-card"><div class="syl-mod">Module 1</div><div class="syl-title">Activate Vibe Coding Speed</div><div class="syl-desc">Full Build–Show–Learn–Decide cycle. Functional prototype from a vague problem.</div></div>
+      <div class="syllabus-card syl-active"><div class="syl-mod">Module 2</div><div class="syl-title">Sharpen Intent with Strategic Prototypes</div><div class="syl-desc">Map assumptions and validation lens. Master fidelity selection.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 3</div><div class="syl-title">Architect Precision Prototypes</div><div class="syl-desc">Constraint injection and prompt packs for high-fidelity consistency.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 4</div><div class="syl-title">Translate Prototypes to Production Specs</div><div class="syl-desc">Convert builds into living specifications. Command the engineering handoff.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 5</div><div class="syl-title">Ship Live Products with Tactical Authority</div><div class="syl-desc">From localhost to a live URL. Lead with high-integrity narratives.</div></div>
+      <div class="syllabus-card"><div class="syl-mod">Module 6</div><div class="syl-title">Power Complex Full-Stack Logic</div><div class="syl-desc">Connect prototypes to live databases and secure APIs.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Agenda ===== -->
+<div class="slide" data-notes="Three blocks today: (01) build smarter not faster — context injection demo, (02) the validation lens framework + final project commit, (03) hands-on lab where you build with confidence.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Today's Agenda</div>
+    <h2>Three Blocks to Sharpen Intent</h2>
+    <div class="agenda">
+      <div class="agenda-item"><div class="agenda-num">01</div><div class="agenda-text"><strong>How to Build Smarter, Not Just Faster</strong> — context injection demo + the three ingredients</div></div>
+      <div class="agenda-item"><div class="agenda-num">02</div><div class="agenda-text"><strong>The Prototype Validation Lens</strong> — loop, kill switch, scenario commit, problem framework</div></div>
+      <div class="agenda-item"><div class="agenda-num">03</div><div class="agenda-text"><strong>Hands-On Lab</strong> — Start Your Final Project and Build With Confidence</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Section divider ===== -->
+<div class="slide" data-notes="Section opener for block 01. Frame: today you'll see the gap between a polished mockup and a strategic instrument — and the gap is context, not aesthetics.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">01 — SECTION</div>
+    <div class="section-title">How to Build Smarter, Not Just Faster</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Instructor Demo — Context Injection ===== -->
+<div class="slide" data-notes="Instructor-Led Demo (15 min). Five tabs open: M1 dashboard, completed Validation Brief, Context Data Pack, Structured Prompt Builder pre-filled, blank Lovable. Walk: (1) speed illusion critique 1 min, (2) strategic ingredients 2 min, (3) context injection in builder 3 min, (4) live build 5 min, (5) before/after 1 min. Land: visual quality identical, but second prototype is fundamentally stronger.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-demo">Instructor-Led Demo · 15 Minutes</div>
+    <h2>What You Can Prove with Context Injection</h2>
+    <div class="problem-block">
+      <div class="problem-label">The Problem</div>
+      <div class="problem-text">You've now got a polished, design-system-matched prototype with clickable buttons and interactive components. It looks like a real retention dashboard. So what assumption is it testing?</div>
+      <div class="problem-zinger">Nothing.</div>
+    </div>
+    <div class="grid-3">
+      <div class="card"><div class="card-label">1 min · Step 1</div><div class="card-title">The Speed Illusion Critique</div><div class="card-desc">Show your M1 dashboard. Looks shippable, strategically useless. We'll rebuild with intent, not aesthetics.</div></div>
+      <div class="card"><div class="card-label">2 min · Step 2</div><div class="card-title">The Strategic Ingredients</div><div class="card-desc">Toggle through Validation Brief + Context Data Pack. Pre-built strategy assets feed the AI what it needs.</div></div>
+      <div class="card"><div class="card-label">3 min · Step 3</div><div class="card-title">The Context Injection</div><div class="card-desc">Move data into the Structured Prompt Builder. Real quotes in Block 1, kill switch in Block 3.</div></div>
+      <div class="card" style="grid-column: span 2;"><div class="card-label">5 min · Step 4</div><div class="card-title">The Live Build</div><div class="card-desc">Paste the full context-injection mega-prompt into a fresh Lovable project. Real quotes and metrics force the AI to solve real friction.</div></div>
+      <div class="card"><div class="card-label">1 min · Step 5</div><div class="card-title">Before / After</div><div class="card-desc">Toggle tabs. Identical visual quality, fundamentally stronger logic.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Reflection Q&A ===== -->
+<div class="slide" data-notes="Instructor-Led Q&amp;A (5 min). 2-3 volunteers. Stress: there are no wrong answers and discomfort is the point. Their M1 prototype didn't test anything specific. Show-of-hands fallback works well.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Instructor-Led Q&amp;A · 5 Minutes</div>
+    <h2>Reflection Moment</h2>
+    <div class="subtitle">Open your prototype from Module 1 and take a deeper look. To get you started thinking about what your M1 prototype currently proves, share your perspective on:</div>
+    <div class="debrief-box">
+      <div class="debrief-meta">Q&amp;A Discussion</div>
+      <ul>
+        <li>What assumption were you <strong>actually testing</strong>? Be honest.</li>
+        <li>If your VP asked, <em>"What did you learn from this?"</em> what would you say?</li>
+        <li>Where is your <strong>user data</strong>? Metrics? User language?</li>
+      </ul>
+      <div class="debrief-sub" style="margin-top:8px;">Feel free to unmute and share, or post your thoughts in the chat.</div>
+    </div>
+    <p style="font-size:14px; color:#8899bb;">If discomfort sits in the room — that's the point. M1 proved you can build. Now we close the gap from build to <em>matter</em>.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Three Ingredients for Context Injection ===== -->
+<div class="slide" data-notes="Three ingredients = the soul of the prototype: hypothesis (the what you're testing), real data (stress-tests the logic), user voice (credibility through microcopy). Without these, you're generating high-fidelity Lorem Ipsum.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Three Main Ingredients</div>
+    <h2>What Goes Into Context Injection</h2>
+    <div class="subtitle">Design systems and components provide the shell. <strong>Context Injection provides the soul.</strong></div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-label">1 · Hypothesis</div>
+        <div class="card-title">The strategic anchor</div>
+        <div class="card-desc">Defines the core strategic goal of your build in the opening prompt.</div>
+        <p style="margin-top:8px; font-size:13px; color:#60a5fa; font-style:italic;">"I am testing whether…a guided walkthrough reduces user friction during initial onboarding."</p>
+      </div>
+      <div class="card">
+        <div class="card-label">2 · Real Data</div>
+        <div class="card-title">Domain-specific evidence</div>
+        <div class="card-desc">Replaces generic placeholders with domain-specific information to test logic accuracy.</div>
+        <p style="margin-top:8px; font-size:13px; color:#60a5fa; font-style:italic;">"Use this…CSV of 50 anonymized user logs to populate the retention risk dashboard."</p>
+      </div>
+      <div class="card">
+        <div class="card-label">3 · User Voice</div>
+        <div class="card-title">Persona terminology</div>
+        <div class="card-desc">Injects specific tone and terminology so the prototype resonates with the target audience.</div>
+        <p style="margin-top:8px; font-size:13px; color:#60a5fa; font-style:italic;">"Use the…direct, analytical tone of a Customer Success VP — focus on 'NRR' and 'Health Scores'."</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: Section divider ===== -->
+<div class="slide" data-notes="Section opener for block 02 — the Validation Lens. The three ingredients are fuel; the loop is the engine.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">02 — SECTION</div>
+    <div class="section-title">The Prototype Validation Lens</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: Validation Lens Loop ===== -->
+<div class="slide" data-notes="Most people prototype in a straight line. Vibe Coding requires a circle. Four steps: identify hypothesis → define constraints → build &amp; stress-test → synthesize &amp; pivot. Building to break is the highest signal.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Framework</div>
+    <h2>The Validation Lens Loop</h2>
+    <div class="subtitle">This cycle turns raw ideas into validated strategy. Each revolution sharpens your hypothesis and tightens constraints — moving your product from uncertain to evidence-backed.</div>
+    <div class="loop-grid">
+      <div class="loop-card">
+        <div class="loop-num">01</div>
+        <div class="loop-title">Identify the Hypothesis</div>
+        <div class="loop-desc">Name the test. If you can't complete <em>"I'm testing whether [X]"</em>, you aren't ready to build.</div>
+        <div class="loop-tag">The "why" that governs every prompt.</div>
+      </div>
+      <div class="loop-card">
+        <div class="loop-num">02</div>
+        <div class="loop-title">Define the Constraints</div>
+        <div class="loop-desc">Set the guardrails — intent, logic, interaction patterns. Context injection of Data + User Voice.</div>
+        <div class="loop-tag">Guardrails for the build.</div>
+      </div>
+      <div class="loop-card">
+        <div class="loop-num">03</div>
+        <div class="loop-title">Build and Stress-Test</div>
+        <div class="loop-desc">Don't build to look pretty. Build to find where it <strong>breaks</strong>. Finding a break = highest signal.</div>
+        <div class="loop-tag">Find logic and friction gaps now.</div>
+      </div>
+      <div class="loop-card">
+        <div class="loop-num">04</div>
+        <div class="loop-title">Synthesize and Pivot</div>
+        <div class="loop-desc">Update your hypothesis with what you learned, then continue or pivot. Iterate strategy, not pixels.</div>
+        <div class="loop-tag">Close the loop with learning.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 11: Kill Switch ===== -->
+<div class="slide" data-notes="Kill Switch = the one assumption that, if false, kills the project. Three risk types: Value (does anyone want this?), Usability (does it make sense?), Feasibility (will the logic work?). Match build fidelity to the risk.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">What's Your Kill Switch?</div>
+    <h2>Try to Kill Your Idea First</h2>
+    <div class="subtitle">Ask: <em>"Which assumption, if wrong, kills the whole thing?"</em> Once you have your answer — go build that first.</div>
+    <table class="risk-table">
+      <thead>
+        <tr><th>Risk Type</th><th>Question</th><th>Build This</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Value</td><td>"Will anyone actually want this?"</td><td>Focus on user intent — build a landing page. Test whether the core premise solves a real problem or is just a novelty.</td></tr>
+        <tr><td>Usability</td><td>"Will the experience make sense?"</td><td>Focus on interaction — build a clickable mockup. Simplify complex steps and find where the flow breaks down.</td></tr>
+        <tr><td>Feasibility</td><td>"Will the logic actually work?"</td><td>Focus on constraints — build a functional app. Find edge cases where your logic or data might fail.</td></tr>
+      </tbody>
+    </table>
+    <div class="grid-2">
+      <div class="card"><div class="card-label">0 → 1 · New Products</div><div class="card-desc">Kill switch is usually <strong>desirability</strong>. Nobody wants it yet — prove they will. Test the problem before investing in build.</div></div>
+      <div class="card"><div class="card-label">1 → N · Existing Products</div><div class="card-desc">Kill switch is <strong>adoption and flow</strong>. People have it; prove they'll use it. Screenshot what exists, build on top.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 12: Choose Your Scenario ===== -->
+<div class="slide" data-notes="Commitment moment. The scenario chosen now carries through M2-M6. No switching after today. Bring-your-own requires instructor approval during the break.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">Final Project Scenario</div>
+    <h2>Choose Your Scenario</h2>
+    <div class="subtitle">This is your <strong>commitment moment</strong>. Pick the scenario you'll carry through Modules 2–6. This will be your final project.</div>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-num">SCENARIO 1</div>
+        <div class="scenario-title">The Retention Engine</div>
+        <div class="scenario-meta">Likely Risk: Value</div>
+        <div class="scenario-desc">B2B SaaS losing 30% of users in 90 days. Why are they leaving? Build a prototype that helps you understand churn drivers and test whether an intervention can change the curve.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-num">SCENARIO 2</div>
+        <div class="scenario-title">The Internal Tool Nobody Uses</div>
+        <div class="scenario-meta">Likely Risk: Usability</div>
+        <div class="scenario-desc">CRM with 18% adoption. Built it, no one came. Figure out why and prototype a version that fits how people work. Classic 1-to-N problem.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-num">SCENARIO 3</div>
+        <div class="scenario-title">The Marketplace Trust Problem</div>
+        <div class="scenario-meta">Likely Risk: Value / Feasibility</div>
+        <div class="scenario-desc">Bookings flat, zero-review providers. Buyers don't trust new providers. Prototype a trust mechanism that gets first-time providers their first booking.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-num">SCENARIO 4</div>
+        <div class="scenario-title">The Dashboard Nobody Reads</div>
+        <div class="scenario-meta">Likely Risk: Usability</div>
+        <div class="scenario-desc">Analytics with 60% bounce rate. Data exists but nobody finds insights. Prototype a version that surfaces the right information so people use it to make decisions.</div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-label">★ Bring Your Own</div>
+      <div class="callout-text">Use a real problem from your own company. <strong>Check with your instructor for approval</strong> before today ends.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 13: Quick Debrief — Final Project Commitment ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Students post their scenario choice + reasoning in Slack. Don't overthink — pick the one closest to real work experience. Read out a few choices to gauge spread.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Final Project Commitment Statement</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">State your <em>chosen project scenario</em>, and your main reason or justification for selection.</div>
+      <div class="debrief-sub">Don't overthink it — focus on the scenario closest to a problem from your own work experience.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 14: Six-Part Problem Framework ===== -->
+<div class="slide" data-notes="The Problem Framework is a tactical pre-flight checklist. Six elements: Goal, Problem, Context, Constraints, Success Criteria, Explore. Fill out before opening any tool. Prototyping doesn't replace the PM responsibility of identifying the problem; it makes validation faster.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">The Problem Framework</div>
+    <h2>Six-Part Pre-Flight Checklist</h2>
+    <div class="subtitle">Forces you to articulate what you're <em>testing</em>, not just what you're shipping. Fill this out <strong>before</strong> you open any tool.</div>
+    <div class="checklist-grid">
+      <div class="check-card"><div class="check-num">01</div><div class="check-title">Goal</div><div class="check-q">What are we trying to achieve?</div><div class="check-desc">The outcome, not the output.</div></div>
+      <div class="check-card"><div class="check-num">02</div><div class="check-title">Problem</div><div class="check-q">What's blocking us right now?</div><div class="check-desc">Name the obstacle precisely.</div></div>
+      <div class="check-card"><div class="check-num">03</div><div class="check-title">Context</div><div class="check-q">Who, where, when?</div><div class="check-desc">The specifics that shape the solution space.</div></div>
+      <div class="check-card"><div class="check-num">04</div><div class="check-title">Constraints</div><div class="check-q">What can't we change?</div><div class="check-desc">Technical limits, timelines, budgets.</div></div>
+      <div class="check-card"><div class="check-num">05</div><div class="check-title">Success Criteria</div><div class="check-q">What does validation look like?</div><div class="check-desc">Define the threshold upfront.</div></div>
+      <div class="check-card"><div class="check-num">06</div><div class="check-title">Explore</div><div class="check-q">What are we trying to learn?</div><div class="check-desc">This is the key. The learning objective.</div></div>
+    </div>
+    <a class="bottom-cta" href="#">📝 Use this template for future vibe coding problems</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 15: Lab — Frame Before You Build ===== -->
+<div class="slide" data-notes="Individual Exercise (20 min). Strategy before execution — students MUST NOT open Lovable yet. Three parts: (1) Validation Brief, (2) Context Data Pack, (3) Visual Reference (Mobbin or M1 screenshot — focus on pattern not product name).">
+  <div class="slide-inner">
+    <div class="demo-tag tag-exercise">Individual Exercise · 20 Minutes</div>
+    <h2>Frame Before You Build</h2>
+    <div class="subtitle">Apply the Validation Lens to your project. Define your hypothesis, kill switch, and specific success criteria. <strong>Pre-work to lock in strategy — do not open Lovable yet.</strong></div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Complete your Validation Brief</div><div class="step-desc">Define hypothesis, risk type, kill switch, and success criteria so your build is designed to test a specific assumption.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Execute context injection with the Context Data Pack</div><div class="step-desc">Copy your scenario brief, user &amp; stakeholder feedback, and quantitative metrics directly into your exercise document.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Secure a visual reference</div><div class="step-desc">Grab a screenshot from Mobbin or your M1 prototype. Focus on the functional pattern (e.g., "team invite", "dashboard") — not the product name.</div></div></div>
+    </div>
+    <div class="goal-box">
+      <div class="goal-label">🎯 Goal</div>
+      <div class="goal-text">Perform context injection — gather the real-world data, user voice, and visual anchors required to lock in your strategy <em>before</em> you build.</div>
+    </div>
+    <a class="bottom-cta" href="#">✍️ Open the Validation Brief</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 16: Break ===== -->
+<div class="slide" data-notes="5-minute break. Use it to finish any loose ends from the Frame exercise.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-break">Break</div>
+    <div class="mega" style="font-size:120px;">5:00</div>
+    <div class="mega-sub">Time for a 5-minute break — you've earned it ☕</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 17: Cameras On reminder ===== -->
+<div class="slide" data-notes="Quick re-energy reminder. Cameras back on, present and visible.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-recall">Welcome Back</div>
+    <h2>Cameras On 🎥</h2>
+    <div class="subtitle" style="margin:0 auto;">It's always better to see your smiling face. Be present and visible to stay engaged and keep interactions valuable.</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 18: How to Sharpen Prototyping Intent — 4 inputs ===== -->
+<div class="slide" data-notes="Strategic shift recap — four inputs working together: Validation Brief, Visual Reference, Context Data Pack, Structured Prompt. Note prompting itself will be explored in detail in Module 3.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-framework">How to Sharpen Prototyping Intent</div>
+    <h2>Four Strategic Inputs Working Together</h2>
+    <div class="subtitle">Layer these inputs to remain the architect of strategy while the AI handles the execution.</div>
+    <div class="grid-2">
+      <div class="card"><div class="card-label">Validation Brief</div><div class="card-title">Strategic Anchor</div><div class="card-desc">Define your hypothesis and kill switch <em>before</em> you prompt — every credit moves a deliberate test forward.</div></div>
+      <div class="card"><div class="card-label">Visual Reference</div><div class="card-title">Design Guardrails</div><div class="card-desc">Provide screenshots so the AI has rigid design guardrails — professionalize the output and remove guesswork.</div></div>
+      <div class="card"><div class="card-label">Context Data Pack</div><div class="card-title">Real Evidence</div><div class="card-desc">Inject real user quotes and metrics — kills the placeholder trap and forces stakeholders to react to value.</div></div>
+      <div class="card"><div class="card-label">Structured Prompt</div><div class="card-title">Granular Control</div><div class="card-desc">Use a framework to prevent AI hallucinations and ensure the logic follows your business rules.</div></div>
+    </div>
+    <p style="margin-top:14px; font-size:14px; color:#8899bb;">We'll explore prompting itself in detail in <strong>Module 3</strong>.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 19: Section divider — Lab ===== -->
+<div class="slide" data-notes="Section opener for block 03 — the lab. Energy shift: from framing to building with confidence.">
+  <div class="slide-inner section-frame">
+    <div class="section-num">03 — HANDS-ON LAB</div>
+    <div class="section-title">Start Your Final Project and Build With Confidence</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 20: Lab — Start Final Project Build ===== -->
+<div class="slide" data-notes="Individual Exercise (30 min). Use Structured Prompt Builder. Five steps: (1) Block 1 context, (2) Block 2 visual reference, (3) Block 3 hypothesis &amp; kill switch, (4) Block 4 output screens + LLM smoke test, (5) build in Lovable. Watch credit drain — refine in ChatGPT/Gemini first. Final 2 min: shareable link warning.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-exercise">Individual Exercise · 30 Minutes</div>
+    <h2>Start Your Final Project and Build With Confidence</h2>
+    <div class="subtitle">Apply structured orchestration to your project scenario. Use your Validation Brief and real user data to prove that <em>intent drives</em> a more strategic prototype output.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open the Structured Prompt Builder</div><div class="step-desc">Paste your scenario brief, user quotes, and metrics into <strong>Block 1</strong> — the AI's core "Context".</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Drop your screenshot into Block 2</div><div class="step-desc">Specify whether the AI should match the layout, density, or visual style of your reference.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Translate your Validation Brief into Block 3</div><div class="step-desc">Paste your hypothesis and kill switch to set the functional guardrails for the build.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Define output screens in Block 4 + smoke test</div><div class="step-desc">Click "Copy Prompt". Refine your mega-prompt in ChatGPT or Gemini to find logic holes <em>before</em> burning credits.</div></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><div class="step-title">Take it into Lovable and build</div><div class="step-desc">Paste your finalized mega-prompt in one shot. Use targeted edits for tweaks rather than full rebuilds.</div></div></div>
+    </div>
+    <a class="bottom-cta" href="#">✍️ Return to your exercise guide</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 21: Show and Swap ===== -->
+<div class="slide" data-notes="Breakout Group Exercise (10 min). Pairs of 2. Swap links, 3 min silent navigation each. If a user gets lost — that's the data. Then 2 min discussion using the 3 questions. Swap and repeat.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Breakout Group Exercise · 10 Minutes</div>
+    <h2>Show and Swap Your Prototype</h2>
+    <div class="subtitle">Pair up with a peer and experience their build as a real user. Test whether your <strong>strategic intent and kill switch</strong> actually translated into the build.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Swap prototype links in the chat</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Explore silently for 3 minutes</div><div class="step-desc">No verbal context given or received. If the user gets lost — that's the data.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Discuss, take notes, swap and repeat</div></div></div>
+    </div>
+    <div class="debrief-box">
+      <div class="debrief-meta">Feedback Discussion</div>
+      <ul>
+        <li>What do you think the core <strong>hypothesis or kill switch</strong> was?</li>
+        <li>Where did the experience <strong>lose credibility</strong>?</li>
+        <li>Did the data make you feel like you were using a <strong>real product</strong>?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 22: Quick Debrief — Score ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Critical: stress the shift in scoring criteria — M1 was the look, M2 is the test. Even a same numerical score should have a fundamentally different reason. Read out scores live to highlight the shift from visual vibe to functional tool.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Prototype-Readiness Score</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">Score your <em>M2 prototype</em> from 1–5, explain why, and add screenshots of your <strong>M1 vs. M2</strong> finished products.</div>
+    </div>
+    <div class="score-row">
+      <div class="score-cell"><div class="score-num">1</div><div class="score-label">Just a Sketch</div><div class="score-desc">Exists, not ready for eyes.</div></div>
+      <div class="score-cell"><div class="score-num">2</div><div class="score-label">Rough Direction</div><div class="score-desc">Good idea, no execution.</div></div>
+      <div class="score-cell"><div class="score-num">3</div><div class="score-label">Getting There</div><div class="score-desc">Recognizable, not functional.</div></div>
+      <div class="score-cell"><div class="score-num">4</div><div class="score-label">Team Ready</div><div class="score-desc">I'd show my immediate team.</div></div>
+      <div class="score-cell"><div class="score-num">5</div><div class="score-label">VP Ready</div><div class="score-desc">I'd show leadership tomorrow.</div></div>
+    </div>
+    <p style="margin-top:8px; font-size:14px; color:#8899bb;">Example: <em>"3/5 — in M1 this was a 3 because of the colors; now it's a 3 because the filter logic works but the detail view is still static."</em></p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 23: Reflection Q&A — Full Circle ===== -->
+<div class="slide" data-notes="Instructor-Led Q&amp;A (5 min). The 'Full Circle' moment — same questions as Slide 7, but now students should feel a radical shift. Show-of-hands fallback works well.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Instructor-Led Q&amp;A · 5 Minutes</div>
+    <h2>Reflection Moment — Full Circle</h2>
+    <div class="subtitle">Reflect on the questions we asked at the start of class. Looking at your <strong>Module 2 prototype</strong>, how has your ability to answer these shifted?</div>
+    <div class="debrief-box">
+      <div class="debrief-meta">Q&amp;A Discussion</div>
+      <ul>
+        <li>What specific assumption were you actually testing today, and how does this build <strong>prove</strong> it?</li>
+        <li>If your VP asked, <em>"What did you learn from this?"</em> what would you say?</li>
+        <li>Where is your <strong>user data</strong>? Metrics? User language?</li>
+      </ul>
+    </div>
+    <p style="font-size:14px; color:#8899bb;">In Module 1 you proved you could <em>build</em>. Today you proved you could build something that <em>provides an answer</em>.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 24: Quick Debrief — Key Learning ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). Students post one sentence + reply to two peers. Land: replaced 'I think' with 'I know'. Real user voice + clear constraints = high-stakes product decisions in minutes.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
+    <h2>Key Learning Statement</h2>
+    <div class="debrief-box">
+      <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
+      <div class="debrief-prompt">What <em>assumption</em> did you test, and what did you <em>learn</em> from it?</div>
+      <div class="debrief-sub">Then reply to <strong>2 other learning sentences</strong> from your peers.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 25: Module 2 Complete ===== -->
+<div class="slide" data-notes="Land the plane. Shift students from 'requesting and waiting' to 'building and validating'. Set up M3: same product, better execution — scale prototypes into high-fidelity experiences.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Module 2 Complete</div>
+    <h2>What You Accomplished Today</h2>
+    <div class="complete-stats">
+      <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Strategic Build</div><div class="stat-desc">A targeted prototype designed to surface evidence, not just look finished.</div></div>
+      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Validation Pillars</div><div class="stat-desc">Every prompt anchored by hypothesis, risk type, kill switch, and measurable success criteria.</div></div>
+      <div class="stat-card"><div class="stat-num">1</div><div class="stat-label">Stress-Test Review</div><div class="stat-desc">Peer review proved that if you have to explain the UI, the intent isn't sharp enough.</div></div>
+    </div>
+    <div class="shifts">
+      <div class="shift-card">
+        <div class="shift-label">Shift 1</div>
+        <div class="shift-title">Context Injection — Decoded</div>
+        <div class="shift-desc">You moved past asking for screens. By feeding the AI business logic through user quotes and metrics, you turned a generic vibe into a specialized tool that acts as a strategic product partner.</div>
+      </div>
+      <div class="shift-card">
+        <div class="shift-label">Shift 2</div>
+        <div class="shift-title">Credibility Gap — Closed</div>
+        <div class="shift-desc">You eliminated placeholder traps by testing specific hypotheses with real-world data — transforming a hollow mockup into a professional business case capable of driving real go/no-go decisions.</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:16px; color:#fff; font-weight:700;">Next: Module 3 — Same product. <em>Better execution.</em></p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 26: Key Takeaways ===== -->
+<div class="slide" data-notes="Three principles. Don't add new content — anchor the day in three sentences students can repeat tomorrow.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Key Takeaways</div>
+    <h2>Sharpen Intent with Strategic Prototypes</h2>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Master the three ingredients of context injection</div><div class="wt-desc">Hypothesis, real data, user voice. Build high-signal prototypes that reflect actual market conditions, not generic design.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Use the validation loop to move systematically</div><div class="wt-desc">Hypothesis → constraints → stress test → synthesis. Compress weeks of traditional development into a single session.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Use the problem framework before you prompt</div><div class="wt-desc">Articulate exactly what's being tested. Defining the what and why upfront prevents aimless building.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 27: Next Session + Extra Practice ===== -->
+<div class="slide" data-notes="Preview Module 3 — prompt chaining and context engineering. Two optional dig-deeper exercises for those who want more reps.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-recall">Next Session &amp; Extra Practice</div>
+    <h2>Module 3 — Architect Precise Prototypes with Context Engineering</h2>
+    <div class="subtitle">Move from mega-prompts to <strong>prompt chaining</strong> by isolating business logic, user flow, and visual design into three distinct stages to prevent AI drift. Master context engineering — transition from flexible exploration to rigid, system-grade logic.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">⏩ Extra Practice 1</div>
+        <div class="card-title">Stress-Test Your Kill Switch</div>
+        <div class="card-desc">Pick a second high-priority risk from your Validation Brief and build a different prototype to test it. If your first build was a Landing Page for value, try a Functional App for feasibility. Which would you move forward with?</div>
+      </div>
+      <div class="card">
+        <div class="card-label">⏩ Extra Practice 2</div>
+        <div class="card-title">Perform a Data Swap</div>
+        <div class="card-desc">Take your existing prompt but replace the Context Data Pack with a different set of user quotes or metrics. Does the AI adapt UI copy and flow to match the new user friction?</div>
+      </div>
+    </div>
+    <p style="margin-top:14px; font-size:14px; color:#8899bb;">Optional. For anyone who wants to push further on their own time.</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 28: Survey ===== -->
+<div class="slide" data-notes="Day 2 survey. 1-2 min, link in chat. Reinforce: like real PMs, we iterate based on signal.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-lecture">Your Opinion Matters</div>
+    <h2>Day 2 Survey</h2>
+    <div class="subtitle" style="margin:0 auto;">At the end of each session, scan the QR or use the link to share your feedback. Your insights help us improve and make each cohort better than the last.</div>
+    <div class="card" style="margin:18px auto 0; max-width:340px; text-align:center;">
+      <div style="font-size:64px; line-height:1;">📋</div>
+      <div class="card-title" style="margin-top:12px;">🔗 Day 2 Survey Link</div>
+      <div class="card-desc">Takes ~2 minutes. We read every response.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 29: Bonus Resources ===== -->
+<div class="slide" data-notes="Module 2 Lab Guide and Validation Brief Template. Both linked in Slack and the LMS.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-lecture">Bonus Resources</div>
+    <h2>Resources &amp; Templates</h2>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-tag">Hands-On Lab Walkthrough</div>
+        <div class="res-title">Module 2 Lab Guide</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Product School Template</div>
+        <div class="res-title">Vibe Coding Validation Brief Template</div>
+        <div class="res-link">→ View template</div>
+      </div>
+      <div class="res-card">
+        <div class="res-tag">Vibe Coding Certification</div>
+        <div class="res-title">Final Project Brief &amp; Deliverables</div>
+        <div class="res-link">→ View resource</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 30: Q&A ===== -->
+<div class="slide" data-notes="Open the floor. Encourage Slack follow-ups for questions that arise after class.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="demo-tag tag-activity">Q&amp;A</div>
+    <div class="mega" style="font-size:80px;">Questions?</div>
+    <div class="mega-sub">Dive deeper into anything we covered — or drop questions in Slack any time.</div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 31: End ===== -->
+<div class="slide" data-notes="Thank you. See you in Module 3.">
+  <div class="slide-inner" style="text-align:center;">
+    <div class="mega">Thank you 💥</div>
+    <div class="mega-sub">See you in Module 3 — Architect Precision Prototypes with Context Engineering</div>
+  </div>
+</div>
+
+<!-- ===== UI CHROME ===== -->
+<div class="nav">
+  <button class="nav-btn" onclick="prev()" title="Previous (←)">‹</button>
+  <button class="nav-btn" onclick="next()" title="Next (→)">›</button>
+</div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">1</span></div>
+<div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+<div class="help-hint">← → navigate · S notes · F fullscreen · K skip · M sorter</div>
+<div class="speaker-notes" id="speaker-notes">
+  <div class="notes-tag">Speaker Notes</div>
+  <div id="notes-content"></div>
+</div>
+<div class="skip-badge" id="skip-badge" onclick="toggleSkip(current)" title="Click to unskip (K)">SKIPPED</div>
+<div class="slide-sorter" id="slide-sorter">
+  <div class="sorter-header">
+    <div><div class="sorter-title">Slide Sorter</div><div class="sorter-subtitle">Click a slide to jump · Toggle skip to hide during presentation</div></div>
+    <button class="sorter-close" onclick="closeSorter()" title="Close (M / Esc)">✕</button>
+  </div>
+  <div class="sorter-grid" id="sorter-grid"></div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let notesVisible = false;
+  let sorterVisible = false;
+
+  const STORAGE_KEY = 'skip-slides-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
+  const skippedSlides = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+  function saveSkips() { localStorage.setItem(STORAGE_KEY, JSON.stringify([...skippedSlides])); }
+  function getActiveSlides() { return [...Array(total).keys()].filter(i => !skippedSlides.has(i)); }
+
+  function show(idx) {
+    slides.forEach((s, i) => { s.classList.toggle('active', i === idx); });
+    current = idx;
+    const active = getActiveSlides();
+    const posInActive = active.indexOf(idx);
+    const displayPos = posInActive >= 0 ? posInActive + 1 : '•';
+    document.getElementById('current').textContent = displayPos;
+    document.getElementById('total').textContent = active.length;
+    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
+    document.getElementById('progress-bar').style.width = progress + '%';
+    const notes = slides[idx].getAttribute('data-notes') || '';
+    document.getElementById('notes-content').innerHTML = notes || '<em style="color:#444;">No notes for this slide.</em>';
+    document.getElementById('skip-badge').classList.toggle('visible', skippedSlides.has(idx));
+  }
+
+  function nextActive(from, dir) {
+    let i = from + dir;
+    while (i >= 0 && i < total) { if (!skippedSlides.has(i)) return i; i += dir; }
+    return -1;
+  }
+  function next() { const n = nextActive(current, 1); if (n >= 0) show(n); }
+  function prev() { const n = nextActive(current, -1); if (n >= 0) show(n); }
+
+  function toggleSkip(idx) {
+    if (skippedSlides.has(idx)) skippedSlides.delete(idx); else skippedSlides.add(idx);
+    saveSkips(); show(current); if (sorterVisible) renderSorter();
+  }
+
+  function getSlideLabel(el) {
+    const h = el.querySelector('h1, h2');
+    if (h) return h.textContent.trim().substring(0, 50);
+    const sectionTitle = el.querySelector('.section-title');
+    if (sectionTitle) return sectionTitle.textContent.trim().substring(0, 50);
+    const tag = el.querySelector('.module-tag, .demo-tag');
+    if (tag) return tag.textContent.trim();
+    return 'Slide';
+  }
+  function getSlideTag(el) {
+    const tag = el.querySelector('.demo-tag');
+    if (!tag) return '';
+    const cls = [...tag.classList].find(c => c.startsWith('tag-'));
+    const label = tag.textContent.trim().substring(0, 28);
+    const style = cls ? `class="sorter-tag ${cls}"` : 'class="sorter-tag" style="background:rgba(255,255,255,0.06);color:#556;"';
+    return `<span ${style}>${label}</span>`;
+  }
+  function renderSorter() {
+    const grid = document.getElementById('sorter-grid');
+    grid.innerHTML = '';
+    slides.forEach((s, i) => {
+      const isSkipped = skippedSlides.has(i);
+      const isCurrent = i === current;
+      const div = document.createElement('div');
+      div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
+      div.innerHTML = `
+        <div class="sorter-num">Slide ${i + 1}</div>
+        ${getSlideTag(s)}
+        <div class="sorter-label">${getSlideLabel(s)}</div>
+        <button class="sorter-skip-btn ${isSkipped ? 'skip-on' : 'skip-off'}" onclick="event.stopPropagation(); toggleSkip(${i})">
+          ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
+        </button>`;
+      div.addEventListener('click', () => { show(i); closeSorter(); });
+      grid.appendChild(div);
+    });
+  }
+  function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
+  function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
+
+  document.addEventListener('keydown', e => {
+    if (sorterVisible) {
+      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    else if (e.key === 's' || e.key === 'S') {
+      notesVisible = !notesVisible;
+      document.getElementById('speaker-notes').classList.toggle('visible', notesVisible);
+    }
+    else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+    else if (e.key === 'k' || e.key === 'K') { toggleSkip(current); }
+    else if (e.key === 'm' || e.key === 'M') { e.preventDefault(); openSorter(); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) { diff > 0 ? next() : prev(); }
+  });
+
+  show(0);
+</script>
+</body>
+</html>
