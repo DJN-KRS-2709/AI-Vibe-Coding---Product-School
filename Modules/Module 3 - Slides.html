@@ -174,6 +174,23 @@
   .pack-section ul li::before { width: 5px; height: 5px; top: 12px; }
 
   /* Nav chrome */
+  /* Title-slide logo */
+  .title-logo { height: 44px; width: auto; margin-bottom: 18px; opacity: 0.92; mix-blend-mode: lighten; filter: drop-shadow(0 0 18px rgba(96,165,250,0.20)); }
+
+  /* Cameras On photo layout */
+  .slide.cameras-photo-slide { padding: 0; }
+  .cameras-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #07162C 0%, #0c2244 50%, #1241B0 100%); display: flex; align-items: center; justify-content: center; }
+  .cameras-layout { display: flex; align-items: center; gap: 56px; max-width: 880px; width: 100%; padding: 40px; }
+  .cameras-left { flex: 1; position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+  .cameras-logo { width: 44px; height: auto; margin-bottom: 36px; opacity: 0.92; mix-blend-mode: lighten; }
+  .cameras-card { border: 1.5px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 36px 44px; max-width: 460px; text-align: left; background: rgba(7,22,44,0.35); backdrop-filter: blur(8px); }
+  .cameras-card h2 { font-size: 30px; margin-bottom: 8px; color: #fff; }
+  .cameras-card .cameras-arrow { font-size: 16px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
+  .cameras-card p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.65; }
+  .cameras-photo-strip { flex-shrink: 0; width: 200px; height: 440px; border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.14); }
+  .cameras-photo-strip img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 760px) { .cameras-layout { flex-direction: column; gap: 30px; padding: 28px; } .cameras-photo-strip { width: 100%; max-width: 360px; height: 280px; } }
+
   .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; z-index: 100; }
   .nav-btn { width: 42px; height: 42px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
   .nav-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
@@ -214,6 +231,7 @@
 <!-- ===== SLIDE 1: Title ===== -->
 <div class="slide active" data-notes="Welcome to Module 3 — Ensure Complex System Stability with Prompt Chaining. M1 was speed, M2 was aim, today is precision. We're moving from instinct to architecture.">
   <div class="slide-inner">
+    <img class="title-logo" src="../Design/Product-School-Logo.png" alt="Product School">
     <div class="module-tag">Module 3 | Vibe Coding Certification</div>
     <h1>Ensure Complex System Stability with Prompt Chaining</h1>
     <h2 style="font-size:24px; font-weight:600; color:#8899bb; margin-bottom:24px;">Master context layering and constraint grounding to orchestrate multi-screen architectures.</h2>
@@ -487,11 +505,21 @@
 </div>
 
 <!-- ===== SLIDE 17: Cameras On ===== -->
-<div class="slide" data-notes="Quick re-energy reminder.">
-  <div class="slide-inner" style="text-align:center;">
-    <div class="demo-tag tag-recall">Welcome Back</div>
-    <h2>Cameras On 🎥</h2>
-    <div class="subtitle" style="margin:0 auto;">It's always better to see your smiling face. Be present and visible to stay engaged.</div>
+<div class="slide cameras-photo-slide" data-notes="Quick re-energy reminder.">
+  <div class="cameras-bg">
+    <div class="cameras-layout">
+      <div class="cameras-left">
+        <img class="cameras-logo" src="../Design/Product-School-Logo.png" alt="Product School">
+        <div class="cameras-card">
+          <h2>Reminder! 🎒</h2>
+          <div class="cameras-arrow">→ Cameras On</div>
+          <p>It's always better to see your smiling face. Be present and visible to stay engaged and keep interactions valuable.</p>
+        </div>
+      </div>
+      <div class="cameras-photo-strip">
+        <img src="../Design/cameras-on.png" alt="Engaged learner on camera">
+      </div>
+    </div>
   </div>
 </div>
 
