@@ -258,6 +258,41 @@
   .sorter-skip-btn.skip-off { background: rgba(255,255,255,0.06); color: #556; }
   .sorter-skip-btn.skip-on { background: rgba(248,113,113,0.16); color: #fca5a5; }
   .sorter-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; }
+  /* Confidence Line — pitch-deck style: 6 cards across with phase labels + gradient line */
+  .slide.confidence-line-slide { background:
+      radial-gradient(circle at 6% 92%, rgba(239,68,68,0.16), transparent 28rem),
+      radial-gradient(circle at 94% 92%, rgba(34,211,238,0.16), transparent 28rem),
+      radial-gradient(circle at 50% 0%, rgba(96,165,250,0.06), transparent 22rem); }
+  .cl-frame { margin: 22px 0 0; padding: 0 4px; }
+  .cl-phases { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-bottom: 14px; }
+  .cl-phase { grid-column: span 2; text-align: center; padding: 0 8px; }
+  .cl-phase-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.24em; color: #6b7c95; text-transform: uppercase; margin-bottom: 4px; opacity: 0.85; }
+  .cl-phase-name { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 500; color: #d6dde8; letter-spacing: 0.02em; }
+  .cl-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; align-items: stretch; position: relative; }
+  .cl-card { position: relative; background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 18px 14px 16px; min-height: 210px; display: flex; flex-direction: column; transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+  .cl-card:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.35); background: linear-gradient(180deg, rgba(96,165,250,0.10) 0%, rgba(255,255,255,0.02) 100%); }
+  .cl-card.cl-current { background: linear-gradient(180deg, rgba(96,165,250,0.18) 0%, rgba(96,165,250,0.04) 100%); border-color: rgba(96,165,250,0.55); box-shadow: 0 0 32px rgba(96,165,250,0.18); }
+  .cl-card.cl-current .cl-num { color: #60a5fa; }
+  .cl-card.cl-current .cl-here { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #60a5fa; color: #07162C; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; padding: 4px 9px; border-radius: 999px; white-space: nowrap; z-index: 3; text-transform: uppercase; }
+  .cl-card .cl-num { font-family: 'Poppins', sans-serif; font-size: 44px; font-weight: 600; color: #fff; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 14px; }
+  .cl-card .cl-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.005em; }
+  .cl-card .cl-desc { font-family: 'Lato', sans-serif; font-size: 11.5px; color: #8a96ad; line-height: 1.5; }
+  .cl-arrow { position: absolute; top: 50%; right: -10px; transform: translateY(-50%); z-index: 2; color: #455168; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 400; pointer-events: none; }
+  .cl-card:last-child .cl-arrow { display: none; }
+  .cl-gradient-wrap { margin-top: 22px; position: relative; }
+  .cl-gradient-bar { height: 2px; background: linear-gradient(90deg, #ef4444 0%, #fb923c 25%, #fbbf24 50%, #84cc16 75%, #22c55e 100%); }
+  .cl-gradient-labels { display: flex; justify-content: space-between; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+  .cl-gradient-labels .cl-left { color: #ef4444; }
+  .cl-gradient-labels .cl-right { color: #22c55e; }
+  @media (max-width: 880px) {
+    .cl-phases, .cl-row { grid-template-columns: repeat(3, 1fr); }
+    .cl-phase { grid-column: span 1; }
+    .cl-card { min-height: 190px; }
+    .cl-arrow { display: none; }
+  }
+  @media (max-width: 560px) {
+    .cl-phases, .cl-row { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -273,6 +308,79 @@
       <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Use divergent prototypes to zero in on the "why"</div><div class="wt-desc">Make sure you're solving the right problem before you optimize the wrong one.</div></div></div>
       <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Inject context — hypothesis, real data, user voice</div><div class="wt-desc">Replace generic placeholders with strategic intent the AI can actually act on.</div></div></div>
       <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Commit to your final project scenario</div><div class="wt-desc">The build you anchor today will carry you through Modules 2–6.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 1.5: Confidence Line — You Are Here ===== -->
+<div class="slide confidence-line-slide" data-notes="You are here: Module 2 — Rapid Intent Validation. M1 gave you speed; today you aim it. Still in Phase 1 (High Ambiguity), but moving the line by killing or validating assumptions before you build for real.">
+  <div class="slide-inner" style="max-width: 1180px;">
+    <div class="demo-tag tag-framework">The Confidence Line</div>
+    <h2>Where You Are on the Confidence Line</h2>
+    <div class="subtitle">Six modules. Three phases. One arc — from <strong>high ambiguity</strong> to <strong>high clarity</strong>.</div>
+
+    <div class="cl-frame">
+      <div class="cl-phases">
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 1</div>
+          <div class="cl-phase-name">High Ambiguity</div>
+        </div>
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 2</div>
+          <div class="cl-phase-name">Gaining Clarity</div>
+        </div>
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 3</div>
+          <div class="cl-phase-name">Production Confidence</div>
+        </div>
+      </div>
+
+      <div class="cl-row">
+        <div class="cl-card">
+          <div class="cl-num">M1</div>
+          <div class="cl-title">The Vibe Coding Mindset</div>
+          <div class="cl-desc">Thriving in ambiguity. Building to think, not to ship. Exploring three directions fast.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card cl-current">
+          <span class="cl-here">You are here</span>
+          <div class="cl-num">M2</div>
+          <div class="cl-title">Rapid Intent Validation</div>
+          <div class="cl-desc">Building to learn. Compressing feedback cycles from weeks to hours. Killing or validating ideas through real prototypes.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M3</div>
+          <div class="cl-title">Precision Prompting</div>
+          <div class="cl-desc">Shifting from vague requests to exact intent. Context layering, agentic workflows, and living prompt packs.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M4</div>
+          <div class="cl-title">From Vibe to Structure</div>
+          <div class="cl-desc">The graduation moment. Knowing when to stop exploring and start building seriously. Living specs, refactoring, debugging, and clear handoff.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M5</div>
+          <div class="cl-title">Real-World Complexity</div>
+          <div class="cl-desc">Working with APIs, auth, data, and edge cases. Bridging clean prototypes with messy production reality.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M6</div>
+          <div class="cl-title">Ship It</div>
+          <div class="cl-desc">A confident finish. Deploying to a live URL. Presenting to stakeholders. Leaving with a portfolio piece and a repeatable personal practice.</div>
+        </div>
+      </div>
+
+      <div class="cl-gradient-wrap">
+        <div class="cl-gradient-bar"></div>
+        <div class="cl-gradient-labels">
+          <span class="cl-left">High Ambiguity</span>
+          <span class="cl-right">High Clarity</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
