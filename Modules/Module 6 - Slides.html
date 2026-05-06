@@ -10,12 +10,13 @@
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; overflow: hidden; background: #07162C; }
-  body { font-family: 'Lato', -apple-system, sans-serif; color: #e8e8f0; -webkit-font-smoothing: antialiased; }
+  html { scroll-snap-type: y mandatory; scroll-behavior: smooth; background: #07162C; }
+  body { font-family: 'Lato', -apple-system, sans-serif; color: #e8e8f0; -webkit-font-smoothing: antialiased; background: #07162C; overflow-x: hidden; }
   h1, h2, h3 { font-family: 'Poppins', sans-serif; }
 
-  .slide { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 56px 80px; opacity: 0; transition: opacity 0.35s ease; overflow-y: auto; }
-  .slide.active { display: flex; opacity: 1; }
+  .slide { position: relative; width: 100%; min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 60px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; overflow: hidden; }
+  .slide.active, .slide.visible { opacity: 1; transform: translateY(0); }
+  .slide.skipped { display: none; }
   .slide-inner { max-width: 1000px; width: 100%; }
 
   .module-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #1241B0; margin-bottom: 16px; }
@@ -218,13 +219,18 @@
   .cameras-photo-strip img { width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 760px) { .cameras-layout { flex-direction: column; gap: 30px; padding: 28px; } .cameras-photo-strip { width: 100%; max-width: 360px; height: 280px; } }
 
-  .nav { position: fixed; bottom: 20px; right: 24px; display: flex; gap: 8px; z-index: 100; }
-  .nav-btn { width: 42px; height: 42px; border-radius: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); color: #888; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
-  .nav-btn:hover { background: rgba(255,255,255,0.10); color: #fff; }
-  .progress { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.05); z-index: 100; }
-  .progress-bar { height: 100%; background: #1241B0; transition: width 0.35s ease; }
-  .slide-counter { position: fixed; bottom: 26px; left: 24px; font-size: 13px; font-weight: 600; color: #455168; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
-  .help-hint { position: fixed; top: 16px; right: 24px; font-size: 11px; color: #334156; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  /* Scroll-nav chrome */
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.05); z-index: 100; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #1241B0, #3b82f6); transition: width 0.35s ease; }
+  .slide-counter { position: fixed; bottom: 24px; left: 24px; font-size: 12px; font-weight: 600; color: #455168; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  .help-hint { position: fixed; bottom: 24px; right: 24px; font-size: 11px; color: #334156; z-index: 100; font-family: 'IBM Plex Mono', monospace; }
+  .nav-dots { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 100; max-height: 80vh; overflow-y: auto; padding: 4px; scrollbar-width: none; }
+  .nav-dots::-webkit-scrollbar { display: none; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #2a3548; border: none; cursor: pointer; transition: all 0.3s; position: relative; padding: 0; flex-shrink: 0; }
+  .nav-dot.active { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.5); transform: scale(1.4); }
+  .nav-dot:hover { background: rgba(59,130,246,0.7); }
+  .nav-dot .tooltip { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: #0c2244; color: #b0b4c8; padding: 4px 10px; border-radius: 6px; font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(59,130,246,0.2); }
+  .nav-dot:hover .tooltip { opacity: 1; }
 
   .speaker-notes { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0a1c33; border-top: 2px solid #1241B0; padding: 16px 32px; max-height: 240px; overflow-y: auto; font-size: 14px; color: #b0b4c8; line-height: 1.6; z-index: 200; }
   .speaker-notes.visible { display: block; }
@@ -773,75 +779,45 @@
 </div>
 
 <!-- ===== UI CHROME ===== -->
-<div class="nav">
-  <button class="nav-btn" onclick="prev()" title="Previous (←)">‹</button>
-  <button class="nav-btn" onclick="next()" title="Next (→)">›</button>
-</div>
-<div class="slide-counter"><span id="current">1</span> / <span id="total">1</span></div>
 <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
-<div class="help-hint">← → navigate · S notes · F fullscreen · K skip · M sorter</div>
+<div class="nav-dots" id="navDots"></div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">1</span></div>
+<div class="help-hint">↑ ↓ scroll · K skip · M sorter · S notes · F fullscreen</div>
 <div class="speaker-notes" id="speaker-notes">
   <div class="notes-tag">Speaker Notes</div>
   <div id="notes-content"></div>
 </div>
-<div class="skip-badge" id="skip-badge" onclick="toggleSkip(current)" title="Click to unskip (K)">SKIPPED</div>
+<div class="skip-badge" id="skip-badge" title="Click to unskip (K)">SKIPPED</div>
 <div class="slide-sorter" id="slide-sorter">
   <div class="sorter-header">
-    <div><div class="sorter-title">Slide Sorter</div><div class="sorter-subtitle">Click a slide to jump · Toggle skip to hide during presentation</div></div>
+    <div><div class="sorter-title">Section Sorter</div><div class="sorter-subtitle">Click a section to jump · Toggle skip to hide during presentation</div></div>
     <button class="sorter-close" onclick="closeSorter()" title="Close (M / Esc)">✕</button>
   </div>
   <div class="sorter-grid" id="sorter-grid"></div>
 </div>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
+  const slides = Array.from(document.querySelectorAll('.slide'));
   const total = slides.length;
-  let current = 0;
+  const navDots = document.getElementById('navDots');
+  let currentIdx = 0;
   let notesVisible = false;
   let sorterVisible = false;
 
-  const STORAGE_KEY = 'skip-slides-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
+  const STORAGE_KEY = 'skip-sections-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
   const skippedSlides = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
 
   function saveSkips() { localStorage.setItem(STORAGE_KEY, JSON.stringify([...skippedSlides])); }
-  function getActiveSlides() { return [...Array(total).keys()].filter(i => !skippedSlides.has(i)); }
-
-  function show(idx) {
-    slides.forEach((s, i) => { s.classList.toggle('active', i === idx); });
-    current = idx;
-    const active = getActiveSlides();
-    const posInActive = active.indexOf(idx);
-    const displayPos = posInActive >= 0 ? posInActive + 1 : '•';
-    document.getElementById('current').textContent = displayPos;
-    document.getElementById('total').textContent = active.length;
-    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
-    document.getElementById('progress-bar').style.width = progress + '%';
-    const notes = slides[idx].getAttribute('data-notes') || '';
-    document.getElementById('notes-content').innerHTML = notes || '<em style="color:#444;">No notes for this slide.</em>';
-    document.getElementById('skip-badge').classList.toggle('visible', skippedSlides.has(idx));
-  }
-
-  function nextActive(from, dir) {
-    let i = from + dir;
-    while (i >= 0 && i < total) { if (!skippedSlides.has(i)) return i; i += dir; }
-    return -1;
-  }
-  function next() { const n = nextActive(current, 1); if (n >= 0) show(n); }
-  function prev() { const n = nextActive(current, -1); if (n >= 0) show(n); }
-
-  function toggleSkip(idx) {
-    if (skippedSlides.has(idx)) skippedSlides.delete(idx); else skippedSlides.add(idx);
-    saveSkips(); show(current); if (sorterVisible) renderSorter();
-  }
+  function getActiveSlides() { return slides.map((_, i) => i).filter(i => !skippedSlides.has(i)); }
 
   function getSlideLabel(el) {
-    const h = el.querySelector('h1, h2');
-    if (h) return h.textContent.trim().substring(0, 50);
     const sectionTitle = el.querySelector('.section-title');
     if (sectionTitle) return sectionTitle.textContent.trim().substring(0, 50);
+    const h = el.querySelector('h1, h2');
+    if (h) return h.textContent.trim().substring(0, 50);
     const tag = el.querySelector('.module-tag, .demo-tag');
     if (tag) return tag.textContent.trim();
-    return 'Slide';
+    return 'Section';
   }
   function getSlideTag(el) {
     const tag = el.querySelector('.demo-tag');
@@ -851,35 +827,106 @@
     const style = cls ? `class="sorter-tag ${cls}"` : 'class="sorter-tag" style="background:rgba(255,255,255,0.06);color:#556;"';
     return `<span ${style}>${label}</span>`;
   }
+
+  function applySkips() {
+    slides.forEach((sec, i) => sec.classList.toggle('skipped', skippedSlides.has(i)));
+    rebuildDots();
+  }
+
+  function rebuildDots() {
+    navDots.innerHTML = '';
+    slides.forEach((sec, i) => {
+      if (skippedSlides.has(i)) return;
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
+      const title = getSlideLabel(sec);
+      dot.innerHTML = `<span class="tooltip">${title}</span>`;
+      dot.dataset.idx = i;
+      dot.onclick = () => sec.scrollIntoView({ behavior: 'smooth' });
+      navDots.appendChild(dot);
+    });
+    updateChrome(currentIdx);
+  }
+
+  function updateChrome(idx) {
+    currentIdx = idx;
+    const active = getActiveSlides();
+    const posInActive = active.indexOf(idx);
+    const displayPos = posInActive >= 0 ? posInActive + 1 : '•';
+    document.getElementById('current').textContent = displayPos;
+    document.getElementById('total').textContent = active.length;
+    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
+    document.getElementById('progress-bar').style.width = progress + '%';
+    navDots.querySelectorAll('.nav-dot').forEach(d => d.classList.toggle('active', parseInt(d.dataset.idx) === idx));
+    document.getElementById('skip-badge').classList.toggle('visible', skippedSlides.has(idx));
+    const notes = slides[idx].getAttribute('data-notes') || '';
+    document.getElementById('notes-content').innerHTML = notes || '<em style="color:#444;">No notes for this section.</em>';
+  }
+
+  function toggleSkip(idx) {
+    if (skippedSlides.has(idx)) skippedSlides.delete(idx); else skippedSlides.add(idx);
+    saveSkips(); applySkips(); if (sorterVisible) renderSorter();
+  }
+
+  function nextActive(from, dir) {
+    let i = from + dir;
+    while (i >= 0 && i < total) { if (!skippedSlides.has(i)) return i; i += dir; }
+    return -1;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = slides.indexOf(entry.target);
+        updateChrome(idx);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  slides.forEach(s => observer.observe(s));
+
   function renderSorter() {
     const grid = document.getElementById('sorter-grid');
     grid.innerHTML = '';
     slides.forEach((s, i) => {
       const isSkipped = skippedSlides.has(i);
-      const isCurrent = i === current;
+      const isCurrent = i === currentIdx;
       const div = document.createElement('div');
       div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
       div.innerHTML = `
-        <div class="sorter-num">Slide ${i + 1}</div>
+        <div class="sorter-num">Section ${i + 1}</div>
         ${getSlideTag(s)}
         <div class="sorter-label">${getSlideLabel(s)}</div>
         <button class="sorter-skip-btn ${isSkipped ? 'skip-on' : 'skip-off'}" onclick="event.stopPropagation(); toggleSkip(${i})">
           ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
         </button>`;
-      div.addEventListener('click', () => { show(i); closeSorter(); });
+      div.addEventListener('click', () => { slides[i].scrollIntoView({ behavior: 'smooth' }); closeSorter(); });
       grid.appendChild(div);
     });
   }
   function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
   function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
 
+  document.getElementById('skip-badge').addEventListener('click', () => toggleSkip(currentIdx));
+
   document.addEventListener('keydown', e => {
     if (sorterVisible) {
       if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
       return;
     }
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      const n = nextActive(currentIdx, 1);
+      if (n >= 0) slides[n].scrollIntoView({ behavior: 'smooth' });
+    }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      const n = nextActive(currentIdx, -1);
+      if (n >= 0) slides[n].scrollIntoView({ behavior: 'smooth' });
+    }
+    else if (e.key === 'Home') { e.preventDefault(); slides[0].scrollIntoView({ behavior: 'smooth' }); }
+    else if (e.key === 'End') { e.preventDefault(); slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' }); }
     else if (e.key === 's' || e.key === 'S') {
       notesVisible = !notesVisible;
       document.getElementById('speaker-notes').classList.toggle('visible', notesVisible);
@@ -888,18 +935,12 @@
       if (!document.fullscreenElement) document.documentElement.requestFullscreen();
       else document.exitFullscreen();
     }
-    else if (e.key === 'k' || e.key === 'K') { toggleSkip(current); }
+    else if (e.key === 'k' || e.key === 'K') { toggleSkip(currentIdx); }
     else if (e.key === 'm' || e.key === 'M') { e.preventDefault(); openSorter(); }
   });
 
-  let touchStartX = 0;
-  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 60) { diff > 0 ? next() : prev(); }
-  });
-
-  show(0);
+  applySkips();
+  slides[0].classList.add('visible');
 </script>
 </body>
 </html>
