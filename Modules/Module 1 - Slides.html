@@ -331,6 +331,33 @@
   .lab-path-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
   .lab-path-desc { font-size: 12px; color: #8899bb; line-height: 1.5; margin-bottom: 8px; }
 
+  /* Lab section frame — any slide with .lab-slide reads as "inside an exercise" instead of another content slide.
+     Combines a left-edge rail (visually threads the exercise across slides as you scroll) with a subtle blue→green ambient wash. */
+  .slide.lab-slide {
+    background:
+      radial-gradient(ellipse 70% 50% at 88% 12%, rgba(96,165,250,0.08) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 50% at 12% 88%, rgba(52,211,153,0.06) 0%, transparent 65%),
+      #07162C;
+  }
+  .slide.lab-slide::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, #60a5fa 0%, #34d399 100%);
+    box-shadow: 0 0 18px rgba(96,165,250,0.35);
+    z-index: 5;
+    pointer-events: none;
+  }
+  .slide.lab-slide .slide-inner {
+    position: relative;
+    padding: 22px 28px;
+    background: linear-gradient(180deg, rgba(96,165,250,0.025) 0%, rgba(52,211,153,0.015) 100%);
+    border: 1px solid rgba(96,165,250,0.14);
+    border-radius: 18px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
+
   /* Lab continuity bar — threads across overview + step + peer-swap slides so students know they're in the same exercise */
   .lab-bar { display: flex; flex-direction: column; gap: 7px; padding: 12px 18px; margin-bottom: 18px; background: linear-gradient(180deg, rgba(96,165,250,0.10) 0%, rgba(52,211,153,0.04) 100%); border: 1px solid rgba(96,165,250,0.28); border-radius: 12px; }
   .lab-bar-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
@@ -653,7 +680,7 @@
 </div>
 
 <!-- ===== SLIDE 15: Lab Exercise — Your First Vibe Build ===== -->
-<div class="slide" data-notes="Individual Exercise (20 min). Drop the lab guide link in chat before opening breakout rooms. Force action — clickable beats perfect. Pop into rooms after 2 min: anyone stuck → push to Copy &amp; Customize template. Final 2 min: warn that everyone needs a shareable link for the Show &amp; Swap.">
+<div class="slide lab-slide" data-notes="Individual Exercise (20 min). Drop the lab guide link in chat before opening breakout rooms. Force action — clickable beats perfect. Pop into rooms after 2 min: anyone stuck → push to Copy &amp; Customize template. Final 2 min: warn that everyone needs a shareable link for the Show &amp; Swap.">
   <div class="slide-inner">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -686,7 +713,7 @@
 </div>
 
 <!-- ===== SLIDE 15.1: Lab 1 · Step 1 — Choose Your Scenario ===== -->
-<div class="slide" data-notes="Lab 1 detail · Step 1. Force a scenario choice in the first 30 seconds. Heads-up: Module 2 they'll commit to one of these for the final project — pick something they'd want to keep building on. Default if stuck: Scenario 1 or 4 (work for almost any PM role).">
+<div class="slide lab-slide" data-notes="Lab 1 detail · Step 1. Force a scenario choice in the first 30 seconds. Heads-up: Module 2 they'll commit to one of these for the final project — pick something they'd want to keep building on. Default if stuck: Scenario 1 or 4 (work for almost any PM role).">
   <div class="slide-inner" style="max-width: 1100px;">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -723,7 +750,7 @@
 </div>
 
 <!-- ===== SLIDE 15.2: Lab 1 · Step 2 — Write Your Prompts ===== -->
-<div class="slide" data-notes="Lab 1 detail · Step 2. Two paths into Lovable. Option A is for students who freeze — pre-written templates with brackets to fill in. Option B is for confident builders — describe the first screen they want and let Lovable do the rest. Credit-saver tip: refine prompts in ChatGPT/Gemini first.">
+<div class="slide lab-slide" data-notes="Lab 1 detail · Step 2. Two paths into Lovable. Option A is for students who freeze — pre-written templates with brackets to fill in. Option B is for confident builders — describe the first screen they want and let Lovable do the rest. Credit-saver tip: refine prompts in ChatGPT/Gemini first.">
   <div class="slide-inner" style="max-width: 1100px;">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -777,7 +804,7 @@
 </div>
 
 <!-- ===== SLIDE 15.3: Lab 1 · Step 3 — Iterate, Refine & Ship Your Link ===== -->
-<div class="slide" data-notes="Lab 1 detail · Step 3-4 combined. Don't restart from scratch — use Plan mode in Lovable to refine. The 2-minute rule: stuck on a design detail for &gt;2 min, move on. Final 2 minutes: stop iterating, generate the share preview link, screenshot the result.">
+<div class="slide lab-slide" data-notes="Lab 1 detail · Step 3-4 combined. Don't restart from scratch — use Plan mode in Lovable to refine. The 2-minute rule: stuck on a design detail for &gt;2 min, move on. Final 2 minutes: stop iterating, generate the share preview link, screenshot the result.">
   <div class="slide-inner" style="max-width: 1100px;">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -817,7 +844,7 @@
 </div>
 
 <!-- ===== SLIDE 16: Breakout — Show and Swap ===== -->
-<div class="slide" data-notes="Breakout Group Exercise (10 min). Pairs of 2. Swap links in chat immediately. 3 min silent navigation each — no guidance, just watch. Then 2 min discussion using the 3 questions. Swap and repeat.">
+<div class="slide lab-slide" data-notes="Breakout Group Exercise (10 min). Pairs of 2. Swap links in chat immediately. 3 min silent navigation each — no guidance, just watch. Then 2 min discussion using the 3 questions. Swap and repeat.">
   <div class="slide-inner">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -934,7 +961,7 @@
 </div>
 
 <!-- ===== SLIDE 22: Lab Exercise — Strategically Refine ===== -->
-<div class="slide" data-notes="Individual Exercise (15 min). Students return to their Lab 1 prototype. Push them to choose two distinct upgrades. If a student is stuck on a bug for &gt;3 min, pivot to a different upgrade. Watch credit drain — script refinements outside Lovable. Final 2 min: shareable link warning before the Before/After breakout.">
+<div class="slide lab-slide" data-notes="Individual Exercise (15 min). Students return to their Lab 1 prototype. Push them to choose two distinct upgrades. If a student is stuck on a bug for &gt;3 min, pivot to a different upgrade. Watch credit drain — script refinements outside Lovable. Final 2 min: shareable link warning before the Before/After breakout.">
   <div class="slide-inner">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -973,7 +1000,7 @@
 </div>
 
 <!-- ===== SLIDE 22.1: Lab 2 · Upgrade Paths A &amp; B ===== -->
-<div class="slide" data-notes="Lab 2 detail · Paths A and B. Pick TWO of the four paths — depth in two areas beats trying all four. If a bug holds you up &gt;3 min, pivot to a different path.">
+<div class="slide lab-slide" data-notes="Lab 2 detail · Paths A and B. Pick TWO of the four paths — depth in two areas beats trying all four. If a bug holds you up &gt;3 min, pivot to a different path.">
   <div class="slide-inner" style="max-width: 1100px;">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -1009,7 +1036,7 @@
 </div>
 
 <!-- ===== SLIDE 22.2: Lab 2 · Upgrade Paths C &amp; D ===== -->
-<div class="slide" data-notes="Lab 2 detail · Paths C and D. Path C is for surgical fixes (best when only one section feels wrong). Path D is for students working on their actual company product — copy as CSS from Figma, paste into Lovable.">
+<div class="slide lab-slide" data-notes="Lab 2 detail · Paths C and D. Path C is for surgical fixes (best when only one section feels wrong). Path D is for students working on their actual company product — copy as CSS from Figma, paste into Lovable.">
   <div class="slide-inner" style="max-width: 1100px;">
     <div class="lab-bar">
       <div class="lab-bar-row">
@@ -1050,7 +1077,7 @@
 </div>
 
 <!-- ===== SLIDE 23: Breakout — Swap and Review Refined ===== -->
-<div class="slide" data-notes="Breakout Group Exercise (10 min). New pairs. Same protocol — swap links, 3 min silent exploration, 2 min feedback on the 3 questions. Swap and repeat. This is a blind stress test of the iteration.">
+<div class="slide lab-slide" data-notes="Breakout Group Exercise (10 min). New pairs. Same protocol — swap links, 3 min silent exploration, 2 min feedback on the 3 questions. Swap and repeat. This is a blind stress test of the iteration.">
   <div class="slide-inner">
     <div class="lab-bar">
       <div class="lab-bar-row">
