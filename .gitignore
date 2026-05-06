@@ -1,2 +1,11 @@
 .DS_Store
 Insights/Product School - AI Agents.txt
+
+# Source materials too large for the repo (videos, raw decks, student submissions)
+additional material/
+Legacy /
+Student Evaluation/
+
+# Convenience
+.cursor/
+*.bak

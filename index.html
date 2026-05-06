@@ -195,6 +195,68 @@ h1 span { color: #3b82f6; }
   color: #fff; transform: translateX(2px);
 }
 
+/* Module resources panel */
+.resources {
+  margin: 56px 0 0;
+  padding: 28px 30px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  animation: fadeUp 0.8s ease 0.42s both;
+}
+.resources-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding-bottom: 14px; border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+.resources-eyebrow {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #60a5fa;
+}
+.resources-title {
+  font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700;
+  color: #fff; letter-spacing: -0.01em;
+}
+.resources-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.resource-link {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+.resource-link:hover { border-color: rgba(96,165,250,0.40); transform: translateY(-2px); background: rgba(96,165,250,0.06); }
+.resource-link.disabled { opacity: 0.55; cursor: not-allowed; }
+.resource-link.disabled:hover { transform: none; border-color: rgba(255,255,255,0.07); background: rgba(255,255,255,0.025); }
+.resource-icon {
+  flex-shrink: 0;
+  width: 38px; height: 38px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.22);
+  font-size: 18px;
+}
+.resource-body { flex: 1; min-width: 0; }
+.resource-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: #60a5fa; margin-bottom: 4px;
+}
+.resource-name {
+  font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700;
+  color: #fff; line-height: 1.25; margin-bottom: 4px;
+}
+.resource-desc {
+  font-size: 12px; color: #8899bb; line-height: 1.45;
+}
+
 /* Confidence Line hero visual */
 .confidence-hero {
   margin: 64px 0 0;
@@ -379,6 +441,41 @@ footer {
       <div class="module-desc">Replace "I think" with "the data shows." Use AI-driven analytics to identify friction across three layers, then redeploy improvements that secure the Confidence Line.</div>
       <div class="module-arrow">→</div>
     </a>
+  </div>
+
+  <div class="resources">
+    <div class="resources-head">
+      <div>
+        <div class="resources-eyebrow">Module 1 · Companion Resources</div>
+        <div class="resources-title">Lab guide and instructor demo recordings</div>
+      </div>
+    </div>
+    <div class="resources-grid">
+      <a class="resource-link" href="Modules/lab-guides/Module%201%20-%20Lab%20Guide.html" target="_blank" rel="noopener">
+        <span class="resource-icon">✍️</span>
+        <div class="resource-body">
+          <div class="resource-tag">Lab Guide · Self-Serve</div>
+          <div class="resource-name">Module 1 Hands-On Lab Guide</div>
+          <div class="resource-desc">Lab 1 + Lab 2 walkthrough, scenarios, prompts, and peer-review questions.</div>
+        </div>
+      </a>
+      <a class="resource-link disabled" href="#" data-demo="triple-threat">
+        <span class="resource-icon">🎬</span>
+        <div class="resource-body">
+          <div class="resource-tag">Demo Recording 1</div>
+          <div class="resource-name">The Triple-Threat Build</div>
+          <div class="resource-desc">15 min. Three prototypes from one churn problem. Link coming soon.</div>
+        </div>
+      </a>
+      <a class="resource-link disabled" href="#" data-demo="basic-to-pro">
+        <span class="resource-icon">🎬</span>
+        <div class="resource-body">
+          <div class="resource-tag">Demo Recording 2</div>
+          <div class="resource-name">Basic to Pro — The Art of Iteration</div>
+          <div class="resource-desc">15 min. From vibe sketch to VP-ready in three compounding steps.</div>
+        </div>
+      </a>
+    </div>
   </div>
 
   <div class="confidence-hero">
