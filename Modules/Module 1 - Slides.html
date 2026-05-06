@@ -137,7 +137,7 @@
   .callout-label { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fde68a; margin-bottom: 6px; }
   .callout-text { font-size: 14px; color: #e0e0f0; line-height: 1.55; }
 
-  /* Confidence line phases */
+  /* Confidence line phases (legacy, kept for any other usage) */
   .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
   .phase-card { background: #0c2340; border: 1px solid #1a3a5c; border-radius: 12px; padding: 18px 20px; position: relative; }
   .phase-card.p1 { border-top: 3px solid #f87171; }
@@ -148,6 +148,33 @@
   .phase-card ul li { font-size: 13px; padding: 3px 0 3px 18px; }
   .phase-card ul li::before { width: 5px; height: 5px; top: 12px; }
   .phase-tag { font-size: 12px; color: #60a5fa; font-weight: 700; margin-top: 8px; }
+
+  /* Confidence Line — staircase visual */
+  .cl-axis { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; padding: 14px 4px 0; margin: 18px 0 10px; min-height: 320px; position: relative; }
+  .cl-axis::before { content: ''; position: absolute; left: 0; right: 0; bottom: 56px; height: 1px; background: linear-gradient(90deg, transparent, rgba(96,165,250,0.40) 10%, rgba(96,165,250,0.40) 90%, transparent); }
+  .cl-step { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; position: relative; min-width: 0; }
+  .cl-step-content { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-bottom: 4px solid var(--cl-accent); border-radius: 14px 14px 6px 6px; padding: 14px 14px 14px; transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease; min-height: var(--cl-height); display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+  .cl-step:hover .cl-step-content { transform: translateY(-4px); background: rgba(255,255,255,0.05); }
+  .cl-step-mod { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; width: 32px; height: 32px; border-radius: 50%; background: var(--cl-accent); color: #07162C; font-family: 'IBM Plex Mono', monospace; font-weight: 800; font-size: 12px; box-shadow: 0 6px 18px color-mix(in srgb, var(--cl-accent), transparent 70%); margin-bottom: 4px; }
+  .cl-step-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -0.01em; }
+  .cl-step-desc { font-size: 12px; color: #8899bb; line-height: 1.45; min-height: 50px; }
+  .cl-step-quote { font-size: 11px; color: var(--cl-accent); font-style: italic; line-height: 1.35; opacity: 0.95; margin-top: 4px; }
+  .cl-step-axis { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.10em; color: #455168; text-transform: uppercase; text-align: center; padding-top: 14px; }
+  .cl-step.cl-current .cl-step-content { background: rgba(96,165,250,0.10); border-color: var(--cl-accent); box-shadow: 0 0 28px color-mix(in srgb, var(--cl-accent), transparent 75%); }
+  .cl-step.cl-current .cl-step-mod { box-shadow: 0 0 24px color-mix(in srgb, var(--cl-accent), transparent 50%); }
+  .cl-bands { display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 0; margin: 6px 4px 0; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.07); }
+  .cl-band { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: #8899bb; text-transform: uppercase; text-align: center; padding: 6px 4px; border-radius: 6px; }
+  .cl-band.b1 { color: #fca5a5; }
+  .cl-band.b2 { color: #fde68a; }
+  .cl-band.b3 { color: #6ee7b7; }
+  .cl-footnote { font-size: 14px; color: #8899bb; margin-top: 14px; text-align: center; }
+  .cl-footnote em { color: #60a5fa; font-style: normal; font-weight: 600; }
+  @media (max-width: 760px) {
+    .cl-axis { flex-direction: column; min-height: 0; align-items: stretch; }
+    .cl-axis::before { display: none; }
+    .cl-step-content { min-height: auto !important; }
+    .cl-bands { display: none; }
+  }
 
   /* Toy vs Tool */
   .vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
@@ -756,44 +783,76 @@
 </div>
 
 <!-- ===== SLIDE 26: The Confidence Line ===== -->
-<div class="slide" data-notes="The Confidence Line is the North Star for the whole course. Three phases: Phase 1 High Ambiguity (today), Phase 2 Gaining Clarity (M3–M4), Phase 3 Production Confidence (M5–M6). Every prompt is a choice — explore or refine. To move from ambiguity to confidence, stop building toys and start building tools.">
-  <div class="slide-inner">
+<div class="slide" data-notes="The Confidence Line is the North Star for the whole course. Each module is a step up — Speed (M1, today) builds the floor; Validation (M2), Precision (M3), Structure (M4), Ship (M5), and Product (M6) each raise the bar. Every prompt is a choice — explore or refine. To move from ambiguity to confidence, stop building toys and start building tools.">
+  <div class="slide-inner" style="max-width: 1100px;">
     <div class="demo-tag tag-framework">The Confidence Line</div>
     <h2>Move Your Idea Across the Confidence Line</h2>
-    <div class="subtitle">The goal of Vibe Coding is to systematically <strong>kill ambiguity</strong> and replace it with <strong>evidence</strong>. Every module pushes you further across this line.</div>
-    <div class="phase-grid">
-      <div class="phase-card p1">
-        <div class="phase-num">PHASE 1</div>
-        <div class="phase-title">🌫️ High Ambiguity</div>
-        <ul>
-          <li>Explore multiple product directions</li>
-          <li>Compress feedback to hours</li>
-          <li>Kill or validate ideas</li>
-        </ul>
-        <div class="phase-tag">Thrive in the unknown. Build to think.</div>
+    <div class="subtitle">The goal of Vibe Coding is to systematically <strong>kill ambiguity</strong> and replace it with <strong>evidence</strong>. Each module is a <em>step up</em> — confidence compounds.</div>
+
+    <div class="cl-axis">
+      <div class="cl-step cl-current" style="--cl-accent:#60a5fa; --cl-height:140px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M1</span>
+          <div class="cl-step-title">Speed</div>
+          <div class="cl-step-desc">Get out of blank-page mode and build something tangible, fast.</div>
+          <div class="cl-step-quote">"I can build something in 10 minutes."</div>
+        </div>
+        <div class="cl-step-axis">Today</div>
       </div>
-      <div class="phase-card p2">
-        <div class="phase-num">PHASE 2</div>
-        <div class="phase-title">🔍 Gaining Clarity</div>
-        <ul>
-          <li>Apply context and intent</li>
-          <li>Build functional, living specs</li>
-          <li>Debug and refactor logic</li>
-        </ul>
-        <div class="phase-tag">Master precision. Vibe → structure.</div>
+      <div class="cl-step" style="--cl-accent:#fbbf24; --cl-height:170px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M2</span>
+          <div class="cl-step-title">Validation</div>
+          <div class="cl-step-desc">Stop asking "is it cool?" and start testing the right product assumption.</div>
+          <div class="cl-step-quote">"I can test the right thing."</div>
+        </div>
+        <div class="cl-step-axis">Next</div>
       </div>
-      <div class="phase-card p3">
-        <div class="phase-num">PHASE 3</div>
-        <div class="phase-title">✅ Production Confidence</div>
-        <ul>
-          <li>Integrate APIs and data</li>
-          <li>Test messy real-world cases</li>
-          <li>Deploy live, production URLs</li>
-        </ul>
-        <div class="phase-tag">Handle complexity. Bridge to reality.</div>
+      <div class="cl-step" style="--cl-accent:#c4b5fd; --cl-height:200px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M3</span>
+          <div class="cl-step-title">Precision</div>
+          <div class="cl-step-desc">Steer AI with reusable context, constraints, and prompt systems.</div>
+          <div class="cl-step-quote">"I can build exactly what I describe."</div>
+        </div>
+        <div class="cl-step-axis">Week 2</div>
+      </div>
+      <div class="cl-step" style="--cl-accent:#6ee7b7; --cl-height:240px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M4</span>
+          <div class="cl-step-title">Structure</div>
+          <div class="cl-step-desc">The prototype becomes understandable to a team — specs, handoff, rigor.</div>
+          <div class="cl-step-quote">"I can hand this to engineering."</div>
+        </div>
+        <div class="cl-step-axis">Week 2</div>
+      </div>
+      <div class="cl-step" style="--cl-accent:#f472b6; --cl-height:285px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M5</span>
+          <div class="cl-step-title">Ship</div>
+          <div class="cl-step-desc">Live URL, real data, integrations, edge cases — leave the sandbox.</div>
+          <div class="cl-step-quote">"I can make it real and ship it."</div>
+        </div>
+        <div class="cl-step-axis">Week 3</div>
+      </div>
+      <div class="cl-step" style="--cl-accent:#34d399; --cl-height:325px;">
+        <div class="cl-step-content">
+          <span class="cl-step-mod">M6</span>
+          <div class="cl-step-title">Product</div>
+          <div class="cl-step-desc">Measure behavior, analyze friction, ship an evidence-backed improvement.</div>
+          <div class="cl-step-quote">"I can learn from it and make it better."</div>
+        </div>
+        <div class="cl-step-axis">Week 3</div>
       </div>
     </div>
-    <p style="margin-top:14px; font-size:15px; color:#8899bb;">Your job as a PM is to <em>manage</em> this line.</p>
+
+    <div class="cl-bands">
+      <div class="cl-band b1">🌫️ Phase 1 · High Ambiguity</div>
+      <div class="cl-band b2">🔍 Phase 2 · Gaining Clarity</div>
+      <div class="cl-band b3">✅ Phase 3 · Production Confidence</div>
+    </div>
+
+    <p class="cl-footnote">Your job as a PM is to <em>manage</em> the line — every prompt is a choice between <em>explore</em> and <em>refine</em>.</p>
   </div>
 </div>
 
