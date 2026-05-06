@@ -396,38 +396,54 @@
     color: #fff; line-height: 1.1; margin-bottom: 8px;
   }
   .demos-sub { color: #8899bb; font-size: 15px; margin-bottom: 24px; }
-  .demos-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  }
-  .demo-card {
-    display: block;
-    padding: 22px 24px;
-    background: rgba(255,255,255,0.03);
+  .demo-stack { display: grid; gap: 28px; }
+  .demo-block {
+    background: rgba(255,255,255,0.025);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    text-decoration: none; color: inherit;
-    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
-    position: relative;
+    border-radius: 16px;
+    padding: 22px 24px 24px;
   }
-  .demo-card:hover { border-color: rgba(96,165,250,0.45); transform: translateY(-3px); background: rgba(96,165,250,0.06); }
-  .demo-card.disabled { opacity: 0.55; cursor: not-allowed; }
-  .demo-card.disabled:hover { transform: none; border-color: rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
-  .demo-card-tag {
+  .demo-block-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 18px; flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .demo-block-tag {
     font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: #60a5fa; margin-bottom: 6px;
   }
-  .demo-card-title {
-    font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700;
+  .demo-block-title {
+    font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700;
     color: #fff; line-height: 1.2; margin-bottom: 8px;
   }
-  .demo-card-desc { color: #8899bb; font-size: 13px; line-height: 1.5; margin-bottom: 14px; }
-  .demo-card-cta {
+  .demo-block-desc { color: #8899bb; font-size: 14px; line-height: 1.5; max-width: 640px; }
+  .demo-block-out {
+    flex-shrink: 0;
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 14px;
+    background: rgba(96,165,250,0.10); border: 1px solid rgba(96,165,250,0.28);
+    border-radius: 999px;
     font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700;
     letter-spacing: 0.10em; text-transform: uppercase;
-    color: #60a5fa;
+    color: #60a5fa; text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
-  .demo-card.disabled .demo-card-cta { color: #8899bb; }
+  .demo-block-out:hover { background: rgba(96,165,250,0.18); border-color: rgba(96,165,250,0.55); }
+  .demo-frame {
+    position: relative;
+    width: 100%; aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .demo-frame iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
 
   /* Footer */
   footer {
@@ -906,25 +922,50 @@
     <p class="demos-sub">
       Two demos from class. Watch them before lab time if you missed the live build, or rewatch them to study the prompting moves.
     </p>
-    <div class="demos-grid">
-      <a href="#" class="demo-card disabled" data-demo="triple-threat" target="_blank" rel="noopener">
-        <div class="demo-card-tag">Demo 1 · 15 min</div>
-        <div class="demo-card-title">The Triple-Threat Build</div>
-        <div class="demo-card-desc">
-          Three directions in fifteen minutes. Same problem, three competing executive opinions, three functional prototypes —
-          customer vibe, internal reframe, and a Mobbin design match.
+    <div class="demo-stack">
+      <article class="demo-block">
+        <header class="demo-block-head">
+          <div>
+            <div class="demo-block-tag">Demo 1 · ~15 min · Instructor-Led</div>
+            <h3 class="demo-block-title">The Triple-Threat Build</h3>
+            <p class="demo-block-desc">
+              Three directions in fifteen minutes. Same problem, three competing executive opinions, three functional prototypes —
+              customer vibe, internal reframe, and a Mobbin design match.
+            </p>
+          </div>
+          <a class="demo-block-out" href="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/view" target="_blank" rel="noopener">Open in Drive ↗</a>
+        </header>
+        <div class="demo-frame">
+          <iframe
+            src="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/preview"
+            allow="autoplay"
+            allowfullscreen
+            loading="lazy"
+            title="Demo 1 — The Triple-Threat Build"></iframe>
         </div>
-        <div class="demo-card-cta">Link coming soon →</div>
-      </a>
-      <a href="#" class="demo-card disabled" data-demo="basic-to-pro" target="_blank" rel="noopener">
-        <div class="demo-card-tag">Demo 2 · 15 min</div>
-        <div class="demo-card-title">Moving From Basic to Pro — The Art of Iteration</div>
-        <div class="demo-card-desc">
-          From "vibe sketch" to "VP-ready." Design system matching, adding interactivity, and surgical refinement —
-          how to compound improvements without rebuilding from scratch.
+      </article>
+
+      <article class="demo-block">
+        <header class="demo-block-head">
+          <div>
+            <div class="demo-block-tag">Demo 2 · ~15 min · Instructor-Led</div>
+            <h3 class="demo-block-title">Moving From Basic to Pro — The Art of Iteration</h3>
+            <p class="demo-block-desc">
+              From "vibe sketch" to "VP-ready." Design system matching, adding interactivity, and surgical refinement —
+              how to compound improvements without rebuilding from scratch.
+            </p>
+          </div>
+          <a class="demo-block-out" href="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/view" target="_blank" rel="noopener">Open in Drive ↗</a>
+        </header>
+        <div class="demo-frame">
+          <iframe
+            src="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/preview"
+            allow="autoplay"
+            allowfullscreen
+            loading="lazy"
+            title="Demo 2 — Moving From Basic to Pro"></iframe>
         </div>
-        <div class="demo-card-cta">Link coming soon →</div>
-      </a>
+      </article>
     </div>
   </section>
 
