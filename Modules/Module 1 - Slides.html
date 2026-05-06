@@ -149,31 +149,33 @@
   .phase-card ul li::before { width: 5px; height: 5px; top: 12px; }
   .phase-tag { font-size: 12px; color: #60a5fa; font-weight: 700; margin-top: 8px; }
 
-  /* Confidence Line — staircase visual */
-  .cl-axis { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; padding: 14px 4px 0; margin: 18px 0 10px; min-height: 320px; position: relative; }
-  .cl-axis::before { content: ''; position: absolute; left: 0; right: 0; bottom: 56px; height: 1px; background: linear-gradient(90deg, transparent, rgba(96,165,250,0.40) 10%, rgba(96,165,250,0.40) 90%, transparent); }
-  .cl-step { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; position: relative; min-width: 0; }
-  .cl-step-content { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-bottom: 4px solid var(--cl-accent); border-radius: 14px 14px 6px 6px; padding: 14px 14px 14px; transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease; min-height: var(--cl-height); display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
-  .cl-step:hover .cl-step-content { transform: translateY(-4px); background: rgba(255,255,255,0.05); }
-  .cl-step-mod { display: inline-flex; align-items: center; justify-content: center; align-self: flex-start; width: 32px; height: 32px; border-radius: 50%; background: var(--cl-accent); color: #07162C; font-family: 'IBM Plex Mono', monospace; font-weight: 800; font-size: 12px; box-shadow: 0 6px 18px color-mix(in srgb, var(--cl-accent), transparent 70%); margin-bottom: 4px; }
-  .cl-step-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -0.01em; }
-  .cl-step-desc { font-size: 12px; color: #8899bb; line-height: 1.45; min-height: 50px; }
-  .cl-step-quote { font-size: 11px; color: var(--cl-accent); font-style: italic; line-height: 1.35; opacity: 0.95; margin-top: 4px; }
-  .cl-step-axis { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.10em; color: #455168; text-transform: uppercase; text-align: center; padding-top: 14px; }
-  .cl-step.cl-current .cl-step-content { background: rgba(96,165,250,0.10); border-color: var(--cl-accent); box-shadow: 0 0 28px color-mix(in srgb, var(--cl-accent), transparent 75%); }
-  .cl-step.cl-current .cl-step-mod { box-shadow: 0 0 24px color-mix(in srgb, var(--cl-accent), transparent 50%); }
-  .cl-bands { display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 0; margin: 6px 4px 0; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.07); }
-  .cl-band { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: #8899bb; text-transform: uppercase; text-align: center; padding: 6px 4px; border-radius: 6px; }
-  .cl-band.b1 { color: #fca5a5; }
-  .cl-band.b2 { color: #fde68a; }
-  .cl-band.b3 { color: #6ee7b7; }
-  .cl-footnote { font-size: 14px; color: #8899bb; margin-top: 14px; text-align: center; }
-  .cl-footnote em { color: #60a5fa; font-style: normal; font-weight: 600; }
-  @media (max-width: 760px) {
-    .cl-axis { flex-direction: column; min-height: 0; align-items: stretch; }
-    .cl-axis::before { display: none; }
-    .cl-step-content { min-height: auto !important; }
-    .cl-bands { display: none; }
+  /* Confidence Line — pitch-deck style: 6 cards across with phase labels + gradient line */
+  .cl-frame { margin: 18px 0 0; padding: 0; }
+  .cl-phases { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-bottom: 14px; }
+  .cl-phase { grid-column: span 2; text-align: center; padding: 0 8px; }
+  .cl-phase-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; color: #8899bb; text-transform: uppercase; margin-bottom: 4px; }
+  .cl-phase-name { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; color: #cbd5e1; letter-spacing: 0.02em; }
+  .cl-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; align-items: stretch; position: relative; }
+  .cl-card { position: relative; background: linear-gradient(180deg, rgba(18,65,176,0.18) 0%, rgba(12,35,64,0.55) 100%); border: 1px solid rgba(96,165,250,0.18); border-radius: 14px; padding: 18px 14px 16px; min-height: 200px; display: flex; flex-direction: column; transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+  .cl-card:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.40); background: linear-gradient(180deg, rgba(18,65,176,0.28) 0%, rgba(12,35,64,0.65) 100%); }
+  .cl-card .cl-num { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.04em; margin-bottom: 10px; }
+  .cl-card .cl-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .cl-card .cl-desc { font-family: 'Lato', sans-serif; font-size: 11.5px; color: #8899bb; line-height: 1.5; }
+  .cl-arrow { position: absolute; top: 50%; right: -12px; transform: translateY(-50%); z-index: 2; color: #455168; font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 700; pointer-events: none; }
+  .cl-card:last-child .cl-arrow { display: none; }
+  .cl-gradient-wrap { margin-top: 14px; position: relative; }
+  .cl-gradient-bar { height: 3px; border-radius: 999px; background: linear-gradient(90deg, #ef4444 0%, #fb923c 25%, #fbbf24 50%, #84cc16 75%, #22c55e 100%); box-shadow: 0 0 24px rgba(132,204,22,0.18); }
+  .cl-gradient-labels { display: flex; justify-content: space-between; margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .cl-gradient-labels .cl-left { color: #ef4444; }
+  .cl-gradient-labels .cl-right { color: #22c55e; }
+  @media (max-width: 880px) {
+    .cl-phases, .cl-row { grid-template-columns: repeat(3, 1fr); }
+    .cl-phase { grid-column: span 1; }
+    .cl-card { min-height: 180px; }
+    .cl-arrow { display: none; }
+  }
+  @media (max-width: 560px) {
+    .cl-phases, .cl-row { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* Toy vs Tool */
@@ -783,76 +785,74 @@
 </div>
 
 <!-- ===== SLIDE 26: The Confidence Line ===== -->
-<div class="slide" data-notes="The Confidence Line is the North Star for the whole course. Each module is a step up — Speed (M1, today) builds the floor; Validation (M2), Precision (M3), Structure (M4), Ship (M5), and Product (M6) each raise the bar. Every prompt is a choice — explore or refine. To move from ambiguity to confidence, stop building toys and start building tools.">
-  <div class="slide-inner" style="max-width: 1100px;">
+<div class="slide" data-notes="The Confidence Line is the North Star for the whole course. Six modules across three phases: Phase 1 High Ambiguity (M1 Mindset, M2 Validation), Phase 2 Gaining Clarity (M3 Precision, M4 Structure), Phase 3 Production Confidence (M5 Real-World Complexity, M6 Ship It). Today is M1 — we're at the far left, the ambiguous end. Every module compresses the gap between vibe and validated product. Your job as a PM is to manage where you are on this line.">
+  <div class="slide-inner" style="max-width: 1180px;">
     <div class="demo-tag tag-framework">The Confidence Line</div>
     <h2>Move Your Idea Across the Confidence Line</h2>
-    <div class="subtitle">The goal of Vibe Coding is to systematically <strong>kill ambiguity</strong> and replace it with <strong>evidence</strong>. Each module is a <em>step up</em> — confidence compounds.</div>
+    <div class="subtitle">Six modules. Three phases. One arc — from <strong>high ambiguity</strong> to <strong>high clarity</strong>.</div>
 
-    <div class="cl-axis">
-      <div class="cl-step cl-current" style="--cl-accent:#60a5fa; --cl-height:140px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M1</span>
-          <div class="cl-step-title">Speed</div>
-          <div class="cl-step-desc">Get out of blank-page mode and build something tangible, fast.</div>
-          <div class="cl-step-quote">"I can build something in 10 minutes."</div>
+    <div class="cl-frame">
+      <div class="cl-phases">
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 1</div>
+          <div class="cl-phase-name">High Ambiguity</div>
         </div>
-        <div class="cl-step-axis">Today</div>
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 2</div>
+          <div class="cl-phase-name">Gaining Clarity</div>
+        </div>
+        <div class="cl-phase">
+          <div class="cl-phase-num">Phase 3</div>
+          <div class="cl-phase-name">Production Confidence</div>
+        </div>
       </div>
-      <div class="cl-step" style="--cl-accent:#fbbf24; --cl-height:170px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M2</span>
-          <div class="cl-step-title">Validation</div>
-          <div class="cl-step-desc">Stop asking "is it cool?" and start testing the right product assumption.</div>
-          <div class="cl-step-quote">"I can test the right thing."</div>
+
+      <div class="cl-row">
+        <div class="cl-card">
+          <div class="cl-num">M1</div>
+          <div class="cl-title">The Vibe Coding Mindset</div>
+          <div class="cl-desc">Thriving in ambiguity. Building to think, not to ship. Exploring three directions fast.</div>
+          <span class="cl-arrow">›</span>
         </div>
-        <div class="cl-step-axis">Next</div>
+        <div class="cl-card">
+          <div class="cl-num">M2</div>
+          <div class="cl-title">Rapid Intent Validation</div>
+          <div class="cl-desc">Building to learn. Compressing feedback cycles from weeks to hours. Killing or validating ideas through real prototypes.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M3</div>
+          <div class="cl-title">Precision Prompting</div>
+          <div class="cl-desc">Shifting from vague requests to exact intent. Context layering, agentic workflows, and living prompt packs.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M4</div>
+          <div class="cl-title">From Vibe to Structure</div>
+          <div class="cl-desc">The graduation moment. Knowing when to stop exploring and start building seriously. Living specs, refactoring, debugging, and clear handoff.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M5</div>
+          <div class="cl-title">Real-World Complexity</div>
+          <div class="cl-desc">Working with APIs, auth, data, and edge cases. Bridging clean prototypes with messy production reality.</div>
+          <span class="cl-arrow">›</span>
+        </div>
+        <div class="cl-card">
+          <div class="cl-num">M6</div>
+          <div class="cl-title">Ship It</div>
+          <div class="cl-desc">A confident finish. Deploying to a live URL. Presenting to stakeholders. Leaving with a portfolio piece and a repeatable personal practice.</div>
+        </div>
       </div>
-      <div class="cl-step" style="--cl-accent:#c4b5fd; --cl-height:200px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M3</span>
-          <div class="cl-step-title">Precision</div>
-          <div class="cl-step-desc">Steer AI with reusable context, constraints, and prompt systems.</div>
-          <div class="cl-step-quote">"I can build exactly what I describe."</div>
+
+      <div class="cl-gradient-wrap">
+        <div class="cl-gradient-bar"></div>
+        <div class="cl-gradient-labels">
+          <span class="cl-left">High Ambiguity</span>
+          <span class="cl-right">High Clarity</span>
         </div>
-        <div class="cl-step-axis">Week 2</div>
-      </div>
-      <div class="cl-step" style="--cl-accent:#6ee7b7; --cl-height:240px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M4</span>
-          <div class="cl-step-title">Structure</div>
-          <div class="cl-step-desc">The prototype becomes understandable to a team — specs, handoff, rigor.</div>
-          <div class="cl-step-quote">"I can hand this to engineering."</div>
-        </div>
-        <div class="cl-step-axis">Week 2</div>
-      </div>
-      <div class="cl-step" style="--cl-accent:#f472b6; --cl-height:285px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M5</span>
-          <div class="cl-step-title">Ship</div>
-          <div class="cl-step-desc">Live URL, real data, integrations, edge cases — leave the sandbox.</div>
-          <div class="cl-step-quote">"I can make it real and ship it."</div>
-        </div>
-        <div class="cl-step-axis">Week 3</div>
-      </div>
-      <div class="cl-step" style="--cl-accent:#34d399; --cl-height:325px;">
-        <div class="cl-step-content">
-          <span class="cl-step-mod">M6</span>
-          <div class="cl-step-title">Product</div>
-          <div class="cl-step-desc">Measure behavior, analyze friction, ship an evidence-backed improvement.</div>
-          <div class="cl-step-quote">"I can learn from it and make it better."</div>
-        </div>
-        <div class="cl-step-axis">Week 3</div>
       </div>
     </div>
-
-    <div class="cl-bands">
-      <div class="cl-band b1">🌫️ Phase 1 · High Ambiguity</div>
-      <div class="cl-band b2">🔍 Phase 2 · Gaining Clarity</div>
-      <div class="cl-band b3">✅ Phase 3 · Production Confidence</div>
-    </div>
-
-    <p class="cl-footnote">Your job as a PM is to <em>manage</em> the line — every prompt is a choice between <em>explore</em> and <em>refine</em>.</p>
   </div>
 </div>
 
