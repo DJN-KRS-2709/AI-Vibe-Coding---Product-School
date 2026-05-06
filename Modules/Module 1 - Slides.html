@@ -331,6 +331,15 @@
   .lab-path-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
   .lab-path-desc { font-size: 12px; color: #8899bb; line-height: 1.5; margin-bottom: 8px; }
 
+  /* Lab continuity bar — threads across overview + step + peer-swap slides so students know they're in the same exercise */
+  .lab-bar { display: flex; flex-direction: column; gap: 7px; padding: 12px 18px; margin-bottom: 18px; background: linear-gradient(180deg, rgba(96,165,250,0.10) 0%, rgba(52,211,153,0.04) 100%); border: 1px solid rgba(96,165,250,0.28); border-radius: 12px; }
+  .lab-bar-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .lab-bar-name { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; }
+  .lab-bar-name .lab-bar-emoji { margin-right: 6px; }
+  .lab-bar-stage { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #34d399; white-space: nowrap; }
+  .lab-bar-progress { height: 3px; background: rgba(96,165,250,0.15); border-radius: 999px; overflow: hidden; }
+  .lab-bar-progress-fill { height: 100%; background: linear-gradient(90deg, #60a5fa 0%, #34d399 100%); border-radius: 999px; width: var(--p, 0%); }
+
   /* Watch (embedded video) slide */
   .watch-frame { position: relative; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 18px auto 8px; background: #000; border-radius: 14px; overflow: hidden; border: 1px solid rgba(96,165,250,0.25); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
   .watch-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -646,7 +655,13 @@
 <!-- ===== SLIDE 15: Lab Exercise — Your First Vibe Build ===== -->
 <div class="slide" data-notes="Individual Exercise (20 min). Drop the lab guide link in chat before opening breakout rooms. Force action — clickable beats perfect. Pop into rooms after 2 min: anyone stuck → push to Copy &amp; Customize template. Final 2 min: warn that everyone needs a shareable link for the Show &amp; Swap.">
   <div class="slide-inner">
-    <div class="demo-tag tag-exercise">Individual Exercise · 20 Minutes</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 1 · Your First Vibe Build in Lovable · 30 min total</div>
+        <div class="lab-bar-stage">1 of 5 · Brief</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 20%;"></div></div>
+    </div>
     <h2>Your First Vibe Build in Lovable</h2>
     <div class="subtitle">Dive straight into the cycle. Move from a vague problem to a clickable solution in under 20 minutes. Success = a shareable link, not a polished product.</div>
     <div class="grid-2" style="margin-bottom:6px;">
@@ -666,13 +681,20 @@
         </div>
       </div>
     </div>
+    <div style="margin-top:14px; padding:10px 14px; background:rgba(96,165,250,0.06); border:1px dashed rgba(96,165,250,0.30); border-radius:10px; font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600; letter-spacing:0.06em; color:#9bb3d4;">→ The next 3 slides walk you through each step in detail. After step 3 you'll regroup for the Peer Swap.</div>
   </div>
 </div>
 
 <!-- ===== SLIDE 15.1: Lab 1 · Step 1 — Choose Your Scenario ===== -->
 <div class="slide" data-notes="Lab 1 detail · Step 1. Force a scenario choice in the first 30 seconds. Heads-up: Module 2 they'll commit to one of these for the final project — pick something they'd want to keep building on. Default if stuck: Scenario 1 or 4 (work for almost any PM role).">
   <div class="slide-inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-exercise">Lab 1 · Step 1 · Choose Your Scenario</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 1 · Your First Vibe Build in Lovable</div>
+        <div class="lab-bar-stage">2 of 5 · Step 1 — Choose Scenario</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 40%;"></div></div>
+    </div>
     <h2>Pick One of Four Scenarios</h2>
     <div class="subtitle">Before opening Lovable, anchor your build. <strong>🎯 Heads up:</strong> in Module 2 you'll commit to one of these and carry it through to your final project. If you can't decide, pick <strong>Scenario 1 or 4</strong> — they work for almost any PM role.</div>
     <div class="lab-grid-2x2">
@@ -703,7 +725,13 @@
 <!-- ===== SLIDE 15.2: Lab 1 · Step 2 — Write Your Prompts ===== -->
 <div class="slide" data-notes="Lab 1 detail · Step 2. Two paths into Lovable. Option A is for students who freeze — pre-written templates with brackets to fill in. Option B is for confident builders — describe the first screen they want and let Lovable do the rest. Credit-saver tip: refine prompts in ChatGPT/Gemini first.">
   <div class="slide-inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-exercise">Lab 1 · Step 2 · Write Your Prompts</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 1 · Your First Vibe Build in Lovable</div>
+        <div class="lab-bar-stage">3 of 5 · Step 2 — Write Prompts</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 60%;"></div></div>
+    </div>
     <h2>Two Paths Into Lovable</h2>
     <div class="subtitle">Open <a href="https://lovable.dev" target="_blank" rel="noopener" style="color:#60a5fa;">Lovable</a> and start your project. Choose one of these two paths and prompt immediately.</div>
 
@@ -751,7 +779,13 @@
 <!-- ===== SLIDE 15.3: Lab 1 · Step 3 — Iterate, Refine & Ship Your Link ===== -->
 <div class="slide" data-notes="Lab 1 detail · Step 3-4 combined. Don't restart from scratch — use Plan mode in Lovable to refine. The 2-minute rule: stuck on a design detail for &gt;2 min, move on. Final 2 minutes: stop iterating, generate the share preview link, screenshot the result.">
   <div class="slide-inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-exercise">Lab 1 · Step 3 · Iterate &amp; Ship Your Link</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 1 · Your First Vibe Build in Lovable</div>
+        <div class="lab-bar-stage">4 of 5 · Step 3 — Iterate &amp; Ship</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 80%;"></div></div>
+    </div>
     <h2>Refine in Place — Then Generate Your Share Link</h2>
     <div class="subtitle">If the first output isn't right, <strong>do not start over</strong>. Steer Lovable from the chat bar — toggle <strong>"Plan"</strong> before refinement prompts.</div>
 
@@ -785,7 +819,13 @@
 <!-- ===== SLIDE 16: Breakout — Show and Swap ===== -->
 <div class="slide" data-notes="Breakout Group Exercise (10 min). Pairs of 2. Swap links in chat immediately. 3 min silent navigation each — no guidance, just watch. Then 2 min discussion using the 3 questions. Swap and repeat.">
   <div class="slide-inner">
-    <div class="demo-tag tag-activity">Breakout Group Exercise · 10 Minutes</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 1 · Your First Vibe Build in Lovable</div>
+        <div class="lab-bar-stage">5 of 5 · Peer Swap · 10 min</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 100%;"></div></div>
+    </div>
     <h2>Show and Swap Your Prototype</h2>
     <div class="subtitle">Pair up with a peer and experience their build as a real user. Mirrors actual user behavior and gives you raw feedback on whether your "vibe" translates into a functional tool.</div>
     <div class="step-list">
@@ -896,7 +936,13 @@
 <!-- ===== SLIDE 22: Lab Exercise — Strategically Refine ===== -->
 <div class="slide" data-notes="Individual Exercise (15 min). Students return to their Lab 1 prototype. Push them to choose two distinct upgrades. If a student is stuck on a bug for &gt;3 min, pivot to a different upgrade. Watch credit drain — script refinements outside Lovable. Final 2 min: shareable link warning before the Before/After breakout.">
   <div class="slide-inner">
-    <div class="demo-tag tag-exercise">Individual Exercise · 15 Minutes</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 2 · Strategically Refine Your Build · 25 min total</div>
+        <div class="lab-bar-stage">1 of 4 · Brief</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 25%;"></div></div>
+    </div>
     <h2>Strategically Refine Your Build in Lovable</h2>
     <div class="subtitle">Take your Lab 1 prototype and apply at least <strong>two strategic upgrades</strong> to move it from a "vibe" sketch to a professional tool a VP would credibly review.</div>
     <div class="grid-2">
@@ -922,13 +968,20 @@
         </div>
       </div>
     </div>
+    <div style="margin-top:14px; padding:10px 14px; background:rgba(96,165,250,0.06); border:1px dashed rgba(96,165,250,0.30); border-radius:10px; font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600; letter-spacing:0.06em; color:#9bb3d4;">→ The next 2 slides detail the four upgrade paths (pick any two). After that you'll regroup for the Peer Swap.</div>
   </div>
 </div>
 
 <!-- ===== SLIDE 22.1: Lab 2 · Upgrade Paths A &amp; B ===== -->
 <div class="slide" data-notes="Lab 2 detail · Paths A and B. Pick TWO of the four paths — depth in two areas beats trying all four. If a bug holds you up &gt;3 min, pivot to a different path.">
   <div class="slide-inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-exercise">Lab 2 · Upgrade Paths · Pick Two</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 2 · Strategically Refine Your Build</div>
+        <div class="lab-bar-stage">2 of 4 · Step 1 — Paths A &amp; B</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 50%;"></div></div>
+    </div>
     <h2>Upgrade Paths A &amp; B</h2>
     <div class="subtitle">Select <strong>two of four paths</strong> to transform your sketch. Stuck on a bug for &gt;3 min? Pivot to a different upgrade — polished design beats broken filter.</div>
 
@@ -958,7 +1011,13 @@
 <!-- ===== SLIDE 22.2: Lab 2 · Upgrade Paths C &amp; D ===== -->
 <div class="slide" data-notes="Lab 2 detail · Paths C and D. Path C is for surgical fixes (best when only one section feels wrong). Path D is for students working on their actual company product — copy as CSS from Figma, paste into Lovable.">
   <div class="slide-inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-exercise">Lab 2 · Upgrade Paths · Pick Two</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 2 · Strategically Refine Your Build</div>
+        <div class="lab-bar-stage">3 of 4 · Step 2 — Paths C &amp; D</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 75%;"></div></div>
+    </div>
     <h2>Upgrade Paths C &amp; D</h2>
     <div class="subtitle">Continued from the previous slide — pick <strong>two of the four total paths</strong> for depth.</div>
 
@@ -993,7 +1052,13 @@
 <!-- ===== SLIDE 23: Breakout — Swap and Review Refined ===== -->
 <div class="slide" data-notes="Breakout Group Exercise (10 min). New pairs. Same protocol — swap links, 3 min silent exploration, 2 min feedback on the 3 questions. Swap and repeat. This is a blind stress test of the iteration.">
   <div class="slide-inner">
-    <div class="demo-tag tag-activity">Breakout Group Exercise · 10 Minutes</div>
+    <div class="lab-bar">
+      <div class="lab-bar-row">
+        <div class="lab-bar-name"><span class="lab-bar-emoji">🧪</span>Lab 2 · Strategically Refine Your Build</div>
+        <div class="lab-bar-stage">4 of 4 · Peer Swap · 10 min</div>
+      </div>
+      <div class="lab-bar-progress"><div class="lab-bar-progress-fill" style="--p: 100%;"></div></div>
+    </div>
     <h2>Swap and Review Your Refined Prototype</h2>
     <div class="subtitle">Pair with a <strong>new</strong> peer to see if your refinements stand up to fresh eyes. A blind stress test — has your iteration moved the build from rough sketch to professional tool?</div>
     <div class="step-list">
