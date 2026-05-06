@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Confidence Line | Vibe Coding Pitch</title>
+  <meta
+    name="description"
+    content="A shareable pitch for the Vibe Coding Confidence Line: the six-module progression from ambiguity to shipped, measured, improved product."
+  />
+  <meta property="og:title" content="The Confidence Line | Vibe Coding Pitch" />
+  <meta
+    property="og:description"
+    content="A course narrative that moves students from AI curiosity to product confidence through speed, validation, precision, structure, shipping, and learning."
+  />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root {
+      --ink: #101317;
+      --muted: #5f6b7a;
+      --paper: #f7f2e8;
+      --panel: rgba(255, 252, 244, 0.82);
+      --line: rgba(16, 19, 23, 0.13);
+      --green: #16a37b;
+      --blue: #3767ff;
+      --yellow: #eab308;
+      --orange: #f26b2f;
+      --rose: #df4a72;
+      --violet: #8b5cf6;
+      --shadow: 0 24px 70px rgba(22, 29, 40, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(242, 107, 47, 0.22), transparent 28rem),
+        radial-gradient(circle at 82% 12%, rgba(55, 103, 255, 0.18), transparent 26rem),
+        linear-gradient(135deg, #fbf4e7 0%, #efe9dd 48%, #f8f3ea 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(16, 19, 23, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 19, 23, 0.05) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 44px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    button,
+    .share-link {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .share-link {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: inherit;
+      border-bottom: 1px solid transparent;
+    }
+
+    .share-link:hover {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 34px;
+      align-items: stretch;
+      margin-bottom: 34px;
+    }
+
+    .hero-copy,
+    .card,
+    .timeline,
+    .outcome-board {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-copy {
+      padding: clamp(30px, 5vw, 64px);
+      border-radius: 34px;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -90px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(16, 19, 23, 0.12);
+      background: radial-gradient(circle, rgba(22, 163, 123, 0.2), transparent 62%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 26px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin-bottom: 26px;
+      font-size: clamp(50px, 9vw, 104px);
+      line-height: 0.91;
+      letter-spacing: -0.08em;
+      font-weight: 500;
+    }
+
+    .lead {
+      position: relative;
+      z-index: 1;
+      max-width: 740px;
+      margin-bottom: 34px;
+      font-size: clamp(21px, 2.4vw, 31px);
+      line-height: 1.2;
+      color: #2e343d;
+    }
+
+    .cta-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.38);
+      color: #303843;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pitch-card {
+      border-radius: 34px;
+      padding: 30px;
+      overflow: hidden;
+    }
+
+    .pitch-card h2 {
+      margin-bottom: 18px;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 500;
+    }
+
+    .pitch-card p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .proof {
+      min-height: 126px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .proof span {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .share-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      margin: 20px 0 34px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 252, 244, 0.72);
+      box-shadow: 0 16px 42px rgba(22, 29, 40, 0.09);
+    }
+
+    .share-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .share-panel strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #fff;
+      background: #11161d;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 24px rgba(16, 19, 23, 0.18);
+    }
+
+    .primary-button:hover {
+      background: var(--green);
+    }
+
+    .section-title {
+      display: grid;
+      grid-template-columns: 0.52fr 1fr;
+      gap: 28px;
+      align-items: end;
+      margin: 54px 0 20px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 500;
+    }
+
+    .section-title p {
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.42;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0;
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .step {
+      position: relative;
+      min-height: 280px;
+      padding: 24px 18px 22px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .step:last-child {
+      border-right: 0;
+    }
+
+    .step::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 22px;
+      height: var(--height);
+      min-height: 28px;
+      border-radius: 18px 18px 8px 8px;
+      background: var(--accent);
+      opacity: 0.17;
+    }
+
+    .step::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      bottom: 22px;
+      width: calc(100% - 36px);
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .mod {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 64px;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 800;
+      box-shadow: 0 12px 22px color-mix(in srgb, var(--accent), transparent 72%);
+    }
+
+    .step h3 {
+      position: relative;
+      margin-bottom: 10px;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
+
+    .step p {
+      position: relative;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .quote {
+      display: block;
+      margin-top: 18px;
+      color: #242b35;
+      font-size: 16px;
+      line-height: 1.25;
+      font-style: italic;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: 28px;
+      padding: 30px;
+    }
+
+    .card h3 {
+      margin-bottom: 16px;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 14px;
+    }
+
+    li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 10px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    .outcome-board {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .outcome {
+      padding: 28px;
+      background: rgba(255, 252, 244, 0.86);
+    }
+
+    .outcome small {
+      display: block;
+      margin-bottom: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .outcome h3 {
+      margin-bottom: 12px;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
+
+    .outcome p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .closing {
+      margin-top: 20px;
+      padding: clamp(30px, 4vw, 48px);
+      border-radius: 30px;
+      color: #f8f3ea;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(22, 163, 123, 0.38), transparent 18rem),
+        linear-gradient(135deg, #11161d 0%, #19222d 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .closing h2 {
+      max-width: 820px;
+      margin-bottom: 14px;
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      font-weight: 500;
+    }
+
+    .closing p {
+      max-width: 830px;
+      margin-bottom: 0;
+      color: rgba(248, 243, 234, 0.74);
+      font-size: 20px;
+      line-height: 1.42;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 20;
+      max-width: 320px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      color: #fff;
+      background: #11161d;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 18px 44px rgba(16, 19, 23, 0.28);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      pointer-events: none;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .cards,
+      .section-title,
+      .share-panel,
+      .outcome-board {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .step {
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .proof-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .share-panel {
+        align-items: start;
+      }
+
+      .primary-button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: min(100% - 24px, 1180px);
+        padding-top: 20px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 24px;
+      }
+
+      .hero-copy,
+      .pitch-card,
+      .card,
+      .closing {
+        border-radius: 24px;
+        padding: 24px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        min-height: 236px;
+        border-right: 0;
+      }
+
+      .mod {
+        margin-bottom: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav" aria-label="Page navigation">
+      <div>Vibe Coding Certification</div>
+      <div class="nav-links">
+        <a href="#summary">Summary</a>
+        <a href="#line">The Line</a>
+        <a href="#outcomes">Outcomes</a>
+        <button class="share-link" type="button" data-share>Share</button>
+      </div>
+    </nav>
+
+    <section class="hero" id="summary">
+      <div class="hero-copy">
+        <div class="eyebrow">Course Narrative Pitch</div>
+        <h1>The Confidence Line</h1>
+        <p class="lead">
+          A simple narrative spine for Vibe Coding: students move from "I wonder if AI can build things" to
+          "I just shipped, measured, and improved a product."
+        </p>
+        <div class="cta-row">
+          <span class="pill">Six modules</span>
+          <span class="pill">One product arc</span>
+          <span class="pill">Evidence over demos</span>
+        </div>
+      </div>
+
+      <aside class="card pitch-card">
+        <h2>What it is</h2>
+        <p>
+          The Confidence Line turns a tool-training course into a product-building journey. Each module gives
+          students a new kind of confidence: speed, validation, precision, structure, shipping, and product learning.
+        </p>
+        <div class="proof-strip">
+          <div class="proof">
+            <strong>Before</strong>
+            <span>Disconnected lessons about prompts, PRDs, debugging, APIs, and deployment.</span>
+          </div>
+          <div class="proof">
+            <strong>After</strong>
+            <span>A visible progression from ambiguity to a live, improved product.</span>
+          </div>
+          <div class="proof">
+            <strong>Proof</strong>
+            <span>By the end, students can open six artifacts and show the product evolving.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="share-panel" aria-label="Share summary">
+      <p>
+        <strong>Share note:</strong> The Confidence Line is the narrative spine of Vibe Coding: six modules that
+        move PMs from AI curiosity to product confidence through building, validating, shipping, measuring, and improving.
+      </p>
+      <button class="primary-button" type="button" data-share>Copy Share Link</button>
+    </section>
+
+    <section class="section-title" id="line">
+      <h2>From ambiguity to product confidence.</h2>
+      <p>
+        The line is not just a metaphor. It is the instructional design: every module reduces a different kind
+        of risk and gives students a stronger reason to trust the thing they built.
+      </p>
+    </section>
+
+    <section class="timeline" aria-label="The six stages of the Confidence Line">
+      <article class="step" style="--accent: var(--blue); --height: 32px;">
+        <span class="mod">M1</span>
+        <h3>Speed</h3>
+        <p>Students get out of blank-page mode and build something tangible fast.</p>
+        <span class="quote">"I can build something in 10 minutes."</span>
+      </article>
+
+      <article class="step" style="--accent: var(--yellow); --height: 58px;">
+        <span class="mod">M2</span>
+        <h3>Validation</h3>
+        <p>They stop asking "is it cool?" and start testing the right product assumption.</p>
+        <span class="quote">"I can test the right thing."</span>
+      </article>
+
+      <article class="step" style="--accent: var(--green); --height: 84px;">
+        <span class="mod">M3</span>
+        <h3>Precision</h3>
+        <p>They learn to steer AI with reusable context, constraints, and prompt systems.</p>
+        <span class="quote">"I can build exactly what I describe."</span>
+      </article>
+
+      <article class="step" style="--accent: var(--violet); --height: 112px;">
+        <span class="mod">M4</span>
+        <h3>Structure</h3>
+        <p>The prototype becomes understandable to a real team through specs and handoff logic.</p>
+        <span class="quote">"I can structure it for a real team."</span>
+      </article>
+
+      <article class="step" style="--accent: var(--rose); --height: 142px;">
+        <span class="mod">M5</span>
+        <h3>Ship</h3>
+        <p>The work leaves the sandbox: live URL, data, integrations, and reality checks.</p>
+        <span class="quote">"I can make it real and ship it."</span>
+      </article>
+
+      <article class="step" style="--accent: var(--orange); --height: 172px;">
+        <span class="mod">M6</span>
+        <h3>Product</h3>
+        <p>Students measure behavior, analyze friction, and ship an evidence-backed improvement.</p>
+        <span class="quote">"I can learn from it and make it better."</span>
+      </article>
+    </section>
+
+    <section class="section-title">
+      <h2>Why it matters.</h2>
+      <p>
+        The Confidence Line gives the course a memorable promise. Students are not just learning features in a
+        tool. They are building the judgment to decide what to build, how to test it, and when to ship.
+      </p>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <h3>The pitch</h3>
+        <p>
+          Vibe Coding teaches PMs to use AI as a product development partner, not a novelty generator. The
+          course starts with speed, but speed is only useful if it produces learning. By the final module, every
+          student has a live product, a clearer hypothesis, data from real usage, and an iteration they can defend.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>What changes</h3>
+        <ul>
+          <li>Modules stack into a clear emotional and practical progression.</li>
+          <li>The final deliverable becomes a product story, not just a demo.</li>
+          <li>Students can explain what they learned, what changed, and what they would build next.</li>
+          <li>Stakeholders can see evidence of PM judgment, not just AI fluency.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section-title" id="outcomes">
+      <h2>Desired outcomes.</h2>
+      <p>
+        Success means the Confidence Line is visible in the work students produce and in the way they talk about
+        that work after the course.
+      </p>
+    </section>
+
+    <section class="outcome-board" aria-label="Desired outcomes">
+      <article class="outcome">
+        <small>Student Outcome</small>
+        <h3>Confidence through proof</h3>
+        <p>
+          Students leave able to say, "I can build, validate, ship, measure, and improve a product with AI tools."
+        </p>
+      </article>
+
+      <article class="outcome">
+        <small>Learning Outcome</small>
+        <h3>Product judgment</h3>
+        <p>
+          Students learn to use prototypes as instruments for reducing risk, not as polished artifacts for applause.
+        </p>
+      </article>
+
+      <article class="outcome">
+        <small>Program Outcome</small>
+        <h3>A stronger course story</h3>
+        <p>
+          The certification has a coherent arc: every module advances the same promise and every deliverable proves it.
+        </p>
+      </article>
+    </section>
+
+    <section class="closing">
+      <h2>The final message: build fast, learn faster, ship with evidence.</h2>
+      <p>
+        The Confidence Line is the story students experience and the story they can retell. It turns AI prototyping
+        into a repeatable PM capability: move from uncertainty to evidence, then use that evidence to make the
+        product better.
+      </p>
+    </section>
+  </main>
+  <div class="toast" role="status" aria-live="polite" data-toast>Share link copied</div>
+  <script>
+    const shareText = "The Confidence Line: a six-module Vibe Coding arc from AI curiosity to shipped, measured, improved product.";
+    const toast = document.querySelector("[data-toast]");
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+
+    async function sharePage() {
+      const shareData = {
+        title: document.title,
+        text: shareText,
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (error) {
+          if (error.name === "AbortError") return;
+        }
+      }
+
+      try {
+        await navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`);
+        showToast("Share link copied");
+      } catch (error) {
+        showToast("Copy unavailable. Use the browser address bar.");
+      }
+    }
+
+    document.querySelectorAll("[data-share]").forEach((button) => {
+      button.addEventListener("click", sharePage);
+    });
+  </script>
+</body>
+</html>

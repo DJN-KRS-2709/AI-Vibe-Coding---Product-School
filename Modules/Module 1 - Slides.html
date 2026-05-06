@@ -312,6 +312,37 @@
   .sorter-skip-btn.skip-off { background: rgba(255,255,255,0.06); color: #556; }
   .sorter-skip-btn.skip-on { background: rgba(248,113,113,0.16); color: #fca5a5; }
   .sorter-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; }
+
+  /* Lab content slides */
+  .lab-grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0 6px; }
+  .lab-scenario { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 14px 16px; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .lab-scenario:hover { border-color: rgba(96,165,250,0.30); transform: translateY(-2px); }
+  .lab-scenario-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; margin-bottom: 4px; }
+  .lab-scenario-name { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.2; }
+  .lab-scenario-desc { font-size: 12px; color: #8899bb; line-height: 1.5; }
+  .lab-prompt { margin: 8px 0 12px; padding: 12px 16px; background: linear-gradient(180deg, rgba(96,165,250,0.07) 0%, rgba(96,165,250,0.02) 100%); border-left: 3px solid #60a5fa; border-radius: 4px 10px 10px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.5; color: #d6e3f5; }
+  .lab-prompt-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; margin-bottom: 6px; }
+  .lab-bestfor { display: inline-block; margin: 4px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #fde68a; background: rgba(251,191,36,0.10); border: 1px solid rgba(251,191,36,0.25); padding: 3px 8px; border-radius: 999px; }
+  .lab-option-h { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin: 6px 0 4px; }
+  .lab-option-sub { font-size: 13px; color: #8899bb; margin-bottom: 6px; }
+  .lab-paths-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 6px; }
+  .lab-path { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 16px; }
+  .lab-path-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #60a5fa; padding: 3px 8px; border: 1px solid rgba(96,165,250,0.30); border-radius: 999px; margin-bottom: 6px; }
+  .lab-path-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
+  .lab-path-desc { font-size: 12px; color: #8899bb; line-height: 1.5; margin-bottom: 8px; }
+
+  /* Watch (embedded video) slide */
+  .watch-frame { position: relative; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 18px auto 8px; background: #000; border-radius: 14px; overflow: hidden; border: 1px solid rgba(96,165,250,0.25); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+  .watch-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .watch-meta { display: flex; justify-content: space-between; align-items: center; gap: 14px; max-width: 960px; margin: 12px auto 0; flex-wrap: wrap; }
+  .watch-meta-left { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: #8899bb; }
+  .watch-meta-right { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(96,165,250,0.10); border: 1px solid rgba(96,165,250,0.28); border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #60a5fa; text-decoration: none; }
+  .watch-meta-right:hover { background: rgba(96,165,250,0.18); border-color: rgba(96,165,250,0.55); }
+
+  @media (max-width: 760px) {
+    .lab-grid-2x2 { grid-template-columns: 1fr; }
+    .lab-paths-2 { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -495,7 +526,27 @@
       <div class="card"><div class="card-label">7 min · Prototype 3</div><div class="card-title">The Design Match</div><div class="card-desc">Customer health dashboard cloned from a Mobbin design system — VP-ready.</div></div>
     </div>
     <p style="margin-top:14px; font-size:16px; font-weight:700; color:#fff;">While others debate requirements, you are now a builder.</p>
-    <a class="bottom-cta" href="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/view" target="_blank" rel="noopener" style="margin-top:18px;">▶ Watch the recording — Demo 1</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9.5: Watch Demo 1 — Triple-Threat Build Recording ===== -->
+<div class="slide" data-notes="Embedded recording of Demo 1. Use this slide if you're catching up async, or rewatch a specific prompt move. The Open in Drive button gives full controls (speed, captions, fullscreen, download).">
+  <div class="slide-inner" style="max-width: 1080px;">
+    <div class="demo-tag tag-demo">▶ Recording · Demo 1 · ~15 min</div>
+    <h2>Watch — The Triple-Threat Build</h2>
+    <div class="subtitle">If you missed the live build (or want to study a specific prompt move), the full recording is below.</div>
+    <div class="watch-frame">
+      <iframe
+        src="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/preview"
+        allow="autoplay"
+        allowfullscreen
+        loading="lazy"
+        title="Demo 1 — The Triple-Threat Build"></iframe>
+    </div>
+    <div class="watch-meta">
+      <div class="watch-meta-left">Same problem · Three executive opinions · Three prototypes in 15 minutes</div>
+      <a class="watch-meta-right" href="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/view" target="_blank" rel="noopener">Open in Drive ↗</a>
+    </div>
   </div>
 </div>
 
@@ -613,7 +664,119 @@
           <div class="callout-label">Keep in mind</div>
           <div class="callout-text">Solo build. Tests your <strong>speed</strong> and <strong>intuition</strong>. There are no technical barriers — just your instincts and the prompt box.</div>
         </div>
-        <a class="bottom-cta" href="lab-guides/Module%201%20-%20Lab%20Guide.html#lab-1" target="_blank" rel="noopener">✍️ Open the Module 1 Lab Guide</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 15.1: Lab 1 · Step 1 — Choose Your Scenario ===== -->
+<div class="slide" data-notes="Lab 1 detail · Step 1. Force a scenario choice in the first 30 seconds. Heads-up: Module 2 they'll commit to one of these for the final project — pick something they'd want to keep building on. Default if stuck: Scenario 1 or 4 (work for almost any PM role).">
+  <div class="slide-inner" style="max-width: 1100px;">
+    <div class="demo-tag tag-exercise">Lab 1 · Step 1 · Choose Your Scenario</div>
+    <h2>Pick One of Four Scenarios</h2>
+    <div class="subtitle">Before opening Lovable, anchor your build. <strong>🎯 Heads up:</strong> in Module 2 you'll commit to one of these and carry it through to your final project. If you can't decide, pick <strong>Scenario 1 or 4</strong> — they work for almost any PM role.</div>
+    <div class="lab-grid-2x2">
+      <div class="lab-scenario">
+        <div class="lab-scenario-num">Scenario 1</div>
+        <div class="lab-scenario-name">The Retention Engine</div>
+        <div class="lab-scenario-desc">B2B SaaS losing 30% of customers in 90 days. Users "sign up, poke around, and ghost." Team invites matter. What's the real blocker?</div>
+      </div>
+      <div class="lab-scenario">
+        <div class="lab-scenario-num">Scenario 2</div>
+        <div class="lab-scenario-name">The Internal Tool Nobody Uses</div>
+        <div class="lab-scenario-desc">CRM with 18% adoption. Reps say "too many clicks." CEO wants Gong. Can you fix adoption without replacing the tool?</div>
+      </div>
+      <div class="lab-scenario">
+        <div class="lab-scenario-num">Scenario 3</div>
+        <div class="lab-scenario-name">The Marketplace Trust Problem</div>
+        <div class="lab-scenario-desc">Bookings flat. Zero-review providers can't get their first customer. How do you solve cold-start trust?</div>
+      </div>
+      <div class="lab-scenario">
+        <div class="lab-scenario-num">Scenario 4</div>
+        <div class="lab-scenario-name">The Dashboard Nobody Reads</div>
+        <div class="lab-scenario-desc">Analytics with 60% bounce rate. Power users love it, new users flee. How do you serve both?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 15.2: Lab 1 · Step 2 — Write Your Prompts ===== -->
+<div class="slide" data-notes="Lab 1 detail · Step 2. Two paths into Lovable. Option A is for students who freeze — pre-written templates with brackets to fill in. Option B is for confident builders — describe the first screen they want and let Lovable do the rest. Credit-saver tip: refine prompts in ChatGPT/Gemini first.">
+  <div class="slide-inner" style="max-width: 1100px;">
+    <div class="demo-tag tag-exercise">Lab 1 · Step 2 · Write Your Prompts</div>
+    <h2>Two Paths Into Lovable</h2>
+    <div class="subtitle">Open <a href="https://lovable.dev" target="_blank" rel="noopener" style="color:#60a5fa;">Lovable</a> and start your project. Choose one of these two paths and prompt immediately.</div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div>
+        <div class="lab-option-h">Option A · Copy &amp; Customize</div>
+        <div class="lab-option-sub">Use a baseline template and replace the <strong>[brackets]</strong> with your scenario specifics.</div>
+        <span class="lab-bestfor">Best for Scenario 3</span>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt 1</span>
+          "Build me a [community/social] feature for [fitness/sales/customer] users. Include a [matching screen / leaderboard / shared feed]."
+        </div>
+        <span class="lab-bestfor">Best for Scenarios 1 &amp; 4</span>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt 2</span>
+          "Build me a dashboard that shows [account health / sales pipeline / user activity]. Include a [filter / list / chart]."
+        </div>
+        <span class="lab-bestfor">Best for Scenario 2</span>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt 3</span>
+          "Build me a [type of app] that helps users [one action]. Include [one UI element]."
+        </div>
+      </div>
+      <div>
+        <div class="lab-option-h">Option B · The First-Screen Method</div>
+        <div class="lab-option-sub">Visualize the very first thing your user sees when they log in. Describe that exact UI to Lovable and hit enter.</div>
+        <ul style="margin: 8px 0 12px 18px;">
+          <li><strong>Focus on speed</strong> — describe the layout, the main buttons, the primary data points.</li>
+          <li><strong>Don't over-engineer.</strong> Let Lovable handle the initial vibe; you focus on functional interface.</li>
+          <li>Ask: <em>"What's the first screen your user would see? What's on it?"</em></li>
+        </ul>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">First-Screen Template</span>
+          "Build me a [that screen] for [that user] with [those key elements]."
+        </div>
+        <div class="callout" style="margin-top:14px;">
+          <div class="callout-label">💡 Credit-Saver Tip</div>
+          <div class="callout-text">Plan complex prompts in <strong>ChatGPT, Gemini, or Claude</strong> first. Paste the polished version into Lovable so you spend tokens on the build, not on prompt iteration.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 15.3: Lab 1 · Step 3 — Iterate, Refine & Ship Your Link ===== -->
+<div class="slide" data-notes="Lab 1 detail · Step 3-4 combined. Don't restart from scratch — use Plan mode in Lovable to refine. The 2-minute rule: stuck on a design detail for &gt;2 min, move on. Final 2 minutes: stop iterating, generate the share preview link, screenshot the result.">
+  <div class="slide-inner" style="max-width: 1100px;">
+    <div class="demo-tag tag-exercise">Lab 1 · Step 3 · Iterate &amp; Ship Your Link</div>
+    <h2>Refine in Place — Then Generate Your Share Link</h2>
+    <div class="subtitle">If the first output isn't right, <strong>do not start over</strong>. Steer Lovable from the chat bar — toggle <strong>"Plan"</strong> before refinement prompts.</div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div>
+        <div class="step-list" style="margin:0;">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Use targeted follow-up prompts</div><div class="step-desc">e.g., <em>"move the search bar to the top right"</em> or <em>"make this button open a modal."</em></div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Apply the 2-minute rule</div><div class="step-desc">Stuck on a design detail for &gt;2 min? Move on. Goal = functional prototype, not a completed design system.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Stop iterating with 2 min left</div><div class="step-desc">Click through your flow. Screenshot the finished product (you'll need it for Slack later).</div></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Click <strong>Share → Share preview</strong></div><div class="step-desc">Copy and keep your shareable link ready for the peer swap.</div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="callout" style="background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.30);">
+          <div class="callout-label" style="color:#fb923c;">⚠️ Critical</div>
+          <div class="callout-text">You'll be assigned a partner the moment the timer hits zero. <strong>You cannot review a blank screen</strong> — have a working link ready.</div>
+        </div>
+        <div class="goal-box" style="margin-top:14px;">
+          <div class="goal-label">📋 Before-the-bell checklist</div>
+          <div class="goal-text">
+            ✅ Click through your nav and main buttons<br>
+            ✅ Screenshot your prototype (for the Slack post)<br>
+            ✅ Generate &amp; copy your <strong>Share preview</strong> link
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -698,7 +861,27 @@
       <div class="card"><div class="card-label">5 min · Step 2</div><div class="card-title">Add Interactivity</div><div class="card-desc">Functional progress tracker, actionable recommendation cards, loading skeleton — clickable, not just pretty.</div></div>
       <div class="card"><div class="card-label">5 min · Step 3</div><div class="card-title">Surgical Refinement</div><div class="card-desc">Use focused prompts to fix one weak section without rebuilding. Compounding improvements > starting over.</div></div>
     </div>
-    <a class="bottom-cta" href="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/view" target="_blank" rel="noopener" style="margin-top:18px;">▶ Watch the recording — Demo 2</a>
+  </div>
+</div>
+
+<!-- ===== SLIDE 20.5: Watch Demo 2 — Basic to Pro Recording ===== -->
+<div class="slide" data-notes="Embedded recording of Demo 2. Shows the three iteration moves end-to-end: design system match, interactivity, surgical refinement. Async students should watch this before Lab 2 if they missed the live demo.">
+  <div class="slide-inner" style="max-width: 1080px;">
+    <div class="demo-tag tag-demo">▶ Recording · Demo 2 · ~15 min</div>
+    <h2>Watch — Moving From Basic to Pro</h2>
+    <div class="subtitle">The full iteration playbook end-to-end: design-system match, add interactivity, surgical refinement.</div>
+    <div class="watch-frame">
+      <iframe
+        src="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/preview"
+        allow="autoplay"
+        allowfullscreen
+        loading="lazy"
+        title="Demo 2 — Moving From Basic to Pro"></iframe>
+    </div>
+    <div class="watch-meta">
+      <div class="watch-meta-left">From "vibe sketch" to "VP-ready" through three compounding moves</div>
+      <a class="watch-meta-right" href="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/view" target="_blank" rel="noopener">Open in Drive ↗</a>
+    </div>
   </div>
 </div>
 
@@ -737,8 +920,72 @@
           <div class="callout-label">Keep in mind</div>
           <div class="callout-text">Solo build. Final prototype should feel like something you'd <strong>proudly show your VP</strong>. Watch your credits — build prompts outside Lovable when possible.</div>
         </div>
-        <a class="bottom-cta" href="lab-guides/Module%201%20-%20Lab%20Guide.html#lab-2" target="_blank" rel="noopener">✍️ Return to the Module 1 Lab Guide</a>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 22.1: Lab 2 · Upgrade Paths A &amp; B ===== -->
+<div class="slide" data-notes="Lab 2 detail · Paths A and B. Pick TWO of the four paths — depth in two areas beats trying all four. If a bug holds you up &gt;3 min, pivot to a different path.">
+  <div class="slide-inner" style="max-width: 1100px;">
+    <div class="demo-tag tag-exercise">Lab 2 · Upgrade Paths · Pick Two</div>
+    <h2>Upgrade Paths A &amp; B</h2>
+    <div class="subtitle">Select <strong>two of four paths</strong> to transform your sketch. Stuck on a bug for &gt;3 min? Pivot to a different upgrade — polished design beats broken filter.</div>
+
+    <div class="lab-paths-2" style="margin-top:14px;">
+      <div class="lab-path">
+        <span class="lab-path-tag">Path A · Visual Level-Up</span>
+        <div class="lab-path-title">Design Match</div>
+        <div class="lab-path-desc">Use a <a href="https://mobbin.com" target="_blank" rel="noopener" style="color:#60a5fa;">Mobbin</a> screenshot to clone professional colors, layout, and navigation.</div>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt</span>
+          "I am uploading a screenshot of [Company]. Update my dashboard's color palette, border radius, and typography to match this aesthetic exactly."
+        </div>
+      </div>
+      <div class="lab-path">
+        <span class="lab-path-tag">Path B · Functional Level-Up</span>
+        <div class="lab-path-title">Add Interactivity</div>
+        <div class="lab-path-desc">Configure a functional filter, working detail view, or validating form — prove the app handles real user behavior.</div>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt</span>
+          "Make the [List or Gallery name, e.g., Workout List] filterable by [Category]. When a user clicks a [UI Element, e.g., Card], open a [Panel or Modal] showing the [Specific Data] for that selection."
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 22.2: Lab 2 · Upgrade Paths C &amp; D ===== -->
+<div class="slide" data-notes="Lab 2 detail · Paths C and D. Path C is for surgical fixes (best when only one section feels wrong). Path D is for students working on their actual company product — copy as CSS from Figma, paste into Lovable.">
+  <div class="slide-inner" style="max-width: 1100px;">
+    <div class="demo-tag tag-exercise">Lab 2 · Upgrade Paths · Pick Two</div>
+    <h2>Upgrade Paths C &amp; D</h2>
+    <div class="subtitle">Continued from the previous slide — pick <strong>two of the four total paths</strong> for depth.</div>
+
+    <div class="lab-paths-2" style="margin-top:14px;">
+      <div class="lab-path">
+        <span class="lab-path-tag">Path C · Precision Level-Up</span>
+        <div class="lab-path-title">Surgical Refinement</div>
+        <div class="lab-path-desc">Use a focused prompt to fix one specific section without changing the rest of the page.</div>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt</span>
+          "Focus only on the [section name, e.g., sidebar]. Change the [element] to a [new element, e.g., dropdown menu], and move the [component] to the [new location]."
+        </div>
+      </div>
+      <div class="lab-path">
+        <span class="lab-path-tag">Path D · Brand Alignment</span>
+        <div class="lab-path-title">Existing Product Track</div>
+        <div class="lab-path-desc">Match your <strong>actual company's</strong> design system. From Figma: right-click any frame → <em>"Copy/Paste as → Copy as CSS"</em> → paste into Lovable.</div>
+        <div class="lab-prompt">
+          <span class="lab-prompt-label">Prompt</span>
+          "Update the UI components to match [Company Name]'s branding. Use [Hex Code] for primary buttons and ensure the [navigation element] matches our product's current structure."
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:14px; background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.30);">
+      <div class="callout-label" style="color:#fb923c;">⚠️ Watch the Clock</div>
+      <div class="callout-text">Stop iterating with <strong>2 minutes left</strong>. Refresh, re-test, and re-copy your Share preview link before the second peer swap.</div>
     </div>
   </div>
 </div>
@@ -987,10 +1234,10 @@
     <div class="demo-tag tag-lecture">Bonus Resources</div>
     <h2>Resources &amp; Templates</h2>
     <div class="res-grid">
-      <a class="res-card" href="lab-guides/Module%201%20-%20Lab%20Guide.html" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
-        <div class="res-tag">Hands-On Lab Walkthrough</div>
-        <div class="res-title">Module 1 Lab Guide</div>
-        <div class="res-link">→ View resource</div>
+      <a class="res-card" href="https://lovable.dev" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+        <div class="res-tag">Build Tool · Free Pro Access</div>
+        <div class="res-title">Lovable</div>
+        <div class="res-link">→ Open Lovable ↗</div>
       </a>
       <div class="res-card">
         <div class="res-tag">Vibe Coding Certification</div>
