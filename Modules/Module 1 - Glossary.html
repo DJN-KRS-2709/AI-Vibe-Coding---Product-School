@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #fde68a; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 1 — Glossary</div>
+    <h1>Glossary</h1>
+    <p>Every term used in Module 1, defined the way we use it — not the way Wikipedia does.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 1 — Glossary</h1>
+<blockquote>
+<p>Terms used in Module 1, defined the way we use them in this certification. When a term appears in a deck or notes file, it means <em>this</em> — not the generic dictionary version.</p>
+</blockquote>
+<hr>
+<p><strong>AI-Review Prompt</strong>
+The verbatim text block a learner pastes into ChatGPT, Claude, or Cursor — together with their artifact — to get a structured critique. Used as the solo fallback when a Show &amp; Swap partner is unavailable, and as the primary reviewer in modules that ship without a paired exercise.</p>
+<p><strong>Confidence Line</strong>
+The single arc that runs through the entire certification. Three phases: High Ambiguity (M1–M2) → Gaining Clarity (M3–M4) → Production Confidence (M5–M6). Every prompt the learner writes is a choice on this line — explore the path, or refine it.</p>
+<p><strong>Credit Death Spiral</strong>
+The most common beginner mistake. A learner re-prompts the same broken logic three or four times, hoping the AI will recover. It does not. Credits drain. The Eject Rule exists to prevent this.</p>
+<p><strong>Design-to-Code</strong>
+The multimodal entry point where the learner pastes Figma frames or design-system tokens (hex codes, spacing rules, typography) and the AI generates a prototype that matches a real brand from the first generation. Best for prototyping inside an existing product.</p>
+<p><strong>Eject Rule</strong>
+If a prompt fails twice, stop. Export the code, debug it externally, paste the fix back. Never enter a credit death spiral.</p>
+<p><strong>Evidence per Hour</strong>
+The actual metric vibe coding optimizes. Not speed — speed is the floor. <em>Evidence per hour</em> is how much signal a learner generates per unit of build time. Three rough prototypes that each test a different assumption beat one polished prototype that tests nothing.</p>
+<p><strong>Eviction</strong>
+<em>See Eject Rule.</em> Same thing, different name in older artifacts.</p>
+<p><strong>First Screen Method</strong>
+A launch path in Lab 1. The learner visualizes the very first thing the user would see when they open the app and prompts the AI to build exactly that. Defeats blank-page paralysis when no template fits the scenario.</p>
+<p><strong>High-Velocity Prototyping Cycle</strong>
+The four-move loop: Build → Show → Learn → Decide. The whole course in four boxes. PMs reliably skip step four ("Decide"), which is what separates a tool from a toy.</p>
+<p><strong>Lab 1 Scenarios</strong>
+Four product situations the learner picks from for the first build:
+- <em>Retention Engine</em> — B2B SaaS losing 30% of customers in 90 days.
+- <em>Internal Tool Nobody Uses</em> — CRM with 18% adoption.
+- <em>Marketplace Trust Problem</em> — zero-review providers can't get first customer.
+- <em>Dashboard Nobody Reads</em> — analytics with 60% bounce rate.</p>
+<p><strong>Living Prompt Pack</strong>
+A learner-authored skill markdown that travels with them. Introduced in Module 3. Mentioned in Module 1 only as a forward-reference.</p>
+<p><strong>Lovable</strong>
+The primary demo tool for the certification. Visual-first, lowest barrier for non-technical PMs, supports backend (databases, Stripe, auth, deployment). Pro access (3 months free) included via Product School partnership. The methodology is tool-agnostic — Bolt, Cursor, v0, Replit, Claude Code all work the same way conceptually.</p>
+<p><strong>Mobbin</strong>
+A library of real-product screenshots used as reference patterns. In Module 1, learners use a Mobbin screenshot as input to the Screenshot-to-App entry point — the AI clones the palette, layout, and navigation from the reference into the learner's prototype.</p>
+<p><strong>Multimodal</strong>
+The property of modern vibe-coding tools that lets them ingest text, screenshots, and design files as inputs to a single prompt. Practical consequence: you never start from a blank canvas.</p>
+<p><strong>One-Shot Generation</strong>
+The goal mode for credit efficiency — a single prompt that produces a useful result, vs. trial-and-error iteration. Achievable when the prompt has been drafted and refined in a free LLM sandbox before pasting into Lovable.</p>
+<p><strong>Pre-Read</strong>
+A short async document the learner reads before the live module session. Module 1's pre-read covers tool setup, the Confidence Line in 60 seconds, and the four scenarios.</p>
+<p><strong>Prototype-Readiness Rubric</strong> <em>(private framing only)</em>
+A 1–5 reading of your prototype against the Confidence Line: 1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready. <strong>Used as private framing for your own follow-up writing, not as a replacement for the paired review.</strong> Vibe Coding has no solo reflection — the signal always comes from a peer (Show and Swap Round 1, Swap and Review Round 2) or, as a solo fallback, the AI-review prompt. Most learners read themselves as 2–3 in M1; the gap to VP-Ready is exactly what M2–M6 closes.</p>
+<p><strong>Refresh Code Directly</strong>
+A credit-saving move: for cosmetic fixes (hex codes, label typos, padding), edit the generated code in the code panel rather than re-prompting. Re-prompting cosmetic changes is the most expensive way to do a five-second job.</p>
+<p><strong>Repo / Repo-CTA</strong>
+The folder structure (<code>01-velocity/</code>, <code>02-validation/</code>, etc.) where every learner artifact is committed. Each <code>applied_work</code> slide ends with a green Repo-CTA pointing at the exact path the artifact should land at.</p>
+<p><strong>Sandbox (Prompt Sandbox)</strong>
+A free LLM (ChatGPT, Gemini, Claude) used to draft and refine a prompt <em>before</em> pasting it into Lovable. Where 60% of credit-saving prompt work happens.</p>
+<p><strong>Screenshot-to-App</strong>
+The multimodal entry point where the learner uploads a screenshot (Mobbin, competitor, hand-drawing) and the AI clones the layout and design system into a prototype. Best for refining a vibe sketch against a known-good professional pattern.</p>
+<p><strong>Show and Swap (Round 1)</strong>
+The 10-minute paired exercise after Lab 1. Pairs swap shareable links in the breakout chat, walk each other's prototype silently for three minutes, then discuss three clarity questions: what was immediately clear · what confused them · what assumption the build is testing. Then swap roles and repeat. The silent rule is the lesson — the comment you want to make at minute two is the most useful signal.</p>
+<p><strong>Swap and Review (Round 2) · Blind Stress Test</strong>
+The 10-minute paired exercise after Lab 2, with a <strong>different</strong> partner from Round 1. Same swap-silent-discuss-swap structure, but the bar moves from clarity to credibility. Three questions: does it feel like a real product or a visual mockup · where did the interactivity fail · would you show it to your VP? The "let them stay stuck" rule applies even harder — when your partner can't find a feature, you don't rescue them, you take the note.</p>
+<p><strong>Credibility Rubric (self-reference only)</strong>
+A 1–5 reading of your prototype: 1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready. Used as private framing for your written follow-up after Round 2 — not as a replacement for the peer review. The gap between today's score and VP-Ready is exactly what M2–M6 closes.</p>
+<p><strong>Skill (Skill Markdown)</strong>
+A markdown file that gives an AI specialized instructions for a domain (e.g. "build dashboards for B2B SaaS," "always use this design system"). The AI follows the skill on every prompt without the learner re-explaining context. Marketplaces (Anthropic, Cursor) and public GitHub repos host them. Module 3 teaches authoring.</p>
+<p><strong>Solo Fallback (AI-Review Prompt)</strong>
+If a learner is joining async or has no partner, they substitute the Show &amp; Swap with a silent self-walk plus the verbatim AI-review prompt pasted into ChatGPT or Claude. Same three dimensions; the reviewer is the AI instead of a peer.</p>
+<p><strong>Text-to-App</strong>
+The multimodal entry point where the learner uses a natural-language prompt as the only input. Best for greenfield exploration where no design or competitor reference exists yet.</p>
+<p><strong>Toy</strong>
+A prototype that looks impressive but proves nothing. Generates applause, not insights. No logic behind the screen. Dies after the demo. Cannot survive a real user.</p>
+<p><strong>Tool</strong>
+A prototype that looks real and proves something works. Validates an assumption with clickable evidence. Handles at least one real user flow end-to-end. Survives when someone else uses it. Generates a decision, not a reaction.</p>
+<p><strong>Triple-Threat Build</strong>
+The Module 1 demo and the universal Module 1 move: when three stakeholders have three theories and zero data, build all three as rough prototypes (15 min each), compare evidence side by side, and let evidence — not seniority — decide. The phrase is named after the instructor demo video, but the move generalizes.</p>
+<p><strong>Vibe Coding</strong>
+This certification's process-name: the practice of validating product intent as fast as possible using whatever AI building tool is available. The <em>tool</em> is replaceable; the <em>process</em> is durable. Today's tool is Lovable. Tomorrow's might not be. The methodology stays the same.</p>
+<p><strong>Vibe Sketch</strong>
+A first-pass prototype with the vibe right but the polish missing. The output of every Lab 1. The starting point for every Lab 2 strategic refinement.</p>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 1 - Slides.html">← Back to Module 1 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling current" href="Module 1 - Glossary.html">Glossary</a>
+      <a class="fn-sibling" href="Module 1 - Notes (Shareable).html">Shareable Notes</a>
+      <a class="fn-sibling" href="Module 1 - Pre-Read.html">Pre-Read</a>
+      <a class="fn-sibling" href="../Final Project - Requirements and Scenario Guide.html">Final Project Brief</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 1 - Glossary.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 1 — Reference Card</div>
+    <h1>Frameworks Reference Card</h1>
+    <p>Every framework Module 1 introduces, in one page. Keep it open while you build.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 1 — Frameworks Reference Card</h1>
+<blockquote>
+<p>One-page summary of every framework introduced in Module 1. Use it as the cheat sheet you keep open while you build.</p>
+</blockquote>
+<hr>
+<h2>1. The Confidence Line</h2>
+<p>The single arc that runs through the entire certification. Every module sits on a phase.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Modules</th>
+<th>What you do</th>
+<th>What you produce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Ambiguity</strong></td>
+<td>M1–M2</td>
+<td>Build to think. Explore many directions. Kill bad ideas fast.</td>
+<td>Rough prototypes + named assumptions.</td>
+</tr>
+<tr>
+<td><strong>Gaining Clarity</strong></td>
+<td>M3–M4</td>
+<td>Apply context and intent. Transition from vibe to structure.</td>
+<td>Living PRD + structured prompt pack.</td>
+</tr>
+<tr>
+<td><strong>Production Confidence</strong></td>
+<td>M5–M6</td>
+<td>Real APIs, deployment, measurement, iteration.</td>
+<td>Live URL + evidence brief + handoff note.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> every prompt is a choice — <em>explore</em> the path, or <em>refine</em> it.</p>
+<hr>
+<h2>2. The High-Velocity Prototyping Cycle</h2>
+<p>Four moves. Loop through them twice in M1; roughly fifty times across the certification.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Move</th>
+<th>What it means</th>
+<th>What to skip if you must</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① <strong>Build</strong></td>
+<td>From instinct. Goal: shareable URL, not finished product.</td>
+<td>Never skip.</td>
+</tr>
+<tr>
+<td>② <strong>Show</strong></td>
+<td>Silent walkthrough. No verbal tour.</td>
+<td>Never skip — this is where most signal lives.</td>
+</tr>
+<tr>
+<td>③ <strong>Learn</strong></td>
+<td>Raw signal beats polite feedback. Write what confused.</td>
+<td>Never skip.</td>
+</tr>
+<tr>
+<td>④ <strong>Decide</strong></td>
+<td>Kill, refine, or escalate. No prototype lives without a verdict.</td>
+<td><strong>PMs reliably skip this.</strong> Don't.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>3. The Three Multimodal Entry Points</h2>
+<p>Three ways to start every build. Pick by job, not by habit.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Entry point</th>
+<th>When</th>
+<th>Job</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Text-to-App</strong></td>
+<td>0 → 1, no design yet.</td>
+<td>Greenfield exploration. Cures blank-page syndrome.</td>
+</tr>
+<tr>
+<td><strong>Screenshot-to-App</strong></td>
+<td>1 → N, refining vibe sketch.</td>
+<td>Clone a known-good pattern (Mobbin, competitor).</td>
+</tr>
+<tr>
+<td><strong>Design-to-Code</strong></td>
+<td>On-brand from minute one.</td>
+<td>Prototyping inside an existing product. Paste Figma + tokens.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>4. Credit Efficiency — The Four Rules</h2>
+<p>Credits are fuel. Pro plan ≈ 100 credits/month. Spend them on architecture, not typos.</p>
+<ol>
+<li><strong>Plan in a sandbox.</strong> 60% of prompt refinement happens in ChatGPT / Gemini / Claude (free).</li>
+<li><strong>Paste, don't draft.</strong> Aim for one-shot generations. Lovable is the execution engine.</li>
+<li><strong>Edit code directly.</strong> Hex codes, padding, label typos — fix in the code panel.</li>
+<li><strong>The Eject Rule.</strong> If a prompt fails twice, <em>stop</em>. Export, debug externally, paste back. Never enter the "credit death spiral."</li>
+</ol>
+<hr>
+<h2>5. The Lab 2 Upgrade Paths</h2>
+<p>Four ways to turn a vibe sketch into a credible tool. Pick <strong>two</strong>, depth over breadth.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Move</th>
+<th>Best when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A — Design Match</strong></td>
+<td>Mobbin screenshot → clone palette/layout/nav.</td>
+<td>Your v1 looks unbranded.</td>
+</tr>
+<tr>
+<td><strong>B — Add Interactivity</strong></td>
+<td>Filters, expandable cards, loading skeleton.</td>
+<td>Your v1 is a screenshot in disguise.</td>
+</tr>
+<tr>
+<td><strong>C — Surgical Refinement</strong></td>
+<td>One focused prompt, one section.</td>
+<td>Your v1 mostly works; one block lets it down.</td>
+</tr>
+<tr>
+<td><strong>D — Existing Product Track</strong></td>
+<td>Paste real hex codes + Figma CSS.</td>
+<td>You're prototyping for your actual day job.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>6. Toy vs Tool — The Distinction</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>The Toy</th>
+<th>The Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Looks impressive. Proves nothing.</td>
+<td>Looks real. Proves something works.</td>
+</tr>
+<tr>
+<td>Generates applause, not insights.</td>
+<td>Validates an assumption with clickable evidence.</td>
+</tr>
+<tr>
+<td>No logic behind the screen.</td>
+<td>Handles at least one real user flow end-to-end.</td>
+</tr>
+<tr>
+<td>Dies after the demo.</td>
+<td>Survives when someone else uses it.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Test:</strong> If your prototype helped you <em>decide</em> something, it's a tool. If it only looked cool, it's a toy.</p>
+<hr>
+<h2>7. The Triple-Threat Build (mental model)</h2>
+<p>When three executives have three theories and zero data:</p>
+<ol>
+<li><strong>Don't pick a side.</strong> Don't escalate. Don't debate.</li>
+<li><strong>Build all three</strong> as rough prototypes (15 min each).</li>
+<li><strong>Compare evidence</strong> side by side, not opinions.</li>
+<li><strong>Kill two</strong>, keep one, name the assumption it tested.</li>
+</ol>
+<p>This is the universal Module-1 move. You'll repeat it whenever your team has more opinions than data.</p>
+<hr>
+<h2>8. The Review Stack — Two Show and Swap Rounds</h2>
+<p>Every lab in this module ends with a peer review. The structure is identical; the bar moves between rounds:</p>
+<ol>
+<li><strong>Time-box</strong> — <code>⏰ 10 min</code> per round.</li>
+<li><strong>Swap links · open in a fresh tab</strong> — no verbal context, no apologies.</li>
+<li><strong>3 minutes silent</strong> on your partner's build. Let them stay stuck if you're the watcher. The friction is the data.</li>
+<li><strong>Discuss three questions · then swap roles</strong> for the other 6 minutes.</li>
+<li><strong>Async share</strong> — commit before/after to your repo, post the feedback that landed hardest in <code>#cohort-channel</code>.</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Round</th>
+<th>When</th>
+<th>The three questions</th>
+<th>The bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Round 1 · Show and Swap</strong></td>
+<td>After Lab 1</td>
+<td>What was clear · what confused you · what assumption is being tested</td>
+<td>Clarity</td>
+</tr>
+<tr>
+<td><strong>Round 2 · Swap and Review</strong></td>
+<td>After Lab 2 · <strong>NEW partner</strong></td>
+<td>Real product or mockup · where interactivity failed · would you show it to your VP</td>
+<td>Credibility</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Builds are individual, reviews are paired. Round 2 always pairs you with a different partner from Round 1 — fresh eyes are the whole point of the blind stress test.</strong> Solo fallback (no partner available): the AI-review prompt with the round's three questions as the dimensions.</p>
+<hr>
+<h2>9. Submission rule (for the final project)</h2>
+<ul>
+<li><strong>What:</strong> the URL of your <code>vibe-coding-project/</code> fork.</li>
+<li><strong>When:</strong> within 7 days post-cohort.</li>
+<li><strong>Format:</strong> 100% solo. No live demo required.</li>
+<li><strong>Optional showcase:</strong> 3-min async Loom in <code>#cohort-channel</code>. Instructor responds in-thread within ~5 days.</li>
+<li><strong>Rubric:</strong> Application of Concepts · Credibility &amp; Reasoning · Clarity · Strategic Thinking. Scale 1 (Poor 0–49) / 2 (Sufficient 50–79) / 3 (Excellent 80–100).</li>
+</ul>
+<hr>
+<h2>Quick reference — what to remember walking out of M1</h2>
+<ul>
+<li>Speed is the floor. <strong>Evidence per hour</strong> is the ceiling.</li>
+<li>Three theories beat one opinion. <strong>Build all three.</strong></li>
+<li>The cycle isn't closed until you've <strong>decided</strong>.</li>
+<li>Plan prompts in a sandbox. <strong>Paste, don't draft.</strong></li>
+<li>Whatever you scored your v2 is <strong>the gap M2–M6 closes</strong>.</li>
+</ul>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 1 - Slides.html">← Back to Module 1 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling current" href="Module 1 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling" href="Module 1 - Glossary.html">Glossary</a>
+      <a class="fn-sibling" href="Module 1 - Notes (Shareable).html">Shareable Notes</a>
+      <a class="fn-sibling" href="Module 1 - Pre-Read.html">Pre-Read</a>
+      <a class="fn-sibling" href="../Final Project - Requirements and Scenario Guide.html">Final Project Brief</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 1 - Frameworks Reference Card.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

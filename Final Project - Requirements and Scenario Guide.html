@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Project · Requirements and Scenario Guide · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Capstone — Final Project Brief</div>
+    <h1>Final Project · Requirements and Scenario Guide</h1>
+    <p>Scenarios, deliverables, rubric, timeline. The single source of truth for the certification capstone.</p>
+  </div>
+
+  <div class="content">
+<h1>Final Project: Requirements &amp; Scenario Guide</h1>
+<hr>
+<h1>ONE-PAGER: Final Project at a Glance</h1>
+<p><em>This page is the complete summary. Everything below it is the detailed reference.</em></p>
+<h2>What It Is</h2>
+<p>One product, built individually across six modules, deployed to a live URL on the final day. No group dependencies. Your team is your AI agents.</p>
+<h2>Two Tracks</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Who It's For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Your Company Problem</strong></td>
+<td>You have a real product challenge at work. You leave with something you can show your VP on Monday.</td>
+</tr>
+<tr>
+<td><strong>Course Scenario</strong></td>
+<td>You want a clean sandbox. Pick from 4 provided scenarios designed to carry M1–M6.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Students choose their track by end of M1. From M2 onward, every module builds on the same product.</p>
+<h2>Five Deliverables</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Deliverable</th>
+<th>What It Is</th>
+<th>Starts In</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Deployed Product</strong></td>
+<td>Live URL. Real integrations. Handles edge cases. Not localhost.</td>
+<td>M1 → M6</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Validation Evidence Brief</strong></td>
+<td>1 page: what you assumed, what you tested, what you learned, ship/pivot/kill.</td>
+<td>M2 → M6</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Living PRD</strong></td>
+<td>Product spec extracted FROM building, not written before. Evolves with the product.</td>
+<td>M4 → M6</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Prompt Library</strong></td>
+<td>Reusable prompt templates, context blocks, and constraint patterns. Portable to your next initiative.</td>
+<td>M3 → M6</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Engineering Handoff Note</strong></td>
+<td>What's real, what's hacked, what engineering needs to build it for production.</td>
+<td>M5 → M6</td>
+</tr>
+</tbody>
+</table></div>
+<h2>How It Builds (One Layer Per Module)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What Happens to Your Product</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M1</strong></td>
+<td>Explore. Build 2–3 directions fast. Nothing is permanent.</td>
+</tr>
+<tr>
+<td><strong>M2</strong></td>
+<td>Commit. Pick your scenario. Name the riskiest assumption. Build to test it.</td>
+</tr>
+<tr>
+<td><strong>M3</strong></td>
+<td>Precision. Same product, better execution. Design system. Documented prompt chain.</td>
+</tr>
+<tr>
+<td><strong>M4</strong></td>
+<td>Graduate. Extract the living PRD. Refactor the code. Stop exploring, start structuring.</td>
+</tr>
+<tr>
+<td><strong>M5</strong></td>
+<td>Harden. Real database, auth, APIs. Edge cases. Write the engineering handoff note.</td>
+</tr>
+<tr>
+<td><strong>M6</strong></td>
+<td>Ship. Deploy to live URL. Gallery walk. Optional 5-minute pitch with live demo.</td>
+</tr>
+</tbody>
+</table></div>
+<h2>The Presentation (M6)</h2>
+<p><strong>Optional but encouraged.</strong> 5 minutes, strictly timed:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>45 sec</th>
+<th>The Problem — what ambiguity you started with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30 sec</td>
+<td>The Assumption — what you set out to test</td>
+</tr>
+<tr>
+<td>60 sec</td>
+<td>The Journey — what you learned, key pivots, evidence</td>
+</tr>
+<tr>
+<td>90 sec</td>
+<td>Live Demo — click through the deployed product</td>
+</tr>
+<tr>
+<td>30 sec</td>
+<td>The Recommendation — ship, pivot, or kill (with evidence)</td>
+</tr>
+<tr>
+<td>30 sec</td>
+<td>Break It — audience tries to break your live product</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Everyone deploys.</strong> Presenting is your choice. Those who don't present still participate in the gallery walk.</p>
+<h2>Four Course Scenarios</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>The Problem</th>
+<th>Product Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. The Retention Engine</strong></td>
+<td>B2B SaaS losing 30% of customers in 90 days. Onboarding? Feature discovery? Team invitation?</td>
+<td>0-to-1</td>
+</tr>
+<tr>
+<td><strong>2. The Internal Tool Nobody Uses</strong></td>
+<td>CRM with 18% adoption. Too many clicks? Wrong motivation? AI fix?</td>
+<td>0-to-1</td>
+</tr>
+<tr>
+<td><strong>3. The Marketplace Trust Problem</strong></td>
+<td>Bookings flat despite signups. Zero-review providers. Trust badges? Guarantees?</td>
+<td>0-to-1</td>
+</tr>
+<tr>
+<td><strong>4. The Dashboard Nobody Reads</strong></td>
+<td>Analytics dashboard, 60% bounce rate. Info overload? Navigation? Irrelevant metrics?</td>
+<td>Existing product</td>
+</tr>
+</tbody>
+</table></div>
+<h2>Key Rules</h2>
+<ul>
+<li><strong>Individual.</strong> No group projects. No shared dependencies. Group activities during class for networking and peer review only.</li>
+<li><strong>No homework.</strong> Optional between-session building, never required.</li>
+<li><strong>100% deployment rate.</strong> Everyone ships a live URL in M6. Non-negotiable.</li>
+<li><strong>Evidence over polish.</strong> A scrappy MVP with a clear recommendation beats a beautiful product with no insight.</li>
+</ul>
+<h2>---</h2>
+<h1>DETAILED REFERENCE</h1>
+<p><em>Everything below expands on the one-pager above.</em></p>
+<hr>
+<h2>Why This Document Exists</h2>
+<p>Carlos flagged it: "That was never clear in the first session. And people came back with a lot of questions." The final project is the throughline of the entire course. Every lab, every exercise, every module contributes a piece. If students don't know where they're heading from Day 1, every module feels disconnected. This document defines exactly what students deliver, how they build it across modules, and what they present.</p>
+<hr>
+<h2>The Final Project in One Paragraph</h2>
+<p>Every student builds <strong>one product</strong> across all six modules. They start in ambiguity (M1), add validation rigor (M2), precision-prompt it into shape (M3), graduate it from exploration to structure (M4), harden it with real integrations (M5), and deploy it to a live URL (M6). On the final day, they present a 5-minute pitch backed by evidence: what they started with, what they tested, what they learned, and what they recommend. The final project is individual — no group dependencies, no shared builds. Your team is your AI agents.</p>
+<hr>
+<h2>Two Tracks: Your Company or a Course Scenario</h2>
+<p>Students choose <strong>one track</strong> by the end of Module 1 and carry it through M2–M6:</p>
+<h3>Track A: Your Real Company Problem</h3>
+<p>Use the product challenge you posted in your Slack intro during pre-work. Build a feature, improvement, or new direction for your actual product at work. Feed in screenshots of your real product. Make the prototype look like it belongs. This is the power track — you leave the course with something you can show your VP on Monday.</p>
+<p><strong>Best for:</strong> Students who have a clear product problem at their company and want to leave with a directly applicable artifact.</p>
+<p><strong>What you need:</strong> A screenshot or Figma export of your current product. A real problem or initiative you're wrestling with. Willingness to share (you can anonymize company details if needed).</p>
+<h3>Track B: Course Scenario</h3>
+<p>Pick one of the provided scenarios below. Each scenario is designed to carry through all 6 modules — it's messy enough for M1 exploration, has testable assumptions for M2, needs precision for M3, has a structure moment in M4, requires real integrations in M5, and is deployable in M6.</p>
+<p><strong>Best for:</strong> Students who want a clean sandbox, don't have a current product problem, or can't share company-specific work.</p>
+<hr>
+<h2>The Five Deliverables</h2>
+<p>Students build these <strong>incrementally across modules</strong> — not as a last-minute sprint. By M6, everything exists because they've been building it all along.</p>
+<h3>1. Deployed Product (Live URL)</h3>
+<p><strong>What it is:</strong> A working product deployed to a live, shareable URL. Not localhost. Not a screenshot. A real URL that anyone on the internet can visit, click through, and use.</p>
+<p><strong>What "working" means:</strong>
+- At least one real integration (database, auth, or external API)
+- Handles at least 2 edge cases gracefully (doesn't crash on bad input or empty states)
+- Looks like a product, not a prototype — design system applied, consistent UI, professional feel</p>
+<p><strong>When it builds:</strong>
+- M1: First raw prototype (exploratory, disposable)
+- M2: Prototype rebuilt with validation intent
+- M3: Refined with precision prompting and design system
+- M4: Restructured and refactored for clarity
+- M5: Real integrations added (database, auth, APIs)
+- M6: Polished, deployed, live</p>
+<p><strong>This is not optional.</strong> 100% deployment rate is the success metric for M6.</p>
+<hr>
+<h3>2. Validation Evidence Brief (1 page)</h3>
+<p><strong>What it is:</strong> A single-page document that answers: What did I learn by building this? This is what a PM hands to their VP on Monday morning. Not "look what I built" — "here's what we now know."</p>
+<p><strong>Structure:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>What to Write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Starting Assumption</strong></td>
+<td>The riskiest assumption you identified in M2. One sentence.</td>
+</tr>
+<tr>
+<td><strong>What I Built to Test It</strong></td>
+<td>The prototype direction and fidelity level. Why this approach?</td>
+</tr>
+<tr>
+<td><strong>What I Learned</strong></td>
+<td>Evidence from peer testing, feedback sessions, and your own iteration. What was validated? What was invalidated? What surprised you?</td>
+</tr>
+<tr>
+<td><strong>Recommendation</strong></td>
+<td>Ship, pivot, or kill — with reasoning tied to evidence. Not opinion. Evidence.</td>
+</tr>
+<tr>
+<td><strong>Confidence Level</strong></td>
+<td>Where is this initiative on the Confidence Line now? What would move it further right?</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>When it builds:</strong>
+- M2: The assumption is named. The "what I'm testing" is framed.
+- M3–M4: Evidence accumulates through peer feedback and iteration.
+- M5: Real-world complexity either strengthens or weakens the case.
+- M6: Finalized and presented.</p>
+<hr>
+<h3>3. Living PRD</h3>
+<p><strong>What it is:</strong> A product spec extracted FROM building, not written before building. It captures what you've learned, what the product does, who it's for, and what's recommended going forward. It's "living" because it evolved across modules — it's not a static template filled out once.</p>
+<p><strong>Structure:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>What to Write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product Overview</strong></td>
+<td>What does this do? Who is it for? What problem does it solve?</td>
+</tr>
+<tr>
+<td><strong>Validated Assumptions</strong></td>
+<td>What did building prove or disprove?</td>
+</tr>
+<tr>
+<td><strong>Architecture</strong></td>
+<td>Component structure, data flow, key technical decisions (extracted from M4 refactor)</td>
+</tr>
+<tr>
+<td><strong>Current State</strong></td>
+<td>What works, what's mocked, what's hacked</td>
+</tr>
+<tr>
+<td><strong>Recommended Next Steps</strong></td>
+<td>What would engineering need to build this for real?</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>When it builds:</strong>
+- M4: Extracted from the working prototype. First draft.
+- M5: Updated with integration details and technical reality.
+- M6: Finalized. Attached to the deployed product.</p>
+<p><strong>Key principle:</strong> If the Living PRD doesn't reference what you learned from building — if it reads like it was written before you touched a tool — it's not living.</p>
+<hr>
+<h3>4. Prompt Library / Living Prompt Pack</h3>
+<p><strong>What it is:</strong> A reusable collection of prompt templates, context blocks, and constraint patterns that encode your product context. This is the toolkit you take back to your company and use on your next initiative.</p>
+<p><strong>What goes in:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product context block</strong></td>
+<td>The 2–3 sentence product description you paste at the start of every prompt</td>
+</tr>
+<tr>
+<td><strong>Design system reference</strong></td>
+<td>Screenshots, color tokens, component descriptions that make AI output look like your product</td>
+</tr>
+<tr>
+<td><strong>Exploration prompts</strong></td>
+<td>Open, divergent prompts for early-stage ideation</td>
+</tr>
+<tr>
+<td><strong>Execution prompts</strong></td>
+<td>Precise, constrained prompts for building specific features</td>
+</tr>
+<tr>
+<td><strong>Constraint templates</strong></td>
+<td>"Always do X. Never do Y." patterns that prevent common AI drift</td>
+</tr>
+<tr>
+<td><strong>Debug patterns</strong></td>
+<td>Prompts that helped you diagnose and fix AI output issues</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>When it builds:</strong>
+- M3: First prompt chain documented. Context layering and constraint patterns captured.
+- M4: Refactoring prompts added.
+- M5: Integration-specific prompts added (API calls, auth, edge case handling).
+- M6: Finalized and portable.</p>
+<p><strong>The test:</strong> Could another PM at your company pick up your prompt pack and produce a similar result without you in the room?</p>
+<hr>
+<h3>5. Engineering Handoff Note</h3>
+<p><strong>What it is:</strong> A short document that tells an engineer exactly what they're looking at: what's real, what's hacked, what needs production work, and where to start. This bridges the gap between "PM prototype" and "engineering ticket."</p>
+<p><strong>Structure:</strong> See <code>Templates/Engineering Handoff Note.md</code> for the full template. Key sections:
+- The Core Intent (what this prototype proved)
+- Implementation Status: Real vs. "Vibed" (honest assessment)
+- Known Hacks and Technical Debt
+- Integration Requirements (especially for existing product track)
+- Success Criteria for Production
+- Suggested Architecture</p>
+<p><strong>When it builds:</strong>
+- M5: First draft written as part of the Integration Sprint.
+- M6: Finalized alongside the deployed product.</p>
+<hr>
+<h2>Module-by-Module Build Map</h2>
+<p>This is the critical view. Students need to see how each module contributes a piece to the final project — nothing is wasted, nothing comes out of nowhere.</p>
+<pre><code>MODULE    PRODUCT              EVIDENCE BRIEF    LIVING PRD       PROMPT PACK         HANDOFF NOTE
+──────    ──────────────────   ──────────────    ─────────────    ────────────────    ──────────────
+M1        Raw prototype        —                 —                —                   —
+          (explore, diverge)
+
+M2        Rebuilt with          Assumption        —                —                   —
+          validation intent     named. &quot;What
+                                I'm testing&quot;
+                                framed.
+
+M3        Precision-built.      Evidence from     —                First prompt         —
+          Design system         peer review                       chain documented.
+          applied.              begins.                            Context blocks
+                                                                   captured.
+
+M4        Refactored.           Evidence          First draft      Refactoring          —
+          Structured.           accumulates.      extracted from   prompts added.
+          Code cleaned up.                        working
+                                                  prototype.
+
+M5        Real integrations.    Real-world        Updated with     Integration          First draft.
+          Edge cases handled.   evidence          technical        prompts added.       Real vs. vibed.
+          Production-ready.     strengthens or    details.                              Known hacks.
+                                weakens case.
+
+M6        DEPLOYED.             FINALIZED.        FINALIZED.       FINALIZED.           FINALIZED.
+          Live URL.             Presented.        Attached to      Portable.            Ready for eng.
+                                                  product.
+</code></pre>
+<p><strong>The implication for students:</strong> You're not building 5 separate deliverables. You're building one product and documenting your journey. If you engage with each module's lab, the deliverables assemble themselves.</p>
+<p><strong>The implication for instructors:</strong> Reference the final project in every module. "The prototype you're building right now? This becomes your final project. The assumption you just named? That's the first line of your Evidence Brief. The prompt chain you're documenting? That's your prompt pack."</p>
+<hr>
+<h2>The Final Presentation (Module 6)</h2>
+<h3>Format: 5-Minute Structured Pitch</h3>
+<p>Every student can present. It's optional but strongly encouraged — those who present get direct instructor feedback and class feedback. Those who don't still deploy and participate in the gallery walk.</p>
+<h3>Pitch Structure</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Time</th>
+<th>What to Cover</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The Problem</strong></td>
+<td>45 sec</td>
+<td>What ambiguity you started with. The messy, real-world problem. Set the context.</td>
+</tr>
+<tr>
+<td><strong>The Assumption</strong></td>
+<td>30 sec</td>
+<td>The riskiest assumption you identified. What you set out to test.</td>
+</tr>
+<tr>
+<td><strong>The Validation Journey</strong></td>
+<td>60 sec</td>
+<td>What you learned by building. Key pivots, surprises, and evidence from peer testing. The story of moving right on the Confidence Line.</td>
+</tr>
+<tr>
+<td><strong>Live Demo</strong></td>
+<td>90 sec</td>
+<td>Walk through your deployed product. Show the real URL. Click through. Show the integration working. Show an edge case handled.</td>
+</tr>
+<tr>
+<td><strong>The Recommendation</strong></td>
+<td>30 sec</td>
+<td>Ship, pivot, or kill. With evidence. Not opinion.</td>
+</tr>
+<tr>
+<td><strong>Q&amp;A / "Break It"</strong></td>
+<td>30 sec</td>
+<td>Audience tries to break your live product. You handle it gracefully (or learn what breaks).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Total: 5 minutes.</strong> Enforced with a visible timer. When the timer goes, you stop.</p>
+<h3>Gallery Walk (All Students)</h3>
+<p>Before the volunteer presentations, every deployed URL is shared in Slack. Students visit each other's products for 15 minutes:
+- Leave feedback as Slack thread replies
+- React to products that impress you
+- Try to break things (and report what breaks)</p>
+<p>This creates the FOMO + community effect Carlos described: "Oh wow, look what they built."</p>
+<h3>What the Instructor Evaluates</h3>
+<p>The instructor provides verbal feedback during presentations, focused on:
+1. <strong>Evidence quality:</strong> Did the prototype actually test the stated assumption?
+2. <strong>Recommendation clarity:</strong> Is the ship/pivot/kill recommendation backed by evidence?
+3. <strong>Product quality:</strong> Does the deployed product handle real-world scenarios?
+4. <strong>Narrative arc:</strong> Did the student tell a compelling story of moving from ambiguity to confidence?</p>
+<hr>
+<h2>Assessment Rubrics</h2>
+<p>All deliverables are individual.</p>
+<h3>Validation Evidence Brief</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Excellent (5)</th>
+<th>Good (3)</th>
+<th>Needs Work (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Assumption clarity</strong></td>
+<td>Specific, testable assumption clearly stated in one sentence</td>
+<td>Assumption stated but vague or untestable</td>
+<td>No clear assumption identified</td>
+</tr>
+<tr>
+<td><strong>Evidence quality</strong></td>
+<td>Prototype directly tested the assumption. Clear data from peer testing and iteration.</td>
+<td>Prototype loosely related to assumption. Some evidence gathered.</td>
+<td>Prototype didn't test the stated assumption. No evidence.</td>
+</tr>
+<tr>
+<td><strong>Recommendation</strong></td>
+<td>Clear ship/pivot/kill backed by specific evidence</td>
+<td>Recommendation given but reasoning is weak or generic</td>
+<td>No recommendation, or recommendation not tied to evidence</td>
+</tr>
+<tr>
+<td><strong>Learning visible</strong></td>
+<td>Brief shows genuine surprises, pivots, or invalidated assumptions</td>
+<td>Some learning noted but surface-level</td>
+<td>Reads like a success story with no real learning</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Living PRD</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Excellent (5)</th>
+<th>Good (3)</th>
+<th>Needs Work (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Extracted, not planned</strong></td>
+<td>Clearly derived from what was learned through building</td>
+<td>Mix of pre-planned and extracted content</td>
+<td>Written before building; doesn't reflect the actual prototype</td>
+</tr>
+<tr>
+<td><strong>Evolution visible</strong></td>
+<td>Shows how the spec changed from M4 to M6</td>
+<td>Some evolution noted</td>
+<td>Static document, no iteration visible</td>
+</tr>
+<tr>
+<td><strong>Engineer-readable</strong></td>
+<td>An engineer could pick this up and understand what to build next</td>
+<td>Mostly clear with some gaps</td>
+<td>Would need significant clarification to act on</td>
+</tr>
+<tr>
+<td><strong>Validated assumptions referenced</strong></td>
+<td>Ties back to what was proven/disproven</td>
+<td>Some connection to validation</td>
+<td>No connection between spec and evidence</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Prompt Library</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Excellent (5)</th>
+<th>Good (3)</th>
+<th>Needs Work (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Breadth</strong></td>
+<td>8+ prompts across exploration, execution, debug, and integration categories</td>
+<td>5–7 prompts, limited categories</td>
+<td>Fewer than 5 prompts</td>
+</tr>
+<tr>
+<td><strong>Portability</strong></td>
+<td>Another PM could use these prompts on a different product and get useful output</td>
+<td>Prompts work but are tightly coupled to one specific project</td>
+<td>One-off prompts, not reusable</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Each prompt has: purpose, when to use, what context to include, expected output</td>
+<td>Some prompts documented</td>
+<td>No documentation beyond the prompts themselves</td>
+</tr>
+<tr>
+<td><strong>Context blocks</strong></td>
+<td>Includes reusable product context blocks and design system references</td>
+<td>Some context included</td>
+<td>No reusable context patterns</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Engineering Handoff Note</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Excellent (5)</th>
+<th>Good (3)</th>
+<th>Needs Work (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Honesty</strong></td>
+<td>Clear, honest distinction between real and hacked/mocked components</td>
+<td>Some distinction but vague on specifics</td>
+<td>Claims everything is production-ready (it's not)</td>
+</tr>
+<tr>
+<td><strong>Actionability</strong></td>
+<td>Engineer could start working from this document tomorrow</td>
+<td>Provides direction but missing specifics</td>
+<td>Would require extensive discovery before engineering could act</td>
+</tr>
+<tr>
+<td><strong>Technical awareness</strong></td>
+<td>Identifies specific technical debt, edge cases, and architecture recommendations</td>
+<td>Some technical awareness</td>
+<td>No technical specifics</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Deployed Product</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Excellent (5)</th>
+<th>Good (3)</th>
+<th>Needs Work (1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Live and functional</strong></td>
+<td>Deployed to live URL. All core flows work. Real data.</td>
+<td>Deployed but some features broken or mocked</td>
+<td>Not deployed, or deployed but non-functional</td>
+</tr>
+<tr>
+<td><strong>Integration depth</strong></td>
+<td>Real database + auth or external API. Data persists.</td>
+<td>One real integration, others mocked</td>
+<td>No real integrations</td>
+</tr>
+<tr>
+<td><strong>Edge case handling</strong></td>
+<td>Gracefully handles invalid input, empty states, errors</td>
+<td>Handles some edge cases</td>
+<td>Crashes or breaks on non-happy-path usage</td>
+</tr>
+<tr>
+<td><strong>Design quality</strong></td>
+<td>Looks like a real product. Design system applied. Consistent.</td>
+<td>Functional but rough around the edges</td>
+<td>Generic AI output with no design refinement</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>The Scenario Library</h2>
+<p>These scenarios are designed to carry a student from M1 through M6. Each one is:
+- <strong>Messy enough</strong> for M1 exploration (multiple possible directions)
+- <strong>Assumption-rich</strong> for M2 validation (clear riskiest assumptions to name)
+- <strong>Complex enough</strong> for M3 precision (needs design systems, multi-step prompting)
+- <strong>Ready to graduate</strong> in M4 (has a natural "stop exploring, start structuring" moment)
+- <strong>Integration-ready</strong> for M5 (needs real data, auth, or external services)
+- <strong>Deployable</strong> in M6 (scoped enough to ship as a live product)</p>
+<hr>
+<h3>Scenario 1: "The Retention Engine"</h3>
+<p><strong>The setup:</strong></p>
+<blockquote>
+<p>A B2B SaaS company (project management tool, 5K paying teams) is losing 30% of customers in the first 90 days. The VP of Customer Success says: "Users sign up, poke around for a week, and ghost." The Head of Product thinks it's a feature discovery problem — users don't find the features that would make them sticky. The CEO thinks it's an onboarding problem — the first-run experience is overwhelming. The data team says the highest-retention users all share one behavior: they invite a second team member within the first 3 days. Nobody agrees on the solution. Everyone wants something built yesterday.</p>
+</blockquote>
+<p><strong>Why this works across all 6 modules:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What students do with this scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>Explore 2–3 divergent directions: onboarding wizard? team invitation flow? feature discovery dashboard? Build fast, test with a partner.</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Name the assumption. The data suggests "invite a teammate" is the key behavior. But is the problem that users don't know they can invite? Or that the invite flow is buried? Or that solo users don't see the value of collaboration? Frame it. Pick the riskiest assumption. Build to test it.</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Precision-build the winning direction. Clone a real PM tool's design (Linear, Asana, Monday.com via Mobbin). Apply design system. Document the prompt chain.</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Graduate. Write the living PRD. Is this a standalone onboarding product or a feature addition? Refactor the prototype into clean components.</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Add real integrations: Supabase for user data, auth for team accounts, an email/notification trigger when a teammate is invited. Handle edge cases: what if the invited person already has an account? What if they ignore the invite?</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>Deploy. Present the evidence: "We validated that the invite flow is the lever. Here's the live product. Here's what engineering needs to build it for real. Our recommendation: ship the simplified invite flow; kill the feature discovery dashboard idea."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Provided assets (instructor prepares):</strong>
+- Mobbin screenshots of 2–3 PM tool dashboards (Linear, Asana, Monday.com)
+- <strong>M2 Context Data Pack</strong> (distributed in Module 2):
+  - <code>feedback.md</code> — 12 user/stakeholder quotes (exit surveys, support tickets, executive perspectives)
+  - <code>metrics.csv</code> — 15 data points (retention rates, invite rates, feature discovery, NPS by segment)
+  - <code>scenario-brief.md</code> — full problem brief with competing hypotheses and constraints</p>
+<hr>
+<h3>Scenario 2: "The Internal Tool Nobody Uses"</h3>
+<p><strong>The setup:</strong></p>
+<blockquote>
+<p>Your company's 200-person sales team has an internal CRM note-taking tool that was built last year. Adoption is 18%. Sales reps say it's "too many clicks" and keep using Google Docs or just not documenting calls at all. The VP of Sales wants "some kind of AI thing" to fix this. Engineering says the tool is "fine" and the problem is training. Product thinks it's a UX problem. Meanwhile, the company is losing institutional knowledge every time a rep leaves — their call notes go with them. The CEO casually mentioned "maybe we should just buy Gong" in last week's all-hands, and now everyone is panicking.</p>
+</blockquote>
+<p><strong>Why this works across all 6 modules:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What students do with this scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>Explore directions: AI call summarizer? Simplified CRM input (voice-to-notes)? Slack bot that captures notes from conversation? Chrome extension that auto-fills CRM? Build 2 directions fast.</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Name the assumption. Is the problem input friction (too many clicks)? Or is it motivation (reps don't see value in documenting)? Or is it timing (they forget by the time they're at their desk)? The riskiest assumption might be: "Reps will document calls if input takes &lt; 30 seconds." Build to test.</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Precision-build. Clone the existing CRM's look and feel (pick a screenshot of Salesforce, HubSpot, or Pipedrive from Mobbin). Add the AI layer on top. Document prompts.</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Graduate. This is a feature addition to an existing product, not a standalone app. The living PRD references the existing CRM architecture. Refactor.</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Real integrations: connect to a database for storing notes, add auth (the CRM needs login), mock an AI summarization API call. Edge cases: what if the call recording fails? What if the summary is wrong and the rep doesn't correct it?</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>Deploy. Present: "We tested that reducing input to &lt; 30 seconds increases adoption. The AI summarizer + one-click approve flow validated this. Recommendation: ship as a CRM plugin. Kill the Gong purchase — this solves the problem at 10% of the cost."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Provided assets:</strong>
+- Mobbin screenshots of CRM interfaces (Salesforce, HubSpot, Pipedrive)
+- <strong>M2 Context Data Pack</strong> (distributed in Module 2):
+  - <code>feedback.md</code> — 12 user/stakeholder quotes (rep complaints, manager perspectives, CEO Gong comment)
+  - <code>metrics.csv</code> — 14 data points (adoption rate, time-to-log, fields completed, mobile crash rate, knowledge loss cost)
+  - <code>scenario-brief.md</code> — full problem brief with competing hypotheses and constraints</p>
+<hr>
+<h3>Scenario 3: "The Marketplace Trust Problem"</h3>
+<p><strong>The setup:</strong></p>
+<blockquote>
+<p>A peer-to-peer services marketplace (think TaskRabbit/Fiverr for home services, 50K registered users, 8K monthly active) has a trust problem. Bookings are flat despite growing signups. Customer research shows the #1 reason people browse but don't book is: "I don't trust the providers." The product team tried adding reviews (6 months ago) — it barely moved the needle because new providers have zero reviews and nobody wants to be the first customer. The growth team wants to add ID verification. The design team wants to redesign provider profiles. The CEO wants a "guarantee" badge program. You have 6 weeks and one engineer (eventually).</p>
+</blockquote>
+<p><strong>Why this works across all 6 modules:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What students do with this scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>Explore directions: enhanced provider profiles with video intros? Trust badge system? AI-generated "provider highlights" from past work? Booking guarantee landing page? Build fast.</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Name the assumption. The data says "zero reviews = no bookings." But is the problem lack of social proof? Or is it risk aversion (what if something goes wrong)? The guarantee approach tests risk aversion. The profile redesign tests social proof. Pick one. Frame it. Build to test.</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Precision-build. Clone the marketplace's existing look (use Mobbin for marketplace/Airbnb-style templates). Add the trust layer. Apply the design system. Document prompts.</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Graduate. Write the living PRD for the trust feature. Is it a standalone flow or an enhancement to existing provider profiles? Refactor.</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Real integrations: database for provider data and verification status, auth for provider/customer accounts, a mock verification API. Edge cases: what if a provider fails verification? What if a customer disputes a "guaranteed" booking?</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>Deploy. Present: "We tested that a money-back guarantee badge increases booking conversion more than enhanced profiles. Here's the live product. Recommendation: ship the guarantee program for top providers; revisit profile redesign in Q3."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Provided assets:</strong>
+- Mobbin screenshots of marketplace provider profiles (Airbnb, TaskRabbit, Thumbtack)
+- <strong>M2 Context Data Pack</strong> (distributed in Module 2):
+  - <code>feedback.md</code> — 12 user/stakeholder quotes (customer trust concerns, provider cold-start frustration, growth team data)
+  - <code>metrics.csv</code> — 15 data points (signup-to-booking conversion, provider churn, review distribution, willingness-to-pay for verified)
+  - <code>scenario-brief.md</code> — full problem brief with competing hypotheses and constraints</p>
+<hr>
+<h3>Scenario 4: "The Dashboard Nobody Reads" (Existing Product Focus)</h3>
+<p><strong>The setup:</strong></p>
+<blockquote>
+<p>Your company's customer-facing analytics dashboard has a 60% bounce rate on first visit. The dashboard shows 12 different charts, 4 filter options, and a data export button. New users land, see a wall of charts, and leave within 30 seconds. Power users love it (they've learned to navigate the complexity). But the product is growing and 80% of new signups are non-technical business users who just want to know: "Is my campaign working?" The PM lead thinks it's information overload. The designer thinks it's a navigation problem. Engineering says "just add a tutorial." Customer Success is drowning in support tickets that all say the same thing: "What am I looking at?"</p>
+</blockquote>
+<p><strong>Why this works across all 6 modules:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What students do with this scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>Explore: simplified one-metric view? Guided first-run wizard? Personalized dashboard based on role? AI-generated summary ("Here's what happened this week")? Build 2 directions.</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Name the assumption. Is the problem information overload (too many charts)? Or is it lack of guidance (users don't know where to look first)? Or is it irrelevance (the charts don't show what non-technical users care about)? Frame. Build to test.</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Precision-build. Clone the existing dashboard's design (use a Mobbin analytics dashboard or screenshot of Mixpanel/Amplitude/Looker). Build the improvement ON TOP of the existing product's look and feel. Document prompts.</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>Graduate. This is strictly an existing-product improvement. The living PRD is a feature spec: what changes, what stays the same, what existing components it touches.</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Real integrations: Supabase for mock analytics data, auth for user roles (show different views to different user types), API call to generate AI summary. Edge cases: what if there's no data yet? What if the AI summary is misleading?</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>Deploy. Present: "We tested that a single-metric hero card with an AI summary reduces bounce rate in peer testing. Recommendation: ship the simplified first-run view for non-technical users; preserve the full dashboard for power users behind a toggle."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Provided assets:</strong>
+- Mobbin screenshots of analytics dashboards (Mixpanel, Amplitude, Looker)
+- <strong>M2 Context Data Pack</strong> (distributed in Module 2):
+  - <code>feedback.md</code> — 12 user/stakeholder quotes (new user overwhelm, power user satisfaction, support ticket themes, designer insight)
+  - <code>metrics.csv</code> — 16 data points (bounce rate, time-to-insight by segment, filter usage, custom view discovery, NPS split)
+  - <code>scenario-brief.md</code> — full problem brief with competing hypotheses and constraints</p>
+<hr>
+<h2>How Scenarios Connect to Modules: The Continuity Rule</h2>
+<p><strong>The rule:</strong> Starting in M2, students commit to their track (company problem or course scenario) and carry it through M6. They don't switch. Each module adds a layer to the same product.</p>
+<p><strong>What this means for lab briefs:</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>What the lab brief says</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>"Pick one of the scenarios below, or use your own problem. Build something. This is exploration — you might keep it, you might not."</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>"Commit to your track. If you're using a course scenario, pick one. If you're using your company problem, commit to it. From now on, every lab builds on this. Name the assumption. Frame the problem."</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>"Take your M2 prototype. Level it up with precision prompting. Same product, better execution."</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>"Take your M3 prototype. Graduate it. Extract the living PRD. Refactor."</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>"Take your M4 prototype. Add real integrations. Handle edge cases. Write the handoff note."</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>"Deploy what you've been building. Finalize all deliverables. Present."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Exception for M1:</strong> Module 1 is deliberately exploratory. Students build from any of the provided scenarios or their own problem without committing. This lets them experience the cycle before choosing their final project direction. Some students may carry their M1 prototype forward. Others will pivot in M2. Both are fine.</p>
+<hr>
+<h2>Final Project Requirements Slide (for M1 Deck)</h2>
+<p><em>This is the content for the single slide Carlos requested. Play after ground rules in Module 1.</em></p>
+<h3>Slide Content</h3>
+<p><strong>YOUR FINAL PROJECT</strong></p>
+<p>You will build and deploy a real product. Individually. No group dependencies.</p>
+<p><strong>One product, six modules.</strong> Each week adds a layer: exploration → validation → precision → structure → integrations → deployment.</p>
+<p><strong>Five deliverables by Module 6:</strong>
+1. Deployed product (live URL — not localhost)
+2. Validation Evidence Brief (what you learned, not what you built)
+3. Living PRD (extracted from building, not written before)
+4. Prompt library (your reusable toolkit)
+5. Engineering Handoff Note (what's real, what needs work)</p>
+<p><strong>Optional presentation.</strong> 5-minute pitch on the final day. Those who present get direct instructor feedback. Everyone deploys. Presenting is your choice.</p>
+<p><strong>You start today.</strong> What you build in Module 1 might become your final project. Or you might pivot. Both are fine.</p>
+<hr>
+<h2>Final Project Video Script (3 minutes)</h2>
+<p><em>This is the script for the 3-minute video Carlos requested. Product School produces this. Play in M1 after the slide.</em></p>
+<hr>
+<p><strong>[0:00–0:30] The Hook</strong></p>
+<p>"By the end of this course, you're going to have a live product on the internet. Not a mockup. Not a prototype on your laptop. A real URL you can text to your VP tonight and say: 'Click this. This is what I built. Here's what we should do next.' That's the final project."</p>
+<p><strong>[0:30–1:00] What You're Building</strong></p>
+<p>"You'll choose one product problem — either from your actual company or from one of our provided scenarios — and you'll build it across all six modules. Module 1, you explore. Module 2, you validate. Module 3, you get precise. Module 4, you structure it. Module 5, you add real integrations — databases, auth, APIs. Module 6, you deploy and present."</p>
+<p><strong>[1:00–1:30] The Five Deliverables</strong></p>
+<p>"You're not just building a product. You're building the evidence that drives decisions. Five things you'll walk out with:
+One — a deployed product. Live URL.
+Two — a Validation Evidence Brief. One page: what you tested, what you learned, what you recommend.
+Three — a Living PRD. A spec that evolved alongside your product.
+Four — a prompt library. Reusable templates you can apply to any future initiative.
+Five — an Engineering Handoff Note. What's real, what's hacked, what engineering needs to take it forward."</p>
+<p><strong>[1:30–2:15] How It Works</strong></p>
+<p>"This is individual. No group projects. No shared dependencies. You build your own product, at your own pace, with AI as your team. Group activities during class are great — you'll swap prototypes, give feedback, compare notes. But the final project is yours.</p>
+<p>On the last day, you'll deploy to a live URL. Everyone deploys — that's non-negotiable. Then we do a gallery walk where everyone visits each other's products. And if you're brave, you present. Five minutes. The problem, the journey, the demo, the recommendation. I give you direct feedback. The audience tries to break your live product. It's the best part of the course."</p>
+<p><strong>[2:15–2:45] Why It Matters</strong></p>
+<p>"Most PM courses hand you a certificate. You'll leave with a deployed product, a validated recommendation backed by evidence, a prompt toolkit you can reuse, and documentation that an engineer could pick up tomorrow. This isn't homework. This is the thing you show your team on Monday and say: 'I built this. Here's what I learned. Here's what we should do.'"</p>
+<p><strong>[2:45–3:00] Close</strong></p>
+<p>"You start today. Module 1 is exploration — you'll build something in the next hour. By Module 2, you'll commit to a direction. By Module 6, it's live. Let's go."</p>
+<hr>
+<h2>FAQ (Address in M1 or as Needed)</h2>
+<p><strong>"Can I change my scenario after M2?"</strong>
+You can pivot your approach (that's the whole point of validation), but stay within the same problem space. Switching from the CRM scenario to the marketplace scenario in M4 means you lose 3 modules of accumulated work.</p>
+<p><strong>"What if I'm not technical — can I still deploy?"</strong>
+Yes. That's what Lovable is for. Deployment is built into the tool. The instructor walks through it live in M6. If you got through M1, you can deploy.</p>
+<p><strong>"Do I have to present?"</strong>
+Presenting is optional. Deploying is not. Everyone ships a live URL. If you don't present, your product is still part of the gallery walk and your deliverables are still evaluated.</p>
+<p><strong>"What if my company won't let me use real product data?"</strong>
+Anonymize it. Change the company name, the product name, the data. Keep the problem real. Or use a course scenario — that's what they're for.</p>
+<p><strong>"Is this graded?"</strong>
+The rubrics exist to give you feedback, not to fail you. The goal is that every student leaves with deliverables they're proud of. The instructor uses the rubrics to provide structured feedback during and after the course.</p>
+<p><strong>"Can I work on this between sessions?"</strong>
+There's no required homework. But if you want to keep building between modules — go for it. Drop your progress in <code>#builds</code> and the cohort will cheer you on.</p>
+<p><strong>"What if my prototype is terrible by M6?"</strong>
+Every prototype is different. Some students will ship polished products. Some will ship scrappy MVPs. Both are valid if you can articulate what you learned and what you'd recommend. The Evidence Brief matters more than the product's polish.</p>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 1 - Slides.html">← Back to Module 1 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling" href="Module 1 - Glossary.html">Glossary</a>
+      <a class="fn-sibling" href="Module 1 - Notes (Shareable).html">Shareable Notes</a>
+      <a class="fn-sibling" href="Module 1 - Pre-Read.html">Pre-Read</a>
+      <a class="fn-sibling current" href="../Final Project - Requirements and Scenario Guide.html">Final Project Brief</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Final Project - Requirements and Scenario Guide.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

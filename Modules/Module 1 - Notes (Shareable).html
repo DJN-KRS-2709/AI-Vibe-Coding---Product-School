@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shareable Notes · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #f9a8d4; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 1 — Shareable Notes</div>
+    <h1>Shareable Notes</h1>
+    <p>The long-form companion to the deck. Read it before the session, refer back to it after.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 1 — Execute Vibe Coding Velocity</h1>
+<blockquote>
+<p>Long-form companion to the Module 1 deck. Reads like a chapter. Same throughline as the slides, no speaker notes. Use it as your study guide, your reference between sessions, or the document you paste at the top of an AI when you want it to reason about Module 1 with you.</p>
+</blockquote>
+<hr>
+<h2>The setup — three executives, three theories, zero data</h2>
+<p>Enterprise customers are churning thirty days after onboarding. The VP of Customer Success thinks it's a UX problem. The Head of Product thinks it's a feature-discovery problem. The CEO thinks the answer is a self-serve analytics dashboard. Nobody has data. Everybody has opinions. This is the universal scenario where product work goes to die — two weeks of meetings, whoever speaks loudest wins, and the team ships whichever theory the most senior person was attached to.</p>
+<p>Module 1 is the antidote. Instead of debating which theory is correct, you build all three as concrete prototypes in about fifteen minutes each, look at them side by side, and let the evidence — not the seniority — make the call. That move is what <em>vibe coding</em> is for.</p>
+<hr>
+<h2>The provocation — vibe coding isn't about speed</h2>
+<p>A common mis-frame coming in: "Vibe coding helps me ship faster." That's partially true and mostly the wrong vector. The actual point is <strong>evidence per hour</strong>. Speed is the floor; what you do with the speed is the ceiling. If you build five rough prototypes and can't name what you learned from any of them, you didn't compress the feedback loop — you just decorated it.</p>
+<p>Two specific claims worth internalizing before the labs:</p>
+<ul>
+<li><strong>A prototype is useful when it looks polished.</strong> False. Dropbox's launch demo was a three-minute screencast of a folder syncing. It was ugly. It generated seventy-five thousand signups in one night because it proved the core mechanic worked. Polish without proof is a toy.</li>
+<li><strong>Every build should answer exactly one product question.</strong> True. Airbnb's first prototype was three air mattresses on a floor in San Francisco. The question wasn't "do we have a website." It was "will strangers pay to sleep in someone's home." One question. One test. One answer.</li>
+</ul>
+<hr>
+<h2>The High-Velocity Prototyping Cycle</h2>
+<p>Four moves. You'll loop through them twice today, and roughly fifty times by the end of the certification.</p>
+<ol>
+<li><strong>Build</strong> — from instinct, not methodology. The goal is a shareable URL, not a finished product.</li>
+<li><strong>Show</strong> — silent walkthrough. No verbal tour, no explanation. You're watching where the eye goes and where the click hesitates.</li>
+<li><strong>Learn</strong> — raw signal beats polite feedback. Write down what confused. That confusion is the data.</li>
+<li><strong>Decide</strong> — kill it, refine it, or escalate it. No prototype is allowed to live without a verdict attached.</li>
+</ol>
+<p>PMs reliably skip step four. They build, show, learn — then go to lunch. The cycle isn't closed until you've named what changes next. Make the decision visible.</p>
+<hr>
+<h2>The Triple-Threat Build — three theories, one demo</h2>
+<p>The instructor demo walks through three different prototypes built from the same churn problem, in roughly fifteen minutes total:</p>
+<ul>
+<li><strong>Prototype 1 — Customer-facing onboarding dashboard.</strong> The VP of CS theory: maybe users don't know what to do next. The build surfaces progress, recommended actions, and a help block.</li>
+<li><strong>Prototype 2 — Internal churn-ops view.</strong> The Head of Product theory inverted: maybe the answer isn't a customer-facing tool at all. The build surfaces risk scores, last-login dates, feature adoption — a CS rep's pre-emptive view.</li>
+<li><strong>Prototype 3 — Design-matched analytics dashboard.</strong> The CEO theory, but rendered against a real design system (a Mobbin screenshot) so it looks like it belongs in production. Suddenly the conversation moves from "is this a fake?" to "when can we ship this?"</li>
+</ul>
+<p>The point of the demo isn't the prototype quality. It's the <strong>act of swapping</strong>. Three rough builds beats one polished build, every time. You can compare evidence; you cannot compare opinions.</p>
+<hr>
+<h2>Three multimodal entry points</h2>
+<p>Modern vibe-coding tools read pixels and code, not just text. That gives you three ways to start every build:</p>
+<ul>
+<li><strong>Text-to-App.</strong> Natural-language prompt. Best when no design exists yet. Cures blank-page syndrome. The right choice for greenfield ideas where you're still discovering the shape. This is what you'll do in Lab 1.</li>
+<li><strong>Screenshot-to-App.</strong> Upload a pattern — Mobbin, your competitor's product, a sketch on a whiteboard. The AI clones the layout, palette, navigation. Best when you're refining a vibe sketch against a known-good professional pattern. This is what you'll do in Lab 2 Path A.</li>
+<li><strong>Design-to-Code.</strong> Paste Figma frames or design-system tokens. Best when you're prototyping inside an existing product and the brand has to be right from minute one. This is Lab 2 Path D — and it's the most underused trick in the room, because it eliminates the "looks like a toy" stakeholder objection before the meeting even starts.</li>
+</ul>
+<p>You never start from a blank canvas. You start from something that already exists.</p>
+<hr>
+<h2>Credit efficiency — the rule that protects your runway</h2>
+<p>A Pro plan is roughly a hundred credits a month. That's a lot if you treat the tool as an execution engine and very little if you treat it as a scratchpad. Four rules:</p>
+<ol>
+<li><strong>Plan in a sandbox.</strong> Do sixty percent of your prompt refinement in ChatGPT, Gemini, or Claude — all free. Only paste into Lovable when the prompt is locked.</li>
+<li><strong>Paste, don't draft.</strong> Aim for one-shot generations. Every "trial-and-error" pass is a credit you cannot use for a real architectural shift later.</li>
+<li><strong>Edit code directly.</strong> Hex codes, label typos, padding tweaks — fix them in the code panel. Re-prompting for cosmetic changes is the most expensive way to do a five-second job.</li>
+<li><strong>The Eject Rule.</strong> If a prompt fails twice, <em>stop</em>. Export the code, debug it externally, paste the fix back. The "credit death spiral" is the most common way a beginner runs out of runway by day two.</li>
+</ol>
+<hr>
+<h2>Lab 1 — Your First Vibe Build</h2>
+<p>Open <code>Modules/M1 - Lab 1 Guide.html</code>. Pick one of four scenarios (Retention Engine, Internal Tool Nobody Uses, Marketplace Trust, Dashboard Nobody Reads). Pick a launch path — either copy-and-customize a starter prompt, or use the First Screen Method (visualize the first thing the user sees and prompt that exactly). Build on instinct for thirteen minutes. At the two-minute mark, freeze and generate your shareable link. Lab 2 is its own focused page (<code>M1 - Lab 2 Guide.html</code>) — opens after the break.</p>
+<p>Commit the URL plus a screenshot to <code>01-velocity/prototype-v1.md</code>. That's the first artifact in your repo.</p>
+<p>If a prompt fails twice, pivot. Do not re-prompt the same broken logic — that's how you burn credits.</p>
+<hr>
+<h2>Show and Swap — peer review</h2>
+<p>After Lab 1, you pair up for ten minutes. The point is to experience a real user failing on your UI — that moment is the lesson, and you can't generate it for yourself.</p>
+<p>Drop your shareable link in the breakout chat. Grab your partner's. <strong>No verbal context</strong> — no setup, no apologies, no "what I was going for was…". The build has to speak for itself, exactly like it would for a real user landing cold.</p>
+<p>Click your partner's build silently for three minutes. Don't narrate. Take notes on three things: what you understood immediately about the product's purpose, what confused you, and what assumption you think they were testing. Then discuss those three points with your partner for three minutes. Then swap roles and repeat the whole loop on your build.</p>
+<p>The silent rule is the whole point. The comment you most want to make at minute two is the most useful signal of the exercise — write it down instead of saying it.</p>
+<p>If no partner is available, fall back to a silent self-walk plus the AI-review prompt below into ChatGPT or Claude. Same three dimensions, different reviewer.</p>
+<pre><code>You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
+</code></pre>
+<p>After class, post a screenshot plus your one-line learning from your partner's feedback to <code>#cohort-channel</code>. The async share captures patterns across the cohort that no individual pair can see.</p>
+<hr>
+<h2>Skill Markdowns — the superpower most PMs don't know exists</h2>
+<p>Brief preview, because you'll author your own in Module 3. A skill is a markdown file that tells an AI: "Here's how to build dashboards for B2B SaaS" or "Always use this design system." The AI follows it on every prompt. You don't have to re-explain your context every time.</p>
+<p>Where to find them: the Anthropic Skills marketplace, Cursor's skill folder, public GitHub repos. Free. Install in one click. The mental model is "installing an app on your phone" — someone else figured out how to make the AI great at a specific task, and you import their expertise.</p>
+<p>By Module 3 you'll build a <em>Living Prompt Pack</em>, which is your own skill. Today, just know they exist. AI competence stops being about prompt-engineering tricks and starts being about installing the right expertise.</p>
+<hr>
+<h2>Lab 2 — Strategically Refine Your Build</h2>
+<p>Same prototype, two upgrade passes. The point of Lab 2 is to feel the difference between <em>building</em> and <em>iterating</em>. Same speed; sharper aim.</p>
+<p>Pick <strong>two of four</strong> upgrade paths from the lab guide:</p>
+<ul>
+<li><strong>Path A — Design Match.</strong> Upload a Mobbin screenshot. Prompt the AI to clone the palette, the card layout, the navigation. Same content. Now it looks like Linear.</li>
+<li><strong>Path B — Add Interactivity.</strong> Filters that filter. Cards that expand on click. A loading skeleton for one-and-a-half seconds of perceived performance. Small details, enormous credibility boost.</li>
+<li><strong>Path C — Surgical Refinement.</strong> Fix one section without touching the rest. Header gets a notification bell. Help block becomes a real CTA. Two small focused prompts beat one "rebuild the whole page" prompt every time.</li>
+<li><strong>Path D — Existing Product Track.</strong> Match your real company's brand. Paste your actual hex codes and Figma CSS. Now the prototype belongs in your product, not in a sandbox.</li>
+</ul>
+<p>Draft the refinement prompts in ChatGPT first. Credits.</p>
+<p>Commit the v2 URL plus before-and-after screenshots to <code>01-velocity/prototype-v2.md</code>.</p>
+<hr>
+<h2>Swap and Review · Round 2 — the blind stress test</h2>
+<p>After Lab 2, you pair up for a second Show and Swap — this time with a <strong>different</strong> partner. The structure is identical to Round 1 (drop the v2 link, three minutes silent on your partner's build, discuss, swap roles), but the bar has moved. Round 1 asked "is this clear?" Round 2 asks "is this credible?"</p>
+<p>Three credibility questions, all aimed at the same thing — would a stranger believe this is a real product? Does it feel like a real product or just a visual mockup? Where did the interactivity fail to meet your expectations as a user? Would you show this to your VP as a credible representation of a solution?</p>
+<p>The third question is the diagnostic. Almost nobody says yes today — and that's the right outcome. The gap between "no" and "yes" is exactly what M2–M6 closes.</p>
+<p>The "let them stay stuck" rule matters even more in Round 2. When your partner can't find a feature you built, your instinct is to explain it. Don't. Explaining the UI away erases the signal you came here for. Note where they got stuck and discuss it after the silent walk.</p>
+<p>Score-style rubric for self-reference (use this in your written follow-up, not as a replacement for the peer review):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Score</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Sketch. Exists. Not ready for eyes.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Rough direction. Good idea, no execution.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Getting there. Recognizable, not functional.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Team-ready. You'd show this to your immediate team.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>VP-ready. You'd show this to leadership tomorrow.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Most learners score themselves a 3. The honest ones score a 2. The proud ones score a 4. Almost nobody scores a 5 today, and that's the right outcome — the entire rest of the course is the gap between where you are and where you want to be.</p>
+<p>Post your screenshots, your score, and one sentence each on <strong>why you scored what you did</strong> and <strong>the single change that would bump it +1</strong> in <code>#cohort-channel</code>.</p>
+<hr>
+<h2>The Confidence Line — the framework that runs through every module</h2>
+<p>You just lived <strong>Phase 1</strong>.</p>
+<ul>
+<li><strong>M1–M2: High Ambiguity.</strong> Build to think. Explore many directions. Compress feedback to hours. Kill bad ideas fast.</li>
+<li><strong>M3–M4: Gaining Clarity.</strong> Apply context and intent. Build functional, living specs. Transition from vibe to structure.</li>
+<li><strong>M5–M6: Production Confidence.</strong> Real APIs, real data, real edge cases. Deploy a live URL. Measure, learn, and iterate against evidence.</li>
+</ul>
+<p>Every prompt you write is a choice: <em>explore</em> the path, or <em>refine</em> it. Today was almost all explore. M2 introduces deliberate refinement. M3 is where precision starts mattering. M5 is where the prototype touches production.</p>
+<p>You earned your way into Phase 1 today. The remaining five modules are the path to Phase 3.</p>
+<hr>
+<h2>Toy vs Tool — the distinction that organizes everything</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>The Toy</th>
+<th>The Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Looks impressive. Proves nothing.</td>
+<td>Looks real. Proves something works.</td>
+</tr>
+<tr>
+<td>Generates applause, not insights.</td>
+<td>Validates an assumption with clickable evidence.</td>
+</tr>
+<tr>
+<td>No logic behind the screen.</td>
+<td>Handles at least one real user flow end-to-end.</td>
+</tr>
+<tr>
+<td>Dies after the demo.</td>
+<td>Survives when someone else uses it.</td>
+</tr>
+<tr>
+<td>Can't survive a real user.</td>
+<td>Generates a decision, not a reaction.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Whatever you scored your v2 above is exactly the distance between your build and a tool. The rest of the course closes that distance, deliberately.</p>
+<hr>
+<h2>Your repo after today</h2>
+<p>One folder. Three artifacts.</p>
+<pre><code>01-velocity/
+├── prototype-v1.md            # Lab 1 build (URL + screenshot + assumption tested)
+├── prototype-v2.md            # Lab 2 refinement (URL + before/after + score)
+└── confidence-line-reflection.md   # One-paragraph reflection on Phase 1
+</code></pre>
+<p>By the end of the certification this becomes six folders, a deployed URL, a Validation Evidence Brief, a Living PRD, a Prompt Library, and an Engineering Handoff. Today is the first deposit.</p>
+<hr>
+<h2>Bridge to Module 2</h2>
+<p>You can build fast. The next question is whether you're building the <em>right</em> thing. Module 2 — <em>Validate Product Hypotheses via Risk-Based Prototyping</em> — introduces assumption mapping, the validation lens, and fidelity choice. Bring <code>prototype-v2.md</code> with you; we'll dissect what assumption it was actually testing, and whether you tested the right one.</p>
+<hr>
+<h2>Key takeaways</h2>
+<ul>
+<li><strong>Build to think, not to ship.</strong> Today's two prototypes were not products. They were thought experiments rendered in pixels. Slack's entire pivot from gaming to enterprise communication started exactly this way — a tool the team built to talk to each other while making a game.</li>
+<li><strong>Vibes become tools through intentional, incremental layers.</strong> Design match, interactivity, surgical refinement — three compounding passes, no rebuilds. Starting over is the most expensive mistake in vibe coding.</li>
+<li><strong>Every build must move the Confidence Line.</strong> A prototype is a tool only when it answers a real question. Slack's "two thousand messages" magic number — the data point that justified the pivot — was generated by a working product, not a meeting.</li>
+<li><strong>Credits are fuel. Plan in a sandbox.</strong> Sixty percent of your prompt work happens outside the tool. The tool is for committing the plan, not for finding it.</li>
+<li><strong>The mental barrier is gone.</strong> You shipped functional software twice today without writing a line of code. Every M2–M6 deliverable assumes you can already do this.</li>
+</ul>
+<hr>
+<h2>Extra practice (optional, async)</h2>
+<ul>
+<li><strong>Pick a different scenario.</strong> Return to the lab guide. Pick one of the four scenarios you did <em>not</em> use today. Repeat the 15-minute build. Compare which scenario felt easier and ask yourself why.</li>
+<li><strong>Swap the tool.</strong> Try the same scenario in Bolt, Cursor, or v0. The methodology doesn't change — but you'll feel where each tool's defaults bias the build. A side-by-side comparison is a LinkedIn post nobody else in your cohort has.</li>
+</ul>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 1 - Slides.html">← Back to Module 1 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling" href="Module 1 - Glossary.html">Glossary</a>
+      <a class="fn-sibling current" href="Module 1 - Notes (Shareable).html">Shareable Notes</a>
+      <a class="fn-sibling" href="Module 1 - Pre-Read.html">Pre-Read</a>
+      <a class="fn-sibling" href="../Final Project - Requirements and Scenario Guide.html">Final Project Brief</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 1 - Notes (Shareable).md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>
