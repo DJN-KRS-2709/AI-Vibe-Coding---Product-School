@@ -173,6 +173,18 @@ section.centered ul li::before { display: none; }
 .diag-axis .da-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .diag-axis .da-q { font-size: 13px; color: #8899bb; line-height: 1.4; }
 
+/* Brand logos */
+.brand-logo { display: inline-flex; align-items: center; justify-content: center; }
+.brand-logo img { display: block; opacity: 0.92; }
+.card-brand { width: 56px; height: 56px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.card-brand img { width: 30px; height: 30px; opacity: 0.95; }
+.brand-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.brand-row .brand-tile { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; font-size: 12.5px; color: #cdd5e3; font-weight: 600; }
+.brand-row .brand-tile img { width: 16px; height: 16px; opacity: 0.9; }
+.inline-logo { display: inline-flex; align-items: center; gap: 6px; }
+.inline-logo img { width: 14px; height: 14px; vertical-align: middle; opacity: 0.9; }
+.tool-btn .btn-logo { width: 16px; height: 16px; vertical-align: middle; margin-right: 6px; opacity: 0.95; }
+
 /* Demo slide — 2-column "problem + video" layout (matches source PPTX) */
 .demo-split { display: grid; grid-template-columns: minmax(280px, 1fr) 1.7fr; gap: 28px; align-items: start; margin: 22px 0 12px; }
 .problem-panel { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.24); border-radius: 16px; padding: 24px 22px; }
@@ -539,7 +551,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
       <code>06-evals-iteration/ ← M6</code>
       </div>
     <div style="text-align:center; margin-top:18px;">
-      <a class="tool-btn" href="https://github.com/new?template_name=vibe-coding-project-template&amp;template_owner=DJN-KRS-2709" target="_blank" rel="noopener">⚡ Fork the template ↗</a>
+      <a class="tool-btn" href="https://github.com/new?template_name=vibe-coding-project-template&amp;template_owner=DJN-KRS-2709" target="_blank" rel="noopener"><img src="../Design/logos/github.svg" alt="" class="btn-logo"/>Fork the template ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">One click — opens GitHub's "Create from template" form pre-filled.</div>
       </div>
     <p class="repo-cta" style="margin-top:18px;"><span style="color:#34d399;">📂</span> <strong>First artefact today →</strong> <code>01-velocity/prototype-v1.md</code></p>
@@ -605,22 +617,32 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <h2>Your Vibe Coding Tool Stack.</h2>
     <p class="subtitle">One core tool. Three months of Pro access free, courtesy of the Product School partnership.</p>
     <div class="cards-grid">
-      <div class="card-item" style="--card-accent:#60a5fa;">
-        <div class="card-icon">⚡</div>
+      <div class="card-item" style="--card-accent:#fb7185; text-align:left;">
+        <div class="card-brand"><img src="../Design/logos/lovable.svg" alt="Lovable"/></div>
         <div class="card-title">Lovable — your core tool</div>
         <div class="card-desc">Visual-first. Lowest barrier for non-technical PMs. 3 months of Pro free with the Product School partnership. ~100 credits/month.</div>
       </div>
-      <div class="card-item" style="--card-accent:#a78bfa;">
-        <div class="card-icon">🧠</div>
+      <div class="card-item" style="--card-accent:#a78bfa; text-align:left;">
+        <div class="card-brand" style="width:auto; padding:8px 14px;">
+          <img src="../Design/logos/openai.svg" alt="ChatGPT" style="width:24px;height:24px;margin-right:8px;"/>
+          <img src="../Design/logos/claude.svg" alt="Claude" style="width:24px;height:24px;margin-right:8px;"/>
+          <img src="../Design/logos/googlegemini.svg" alt="Gemini" style="width:24px;height:24px;"/>
+        </div>
         <div class="card-title">A sandbox LLM</div>
         <div class="card-desc">ChatGPT, Claude, or Gemini (free tier). Draft and refine prompts here <em>before</em> pasting into Lovable — saves credits.</div>
-    </div>
-      <div class="card-item" style="--card-accent:#6ee7b7;">
-        <div class="card-icon">🌐</div>
+      </div>
+      <div class="card-item" style="--card-accent:#6ee7b7; text-align:left;">
+        <div class="card-brand" style="width:auto; padding:8px 14px; flex-wrap:wrap; gap:8px;">
+          <img src="../Design/logos/cursor.svg" alt="Cursor" style="width:22px;height:22px;"/>
+          <img src="../Design/logos/bolt.svg" alt="Bolt" style="width:22px;height:22px;"/>
+          <img src="../Design/logos/replit.svg" alt="Replit" style="width:22px;height:22px;"/>
+          <img src="../Design/logos/v0.svg" alt="v0" style="width:22px;height:22px;"/>
+          <img src="../Design/logos/anthropic.svg" alt="Claude Code" style="width:22px;height:22px;"/>
+        </div>
         <div class="card-title">Same method, any tool</div>
         <div class="card-desc">Cursor, Bolt, Replit, v0, Claude Code — the methodology is portable. We demo on Lovable for consistency.</div>
-        </div>
       </div>
+    </div>
 </div>
 </section>
 
@@ -656,7 +678,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
       </ul>
     </div>
     <div style="text-align:center; margin-top:14px;">
-      <a class="tool-btn" href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener">Browse Mobbin ↗</a>
+      <a class="tool-btn" href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener"><img src="../Design/logos/mobbin.svg" alt="" class="btn-logo"/>Browse Mobbin ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">Free pattern library · screenshot anything · paste into Lovable.</div>
   </div>
 </div>
@@ -674,11 +696,19 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-num">01</div>
         <div class="card-title" style="font-size:18px; margin-bottom:10px;">Plan in a Sandbox</div>
         <div class="card-desc" style="font-size:13.5px; line-height:1.65;">Structure your prompts and iterate on logic in an external LLM first. Do ~60% of the refinement work in ChatGPT, Gemini, or Claude — <em>free</em> — to lock the instruction before burning a single credit.</div>
+        <div class="brand-row" style="margin-top:14px;">
+          <span class="brand-tile"><img src="../Design/logos/openai.svg" alt=""/> ChatGPT</span>
+          <span class="brand-tile"><img src="../Design/logos/googlegemini.svg" alt=""/> Gemini</span>
+          <span class="brand-tile"><img src="../Design/logos/claude.svg" alt=""/> Claude</span>
+        </div>
       </div>
       <div class="card-item" style="--card-accent:#a78bfa; text-align: left; padding: 26px 24px;">
         <div class="card-num">02</div>
         <div class="card-title" style="font-size:18px; margin-bottom:10px;">Paste into Tool</div>
         <div class="card-desc" style="font-size:13.5px; line-height:1.65;">Only move to Lovable when the prompt is polished. Treat the tool as your execution engine, not your scratchpad. Aim for <em>one generation</em>, not trial-and-error on half-baked instructions.</div>
+        <div class="brand-row" style="margin-top:14px;">
+          <span class="brand-tile"><img src="../Design/logos/lovable.svg" alt=""/> Lovable</span>
+        </div>
       </div>
       <div class="card-item" style="--card-accent:#6ee7b7; text-align: left; padding: 26px 24px;">
         <div class="card-num">03</div>
@@ -785,13 +815,18 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-icon">🏪</div>
         <div class="card-title">Where to find them</div>
         <div class="card-desc">Anthropic Skills marketplace, Cursor's skill folder, public GitHub repos. Free. Install in one click — same idea as an iOS app.</div>
-    </div>
+        <div class="brand-row" style="justify-content:center; margin-top:14px;">
+          <span class="brand-tile"><img src="../Design/logos/anthropic.svg" alt=""/> Anthropic</span>
+          <span class="brand-tile"><img src="../Design/logos/cursor.svg" alt=""/> Cursor</span>
+          <span class="brand-tile"><img src="../Design/logos/github.svg" alt=""/> GitHub</span>
+        </div>
+      </div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-icon">⚡</div>
         <div class="card-title">Why this matters today</div>
         <div class="card-desc">By M3 you build your own — a <em>Living Prompt Pack</em>. For now, just know they exist. The AI doesn't have to be a generalist when you can install a specialist.</div>
-        </div>
       </div>
+    </div>
 </div>
 </section>
 
