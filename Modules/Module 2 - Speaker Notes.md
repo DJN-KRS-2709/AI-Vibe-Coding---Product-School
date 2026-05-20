@@ -1,4 +1,4 @@
-# Module 2: Sharpen Intent with Strategic Prototypes — Speaker Notes
+# Module 2: Validate Product Hypotheses via Risk-Based Prototyping — Speaker Notes
 
 Casual talking points for each slide. Not a script — just the key things to say, what to do on screen, and the energy to bring. Module 2 is the bridge from speed to direction. The vibe shifts from "build fast" to "build smart." Real examples from companies like Airbnb, Amazon, Netflix, and Dropbox to ground every concept.
 
@@ -25,7 +25,7 @@ Casual talking points for each slide. Not a script — just the key things to sa
 
 ## Slide 1 — Title
 
-Welcome back to Module 2 — Sharpen Intent with Strategic Prototypes.
+Welcome back to Module 2 — Validate Product Hypotheses via Risk-Based Prototyping.
 
 Last session was fireworks — you built functional prototypes from scratch, got feedback, refined them, and saw how fast you can go from idea to working software. That was Module 1. Speed.
 

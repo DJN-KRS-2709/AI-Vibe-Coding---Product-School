@@ -262,7 +262,7 @@ First — pick an alternative scenario and try your vibe build again. Pick one y
 
 Second — try another tool like Bolt or Cursor and compare the outputs. Which one was easier? Which gave you the best V1? The methodology works across all of them.
 
-Next session — Module 2: Sharpen Intent with Strategic Prototypes. You can build fast. Now: are you building the right thing? We'll apply the validation framework and make sure you're choosing the right fidelity for your build intent.
+Next session — Module 2: Validate Product Hypotheses via Risk-Based Prototyping. You can build fast. Now: are you building the right thing? We'll apply the validation lens and choose the right fidelity for the specific risk you're testing — value, usability, or feasibility.
 
 
 ## Slide 32 — Survey
