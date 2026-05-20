@@ -189,13 +189,13 @@ Does this feel like a "real" product or just a visual mockup? Where did the inte
 When Notion tests new features internally, the bar isn't "does it work?" — it's "would you use this yourself every day?" That's the standard we're aiming for.
 
 
-## Slide 24 — Quick Debrief: Prototype-Readiness Score
+## Slide 24 — Quick Debrief: What Round 2 Told You
 
-Share screenshots of your before and after prototypes in Slack. Then score your refined prototype from 1 to 5:
+Share before/after screenshots of your prototype in Slack — Lab 1 next to Lab 2. Then, in one line, share the piece of feedback your Round 2 partner gave you that landed hardest.
 
-1 means "just a sketch — it exists but it's not ready for eyes." 3 means "getting there — recognizable but not functional." 5 means "VP ready — I'd show this to leadership tomorrow."
+Use the credibility rubric for private framing only: 1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready. Where do you land today? Almost nobody hits VP-Ready in M1 — and that's the right outcome. The gap between today's read and VP-Ready is exactly what M2–M6 closes.
 
-Be honest. The gap between where you are and where you want to be — that's exactly what the rest of this course closes.
+Be honest in private. The signal you came here for came from your partner, not from a number you gave yourself.
 
 
 ## Slide 25 — From Prompt to Functional Strategy

@@ -71,11 +71,14 @@ A free LLM (ChatGPT, Gemini, Claude) used to draft and refine a prompt *before* 
 **Screenshot-to-App**
 The multimodal entry point where the learner uploads a screenshot (Mobbin, competitor, hand-drawing) and the AI clones the layout and design system into a prototype. Best for refining a vibe sketch against a known-good professional pattern.
 
-**Self-Score**
-The individual 1–5 rubric a learner applies to their own prototype after Lab 2. Five rungs: Sketch · Rough Direction · Getting There · Team-Ready · VP-Ready. Used at the end of every module to track Confidence Line progress.
+**Show and Swap (Round 1)**
+The 10-minute paired exercise after Lab 1. Pairs swap shareable links in the breakout chat, walk each other's prototype silently for three minutes, then discuss three clarity questions: what was immediately clear · what confused them · what assumption the build is testing. Then swap roles and repeat. The silent rule is the lesson — the comment you want to make at minute two is the most useful signal.
 
-**Show and Swap**
-The 10-minute paired exercise after Lab 1. Pairs swap shareable links in the breakout chat, walk each other's prototype silently for three minutes, then discuss three questions (what was immediately clear · what confused them · what assumption the build is testing). Then swap roles and repeat. The silent rule is the lesson — the comment you want to make at minute two is the most useful signal.
+**Swap and Review (Round 2) · Blind Stress Test**
+The 10-minute paired exercise after Lab 2, with a **different** partner from Round 1. Same swap-silent-discuss-swap structure, but the bar moves from clarity to credibility. Three questions: does it feel like a real product or a visual mockup · where did the interactivity fail · would you show it to your VP? The "let them stay stuck" rule applies even harder — when your partner can't find a feature, you don't rescue them, you take the note.
+
+**Credibility Rubric (self-reference only)**
+A 1–5 reading of your prototype: 1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready. Used as private framing for your written follow-up after Round 2 — not as a replacement for the peer review. The gap between today's score and VP-Ready is exactly what M2–M6 closes.
 
 **Skill (Skill Markdown)**
 A markdown file that gives an AI specialized instructions for a domain (e.g. "build dashboards for B2B SaaS," "always use this design system"). The AI follows the skill on every prompt without the learner re-explaining context. Marketplaces (Anthropic, Cursor) and public GitHub repos host them. Module 3 teaches authoring.

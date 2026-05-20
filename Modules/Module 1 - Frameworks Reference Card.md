@@ -93,17 +93,22 @@ This is the universal Module-1 move. You'll repeat it whenever your team has mor
 
 ---
 
-## 8. The Review Stack — Show & Swap + Self-Score
+## 8. The Review Stack — Two Show and Swap Rounds
 
-Every lab in this module ends with a structured review. The reviewer changes; the structure doesn't:
+Every lab in this module ends with a peer review. The structure is identical; the bar moves between rounds:
 
-1. **Time-box** — `⏰ N min`.
-2. **Open the artifact in a fresh tab** — no narration, no setup context.
-3. **Three questions** — what was immediately clear · what confused the reviewer · what assumption the build is testing.
-4. **The reviewer** — a peer (Show & Swap after Lab 1) or yourself against the 1–5 rubric (after Lab 2). Async fallback: the AI-review prompt.
-5. **Async share** — commit to your repo, post the one-line learning in `#cohort-channel`.
+1. **Time-box** — `⏰ 10 min` per round.
+2. **Swap links · open in a fresh tab** — no verbal context, no apologies.
+3. **3 minutes silent** on your partner's build. Let them stay stuck if you're the watcher. The friction is the data.
+4. **Discuss three questions · then swap roles** for the other 6 minutes.
+5. **Async share** — commit before/after to your repo, post the feedback that landed hardest in `#cohort-channel`.
 
-**One paired touch-point per module, otherwise individual. The build is yours. The signal can come from a peer, the rubric, or the AI — whichever is closest to honest.**
+| Round | When | The three questions | The bar |
+|---|---|---|---|
+| **Round 1 · Show and Swap** | After Lab 1 | What was clear · what confused you · what assumption is being tested | Clarity |
+| **Round 2 · Swap and Review** | After Lab 2 · **NEW partner** | Real product or mockup · where interactivity failed · would you show it to your VP | Credibility |
+
+**Builds are individual, reviews are paired. Round 2 always pairs you with a different partner from Round 1 — fresh eyes are the whole point of the blind stress test.** Solo fallback (no partner available): the AI-review prompt with the round's three questions as the dimensions.
 
 ---
 

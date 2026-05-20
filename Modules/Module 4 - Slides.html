@@ -840,15 +840,43 @@
   </div>
 </div>
 
-<!-- ===== SLIDE 27: Quick Debrief — Handoff Confidence ===== -->
-<div class="slide" data-notes="Quick Debrief (2 min). Post one sentence + reply to two peers. Land: students just produced documentation an engineer can sprint from. That's a different identity.">
+<!-- ===== SLIDE 26.5: Breakout — The Inheritance Test ===== -->
+<div class="slide" data-notes="Breakout Pair Exercise (15 min). The honest handoff test. Partners swap GitHub repo URLs — no verbal explanation, no screen share. Each partner clones the other's repo into their AI tool of choice (Cursor, Claude, Lovable agent, ChatGPT with repo attached) and asks the agent the 5 questions. The gap between what the agent gets right and what the partner meant = the gap in the repo. Where the agent guesses or hallucinates, the docs need work. This mirrors how PMs at Indeed, Linear, Vercel actually collaborate today: repo as spec, agent as reading interface. No Confluence. Watch for the moment a student says &quot;the agent got everything except X&quot; — that X is the section to rewrite before M5.">
+  <div class="slide-inner">
+    <div class="demo-tag tag-activity">Breakout Pair Exercise · 15 Minutes</div>
+    <h2>The Inheritance Test</h2>
+    <div class="subtitle">Swap GitHub repo URLs. Your partner clones your repo into <strong>their</strong> AI tool — Cursor, Claude, Lovable, ChatGPT — and asks the <em>agent</em> to explain your product. No screen share. No verbal walkthrough. If the agent gets it right, your repo is inheritable. If it doesn't, that's your data.</div>
+    <div class="step-list">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Swap repo URLs in the chat</div><div class="step-desc">GitHub link only — no Lovable demo, no explanation.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Clone your partner's repo into your AI tool</div><div class="step-desc">Cursor, Claude Code, Lovable's import-from-GitHub, or ChatGPT with the repo attached. The point isn't the tool — it's that an <em>agent</em> reads the repo, not you.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Ask the agent these 5 questions</div><div class="step-desc">Paste them all at once. Let the agent answer from the repo alone.</div></div></div>
+    </div>
+    <div class="debrief-box">
+      <div class="debrief-meta">The 5 Questions</div>
+      <ul>
+        <li>What does this product do, and who is it for?</li>
+        <li>What hypothesis is it testing?</li>
+        <li>What's real vs. what's mocked?</li>
+        <li>What are the 3 biggest technical decisions an engineer needs to make next?</li>
+        <li>If you had to ship a fix on Friday, which file would you open first?</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <div class="callout-label">📍 The Real Test</div>
+      <div class="callout-text">Compare the agent's answers to your partner's actual intent. Where the agent <strong>got it right</strong> — your repo communicates. Where it <strong>guessed or hallucinated</strong> — your repo has a gap. Fix those gaps before Module 5.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 27: Quick Debrief — Inheritance Gap ===== -->
+<div class="slide" data-notes="Quick Debrief (2 min). The gap an agent surfaced about your repo is a gap a teammate would have hit silently. The Inheritance Test exposes what silent readers politely paper over. This is what makes the workflow durable — agents don't pretend to understand.">
   <div class="slide-inner">
     <div class="demo-tag tag-debrief">Quick Debrief · 2 Minutes</div>
-    <h2>Handoff Confidence Statement</h2>
+    <h2>The Inheritance Gap</h2>
     <div class="debrief-box">
       <div class="debrief-meta">📣 Post on Slack — In One Sentence</div>
-      <div class="debrief-prompt">If an engineer cloned your repo right now, what's the <em>one thing</em> they'd need to ask you?</div>
-      <div class="debrief-sub">Then reply to <strong>2 other peers</strong>.</div>
+      <div class="debrief-prompt">The biggest gap my partner's agent surfaced about my repo was <em>___</em>.</div>
+      <div class="debrief-sub">Then reply to <strong>2 other peers</strong> — patterns will emerge.</div>
     </div>
   </div>
 </div>
@@ -873,6 +901,11 @@
         <div class="shift-label">Shift 2</div>
         <div class="shift-title">From Prototype-Builder to System-Designer</div>
         <div class="shift-desc">Your code lives in a real repo. Your data has a real database. Your spec is documented. You stopped being someone who builds prototypes — you became someone who ships systems.</div>
+      </div>
+      <div class="shift-card">
+        <div class="shift-label">Shift 3</div>
+        <div class="shift-title">Your Repo Is Your Spec — Readable by Humans and Agents</div>
+        <div class="shift-desc">No Confluence. No 30-page doc nobody reads. A teammate clones your repo, points their agent at it, and gets up to speed in minutes. This is the workflow at Indeed, Linear, Vercel — and now yours.</div>
       </div>
     </div>
     <div class="callout">
@@ -902,16 +935,21 @@
     <div class="demo-tag tag-recall">Next Session &amp; Extra Practice</div>
     <h2>Module 5 — Ship Live Products with Full-Stack Logic</h2>
     <div class="subtitle">Take the infrastructure you connected today and <strong>build on top of it</strong>. Real database schemas, Row-Level Security authentication, edge case handling, and a live deployed URL.</div>
-    <div class="grid-2">
+    <div class="grid-3">
       <div class="card">
         <div class="card-label">⏩ Extra Practice 1</div>
-        <div class="card-title">Hand Your PRD to a Stranger</div>
-        <div class="card-desc">Share your Living PRD with someone outside the cohort. Can they describe what your product does and what's mocked, in their own words?</div>
+        <div class="card-title">The Outside Reader Test</div>
+        <div class="card-desc">Share your <strong>repo URL</strong> (not the PRD) with a non-PM friend — an engineer, designer, anyone outside the cohort. They clone it, open it in any AI tool, and ask the agent: <em>"In one paragraph, what is this product?"</em> If the summary is stakeholder-ready, your repo is wild-ready.</div>
       </div>
       <div class="card">
         <div class="card-label">⏩ Extra Practice 2</div>
+        <div class="card-title">The Rollback Drill</div>
+        <div class="card-desc">Break your prototype with a reckless prompt. Use your GitHub history to roll back. Prove to yourself that version control protects you — and never fear a bold prompt again.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">⏩ Extra Practice 3</div>
         <div class="card-title">The 10-Component Audit</div>
-        <div class="card-desc">Open your refactored code. Count the components whose name doesn't match their job. Re-prompt to fix them — and see how often the AI's narrative matches reality.</div>
+        <div class="card-desc">Open your refactored code. Count components whose name doesn't match their job. Re-prompt to fix them — and see how often the AI's narrative matches reality.</div>
       </div>
     </div>
   </div>

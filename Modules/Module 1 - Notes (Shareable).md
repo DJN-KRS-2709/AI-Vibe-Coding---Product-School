@@ -128,9 +128,17 @@ Commit the v2 URL plus before-and-after screenshots to `01-velocity/prototype-v2
 
 ---
 
-## Self-Score — your prototype
+## Swap and Review · Round 2 — the blind stress test
 
-Five minutes. Score your v2 from 1 to 5, honestly:
+After Lab 2, you pair up for a second Show and Swap — this time with a **different** partner. The structure is identical to Round 1 (drop the v2 link, three minutes silent on your partner's build, discuss, swap roles), but the bar has moved. Round 1 asked "is this clear?" Round 2 asks "is this credible?"
+
+Three credibility questions, all aimed at the same thing — would a stranger believe this is a real product? Does it feel like a real product or just a visual mockup? Where did the interactivity fail to meet your expectations as a user? Would you show this to your VP as a credible representation of a solution?
+
+The third question is the diagnostic. Almost nobody says yes today — and that's the right outcome. The gap between "no" and "yes" is exactly what M2–M6 closes.
+
+The "let them stay stuck" rule matters even more in Round 2. When your partner can't find a feature you built, your instinct is to explain it. Don't. Explaining the UI away erases the signal you came here for. Note where they got stuck and discuss it after the silent walk.
+
+Score-style rubric for self-reference (use this in your written follow-up, not as a replacement for the peer review):
 
 | Score | Meaning |
 |---|---|

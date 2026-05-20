@@ -261,7 +261,7 @@
 
   <div class="overview-bar">
     <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Prompts</div></div>
-    <div class="overview-item"><div class="oi-num">~42</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">~47</div><div class="oi-label">Minutes</div></div>
     <div class="overview-item"><div class="oi-num">4</div><div class="oi-label">Phases</div></div>
     <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Deliverables</div></div>
   </div>
@@ -653,67 +653,102 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 4: PEER REVIEW                                          -->
+  <!--  PHASE 4: THE INHERITANCE TEST                                 -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
     <div class="phase-num" style="background:#7c3aed;">4</div>
     <div class="phase-text">
-      <h2>Peer Review: The Handoff Test</h2>
-      <div class="phase-time">Breakout Groups of 2 · 10 minutes</div>
+      <h2>The Inheritance Test</h2>
+      <div class="phase-time">Breakout Groups of 2 · 15 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:12px;">This is the most honest handoff test in the course. Instead of reading your partner's documentation yourself, you're going to <strong>clone their repo into your AI tool and let the agent explain the product</strong>. That's how PMs at Indeed, Linear, Vercel, and other AI-fluent teams actually collaborate today: the repo is the spec, the agent is the reading interface. No Confluence. No 30-page doc nobody opens.</p>
+
       <div class="callout" style="margin-top:0;">
-        <p>Share <em>ONLY</em> your Living PRD and Engineering Handoff.<br><strong>Do NOT show the prototype.</strong></p>
+        <p>Swap <em>ONLY</em> your GitHub repo URL.<br><strong>No verbal walkthrough. No screen share of Lovable.</strong> Just the link.</p>
       </div>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">1</div>
         <div class="step-body">
-          <div class="step-title">3 minutes of silent reading</div>
-          <div class="step-desc">Your partner reads your Living PRD and Engineering Handoff in silence. <strong>Do not explain your logic.</strong> If they pause or look confused, let them stay confused — that is your data.</div>
+          <div class="step-title">Swap repo URLs in the chat</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Post your GitHub URL. Grab your partner's. <strong>Do not explain anything.</strong> If your partner asks "what does this do?" — point them at the repo.</div>
         </div>
       </div>
 
-      <div class="step">
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">2</div>
         <div class="step-body">
-          <div class="step-title">Answer these 5 questions</div>
-          <div class="step-desc">After 3 minutes, your partner answers from memory. If they can answer all 5 from just the PRD, it's handoff-ready.</div>
+          <div class="step-title">Clone your partner's repo into your AI tool of choice</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Use whichever AI tool you already have — <strong>Cursor</strong>, <strong>Claude Code</strong>, <strong>Lovable's import-from-GitHub</strong>, or <strong>ChatGPT with the repo files attached</strong>. The tool doesn't matter. What matters is that an <em>agent</em> reads the repo, not you.</div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>Don't have Cursor or Claude installed?</strong> Open ChatGPT, attach the README + PRD + handoff markdown files from the repo, and treat that as your agent. Same exercise, lower friction.</div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">3</div>
+        <div class="step-body">
+          <div class="step-title">Ask the agent these 5 questions</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">Paste all 5 at once. Let the agent answer from the repo alone. <strong>Copy the agent's answers below.</strong></div>
         </div>
       </div>
 
       <div style="margin-top:12px;">
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">1</div>
-          <div class="review-text">Can you identify the <strong>Product Value</strong> (what / who / hypothesis) in under 60 seconds?</div>
+          <div class="review-text">What does this product do, and <strong>who is it for</strong>?</div>
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">2</div>
-          <div class="review-text">Is the <strong>Technical Reality</strong> (real vs. mocked) clear enough that you aren't guessing what works?</div>
+          <div class="review-text">What <strong>hypothesis</strong> is it testing?</div>
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">3</div>
-          <div class="review-text">Does the Engineering Handoff tell you exactly <strong>which file or feature to open and build first?</strong></div>
+          <div class="review-text">What's <strong>real</strong> vs. what's <strong>mocked</strong>?</div>
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">4</div>
-          <div class="review-text">What hypothesis does this prototype test?</div>
+          <div class="review-text">What are the <strong>3 biggest technical decisions</strong> an engineer needs to make next?</div>
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">5</div>
-          <div class="review-text">What's real vs. mocked — and what should engineering build first?</div>
+          <div class="review-text">If you had to ship a fix on Friday, <strong>which file would you open first</strong>?</div>
         </div>
       </div>
 
-      <p style="font-size:14px; color:#555; margin:16px 0 8px;"><strong>Swap roles after 5 minutes.</strong> Both partners take a turn as the reviewer.</p>
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">4</div>
+        <div class="step-body">
+          <div class="step-title">Compare the agent's answers to your partner's actual intent</div>
+          <div class="step-time">5 minutes</div>
+          <div class="step-desc">Walk through the agent's answers together. Where did it <strong>get it right</strong>? Where did it <strong>guess, hallucinate, or miss the point</strong>? Every gap is a gap in your partner's repo — not the agent's failure. <strong>Swap roles and run it again.</strong></div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#128269;</div>
+        <div class="tip-text"><strong>Watch for the silent gaps.</strong> Agents don't politely paper over confusion the way a human reader does. If the agent says "this appears to be a dashboard for X" when your partner meant Y — that's the kind of ambiguity an engineer would silently misinterpret and ship the wrong thing. <strong>Fix those gaps before Module 5.</strong></div>
+      </div>
 
       <div class="notes-area">
-        <div class="na-title">Peer Review — Partner's Answers</div>
-        <div class="na-hint">Record your partner's answers to the 5 questions. These gaps are your revision priorities.</div>
-        <textarea placeholder="Write your partner's answers here..." style="min-height:120px;"></textarea>
+        <div class="na-title">Inheritance Test — Agent Answers vs. Reality</div>
+        <div class="na-hint">For each question: what did the agent say, and what did your partner actually mean? Where the two diverge = revision priorities for your repo.</div>
+        <textarea placeholder="Q1 — Agent said: ___ / Partner meant: ___&#10;Q2 — Agent said: ___ / Partner meant: ___&#10;Q3 — Agent said: ___ / Partner meant: ___&#10;Q4 — Agent said: ___ / Partner meant: ___&#10;Q5 — Agent said: ___ / Partner meant: ___" style="min-height:180px;"></textarea>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Slack debrief — post one sentence</div>
+        The biggest gap my partner's agent surfaced about my repo was <em>___</em>.
       </div>
     </div>
   </div>

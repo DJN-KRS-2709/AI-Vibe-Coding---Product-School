@@ -8,6 +8,7 @@ Casual talking points for each slide. Not a script — just the key things to sa
 - Living Prompt Pack Builder (continuing from M3 — add structure prompts)
 - GitHub (version control — connect from Lovable sidebar)
 - Supabase (database — connect from Lovable)
+- Cursor / Claude / any AI-native IDE (for the Inheritance Test — students use whatever AI tool they already have. The course doesn't require a new tool here. Goal is to demonstrate that any agent can read a well-structured repo.)
 
 **What to prepare before class:**
 - [ ] Open the M3 Retention Engine prototype in Lovable (same one carried from M2/M3 demos — now with prompt chain refinements, design system matching, and Living Prompt Pack applied)
@@ -334,19 +335,37 @@ If the code view still shows generic names after the prompt, tell them to re-pro
 Common trap: students get excited about refactoring and want to keep going. Pull them back. "The clean code is satisfying, I know. But the handoff document matters more. An engineer can rename a file in 10 seconds. They can't guess your data model or your intended build order."
 
 
-## Slide 21 — Breakout: Show and Swap Your Spec Handoff Package
+## Slide 21 — Breakout: The Inheritance Test
 
-**ACTION: Create breakout pairs. 10 minutes total — 5 minutes per round.**
+**ACTION: Create breakout pairs. 15 minutes total — 7 minutes per round + 1 minute buffer.**
 
-Set the stakes before you split them up: "Here's the test. You're going to screen share your Living PRD and Engineering Handoff with a partner. They read it in silence for 3 minutes — no questions, no verbal walkthrough, no 'oh let me explain this part.' Just the document. If they can understand your product from the docs alone, your handoff works. If they can't, you've got more work to do."
+Set the stakes before you split them up: "We're going to do the most honest handoff test there is. This isn't 'read my doc and tell me if it makes sense.' This is: *your partner clones your repo, opens it in their AI tool, and asks the agent — not you — to explain your product.* That's how PMs at Indeed, Linear, Vercel, and a growing list of AI-first companies actually collaborate today. The repo is the spec. The agent is the reading interface."
 
-"This isn't an academic exercise. This is what happens when an engineer inherits your project on a Monday morning. They don't get a demo. They get a repo and a doc. Can they ship something by Friday?"
+"There's no Confluence in this workflow. No 30-page doc nobody reads. There's a GitHub repo with a Living PRD, a handoff note, the prototype, and enough context for an agent to answer any question a teammate has. Today you're going to find out if your repo passes that test."
 
-After the silent reading, have them discuss three things: Can you identify what the product does and who it's for in under a minute? Is it clear which parts are real and which are mocked? And does the handoff point to a specific starting place — or is it 'good luck, figure it out'?
+**How it runs:**
 
-Stripe runs this exact test with new hires. Day one: here's the docs, here's the codebase, build something. If they ship in the first week, the documentation did its job.
+1. **Swap GitHub repo URLs in the chat.** No verbal explanation. No screen share of Lovable. Just the URL.
+2. **Clone or fork your partner's repo into your AI tool of choice.** Cursor, Claude Code, Lovable's agent on the imported project, ChatGPT with the repo attached — whatever you use. The point isn't the tool. The point is that an AI is reading the repo, not you.
+3. **Ask the agent these 5 questions** (paste them in one go):
+   - What does this product do, and who is it for?
+   - What hypothesis is it testing?
+   - What's real vs. what's mocked?
+   - What are the 3 biggest technical decisions an engineer needs to make next?
+   - If you had to ship a fix on Friday, which file would you open first?
+4. **Compare the agent's answers to your partner's actual intent.** Where did the repo communicate clearly? Where did the agent guess, hallucinate, or get it wrong? *That's your data.*
 
-**Watch for:** The moment a partner accurately describes their classmate's product without any verbal help — that's the breakthrough. Point it out when you see it. "Your docs just survived the handoff test."
+"This is the future of PM handoffs. Your engineer doesn't read your PRD on Monday morning — they point their agent at your repo and ask it questions. If the agent can't answer them, neither can the engineer. The gap between what the agent gets right and what your partner *meant* is the gap in your documentation."
+
+**Watch for:** The moment a student says "the agent got everything except [X]" — that [X] is the section they need to rewrite. Point it out: "That's not the agent's failure. That's a gap in your repo. Fix it before Module 5."
+
+Also call out the moment when the agent surfaces something the *partner* didn't realize was unclear. Cursor canvases, Claude artifacts, ChatGPT summaries — they expose the gaps a human reader would politely paper over. That's why this works.
+
+If a student is struggling because their repo doesn't have a PRD + handoff yet — that's data too. Their lab output isn't complete. Send them back to finish.
+
+After the swap, post one sentence in Slack: *"The biggest gap my partner's agent surfaced about my repo was ___."* Reply to 2 others.
+
+**Why this exercise belongs here, not later:** Your Module 5 work assumes a teammate (or future you) can reload context from the repo. If the agent can't reconstruct your build today, M5 will compound the confusion. Catch it now.
 
 
 ## Slide 22 — Connect Your Backend with Supabase
@@ -379,7 +398,9 @@ Tick through the wins conversationally: "You've got a Living PRD — eight secti
 
 "And your prototype lives outside of Lovable. It's been in GitHub since Module 2 — but now what's in that repo is clean, documented, and structured. And it's backed by a real database. If your laptop caught fire right now, your work survives."
 
-Land the project deliverable reminder: "Before you close out — copy your `livingprd.md` into slide 7 and your `engineeringhandoff.md` into slide 9 of your final deliverables deck. Do it today while it's fresh."
+Land the new mental model from the Inheritance Test: "Your repo is your spec. Not Confluence. Not a Google Doc. The repo. A teammate clones it, points their agent at it, and gets up to speed in minutes — not days. That's the workflow PMs are running at the most AI-fluent companies right now. You just built one of those repos. The follow-the-Repo-Structure-template document in `Templates/` shows you what the canonical layout looks like — use it as your reference for what goes where."
+
+Land the project deliverable reminder: "Before you close out — copy your `livingprd.md` into slide 7 and your `engineeringhandoff.md` into slide 9 of your final deliverables deck. Make sure both are committed to your repo with descriptive filenames. Do it today while it's fresh."
 
 
 ## Slide 25 — Key Takeaways
@@ -399,13 +420,15 @@ Pause. Then: "Three takeaways on screen. You already lived them. You extracted y
 
 ## Slide 26 — Extra Practice and Next Session
 
-"Two optional exercises for anyone who wants to push further — both are on screen."
+"Three optional exercises for anyone who wants to push further — all on screen."
 
 Frame them as challenges, not homework: "The first one is fun and a little scary. You're going to intentionally break your prototype with a reckless prompt — then use your shiny new GitHub history to roll back to the last stable version. It's the best way to prove to yourself that version control actually protects you. If the rollback works, you'll never be afraid of a bold prompt again."
 
 "The second one tests whether your prototype can handle reality. Open your Supabase dashboard, manually insert some garbage data — a negative price, a blank required field — and see what happens. Does your UI handle it gracefully, or does everything fall apart? This is the kind of thing that happens the moment real users touch a live product."
 
-Preview the next session: "Module 5 is where your prototype goes live. Real URL. Real users. Real database with security rules. Everything we've set up — GitHub since Module 2, Supabase and the Living PRD today — becomes the foundation for shipping. If Module 4 was about making your build legible, Module 5 is about making it durable under pressure."
+"The third is the **Outside Reader Test** — an extension of today's Inheritance Test. Share your repo URL with a non-PM friend (an engineer, a designer, a relative who's never seen the project). They clone it, open it in any AI tool, and ask the agent: *'In one paragraph, what is this product?'* If the agent's summary is something you'd be proud to ship to a stakeholder, your repo is ready for the wild. If it's not — that's your weekend work. The repo only counts as a spec if a stranger can extract the spec from it."
+
+Preview the next session: "Module 5 is where your prototype goes live. Real URL. Real users. Real database with security rules. Everything we've set up — GitHub since Module 2, Supabase, the Living PRD, the engineering handoff, and a repo any agent can read — becomes the foundation for shipping. If Module 4 was about making your build legible to humans *and* agents, Module 5 is about making it durable under pressure."
 
 
 ## Slide 27 — Survey

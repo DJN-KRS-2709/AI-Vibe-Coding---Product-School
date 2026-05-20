@@ -43,6 +43,8 @@ And finish with the second part of the Hands-on lab: Rapid-Fire Stress Test and 
 
 This kicks off the first major section. Your M4 prototype has structure, documentation, clean code, and live infrastructure — GitHub, Lovable Cloud. But the product isn't fully built on top of it yet. Most data is still hardcoded, there's no user isolation, and nothing handles failure gracefully. Let's fix that.
 
+**Pre-flight — re-run the Inheritance Test on your own repo.** Before you start layering RLS, schema changes, and edge case handling, take 90 seconds and point an agent at your repo (Cursor, Claude, ChatGPT with the markdown files attached — whatever you used in M4). Ask it: *"What's real vs. mocked, and where would you start if you had to ship a fix Friday?"* If the answer is fuzzy today, every change you make in M5 will compound that fog. Schema expansion on top of an unclear repo just creates a bigger unclear repo. Fix the doc gaps from your M4 Inheritance Test debrief before you write a single new prompt today.
+
 
 ## Slide 7 — Instructor-Led Demo: From Connected Infrastructure to Secured Product
 
@@ -125,7 +127,7 @@ All right, let's kick off our first hands-on.
 
 Your infrastructure is live from Module 4. You're going to let the AI audit your prototype, create your game plan, and then execute it — all in one exercise. See the lab guide here: Vibe Coding M5: Lab Guide and Walkthrough.
 
-Open Lovable with your prototype. Paste the prompt. It will scan your entire project and generate a personalized Integration Plan — a markdown file with your actual hardcoded values, your real tables, and three customized prompts. Before you run those prompts, review the plan through three lenses.
+Open Lovable with your prototype. Paste the prompt. It will scan your entire project and generate a personalized Integration Plan — a markdown file with your actual hardcoded values, your real tables, and three customized prompts. **Reminder: the quality of this plan mirrors the quality of your repo.** Lovable's agent is doing what your partner's agent did in the M4 Inheritance Test — it's reading your repo and inferring intent. A clear repo gets a precise plan. A vague repo gets a vague plan. Before you run those prompts, review the plan through three lenses.
 
 First — audit your Data Status.
 
@@ -183,6 +185,8 @@ Okay. Successfully stress-tested now. Click 'Publish' in Lovable and generate yo
 "This evolved handoff is arguably the most important artifact for engineering you've produced. It proves you've stress-tested the build and are proactively flagging known gaps so the engineering team isn't surprised by a crash later. High-fidelity UI is great, but high-fidelity logic is what actually ships."
 
 "Your Living PRD from Module 4 says what the product does and why. Your new handoff note says what's technically real. Together, an engineer can inherit your project without reverse-engineering anything."
+
+**Push the evolved handoff back to the repo today, alongside your updated Living PRD and integration plan.** The Inheritance Test from M4 only holds if the repo stays current. If you ship the live URL but don't update `handoff.md` and `living-prd.md` with the new schema, RLS rules, and edge cases — an agent reading your repo next week will give your teammate a stale summary. Treat every M5 change as a repo update, not just a Lovable update. The repo is the spec. Keep it true.
 
 
 ## Slide 18 — Future-Proofing Your Product with APIs
