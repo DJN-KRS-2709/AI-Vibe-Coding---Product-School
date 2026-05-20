@@ -215,7 +215,7 @@
 
   <div class="overview-bar">
     <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Builds</div></div>
-    <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Peer Reviews</div></div>
+    <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Self-Reviews</div></div>
     <div class="overview-item"><div class="oi-num">55</div><div class="oi-label">Minutes</div></div>
     <div class="overview-item"><div class="oi-num">0</div><div class="oi-label">Frameworks</div></div>
   </div>
@@ -283,7 +283,7 @@
       <div class="rules-list">
         <div class="rule-item">
           <div class="rule-num">1</div>
-          <div class="rule-text"><strong>20 minutes. Work alone.</strong> No collaboration yet. This is about your instincts and speed.</div>
+          <div class="rule-text"><strong>15 minutes. Work solo.</strong> No collaboration. This is about your instincts and speed.</div>
         </div>
         <div class="rule-item">
           <div class="rule-num">2</div>
@@ -344,36 +344,36 @@
 
   <div class="flow-connector"><div class="flow-arrow"></div></div>
 
-  <!-- ═══════════ SHOW & SWAP ═══════════ -->
-  <div class="phase">
+  <!-- ═══════════ SOLO REVIEW 1 ═══════════ -->
+  <div class="phase" id="solo-review-1">
     <div class="phase-num" style="background:#7c3aed;">2</div>
     <div class="phase-text">
-      <h2>Show & Swap</h2>
-      <div class="phase-time">Breakout Pairs · 10 minutes</div>
+      <h2>Solo Review · Walk Your Own Build</h2>
+      <div class="phase-time">Self-Review + AI Critique · 8 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
       <div class="callout" style="margin-top:0;">
-        <p>You are <em>NOT</em> allowed to explain your prototype.<br>Share the link. Watch them use it. <strong>Say nothing.</strong></p>
+        <p>Open your link in a fresh tab. Don't explain anything to yourself.<br>Click as a first-time user. <strong>Notice where you hesitate.</strong></p>
       </div>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">1</div>
         <div class="step-body">
-          <div class="step-title">Person A shares their link</div>
-          <div class="step-time">3 minutes of silence</div>
-          <div class="step-desc">Person B clicks through it as a real user. No guidance. No "click there." Just watch where they go, what confuses them, what they ignore.</div>
+          <div class="step-title">Silent walk through your own build</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Open the link in a fresh tab. Click as if you've never seen it. Don't rationalize. Just notice the friction.</div>
         </div>
       </div>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">2</div>
         <div class="step-body">
-          <div class="step-title">Person B gives feedback</div>
+          <div class="step-title">Write down three answers</div>
           <div class="step-time">2 minutes</div>
-          <div class="step-desc">Three things:</div>
+          <div class="step-desc">Be honest. Most PMs can't answer the third question — that's the most useful diagnostic in the module.</div>
         </div>
       </div>
 
@@ -388,21 +388,32 @@
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#7c3aed;">3</div>
-          <div class="review-text"><strong>What assumption does this seem to test?</strong></div>
+          <div class="review-text"><strong>What assumption am I actually testing?</strong></div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">3</div>
         <div class="step-body">
-          <div class="step-title">Switch roles. Repeat.</div>
-          <div class="step-desc">Person B shares their link. Person A becomes the user.</div>
+          <div class="step-title">AI Critique — paste into ChatGPT or Claude</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Paste the verbatim prompt below + your prototype URL. Read the critique. Pick one fix.</div>
         </div>
+      </div>
+
+      <div class="post-template" style="margin-top:14px;">
+        <div class="pt-title">AI-Review Prompt (copy verbatim)</div>
+        You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
       </div>
 
       <div class="tip-box">
         <div class="tip-icon">💡</div>
-        <div class="tip-text"><strong>Why silence matters:</strong> Your users won't have you standing next to them explaining things. You'll learn more from watching 3 minutes of confusion than from any feedback form.</div>
+        <div class="tip-text"><strong>Why solo + AI beats peer review:</strong> Your peers are being polite. The AI is not. And the silent self-walk forces the kind of honest noticing that's harder to do when someone is watching you watch yourself.</div>
+      </div>
+
+      <div class="tip-box success" style="margin-top:10px;">
+        <div class="tip-icon">📣</div>
+        <div class="tip-text"><strong>Async share:</strong> post the screenshot + your one-line learning to <code>#cohort-channel</code>. No live demo required.</div>
       </div>
     </div>
   </div>
@@ -410,7 +421,7 @@
   <div class="flow-connector"><div class="flow-arrow"></div></div>
 
   <!-- ═══════════ LAB 2 ═══════════ -->
-  <div class="phase">
+  <div class="phase" id="lab-2">
     <div class="phase-num" style="background:#059669;">3</div>
     <div class="phase-text">
       <h2>Level Up Your Build</h2>
@@ -426,7 +437,7 @@
         <div class="upgrade-card">
           <div class="uc-icon">🎨</div>
           <div class="uc-title">Design Match</div>
-          <div class="uc-desc">Go to <strong>Mobbin</strong> (mobbin.com). Find a real product with a similar layout. Screenshot it. Use it as context in your next prompt. "Match this look and feel."</div>
+          <div class="uc-desc">Go to <a href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener"><strong>Mobbin</strong></a>. Find a real product with a similar layout. Screenshot it. Use it as context in your next prompt. "Match this look and feel."</div>
         </div>
         <div class="upgrade-card">
           <div class="uc-icon">⚡</div>
@@ -475,52 +486,63 @@
 
   <div class="flow-connector"><div class="flow-arrow"></div></div>
 
-  <!-- ═══════════ DID IT GET BETTER ═══════════ -->
-  <div class="phase">
+  <!-- ═══════════ SOLO REVIEW 2 — SCORE ═══════════ -->
+  <div class="phase" id="solo-review-2">
     <div class="phase-num" style="background:#e11d48;">4</div>
     <div class="phase-text">
-      <h2>Did It Get Better?</h2>
-      <div class="phase-time">New Breakout Pairs · 10 minutes</div>
+      <h2>Solo Review · Score Your Prototype</h2>
+      <div class="phase-time">Self-Score · 5 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;"><strong>New partner</strong> — different person from Round 1. Share <strong>both</strong> links: your original Lab 1 build AND your upgraded Lab 2 build.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Open both links side-by-side: Lab 1 (original) and Lab 2 (refined). The comparison is the point — same product, different quality level. Then score yourself honestly.</p>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#e11d48;">1</div>
         <div class="step-body">
-          <div class="step-title">Partner reviews both versions</div>
-          <div class="step-time">5 minutes per person</div>
-          <div class="step-desc">They explore the original first, then the upgrade. The comparison is the point — same product, different quality level.</div>
+          <div class="step-title">Compare v1 vs v2 side-by-side</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Same product, two quality levels. Where did the upgrades land? Where did they miss?</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#e11d48;">2</div>
+        <div class="step-body">
+          <div class="step-title">Score from 1 to 5</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc"><strong>1</strong> Sketch · <strong>2</strong> Rough direction · <strong>3</strong> Getting there · <strong>4</strong> Team-ready · <strong>5</strong> VP-ready</div>
         </div>
       </div>
 
       <div class="step">
-        <div class="step-marker" style="background:#e11d48;">2</div>
+        <div class="step-marker" style="background:#e11d48;">3</div>
         <div class="step-body">
-          <div class="step-title">Three feedback questions</div>
+          <div class="step-title">Answer two sentences in writing</div>
+          <div class="step-time">2 minutes</div>
         </div>
       </div>
 
       <div style="margin-left:52px;">
         <div class="review-q">
           <div class="review-num" style="background:#e11d48;">1</div>
-          <div class="review-text"><strong>What improved most noticeably?</strong></div>
+          <div class="review-text"><strong>"My score is X because…"</strong></div>
         </div>
         <div class="review-q">
           <div class="review-num" style="background:#e11d48;">2</div>
-          <div class="review-text"><strong>Does this feel like a real product now?</strong></div>
-        </div>
-        <div class="review-q">
-          <div class="review-num" style="background:#e11d48;">3</div>
-          <div class="review-text"><strong>Would you show this to your VP?</strong></div>
+          <div class="review-text"><strong>"The single change that would bump it +1 is…"</strong></div>
         </div>
       </div>
 
       <div class="callout">
-        <p>If the answer to "Would you show this to your VP?" changed from <em>no</em> to <em>yes</em> — you just crossed the line from <strong>toy to tool.</strong></p>
+        <p>Most learners score themselves a 2 or 3 today. Almost nobody scores a 5 — and that's the right outcome. <strong>The gap between your score and 5 is exactly what M2–M6 closes.</strong></p>
+      </div>
+
+      <div class="tip-box success" style="margin-top:14px;">
+        <div class="tip-icon">📣</div>
+        <div class="tip-text"><strong>Async share:</strong> post before/after screenshots + your score + your two sentences to <code>#cohort-channel</code>. Browse 2–3 others. You'll see the patterns nobody told you to look for.</div>
       </div>
     </div>
   </div>
@@ -556,8 +578,8 @@
       <div class="step">
         <div class="step-marker" style="background:#3B6FE0;">3</div>
         <div class="step-body">
-          <div class="step-title">Engage with 2 others</div>
-          <div class="step-desc">Look at 2 other builds. React or comment. This is your cohort.</div>
+          <div class="step-title">React to 2 other builds</div>
+          <div class="step-desc">Browse the cohort channel. React or comment async on two builds that caught your eye. No live conversation required — this is accountability, not dependency.</div>
         </div>
       </div>
 
