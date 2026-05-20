@@ -58,6 +58,17 @@
   .upgrade-card .uc-desc { font-size: 12px; color: #777; line-height: 1.5; }
   .upgrade-card .uc-desc a { color: #059669; font-weight: 600; }
 
+  .path-block { margin: 14px 0; padding: 18px 22px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-left: 4px solid #059669; border-radius: 10px; }
+  .path-block .pb-label { font-size: 11px; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .path-block .pb-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .path-block .pb-intent { font-size: 13.5px; color: #555; line-height: 1.55; margin-bottom: 10px; }
+  .path-block .pb-intent a { color: #059669; font-weight: 600; }
+  .prompt-template { background: #fff; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 14px 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #475569; line-height: 1.65; }
+  .prompt-template .pt-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #059669; margin-bottom: 6px; }
+  .prompt-template em.fill { color: #c026d3; font-style: normal; font-weight: 600; background: #fdf4ff; padding: 1px 4px; border-radius: 3px; }
+  .path-block .pb-extra { font-size: 12.5px; color: #6b7280; line-height: 1.55; margin-top: 10px; }
+  .path-block .pb-extra strong { color: #1a1a2e; }
+
   .review-q { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
   .review-q:last-child { border-bottom: none; }
   .review-num { width: 28px; height: 28px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -134,40 +145,107 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Take your Lab 1 prototype. <strong>Don't start over.</strong> Choose at least <strong>two</strong> upgrades:</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Take your Lab 1 prototype. <strong>Don't start over.</strong> Prove you can steer the AI from a vibe sketch to something you'd proudly show a VP. Choose <strong>two of four</strong> upgrade paths — depth over breadth.</p>
 
-      <div class="upgrade-grid">
-        <div class="upgrade-card">
-          <div class="uc-icon">🎨</div>
-          <div class="uc-title">Design Match</div>
-          <div class="uc-desc">Go to <a href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener"><strong>Mobbin</strong></a>. Find a real product with a similar layout. Screenshot it. Use it as context in your next prompt. "Match this look and feel."</div>
-        </div>
-        <div class="upgrade-card">
-          <div class="uc-icon">⚡</div>
-          <div class="uc-title">Add Interactivity</div>
-          <div class="uc-desc">Make something work. A filter that filters. A detail view that expands. A form that validates. Static → clickable → testable.</div>
-        </div>
-        <div class="upgrade-card">
-          <div class="uc-icon">🎯</div>
-          <div class="uc-title">Refine Without Rebuilding</div>
-          <div class="uc-desc">Find the weakest section. Fix <em>only that part</em> with a focused prompt. Tell the AI what to change AND what NOT to change.</div>
-        </div>
-        <div class="upgrade-card">
-          <div class="uc-icon">🏢</div>
-          <div class="uc-title">Existing Product Track</div>
-          <div class="uc-desc">Screenshot your actual company product. Match its look and feel. Add your new feature on top. "Wait, is this already in our product?"</div>
+      <!-- ─── STEP 1: IDENTIFY THE GAP ─── -->
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">1</div>
+        <div class="step-body">
+          <div class="step-title">Identify the current gap</div>
+          <div class="step-time">60 seconds</div>
+          <div class="step-desc">Open your Lab 1 prototype in Lovable. Look at your Show &amp; Swap notes — where did your partner get stuck or ask a question the UI didn't answer? <strong>Pick your battle:</strong> is it the visual polish (Path A / D) or the missing functionality (Path B / C)?</div>
         </div>
       </div>
 
+      <!-- ─── STEP 2: PICK TWO PATHS + PROMPTS ─── -->
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">2</div>
+        <div class="step-body">
+          <div class="step-title">Upgrade and iterate with intent</div>
+          <div class="step-time">~12 minutes · pick 2 of 4 paths</div>
+          <div class="step-desc">Don't try all four — depth wins. Pick <strong>two</strong>. If a path fails inside three minutes, pivot to a different one. A polished design beats a broken filter every time.</div>
+        </div>
+      </div>
+
+      <p style="font-size:13px; color:#6b7280; margin:14px 0 6px;">💡 Fill in the bracketed placeholders below to move fast, or drop the template into ChatGPT / Gemini first and ask the LLM to architect a sharper version for your specific scenario.</p>
+
+      <div class="upgrade-grid" style="margin-bottom: 6px;">
+        <div class="upgrade-card"><div class="uc-icon">🎨</div><div class="uc-title">A · Design Match</div><div class="uc-desc">Clone a real product's visual system from a screenshot.</div></div>
+        <div class="upgrade-card"><div class="uc-icon">⚡</div><div class="uc-title">B · Add Interactivity</div><div class="uc-desc">Make something actually work — filter, detail view, form.</div></div>
+        <div class="upgrade-card"><div class="uc-icon">🎯</div><div class="uc-title">C · Surgical Refinement</div><div class="uc-desc">Fix one section without touching the rest.</div></div>
+        <div class="upgrade-card"><div class="uc-icon">🏢</div><div class="uc-title">D · Existing Product Track</div><div class="uc-desc">Match your company's actual brand &amp; design system.</div></div>
+      </div>
+
+      <!-- ─── PATH A: DESIGN MATCH ─── -->
+      <div class="path-block">
+        <div class="pb-label">Path A · Visual Level-Up</div>
+        <div class="pb-title">🎨 Design Match</div>
+        <div class="pb-intent">Use a screenshot from <a href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener">Mobbin</a> to clone professional colors, layouts, and navigation. Same content — better visual language.</div>
+        <div class="prompt-template">
+          <div class="pt-label">Starter prompt — fill the bracketed parts</div>
+          "I am uploading a screenshot of <em class="fill">[Company]</em>. Update my dashboard's color palette, border radius, and typography to match this aesthetic exactly."
+        </div>
+      </div>
+
+      <!-- ─── PATH B: ADD INTERACTIVITY ─── -->
+      <div class="path-block">
+        <div class="pb-label">Path B · Functional Level-Up</div>
+        <div class="pb-title">⚡ Add Interactivity</div>
+        <div class="pb-intent">Configure a real filter, a working detail view, or a form that validates. Prove the prototype handles real user behavior, not just looks like it could.</div>
+        <div class="prompt-template">
+          <div class="pt-label">Starter prompt — fill the bracketed parts</div>
+          "Make the <em class="fill">[list or gallery name, e.g., Workout List]</em> filterable by <em class="fill">[category, e.g., Difficulty Level]</em>. When a user clicks a specific <em class="fill">[UI element, e.g., Card]</em>, open a <em class="fill">[panel or modal]</em> showing the <em class="fill">[specific data, e.g., exercise video and instructions]</em> for that selection."
+        </div>
+      </div>
+
+      <!-- ─── PATH C: SURGICAL REFINEMENT ─── -->
+      <div class="path-block">
+        <div class="pb-label">Path C · Precision Level-Up</div>
+        <div class="pb-title">🎯 Surgical Refinement</div>
+        <div class="pb-intent">Fix one specific section without changing the rest of the page. Tell the AI explicitly what to change <em>and</em> what NOT to touch.</div>
+        <div class="prompt-template">
+          <div class="pt-label">Starter prompt — fill the bracketed parts</div>
+          "Focus only on the <em class="fill">[section name, e.g., sidebar]</em>. Change the <em class="fill">[element]</em> to a <em class="fill">[new element, e.g., dropdown menu]</em>, and move the <em class="fill">[component]</em> to the <em class="fill">[new location]</em>."
+        </div>
+      </div>
+
+      <!-- ─── PATH D: EXISTING PRODUCT TRACK ─── -->
+      <div class="path-block">
+        <div class="pb-label">Path D · Brand Alignment</div>
+        <div class="pb-title">🏢 Existing Product Track</div>
+        <div class="pb-intent">Match your real company's design system by extracting styles from your live product or Figma. Layer your new feature on top of the existing brand. "Wait, is this already in our product?"</div>
+        <div class="prompt-template">
+          <div class="pt-label">Starter prompt — fill the bracketed parts</div>
+          "Update the UI components to match <em class="fill">[Company Name]</em>'s branding. Use <em class="fill">[Hex Code]</em> for primary buttons and ensure the <em class="fill">[specific feature, e.g., navigation element]</em> matches our product's current structure."
+        </div>
+        <div class="pb-extra">📐 <strong>Extracting styles from Figma:</strong> right-click a component or frame, choose <strong>Copy/Paste as → Copy as CSS</strong>, then paste the CSS into the Lovable prompt as context.</div>
+      </div>
+
+      <!-- ─── GUARDRAILS ─── -->
       <div class="tip-box fire">
         <div class="tip-icon">🔑</div>
-        <div class="tip-text"><strong>The key skill:</strong> You're <em>steering</em>, not starting over. Each prompt gets you closer. The instructor just showed you how to go from generic AI output to stakeholder-ready in 6 prompts. Apply the same pattern: design → interactivity → refine.</div>
+        <div class="tip-text"><strong>The key skill:</strong> you're <em>steering</em>, not starting over. Each prompt gets you closer. Apply the same surgical pattern from the demo: design → interactivity → refine.</div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">⏱</div>
+        <div class="tip-text"><strong>Watch the clock.</strong> Stop iterating with <strong>2 minutes left</strong>. You need a live, refreshable, shareable link ready before the timer hits zero — not a half-applied prompt that broke the build.</div>
+      </div>
+
+      <!-- ─── STEP 3: CAPTURE THE TRANSFORMATION ─── -->
+      <div class="step" style="border-top: 1px solid #f0f0f0; margin-top:6px;">
+        <div class="step-marker" style="background:#059669;">3</div>
+        <div class="step-body">
+          <div class="step-title">Capture your transformation</div>
+          <div class="step-time">final 2 minutes</div>
+          <div class="step-desc">Screenshot the upgraded prototype — you'll need it for the before/after post. Refresh the preview and re-test before you copy the link to make sure the latest changes are live (the URL is usually the same as Lab 1's). Commit to <code>01-velocity/prototype-v2.md</code>.</div>
+        </div>
       </div>
 
       <div class="checklist" style="margin-top:16px;">
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>At least 2 upgrades applied</strong></div></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Upgraded link works</strong></div></div>
-        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Before/after committed</strong> — Lab 1 link kept for comparison · v2 in <code>01-velocity/prototype-v2.md</code></div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>At least 2 upgrade paths applied</strong> — depth, not breadth</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Upgraded link refreshed and working</strong></div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Before/after screenshot saved</strong> · v2 committed to <code>01-velocity/prototype-v2.md</code> · Lab 1 link kept for comparison</div></div>
       </div>
 
       <div class="post-template">
