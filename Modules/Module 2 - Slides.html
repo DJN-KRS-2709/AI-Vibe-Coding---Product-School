@@ -795,83 +795,97 @@ section.cameras-section .cameras-inner {
     <div class="vll-wrap">
       <div class="vll-left">
         <div class="demo-tag tag-framework">Framework</div>
-        <h2>The Validation<br/>Lens Loop.</h2>
+        <h2>The Validation Lens Loop.</h2>
         <p>This cycle turns raw ideas into <strong style="color:#fff;">validated strategy</strong>.</p>
         <p class="vll-anchor">Before touching any tool, name the test: <strong>if you can't complete the sentence "I'm testing whether [X]," you aren't ready to build.</strong></p>
         <p>Each revolution sharpens your hypothesis and tightens constraints — moving your product from uncertain to <em>evidence-backed</em>.</p>
         <div class="vll-coda"><strong>Most people prototype in a straight line.</strong> Vibe Coding requires a circle — the loop is the upgrade.</div>
       </div>
       <div class="vll-svg-wrap">
-        <svg class="vll-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-label="Validation Lens Loop — four-stop circular framework">
+        <svg class="vll-svg" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg" aria-label="Validation Lens Loop — four-stop circular framework">
           <defs>
             <linearGradient id="vll-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#3b82f6"/>
-              <stop offset="100%" stop-color="#1241B0"/>
+              <stop offset="0%"   stop-color="#60a5fa"/>
+              <stop offset="55%"  stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#1d4ed8"/>
             </linearGradient>
-            <marker id="vll-arrow" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="11" markerHeight="11" orient="auto">
-              <path d="M1,1 L11,6 L1,11 z" fill="#1241B0"/>
-            </marker>
+            <filter id="vll-ring-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+              <feOffset dx="0" dy="3" result="shadow"/>
+              <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+              <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <!-- Reusable small arrowhead triangle, drawn pointing in +x at the origin -->
+            <symbol id="vll-arrow" overflow="visible">
+              <polygon points="-9,-7 9,0 -9,7" fill="#e0e7ff"/>
+            </symbol>
           </defs>
-          <!-- The blue ring (4 arc segments forming a closed loop, each with an arrowhead) -->
-          <!-- Center 300,300 · radius 175 · stroke-width 32 -->
-          <g fill="none" stroke="url(#vll-ring-grad)" stroke-width="32" stroke-linecap="butt" marker-end="url(#vll-arrow)">
-            <!-- 12 o'clock → 3 o'clock -->
-            <path d="M 300 125 A 175 175 0 0 1 475 300"/>
-            <!-- 3 o'clock → 6 o'clock -->
-            <path d="M 475 300 A 175 175 0 0 1 300 475"/>
-            <!-- 6 o'clock → 9 o'clock -->
-            <path d="M 300 475 A 175 175 0 0 1 125 300"/>
-            <!-- 9 o'clock → 12 o'clock -->
-            <path d="M 125 300 A 175 175 0 0 1 300 125"/>
+
+          <!-- The blue ring · single solid circle (cx=320, cy=320, r=200, stroke=24) -->
+          <circle cx="320" cy="320" r="200"
+                  fill="none"
+                  stroke="url(#vll-ring-grad)"
+                  stroke-width="24"
+                  filter="url(#vll-ring-shadow)"/>
+
+          <!-- Four clockwise-pointing arrowheads at the mid-segments (NE, SE, SW, NW) of the ring -->
+          <!-- Position formula: (320 ± 141.4, 320 ∓ 141.4)  where 141.4 = 200·sin(45°) -->
+          <g opacity="0.95">
+            <use href="#vll-arrow" transform="translate(461.4, 178.6) rotate(45)"/>
+            <use href="#vll-arrow" transform="translate(461.4, 461.4) rotate(135)"/>
+            <use href="#vll-arrow" transform="translate(178.6, 461.4) rotate(225)"/>
+            <use href="#vll-arrow" transform="translate(178.6, 178.6) rotate(315)"/>
           </g>
-          <!-- Four node circles at cardinal points (radius 55), placed on top of the ring -->
+
+          <!-- Four node circles at cardinal points (top, right, bottom, left), radius 58 -->
           <g class="vll-node-group">
-            <circle class="vll-node-circle" cx="300" cy="125" r="55"/>
-            <text class="vll-node-num"   x="300" y="115" text-anchor="middle">1.</text>
-            <text class="vll-node-title" x="300" y="135" text-anchor="middle">Identify the</text>
-            <text class="vll-node-title" x="300" y="151" text-anchor="middle">Hypothesis</text>
-          </g>
-          <g class="vll-node-group">
-            <circle class="vll-node-circle" cx="475" cy="300" r="55"/>
-            <text class="vll-node-num"   x="475" y="290" text-anchor="middle">2.</text>
-            <text class="vll-node-title" x="475" y="310" text-anchor="middle">Define the</text>
-            <text class="vll-node-title" x="475" y="326" text-anchor="middle">Constraints</text>
-          </g>
-          <g class="vll-node-group">
-            <circle class="vll-node-circle" cx="300" cy="475" r="55"/>
-            <text class="vll-node-num"   x="300" y="465" text-anchor="middle">3.</text>
-            <text class="vll-node-title" x="300" y="485" text-anchor="middle">Build and</text>
-            <text class="vll-node-title" x="300" y="501" text-anchor="middle">Stress-Test</text>
+            <circle class="vll-node-circle" cx="320" cy="120" r="58"/>
+            <text class="vll-node-num"   x="320" y="110" text-anchor="middle">1.</text>
+            <text class="vll-node-title" x="320" y="130" text-anchor="middle">Identify the</text>
+            <text class="vll-node-title" x="320" y="146" text-anchor="middle">Hypothesis</text>
           </g>
           <g class="vll-node-group">
-            <circle class="vll-node-circle" cx="125" cy="300" r="55"/>
-            <text class="vll-node-num"   x="125" y="290" text-anchor="middle">4.</text>
-            <text class="vll-node-title" x="125" y="310" text-anchor="middle">Synthesize</text>
-            <text class="vll-node-title" x="125" y="326" text-anchor="middle">and Pivot</text>
+            <circle class="vll-node-circle" cx="520" cy="320" r="58"/>
+            <text class="vll-node-num"   x="520" y="310" text-anchor="middle">2.</text>
+            <text class="vll-node-title" x="520" y="330" text-anchor="middle">Define the</text>
+            <text class="vll-node-title" x="520" y="346" text-anchor="middle">Constraints</text>
           </g>
-          <!-- Outer annotations — dashed spoke lines + small dots + foreignObject text labels -->
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="320" cy="520" r="58"/>
+            <text class="vll-node-num"   x="320" y="510" text-anchor="middle">3.</text>
+            <text class="vll-node-title" x="320" y="530" text-anchor="middle">Build and</text>
+            <text class="vll-node-title" x="320" y="546" text-anchor="middle">Stress-Test</text>
+          </g>
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="120" cy="320" r="58"/>
+            <text class="vll-node-num"   x="120" y="310" text-anchor="middle">4.</text>
+            <text class="vll-node-title" x="120" y="330" text-anchor="middle">Synthesize</text>
+            <text class="vll-node-title" x="120" y="346" text-anchor="middle">and Pivot</text>
+          </g>
+
+          <!-- Annotations — short dashed spoke + dot + italic label outside each node -->
           <!-- Anno 1 · above node 1 -->
-          <line class="vll-anno-line" x1="300" y1="70" x2="300" y2="35"/>
-          <circle class="vll-anno-dot" cx="300" cy="35" r="4"/>
-          <foreignObject x="155" y="0" width="290" height="36">
+          <line class="vll-anno-line" x1="320" y1="62" x2="320" y2="32"/>
+          <circle class="vll-anno-dot" cx="320" cy="32" r="3.5"/>
+          <foreignObject x="165" y="0" width="310" height="32">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">This is the <em style="color:#60a5fa;font-style:italic;">"why"</em> that governs every prompt you write.</div>
           </foreignObject>
           <!-- Anno 2 · right of node 2 -->
-          <line class="vll-anno-line" x1="530" y1="300" x2="565" y2="300"/>
-          <circle class="vll-anno-dot" cx="565" cy="300" r="4"/>
-          <foreignObject x="465" y="240" width="135" height="50">
+          <line class="vll-anno-line" x1="578" y1="320" x2="608" y2="320"/>
+          <circle class="vll-anno-dot" cx="608" cy="320" r="3.5"/>
+          <foreignObject x="500" y="260" width="138" height="50">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">These act as the <em style="color:#a78bfa;font-style:italic;">guardrails</em> for the build.</div>
           </foreignObject>
           <!-- Anno 3 · below node 3 -->
-          <line class="vll-anno-line" x1="300" y1="530" x2="300" y2="565"/>
-          <circle class="vll-anno-dot" cx="300" cy="565" r="4"/>
-          <foreignObject x="155" y="568" width="290" height="36">
+          <line class="vll-anno-line" x1="320" y1="578" x2="320" y2="608"/>
+          <circle class="vll-anno-dot" cx="320" cy="608" r="3.5"/>
+          <foreignObject x="165" y="610" width="310" height="32">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Zero in on intentionally finding where the <em style="color:#fde68a;font-style:italic;">logic or experience breaks</em>.</div>
           </foreignObject>
           <!-- Anno 4 · left of node 4 -->
-          <line class="vll-anno-line" x1="70" y1="300" x2="35" y2="300"/>
-          <circle class="vll-anno-dot" cx="35" cy="300" r="4"/>
-          <foreignObject x="0" y="240" width="135" height="50">
+          <line class="vll-anno-line" x1="62" y1="320" x2="32" y2="320"/>
+          <circle class="vll-anno-dot" cx="32" cy="320" r="3.5"/>
+          <foreignObject x="2" y="260" width="138" height="50">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Update your hypothesis and either <em style="color:#6ee7b7;font-style:italic;">continue or pivot</em>.</div>
           </foreignObject>
         </svg>
