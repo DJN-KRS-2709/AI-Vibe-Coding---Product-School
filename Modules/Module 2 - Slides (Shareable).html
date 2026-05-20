@@ -389,14 +389,14 @@ section.cameras-section .cameras-inner {
 /* ===== M2 visual primitives ===== */
 
 /* VALIDATION LENS LOOP — circular SVG diagram, mirrors the legacy slide */
-.vll-wrap { display: grid; grid-template-columns: 0.95fr 1.25fr; gap: 36px; align-items: center; margin: 20px 0 4px; }
+.vll-wrap { display: grid; grid-template-columns: 0.85fr 1.4fr; gap: 28px; align-items: center; margin: 20px 0 4px; }
 .vll-left .demo-tag { margin-bottom: 18px; }
-.vll-left h2 { font-size: 44px; line-height: 1.05; margin-bottom: 18px; }
-.vll-left p { font-size: 15.5px; line-height: 1.65; color: #cdd5e3; margin-bottom: 14px; }
+.vll-left h2 { font-size: 40px; line-height: 1.05; margin-bottom: 18px; }
+.vll-left p { font-size: 15px; line-height: 1.65; color: #cdd5e3; margin-bottom: 14px; }
 .vll-left p.vll-anchor { color: #fff; font-weight: 600; }
 .vll-left p.vll-anchor strong { color: #60a5fa; }
-.vll-svg-wrap { display: flex; align-items: center; justify-content: center; }
-.vll-svg { width: 100%; max-width: 560px; height: auto; display: block; }
+.vll-svg-wrap { display: flex; align-items: center; justify-content: center; padding: 0 6px; }
+.vll-svg { width: 100%; max-width: 680px; height: auto; display: block; overflow: visible; }
 .vll-node-circle { fill: rgba(7,22,44,0.92); stroke: rgba(96,165,250,0.55); stroke-width: 1.5; transition: all .3s ease; }
 .vll-node-group:hover .vll-node-circle { stroke: #60a5fa; stroke-width: 2.5; filter: drop-shadow(0 0 12px rgba(96,165,250,0.5)); }
 .vll-node-num { fill: #60a5fa; font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 800; }
@@ -747,7 +747,7 @@ section.cameras-section .cameras-inner {
         <div class="vll-coda"><strong>Most people prototype in a straight line.</strong> Vibe Coding requires a circle — the loop is the upgrade.</div>
       </div>
       <div class="vll-svg-wrap">
-        <svg class="vll-svg" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg" aria-label="Validation Lens Loop — four-stop circular framework">
+        <svg class="vll-svg" viewBox="-80 -10 800 660" xmlns="http://www.w3.org/2000/svg" aria-label="Validation Lens Loop — four-stop circular framework">
           <defs>
             <linearGradient id="vll-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%"   stop-color="#60a5fa"/>
@@ -808,30 +808,31 @@ section.cameras-section .cameras-inner {
             <text class="vll-node-title" x="120" y="346" text-anchor="middle">and Pivot</text>
           </g>
 
-          <!-- Annotations — short dashed spoke + dot + italic label outside each node -->
+          <!-- Annotations — dashed spoke from each node + dot + italic label *outside* the node circle. -->
+          <!-- The viewBox is extended to x=-80…720 so anno 2 (right) and anno 4 (left) sit clearly outside the node circles, with no foreignObject ever overlapping a node. -->
           <!-- Anno 1 · above node 1 -->
-          <line class="vll-anno-line" x1="320" y1="62" x2="320" y2="32"/>
-          <circle class="vll-anno-dot" cx="320" cy="32" r="3.5"/>
-          <foreignObject x="165" y="0" width="310" height="32">
+          <line class="vll-anno-line" x1="320" y1="62" x2="320" y2="28"/>
+          <circle class="vll-anno-dot" cx="320" cy="28" r="3.5"/>
+          <foreignObject x="120" y="0" width="400" height="32">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">This is the <em style="color:#60a5fa;font-style:italic;">"why"</em> that governs every prompt you write.</div>
           </foreignObject>
-          <!-- Anno 2 · right of node 2 -->
-          <line class="vll-anno-line" x1="578" y1="320" x2="608" y2="320"/>
-          <circle class="vll-anno-dot" cx="608" cy="320" r="3.5"/>
-          <foreignObject x="500" y="260" width="138" height="50">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">These act as the <em style="color:#a78bfa;font-style:italic;">guardrails</em> for the build.</div>
+          <!-- Anno 2 · right of node 2 (foreignObject sits at x=590..710 — clear of node 2's right edge at x=578) -->
+          <line class="vll-anno-line" x1="578" y1="320" x2="586" y2="320"/>
+          <circle class="vll-anno-dot" cx="586" cy="320" r="3.5"/>
+          <foreignObject x="594" y="294" width="124" height="60">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo" style="text-align:left;">These act as the <em style="color:#a78bfa;font-style:italic;">guardrails</em> for the build.</div>
           </foreignObject>
           <!-- Anno 3 · below node 3 -->
-          <line class="vll-anno-line" x1="320" y1="578" x2="320" y2="608"/>
-          <circle class="vll-anno-dot" cx="320" cy="608" r="3.5"/>
-          <foreignObject x="165" y="610" width="310" height="32">
+          <line class="vll-anno-line" x1="320" y1="578" x2="320" y2="612"/>
+          <circle class="vll-anno-dot" cx="320" cy="612" r="3.5"/>
+          <foreignObject x="120" y="616" width="400" height="32">
             <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Zero in on intentionally finding where the <em style="color:#fde68a;font-style:italic;">logic or experience breaks</em>.</div>
           </foreignObject>
-          <!-- Anno 4 · left of node 4 -->
-          <line class="vll-anno-line" x1="62" y1="320" x2="32" y2="320"/>
-          <circle class="vll-anno-dot" cx="32" cy="320" r="3.5"/>
-          <foreignObject x="2" y="260" width="138" height="50">
-            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Update your hypothesis and either <em style="color:#6ee7b7;font-style:italic;">continue or pivot</em>.</div>
+          <!-- Anno 4 · left of node 4 (foreignObject sits at x=-78..46 — clear of node 4's left edge at x=62) -->
+          <line class="vll-anno-line" x1="62" y1="320" x2="54" y2="320"/>
+          <circle class="vll-anno-dot" cx="54" cy="320" r="3.5"/>
+          <foreignObject x="-78" y="294" width="124" height="60">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo" style="text-align:right;">Update your hypothesis and either <em style="color:#6ee7b7;font-style:italic;">continue or pivot</em>.</div>
           </foreignObject>
         </svg>
       </div>
