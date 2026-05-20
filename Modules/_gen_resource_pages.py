@@ -60,6 +60,55 @@ PAGES = [
         "Scenarios, deliverables, rubric, timeline. The single source of truth for the certification capstone.",
         "#60a5fa",
     ),
+    # ─── Module 2 resources ────────────────────────────────────────────────
+    (
+        MODULES_DIR / "Module 2 - Frameworks Reference Card.md",
+        MODULES_DIR / "Module 2 - Frameworks Reference Card.html",
+        "Module 2 — Reference Card",
+        "M2 Frameworks Reference Card",
+        "The Validation Lens Loop, the Kill Switch + Risk Type matrix, and the Problem Framework — one page, in the order you use them.",
+        "#a78bfa",
+    ),
+    (
+        MODULES_DIR / "Module 2 - Glossary.md",
+        MODULES_DIR / "Module 2 - Glossary.html",
+        "Module 2 — Glossary",
+        "M2 Glossary",
+        "Every term used in Module 2, defined the way we use it — Hypothesis, Kill Switch, Risk Type, Context Injection, Validation Brief, and more.",
+        "#fde68a",
+    ),
+    (
+        MODULES_DIR / "Module 2 - Notes (Shareable).md",
+        MODULES_DIR / "Module 2 - Notes (Shareable).html",
+        "Module 2 — Shareable Notes",
+        "M2 Shareable Notes",
+        "The long-form companion to the Module 2 deck. Read before, refer after.",
+        "#f9a8d4",
+    ),
+    (
+        MODULES_DIR / "Module 2 - Pre-Read.md",
+        MODULES_DIR / "Module 2 - Pre-Read.html",
+        "Module 2 — Pre-Read",
+        "M2 Pre-Read",
+        "What to do before Module 2 — including a deeper look at your M1 prototype with the three uncomfortable questions.",
+        "#6ee7b7",
+    ),
+    (
+        MODULES_DIR / "Module 2 - Context Data Packs.md",
+        MODULES_DIR / "Module 2 - Context Data Packs.html",
+        "Module 2 — Context Data Packs",
+        "Context Data Packs · per scenario",
+        "Real user quotes and quantitative metrics for each of the four scenarios. Paste these into your Validation Brief to perform context injection.",
+        "#60a5fa",
+    ),
+    (
+        MODULES_DIR / "Module 2 - Speaker Notes.md",
+        MODULES_DIR / "Module 2 - Speaker Notes.html",
+        "Module 2 — Speaker Notes",
+        "M2 Speaker Notes",
+        "The full instructor narration for Module 2 — every slide, every transition, every callback.",
+        "#fda4af",
+    ),
 ]
 
 HEAD = """<!DOCTYPE html>
@@ -188,14 +237,8 @@ HEAD = """<!DOCTYPE html>
 FOOTER = """  </div>
 
   <div class="footer-nav">
-    <div class="fn-back"><a href="Module 1 - Slides.html">← Back to Module 1 deck</a></div>
-    <div class="fn-siblings">
-      <a class="fn-sibling{is_frameworks}" href="Module 1 - Frameworks Reference Card.html">Frameworks Card</a>
-      <a class="fn-sibling{is_glossary}" href="Module 1 - Glossary.html">Glossary</a>
-      <a class="fn-sibling{is_notes}" href="Module 1 - Notes (Shareable).html">Shareable Notes</a>
-      <a class="fn-sibling{is_preread}" href="Module 1 - Pre-Read.html">Pre-Read</a>
-      <a class="fn-sibling{is_final}" href="../Final Project - Requirements and Scenario Guide.html">Final Project Brief</a>
-    </div>
+    <div class="fn-back"><a href="{back_href}">← Back to {back_label}</a></div>
+    <div class="fn-siblings">{siblings}</div>
   </div>
 
   <div class="footer-note">
@@ -224,8 +267,62 @@ def render_markdown(text: str) -> str:
     return html
 
 
-def _sib(is_current: bool) -> str:
-    return " current" if is_current else ""
+def _module_of(dst_name: str) -> int:
+    """Return module number (1, 2, ...) or 0 for cross-module resources."""
+    if dst_name.startswith("Module 1") or dst_name.startswith("M1 "):
+        return 1
+    if dst_name.startswith("Module 2") or dst_name.startswith("M2 "):
+        return 2
+    return 0
+
+
+def _peer_exists(href: str) -> bool:
+    """Resolve a peer href relative to MODULES_DIR and check it exists on disk."""
+    if href.startswith("../"):
+        return (REPO_ROOT / href.removeprefix("../")).exists()
+    return (MODULES_DIR / href).exists()
+
+
+def _build_siblings(dst_name: str) -> tuple[str, str, str]:
+    """Build footer sibling chips, back-link, and back-label for the current page.
+
+    Sibling chips are filtered to peers that actually exist on disk, so the
+    nav never contains broken links.
+    """
+    mod = _module_of(dst_name)
+    if mod == 1:
+        back_href = "Module 1 - Slides.html"
+        back_label = "Module 1 deck"
+        peers = [
+            ("Module 1 - Frameworks Reference Card.html", "Frameworks Card"),
+            ("Module 1 - Glossary.html", "Glossary"),
+            ("Module 1 - Notes (Shareable).html", "Shareable Notes"),
+            ("Module 1 - Pre-Read.html", "Pre-Read"),
+            ("../Final Project - Requirements and Scenario Guide.html", "Final Project Brief"),
+        ]
+    elif mod == 2:
+        back_href = "Module 2 - Slides.html"
+        back_label = "Module 2 deck"
+        peers = [
+            ("Module 2 - Frameworks Reference Card.html", "Frameworks Card"),
+            ("Module 2 - Glossary.html", "Glossary"),
+            ("Module 2 - Notes (Shareable).html", "Shareable Notes"),
+            ("Module 2 - Pre-Read.html", "Pre-Read"),
+            ("Module 2 - Context Data Packs.html", "Context Data Packs"),
+            ("M2 - Lab Guide.html", "Lab Guide"),
+            ("M2 - Validation Brief.html", "Validation Brief"),
+        ]
+    else:
+        back_href = "Modules/Module 1 - Slides.html"
+        back_label = "Module 1 deck"
+        peers = []
+    chips = []
+    for href, label in peers:
+        if not _peer_exists(href):
+            continue
+        cls = " current" if href.split("/")[-1] == dst_name else ""
+        chips.append(f'<a class="fn-sibling{cls}" href="{href}">{label}</a>')
+    return back_href, back_label, "\n      ".join(chips)
 
 
 def main() -> None:
@@ -235,13 +332,12 @@ def main() -> None:
             continue
         body = render_markdown(src.read_text(encoding="utf-8"))
         head = HEAD.format(title=h1, badge=badge, h1=h1, tagline=tagline, accent=accent)
+        back_href, back_label, siblings = _build_siblings(dst.name)
         footer = FOOTER.format(
             source_name=src.name,
-            is_frameworks=_sib(dst.name == "Module 1 - Frameworks Reference Card.html"),
-            is_glossary=_sib(dst.name == "Module 1 - Glossary.html"),
-            is_notes=_sib(dst.name == "Module 1 - Notes (Shareable).html"),
-            is_preread=_sib(dst.name == "Module 1 - Pre-Read.html"),
-            is_final=_sib(dst.name == "Final Project - Requirements and Scenario Guide.html"),
+            back_href=back_href,
+            back_label=back_label,
+            siblings=siblings,
         )
         dst.write_text(head + body + footer, encoding="utf-8")
         print(f"WROTE: {dst.relative_to(REPO_ROOT)}")

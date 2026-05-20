@@ -72,7 +72,26 @@ Third — hands-on lab. You'll start your final project. Not a throwaway exercis
 This kicks off the first major block. Let's talk about what separates a demo from a decision tool.
 
 
-## Slide 6 — Instructor-Led Demo: What You Can Prove with Context Injection
+## Slide 6 — Reflection Moment: What Does Your M1 Build Prove?
+
+**ACTION: This is interactive. Give students 3–4 minutes. Q&A comes BEFORE the demo — the discomfort has to land before the answer arrives.**
+
+Open up your prototype from Module 1. Take a real look. I want you to answer three questions — and be honest with yourself:
+
+One — what assumption were you actually testing? Not what you think it was retroactively. What was it *when you built it*?
+
+Two — if your VP asked "what did you learn from this?" — what would you say?
+
+Three — where is the real user data? Where are the metrics? Where's the user language?
+
+Post your answers in Slack or unmute and share. This should be slightly uncomfortable. Most of you will realize your M1 build doesn't test anything specific. That's not a failure — that's M1's job. M1 proved you can build. M2 proves you can build something that matters.
+
+**Spend ~2 minutes discussing responses. Acknowledge the gap. That gap is the lesson — and the demo immediately after closes it.**
+
+That gap — between "looks real" and "proves something" — is exactly what we close today.
+
+
+## Slide 7 — Instructor-Led Demo: What You Can Prove with Context Injection
 
 > Instructor demo: **The Customer Vibe — Retention Engine** (B2B PM SaaS — 30% churn, team invites — carried through M2/M3/M4/M5 demos)
 > Total demo time: ~8 minutes. Pre-build both versions before class.
@@ -203,26 +222,7 @@ Output format: Clickable web onboarding prototype with 3 distinct screens plus e
 4. **Deliver the context-injected version as if you're building it live** — paste the prompt, let it generate. But if it fails or produces weak output, switch to the pre-built backup. Say: "Let me show you the one I built earlier with this exact prompt" and switch tabs.
 
 
-## Slide 7 — Reflection Moment: What Does Your M1 Build Prove?
-
-**ACTION: This is interactive. Give students 3-4 minutes.**
-
-Open up your prototype from Module 1. Take a real look. I want you to answer three questions — and be honest with yourself:
-
-One — what assumption were you actually testing? Not what you think it was retroactively. What was it *when you built it*?
-
-Two — if your VP asked "what did you learn from this?" — what would you say?
-
-Three — where is the real user data? Where are the metrics? Where's the user language?
-
-Post your answers in Slack or unmute and share. This should be slightly uncomfortable. Most of you will realize your M1 build doesn't test anything specific. That's not a failure — that's M1's job. M1 proved you can build. M2 proves you can build something that matters.
-
-**Spend ~2 minutes discussing responses. Acknowledge the gap. That gap is the lesson.**
-
-That gap — between "looks real" and "proves something" — is exactly what we close today.
-
-
-## Slide 8 — Three Main Ingredients for Context Injection
+## Slide 7 — Three Main Ingredients for Context Injection
 
 Three ingredients that M1 didn't have.
 
@@ -344,29 +344,14 @@ Three steps:
 Welcome back! Quick reminder — cameras on for this next section. We're about to connect all the pieces.
 
 
-## Slide 18 — How to Sharpen Prototyping Intent
-
-Before we build, let me show you how these four inputs work together as a system. This is the strategic shift from M1 to M2.
-
-**Validation Brief** — defining your hypothesis and kill switch before you prompt ensures your prototype is a precision tool designed to answer a specific product question. Not a generic demo.
-
-**Visual Reference** — providing a screenshot gives the AI rigid design guardrails that professionalize the output and remove guesswork from the interface. Instead of getting a default layout, you get something that looks like it belongs in your product.
-
-**Context Data Pack** — injecting real user quotes and metrics kills the placeholder trap. Stakeholders react to the actual value of your solution rather than the aesthetics. When your prototype says "I signed up because my manager told me to" instead of "Lorem ipsum dolor sit amet" — the conversation changes completely.
-
-**Structured Prompt** — using a framework gives you granular control over the build, preventing AI hallucinations and ensuring the logic follows your business rules.
-
-One note: we'll explore prompting in much more detail in Module 3. Today the focus is on the inputs — hypothesis, data, and intent. Module 3 sharpens how you communicate those inputs to the AI.
-
-
-## Slide 19 — Chapter Break: Start Your Final Project
+## Slide 18 — Chapter Break: Start Your Final Project
 
 This is the main event. Everything before this was setup. Now you build.
 
 
-## Slide 20 — Hands-On Lab: Start Your Final Project and Build With Confidence
+## Slide 19 — Hands-On Lab: Start Your Final Project and Build With Confidence
 
-**ACTION: This is the core lab. Give students 20-25 minutes. Walk the room continuously.**
+**ACTION: This is the core lab. 40 minutes (per the legacy walkthrough). Walk the room continuously. Final 2 min reminder: you can't review a blank screen — partners are assigned the moment the timer hits zero.**
 
 You have everything you need — Validation Brief, Context Data Pack, Visual Reference, and a structured prompt. Here's the workflow:
 
@@ -396,7 +381,7 @@ Your goal is NOT to build something pretty. Your goal is to build something that
 **Credit reminder:** This is exactly why we use the Structured Prompt Builder first. One well-assembled prompt instead of five trial-and-error burns in Lovable.
 
 
-## Slide 21 — Breakout: Show and Swap Your Prototype
+## Slide 20 — Breakout: Show and Swap Your Prototype
 
 **ACTION: Create breakout pairs — random assignment. Same format as M1.**
 
@@ -413,7 +398,7 @@ The question isn't "is this cool?" It's "does this test what they said they were
 After you've discussed, swap roles and repeat.
 
 
-## Slide 22 — Quick Debrief: What Your Partner Just Told You
+## Slide 21 — Quick Debrief: What Your Partner Just Told You
 
 Post on Slack: M1 vs. M2 screenshots side by side, plus the one piece of feedback from your Show-and-Swap partner that landed hardest. The signal you came here for came from your partner, not from a number you give yourself.
 
@@ -424,33 +409,7 @@ The credibility rubric on the slide (1 Sketch · 2 Rough Direction · 3 Getting 
 The shift from M1 matters. In M1 the gap was about looks. In M2 it's about whether the build tests what you claimed it tests. Same private read, different reason — that's the move.
 
 
-## Slide 23 — Reflection: The Same Three Questions
-
-**ACTION: This is the full-circle moment. Same three questions from the start of class — but now students can answer them.**
-
-Look at your Module 2 prototype and answer the same three questions we asked at the beginning:
-
-What specific assumption were you actually testing today, and how does this build prove it? At the start of class, most of you couldn't answer this for your M1 build. Can you answer it now?
-
-If your VP asked "what did you learn from this?" — what would you say? You should have a real answer now. Not "I built a dashboard." Something like "I learned that surfacing the invite flow on Day 1 doesn't matter if users don't understand why they should invite teammates."
-
-Where is your user data? Metrics? User language? It should be *in the prototype.* Not in a separate document — in the screens themselves.
-
-**Spend 2-3 minutes on this. Let students share. This is where the shift becomes visible.**
-
-That shift — from "I can't answer these" to "the answers are literally in the prototype" — that's the Validation Lens.
-
-
-## Slide 24 — Quick Debrief: Key Learning Statement
-
-Post on Slack in one sentence: what assumption did you test and what did you learn from it?
-
-Not what you built — what you *learned*. Then reply to 2 other learning sentences from your peers.
-
-The best outcomes aren't always "it worked." Sometimes the most valuable learning is "we discovered it doesn't work — in 30 minutes instead of 3 months." Netflix discovered their first personalization algorithm was worse than random recommendations. They found that out from a prototype test, not from shipping to millions of users. That's the value of building to learn.
-
-
-## Slide 25 — Module 2 Complete: What You Accomplished Today
+## Slide 22 — Module 2 Complete: What You Accomplished Today
 
 Look at what happened in this session. You built a targeted prototype designed to surface evidence, not just look finished.
 
@@ -465,7 +424,7 @@ Look at what happened in this session. You built a targeted prototype designed t
 Next up — Module 3. Same product, better execution.
 
 
-## Slide 26 — Key Takeaways
+## Slide 23 — Key Takeaways
 
 Let me bring this home with a story that connects all three lessons.
 
@@ -478,7 +437,7 @@ And takeaway three — **the validation loop compresses months into minutes.** C
 From this point forward, every prototype gets judged by what it validates — not how it looks.
 
 
-## Slide 27 — Extra Practice and Next Session
+## Slide 24 — Extra Practice and Next Session
 
 Two optional exercises if you want to dig deeper:
 
@@ -489,16 +448,16 @@ Two optional exercises if you want to dig deeper:
 Next session — Module 3: Architect Precise Prototypes with Context Engineering. You'll move from mega-prompts to prompt chaining — isolating business logic, user flow, and visual design into distinct stages to prevent AI drift. Same product, sharper execution. You'll go from "build me something" to "build me exactly this."
 
 
-## Slide 28 — Survey
+## Slide 25 — Survey
 
 At the end of each session, please scan the QR code or use the link to share your feedback. Your insights help us improve and make each cohort better than the last. We'd love to hear about your experience!
 
 
-## Slide 29 — Bonus Resources
+## Slide 26 — Bonus Resources
 
 Here you'll find all the resources for this module — the Module 2 Lab Guide walkthrough and the Vibe Coding Validation Brief template. Bookmark these. The Validation Brief in particular is something you'll use in every module going forward — it's not a one-time exercise.
 
 
-## Slide 30 — Q&A
+## Slide 27 — Q&A
 
 Alright, before we close — any final questions? This is your time to ask anything about what we covered today, the tools, your scenario selection, or the final project. Feel free to unmute or drop your question in the chat. And as always, share questions in Slack if something comes up later. See you next session!

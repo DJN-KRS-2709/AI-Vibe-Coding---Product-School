@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Context Data Packs · per scenario · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #60a5fa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 2 — Context Data Packs</div>
+    <h1>Context Data Packs · per scenario</h1>
+    <p>Real user quotes and quantitative metrics for each of the four scenarios. Paste these into your Validation Brief to perform context injection.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 2 — Context Data Packs</h1>
+<p><strong>Purpose:</strong> Pre-prepared qualitative and quantitative feedback files that students import into their prototypes during the M2 lab. This is the "context injection" that makes the M2 wow moment work — prototypes built with real data look and feel dramatically different from M1's blank-page builds.</p>
+<p><strong>When distributed:</strong> At the start of Lab Part 2 (Build With Context). Students receive the pack for their chosen scenario via Slack or a shared Google Drive folder.</p>
+<p><strong>Core principle:</strong> Students should never prototype in a vacuum. Real products have users, data, and feedback. These packs simulate that reality so even the course scenarios feel grounded.</p>
+<hr>
+<h2>What's in Each Pack</h2>
+<p>Every scenario pack contains <strong>three files</strong>:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Format</th>
+<th>What It Contains</th>
+<th>How Students Use It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feedback.md</code></td>
+<td>Markdown</td>
+<td>8–12 qualitative quotes from users, stakeholders, and support tickets</td>
+<td>Paste into the prompt as context. "Here's what users are saying." The tool builds with this voice in mind.</td>
+</tr>
+<tr>
+<td><code>metrics.csv</code></td>
+<td>CSV</td>
+<td>15–20 rows of fictional but realistic quantitative data (usage stats, conversion rates, time-on-task, etc.)</td>
+<td>Import as a data source. The prototype can display real-looking charts, tables, or KPI cards — not placeholder "lorem ipsum" data.</td>
+</tr>
+<tr>
+<td><code>scenario-brief.md</code></td>
+<td>Markdown</td>
+<td>A one-page problem brief with stakeholder context, constraints, and competing priorities</td>
+<td>Students paste this as the opening context block in their prompt. It replaces the generic "build me an app" with "here's the full situation."</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Total prep time per scenario:</strong> ~2 hours. Fictional but realistic data. Can be generated with AI assistance and refined for authenticity.</p>
+<hr>
+<h2>Scenario 1: The Retention Engine</h2>
+<h3>feedback.md — User &amp; Stakeholder Quotes</h3>
+<pre><code class="language-markdown"># The Retention Engine — User &amp; Stakeholder Feedback
+
+## User Quotes (from exit surveys and support tickets)
+
+1. &quot;I signed up because my manager told me to. I opened it once, couldn't figure out where my tasks were, and went back to Notion.&quot; — Churned user, Day 3
+
+2. &quot;The onboarding asked me to set up a project, but I don't even know what a 'workspace' is in your tool. I just need a to-do list.&quot; — Churned user, Day 1
+
+3. &quot;I actually liked it once I figured out the board view. But it took me two weeks to find it. By then my trial was almost over.&quot; — Retained user
+
+4. &quot;I invited my co-founder on Day 2 and we started using it together. That's when it clicked — it's a team tool, not a solo tool.&quot; — Retained user, power user
+
+5. &quot;Why can't I just share a link to my board? I had to explain to my teammate how to sign up, create an account, join the workspace... she gave up.&quot; — Churned user, Day 7
+
+6. &quot;The weekly summary email is the only reason I come back. Without it I'd forget this tool exists.&quot; — At-risk user
+
+7. &quot;I tried to invite my team but the invite flow asked for their 'role' and 'department.' I don't know their department codes. I just want to add them.&quot; — At-risk user, Day 4
+
+8. &quot;Your competitor lets me import my existing tasks from Trello. You don't. So I'm running two tools and that's not sustainable.&quot; — Churned user, Day 14
+
+## Stakeholder Quotes
+
+9. VP of Customer Success: &quot;The data is clear — users who invite a teammate in the first 3 days retain at 3x the rate. But only 12% of new users send an invite in that window.&quot;
+
+10. Head of Product: &quot;We buried the invite button in Settings &gt; Team &gt; Members. I know. It's on the roadmap to move it.&quot;
+
+11. CEO: &quot;I don't care if it's onboarding or invites or whatever. I need the 90-day churn number to drop by half or we're not raising our Series B.&quot;
+
+12. Data Analyst: &quot;There's a weird correlation — users who create their first task within 10 minutes of signup retain at 2x. But 60% of users never create a task at all. They just look around and leave.&quot;
+</code></pre>
+<h3>metrics.csv — Quantitative Data</h3>
+<pre><code class="language-csv">metric,value,segment,time_period,notes
+signup_to_first_task_minutes,8.2,retained_users,first_session,Median time for users who stay past 90 days
+signup_to_first_task_minutes,never,churned_users,first_session,60% never create a task
+day_3_invite_rate,0.12,all_users,first_3_days,Only 12% invite a teammate
+retention_90_day_with_invite,0.68,invited_teammate,90_days,Users who invite retain at 68%
+retention_90_day_without_invite,0.22,solo_users,90_days,Solo users retain at 22%
+feature_discovery_board_view,0.31,all_users,first_14_days,31% find board view in first 2 weeks
+feature_discovery_board_view,0.89,retained_users,first_14_days,89% of retained users found board view
+onboarding_completion_rate,0.44,all_users,first_session,44% complete full onboarding
+onboarding_drop_off_step,workspace_setup,churned_users,first_session,Highest drop-off at workspace config
+weekly_email_open_rate,0.62,all_users,weekly,Summary email drives 35% of return visits
+nps_score,24,all_users,quarterly,Below benchmark of 40
+nps_score,71,power_users,quarterly,Power users love it
+support_tickets_onboarding,342,all_users,monthly,38% of all support tickets
+churn_rate_90_day,0.30,all_users,quarterly,Target: reduce to 0.15
+mau_to_dau_ratio,0.18,all_users,current,Low daily engagement
+</code></pre>
+<h3>scenario-brief.md — Problem Brief</h3>
+<pre><code class="language-markdown"># Scenario Brief: The Retention Engine
+
+## The Company
+B2B project management SaaS. 5,000 paying teams. $4.2M ARR. Series A. 18 months old.
+
+## The Problem
+30% of new customers churn within 90 days. The company cannot raise Series B with this churn rate. The board has given the team one quarter to show measurable improvement.
+
+## What We Know
+- Users who invite a teammate in the first 3 days retain at 3x the rate (68% vs 22%)
+- Only 12% of new users send an invite in the first 3 days
+- The invite button is buried in Settings &gt; Team &gt; Members
+- 60% of new users never create their first task
+- Users who find the board view retain at higher rates, but only 31% discover it in the first 2 weeks
+
+## Competing Hypotheses
+- **VP Customer Success:** &quot;It's a team activation problem. Make inviting effortless.&quot;
+- **Head of Product:** &quot;It's a feature discovery problem. Users don't find the features that make us sticky.&quot;
+- **CEO:** &quot;I don't care what it is. Cut 90-day churn in half.&quot;
+
+## Constraints
+- No engineering resources for 6 weeks (they're finishing a migration)
+- Must work within the existing product — no standalone app
+- Budget: $0 (prototype only, no paid tools beyond what we have)
+
+## Your Job
+Prototype the intervention that has the highest likelihood of reducing 90-day churn. Use the data and feedback to identify the riskiest assumption, then build to test it.
+</code></pre>
+<hr>
+<h2>Scenario 2: The Internal Tool Nobody Uses</h2>
+<h3>feedback.md — User &amp; Stakeholder Quotes</h3>
+<pre><code class="language-markdown"># The Internal Tool Nobody Uses — User &amp; Stakeholder Feedback
+
+## Sales Rep Quotes (from internal survey and 1:1s)
+
+1. &quot;I know I'm supposed to log my calls. But by the time I open the CRM, find the right contact, click through three screens, and type my notes... I've forgotten half of what was said.&quot; — Senior AE
+
+2. &quot;I just text myself after calls and paste it into a Google Doc. I know that's not ideal but at least I can find it later.&quot; — SDR
+
+3. &quot;The CRM wants me to fill out 'Next Steps,' 'Decision Maker,' 'Budget Range,' 'Timeline' after every single call. Most of the time I don't have that info yet. So I just skip it.&quot; — AE
+
+4. &quot;I used it for a week when I started. Then I realized nobody else on the team uses it either, so why bother?&quot; — New hire, 2 months in
+
+5. &quot;If it could just listen to my calls and fill itself out, I'd use it every day. The problem isn't the tool — it's the data entry.&quot; — Senior AE
+
+6. &quot;My manager checks the CRM once a quarter for pipeline reviews. That's literally the only time it matters. So I bulk-update everything the night before.&quot; — AE
+
+7. &quot;I actually like the reporting features. But the data in there is garbage because nobody enters it consistently. So the reports are useless.&quot; — Sales Manager
+
+8. &quot;The mobile app crashes constantly. I'm usually in my car between meetings. If I can't do it from my phone, it's not happening.&quot; — Field Sales Rep
+
+## Stakeholder Quotes
+
+9. VP of Sales: &quot;We spent $180K building this tool. 18% adoption. I need to either fix it or justify buying Gong to the board. Either way, I need a prototype by end of month.&quot;
+
+10. Engineering Lead: &quot;The tool works fine. The problem is user behavior, not the software. We've offered training three times — nobody shows up.&quot;
+
+11. CEO (from all-hands): &quot;Maybe we should just buy Gong. I've heard good things. Can someone look into this?&quot;
+
+12. Revenue Ops: &quot;We're losing an estimated $2.3M annually in deal intelligence because reps don't document. When a rep leaves, their entire book of business context walks out the door.&quot;
+</code></pre>
+<h3>metrics.csv</h3>
+<pre><code class="language-csv">metric,value,segment,time_period,notes
+adoption_rate,0.18,all_reps,current,18% active weekly users
+daily_active_users,11,all_reps,current,Out of 200 reps
+avg_time_to_log_call,4.5,active_users,per_call,Minutes from call end to note saved
+calls_per_rep_per_day,6.2,all_reps,daily,Average across team
+calls_logged_per_rep_per_day,0.8,all_reps,daily,Most calls go unlogged
+fields_completed_per_entry,3.2,active_users,per_entry,Out of 9 required fields
+mobile_crash_rate,0.23,mobile_users,per_session,23% of mobile sessions crash
+training_attendance_rate,0.11,all_reps,last_3_sessions,11% attend voluntary training
+bulk_update_before_review,0.67,all_reps,quarterly,67% bulk-update night before pipeline review
+rep_turnover_annual,0.34,all_reps,annual,34% annual turnover
+knowledge_loss_per_departure,estimated_47_deals,departing_reps,per_event,Avg deals with no CRM context
+gong_annual_cost,285000,company,annual,Alternative solution estimate
+current_tool_build_cost,180000,company,one_time,Sunk cost
+nps_internal_tool,-12,all_reps,last_survey,Negative NPS
+</code></pre>
+<h3>scenario-brief.md</h3>
+<pre><code class="language-markdown"># Scenario Brief: The Internal Tool Nobody Uses
+
+## The Company
+Mid-market SaaS. 200-person sales team across 3 offices + remote. $45M ARR. Series C.
+
+## The Problem
+Internal CRM note-taking tool built last year has 18% adoption. Sales reps prefer Google Docs, text messages to themselves, or nothing at all. The company is losing institutional knowledge with every rep departure (34% annual turnover). The CEO mentioned buying Gong at the all-hands — the VP of Sales is under pressure to show the internal tool can work.
+
+## What We Know
+- Average time to log a call: 4.5 minutes (too long for reps between meetings)
+- Reps make ~6 calls/day but log fewer than 1
+- The tool requires 9 fields per entry; reps fill out 3.2 on average
+- Mobile app crashes 23% of sessions
+- 67% of reps bulk-update the CRM the night before quarterly pipeline reviews
+- Reps who DO use it consistently report better win rates, but correlation ≠ causation
+
+## Competing Hypotheses
+- **VP Sales:** &quot;Make it so easy they can't NOT use it. Under 30 seconds per call.&quot;
+- **Engineering:** &quot;The tool works. It's a training problem.&quot;
+- **Revenue Ops:** &quot;The real cost isn't the tool — it's the $2.3M in lost deal intelligence annually.&quot;
+- **CEO:** &quot;Just buy Gong.&quot;
+
+## Constraints
+- Cannot replace the existing CRM (political reasons — it was the CTO's initiative)
+- Must layer on top of or integrate with the existing tool
+- Budget: prototype only (proving the concept before requesting build resources)
+- Sales team won't participate in another training session
+
+## Your Job
+Prototype an intervention that gets adoption above 50% without requiring training. Use the data and feedback to identify the real blocker, then build to test your hypothesis.
+</code></pre>
+<hr>
+<h2>Scenario 3: The Marketplace Trust Problem</h2>
+<h3>feedback.md</h3>
+<pre><code class="language-markdown"># The Marketplace Trust Problem — User &amp; Stakeholder Feedback
+
+## Customer Quotes (from user research interviews)
+
+1. &quot;I found three providers who looked good. None had reviews. I'm not going to be the guinea pig who finds out they're terrible.&quot; — Browsed, didn't book
+
+2. &quot;I booked once. The provider was 45 minutes late and didn't apologize. There was no way to report it or get a refund. I deleted the app.&quot; — One-time booker, churned
+
+3. &quot;On Airbnb I trust the system because of the guarantee. Here, if something goes wrong, I'm on my own.&quot; — Browsed, didn't book
+
+4. &quot;I would pay more for a 'verified' provider. I don't care about the cheapest option — I care about not having a stranger in my house who I know nothing about.&quot; — Browsed, didn't book
+
+5. &quot;The provider profiles are just a name and a photo. No bio, no work samples, no response time. How am I supposed to decide?&quot; — Browsed, didn't book
+
+6. &quot;I actually had a great experience! But the app never asked me to leave a review. I would have.&quot; — Satisfied booker
+
+## Provider Quotes
+
+7. &quot;I signed up a month ago. Zero bookings. No one will take a chance on the new person. It's a chicken-and-egg problem.&quot; — New provider
+
+8. &quot;I do great work but I can't get my first review. I offered 50% off for my first 3 customers and the platform doesn't even let me do that.&quot; — New provider
+
+9. &quot;The top providers have 50+ reviews and get all the bookings. The rest of us get nothing. There's no way to break in.&quot; — Provider, 3 months, 0 reviews
+
+## Stakeholder Quotes
+
+10. Head of Growth: &quot;Signups are up 22% QoQ. Bookings are flat. The funnel breaks at the provider selection page.&quot;
+
+11. Head of Product: &quot;We need to solve the cold-start problem for new providers. If we can't get them their first 3 bookings, we lose them.&quot;
+
+12. CEO: &quot;I want a guarantee program. Airbnb has one. We need one. But the team keeps telling me it's complicated.&quot;
+</code></pre>
+<h3>metrics.csv</h3>
+<pre><code class="language-csv">metric,value,segment,time_period,notes
+registered_users,50000,all,current,Total signups
+monthly_active_users,8000,all,monthly,Browsing or booking
+signup_to_first_booking_rate,0.14,customers,all_time,Only 14% of signups ever book
+browse_to_book_conversion,0.06,customers,monthly,6% of browsing sessions result in booking
+provider_page_bounce_rate,0.71,customers,monthly,71% leave the provider page without action
+avg_reviews_per_provider,2.1,all_providers,current,Heavily skewed — median is 0
+providers_with_zero_reviews,0.64,all_providers,current,64% have zero reviews
+new_provider_first_booking_days,47,new_providers,median,Median 47 days to first booking
+new_provider_churn_90_day,0.72,new_providers,90_days,72% of new providers leave within 90 days
+top_10_providers_booking_share,0.58,top_providers,monthly,Top 10% get 58% of all bookings
+customer_willingness_to_pay_premium_verified,0.73,surveyed_customers,survey,73% would pay more for verified
+repeat_booking_rate,0.41,booked_customers,6_months,Those who book once often book again
+review_request_sent,0,all,current,Platform does not prompt for reviews
+support_complaints_trust,156,customers,monthly,Trust-related complaints
+nps_score,18,all_users,quarterly,Low trust drags NPS
+</code></pre>
+<h3>scenario-brief.md</h3>
+<pre><code class="language-markdown"># Scenario Brief: The Marketplace Trust Problem
+
+## The Company
+Peer-to-peer home services marketplace. 50K registered users, 8K MAU. Pre-Series A. 2 years old.
+
+## The Problem
+Bookings are flat despite 22% QoQ signup growth. The funnel breaks at provider selection — 71% bounce from the provider page. The root cause: customers don't trust providers who have no reviews, and 64% of providers have zero reviews. New providers wait a median of 47 days for their first booking; 72% churn within 90 days.
+
+## What We Know
+- The platform never prompts customers to leave reviews (no review request system exists)
+- 73% of surveyed customers would pay a premium for &quot;verified&quot; providers
+- Provider profiles show only name and photo — no bio, work samples, or response time
+- Top 10% of providers (by reviews) capture 58% of all bookings
+- Repeat booking rate is 41% — once trust is established, customers come back
+
+## Competing Hypotheses
+- **Growth:** &quot;It's a cold-start problem. Get new providers their first 3 reviews and bookings will follow.&quot;
+- **Product:** &quot;It's a profile problem. Richer profiles = more trust signals = more bookings.&quot;
+- **CEO:** &quot;It's a guarantee problem. Offer a money-back guarantee like Airbnb.&quot;
+
+## Constraints
+- Small team (8 people total). No dedicated engineering for new features.
+- Must work within the existing marketplace UX — no separate app
+- Cannot offer actual financial guarantees yet (no insurance partner)
+- Must show traction (bookings increase) within one quarter
+
+## Your Job
+Prototype the trust mechanism that has the highest impact on first bookings for new providers. The hypothesis you test should directly address why browsers don't convert to bookers.
+</code></pre>
+<hr>
+<h2>Scenario 4: The Dashboard Nobody Reads</h2>
+<h3>feedback.md</h3>
+<pre><code class="language-markdown"># The Dashboard Nobody Reads — User &amp; Stakeholder Feedback
+
+## User Quotes (from support tickets and user interviews)
+
+1. &quot;I log in, see 12 charts, and immediately feel overwhelmed. I don't know which one matters. So I close the tab.&quot; — New user, marketing manager
+
+2. &quot;I just want to know: is my campaign working? Yes or no. I don't need a scatter plot to tell me that.&quot; — New user, small business owner
+
+3. &quot;I love the dashboard. But I've been using it for 2 years and I know exactly where to look. My new team members are completely lost.&quot; — Power user, head of analytics
+
+4. &quot;The filters are confusing. I selected 'Last 30 days' but one of the charts is still showing all-time data. I don't trust the numbers anymore.&quot; — New user, product manager
+
+5. &quot;Someone showed me the 'custom view' feature and it changed everything. But I never would have found it on my own — it's hidden under a gear icon in the corner.&quot; — Retained user
+
+6. &quot;I get the weekly email summary. That's all I need. I never actually open the dashboard.&quot; — Casual user
+
+7. &quot;I exported the data to Google Sheets and built my own charts. Your dashboard has the data — it just doesn't present it in a way I can use.&quot; — Frustrated user, ops manager
+
+8. &quot;What am I looking at? — Literally what I said when I first opened it. And I have an MBA.&quot; — New user, VP of Marketing
+
+## Stakeholder Quotes
+
+9. PM Lead: &quot;We built this for data analysts. Then we 10x'd our user base with non-technical users. The product didn't evolve with the audience.&quot;
+
+10. Designer: &quot;The information hierarchy is broken. Everything has equal visual weight. Nothing says 'look here first.'&quot;
+
+11. Head of Customer Success: &quot;38% of our support tickets are some variation of 'I don't understand the dashboard.' That's 400+ tickets a month.&quot;
+
+12. CEO: &quot;Bounce rate is embarrassing. If new users can't get value in the first minute, we have a product problem, not a training problem.&quot;
+</code></pre>
+<h3>metrics.csv</h3>
+<pre><code class="language-csv">metric,value,segment,time_period,notes
+first_visit_bounce_rate,0.60,new_users,monthly,60% leave within 30 seconds
+time_to_first_insight,never,new_users,first_session,Most new users never find actionable data
+time_to_first_insight_seconds,45,power_users,per_session,Power users know exactly where to look
+charts_on_default_view,12,all,current,Information overload
+filters_available,4,all,current,Date range / segment / source / custom
+filter_usage_rate,0.22,new_users,first_30_days,Only 22% of new users try filters
+filter_usage_rate,0.91,power_users,per_session,Power users filter constantly
+custom_view_discovery_rate,0.08,new_users,first_30_days,8% find the custom view feature
+custom_view_usage_power_users,0.76,power_users,per_session,76% of power users use custom views
+weekly_email_open_rate,0.54,all_users,weekly,Many users rely solely on the email
+data_export_rate,0.19,all_users,monthly,19% export to build their own charts
+support_tickets_dashboard,412,all_users,monthly,38% of all support volume
+user_base_composition_technical,0.20,all_users,current,Only 20% are data-savvy
+user_base_composition_non_technical,0.80,all_users,current,80% are business users
+nps_new_users,11,new_users,quarterly,Very low
+nps_power_users,72,power_users,quarterly,Power users love it
+monthly_active_users,14200,all_users,monthly,Growing but retention lagging
+</code></pre>
+<h3>scenario-brief.md</h3>
+<pre><code class="language-markdown"># Scenario Brief: The Dashboard Nobody Reads
+
+## The Company
+Customer-facing analytics platform. 14,200 MAU. $8.5M ARR. Series B. 3 years old.
+
+## The Problem
+60% first-visit bounce rate. The dashboard was built for data analysts but the user base is now 80% non-technical business users (marketing managers, small business owners, ops leads). New users see 12 charts on the default view and leave within 30 seconds. Meanwhile, power users (20%) love the product and have NPS of 72.
+
+## What We Know
+- 12 charts on the default dashboard with no hierarchy — everything has equal visual weight
+- Only 8% of new users discover the &quot;custom view&quot; feature (76% of power users rely on it)
+- 54% of users rely on the weekly email summary instead of the dashboard itself
+- 19% export data to Google Sheets to build their own charts
+- 38% of support tickets (~412/month) are dashboard comprehension questions
+- New users who DO find value (via custom views or guided exploration) retain at 3x the rate
+
+## Competing Hypotheses
+- **PM Lead:** &quot;Information overload. We need a simplified default view for non-technical users.&quot;
+- **Designer:** &quot;It's a hierarchy problem. Nothing tells users where to look first.&quot;
+- **Engineering:** &quot;Just add a tutorial. Problem solved.&quot;
+- **Customer Success:** &quot;We're drowning in tickets. Whatever you build, make it self-explanatory.&quot;
+
+## Constraints
+- Cannot remove charts from the power user view (they'll revolt)
+- Must serve both audiences (non-technical AND power users) — likely means role-based views
+- The data pipeline is solid — the problem is presentation, not data quality
+- Budget: prototype only (prove the concept before committing engineering)
+
+## Your Job
+Prototype the intervention that gets first-visit bounce rate below 30% for non-technical users while preserving the power user experience. Use the data and feedback to identify whether the core issue is information overload, lack of guidance, or irrelevant defaults.
+</code></pre>
+<hr>
+<h2>How Students Use the Packs in the Lab</h2>
+<h3>Step-by-step (instructor guidance):</h3>
+<ol>
+<li><strong>Download your pack</strong> (Slack or shared folder) — 1 minute</li>
+<li><strong>Read the scenario brief</strong> — this replaces the generic scenario card. Now you have the full context. — 2 minutes</li>
+<li><strong>Scan the feedback quotes</strong> — highlight 2-3 that directly relate to your hypothesis. These become part of your prompt context. — 2 minutes</li>
+<li><strong>Open the metrics CSV</strong> — identify 3-5 data points you want your prototype to display or reference. — 2 minutes</li>
+<li><strong>Build your prompt</strong> using the Context/Reference/Constraint/Output framework:
+   - <strong>Context:</strong> Paste the scenario brief
+   - <strong>Reference:</strong> Your Mobbin screenshot or product screenshot
+   - <strong>Constraint:</strong> "Use the following real user quotes in the onboarding flow..." or "Display these actual metrics in the dashboard..."
+   - <strong>Output:</strong> Specify the screens and flows you need</li>
+<li><strong>Build in Lovable</strong> — the tool now has rich context, visual references, and real data to work with. The output will be dramatically different from M1.</li>
+</ol>
+<h3>What the instructor watches for:</h3>
+<ul>
+<li>Students who skip the data and just prompt generically (redirect them — "use the pack")</li>
+<li>Students who try to include ALL the data (redirect — "pick the 3-5 most relevant data points")</li>
+<li>Students who don't connect the data to their hypothesis (redirect — "which of these data points would prove or disprove your assumption?")</li>
+</ul>
+<hr>
+<h2>Scenario 5: Bring Your Own (Company Track)</h2>
+<p>Students on the company track don't receive a pre-made data pack — they build their own using this template. The template mirrors the same three-file structure so that all students enter Lab 2 with equivalent context, regardless of track.</p>
+<h3>Distributed via Slack at the start of Lab 1.</h3>
+<h3>feedback-template.md — Blank Template</h3>
+<pre><code class="language-markdown"># [Your Company / Product] — User &amp; Stakeholder Feedback
+
+## Instructions
+Gather 5-8 real quotes from your product's users, stakeholders, or support channels.
+Sources: user interviews, NPS comments, support tickets, Slack messages, meeting notes, customer emails.
+If you don't have exact quotes, paraphrase from memory — the point is to ground your prototype in real user voice.
+
+## User Quotes
+
+1. &quot;[Quote from a user about the problem you're solving]&quot; — [Role, context]
+
+2. &quot;[Quote]&quot; — [Role, context]
+
+3. &quot;[Quote]&quot; — [Role, context]
+
+4. &quot;[Quote]&quot; — [Role, context]
+
+5. &quot;[Quote]&quot; — [Role, context]
+
+## Stakeholder Quotes
+
+6. [Title/Role]: &quot;[What they think the problem is or what they want built]&quot;
+
+7. [Title/Role]: &quot;[A competing perspective or priority]&quot;
+
+8. [Title/Role]: &quot;[The constraint or pressure they're facing]&quot;
+</code></pre>
+<h3>metrics-template.csv — Blank Template</h3>
+<pre><code class="language-csv">metric,value,segment,time_period,notes
+[key_metric_1],[value],[who],[when],[why this matters]
+[key_metric_2],[value],[who],[when],[why this matters]
+[key_metric_3],[value],[who],[when],[why this matters]
+[key_metric_4],[value],[who],[when],[why this matters]
+[key_metric_5],[value],[who],[when],[why this matters]
+</code></pre>
+<p><strong>Guidance for filling this in:</strong>
+- Pull 5-10 real metrics from your product's analytics, dashboards, or reports
+- Good metrics: conversion rates, adoption rates, retention curves, time-on-task, NPS scores, support ticket volumes, engagement rates
+- Include the segment (all users? new users? power users?) and time period
+- If you don't have exact numbers, use your best estimate — the point is realistic data in the prototype, not precision</p>
+<h3>scenario-brief-template.md — Blank Template</h3>
+<pre><code class="language-markdown"># Scenario Brief: [Your Product / Initiative]
+
+## The Company
+[One sentence: what the company does, size, stage]
+
+## The Problem
+[2-3 sentences: what's broken, what's the impact, why it matters now]
+
+## What We Know
+- [Data point or insight 1]
+- [Data point or insight 2]
+- [Data point or insight 3]
+- [Data point or insight 4]
+
+## Competing Hypotheses
+- **[Stakeholder 1 title]:** &quot;[What they think the problem is]&quot;
+- **[Stakeholder 2 title]:** &quot;[A different perspective]&quot;
+- **[Stakeholder 3 title]:** &quot;[The constraint or political pressure]&quot;
+
+## Constraints
+- [What you can't change — technical, political, timeline, budget]
+- [What must stay the same — existing systems, user base, etc.]
+
+## Your Job
+[One sentence: what you're prototyping and what hypothesis you're testing]
+</code></pre>
+<p><strong>Instructor note for Bring Your Own students:</strong>
+- Check that they have at least 5 user/stakeholder quotes and 5 metrics before Lab 2
+- If they're struggling to fill in the template, suggest they pull from: last team meeting notes, their product's NPS comments, recent support tickets, or a conversation with a colleague
+- Anonymization is fine — change company/product names, round numbers. Keep the problem real.</p>
+<hr>
+<h2>Preparation Checklist</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Owner</th>
+<th>Time Estimate</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write feedback.md for each scenario (4 scenarios)</td>
+<td>Dejan</td>
+<td>1 hr each (4 hr total)</td>
+<td>Drafted</td>
+</tr>
+<tr>
+<td>Create metrics.csv for each scenario (4 scenarios)</td>
+<td>Dejan</td>
+<td>30 min each (2 hr total)</td>
+<td>Drafted</td>
+</tr>
+<tr>
+<td>Write scenario-brief.md for each scenario (4 scenarios)</td>
+<td>Dejan</td>
+<td>30 min each (2 hr total)</td>
+<td>Drafted</td>
+</tr>
+<tr>
+<td>Create Bring Your Own blank templates (3 files)</td>
+<td>Dejan</td>
+<td>30 min</td>
+<td>Done</td>
+</tr>
+<tr>
+<td>Review all packs for authenticity and consistency</td>
+<td>Dana</td>
+<td>2 hr</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Package and test distribution (Slack/Drive)</td>
+<td>Dana</td>
+<td>1 hr</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Write instructor guide for lab integration</td>
+<td>Dejan</td>
+<td>1 hr</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>~12.5 hr</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Note:</strong> All scenario data packs and the Bring Your Own templates are drafted. Dana to review for authenticity before distribution.</p>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 2 - Slides.html">← Back to Module 2 deck</a></div>
+    <div class="fn-siblings"><a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling current" href="Module 2 - Context Data Packs.html">Context Data Packs</a>
+      <a class="fn-sibling" href="M2 - Lab Guide.html">Lab Guide</a>
+      <a class="fn-sibling" href="M2 - Validation Brief.html">Validation Brief</a></div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 2 - Context Data Packs.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2 Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 2 — Reference Card</div>
+    <h1>M2 Frameworks Reference Card</h1>
+    <p>The Validation Lens Loop, the Kill Switch + Risk Type matrix, and the Problem Framework — one page, in the order you use them.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 2 — Frameworks Reference Card</h1>
+<blockquote>
+<p>Every framework from Module 2 in the order you use them. Keep this open while you build.</p>
+</blockquote>
+<hr>
+<h2>1. The Validation Lens Loop</h2>
+<p>Four moves. Each revolution sharpens your hypothesis and tightens constraints — moving your product from uncertain to evidence-backed.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Move</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① <strong>Identify the Hypothesis</strong></td>
+<td>Name the test. If you can't complete <em>"I'm testing whether [X]"</em>, you aren't ready to build.</td>
+<td>The "why" that governs every prompt.</td>
+</tr>
+<tr>
+<td>② <strong>Define the Constraints</strong></td>
+<td>Set the guardrails — intent, logic, interaction patterns. Inject Data + User Voice as context.</td>
+<td>Guardrails for the build.</td>
+</tr>
+<tr>
+<td>③ <strong>Build and Stress-Test</strong></td>
+<td>Don't build to look pretty. Build to find where it <strong>breaks</strong>. Finding a break = highest signal.</td>
+<td>Find logic and friction gaps now.</td>
+</tr>
+<tr>
+<td>④ <strong>Synthesize and Pivot</strong></td>
+<td>Update your hypothesis with what you learned, then continue or pivot. Iterate strategy, not pixels.</td>
+<td>Close the loop with learning.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> building in a straight line is M1. Vibe Coding requires a circle.</p>
+<hr>
+<h2>2. The Kill Switch + Risk Type Matrix</h2>
+<p>Ask: <em>"Which assumption, if wrong, kills the whole thing?"</em> Then match the build to the risk.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Risk Type</th>
+<th>Question</th>
+<th>Build This</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value</strong></td>
+<td>"Will anyone actually want this?"</td>
+<td>Landing page</td>
+<td>Tests whether the core premise solves a real problem or is just a novelty.</td>
+</tr>
+<tr>
+<td><strong>Usability</strong></td>
+<td>"Will the experience make sense?"</td>
+<td>Clickable mockup</td>
+<td>Simplifies complex steps and surfaces where the flow breaks down.</td>
+</tr>
+<tr>
+<td><strong>Feasibility</strong></td>
+<td>"Will the logic actually work?"</td>
+<td>Functional app</td>
+<td>Finds edge cases where your logic or data might fail.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Kill switch by product stage</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Default kill switch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0 → 1 (New product)</strong></td>
+<td><strong>Desirability.</strong> Nobody wants it yet, so prove they will. You're testing whether the problem is real before you invest in building.</td>
+</tr>
+<tr>
+<td><strong>1 → N (Existing product)</strong></td>
+<td><strong>Adoption + flow.</strong> People have the surface area, now prove they'll use it. Screenshot what exists and build on top.</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>3. The Problem Framework — Six-Part Checklist</h2>
+<p>This six-element framework forces you to articulate <strong>what you're testing</strong>, not just what you're shipping. Fill this out <em>before</em> you open any tool — every element sharpens your intent.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Element</th>
+<th>The question</th>
+<th>What it gives you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Goal</strong></td>
+<td>What are we trying to achieve?</td>
+<td>The outcome, not the output.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Problem</strong></td>
+<td>What's blocking us right now?</td>
+<td>Names the obstacle precisely.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Context</strong></td>
+<td>Who, where, when?</td>
+<td>The specifics that shape the solution space.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Constraints</strong></td>
+<td>What can't we change?</td>
+<td>Technical limits, timelines, budgets.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Success Criteria</strong></td>
+<td>What does validation look like?</td>
+<td>The pass/fail threshold, upfront.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Explore</strong></td>
+<td>What are we trying to learn by building this?</td>
+<td>The key. This is the learning intent.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Prototyping doesn't replace the PM responsibility of identifying the problem; it makes validation faster.</strong></p>
+<hr>
+<h2>4. The Three Ingredients of Context Injection</h2>
+<p>Design systems and components provide the shell. <strong>Context Injection provides the soul.</strong> Without these three, you're generating high-fidelity Lorem Ipsum.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Ingredient</th>
+<th>What it is</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Hypothesis</strong></td>
+<td>The strategic anchor. Defines the core strategic goal of your build in the opening prompt.</td>
+<td><em>"I am testing whether a guided walkthrough reduces user friction during initial onboarding."</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Real Data</strong></td>
+<td>Domain-specific evidence. Replaces generic placeholders with information that stress-tests the logic.</td>
+<td><em>"Use this CSV of 50 anonymized user logs to populate the retention risk dashboard."</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>User Voice</strong></td>
+<td>Persona terminology. Injects specific tone so the prototype resonates with the target audience.</td>
+<td><em>"Use the direct, analytical tone of a Customer Success VP — focus on 'NRR' and 'Health Scores'."</em></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2>5. The Four Final-Project Scenarios</h2>
+<p>This is your commitment moment. Pick the scenario you'll carry through M2–M6. <strong>No switching after Module 2.</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Scenario</th>
+<th>Setup</th>
+<th>Likely risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>The Retention Engine</strong></td>
+<td>B2B SaaS losing 30% of users in 90 days. Why are they leaving? Build a prototype that helps you understand churn drivers and test whether an intervention can change the curve.</td>
+<td>Value</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>The Internal Tool Nobody Uses</strong></td>
+<td>CRM with 18% adoption. Built it, no one came. Figure out why adoption is so low and prototype a version that actually fits into how people work. Classic 1→N problem.</td>
+<td>Usability</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>The Marketplace Trust Problem</strong></td>
+<td>Bookings flat, zero-review providers. Buyers don't trust new providers. Prototype a trust mechanism that gets first-time providers their first booking.</td>
+<td>Value / Feasibility</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>The Dashboard Nobody Reads</strong></td>
+<td>Analytics with 60% bounce rate. Data exists but nobody finds insights. Prototype a version that surfaces the right information so people use it to make decisions.</td>
+<td>Usability</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bring your own:</strong> use a real problem from your own company. Check with your instructor for approval.</p>
+<hr>
+<h2>6. The Validation Brief — what goes in it</h2>
+<p>Every M2 build starts with one of these. The brief is the strategic instrument; the build is the test.</p>
+<p><strong>Part 1 · Strategic Intent</strong>
+- <strong>Hypothesis</strong> — <em>"I am testing whether [X] leads to [Y]."</em>
+- <strong>Risk Type</strong> — Value · Usability · Feasibility
+- <strong>Kill Switch</strong> — the single assumption that ends the project if wrong</p>
+<p><strong>Part 2 · The Problem Framework</strong> — the six-part checklist above.</p>
+<p><strong>Part 3 · Context Injection</strong> — paste from your Context Data Pack:
+- Scenario brief
+- User &amp; stakeholder feedback quotes
+- Quantitative metrics</p>
+<p><strong>Part 4 · Visual Reference</strong> — Mobbin screenshot OR your M1 prototype screenshot. Search for the <em>pattern</em>, not the <em>product</em>.</p>
+<hr>
+<h2>7. The Review Stack — Show and Swap (one round in M2)</h2>
+<p>Every lab in this course ends with a paired review. M2 has one round, after the build.</p>
+<ol>
+<li><strong>Time-box</strong> — <code>⏰ 10 min</code>.</li>
+<li><strong>Swap links · open in a fresh tab</strong> — no verbal context.</li>
+<li><strong>3 minutes silent</strong> on your partner's build. Let them stay stuck if you're the watcher.</li>
+<li><strong>Discuss three questions · then swap roles</strong> for the other 6 minutes.</li>
+<li><strong>Async share</strong> — post M1 vs M2 screenshots + the feedback that landed hardest in <code>#cohort-channel</code>.</li>
+</ol>
+<h3>The three credibility questions (verbatim from the legacy walkthrough)</h3>
+<ol>
+<li>What do you think the core <strong>hypothesis or kill switch</strong> was?</li>
+<li>Where did the experience <strong>lose credibility</strong>?</li>
+<li>Did the data make you feel like you were using a <strong>real product</strong>?</li>
+</ol>
+<p><strong>Builds are individual, reviews are paired.</strong> Solo fallback if no partner: the AI-review prompt with the three credibility questions as the dimensions.</p>
+<hr>
+<h2>8. The Pre-Lovable Discipline</h2>
+<p>The most expensive credit you'll burn is the one spent finding the prompt. The cheapest is the one spent committing it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Move</th>
+<th>Where it happens</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frame the Validation Brief</td>
+<td>Manually, or in the Prototype Builder</td>
+<td>Locks the test before the tool is open.</td>
+</tr>
+<tr>
+<td>Gather context</td>
+<td>Context Data Pack</td>
+<td>Real quotes + metrics replace placeholder hallucinations.</td>
+</tr>
+<tr>
+<td>Assemble the mega-prompt</td>
+<td>Structured Prompt Builder</td>
+<td>Granular control prevents AI drift.</td>
+</tr>
+<tr>
+<td>Smoke-test the prompt</td>
+<td>ChatGPT / Gemini / Claude</td>
+<td>Find logic holes <em>before</em> burning Lovable credits.</td>
+</tr>
+<tr>
+<td><strong>Commit the prompt</strong></td>
+<td><strong>Lovable</strong></td>
+<td>One shot. Targeted edits, not full rebuilds.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> 60% of your prompt work happens outside the tool. The tool is for committing the plan, not finding it.</p>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 2 - Slides.html">← Back to Module 2 deck</a></div>
+    <div class="fn-siblings"><a class="fn-sibling current" href="Module 2 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling" href="Module 2 - Context Data Packs.html">Context Data Packs</a>
+      <a class="fn-sibling" href="M2 - Lab Guide.html">Lab Guide</a>
+      <a class="fn-sibling" href="M2 - Validation Brief.html">Validation Brief</a></div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 2 - Frameworks Reference Card.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

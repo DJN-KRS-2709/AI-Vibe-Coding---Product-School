@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2 Speaker Notes · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #fda4af; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 1 - Slides.html">← Module 1 · Execute Vibe Coding Velocity</a></div>
+
+  <div class="header">
+    <div class="badge">Module 2 — Speaker Notes</div>
+    <h1>M2 Speaker Notes</h1>
+    <p>The full instructor narration for Module 2 — every slide, every transition, every callback.</p>
+  </div>
+
+  <div class="content">
+<h1>Module 2: Sharpen Intent with Strategic Prototypes — Speaker Notes</h1>
+<p>Casual talking points for each slide. Not a script — just the key things to say, what to do on screen, and the energy to bring. Module 2 is the bridge from speed to direction. The vibe shifts from "build fast" to "build smart." Real examples from companies like Airbnb, Amazon, Netflix, and Dropbox to ground every concept.</p>
+<p><strong>Tools referenced in this module:</strong>
+- Lovable (building)
+- Structured Prompt Builder (ChatGPT/Claude — assembling prompts)
+- Validation Brief (template — hypothesis, risk type, kill switch)
+- Context Data Pack (scenario-specific user quotes, metrics, problem brief)
+- Visual Reference Guide / Mobbin (screenshot references)</p>
+<p><strong>What to prepare before class:</strong>
+- [ ] Have the polished M1 prototype loaded in Lovable (Mobbin-matched, interactive components, but all placeholder data)
+- [ ] Have the context-injected version pre-built in a separate Lovable project (same concept rebuilt with real retention data, real user quotes, hypothesis embedded) — deliver as if live but have it ready as backup
+- [ ] The context injection prompt pre-typed in a text file, ready to paste (see Slide 6 demo script below for exact prompt)
+- [ ] Both Lovable projects open in separate browser tabs for side-by-side comparison
+- [ ] Context Data Packs for all 4 scenarios + Bring Your Own template posted to Slack
+- [ ] Validation Brief template ready to drop in Slack
+- [ ] Structured Prompt Builder link ready
+- [ ] Mobbin tab open with pre-selected examples for each scenario
+- [ ] Lab guide and exercise document links ready in Slack
+- [ ] Screen share on</p>
+<hr>
+<h2>Slide 1 — Title</h2>
+<p>Welcome back to Module 2 — Sharpen Intent with Strategic Prototypes.</p>
+<p>Last session was fireworks — you built functional prototypes from scratch, got feedback, refined them, and saw how fast you can go from idea to working software. That was Module 1. Speed.</p>
+<p>Today the question changes. You can build fast — but are you building the <em>right thing</em>? Speed without direction is a liability. Today we add the direction.</p>
+<h2>Slide 2 — Class Expectations</h2>
+<p>Same ground rules as Module 1. Cameras on — I know, I know, but it genuinely makes a difference. Be present, arrive on time, participate actively during exercises. Use Slack for all communication. And save deeper questions for after class so we keep the flow going.</p>
+<p>One thing I'll add for today: you're going to be doing more individual work than M1. When I say "don't open Lovable yet" — trust the process. The preparation is what makes the build dramatically better. You'll see.</p>
+<h2>Slide 3 — Syllabus</h2>
+<p>Quick refresher on where we are in the course. Six modules across three weeks — two sessions per week.</p>
+<p>Module 1 was speed — you activated the build cycle and proved you can go from nothing to a working prototype.</p>
+<p>Module 2 — that's today — is about sharpening your intent. You're going to learn to build prototypes that prove something, not just look like something. Think about how Airbnb started: their first prototype was literally three air mattresses on a floor and a basic website. The idea wasn't the mattresses — it was testing whether strangers would actually pay to sleep in someone else's home. That's a hypothesis-driven prototype. That's Module 2 thinking.</p>
+<p>Module 3 is precision — context engineering, prompt chains, building exactly what you describe.</p>
+<p>Module 4 translates your prototype into production specs — Living PRDs, clean code structure, and the engineering handoff.</p>
+<p>Module 5 makes it real — databases, auth, edge cases, and you deploy it. Live URL. Real users. Your prototype becomes a working product.</p>
+<p>And Module 6 — you measure, learn, and iterate. Analytics, AI-powered analysis, and a data-driven improvement cycle. You close the loop from idea to evidence.</p>
+<h2>Slide 4 — Agenda</h2>
+<p>Three things today.</p>
+<p>First — how to build smarter, not just faster. I'll show you what happens when you add real context to your builds.</p>
+<p>Second — the Prototype Validation Lens. A simple framework that turns every prototype into a hypothesis test instead of a demo.</p>
+<p>Third — hands-on lab. You'll start your final project. Not a throwaway exercise — the prototype you build today is the one you'll carry through Modules 3, 4, 5, and 6 all the way to deployment. Choose wisely.</p>
+<h2>Slide 5 — Chapter Break: How to Build Smarter, Not Just Faster</h2>
+<p>This kicks off the first major block. Let's talk about what separates a demo from a decision tool.</p>
+<h2>Slide 6 — Reflection Moment: What Does Your M1 Build Prove?</h2>
+<p><strong>ACTION: This is interactive. Give students 3–4 minutes. Q&amp;A comes BEFORE the demo — the discomfort has to land before the answer arrives.</strong></p>
+<p>Open up your prototype from Module 1. Take a real look. I want you to answer three questions — and be honest with yourself:</p>
+<p>One — what assumption were you actually testing? Not what you think it was retroactively. What was it <em>when you built it</em>?</p>
+<p>Two — if your VP asked "what did you learn from this?" — what would you say?</p>
+<p>Three — where is the real user data? Where are the metrics? Where's the user language?</p>
+<p>Post your answers in Slack or unmute and share. This should be slightly uncomfortable. Most of you will realize your M1 build doesn't test anything specific. That's not a failure — that's M1's job. M1 proved you can build. M2 proves you can build something that matters.</p>
+<p><strong>Spend ~2 minutes discussing responses. Acknowledge the gap. That gap is the lesson — and the demo immediately after closes it.</strong></p>
+<p>That gap — between "looks real" and "proves something" — is exactly what we close today.</p>
+<h2>Slide 7 — Instructor-Led Demo: What You Can Prove with Context Injection</h2>
+<blockquote>
+<p>Instructor demo: <strong>The Customer Vibe — Retention Engine</strong> (B2B PM SaaS — 30% churn, team invites — carried through M2/M3/M4/M5 demos)
+Total demo time: ~8 minutes. Pre-build both versions before class.</p>
+</blockquote>
+<h3>SETUP (before students arrive)</h3>
+<ul>
+<li>[ ] Open the M1 prototype in Lovable (the polished version from M1 — Mobbin-matched design, interactive components, professional layout, but ALL placeholder data)</li>
+<li>[ ] Have the context-injected version pre-built in a separate Lovable project as backup</li>
+<li>[ ] Have the context injection prompt pre-typed in a text file, ready to paste</li>
+<li>[ ] Have both Lovable projects open in separate browser tabs (so you can show side-by-side at the end)</li>
+<li>[ ] Screen share on — students should see everything</li>
+</ul>
+<h3>STEP 1: Show the Facade (~2 min)</h3>
+<p><strong>What you do:</strong> Click through the M1 prototype on screen share. Show all the key screens — the onboarding flow, the dashboard, any interactive components. It looks polished — Mobbin-matched, professional layout, clickable buttons.</p>
+<p><strong>What you say:</strong> "This is the prototype from Module 1. Clean design, Mobbin-matched, interactive components — it looks like a real product. Pretty impressive for one session's work."</p>
+<p><strong>Then ask the room:</strong> "What assumption is this testing?"</p>
+<p><strong>Pause. Let the silence land. Wait 5-10 seconds.</strong></p>
+<p><strong>What you do next:</strong> Demonstrate the facade. Point to the charts — "See these numbers? Where did they come from? Nowhere. They're hardcoded." Point to any copy in the UI — "These labels? Placeholder text. No real user data." Point to the metrics — "And these charts? Generic sample data that means nothing."</p>
+<p><strong>What you say:</strong> "If your VP asked 'what did you learn from this?' — what would you say? 'It looks nice'? That's not a product insight. That's interior design. This prototype looks like a product. But it proves nothing."</p>
+<h3>STEP 2: Inject Context (~3 min)</h3>
+<p><strong>What you say:</strong> "I'm going to rebuild this with three ingredients: a hypothesis, real data, and real user voice. Watch what changes."</p>
+<p><strong>What you do:</strong> Open Lovable (either in the same project or a new one). Paste this prompt:</p>
+<blockquote>
+<p>"Build a 3-screen onboarding flow for a B2B project management SaaS that prominently surfaces team invitations within the first 3 steps.</p>
+<p>Context: Company is 18 months old, Series A, 5,000 paying teams, 4.2M ARR. 30 percent of new customers churn within 90 days. The board requires measurable improvement this quarter.</p>
+<p>Data shows: Users who invite a teammate within the first 3 days retain at 68 percent. Users who do not invite retain at only 22 percent. Only 12 percent of new users send an invite in the first 3 days. The invite button is currently buried in Settings &gt; Team &gt; Members. 60 percent of new users never create their first task.</p>
+<p>Constraint: No engineering resources for 6 weeks. Prototype only. Must work within the existing product surface.</p>
+<p>Hypothesis: If we surface team invites prominently during first-run onboarding, day-3 invite rate increases from 12 percent to 25 percent.</p>
+<p>User insight: Retained user: 'When I invited my co-founder on Day 2, that's when it clicked. It's a team tool.' At-risk user: 'I tried to invite my team but it asked for role and department. I don't know that. I just want to add them.'</p>
+<p>Instructions: Design a 3-screen onboarding flow with the goal of increasing early team invites.</p>
+<p>Screen 1: Reframe the product as a team tool. Make the value of collaboration explicit.
+Screen 2: Make inviting teammates the primary call to action. Remove friction such as role and department requirements.
+Screen 3: Reinforce activation by showing how collaboration unlocks value — shared tasks, comments, progress visibility.</p>
+<p>Design principles: Make the invite action feel lightweight and immediate. Do not add new backend functionality. Assume the invite system already exists. Reduce cognitive load. Make the team invite feel like the default next step.</p>
+<p>Include: Clear headline and microcopy. Primary and secondary CTAs. Minimal UI elements. Simple visual hierarchy.</p>
+<p>Display these metrics visually within the prototype to anchor urgency: Day-3 invite rate: 12 percent. 90-day retention with invite: 68 percent. 90-day retention without invite: 22 percent. 90-day churn overall: 30 percent. Target: reduce churn to 15 percent.</p>
+<p>After the 3 screens, include: The single riskiest assumption behind this intervention. A lightweight experiment plan to validate it within 2 weeks. Success criteria and leading indicator metrics.</p>
+<p>Output format: Clickable web onboarding prototype with 3 distinct screens plus experiment summary."</p>
+</blockquote>
+<p><strong>While it generates:</strong> "Watch the difference. Same tool. Same time. But this prompt has a hypothesis, real retention data, a named constraint, and actual user quotes baked in."</p>
+<p><strong>When it's done:</strong> Click through the three onboarding screens and the experiment summary.</p>
+<h3>STEP 3: Name the Difference (~2 min)</h3>
+<p><strong>What you do:</strong> Open both versions in separate tabs. Click between them — or put them side-by-side if your screen allows it.</p>
+<p><strong>Point to the M1 version:</strong> "This one — placeholder data, hardcoded charts, generic copy. It looks like a product. But what question does it answer? None."</p>
+<p><strong>Point to the context-injected version:</strong> "This one — 12% Day-3 invite rate displayed on screen, real user quotes from interviews, a named hypothesis about surfacing invites during onboarding. It even has an experiment plan and success criteria built in. It's testing a specific assumption: does making the invite flow prominent in onboarding change retention?"</p>
+<p><strong>What you say:</strong> "Same tool. Same amount of time. The only difference is the inputs. Three ingredients: a hypothesis, real data, and user voice."</p>
+<p><strong>Then the bridge:</strong> "The first one generates applause. The second one generates evidence. That's the shift we're making today. You're going to do exactly this to your own build — with your own scenario, your own data, and your own hypothesis."</p>
+<h3>STEP 4: Transition (~1 min)</h3>
+<p><strong>What you say:</strong> "But before you build, I want you to feel the gap in your own work. Open your M1 prototype right now. Let's see where it stands."</p>
+<p><strong>Transition to Slide 7.</strong></p>
+<h3>THE PROMPT (copy-paste version for your text file)</h3>
+<pre><code>Build a 3-screen onboarding flow for a B2B project management SaaS that prominently surfaces team invitations within the first 3 steps.
+
+Context: Company is 18 months old, Series A, 5,000 paying teams, 4.2M ARR. 30 percent of new customers churn within 90 days. The board requires measurable improvement this quarter.
+
+Data shows: Users who invite a teammate within the first 3 days retain at 68 percent. Users who do not invite retain at only 22 percent. Only 12 percent of new users send an invite in the first 3 days. The invite button is currently buried in Settings &gt; Team &gt; Members. 60 percent of new users never create their first task.
+
+Constraint: No engineering resources for 6 weeks. Prototype only. Must work within the existing product surface.
+
+Hypothesis: If we surface team invites prominently during first-run onboarding, day-3 invite rate increases from 12 percent to 25 percent.
+
+User insight: Retained user: &quot;When I invited my co-founder on Day 2, that's when it clicked. It's a team tool.&quot; At-risk user: &quot;I tried to invite my team but it asked for role and department. I don't know that. I just want to add them.&quot;
+
+Instructions: Design a 3-screen onboarding flow with the goal of increasing early team invites.
+
+Screen 1: Reframe the product as a team tool. Make the value of collaboration explicit.
+Screen 2: Make inviting teammates the primary call to action. Remove friction such as role and department requirements.
+Screen 3: Reinforce activation by showing how collaboration unlocks value — shared tasks, comments, progress visibility.
+
+Design principles: Make the invite action feel lightweight and immediate. Do not add new backend functionality. Assume the invite system already exists. Reduce cognitive load. Make the team invite feel like the default next step.
+
+Include: Clear headline and microcopy. Primary and secondary CTAs. Minimal UI elements. Simple visual hierarchy.
+
+Display these metrics visually within the prototype to anchor urgency: Day-3 invite rate: 12 percent. 90-day retention with invite: 68 percent. 90-day retention without invite: 22 percent. 90-day churn overall: 30 percent. Target: reduce churn to 15 percent.
+
+After the 3 screens, include: The single riskiest assumption behind this intervention. A lightweight experiment plan to validate it within 2 weeks. Success criteria and leading indicator metrics.
+
+Output format: Clickable web onboarding prototype with 3 distinct screens plus experiment summary.
+</code></pre>
+<h3>WHAT TO PRE-BUILD (the night before)</h3>
+<ol>
+<li>
+<p><strong>The M1 version (the facade):</strong> Your existing M1 prototype — polished UI, Mobbin-matched, but all placeholder data. This should already exist from your M1 demos.</p>
+</li>
+<li>
+<p><strong>The context-injected version (the payoff):</strong> Run the prompt above in Lovable. Make sure it generates clean output with:
+   - The retention data visible on screen (12% invite rate, 68% vs 22% retention split)
+   - At least 1-2 user quotes displayed in the UI
+   - The 3-screen onboarding flow clearly progressing: team value → invite action → collaboration payoff
+   - The experiment summary with the riskiest assumption, validation plan, and success criteria
+   - Metrics visually anchored (not buried in small text)</p>
+</li>
+<li>
+<p><strong>Have both open in separate browser tabs</strong> so you can switch instantly during the demo.</p>
+</li>
+<li>
+<p><strong>Deliver the context-injected version as if you're building it live</strong> — paste the prompt, let it generate. But if it fails or produces weak output, switch to the pre-built backup. Say: "Let me show you the one I built earlier with this exact prompt" and switch tabs.</p>
+</li>
+</ol>
+<h2>Slide 7 — Three Main Ingredients for Context Injection</h2>
+<p>Three ingredients that M1 didn't have.</p>
+<p><strong>Hypothesis</strong> — before you touch any tool, you state what you're testing. "I'm testing whether [X]." If you can't finish that sentence, you're not ready to build. Amazon does this with their "Working Backwards" process — they write the press release before building anything. The hypothesis is your press release.</p>
+<p><strong>Real Data</strong> — you replace generic placeholders with actual metrics. Not "users are churning" — "30% churn in 90 days. Users who invite a teammate in the first 3 days retain at 68%. Users who don't retain at only 22%. And only 12% of new users send an invite in the first 3 days." That specificity changes what the AI builds and what stakeholders react to.</p>
+<p><strong>User Voice</strong> — you inject the actual tone and language of your users. Not "users find it confusing" — "I tried to invite my team but it asked for role and department. I don't know that. I just want to add them." When your prototype shows that quote on screen, the conversation shifts from "nice demo" to "we need to fix this."</p>
+<p>Same tool as M1. Same visual quality. Completely different purpose. You'll assemble all three into a single prompt today.</p>
+<h2>Slide 9 — Chapter Break: The Prototype Validation Lens</h2>
+<p>Now let's give you the framework that makes this repeatable. The Validation Lens.</p>
+<h2>Slide 10 — The Validation Lens Loop</h2>
+<p>Four steps. This is the cycle you'll run in every lab from now on.</p>
+<p><strong>Step 1 — Identify the Hypothesis.</strong> The "why" behind every prompt you write. Before you build anything, name the test. If you can't complete the sentence "I'm testing whether [X]," you aren't ready to build.</p>
+<p><strong>Step 2 — Define the Constraints.</strong> These are your guardrails. What's the risk type? What fidelity level do you need? What are the technical limits?</p>
+<p><strong>Step 3 — Build and Stress-Test.</strong> This is the key shift from M1. You're not building to see it work. You're building to see where it <em>breaks</em>. Netflix tested their DVD-by-mail hypothesis by literally mailing themselves DVDs before building any infrastructure. They were looking for what would fail, not what would succeed.</p>
+<p><strong>Step 4 — Synthesize and Pivot.</strong> What did you learn? Update your hypothesis. Continue or change direction.</p>
+<p>Each revolution sharpens your hypothesis and tightens constraints. This compresses weeks of traditional development into a single session.</p>
+<h2>Slide 11 — What's Your Kill Switch?</h2>
+<p>Your hypothesis should identify the riskiest part of the product concept. Your kill switch forces clarity about what to build and test first.</p>
+<p>Ask yourself: "Which assumption, if wrong, kills the whole thing?"</p>
+<p>For <strong>0-to-1 new products</strong> — your kill switch is usually desirability. Nobody wants it yet, so prove they will. You're testing whether the problem is real. Dropbox did this perfectly — Drew Houston didn't build the product first. He made a 3-minute demo video showing how it would work. The waitlist hit 75,000 overnight. Desirability validated before a single line of code.</p>
+<p>For <strong>1-to-N existing products</strong> — your kill switch is usually adoption or flow. People have it; now prove they'll use it. You already have users, data, and a product. Screenshot what exists and build on top.</p>
+<p>Think about your own work — are you typically in 0-to-1 or 1-to-N territory? That determines which risk you target first.</p>
+<h2>Slide 12 — Choose Your Scenario</h2>
+<p>This is your commitment moment. The scenario you pick today is the one you'll carry through Modules 2 through 6. This becomes your final project. No switching after today.</p>
+<p><strong>ACTION: Give students 3-4 minutes. Read through the options out loud briefly.</strong></p>
+<p>Four options plus Bring Your Own:</p>
+<p><strong>Scenario 1 — The Retention Engine.</strong> B2B SaaS losing 30% of users in 90 days. Why are they leaving? Build a prototype that surfaces churn drivers and tests whether an intervention can change the curve. Likely risk: value.</p>
+<p><strong>Scenario 2 — The Internal Tool Nobody Uses.</strong> CRM with 18% adoption. Built it, no one came. Figure out why adoption is so low and prototype a version that fits how people actually work. Classic 1-to-N. Likely risk: usability.</p>
+<p><strong>Scenario 3 — The Marketplace Trust Problem.</strong> Bookings flat, zero-review providers. Buyers don't trust new sellers. Prototype a trust mechanism that gets first-time providers their first booking. Likely risk: value/feasibility.</p>
+<p><strong>Scenario 4 — The Dashboard Nobody Reads.</strong> Analytics with 60% bounce rate. Data exists but nobody finds insights. Prototype a version that surfaces the right information for decisions. Likely risk: usability.</p>
+<p><strong>Bring Your Own</strong> — use a real problem from your company. Check with me for approval.</p>
+<p>This is a product exercise, not a startup pitch. Pick the one closest to your real work. Post your choice in Slack.</p>
+<h2>Slide 13 — Quick Debrief: Final Project Commitment</h2>
+<p>Post on Slack in one sentence: your chosen scenario and your main reason for selecting it.</p>
+<p><strong>ACTION: Scan Slack for 1-2 minutes. Read out a few choices, especially diverse ones. If most students picked the same scenario, that's fine — different hypotheses will make the builds diverge.</strong></p>
+<p>If you chose Bring Your Own, I'll check in with you during the first exercise to make sure it has a clear user, a measurable outcome, and enough ambiguity to test.</p>
+<h2>Slide 14 — The Problem Framework</h2>
+<p>Before you open any tool, you frame the problem. Six elements — and I'm going to show you a filled-out example rather than lecture the theory.</p>
+<p>Here's the Retention Engine scenario — the one we just demoed:</p>
+<p><strong>Goal</strong> — reduce 90-day churn from 30% to 15%. <strong>Problem</strong> — solo users churn at 3x the rate of team users, and only 12% of new users send an invite in the first 3 days. <strong>Context</strong> — B2B PM tool, Series A, 5,000 paying teams, 4.2M ARR. The board requires measurable improvement this quarter. <strong>Constraints</strong> — no engineering resources for 6 weeks, must work within the existing product surface. <strong>Success Criteria</strong> — Day-3 invite rate increases from 12% to 25%. And the last one — <strong>Explore</strong> — is the blocker discoverability (the invite button is buried in Settings &gt; Team &gt; Members) or motivation (users don't understand why inviting teammates matters)?</p>
+<p>That last element is the one most people skip. Most frameworks stop at "what are we building." This one asks "what are we <em>learning</em> by building this?" That's the difference between a demo and a decision tool.</p>
+<p><strong>ACTION: Drop the Problem Framework template link in Slack.</strong> The link is on the slide — point students to it. They'll use it during the exercise.</p>
+<h2>Slide 15 — Individual Exercise: Frame Before You Build</h2>
+<p><strong>ACTION: This is an individual exercise. Give students the full time. Do NOT let them open Lovable yet.</strong></p>
+<p>Before you build, you prepare. This exercise is your pre-work — gathering the real-world data, user voice, and visual anchors that will make your build fundamentally different from M1.</p>
+<p>Three steps:</p>
+<p><strong>Step 1 — Complete your Validation Brief.</strong> Define your hypothesis, risk type, kill switch, and success criteria. Use the Validation Brief template — the link is on screen and in Slack. Write your hypothesis as one sentence: "I'm testing whether [X]."</p>
+<p><strong>Step 2 — Execute context injection using the Context Data Pack.</strong> Open the Context Data Pack for your scenario — it's in Slack. Each pack has three things: 8-12 user and stakeholder quotes from interviews and support tickets, a CSV with 15-20 rows of realistic quantitative data, and a full problem brief. Highlight 2-3 user quotes that directly relate to your hypothesis. Circle 3-5 metrics you want your prototype to display. Copy and paste these into your exercise document. For Bring Your Own: download the blank template and fill in your own data.</p>
+<p><strong>Step 3 — Secure a visual reference.</strong> Go to Mobbin or take a screenshot of your existing product. Focus on the functional pattern — like "team invite flow" or "analytics dashboard" — not the product name. The Visual Reference Guide has instructions.</p>
+<p><strong>ACTION: Walk the room (or monitor Slack/breakout). Watch for two failure modes:</strong>
+1. <strong>Students who skip the data pack</strong> and just write a generic brief — redirect them: "Open the feedback file. Which quotes relate to your hypothesis?"
+2. <strong>Students who try to include everything</strong> from the data pack — redirect them: "Pick the 3-5 data points that matter most for your specific hypothesis."</p>
+<p><strong>At the 3-minute mark:</strong> "You should have your Validation Brief done. If you're stuck on the hypothesis, ask: what would kill this idea if we learned it was wrong?"</p>
+<p><strong>At the 4-minute mark:</strong> "Finish selecting your quotes and metrics. 1 minute to grab your screenshot and post everything in Slack."</p>
+<h2>Slide 16 — Timer: 5 Minutes</h2>
+<p><strong>ACTION: Let the timer run. Continue walking the room. Ensure everyone has posted their hypothesis, selected quotes/metrics, and screenshot in Slack before moving on.</strong></p>
+<h2>Slide 17 — Cameras On</h2>
+<p>Welcome back! Quick reminder — cameras on for this next section. We're about to connect all the pieces.</p>
+<h2>Slide 18 — Chapter Break: Start Your Final Project</h2>
+<p>This is the main event. Everything before this was setup. Now you build.</p>
+<h2>Slide 19 — Hands-On Lab: Start Your Final Project and Build With Confidence</h2>
+<p><strong>ACTION: This is the core lab. 40 minutes (per the legacy walkthrough). Walk the room continuously. Final 2 min reminder: you can't review a blank screen — partners are assigned the moment the timer hits zero.</strong></p>
+<p>You have everything you need — Validation Brief, Context Data Pack, Visual Reference, and a structured prompt. Here's the workflow:</p>
+<p><strong>Step 1 — Open the Structured Prompt Builder.</strong> The link is in Slack and on your exercise guide. This is where you assemble your mega-prompt — NOT in Lovable directly. Paste your scenario brief, user quotes, and metrics into Block 1 (Context).</p>
+<p><strong>Step 2 — Drop your screenshot into Block 2</strong> (Visual Reference) and specify whether the AI should match the layout, density, or visual style.</p>
+<p><strong>Step 3 — Translate your Validation Brief into Block 3</strong> (Constraints). Paste your hypothesis and kill switch to set the functional guardrails.</p>
+<p><strong>Step 4 — Define your output screens in Block 4.</strong> Then click "Copy Prompt." Use an LLM — ChatGPT or Claude — to refine your mega-prompt and find any logic holes before you spend Lovable credits.</p>
+<p><strong>Step 5 — When your prompt is tight, take it into Lovable and trigger the build.</strong></p>
+<p><strong>Step 6 — Connect GitHub.</strong> As soon as your first build lands, connect GitHub. In Lovable, click the GitHub icon in the top right → authorize → done. Your code is now in a real repository. From this point forward, every change you make across Modules 3, 4, 5, and 6 is version-controlled. This is your safety net — if a prompt ever breaks your build, you can roll back to the last working version.</p>
+<p>Your goal is NOT to build something pretty. Your goal is to build something that shows real data, tests your specific hypothesis, and looks like it belongs in your product's domain — because of the screenshot reference, the metrics, and the user voice you injected.</p>
+<p><strong>ACTION: Watch for three failure modes as you walk the room:</strong>
+1. <strong>Students prompting generically without using the data pack</strong> — "Where are the user quotes in your prompt? Where's the data?"
+2. <strong>Students building something pretty that doesn't test their hypothesis</strong> — "What assumption does this test? How would you know if it's validated?"
+3. <strong>Students who got a strong first result and are polishing aesthetics</strong> — "Good start. Now stress-test it — go to the edge case. What happens when the data is empty? When the user does something unexpected?"</p>
+<p><strong>At the 15-minute mark:</strong> "You should have at least one working direction in Lovable. If your first prompt didn't land, refine it — don't start over."</p>
+<p><strong>At the 20-minute mark:</strong> "5 minutes. Verify your shareable link works. Copy it to Slack. And if you haven't connected GitHub yet — do it now. One click. Your final project needs version control from day one."</p>
+<p><strong>Credit reminder:</strong> This is exactly why we use the Structured Prompt Builder first. One well-assembled prompt instead of five trial-and-error burns in Lovable.</p>
+<h2>Slide 20 — Breakout: Show and Swap Your Prototype</h2>
+<p><strong>ACTION: Create breakout pairs — random assignment. Same format as M1.</strong></p>
+<p>Swap prototype links in the chat. Explore your partner's build silently for 3 minutes — no verbal context, no explaining. Like a real user.</p>
+<p>When Stripe puts a new feature in front of users, they don't explain how it works. They watch where people click and where they hesitate. That's what you're doing now.</p>
+<p>After 3 minutes of silent exploration, discuss:</p>
+<p>What do you think the core hypothesis or kill switch was? Could you figure it out from the prototype alone? Where did the experience lose credibility? Did the data make you feel like you were using a real product — or did the placeholder trap show up somewhere?</p>
+<p>The question isn't "is this cool?" It's "does this test what they said they were testing?" If you have to explain the UI, the intent isn't sharp enough.</p>
+<p>After you've discussed, swap roles and repeat.</p>
+<h2>Slide 21 — Quick Debrief: What Your Partner Just Told You</h2>
+<p>Post on Slack: M1 vs. M2 screenshots side by side, plus the one piece of feedback from your Show-and-Swap partner that landed hardest. The signal you came here for came from your partner, not from a number you give yourself.</p>
+<p>The credibility rubric on the slide (1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready) is private framing only — use it for your own reflection, not for the Slack post.</p>
+<p><strong>ACTION: Read out 2-3 of the partner-feedback lines from #builds.</strong> Don't read out numbers — they're noise and they invite people to defend their score instead of sitting with what their partner said. Pick the feedback lines that name a specific friction point. Follow up with: "what does this tell you about whether the build actually tests what you said it tests?"</p>
+<p>The shift from M1 matters. In M1 the gap was about looks. In M2 it's about whether the build tests what you claimed it tests. Same private read, different reason — that's the move.</p>
+<h2>Slide 22 — Module 2 Complete: What You Accomplished Today</h2>
+<p>Look at what happened in this session. You built a targeted prototype designed to surface evidence, not just look finished.</p>
+<p><strong>Context Injection: Decoded.</strong> You moved past simply asking for screens. You fed the AI business logic through user quotes and metrics, turning a generic vibe into a specialized tool that acts as a strategic product partner.</p>
+<p><strong>Credibility Gap: Closed.</strong> You eliminated the placeholder trap by testing specific hypotheses with real-world data. Your mockup went from hollow to something capable of driving real go/no-go decisions with stakeholders.</p>
+<p><strong>Stress-Test Review.</strong> Peer review proved that if you have to explain the UI, the intent isn't sharp enough. Your partner's fresh eyes caught what you couldn't see.</p>
+<p><strong>4 Validation Pillars.</strong> Every prompt you wrote was anchored by a formal hypothesis, risk type, kill switch, and measurable success criteria.</p>
+<p>Next up — Module 3. Same product, better execution.</p>
+<h2>Slide 23 — Key Takeaways</h2>
+<p>Let me bring this home with a story that connects all three lessons.</p>
+<p>In 2007, Brian Chesky and Joe Gebbia couldn't make rent. They had air mattresses, a conference was coming to San Francisco, and every hotel was booked. So they threw up a basic website — AirBed &amp; Breakfast — with photos of their apartment and a PayPal button. That first prototype tested one thing: will strangers pay to sleep in someone else's home? Three people booked. Hypothesis validated. That's takeaway one — <strong>every prototype starts with a named assumption.</strong> The problem framework, the kill switch, the "I'm testing whether [X]" sentence. If you can't name it, you're building a demo, not running an experiment.</p>
+<p>But here's what most people don't know. After those first three guests, Chesky didn't scale the website. He flew to New York and stayed with early hosts. He photographed their apartments himself. He interviewed guests over breakfast. He injected real user voice — actual quotes, actual complaints, actual metrics — back into the next version of the product. The listings with his professional photos booked 2-3x more than the ones without. That data point didn't come from a survey. It came from a working prototype that real people could use. That's takeaway two — <strong>context injection turns prototypes into decision tools.</strong> Real user quotes, real metrics, real problem briefs fed into the builder. The difference between your M1 and M2 prototypes isn't visual quality — it's what they prove.</p>
+<p>And takeaway three — <strong>the validation loop compresses months into minutes.</strong> Chesky ran dozens of small experiments in weeks, not quarters. Each one had a hypothesis, constraints, and evidence. By the time Airbnb raised their seed round, they didn't have a pitch deck full of assumptions — they had a pitch deck full of answers. "We tested X. Here's what happened. Here's what we're testing next." That's the loop you ran today — hypothesis, constraints, build, synthesize. Keep running it.</p>
+<p>From this point forward, every prototype gets judged by what it validates — not how it looks.</p>
+<h2>Slide 24 — Extra Practice and Next Session</h2>
+<p>Two optional exercises if you want to dig deeper:</p>
+<p><strong>First — Stress-Test Your Kill Switch.</strong> Pick a second high-priority risk from your Validation Brief and build a completely different prototype to test it. If your first build was a landing page for value risk, try a functional app for feasibility. Which one would you actually move forward with?</p>
+<p><strong>Second — Perform a Data Swap.</strong> Take your existing prompt but replace the Context Data Pack with completely different user quotes or market metrics. Observe how the product changes when you inject different context into the same functional frame. Does the AI adapt the copy and flow to match the new user friction?</p>
+<p>Next session — Module 3: Architect Precise Prototypes with Context Engineering. You'll move from mega-prompts to prompt chaining — isolating business logic, user flow, and visual design into distinct stages to prevent AI drift. Same product, sharper execution. You'll go from "build me something" to "build me exactly this."</p>
+<h2>Slide 25 — Survey</h2>
+<p>At the end of each session, please scan the QR code or use the link to share your feedback. Your insights help us improve and make each cohort better than the last. We'd love to hear about your experience!</p>
+<h2>Slide 26 — Bonus Resources</h2>
+<p>Here you'll find all the resources for this module — the Module 2 Lab Guide walkthrough and the Vibe Coding Validation Brief template. Bookmark these. The Validation Brief in particular is something you'll use in every module going forward — it's not a one-time exercise.</p>
+<h2>Slide 27 — Q&amp;A</h2>
+<p>Alright, before we close — any final questions? This is your time to ask anything about what we covered today, the tools, your scenario selection, or the final project. Feel free to unmute or drop your question in the chat. And as always, share questions in Slack if something comes up later. See you next session!</p>  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 2 - Slides.html">← Back to Module 2 deck</a></div>
+    <div class="fn-siblings"><a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">Frameworks Card</a>
+      <a class="fn-sibling" href="Module 2 - Context Data Packs.html">Context Data Packs</a>
+      <a class="fn-sibling" href="M2 - Lab Guide.html">Lab Guide</a>
+      <a class="fn-sibling" href="M2 - Validation Brief.html">Validation Brief</a></div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 2 - Speaker Notes.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>
