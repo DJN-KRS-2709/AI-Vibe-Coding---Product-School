@@ -229,6 +229,35 @@ section.centered ul li::before { display: none; }
 
 section.section-break { padding: 0; }
 section.section-break .section-break-inner { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 20%, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0.08) 35%, #07162C 75%); display: flex; flex-direction: column; justify-content: flex-end; padding: 80px; text-align: left; }
+
+/* CAMERAS ON — paired with the Break slide. Matches the AI Product Strategy / AI Product Managers reference decks: course logo + reminder card on the left, portrait photo strip on the right. */
+section.cameras-section { padding: 0; }
+section.cameras-section .cameras-inner {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #07162C 0%, #0c2244 50%, #1241B0 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.cameras-layout { display: flex; align-items: center; gap: 60px; max-width: 900px; width: 100%; padding: 0 40px; }
+.cameras-left { flex: 1; position: relative; }
+.cameras-logo { width: 48px; height: 48px; margin-bottom: 40px; opacity: 0.9; }
+.cameras-card {
+  border: 1.5px solid rgba(255,255,255,0.15); border-radius: 20px;
+  padding: 48px 64px; max-width: 520px; text-align: left;
+  background: rgba(255,255,255,0.02);
+}
+.cameras-card h2 { font-size: 32px; margin-bottom: 8px; color: #fff; }
+.cameras-card .cameras-arrow { font-size: 18px; font-weight: 700; color: #60a5fa; margin-bottom: 12px; }
+.cameras-card p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.cameras-photo-strip {
+  flex-shrink: 0; width: 220px; height: 480px; border-radius: 16px;
+  overflow: hidden; border: 1.5px solid rgba(255,255,255,0.12);
+}
+.cameras-photo-strip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 900px) {
+  .cameras-layout { flex-direction: column; gap: 32px; max-width: 90%; }
+  .cameras-photo-strip { width: 100%; max-width: 280px; height: 360px; }
+  .cameras-card { padding: 28px 36px; }
+}
 .section-break-inner .section-num { font-family: 'Poppins', sans-serif; font-size: 120px; font-weight: 900; color: #60a5fa; line-height: 0.9; letter-spacing: -0.04em; opacity: 0.92; margin-bottom: 12px; }
 .section-break-inner .lab-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
 .section-break-inner .lab-name { font-size: 52px; font-weight: 900; color: #fff; line-height: 1.1; max-width: 760px; font-family: 'Poppins', sans-serif; }
@@ -858,33 +887,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
   </div>
 </section>
 
-<!-- 13. BREAK -->
-<section class="centered" data-title="Break">
-  <div class="inner">
-    <div class="demo-tag tag-break">Break</div>
-    <h2>☕ Five-minute break.</h2>
-    <p class="subtitle">Water · stretch · refill. Back in five.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Hard stop on the break. Post the resume time in <code>#cohort-channel</code>. Use the time to scan for blockers in the chat — that's where the real-time pulse lives.</p>
-    </div>
-    </div>
-</section>
-
-<!-- 13A. CAMERAS ON RESET -->
-<section class="centered" data-title="Cameras On · Welcome Back">
-  <div class="inner">
-    <div class="demo-tag tag-recall">Reminder</div>
-    <h2>📹 Welcome back.</h2>
-    <p class="subtitle">It's always better to see your smiling face. Cameras on — let's keep the momentum.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Quick reset (15 seconds). After the break, attention drops. Cameras coming back on is the cheapest way to recover energy. If you're going async, this slide is a placeholder — learners can skip it via <code>K</code>.</p>
-  </div>
-</div>
-</section>
-
-<!-- 14. LECTURE: SKILL MARKDOWNS -->
+<!-- 13. LECTURE: SKILL MARKDOWNS — sits BEFORE the break, matching the legacy PPTX order. The "new superpower for speed" lands while energy is high, then learners take a beat. -->
 <section data-title="Skill Markdowns">
   <div class="inner">
     <div class="demo-tag tag-lecture">Lecture</div>
@@ -918,6 +921,42 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
       <p>Real example to drop: Cursor's frontend-design skill (in the marketplace this learner is now using) — a single markdown file that turns any frontend prompt into production-grade React. That's a skill.</p>
         </div>
         </div>
+</section>
+
+<!-- 14. BREAK — paired with Cameras On below. "Take a Beat" tag + plain ☕ matches the AI Product Strategy / AI Product Managers reference decks. -->
+<section class="centered" data-title="Break">
+  <div class="inner">
+    <div class="demo-tag tag-break">Take a Beat</div>
+    <h1 style="font-size:64px; color:#333; margin-top:40px;">☕</h1>
+    <div class="subtitle" style="margin:16px auto;">Pause. Stretch. Refill. Back in five.</div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>5-minute break. They earned it. Post the resume time in <code>#cohort-channel</code>. Use the time to scan for blockers in the chat — that's where the real-time pulse lives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 14A. CAMERAS ON — photo-strip pattern. Always paired with the Break and sits immediately after it. Same template across every module. -->
+<section class="cameras-section" data-title="Cameras On">
+  <div class="cameras-inner">
+    <div class="cameras-layout">
+      <div class="cameras-left">
+        <img class="cameras-logo" src="../Design/Product-School-Logo.png" alt="Product School"/>
+        <div class="cameras-card">
+          <h2>Reminder! 🎒</h2>
+          <div class="cameras-arrow">&rarr; Cameras On</div>
+          <p>It's always better to see your smiling face! Be present and visible to stay engaged and keep interactions valuable.</p>
+        </div>
+      </div>
+      <div class="cameras-photo-strip">
+        <img src="../Design/cameras-on.png" alt="Cameras On"/>
+      </div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Quick reminder for live cohort sessions only. Async learners can skip via <code>K</code>. After the break, attention drops — cameras coming back on is the cheapest way to recover energy.</p>
+    </div>
+  </div>
 </section>
 
 <!-- 15. SECTION 3 DIVIDER — FROM PROMPT TO FUNCTIONAL STRATEGY -->
