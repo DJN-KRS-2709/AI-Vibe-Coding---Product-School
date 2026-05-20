@@ -5,7 +5,7 @@
 ---
 
 **AI-Review Prompt**
-The verbatim text block a learner pastes into ChatGPT, Claude, or Cursor — together with their artifact — to get a structured critique. Every solo lab in this certification ships one. The pattern replaces what would historically have been a peer review.
+The verbatim text block a learner pastes into ChatGPT, Claude, or Cursor — together with their artifact — to get a structured critique. Used as the solo fallback when a Show & Swap partner is unavailable, and as the primary reviewer in modules that ship without a paired exercise.
 
 **Confidence Line**
 The single arc that runs through the entire certification. Three phases: High Ambiguity (M1–M2) → Gaining Clarity (M3–M4) → Production Confidence (M5–M6). Every prompt the learner writes is a choice on this line — explore the path, or refine it.
@@ -71,17 +71,17 @@ A free LLM (ChatGPT, Gemini, Claude) used to draft and refine a prompt *before* 
 **Screenshot-to-App**
 The multimodal entry point where the learner uploads a screenshot (Mobbin, competitor, hand-drawing) and the AI clones the layout and design system into a prototype. Best for refining a vibe sketch against a known-good professional pattern.
 
-**Self-Review Checklist**
-The 3–5 questions a learner walks through on their own prototype after a lab. Replaces what was historically a peer-review checklist. Every lab in the certification has one.
+**Self-Score**
+The individual 1–5 rubric a learner applies to their own prototype after Lab 2. Five rungs: Sketch · Rough Direction · Getting There · Team-Ready · VP-Ready. Used at the end of every module to track Confidence Line progress.
 
-**Show and Swap** *(deprecated)*
-The legacy paired-review exercise. Replaced in the current curriculum by **Solo Review · Walk Your Build** — a silent self-walk plus AI-review prompt. Same intent (raw signal on the prototype); individual format.
+**Show and Swap**
+The 10-minute paired exercise after Lab 1. Pairs swap shareable links in the breakout chat, walk each other's prototype silently for three minutes, then discuss three questions (what was immediately clear · what confused them · what assumption the build is testing). Then swap roles and repeat. The silent rule is the lesson — the comment you want to make at minute two is the most useful signal.
 
 **Skill (Skill Markdown)**
 A markdown file that gives an AI specialized instructions for a domain (e.g. "build dashboards for B2B SaaS," "always use this design system"). The AI follows the skill on every prompt without the learner re-explaining context. Marketplaces (Anthropic, Cursor) and public GitHub repos host them. Module 3 teaches authoring.
 
-**Solo Review**
-The individual-format replacement for paired peer reviews. Three steps: silent walk → written self-review → AI-review prompt. The output (one-line learning + screenshot) is shared async in `#cohort-channel`.
+**Solo Fallback (AI-Review Prompt)**
+If a learner is joining async or has no partner, they substitute the Show & Swap with a silent self-walk plus the verbatim AI-review prompt pasted into ChatGPT or Claude. Same three dimensions; the reviewer is the AI instead of a peer.
 
 **Text-to-App**
 The multimodal entry point where the learner uses a natural-language prompt as the only input. Best for greenfield exploration where no design or competitor reference exists yet.

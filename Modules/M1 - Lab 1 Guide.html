@@ -115,7 +115,7 @@
 
   <div class="overview-bar">
     <div class="overview-item"><div class="oi-num">15</div><div class="oi-label">Build min</div></div>
-    <div class="overview-item"><div class="oi-num">8</div><div class="oi-label">Review min</div></div>
+    <div class="overview-item"><div class="oi-num">10</div><div class="oi-label">Swap min</div></div>
     <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">URL ship</div></div>
     <div class="overview-item"><div class="oi-num">0</div><div class="oi-label">Frameworks</div></div>
   </div>
@@ -223,67 +223,73 @@
 
   <div class="flow-connector"><div class="flow-arrow"></div></div>
 
-  <!-- ═══════════ SELF-REVIEW 1 ═══════════ -->
-  <div class="phase" id="self-review-1">
+  <!-- ═══════════ SHOW AND SWAP ═══════════ -->
+  <div class="phase" id="show-and-swap">
     <div class="phase-num" style="background:#7c3aed;">2</div>
     <div class="phase-text">
-      <h2>Walk Your Own Build</h2>
-      <div class="phase-time">Self-Review + AI Critique · 8 minutes</div>
+      <h2>Show and Swap Your Prototype</h2>
+      <div class="phase-time">Breakout · 10 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
       <div class="callout" style="margin-top:0;">
-        <p>Open your link in a fresh tab. Don't explain anything to yourself.<br>Click as a first-time user. <strong>Notice where you hesitate.</strong></p>
+        <p>Pair up with a peer and experience their prototype as a real user.<br>This mirrors actual user behavior and gives you raw feedback on whether your <strong>vibe</strong> translates into a functional tool.</p>
       </div>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">1</div>
         <div class="step-body">
-          <div class="step-title">Silent walk through your own build</div>
-          <div class="step-time">3 minutes</div>
-          <div class="step-desc">Open the link in a fresh tab. Click as if you've never seen it. Don't rationalize. Just notice the friction.</div>
+          <div class="step-title">Swap prototype links in the chat</div>
+          <div class="step-time">30 seconds</div>
+          <div class="step-desc">Drop your shareable URL. Grab your partner's. <strong>No verbal context</strong> — no setup, no apologies, no "what I was going for was…". Let the build speak for itself.</div>
         </div>
       </div>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">2</div>
         <div class="step-body">
-          <div class="step-title">Write down three answers</div>
-          <div class="step-time">2 minutes</div>
-          <div class="step-desc">Be honest. Most PMs can't answer the third question — that's the most useful diagnostic in the module.</div>
+          <div class="step-title">Silent walk through your partner's build</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Click as if you've never seen it. <strong>Don't narrate.</strong> Take notes on the three questions below — you'll discuss them in step 3.</div>
         </div>
       </div>
 
-      <div style="margin-left:52px; margin-bottom:12px;">
-        <div class="review-q"><div class="review-num" style="background:#7c3aed;">1</div><div class="review-text"><strong>What I understood immediately</strong></div></div>
-        <div class="review-q"><div class="review-num" style="background:#7c3aed;">2</div><div class="review-text"><strong>What confused me</strong></div></div>
-        <div class="review-q"><div class="review-num" style="background:#7c3aed;">3</div><div class="review-text"><strong>What assumption am I actually testing?</strong></div></div>
-      </div>
-
-      <div class="step">
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">3</div>
         <div class="step-body">
-          <div class="step-title">AI Critique — paste into ChatGPT or Claude</div>
-          <div class="step-time">3 minutes</div>
-          <div class="step-desc">Paste the verbatim prompt below + your prototype URL. Read the critique. Pick one fix.</div>
+          <div class="step-title">Discuss — then swap roles and repeat</div>
+          <div class="step-time">6 minutes (3 + 3)</div>
+          <div class="step-desc">Walk through the three questions with your partner. Be specific — "the third button confused me because it looked clickable but wasn't" beats "it's a bit confusing." Then swap roles and repeat the whole loop on your build.</div>
         </div>
       </div>
 
-      <div class="post-template" style="margin-top:14px;">
-        <div class="pt-title">AI-Review Prompt (copy verbatim)</div>
-        You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:18px 0 8px;">The three discussion questions</p>
+      <div style="margin-bottom:6px;">
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">1</div><div class="review-text"><strong>What you understood immediately</strong> about the product's purpose.</div></div>
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">2</div><div class="review-text"><strong>What confused you</strong> about the prototype.</div></div>
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">3</div><div class="review-text"><strong>What assumption</strong> you thought this prototype was testing.</div></div>
       </div>
 
       <div class="tip-box">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text"><strong>Why solo + AI beats peer review:</strong> Your peers are being polite. The AI is not. And the silent self-walk forces the kind of honest noticing that's harder to do when someone is watching you watch yourself.</div>
+        <div class="tip-icon">🤐</div>
+        <div class="tip-text"><strong>The silent rule is the whole point.</strong> Three minutes of no commentary is hard. The comment you most want to make at minute 2 — write it down instead. That note is the most useful signal of the whole exercise.</div>
+      </div>
+
+      <div class="tip-box warning" style="margin-top:10px;">
+        <div class="tip-icon">🧑‍💻</div>
+        <div class="tip-text"><strong>No partner available?</strong> Fall back to a silent self-walk + the AI-review prompt below. Open your link in a fresh tab, click as a first-time user, then paste the prompt + your URL into ChatGPT or Claude.</div>
+      </div>
+
+      <div class="post-template" style="margin-top:14px;">
+        <div class="pt-title">AI-Review Prompt — solo fallback (copy verbatim)</div>
+        You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
       </div>
 
       <div class="tip-box success" style="margin-top:10px;">
         <div class="tip-icon">📣</div>
-        <div class="tip-text"><strong>Async share:</strong> post the screenshot + your one-line learning to <code>#cohort-channel</code>. No live demo required.</div>
+        <div class="tip-text"><strong>Async share:</strong> after class, post the screenshot + your one-line learning from your partner's feedback to <code>#cohort-channel</code>.</div>
       </div>
     </div>
   </div>

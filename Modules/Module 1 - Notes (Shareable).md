@@ -81,19 +81,23 @@ If a prompt fails twice, pivot. Do not re-prompt the same broken logic — that'
 
 ---
 
-## Solo Review — walk your own build
+## Show and Swap — peer review
 
-After Lab 1, give yourself eight minutes for a structured self-review. Open the link in a fresh tab. Don't explain anything to yourself. Click as a first-time user. Notice where you hesitate.
+After Lab 1, you pair up for ten minutes. The point is to experience a real user failing on your UI — that moment is the lesson, and you can't generate it for yourself.
 
-Then answer three questions in writing: what's immediately clear, what's confusing, what assumption am I actually testing? Most PMs cannot answer the third question — and that's the most useful diagnostic in the module. If you can't name the assumption, you built a toy.
+Drop your shareable link in the breakout chat. Grab your partner's. **No verbal context** — no setup, no apologies, no "what I was going for was…". The build has to speak for itself, exactly like it would for a real user landing cold.
 
-Finally, paste your link plus the AI-review prompt below into ChatGPT or Claude. Read the critique. Pick one fix.
+Click your partner's build silently for three minutes. Don't narrate. Take notes on three things: what you understood immediately about the product's purpose, what confused you, and what assumption you think they were testing. Then discuss those three points with your partner for three minutes. Then swap roles and repeat the whole loop on your build.
+
+The silent rule is the whole point. The comment you most want to make at minute two is the most useful signal of the exercise — write it down instead of saying it.
+
+If no partner is available, fall back to a silent self-walk plus the AI-review prompt below into ChatGPT or Claude. Same three dimensions, different reviewer.
 
 ```
 You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
 ```
 
-Post the screenshot plus your one-line learning to `#cohort-channel`. The cohort is for accountability, not dependency — you'll see the patterns other learners surfaced, and you'll learn from the gap between their assumption and yours.
+After class, post a screenshot plus your one-line learning from your partner's feedback to `#cohort-channel`. The async share captures patterns across the cohort that no individual pair can see.
 
 ---
 
@@ -124,7 +128,7 @@ Commit the v2 URL plus before-and-after screenshots to `01-velocity/prototype-v2
 
 ---
 
-## Solo Review — score your prototype
+## Self-Score — your prototype
 
 Five minutes. Score your v2 from 1 to 5, honestly:
 

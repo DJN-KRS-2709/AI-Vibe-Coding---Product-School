@@ -93,17 +93,17 @@ This is the universal Module-1 move. You'll repeat it whenever your team has mor
 
 ---
 
-## 8. The Self-Review + AI-Review Pattern
+## 8. The Review Stack — Show & Swap + Self-Score
 
-Every solo lab in this certification ends with these five elements:
+Every lab in this module ends with a structured review. The reviewer changes; the structure doesn't:
 
 1. **Time-box** — `⏰ N min`.
-2. **Open the tool** — explicit step pointing at the matching HTML file.
-3. **Self-review checklist** — 3–5 line items you walk through yourself.
-4. **AI-review prompt** — verbatim prompt you paste into ChatGPT or Claude with your artifact.
-5. **Async share** — commit to your repo, post in `#cohort-channel`.
+2. **Open the artifact in a fresh tab** — no narration, no setup context.
+3. **Three questions** — what was immediately clear · what confused the reviewer · what assumption the build is testing.
+4. **The reviewer** — a peer (Show & Swap after Lab 1) or yourself against the 1–5 rubric (after Lab 2). Async fallback: the AI-review prompt.
+5. **Async share** — commit to your repo, post the one-line learning in `#cohort-channel`.
 
-**No group dependencies. No pair reviews. The reviewer is you + an AI.**
+**One paired touch-point per module, otherwise individual. The build is yours. The signal can come from a peer, the rubric, or the AI — whichever is closest to honest.**
 
 ---
 

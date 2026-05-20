@@ -14,14 +14,13 @@ It is **not** a Lovable tutorial. The tool changes; the methodology doesn't. By 
 
 - Build two prototypes from scratch.
 - Iterate one of them from vibe sketch to credible tool.
-- Self-review both with an AI critique prompt.
+- Show and swap with a peer after Lab 1 · self-score yours after Lab 2.
 - Commit your artifacts to `01-velocity/`.
 - Name the Confidence Line — the framework that runs through every remaining module.
 
 **You will not:**
 
 - Watch slides for an hour before opening the tool.
-- Coordinate with anyone else.
 - Wait for engineering to validate your idea.
 - Need to know any code.
 
@@ -99,7 +98,7 @@ If you have a real problem from your day job that fits one of these shapes, swap
 
 ## Voice + format reminders
 
-- **Solo course.** Every exercise is individual. No pair reviews, no group dependencies. You'll self-review your own build and use an AI prompt for critique. The cohort exists for async accountability, not for shared deliverables.
+- **One peer touch-point per module, otherwise solo.** Builds are individual — no group dependencies on the artifact. After Lab 1 you'll pair up for a ten-minute Show & Swap (silent walk on a partner's prototype, then discuss). Everything else — Lab 2, self-score, async sharing — is individual.
 - **Async-friendly.** If you're joining a live cohort, cameras on (it doubles your engagement). If you're going async, everything ships the same way — commit artifacts to your repo, post one-line learnings to `#cohort-channel`.
 - **Direct, not cheerful.** Real numbers, real examples, real companies. We'll talk about Slack pivoting from gaming to chat, Dropbox launching with a screencast, Airbnb's three air mattresses. No "imagine an app like…" hypotheticals.
 
