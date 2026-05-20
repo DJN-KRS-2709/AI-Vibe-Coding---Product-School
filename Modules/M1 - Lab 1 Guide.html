@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 — Lab 1 · Your First Vibe Build</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .header { text-align: center; margin-bottom: 40px; padding: 40px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(59,111,224,0.2); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 580px; margin: 0 auto; }
+
+  .overview-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: -20px 20px 32px; position: relative; z-index: 10; }
+  .overview-item { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #3B6FE0; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  .phase { margin-top: 40px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .phase-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 16px; overflow: hidden; }
+  .card-body { padding: 24px 28px; }
+
+  .step { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
+  .step:last-child { border-bottom: none; }
+  .step-marker { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #3B6FE0; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  .tip-box { display: flex; gap: 14px; align-items: flex-start; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-box.fire { background: #fff1f2; border-color: #fecdd3; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .scenario-card { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
+  .scenario-card .sc-num { font-size: 11px; font-weight: 800; color: #3B6FE0; margin-bottom: 4px; }
+  .scenario-card .sc-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .scenario-card .sc-desc { font-size: 12px; color: #777; line-height: 1.5; }
+
+  .prompt-template { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 18px 22px; margin: 12px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #475569; line-height: 1.7; }
+  .prompt-template .pt-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #3B6FE0; margin-bottom: 6px; }
+
+  .review-q { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .review-q:last-child { border-bottom: none; }
+  .review-num { width: 28px; height: 28px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .review-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 3px; }
+
+  .callout { background: #0d1117; border-radius: 12px; padding: 28px 32px; text-align: center; margin: 24px 0; }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #60a5fa; font-style: normal; font-weight: 700; }
+
+  .post-template { background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px; padding: 16px 20px; margin: 12px 0; font-size: 14px; color: #555; line-height: 1.7; }
+  .post-template .pt-title { font-size: 12px; font-weight: 700; color: #3B6FE0; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+
+  .checklist { margin: 10px 0; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5; }
+  .check-box { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 12px; color: transparent; }
+  .check-box.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .check-item strong { color: #1a1a2e; }
+
+  .flow-connector { display: flex; justify-content: center; padding: 4px 0; margin: 4px 0; }
+  .flow-arrow { width: 2px; height: 20px; background: #d1d5db; position: relative; }
+  .flow-arrow::after { content: '▼'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); color: #d1d5db; font-size: 10px; }
+
+  .rules-list { margin: 12px 0; }
+  .rule-item { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { width: 28px; height: 28px; border-radius: 6px; background: #1e293b; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rule-text { font-size: 14px; color: #555; line-height: 1.5; padding-top: 3px; }
+  .rule-text strong { color: #1a1a2e; }
+
+  .next-bar { margin-top: 40px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-label { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .next-title { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+  .next-meta { font-size: 13px; color: #6b7280; margin-top: 2px; }
+  .next-btn { background: #3B6FE0; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .next-btn:hover { background: #2c5cc9; }
+
+  .footer-note { text-align: center; margin-top: 24px; padding: 20px; font-size: 13px; color: #888; line-height: 1.6; }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb">Module 1 · Execute Vibe Coding Velocity · <a href="M1 - Lab 2 Guide.html">Lab 2 →</a></div>
+
+  <div class="header">
+    <div class="badge">Module 1 — Lab 1</div>
+    <h1>Your First Vibe Build</h1>
+    <p>Pick a scenario. Pick a launch path. Ship a clickable URL in 15 minutes. Then walk it as if you've never seen it.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">15</div><div class="oi-label">Build min</div></div>
+    <div class="overview-item"><div class="oi-num">8</div><div class="oi-label">Review min</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">URL ship</div></div>
+    <div class="overview-item"><div class="oi-num">0</div><div class="oi-label">Frameworks</div></div>
+  </div>
+
+  <!-- ═══════════ LAB 1 ═══════════ -->
+  <div class="phase" id="lab-1" style="margin-top:24px;">
+    <div class="phase-num" style="background:#1e293b;">1</div>
+    <div class="phase-text">
+      <h2>Pick a Scenario · Pick a Launch Path · Ship</h2>
+      <div class="phase-time">Hands-On Lab 1 · 15 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:6px;">Pick <strong>one</strong> of the four course scenarios below, or bring your own. Open Lovable. Build.</p>
+
+      <div class="tip-box" style="margin-top:8px; margin-bottom:14px;">
+        <div class="tip-icon">🎯</div>
+        <div class="tip-text"><strong>Heads up:</strong> In Module 2, you'll commit to one scenario and carry it through the rest of the course — all the way to your final project in Module 6. What you build today is a head start. Pick something you'd want to keep building on.</div>
+      </div>
+
+      <div class="scenario-grid">
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 1</div>
+          <div class="sc-title">The Retention Engine</div>
+          <div class="sc-desc">B2B SaaS losing 30% of customers in 90 days. Users "sign up, poke around, and ghost." Team invites matter. What's the real blocker?</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 2</div>
+          <div class="sc-title">The Internal Tool Nobody Uses</div>
+          <div class="sc-desc">CRM with 18% adoption. Reps say "too many clicks." CEO wants Gong. Can you fix adoption without replacing the tool?</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 3</div>
+          <div class="sc-title">The Marketplace Trust Problem</div>
+          <div class="sc-desc">Bookings flat. Zero-review providers can't get their first customer. How do you solve cold-start trust?</div>
+        </div>
+        <div class="scenario-card">
+          <div class="sc-num">Scenario 4</div>
+          <div class="sc-title">The Dashboard Nobody Reads</div>
+          <div class="sc-desc">Analytics with 60% bounce rate. Power users love it, new users flee. How do you serve both?</div>
+        </div>
+      </div>
+
+      <div class="scenario-grid">
+        <div class="scenario-card" style="grid-column: span 2; border-color: #bfdbfe; background: #f0f7ff;">
+          <div class="sc-num">Scenario 5 — Bring Your Own</div>
+          <div class="sc-title">Use a real problem from your company</div>
+          <div class="sc-desc">Needs a clear user, a measurable outcome, and enough ambiguity to test. Feed in a screenshot of your actual product if you can.</div>
+        </div>
+      </div>
+
+      <div class="tip-box fire">
+        <div class="tip-icon">🔥</div>
+        <div class="tip-text"><strong>Today is exploration</strong> — you're not locked in yet. But the scenario you pick here might become your final project. If you can't decide, pick Scenario 1 or 4 — they work for almost any PM role.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; font-weight:700; color:#1a1a2e; margin-bottom:12px;">The Rules</p>
+
+      <div class="rules-list">
+        <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>15 minutes. Work solo.</strong> No collaboration. This is about your instincts and speed.</div></div>
+        <div class="rule-item"><div class="rule-num">2</div><div class="rule-text"><strong>No methodology. No framework.</strong> Just open Lovable and go. Build on instinct.</div></div>
+        <div class="rule-item"><div class="rule-num">3</div><div class="rule-text"><strong>Aim for clickable and showable.</strong> Not perfect. Not polished. Just something you can share via link.</div></div>
+        <div class="rule-item"><div class="rule-num">4</div><div class="rule-text"><strong>Stuck? Prompt again.</strong> Still stuck? Prompt differently. Keep moving.</div></div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">🧊</div>
+        <div class="tip-text"><strong>Hit blank-page syndrome?</strong> Two escape routes below.</div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:14px 0 8px;">Escape Route 1: Copy and Customize</p>
+      <div class="prompt-template">
+        <div class="pt-label">Starter Prompts — Replace the [brackets] and go</div>
+        "Build me a [community/social] feature for [fitness/sales/customer] users. Include a [matching screen / leaderboard / shared feed]."<br><br>
+        "Build me a dashboard that shows [account health / sales pipeline / user activity]. Include a [filter / list / chart]."<br><br>
+        "Build me a [type of app] that helps users [one action]. Include [one UI element]."
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:14px 0 8px;">Escape Route 2: First Screen Method</p>
+      <div class="prompt-template">
+        <div class="pt-label">Ask yourself → Then prompt</div>
+        What's the first screen your user would see? What's on it?<br><br>
+        → "Build me a [that screen] for [that user] with [those key elements]."<br><br>
+        <em>Example: "Build me a sales rep dashboard with recent calls, CRM sync button, and quick-note field."</em>
+      </div>
+
+      <div class="checklist" style="margin-top:16px;">
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Prototype built</strong> — something clickable exists</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Shareable link works</strong> — someone else can open it</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Committed to <code>01-velocity/prototype-v1.md</code></strong></div></div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💰</div>
+        <div class="tip-text"><strong>Credits tip:</strong> Plan your prompt in Gemini or ChatGPT first. Paste into Lovable when ready. That saves your ~100 credits/month.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ SELF-REVIEW 1 ═══════════ -->
+  <div class="phase" id="self-review-1">
+    <div class="phase-num" style="background:#7c3aed;">2</div>
+    <div class="phase-text">
+      <h2>Walk Your Own Build</h2>
+      <div class="phase-time">Self-Review + AI Critique · 8 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="callout" style="margin-top:0;">
+        <p>Open your link in a fresh tab. Don't explain anything to yourself.<br>Click as a first-time user. <strong>Notice where you hesitate.</strong></p>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">Silent walk through your own build</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Open the link in a fresh tab. Click as if you've never seen it. Don't rationalize. Just notice the friction.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Write down three answers</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Be honest. Most PMs can't answer the third question — that's the most useful diagnostic in the module.</div>
+        </div>
+      </div>
+
+      <div style="margin-left:52px; margin-bottom:12px;">
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">1</div><div class="review-text"><strong>What I understood immediately</strong></div></div>
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">2</div><div class="review-text"><strong>What confused me</strong></div></div>
+        <div class="review-q"><div class="review-num" style="background:#7c3aed;">3</div><div class="review-text"><strong>What assumption am I actually testing?</strong></div></div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">3</div>
+        <div class="step-body">
+          <div class="step-title">AI Critique — paste into ChatGPT or Claude</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Paste the verbatim prompt below + your prototype URL. Read the critique. Pick one fix.</div>
+        </div>
+      </div>
+
+      <div class="post-template" style="margin-top:14px;">
+        <div class="pt-title">AI-Review Prompt (copy verbatim)</div>
+        You are a senior product reviewer. I built a prototype to explore the following assumption: [paste your one-sentence assumption]. The link is: [paste]. Critique the build on three dimensions: (1) Does the first screen communicate the core value in under 10 seconds? (2) What's the single biggest source of confusion? (3) What's the one change that would most increase my confidence in this direction? End with the question you would ask the user if you could only ask one.
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Why solo + AI beats peer review:</strong> Your peers are being polite. The AI is not. And the silent self-walk forces the kind of honest noticing that's harder to do when someone is watching you watch yourself.</div>
+      </div>
+
+      <div class="tip-box success" style="margin-top:10px;">
+        <div class="tip-icon">📣</div>
+        <div class="tip-text"><strong>Async share:</strong> post the screenshot + your one-line learning to <code>#cohort-channel</code>. No live demo required.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ NEXT ═══════════ -->
+  <div class="next-bar">
+    <div>
+      <div class="next-label">Up next</div>
+      <div class="next-title">Lab 2 · Level Up Your Build</div>
+      <div class="next-meta">15 min · pick two upgrade paths · ship a v2.</div>
+    </div>
+    <a class="next-btn" href="M1 - Lab 2 Guide.html">Open Lab 2 →</a>
+  </div>
+
+  <div class="footer-note">
+    <strong>Module 1 · Lab 1</strong> — Build to think. Ship to learn.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+</script>
+
+</body>
+</html>

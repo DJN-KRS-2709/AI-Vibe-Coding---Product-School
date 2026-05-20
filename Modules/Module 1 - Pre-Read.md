@@ -55,7 +55,7 @@ For Lab 2's design-match path. Free signup at [mobbin.com](https://mobbin.com). 
 
 ### 4. The lab guide (1 min)
 
-Open [`Modules/M1 - Lab Guide.html`](M1%20-%20Lab%20Guide.html) once before class so you've seen the four scenarios. You don't need to pick one yet.
+Open [`Modules/M1 - Lab 1 Guide.html`](M1%20-%20Lab%201%20Guide.html) once before class so you've seen the four scenarios. You don't need to pick one yet. ([Lab 2 guide](M1%20-%20Lab%202%20Guide.html) opens after the break.)
 
 ---
 

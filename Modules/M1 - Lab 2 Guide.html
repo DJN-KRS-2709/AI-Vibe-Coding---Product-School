@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1 — Lab 2 · Level Up Your Build</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .header { text-align: center; margin-bottom: 40px; padding: 40px 32px; background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(5,150,105,0.25); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #a7f3d0; line-height: 1.6; max-width: 580px; margin: 0 auto; }
+
+  .overview-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: -20px 20px 32px; position: relative; z-index: 10; }
+  .overview-item { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #059669; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  .phase { margin-top: 40px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .phase-num { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0; }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 16px; overflow: hidden; }
+  .card-body { padding: 24px 28px; }
+
+  .step { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
+  .step:last-child { border-bottom: none; }
+  .step-marker { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #059669; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  .tip-box { display: flex; gap: 14px; align-items: flex-start; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-box.fire { background: #fff1f2; border-color: #fecdd3; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .upgrade-card { background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
+  .upgrade-card .uc-icon { font-size: 20px; margin-bottom: 6px; }
+  .upgrade-card .uc-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .upgrade-card .uc-desc { font-size: 12px; color: #777; line-height: 1.5; }
+  .upgrade-card .uc-desc a { color: #059669; font-weight: 600; }
+
+  .review-q { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .review-q:last-child { border-bottom: none; }
+  .review-num { width: 28px; height: 28px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .review-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 3px; }
+
+  .callout { background: #0d1117; border-radius: 12px; padding: 28px 32px; text-align: center; margin: 24px 0; }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #6ee7b7; font-style: normal; font-weight: 700; }
+
+  .post-template { background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px; padding: 16px 20px; margin: 12px 0; font-size: 14px; color: #555; line-height: 1.7; }
+  .post-template .pt-title { font-size: 12px; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+
+  .checklist { margin: 10px 0; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5; }
+  .check-box { width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 12px; color: transparent; }
+  .check-box.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .check-item strong { color: #1a1a2e; }
+
+  .reveal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .reveal-card { border-radius: 10px; padding: 20px 24px; text-align: center; }
+  .reveal-before { background: #f8fafc; border: 1px solid #e2e8f0; }
+  .reveal-after { background: #ecfdf5; border: 2px solid #059669; }
+  .reveal-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .reveal-before .reveal-label { color: #94a3b8; }
+  .reveal-after .reveal-label { color: #059669; }
+  .reveal-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .reveal-list { font-size: 13px; color: #666; line-height: 1.6; text-align: left; list-style: none; }
+  .reveal-list li { margin-bottom: 4px; padding-left: 16px; position: relative; }
+  .reveal-list li::before { content: '→'; position: absolute; left: 0; color: #059669; }
+
+  .flow-connector { display: flex; justify-content: center; padding: 4px 0; margin: 4px 0; }
+  .flow-arrow { width: 2px; height: 20px; background: #d1d5db; position: relative; }
+  .flow-arrow::after { content: '▼'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); color: #d1d5db; font-size: 10px; }
+
+  .next-bar { margin-top: 40px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .next-label { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .next-title { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+  .next-meta { font-size: 13px; color: #6b7280; margin-top: 2px; }
+  .next-btn { background: #1e293b; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+  .next-btn:hover { background: #0f172a; }
+
+  .footer-note { text-align: center; margin-top: 24px; padding: 20px; font-size: 13px; color: #888; line-height: 1.6; }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="M1 - Lab 1 Guide.html">← Lab 1</a> · Module 1 · Execute Vibe Coding Velocity</div>
+
+  <div class="header">
+    <div class="badge">Module 1 — Lab 2</div>
+    <h1>Level Up Your Build</h1>
+    <p>Take your Lab 1 prototype. Don't start over. Pick two upgrade paths. Steer — don't rebuild. Then score the leap.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">15</div><div class="oi-label">Build min</div></div>
+    <div class="overview-item"><div class="oi-num">5</div><div class="oi-label">Score min</div></div>
+    <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Upgrades</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">v2 URL</div></div>
+  </div>
+
+  <!-- ═══════════ LAB 2 ═══════════ -->
+  <div class="phase" id="lab-2" style="margin-top:24px;">
+    <div class="phase-num" style="background:#059669;">1</div>
+    <div class="phase-text">
+      <h2>Pick Two Upgrade Paths · Ship v2</h2>
+      <div class="phase-time">Hands-On Lab 2 · 15 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Take your Lab 1 prototype. <strong>Don't start over.</strong> Choose at least <strong>two</strong> upgrades:</p>
+
+      <div class="upgrade-grid">
+        <div class="upgrade-card">
+          <div class="uc-icon">🎨</div>
+          <div class="uc-title">Design Match</div>
+          <div class="uc-desc">Go to <a href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener"><strong>Mobbin</strong></a>. Find a real product with a similar layout. Screenshot it. Use it as context in your next prompt. "Match this look and feel."</div>
+        </div>
+        <div class="upgrade-card">
+          <div class="uc-icon">⚡</div>
+          <div class="uc-title">Add Interactivity</div>
+          <div class="uc-desc">Make something work. A filter that filters. A detail view that expands. A form that validates. Static → clickable → testable.</div>
+        </div>
+        <div class="upgrade-card">
+          <div class="uc-icon">🎯</div>
+          <div class="uc-title">Refine Without Rebuilding</div>
+          <div class="uc-desc">Find the weakest section. Fix <em>only that part</em> with a focused prompt. Tell the AI what to change AND what NOT to change.</div>
+        </div>
+        <div class="upgrade-card">
+          <div class="uc-icon">🏢</div>
+          <div class="uc-title">Existing Product Track</div>
+          <div class="uc-desc">Screenshot your actual company product. Match its look and feel. Add your new feature on top. "Wait, is this already in our product?"</div>
+        </div>
+      </div>
+
+      <div class="tip-box fire">
+        <div class="tip-icon">🔑</div>
+        <div class="tip-text"><strong>The key skill:</strong> You're <em>steering</em>, not starting over. Each prompt gets you closer. The instructor just showed you how to go from generic AI output to stakeholder-ready in 6 prompts. Apply the same pattern: design → interactivity → refine.</div>
+      </div>
+
+      <div class="checklist" style="margin-top:16px;">
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>At least 2 upgrades applied</strong></div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Upgraded link works</strong></div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Before/after committed</strong> — Lab 1 link kept for comparison · v2 in <code>01-velocity/prototype-v2.md</code></div></div>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Post in #builds</div>
+        [Upgraded prototype link]<br>
+        "Before: [what it was]. After: [what I changed]."
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ SELF-REVIEW 2 — SCORE ═══════════ -->
+  <div class="phase" id="self-review-2">
+    <div class="phase-num" style="background:#e11d48;">2</div>
+    <div class="phase-text">
+      <h2>Score Your Prototype</h2>
+      <div class="phase-time">Self-Score · 5 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Open both links side-by-side: Lab 1 (original) and Lab 2 (refined). The comparison is the point — same product, different quality level. Then score yourself honestly.</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#e11d48;">1</div>
+        <div class="step-body">
+          <div class="step-title">Compare v1 vs v2 side-by-side</div>
+          <div class="step-time" style="color:#e11d48;">2 minutes</div>
+          <div class="step-desc">Same product, two quality levels. Where did the upgrades land? Where did they miss?</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#e11d48;">2</div>
+        <div class="step-body">
+          <div class="step-title">Score from 1 to 5</div>
+          <div class="step-time" style="color:#e11d48;">1 minute</div>
+          <div class="step-desc"><strong>1</strong> Sketch · <strong>2</strong> Rough direction · <strong>3</strong> Getting there · <strong>4</strong> Team-ready · <strong>5</strong> VP-ready</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#e11d48;">3</div>
+        <div class="step-body">
+          <div class="step-title">Answer two sentences in writing</div>
+          <div class="step-time" style="color:#e11d48;">2 minutes</div>
+        </div>
+      </div>
+
+      <div style="margin-left:52px;">
+        <div class="review-q"><div class="review-num" style="background:#e11d48;">1</div><div class="review-text"><strong>"My score is X because…"</strong></div></div>
+        <div class="review-q"><div class="review-num" style="background:#e11d48;">2</div><div class="review-text"><strong>"The single change that would bump it +1 is…"</strong></div></div>
+      </div>
+
+      <div class="callout">
+        <p>Most learners score themselves a 2 or 3 today. Almost nobody scores a 5 — and that's the right outcome. <strong>The gap between your score and 5 is exactly what M2–M6 closes.</strong></p>
+      </div>
+
+      <div class="tip-box success" style="margin-top:14px;">
+        <div class="tip-icon">📣</div>
+        <div class="tip-text"><strong>Async share:</strong> post before/after screenshots + your score + your two sentences to <code>#cohort-channel</code>. Browse 2–3 others. You'll see the patterns nobody told you to look for.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ POST YOUR BUILDS ═══════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#3B6FE0;">!</div>
+    <div class="phase-text">
+      <h2>Post Your Builds</h2>
+      <div class="phase-time">Accountability · Before we wrap</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">1</div>
+        <div class="step-body">
+          <div class="step-title">Post your prototype links in #builds</div>
+          <div class="step-desc">Original + upgraded. Both.</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">2</div>
+        <div class="step-body">
+          <div class="step-title">Caption: What did you LEARN?</div>
+          <div class="step-desc">Not what you built — what you <strong>learned</strong>. Focus on insights, not features.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">3</div>
+        <div class="step-body">
+          <div class="step-title">React to 2 other builds</div>
+          <div class="step-desc">Browse the cohort channel. React or comment async on two builds that caught your eye. No live conversation required — this is accountability, not dependency.</div>
+        </div>
+      </div>
+
+      <div class="tip-box success">
+        <div class="tip-icon">🎯</div>
+        <div class="tip-text"><strong>What's next:</strong> Module 2 — you'll commit to a scenario and carry it through the rest of the course. You'll add constraints, real data, and a hypothesis. Everything you build from M2 forward layers onto one product. That product is what you deploy in Module 6.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ WHAT YOU JUST DID ═══════════ -->
+  <div class="card" style="margin-top:24px;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px; text-align:center;">What You Just Did</p>
+      <div class="reveal-grid">
+        <div class="reveal-card reveal-before">
+          <div class="reveal-label">Lab 1</div>
+          <div class="reveal-title">Raw build</div>
+          <ul class="reveal-list">
+            <li>Vague prompt, pure instinct</li>
+            <li>Generic layout, default design</li>
+            <li>Static — nothing interactive</li>
+            <li>"I made a thing"</li>
+          </ul>
+        </div>
+        <div class="reveal-card reveal-after">
+          <div class="reveal-label">Lab 2</div>
+          <div class="reveal-title">Leveled up</div>
+          <ul class="reveal-list">
+            <li>Design-matched to a real product</li>
+            <li>Interactive elements that work</li>
+            <li>Targeted refinements, not a rebuild</li>
+            <li>"I'd show this to my VP"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        <p>Same tool. Same you. Same amount of time.<br><br><strong>The leap came from <em>better prompting</em> — not more time.</strong><br><br>Module 1: Build fast.<br><strong>Module 2: Build smart.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ BACK ═══════════ -->
+  <div class="next-bar">
+    <div>
+      <div class="next-label">Need Lab 1?</div>
+      <div class="next-title">Lab 1 · Your First Vibe Build</div>
+      <div class="next-meta">Pick a scenario · pick a launch path · ship a URL.</div>
+    </div>
+    <a class="next-btn" href="M1 - Lab 1 Guide.html">← Back to Lab 1</a>
+  </div>
+
+  <div class="footer-note">
+    <strong>Module 1 · Lab 2</strong> — Steer, don't restart. The leap is in the prompting.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+</script>
+
+</body>
+</html>

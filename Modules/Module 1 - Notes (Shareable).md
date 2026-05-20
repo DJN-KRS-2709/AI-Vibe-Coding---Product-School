@@ -73,7 +73,7 @@ A Pro plan is roughly a hundred credits a month. That's a lot if you treat the t
 
 ## Lab 1 — Your First Vibe Build
 
-Open `Modules/M1 - Lab Guide.html`. Pick one of four scenarios (Retention Engine, Internal Tool Nobody Uses, Marketplace Trust, Dashboard Nobody Reads). Pick a launch path — either copy-and-customize a starter prompt, or use the First Screen Method (visualize the first thing the user sees and prompt that exactly). Build on instinct for thirteen minutes. At the two-minute mark, freeze and generate your shareable link.
+Open `Modules/M1 - Lab 1 Guide.html`. Pick one of four scenarios (Retention Engine, Internal Tool Nobody Uses, Marketplace Trust, Dashboard Nobody Reads). Pick a launch path — either copy-and-customize a starter prompt, or use the First Screen Method (visualize the first thing the user sees and prompt that exactly). Build on instinct for thirteen minutes. At the two-minute mark, freeze and generate your shareable link. Lab 2 is its own focused page (`M1 - Lab 2 Guide.html`) — opens after the break.
 
 Commit the URL plus a screenshot to `01-velocity/prototype-v1.md`. That's the first artifact in your repo.
 
