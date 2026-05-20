@@ -386,6 +386,146 @@ section.cameras-section .cameras-inner {
   .donut-svg { width: 130px; height: 130px; }
 }
 
+/* ===== M2 visual primitives ===== */
+
+/* VALIDATION LENS LOOP — circular SVG diagram, mirrors the legacy slide */
+.vll-wrap { display: grid; grid-template-columns: 0.95fr 1.25fr; gap: 36px; align-items: center; margin: 20px 0 4px; }
+.vll-left .demo-tag { margin-bottom: 18px; }
+.vll-left h2 { font-size: 44px; line-height: 1.05; margin-bottom: 18px; }
+.vll-left p { font-size: 15.5px; line-height: 1.65; color: #cdd5e3; margin-bottom: 14px; }
+.vll-left p.vll-anchor { color: #fff; font-weight: 600; }
+.vll-left p.vll-anchor strong { color: #60a5fa; }
+.vll-svg-wrap { display: flex; align-items: center; justify-content: center; }
+.vll-svg { width: 100%; max-width: 560px; height: auto; display: block; }
+.vll-node-circle { fill: rgba(7,22,44,0.92); stroke: rgba(96,165,250,0.55); stroke-width: 1.5; transition: all .3s ease; }
+.vll-node-group:hover .vll-node-circle { stroke: #60a5fa; stroke-width: 2.5; filter: drop-shadow(0 0 12px rgba(96,165,250,0.5)); }
+.vll-node-num { fill: #60a5fa; font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 800; }
+.vll-node-title { fill: #fff; font-family: 'Poppins', sans-serif; font-size: 12.5px; font-weight: 700; }
+.vll-anno-line { stroke: rgba(136,153,187,0.35); stroke-dasharray: 3 4; stroke-width: 1; }
+.vll-anno-dot { fill: #60a5fa; opacity: 0.7; }
+.vll-anno-fo { color: #8899bb; font-family: 'Lato', sans-serif; font-size: 11.5px; font-style: italic; line-height: 1.4; text-align: center; }
+.vll-coda { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.18); border-radius: 10px; padding: 14px 18px; margin-top: 18px; text-align: left; font-size: 13.5px; color: #cdd5e3; line-height: 1.55; }
+.vll-coda strong { color: #60a5fa; }
+@media (max-width: 960px) {
+  .vll-wrap { grid-template-columns: 1fr; gap: 20px; }
+  .vll-left h2 { font-size: 32px; text-align: center; }
+  .vll-left { text-align: center; }
+}
+
+/* KILL SWITCH + RISK TYPE — 3 visual risk panels with build artefacts */
+.ks-question { background: linear-gradient(135deg, rgba(248,113,113,0.10) 0%, rgba(248,113,113,0.04) 100%); border: 1px solid rgba(248,113,113,0.28); border-radius: 12px; padding: 16px 22px; margin: 14px auto 22px; max-width: 720px; text-align: center; font-size: 17px; font-weight: 600; color: #fff; }
+.ks-question em { color: #fca5a5; font-style: normal; font-weight: 700; }
+.ks-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0; }
+.ks-panel { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0; overflow: hidden; transition: all .3s ease; display: flex; flex-direction: column; }
+.ks-panel:hover { transform: translateY(-3px); border-color: var(--ks-accent, #60a5fa); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.ks-banner { padding: 14px 18px; background: var(--ks-banner-bg, rgba(96,165,250,0.10)); border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 10px; }
+.ks-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px; background: var(--ks-icon-bg, rgba(96,165,250,0.18)); font-size: 18px; }
+.ks-label { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 900; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ks-accent, #60a5fa); }
+.ks-body { padding: 18px 20px 4px; flex: 1; text-align: left; }
+.ks-q { font-size: 14.5px; font-weight: 700; color: #fff; line-height: 1.45; margin-bottom: 14px; }
+.ks-q::before { content: "“"; color: var(--ks-accent, #60a5fa); font-family: 'Poppins', sans-serif; font-size: 24px; line-height: 0; vertical-align: -8px; margin-right: 2px; }
+.ks-q::after { content: "”"; color: var(--ks-accent, #60a5fa); font-family: 'Poppins', sans-serif; font-size: 24px; line-height: 0; vertical-align: -8px; margin-left: 2px; }
+.ks-build { display: inline-block; padding: 6px 12px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--ks-accent, #60a5fa); margin-bottom: 12px; font-weight: 600; }
+.ks-why { font-size: 13px; color: #b0b4c8; line-height: 1.55; }
+.ks-why strong { color: #e0e6f0; }
+.ks-footer { padding: 14px 20px 18px; border-top: 1px dashed rgba(255,255,255,0.08); margin-top: 6px; }
+.ks-footer .ks-mini-label { font-size: 10px; font-weight: 800; color: var(--ks-accent, #60a5fa); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 4px; }
+.ks-footer .ks-mini-text { font-size: 12px; color: #8899bb; line-height: 1.45; }
+.ks-value { --ks-accent: #fca5a5; --ks-banner-bg: rgba(248,113,113,0.10); --ks-icon-bg: rgba(248,113,113,0.18); }
+.ks-usability { --ks-accent: #c4b5fd; --ks-banner-bg: rgba(167,139,250,0.10); --ks-icon-bg: rgba(167,139,250,0.18); }
+.ks-feasibility { --ks-accent: #6ee7b7; --ks-banner-bg: rgba(52,211,153,0.10); --ks-icon-bg: rgba(52,211,153,0.18); }
+@media (max-width: 900px) { .ks-panels { grid-template-columns: 1fr; } }
+
+/* PROBLEM FRAMEWORK — 6-element hex flower with center hub */
+.pf-wrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; align-items: center; margin: 18px 0; }
+.pf-left h2 { font-size: 38px; line-height: 1.1; margin-bottom: 14px; }
+.pf-left .demo-tag { margin-bottom: 14px; }
+.pf-left p { font-size: 15.5px; line-height: 1.65; color: #cdd5e3; margin-bottom: 12px; }
+.pf-left .pf-coda { font-size: 13.5px; color: #6ee7b7; background: rgba(110,231,183,0.06); border: 1px solid rgba(110,231,183,0.18); border-radius: 10px; padding: 12px 16px; margin-top: 12px; }
+.pf-hex-wrap { position: relative; width: 520px; height: 520px; margin: 0 auto; max-width: 100%; }
+.pf-hex-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.pf-hex-svg .pf-spoke { stroke: rgba(96,165,250,0.18); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.pf-hex-hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); border: 2px solid rgba(96,165,250,0.55); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 0 36px rgba(59,130,246,0.35); z-index: 2; }
+.pf-hex-hub .pfh-label { font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 4px; font-family: 'Poppins', sans-serif; }
+.pf-hex-hub .pfh-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 900; color: #fff; line-height: 1.1; }
+.pf-hex-node { position: absolute; width: 168px; height: 168px; transform: translate(-50%, -50%); transition: all .3s ease; }
+.pf-hex-node-inner { position: absolute; inset: 0; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 26px 16px; transition: all .3s ease; }
+.pf-hex-node:hover { transform: translate(-50%, -50%) scale(1.05); z-index: 3; }
+.pf-hex-node:hover .pf-hex-node-inner { background: rgba(255,255,255,0.07); border-color: var(--pf-accent, #60a5fa); box-shadow: 0 0 20px rgba(96,165,250,0.3); }
+.pf-hex-node .pfn-num { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 800; color: var(--pf-accent, #60a5fa); letter-spacing: 0.12em; margin-bottom: 4px; }
+.pf-hex-node .pfn-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 6px; }
+.pf-hex-node .pfn-desc { font-size: 10.5px; color: #b0b4c8; line-height: 1.4; max-width: 110px; }
+/* 6 positions: 12, 2, 4, 6, 8, 10 o'clock (60° apart, starting top) on a circle of r=185 around (260,260) */
+.pf-hex-node.pf-pos-1 { left: 260px; top: 75px; }   /* 12 */
+.pf-hex-node.pf-pos-2 { left: 420px; top: 165px; }  /* 2  */
+.pf-hex-node.pf-pos-3 { left: 420px; top: 355px; }  /* 4  */
+.pf-hex-node.pf-pos-4 { left: 260px; top: 445px; }  /* 6  */
+.pf-hex-node.pf-pos-5 { left: 100px; top: 355px; }  /* 8  */
+.pf-hex-node.pf-pos-6 { left: 100px; top: 165px; }  /* 10 */
+@media (max-width: 1080px) {
+  .pf-wrap { grid-template-columns: 1fr; gap: 16px; }
+  .pf-left { text-align: center; }
+  .pf-left h2 { font-size: 30px; }
+  .pf-hex-wrap { width: 460px; height: 460px; }
+  .pf-hex-node { width: 148px; height: 148px; }
+  .pf-hex-node.pf-pos-1 { left: 230px; top: 65px; }
+  .pf-hex-node.pf-pos-2 { left: 370px; top: 145px; }
+  .pf-hex-node.pf-pos-3 { left: 370px; top: 315px; }
+  .pf-hex-node.pf-pos-4 { left: 230px; top: 395px; }
+  .pf-hex-node.pf-pos-5 { left:  90px; top: 315px; }
+  .pf-hex-node.pf-pos-6 { left:  90px; top: 145px; }
+}
+
+/* THREE INGREDIENTS OF CONTEXT INJECTION — flask/beaker visual */
+.ingredients-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 8px; max-width: 920px; margin-left: auto; margin-right: auto; }
+.ingredient { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 20px 20px; text-align: center; transition: all .3s ease; position: relative; overflow: hidden; }
+.ingredient::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ing-accent, #60a5fa); }
+.ingredient:hover { transform: translateY(-3px); border-color: var(--ing-accent, #60a5fa); }
+.ingredient .ing-flask { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--ing-accent, #60a5fa); display: grid; place-items: center; font-size: 22px; }
+.ingredient .ing-label { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ing-accent, #60a5fa); margin-bottom: 4px; }
+.ingredient .ing-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.25; }
+.ingredient .ing-desc { font-size: 12.5px; color: #b0b4c8; line-height: 1.55; }
+.ingredient .ing-example { margin-top: 12px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ing-accent, #60a5fa); line-height: 1.4; font-style: italic; }
+.ing-value { --ing-accent: #fde68a; }
+.ing-data { --ing-accent: #60a5fa; }
+.ing-voice { --ing-accent: #c4b5fd; }
+@media (max-width: 780px) { .ingredients-grid { grid-template-columns: 1fr; } }
+
+/* FLOW STEPS — visual step chain for Frame Before You Build + Lab */
+.flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px auto 16px; max-width: 1040px; position: relative; }
+.flow-step { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 16px; text-align: left; transition: all .3s ease; position: relative; }
+.flow-step:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.4); background: rgba(255,255,255,0.05); }
+.flow-step .fs-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.flow-step .fs-num { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%); display: grid; place-items: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 900; color: #fff; flex-shrink: 0; box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+.flow-step .fs-icon { font-size: 22px; margin-left: auto; opacity: 0.65; }
+.flow-step .fs-title { font-family: 'Poppins', sans-serif; font-size: 13.5px; font-weight: 800; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+.flow-step .fs-text { font-size: 12.5px; color: #b0b4c8; line-height: 1.5; }
+.flow-step .fs-text strong { color: #e0e6f0; }
+.flow-step .fs-text code { font-size: 11.5px; padding: 1px 5px; }
+.flow-step.fs-warn { background: rgba(248,113,113,0.04); border-color: rgba(248,113,113,0.22); }
+.flow-step.fs-warn .fs-num { background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%); box-shadow: 0 4px 12px rgba(220,38,38,0.35); }
+.flow-step.fs-warn .fs-text strong { color: #fca5a5; }
+@media (max-width: 980px) { .flow-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .flow-steps { grid-template-columns: 1fr; } }
+
+/* SCENARIO CARDS — richer with icons, risk-type chip, and built-for tag */
+.scenario-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 18px 0; }
+.scenario-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0; overflow: hidden; transition: all .3s ease; display: flex; flex-direction: column; text-align: left; }
+.scenario-card:hover { transform: translateY(-3px); border-color: var(--sc-accent, #60a5fa); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.scenario-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: var(--sc-banner-bg, rgba(96,165,250,0.08)); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.scenario-icon { width: 44px; height: 44px; border-radius: 11px; background: var(--sc-icon-bg, rgba(96,165,250,0.18)); display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
+.scenario-meta { flex: 1; min-width: 0; }
+.scenario-num { font-family: 'Poppins', sans-serif; font-size: 10.5px; font-weight: 800; color: var(--sc-accent, #60a5fa); letter-spacing: 0.14em; }
+.scenario-name { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 800; color: #fff; line-height: 1.2; margin-top: 2px; }
+.scenario-risk { padding: 3px 9px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; color: var(--sc-accent, #60a5fa); font-family: 'Poppins', sans-serif; flex-shrink: 0; }
+.scenario-body { padding: 16px 20px 18px; font-size: 13px; color: #b0b4c8; line-height: 1.55; flex: 1; }
+.scenario-body strong { color: #e0e6f0; }
+.sc-retention   { --sc-accent: #fca5a5; --sc-banner-bg: rgba(248,113,113,0.08); --sc-icon-bg: rgba(248,113,113,0.18); }
+.sc-adoption    { --sc-accent: #c4b5fd; --sc-banner-bg: rgba(167,139,250,0.08); --sc-icon-bg: rgba(167,139,250,0.18); }
+.sc-marketplace { --sc-accent: #fde68a; --sc-banner-bg: rgba(253,224,71,0.08);  --sc-icon-bg: rgba(253,224,71,0.18); }
+.sc-dashboard   { --sc-accent: #6ee7b7; --sc-banner-bg: rgba(52,211,153,0.08);  --sc-icon-bg: rgba(52,211,153,0.18); }
+@media (max-width: 900px) { .scenario-grid { grid-template-columns: 1fr; } }
+
 @media (max-width: 768px) {
   section { padding: 40px 24px; }
   h1 { font-size: 36px; }
@@ -572,18 +712,21 @@ section.cameras-section .cameras-inner {
     <div class="demo-split">
       <div class="problem-panel">
         <span class="pp-label">⚠ The Problem</span>
-        <div class="pp-headline">You've got a polished, design-system-matched prototype with clickable buttons and interactive components. It looks like a real retention dashboard.</div>
-        <div class="pp-execs" style="gap:8px;">
+        <div class="pp-headline">A polished, design-system-matched prototype with clickable buttons. It <em style="color:#fca5a5;font-style:normal;">looks</em> like a real retention dashboard.</div>
+        <div class="pp-execs" style="gap:10px; margin-top:14px;">
           <div class="pp-exec">
-            <div class="pp-avatar" style="background:#3b82f6;">M1</div>
-            <div class="pp-quote"><strong>What you have</strong>Polished surfaces · placeholder copy · no hypothesis named · no real data in the screens.</div>
+            <div class="pp-avatar" style="background:linear-gradient(135deg,#3b82f6,#1e40af);">M1</div>
+            <div class="pp-quote"><strong>What you have today</strong>Polished surfaces · placeholder copy · no hypothesis named · no real data anywhere on the screen.</div>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:center; padding:2px 0;">
+            <span style="font-family:'Poppins',sans-serif; font-size:11px; font-weight:900; letter-spacing:0.18em; color:#60a5fa; background:rgba(96,165,250,0.10); padding:4px 10px; border-radius:6px;">↓ CONTEXT INJECTION ↓</span>
           </div>
           <div class="pp-exec">
-            <div class="pp-avatar" style="background:#a78bfa;">M2</div>
-            <div class="pp-quote"><strong>What you're about to build</strong>Hypothesis-anchored · real user quotes · domain-specific metrics · kill switch you can actually test.</div>
+            <div class="pp-avatar" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);">M2</div>
+            <div class="pp-quote"><strong>What you'll have in 7 min</strong>Hypothesis-anchored · real user quotes · domain metrics · kill switch you can click-test.</div>
           </div>
         </div>
-        <div class="pp-coda">So what assumption is it testing?<br><span style="font-style:normal;font-size:16px;font-weight:900;color:#fff;">Nothing.</span></div>
+        <div class="pp-coda">So what assumption is it testing?<br><span style="font-style:normal;font-size:18px;font-weight:900;color:#fff;letter-spacing:0.04em;">Nothing.</span></div>
       </div>
 
       <div class="demo-video-col">
@@ -594,6 +737,36 @@ section.cameras-section .cameras-inner {
         <div class="demo-video-cta">
           <a class="tool-btn" href="https://drive.google.com/file/d/1_9AwZa3M6xqjBbXqGFnsShZtBSzAVa-X/view" target="_blank" rel="noopener">▶ Click here to watch the full demo ↗</a>
           <div class="demo-helper">~7 min · no sound · voice over while it plays. Opens in a new tab.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Three Ingredients of Context Injection — the takeaway visual under the demo -->
+    <div style="margin-top: 28px;">
+      <div style="text-align:center; margin-bottom: 6px;">
+        <div style="display:inline-block; font-family:'Poppins',sans-serif; font-size:11px; font-weight:900; letter-spacing:0.16em; text-transform:uppercase; color:#60a5fa; padding:6px 14px; background:rgba(96,165,250,0.10); border-radius:7px;">The Three Ingredients of Context Injection</div>
+        <p style="font-size:14px; color:#8899bb; margin-top:10px;">What turned the hollow M1 prototype into a hypothesis-anchored M2 build.</p>
+      </div>
+      <div class="ingredients-grid">
+        <div class="ingredient ing-value">
+          <div class="ing-flask">🎯</div>
+          <div class="ing-label">Ingredient 01</div>
+          <div class="ing-title">A specific hypothesis</div>
+          <div class="ing-desc">Replace <em>"build me an X"</em> with a sentence the AI can test. The hypothesis tells the model what to optimise for.</div>
+          <div class="ing-example">"I'm testing whether power users will adopt feature X if it surfaces by day 7."</div>
+        </div>
+        <div class="ingredient ing-data">
+          <div class="ing-flask">📊</div>
+          <div class="ing-label">Ingredient 02</div>
+          <div class="ing-title">Real domain data</div>
+          <div class="ing-desc">Drop in 3–5 concrete metrics from your Context Data Pack so the UI shows numbers a user would actually recognise.</div>
+          <div class="ing-example">"30% churn day-30 · NPS 22 · onboarding completion 41%"</div>
+        </div>
+        <div class="ingredient ing-voice">
+          <div class="ing-flask">💬</div>
+          <div class="ing-label">Ingredient 03</div>
+          <div class="ing-title">Verbatim user voice</div>
+          <div class="ing-desc">Paste 2–3 real user quotes. The AI uses the language and friction points to write UI copy that sounds like the domain.</div>
+          <div class="ing-example">"I don't trust the data — it doesn't match what I see in the field."</div>
         </div>
       </div>
     </div>
@@ -616,58 +789,157 @@ section.cameras-section .cameras-inner {
   </div>
 </section>
 
-<!-- 8. THE VALIDATION LENS LOOP — 4 stops, mirrors the legacy diagram -->
+<!-- 8. THE VALIDATION LENS LOOP — circular SVG diagram with 4 nodes + outer annotations -->
 <section data-title="The Validation Lens Loop">
-  <div class="inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-framework">Framework</div>
-    <h2>The Validation Lens Loop.</h2>
-    <p class="subtitle">Most people prototype in a straight line. Vibe Coding requires a circle — each revolution sharpens your hypothesis and tightens constraints.</p>
-    <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); gap: 14px;">
-      <div class="card-item" style="--card-accent:#60a5fa; text-align:left;">
-        <div class="card-num">01</div>
-        <div class="card-title">Identify the Hypothesis</div>
-        <div class="card-desc">Name the test. If you can't complete the sentence <em>"I'm testing whether [X],"</em> you aren't ready to build.</div>
+  <div class="inner" style="max-width: 1200px;">
+    <div class="vll-wrap">
+      <div class="vll-left">
+        <div class="demo-tag tag-framework">Framework</div>
+        <h2>The Validation<br/>Lens Loop.</h2>
+        <p>This cycle turns raw ideas into <strong style="color:#fff;">validated strategy</strong>.</p>
+        <p class="vll-anchor">Before touching any tool, name the test: <strong>if you can't complete the sentence "I'm testing whether [X]," you aren't ready to build.</strong></p>
+        <p>Each revolution sharpens your hypothesis and tightens constraints — moving your product from uncertain to <em>evidence-backed</em>.</p>
+        <div class="vll-coda"><strong>Most people prototype in a straight line.</strong> Vibe Coding requires a circle — the loop is the upgrade.</div>
       </div>
-      <div class="card-item" style="--card-accent:#a78bfa; text-align:left;">
-        <div class="card-num">02</div>
-        <div class="card-title">Define the Constraints</div>
-        <div class="card-desc">Guardrails for the build — risk type, fidelity, technical limits. Context injection of <em>data</em> and <em>user voice</em>.</div>
-      </div>
-      <div class="card-item" style="--card-accent:#fde68a; text-align:left;">
-        <div class="card-num">03</div>
-        <div class="card-title">Build and Stress-Test</div>
-        <div class="card-desc">Don't build to look pretty. Build to find where it <em>breaks</em>. Finding a break = highest signal.</div>
-      </div>
-      <div class="card-item" style="--card-accent:#6ee7b7; text-align:left;">
-        <div class="card-num">04</div>
-        <div class="card-title">Synthesize and Pivot</div>
-        <div class="card-desc">Update your hypothesis with what you learned. Continue or pivot. Iterate strategy, not pixels.</div>
+      <div class="vll-svg-wrap">
+        <svg class="vll-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-label="Validation Lens Loop — four-stop circular framework">
+          <defs>
+            <linearGradient id="vll-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#1241B0"/>
+            </linearGradient>
+            <marker id="vll-arrow" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="11" markerHeight="11" orient="auto">
+              <path d="M1,1 L11,6 L1,11 z" fill="#1241B0"/>
+            </marker>
+          </defs>
+          <!-- The blue ring (4 arc segments forming a closed loop, each with an arrowhead) -->
+          <!-- Center 300,300 · radius 175 · stroke-width 32 -->
+          <g fill="none" stroke="url(#vll-ring-grad)" stroke-width="32" stroke-linecap="butt" marker-end="url(#vll-arrow)">
+            <!-- 12 o'clock → 3 o'clock -->
+            <path d="M 300 125 A 175 175 0 0 1 475 300"/>
+            <!-- 3 o'clock → 6 o'clock -->
+            <path d="M 475 300 A 175 175 0 0 1 300 475"/>
+            <!-- 6 o'clock → 9 o'clock -->
+            <path d="M 300 475 A 175 175 0 0 1 125 300"/>
+            <!-- 9 o'clock → 12 o'clock -->
+            <path d="M 125 300 A 175 175 0 0 1 300 125"/>
+          </g>
+          <!-- Four node circles at cardinal points (radius 55), placed on top of the ring -->
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="300" cy="125" r="55"/>
+            <text class="vll-node-num"   x="300" y="115" text-anchor="middle">1.</text>
+            <text class="vll-node-title" x="300" y="135" text-anchor="middle">Identify the</text>
+            <text class="vll-node-title" x="300" y="151" text-anchor="middle">Hypothesis</text>
+          </g>
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="475" cy="300" r="55"/>
+            <text class="vll-node-num"   x="475" y="290" text-anchor="middle">2.</text>
+            <text class="vll-node-title" x="475" y="310" text-anchor="middle">Define the</text>
+            <text class="vll-node-title" x="475" y="326" text-anchor="middle">Constraints</text>
+          </g>
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="300" cy="475" r="55"/>
+            <text class="vll-node-num"   x="300" y="465" text-anchor="middle">3.</text>
+            <text class="vll-node-title" x="300" y="485" text-anchor="middle">Build and</text>
+            <text class="vll-node-title" x="300" y="501" text-anchor="middle">Stress-Test</text>
+          </g>
+          <g class="vll-node-group">
+            <circle class="vll-node-circle" cx="125" cy="300" r="55"/>
+            <text class="vll-node-num"   x="125" y="290" text-anchor="middle">4.</text>
+            <text class="vll-node-title" x="125" y="310" text-anchor="middle">Synthesize</text>
+            <text class="vll-node-title" x="125" y="326" text-anchor="middle">and Pivot</text>
+          </g>
+          <!-- Outer annotations — dashed spoke lines + small dots + foreignObject text labels -->
+          <!-- Anno 1 · above node 1 -->
+          <line class="vll-anno-line" x1="300" y1="70" x2="300" y2="35"/>
+          <circle class="vll-anno-dot" cx="300" cy="35" r="4"/>
+          <foreignObject x="155" y="0" width="290" height="36">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">This is the <em style="color:#60a5fa;font-style:italic;">"why"</em> that governs every prompt you write.</div>
+          </foreignObject>
+          <!-- Anno 2 · right of node 2 -->
+          <line class="vll-anno-line" x1="530" y1="300" x2="565" y2="300"/>
+          <circle class="vll-anno-dot" cx="565" cy="300" r="4"/>
+          <foreignObject x="465" y="240" width="135" height="50">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">These act as the <em style="color:#a78bfa;font-style:italic;">guardrails</em> for the build.</div>
+          </foreignObject>
+          <!-- Anno 3 · below node 3 -->
+          <line class="vll-anno-line" x1="300" y1="530" x2="300" y2="565"/>
+          <circle class="vll-anno-dot" cx="300" cy="565" r="4"/>
+          <foreignObject x="155" y="568" width="290" height="36">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Zero in on intentionally finding where the <em style="color:#fde68a;font-style:italic;">logic or experience breaks</em>.</div>
+          </foreignObject>
+          <!-- Anno 4 · left of node 4 -->
+          <line class="vll-anno-line" x1="70" y1="300" x2="35" y2="300"/>
+          <circle class="vll-anno-dot" cx="35" cy="300" r="4"/>
+          <foreignObject x="0" y="240" width="135" height="50">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="vll-anno-fo">Update your hypothesis and either <em style="color:#6ee7b7;font-style:italic;">continue or pivot</em>.</div>
+          </foreignObject>
+        </svg>
       </div>
     </div>
-    <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">Each revolution sharpens hypothesis · tightens constraints · compresses weeks of traditional dev into a single session.</p>
     <div class="notes">
       <h4>Speaker Notes</h4>
       <p>Anchor the loop. M1 was a sprint — start, build, ship. M2 is a circle. The circle is the upgrade.</p>
+      <p>Walk the diagram clockwise. Land each annotation with one sentence: <em>"This is the why,"</em> <em>"These are the guardrails,"</em> <em>"Zero in on where it breaks,"</em> <em>"Continue or pivot."</em></p>
       <p>The single biggest "aha" of the framework is Step 3 — <strong>build to break, not to demo</strong>. Most PMs build to make the screen look finished. Vibe coding inverts that: the most valuable prompt is the one that exposes a flaw in your own logic.</p>
     </div>
   </div>
 </section>
 
-<!-- 9. KILL SWITCH + RISK TYPE MATRIX — the table from legacy slide 10 -->
+<!-- 9. KILL SWITCH + RISK TYPE — 3 visual risk panels, each with the build artefact -->
 <section data-title="Kill Switch + Risk Type">
-  <div class="inner" style="max-width: 1100px;">
+  <div class="inner" style="max-width: 1200px;">
     <div class="demo-tag tag-framework">Framework</div>
     <h2>What's your kill switch?</h2>
     <p class="subtitle">Your hypothesis identifies the riskiest part. Your kill switch forces clarity about <em>what to build and test first</em>.</p>
-    <p style="font-size:17px; color:#cdd5e3; margin: 12px auto 18px; max-width:760px; text-align:center;">Ask: <em>"Which assumption, if wrong, kills the whole thing?"</em></p>
-    <table class="ref-table">
-      <thead><tr><th>Risk Type</th><th>The Question</th><th>Build This</th><th>Why</th></tr></thead>
-      <tbody>
-        <tr><td>Value</td><td>"Will anyone actually want this?"</td><td>Landing page</td><td>Tests whether the core premise solves a real problem or is just a novelty.</td></tr>
-        <tr><td>Usability</td><td>"Will the experience make sense?"</td><td>Clickable mockup</td><td>Simplifies complex steps and surfaces where the flow breaks down.</td></tr>
-        <tr><td>Feasibility</td><td>"Will the logic actually work?"</td><td>Functional app</td><td>Finds edge cases where your logic or data might fail.</td></tr>
-      </tbody>
-    </table>
+    <div class="ks-question">Ask one question: <em>"Which assumption, if wrong, kills the whole thing?"</em></div>
+    <div class="ks-panels">
+      <div class="ks-panel ks-value">
+        <div class="ks-banner">
+          <div class="ks-icon">💡</div>
+          <div class="ks-label">Risk · Value</div>
+        </div>
+        <div class="ks-body">
+          <div class="ks-q">Will anyone actually want this?</div>
+          <div class="ks-build">→ Build a landing page</div>
+          <div class="ks-why"><strong>Why:</strong> tests whether the core premise solves a real problem or is just a novelty. Sign-ups and click-throughs are your kill-switch evidence.</div>
+        </div>
+        <div class="ks-footer">
+          <div class="ks-mini-label">Kill-switch signal</div>
+          <div class="ks-mini-text">Conversion below your threshold → premise was wrong, pivot the offer.</div>
+        </div>
+      </div>
+      <div class="ks-panel ks-usability">
+        <div class="ks-banner">
+          <div class="ks-icon">👆</div>
+          <div class="ks-label">Risk · Usability</div>
+        </div>
+        <div class="ks-body">
+          <div class="ks-q">Will the experience make sense?</div>
+          <div class="ks-build">→ Build a clickable mockup</div>
+          <div class="ks-why"><strong>Why:</strong> simplifies complex steps and surfaces where the flow breaks down. Friction points are your kill-switch evidence.</div>
+        </div>
+        <div class="ks-footer">
+          <div class="ks-mini-label">Kill-switch signal</div>
+          <div class="ks-mini-text">Stuck within 30s on the core action → re-architect the flow, not the visuals.</div>
+        </div>
+      </div>
+      <div class="ks-panel ks-feasibility">
+        <div class="ks-banner">
+          <div class="ks-icon">⚙️</div>
+          <div class="ks-label">Risk · Feasibility</div>
+        </div>
+        <div class="ks-body">
+          <div class="ks-q">Will the logic actually work?</div>
+          <div class="ks-build">→ Build a functional app</div>
+          <div class="ks-why"><strong>Why:</strong> finds edge cases where your logic or data might fail. Error rates are your kill-switch evidence.</div>
+        </div>
+        <div class="ks-footer">
+          <div class="ks-mini-label">Kill-switch signal</div>
+          <div class="ks-mini-text">Logic falls over on basic inputs → escalate to eng for a feasibility spike.</div>
+        </div>
+      </div>
+    </div>
     <div class="two-col" style="margin-top:18px;">
       <div class="tc tc-old" style="background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18);">
         <div class="tc-label" style="color:#60a5fa;">0 → 1 · New Products</div>
@@ -683,41 +955,62 @@ section.cameras-section .cameras-inner {
     <div class="notes">
       <h4>Speaker Notes</h4>
       <p>The kill switch is the entire game. Most PRDs spend three pages on what to build and one line on what would invalidate it. Vibe coding inverts that — the kill switch goes first, the build serves the kill switch.</p>
+      <p>Walk the three risk panels left-to-right. The mapping is non-obvious for most PMs: <em>value risk → landing page, usability risk → clickable mockup, feasibility risk → functional app</em>. The build shape is downstream of the risk type, not the other way round.</p>
       <p>Make learners verbalise their kill switch out loud during the Frame exercise. If they can't say it in one sentence, the brief isn't ready.</p>
     </div>
   </div>
 </section>
 
-<!-- 10. FINAL PROJECT · CHOOSE YOUR SCENARIO — the 4 scenarios + BYO, mirrors legacy slide 11 -->
+<!-- 10. FINAL PROJECT · CHOOSE YOUR SCENARIO — visual cards with icons, risk chip, colored banner -->
 <section data-title="Choose Your Scenario">
-  <div class="inner" style="max-width: 1100px;">
+  <div class="inner" style="max-width: 1180px;">
     <div class="demo-tag tag-framework">Final Project Scenario</div>
     <h2>Choose your scenario.</h2>
     <p class="subtitle">This is your commitment moment. The scenario you pick today is the one you carry through M2–M6. <strong>No switching after today.</strong></p>
-    <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr); gap: 14px;">
-      <div class="card-item" style="--card-accent:#fb7185; text-align:left;">
-        <div class="card-num">01</div>
-        <div class="card-title">The Retention Engine</div>
-        <p style="font-size:11px; font-weight:800; color:#fca5a5; letter-spacing:0.08em; margin:4px 0 8px;">LIKELY RISK · VALUE</p>
-        <div class="card-desc">B2B SaaS losing 30% of users in 90 days. Why are they leaving? Build a prototype that surfaces churn drivers and tests whether an intervention can change the curve.</div>
+    <div class="scenario-grid">
+      <div class="scenario-card sc-retention">
+        <div class="scenario-head">
+          <div class="scenario-icon">📉</div>
+          <div class="scenario-meta">
+            <div class="scenario-num">SCENARIO 01</div>
+            <div class="scenario-name">The Retention Engine</div>
+          </div>
+          <div class="scenario-risk">Value</div>
+        </div>
+        <div class="scenario-body">B2B SaaS losing <strong>30% of users in 90 days</strong>. Why are they leaving? Build a prototype that surfaces churn drivers and tests whether an intervention can change the curve.</div>
       </div>
-      <div class="card-item" style="--card-accent:#a78bfa; text-align:left;">
-        <div class="card-num">02</div>
-        <div class="card-title">The Internal Tool Nobody Uses</div>
-        <p style="font-size:11px; font-weight:800; color:#c4b5fd; letter-spacing:0.08em; margin:4px 0 8px;">LIKELY RISK · USABILITY</p>
-        <div class="card-desc">CRM with 18% adoption. Built it, no one came. Figure out why adoption is so low and prototype a version that actually fits how people work. Classic 1→N problem.</div>
+      <div class="scenario-card sc-adoption">
+        <div class="scenario-head">
+          <div class="scenario-icon">🪑</div>
+          <div class="scenario-meta">
+            <div class="scenario-num">SCENARIO 02</div>
+            <div class="scenario-name">The Internal Tool Nobody Uses</div>
+          </div>
+          <div class="scenario-risk">Usability</div>
+        </div>
+        <div class="scenario-body">CRM with <strong>18% adoption</strong>. Built it, no one came. Figure out why adoption is so low and prototype a version that actually fits how people work. Classic 1→N problem.</div>
       </div>
-      <div class="card-item" style="--card-accent:#fde68a; text-align:left;">
-        <div class="card-num">03</div>
-        <div class="card-title">The Marketplace Trust Problem</div>
-        <p style="font-size:11px; font-weight:800; color:#fde68a; letter-spacing:0.08em; margin:4px 0 8px;">LIKELY RISK · VALUE / FEASIBILITY</p>
-        <div class="card-desc">Bookings flat, zero-review providers. Buyers don't trust new providers. Prototype a trust mechanism that gets first-time providers their first booking.</div>
+      <div class="scenario-card sc-marketplace">
+        <div class="scenario-head">
+          <div class="scenario-icon">🤝</div>
+          <div class="scenario-meta">
+            <div class="scenario-num">SCENARIO 03</div>
+            <div class="scenario-name">The Marketplace Trust Problem</div>
+          </div>
+          <div class="scenario-risk">Value / Feas.</div>
+        </div>
+        <div class="scenario-body"><strong>Bookings flat</strong>, zero-review providers. Buyers don't trust new providers. Prototype a trust mechanism that gets first-time providers their first booking.</div>
       </div>
-      <div class="card-item" style="--card-accent:#6ee7b7; text-align:left;">
-        <div class="card-num">04</div>
-        <div class="card-title">The Dashboard Nobody Reads</div>
-        <p style="font-size:11px; font-weight:800; color:#6ee7b7; letter-spacing:0.08em; margin:4px 0 8px;">LIKELY RISK · USABILITY</p>
-        <div class="card-desc">Analytics with 60% bounce rate. Data exists but nobody finds insights. Prototype a version that surfaces the right information so people use it to make decisions.</div>
+      <div class="scenario-card sc-dashboard">
+        <div class="scenario-head">
+          <div class="scenario-icon">📊</div>
+          <div class="scenario-meta">
+            <div class="scenario-num">SCENARIO 04</div>
+            <div class="scenario-name">The Dashboard Nobody Reads</div>
+          </div>
+          <div class="scenario-risk">Usability</div>
+        </div>
+        <div class="scenario-body">Analytics with <strong>60% bounce rate</strong>. Data exists but nobody finds insights. Prototype a version that surfaces the right information so people use it to make decisions.</div>
       </div>
     </div>
     <div class="artifact-preview" style="margin-top:18px;">
@@ -733,46 +1026,76 @@ section.cameras-section .cameras-inner {
   </div>
 </section>
 
-<!-- 11. PROBLEM FRAMEWORK — the 6-element checklist, mirrors legacy slide 12 -->
+<!-- 11. PROBLEM FRAMEWORK — hexagonal 6-element flower with center hub -->
 <section data-title="The Problem Framework">
-  <div class="inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-framework">Framework</div>
-    <h2>The Problem Framework · six-part checklist.</h2>
-    <p class="subtitle">Articulate <em>what you're testing</em>, not just what you're shipping. Fill this out before you open any tool — every element sharpens your intent.</p>
-    <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr); gap: 12px;">
-      <div class="card-item" style="--card-accent:#60a5fa; text-align:left;">
-        <div class="card-num">01</div>
-        <div class="card-title">Goal</div>
-        <div class="card-desc"><strong>What are we trying to achieve?</strong><br>The outcome, not the output.</div>
+  <div class="inner" style="max-width: 1200px;">
+    <div class="pf-wrap">
+      <div class="pf-left">
+        <div class="demo-tag tag-framework">Framework</div>
+        <h2>The Problem Framework · six-part checklist.</h2>
+        <p>Articulate <em>what you're testing</em>, not just what you're shipping. Fill this out before you open any tool — every element sharpens your intent.</p>
+        <p style="font-size:14px;color:#8899bb;">Walk it clockwise from <strong style="color:#60a5fa;">Goal</strong>. The framework reaches its peak in <strong style="color:#6ee7b7;">Explore</strong> — the open question you can only answer by building.</p>
+        <div class="pf-coda">📝 Prototyping doesn't replace the PM responsibility of identifying the problem. It makes validation <em>faster</em>.</div>
       </div>
-      <div class="card-item" style="--card-accent:#fb7185; text-align:left;">
-        <div class="card-num">02</div>
-        <div class="card-title">Problem</div>
-        <div class="card-desc"><strong>What's blocking us right now?</strong><br>Name the obstacle precisely.</div>
+      <div class="pf-hex-wrap" role="img" aria-label="Six-element hexagonal Problem Framework around a central Frame-to-Build hub">
+        <!-- Dashed spokes from hub to each node -->
+        <svg class="pf-hex-svg" viewBox="0 0 520 520">
+          <line class="pf-spoke" x1="260" y1="260" x2="260" y2="75"/>
+          <line class="pf-spoke" x1="260" y1="260" x2="420" y2="165"/>
+          <line class="pf-spoke" x1="260" y1="260" x2="420" y2="355"/>
+          <line class="pf-spoke" x1="260" y1="260" x2="260" y2="445"/>
+          <line class="pf-spoke" x1="260" y1="260" x2="100" y2="355"/>
+          <line class="pf-spoke" x1="260" y1="260" x2="100" y2="165"/>
+        </svg>
+        <!-- Center hub -->
+        <div class="pf-hex-hub">
+          <div class="pfh-label">Outcome</div>
+          <div class="pfh-title">Frame<br/>to Build</div>
+        </div>
+        <!-- 6 hex nodes positioned at 12, 2, 4, 6, 8, 10 o'clock -->
+        <div class="pf-hex-node pf-pos-1" style="--pf-accent:#60a5fa;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">01 · GOAL</div>
+            <div class="pfn-title">What are we trying to achieve?</div>
+            <div class="pfn-desc">Outcome, not output.</div>
+          </div>
+        </div>
+        <div class="pf-hex-node pf-pos-2" style="--pf-accent:#fca5a5;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">02 · PROBLEM</div>
+            <div class="pfn-title">What's blocking us right now?</div>
+            <div class="pfn-desc">Name the obstacle precisely.</div>
+          </div>
+        </div>
+        <div class="pf-hex-node pf-pos-3" style="--pf-accent:#c4b5fd;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">03 · CONTEXT</div>
+            <div class="pfn-title">Who, where, when?</div>
+            <div class="pfn-desc">Specifics that shape the solution.</div>
+          </div>
+        </div>
+        <div class="pf-hex-node pf-pos-4" style="--pf-accent:#f9a8d4;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">04 · CONSTRAINTS</div>
+            <div class="pfn-title">What can't we change?</div>
+            <div class="pfn-desc">Tech limits, timelines, budgets.</div>
+          </div>
+        </div>
+        <div class="pf-hex-node pf-pos-5" style="--pf-accent:#fde68a;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">05 · SUCCESS</div>
+            <div class="pfn-title">What does validation look like?</div>
+            <div class="pfn-desc">Pass/fail threshold, upfront.</div>
+          </div>
+        </div>
+        <div class="pf-hex-node pf-pos-6" style="--pf-accent:#6ee7b7;">
+          <div class="pf-hex-node-inner">
+            <div class="pfn-num">06 · EXPLORE</div>
+            <div class="pfn-title">What are we trying to <em>learn</em>?</div>
+            <div class="pfn-desc">The key — learning intent.</div>
+          </div>
+        </div>
       </div>
-      <div class="card-item" style="--card-accent:#a78bfa; text-align:left;">
-        <div class="card-num">03</div>
-        <div class="card-title">Context</div>
-        <div class="card-desc"><strong>Who, where, when?</strong><br>The specifics that shape the solution space.</div>
-      </div>
-      <div class="card-item" style="--card-accent:#f9a8d4; text-align:left;">
-        <div class="card-num">04</div>
-        <div class="card-title">Constraints</div>
-        <div class="card-desc"><strong>What can't we change?</strong><br>Technical limits, timelines, budgets.</div>
-      </div>
-      <div class="card-item" style="--card-accent:#fde68a; text-align:left;">
-        <div class="card-num">05</div>
-        <div class="card-title">Success Criteria</div>
-        <div class="card-desc"><strong>What does validation look like?</strong><br>The pass/fail threshold, upfront.</div>
-      </div>
-      <div class="card-item" style="--card-accent:#6ee7b7; text-align:left;">
-        <div class="card-num">06</div>
-        <div class="card-title">Explore</div>
-        <div class="card-desc"><strong>What are we trying to <em>learn</em>?</strong><br>This is the key. The learning intent.</div>
-      </div>
-    </div>
-    <div class="bridge-line" style="background: rgba(110,231,183,0.06); border-color: rgba(110,231,183,0.18); margin-top:18px;">
-      <p style="color:#6ee7b7;">📝 Prototyping doesn't replace the PM responsibility of identifying the problem. It makes validation faster.</p>
     </div>
     <div class="notes">
       <h4>Speaker Notes</h4>
@@ -789,12 +1112,40 @@ section.cameras-section .cameras-inner {
     <div class="demo-tag tag-exercise">Individual Exercise · 15 minutes</div>
     <h2>Frame before you build.</h2>
     <p class="subtitle">Pre-work to lock in strategy. <strong>Do NOT open Lovable yet.</strong> Use the Prototype Builder for the fast path or the Validation Brief for the deeper path — both end with the same assembled prompt.</p>
-    <ol style="text-align:left; max-width:760px; margin:0 auto;">
-      <li><strong>Complete your Validation Brief.</strong> Define your hypothesis, risk type, kill switch, and success criteria — your build is now designed to test a specific assumption.</li>
-      <li><strong>Execute context injection</strong> with the Context Data Pack for your scenario. Highlight 2–3 quotes that relate to your hypothesis. Pick 3–5 metrics you want the prototype to surface.</li>
-      <li><strong>Secure a visual reference</strong> — a Mobbin screenshot or your M1 prototype screenshot. Focus on the <em>pattern</em> (team-invite flow, analytics dashboard), not the product name.</li>
-      <li>Smoke-test the assembled prompt in ChatGPT / Gemini / Claude — find logic holes <em>before</em> burning Lovable credits.</li>
-    </ol>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">1</div>
+          <div class="fs-icon">📝</div>
+        </div>
+        <div class="fs-title">Complete your Validation Brief</div>
+        <div class="fs-text">Define your <strong>hypothesis</strong>, <strong>risk type</strong>, <strong>kill switch</strong>, and <strong>success criteria</strong> — so your build is designed to test a specific assumption.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">2</div>
+          <div class="fs-icon">📊</div>
+        </div>
+        <div class="fs-title">Inject context</div>
+        <div class="fs-text">Open the <strong>Context Data Pack</strong> for your scenario. Highlight <strong>2–3 user quotes</strong> tied to your hypothesis. Pick <strong>3–5 metrics</strong> the prototype should surface.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">3</div>
+          <div class="fs-icon">🎨</div>
+        </div>
+        <div class="fs-title">Secure a visual reference</div>
+        <div class="fs-text">Grab a <strong>Mobbin</strong> screenshot or your M1 prototype screenshot. Focus on the <em>pattern</em> (team-invite flow, analytics dashboard) — not the product name.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">4</div>
+          <div class="fs-icon">🧪</div>
+        </div>
+        <div class="fs-title">Smoke-test the prompt</div>
+        <div class="fs-text">Drop the assembled prompt into <strong>ChatGPT / Gemini / Claude</strong> and find logic holes <em>before</em> you burn Lovable credits on a broken instruction.</div>
+      </div>
+    </div>
     <div style="display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap;">
       <a class="tool-btn" href="M2 - Prototype Builder.html" target="_blank" rel="noopener">Open the Prototype Builder ↗</a>
       <a class="tool-btn" href="M2 - Validation Brief.html" target="_blank" rel="noopener" style="background:#1e3a8a;">Open the Validation Brief ↗</a>
@@ -864,12 +1215,40 @@ section.cameras-section .cameras-inner {
     <div class="demo-tag tag-exercise">Lab Exercise · 40 minutes</div>
     <h2>Start your final project and build with confidence.</h2>
     <p class="subtitle">Take your finalised prompt from the Prototype Builder into Lovable and trigger your first high-fidelity build. <strong>Solo build.</strong> Prove <em>intent drives</em> a more strategic prototype output.</p>
-    <ol style="text-align:left; max-width:760px; margin:0 auto;">
-      <li><strong>Open Lovable</strong> and paste your finalised prompt into a fresh project so you have a clear M1↔M2 comparison. Upload reference screenshots. Trigger the build.</li>
-      <li><strong>Review the output &amp; iterate.</strong> Three checks: (a) do your real user quotes and metrics appear, or is it placeholder text? (b) can you actually test your kill switch by clicking through? (c) does it feel domain-specific or generic? Re-prompt targeted fixes.</li>
-      <li><strong>Connect to GitHub.</strong> GitHub icon in Lovable's top-right → "Connect to GitHub" → "Install &amp; Authorize" → "Connect project". Then prompt: <em>"Push all current project files to my connected GitHub repository."</em></li>
-      <li>⚠ <strong>Screenshot + generate your shareable link.</strong> You'll be paired with a <em>NEW</em> partner the moment the timer hits zero. You can't review a blank screen — have a functional link ready.</li>
-    </ol>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">1</div>
+          <div class="fs-icon">🚀</div>
+        </div>
+        <div class="fs-title">Open Lovable &amp; trigger the build</div>
+        <div class="fs-text">Paste your <strong>finalised prompt</strong> into a fresh project so you have a clear M1↔M2 comparison. Upload reference screenshots. Hit build.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">2</div>
+          <div class="fs-icon">🔍</div>
+        </div>
+        <div class="fs-title">Review &amp; iterate</div>
+        <div class="fs-text">Three checks: <strong>(a)</strong> are your quotes &amp; metrics on-screen or placeholder? <strong>(b)</strong> can you click-test the kill switch? <strong>(c)</strong> does it feel domain-specific? Re-prompt surgically.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head">
+          <div class="fs-num">3</div>
+          <div class="fs-icon">🐙</div>
+        </div>
+        <div class="fs-title">Connect to GitHub</div>
+        <div class="fs-text">GitHub icon top-right → <strong>Connect to GitHub</strong> → <strong>Install &amp; Authorize</strong> → <strong>Connect project</strong>. Then prompt: <em>"Push all current project files to my connected repo."</em></div>
+      </div>
+      <div class="flow-step fs-warn">
+        <div class="fs-head">
+          <div class="fs-num">4</div>
+          <div class="fs-icon">⚠</div>
+        </div>
+        <div class="fs-title">Screenshot + share-link READY</div>
+        <div class="fs-text">You'll be paired with a <strong>NEW partner</strong> the moment the timer hits zero. <em>You can't review a blank screen</em> — have a functional link ready in your breakout chat.</div>
+      </div>
+    </div>
     <div class="brand-row" style="justify-content:center; margin-top:18px;">
       <a class="tool-btn" href="https://lovable.dev" target="_blank" rel="noopener"><img src="../Design/logos/lovable.svg" alt="" class="btn-logo"/>Open Lovable ↗</a>
       <a class="tool-btn" href="https://github.com" target="_blank" rel="noopener" style="background:#0c2244;"><img src="../Design/logos/github.svg" alt="" class="btn-logo"/>Open GitHub ↗</a>
@@ -967,10 +1346,10 @@ section.cameras-section .cameras-inner {
             </div>
           </div>
           <div class="stat-tile">
-            <div class="st-num">1</div>
+            <div class="st-num">3</div>
             <div>
-              <div class="st-label">Stress-Test Review</div>
-              <div class="st-sub">Peer review proved: if you have to explain the UI, the intent isn't sharp enough.</div>
+              <div class="st-label">Credibility Questions</div>
+              <div class="st-sub">Hypothesis · credibility · real-product feel. The signal came from a NEW partner.</div>
             </div>
           </div>
         </div>
@@ -984,6 +1363,10 @@ section.cameras-section .cameras-inner {
             <div class="dm-label">Validation Pillars</div>
             <div class="dm-desc">Every prompt anchored by <em>hypothesis</em>, <em>risk type</em>, <em>kill switch</em>, and <em>measurable success criteria</em>.</div>
           </div>
+        </div>
+        <div class="stat-footer-tile">
+          <div class="sft-num">3</div>
+          <div class="sft-label"><strong>Ingredients of Context Injection</strong> — hypothesis · real data · user voice. The mix that turned vibe into evidence.</div>
         </div>
       </div>
       <!-- RIGHT · THE SHIFTS -->
