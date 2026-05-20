@@ -341,6 +341,27 @@ section.cameras-section .cameras-inner {
 .two-col .tc-old ul li::before { background: #fca5a5; }
 .two-col .tc-new ul li::before { background: #6ee7b7; }
 
+/* Module-complete closing slide — editorial / narrative, NOT a metric dashboard */
+.complete-hero { text-align: center; max-width: 880px; margin: 28px auto 8px; }
+.complete-hero .ch-lede { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 500; color: #cfd9e8; line-height: 1.5; margin: 0 0 22px; letter-spacing: -0.005em; }
+.complete-hero .ch-lede em { color: #fff; font-style: normal; font-weight: 700; }
+.metric-chip-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.metric-chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 14px; background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.22); border-radius: 999px; font-size: 13px; color: #cfd9e8; letter-spacing: 0.01em; }
+.metric-chip strong { color: #60a5fa; font-weight: 800; font-size: 14px; }
+.shift-list { max-width: 940px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 18px; }
+.shift-entry { display: grid; grid-template-columns: 64px 1fr; gap: 22px; align-items: start; padding: 22px 28px 22px 22px; background: linear-gradient(135deg, rgba(52,211,153,0.045), rgba(52,211,153,0.015)); border-left: 3px solid #6ee7b7; border-radius: 0 14px 14px 0; }
+.shift-entry .se-num { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 900; color: #6ee7b7; line-height: 1; letter-spacing: -0.02em; opacity: 0.85; }
+.shift-entry .se-body { color: #d6dde8; }
+.shift-entry .se-quote { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.25; letter-spacing: -0.01em; }
+.shift-entry .se-text { font-size: 15px; line-height: 1.65; color: #b8c2d4; margin: 0; }
+.shift-entry .se-text em { color: #fff; font-style: normal; font-weight: 600; }
+@media (max-width: 768px) {
+  .shift-entry { grid-template-columns: 48px 1fr; gap: 14px; padding: 18px; }
+  .shift-entry .se-num { font-size: 32px; }
+  .shift-entry .se-quote { font-size: 18px; }
+  .complete-hero .ch-lede { font-size: 17px; }
+}
+
 @media (max-width: 768px) {
   section { padding: 40px 24px; }
   h1 { font-size: 36px; }
@@ -1176,53 +1197,40 @@ section.cameras-section .cameras-inner {
 </div>
 </section>
 
-<!-- 22A. MODULE 1 COMPLETE — STATS -->
+<!-- 22A. MODULE 1 COMPLETE — EDITORIAL REFLECTION (not a metric dashboard) -->
 <section class="centered" data-title="Module 1 Complete">
   <div class="inner">
     <div class="demo-tag tag-complete">Module 1 Complete</div>
     <h2>Look at what you just did.</h2>
-    <p class="subtitle">The numbers — and the two shifts underneath them.</p>
-    <div class="diag-axes">
-      <div class="diag-axis">
-        <div class="da-num">2</div>
-        <div class="da-name">Prototypes Built</div>
-        <div class="da-q">From first prompt to live URL — twice. Zero lines of code written.</div>
-    </div>
-      <div class="diag-axis">
-        <div class="da-num">2</div>
-        <div class="da-name">Peer Reviews</div>
-        <div class="da-q">Two Show & Swap rounds. Round 1 (after Lab 1): clarity. Round 2 (after Lab 2, NEW partner): credibility.</div>
-  </div>
-      <div class="diag-axis">
-        <div class="da-num">67%</div>
-        <div class="da-name">Hands-On Time</div>
-        <div class="da-q">More time building than slides. This is where the skill transfers.</div>
-</div>
-    </div>
-    <div class="two-col">
-      <div class="tc tc-new">
-        <div class="tc-label">Shift 1</div>
-        <div class="tc-title">The mental barrier is gone.</div>
-        <ul>
-          <li>You shipped functional software twice — without writing code.</li>
-          <li>The wall between thinking and building is removed.</li>
-          <li>You no longer wait on eng to validate your product instincts.</li>
-        </ul>
+    <div class="complete-hero">
+      <p class="ch-lede">In ~90 minutes you went from a blank page to <em>two live URLs</em> — and learned a peer-feedback ritual sharp enough to tell a tool from a toy.</p>
+      <div class="metric-chip-row">
+        <div class="metric-chip"><strong>2</strong> prototypes</div>
+        <div class="metric-chip"><strong>2</strong> peer rounds</div>
+        <div class="metric-chip"><strong>67%</strong> hands-on</div>
+        <div class="metric-chip"><strong>0</strong> lines of code</div>
       </div>
-      <div class="tc tc-new">
-        <div class="tc-label">Shift 2</div>
-        <div class="tc-title">Toy vs Tool — learned.</div>
-        <ul>
-          <li>If your prototype helped you decide something — it's a tool.</li>
-          <li>If it only looked cool — it's a toy.</li>
-          <li>That distinction sharpens everything you ship from here forward.</li>
-        </ul>
+    </div>
+    <div class="shift-list">
+      <div class="shift-entry">
+        <div class="se-num">01</div>
+        <div class="se-body">
+          <div class="se-quote">The mental barrier is gone.</div>
+          <p class="se-text">You shipped functional software twice — without writing code. The wall between thinking and building is removed. <em>You no longer wait on eng to validate your product instincts.</em></p>
+        </div>
+      </div>
+      <div class="shift-entry">
+        <div class="se-num">02</div>
+        <div class="se-body">
+          <div class="se-quote">Toy vs Tool — learned.</div>
+          <p class="se-text">If your prototype helped you <em>decide something</em> — it's a tool. If it only looked cool — it's a toy. That distinction sharpens everything you ship from here forward.</p>
+        </div>
       </div>
     </div>
     <div class="notes">
       <h4>Speaker Notes</h4>
-      <p>This is the "landing the plane" moment — the shift from <em>PM who requests features</em> to <em>PM who demonstrates them</em>. In your day job, how long does it usually take to go from "I have an idea" to "I'm holding a working app"? Two weeks? A month? You just compressed it into one session.</p>
-      <p>That is not just "faster" — that is <strong>independence</strong>. Land it on item 2 of Shift 1 hard, then move into Takeaways.</p>
+      <p>This is the "landing the plane" moment — the shift from <em>PM who requests features</em> to <em>PM who demonstrates them</em>. Read the lede out slowly — it's the headline of the entire module. The chip row underneath is deliberately quiet; don't dwell on numbers, they're the receipt, not the lesson.</p>
+      <p>The two shifts are the actual deliverable of this session. In your day job, how long does it usually take to go from "I have an idea" to "I'm holding a working app"? Two weeks? A month? You just compressed it into one session. Land it on the italicised line in Shift 1 ("you no longer wait on eng to validate your product instincts") — that is not just "faster", that is <strong>independence</strong>. Then move into Takeaways.</p>
   </div>
 </div>
 </section>
