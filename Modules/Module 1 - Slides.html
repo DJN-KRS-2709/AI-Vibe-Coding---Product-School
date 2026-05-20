@@ -717,22 +717,41 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
 
 <!-- 9. LECTURE: CREDIT EFFICIENCY -->
 <section data-title="Credit Efficiency">
-  <div class="inner">
+  <div class="inner" style="max-width: 1180px;">
     <div class="demo-tag tag-lecture">Lecture</div>
-    <h2>Credits are fuel. Don't waste them on typos.</h2>
-    <p class="subtitle">A Pro plan is ~100 credits/month. One generation should cost one credit, not five.</p>
-    <table class="ref-table">
-      <thead><tr><th>Rule</th><th>What it means</th></tr></thead>
-      <tbody>
-        <tr><td>Plan in a sandbox</td><td>Do 60% of prompt refinement in ChatGPT, Gemini, or Claude — <em>free</em>. Only paste into Lovable when the prompt is locked.</td></tr>
-        <tr><td>Paste, don't draft</td><td>Treat Lovable as your execution engine, not your scratchpad. Aim for one-shot generations, not trial-and-error.</td></tr>
-        <tr><td>Edit code directly</td><td>Hex codes, label typos, padding tweaks — fix them in the code panel. Re-prompting for cosmetic changes is the most expensive way to do it.</td></tr>
-        <tr><td>The Eject Rule</td><td>If a prompt fails twice, <em>stop</em>. Export the code, debug externally, paste the fix back. Never enter a "credit death spiral."</td></tr>
-      </tbody>
-    </table>
+    <h2>Vibe Coding Credit Efficiency</h2>
+    <p class="subtitle">Credit efficiency extends your runway. Strategic resource management ensures your credits are spent on high-value architectural shifts — not low-value trial and error.</p>
+
+    <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 28px;">
+      <div class="card-item" style="--card-accent:#60a5fa; text-align: left; padding: 26px 24px;">
+        <div class="card-num">01</div>
+        <div class="card-title" style="font-size:18px; margin-bottom:10px;">Plan in a Sandbox</div>
+        <div class="card-desc" style="font-size:13.5px; line-height:1.65;">Structure your prompts and iterate on logic in an external LLM first. Do ~60% of the refinement work in ChatGPT, Gemini, or Claude — <em>free</em> — to lock the instruction before burning a single credit.</div>
+      </div>
+      <div class="card-item" style="--card-accent:#a78bfa; text-align: left; padding: 26px 24px;">
+        <div class="card-num">02</div>
+        <div class="card-title" style="font-size:18px; margin-bottom:10px;">Paste into Tool</div>
+        <div class="card-desc" style="font-size:13.5px; line-height:1.65;">Only move to Lovable when the prompt is polished. Treat the tool as your execution engine, not your scratchpad. Aim for <em>one generation</em>, not trial-and-error on half-baked instructions.</div>
+      </div>
+      <div class="card-item" style="--card-accent:#6ee7b7; text-align: left; padding: 26px 24px;">
+        <div class="card-num">03</div>
+        <div class="card-title" style="font-size:18px; margin-bottom:10px;">Adjust Code Directly</div>
+        <div class="card-desc" style="font-size:13.5px; line-height:1.65;">Fix minor typos, colors, or alignments directly in the code panel. Save your build credits for major structural changes or new feature injections — not cosmetic tweaks.</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; background: linear-gradient(135deg, rgba(248,113,113,0.10) 0%, rgba(248,113,113,0.04) 100%); border: 1px solid rgba(248,113,113,0.28); border-radius: 14px; padding: 20px 24px; display: flex; gap: 18px; align-items: flex-start;">
+      <div style="flex-shrink: 0; width: 42px; height: 42px; border-radius: 10px; background: rgba(248,113,113,0.18); display: flex; align-items: center; justify-content: center; font-size: 22px;">⚠</div>
+      <div style="flex: 1;">
+        <div style="font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #fca5a5; margin-bottom: 6px;">When to Eject</div>
+        <div style="font-size: 14px; color: #cdd5e3; line-height: 1.6;">If a prompt fails twice, <strong>stop</strong>. Export the code to an external tool to debug, then paste the fix back. Never enter a <em>"credit death spiral"</em> by re-prompting the same broken logic.</div>
+      </div>
+    </div>
+
     <div class="notes">
       <h4>Speaker Notes</h4>
       <p>This is the single most expensive mistake learners make in the first cohort week — burning 60 credits on day one by re-prompting the same broken logic. Set the expectation hard: <strong>plan outside the tool</strong>. The tool is for committing the plan, not for finding it.</p>
+      <p>Land the eject rule like a fire alarm. Two failed prompts on the same problem? Stop. Open the code panel. Read what was actually generated. The bug is almost always 3 lines of missing logic, not a prompt-engineering issue. Re-prompting the same broken state burns the most credits PMs lose all week.</p>
       <p>If anyone asks "what if I run out of credits": the Pro partnership gives 3 months. After that, the methodology works on Bolt, Cursor, Replit — all of which have free tiers. The skill is portable.</p>
     </div>
   </div>
