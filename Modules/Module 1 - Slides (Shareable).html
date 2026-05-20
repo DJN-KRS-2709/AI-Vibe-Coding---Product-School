@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Module 1 — Execute Vibe Coding Velocity · Shareable</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
@@ -53,8 +53,8 @@ h3 { font-size: 22px; font-weight: 700; color: #e0e0f0; }
 p, li { font-size: 17px; line-height: 1.7; color: #b0b4c8; }
 .subtitle { font-size: 20px; color: #8899bb; margin-top: 8px; margin-bottom: 32px; }
 .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.7); margin-bottom: 12px; font-weight: 700; }
-strong { color: #fff; font-weight: 700; }
-em { color: #60a5fa; font-style: normal; font-weight: 600; }
+  strong { color: #fff; font-weight: 700; }
+  em { color: #60a5fa; font-style: normal; font-weight: 600; }
 code { background: rgba(18,65,176,0.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; color: #60a5fa; font-family: 'IBM Plex Mono', 'SF Mono', monospace; }
 ul { list-style: none; padding: 0; }
 ul li { padding: 6px 0; padding-left: 24px; position: relative; }
@@ -173,6 +173,24 @@ section.centered ul li::before { display: none; }
 .diag-axis .da-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .diag-axis .da-q { font-size: 13px; color: #8899bb; line-height: 1.4; }
 
+/* Demo slide — 2-column "problem + video" layout (matches source PPTX) */
+.demo-split { display: grid; grid-template-columns: minmax(280px, 1fr) 1.7fr; gap: 28px; align-items: start; margin: 22px 0 12px; }
+.problem-panel { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.24); border-radius: 16px; padding: 24px 22px; }
+.problem-panel .pp-label { display: inline-flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; color: #fca5a5; padding: 6px 11px; background: rgba(248,113,113,0.12); border-radius: 7px; }
+.problem-panel .pp-headline { margin-top: 14px; font-size: 16px; color: #fff; font-weight: 700; line-height: 1.45; }
+.problem-panel .pp-execs { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.problem-panel .pp-exec { display: flex; gap: 11px; align-items: flex-start; }
+.problem-panel .pp-exec .pp-avatar { width: 34px; height: 34px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0; line-height: 1; }
+.problem-panel .pp-exec .pp-quote { font-size: 13px; color: #cdd5e3; line-height: 1.55; }
+.problem-panel .pp-exec .pp-quote strong { color: #fff; font-weight: 700; display: block; margin-bottom: 2px; font-size: 12.5px; }
+.problem-panel .pp-coda { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(248,113,113,0.18); font-size: 14px; color: #fca5a5; font-weight: 700; text-align: center; line-height: 1.55; font-style: italic; }
+.demo-video-col { display: flex; flex-direction: column; gap: 14px; }
+.demo-video-frame { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; border: 1px solid rgba(59,130,246,0.25); background: #000; }
+.demo-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.demo-video-cta { text-align: center; }
+.demo-video-cta .demo-helper { font-size: 12px; color: #8899bb; margin-top: 6px; }
+@media (max-width: 960px) { .demo-split { grid-template-columns: 1fr; } }
+
 /* Confidence Line — single horizontal arc with 6 module stops + 3 phase bands */
 .cline { display: flex; flex-direction: column; gap: 12px; margin: 28px 0 18px; }
 .cline-phases { display: grid; grid-template-columns: 2fr 2fr 2fr; gap: 8px; }
@@ -245,7 +263,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
 .sorter-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: all 0.2s ease; }
 .sorter-item:hover { border-color: #3b82f6; transform: translateY(-2px); }
 .sorter-item.sorter-active { border-color: #3b82f6; background: rgba(59,130,246,0.1); }
-.sorter-item.sorter-skipped { opacity: 0.4; }
+  .sorter-item.sorter-skipped { opacity: 0.4; }
 .sorter-num { font-size: 11px; font-weight: 800; color: #60a5fa; text-transform: uppercase; letter-spacing: 0.1em; }
 .sorter-label { font-size: 14px; color: #fff; margin: 4px 0 8px; font-weight: 600; }
 .sorter-skip-btn { font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; border: 0; }
@@ -290,7 +308,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
   .case-acts, .diag-axes, .two-col, .repo-strip { flex-direction: column; grid-template-columns: 1fr; }
   .cards-grid, .evidence-cards, .expect-grid, .score-grid { grid-template-columns: 1fr; }
   .nav-dots { display: none; }
-}
+  }
 </style>
 </head>
 <body>
@@ -325,7 +343,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text">
       <div class="wt-title">Name</div>
       <div class="wt-desc">The Confidence Line — the framework underneath every build for the rest of the course.</div></div></div>
-  </div>
+    </div>
   <p style="font-size:14px; color:#8899bb; margin-top:8px; max-width:720px; text-align:center;">Out: <code>01-velocity/prototype-v1.md</code> · <code>prototype-v2.md</code> · <code>confidence-line-reflection.md</code></p>
   <div class="scroll-hint">Scroll to explore<span>↓</span></div>
 </section>
@@ -355,7 +373,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
       <div class="expect-card"><div class="expect-icon">⚡</div>
         <div class="expect-title">Class Momentum</div>
         <div class="expect-desc">Individual deep-dives move to async support. Live time stays high-tempo.</div></div>
-    </div>
+      </div>
 </div>
 </section>
 
@@ -376,7 +394,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-title">Introduce Yourself</div>
         <div class="card-desc">Async, in <code>#cohort-channel</code>. Name · current role · what you want out of the course · one fun fact · LinkedIn URL.</div>
       </div>
-    </div>
+      </div>
     <p style="font-size:14px; color:#8899bb; margin-top:14px; text-align:center;">Browse the channel before next session. The cohort is your async network for the rest of the certification — and beyond.</p>
 </div>
 </section>
@@ -414,7 +432,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <iframe src="https://drive.google.com/file/d/1CoCIQCZktafByLWbpDunRVwx28mKlknG/preview"
                 style="position:absolute; inset:0; width:100%; height:100%; border:0;"
                 allow="autoplay" allowfullscreen></iframe>
-      </div>
+    </div>
       <p style="font-size:13px; color:#8899bb; margin-top:14px; text-align:left; line-height:1.6;">
         Can't see the player?
         <a href="https://drive.google.com/file/d/1CoCIQCZktafByLWbpDunRVwx28mKlknG/view" target="_blank" rel="noopener" style="color:#60a5fa;">Open the video on Google Drive</a>
@@ -439,37 +457,37 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-num">01</div>
         <div class="card-title">Live, deployed URL</div>
         <div class="card-desc">A working product anyone on the internet can use. Built across M1–M5, shipped in M5.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#a78bfa;">
         <div class="card-num">02</div>
         <div class="card-title">Validation Evidence Brief</div>
         <div class="card-desc">The assumption you tested, the prototype that tested it, and what you learned. Authored in M2.</div>
-      </div>
+  </div>
       <div class="card-item" style="--card-accent:#fde68a;">
         <div class="card-num">03</div>
         <div class="card-title">Living PRD</div>
         <div class="card-desc">A spec that evolved alongside the prototype, not a static doc. Authored in M4.</div>
-      </div>
+</div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-num">04</div>
         <div class="card-title">Prompt Library &amp; Logic</div>
         <div class="card-desc">Your reusable prompt pack — the AI superpower you carry into your day job. M3.</div>
-      </div>
+  </div>
       <div class="card-item" style="--card-accent:#f9a8d4;">
         <div class="card-num">05</div>
         <div class="card-title">Engineering Handoff</div>
         <div class="card-desc">The doc that lets a real eng team take over your prototype. M5.</div>
-      </div>
+</div>
       <div class="card-item" style="--card-accent:#fca5a5;">
         <div class="card-num">06</div>
         <div class="card-title">Personal Insights</div>
         <div class="card-desc">What changed about how you work as a PM. Synthesized in M6.</div>
-      </div>
+    </div>
     </div>
     <div style="display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap;">
       <a class="tool-btn" href="https://docs.google.com/document/d/17Ku0GEOVd8mUPCnrdVl0mXFXorp0WUvex5_fXb_VtBQ/preview" target="_blank" rel="noopener">📐 Final Project Brief ↗</a>
       <a class="tool-btn" href="https://docs.google.com/presentation/d/1TapXVy2P2F_Rjm7ci7UsjfPlvufSRM6OGfSEHNQ95tg/template/preview" target="_blank" rel="noopener">📊 Deliverable Template ↗</a>
-    </div>
+  </div>
 </div>
 </section>
 
@@ -484,23 +502,23 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-num">01</div>
         <div class="card-title">The High-Velocity Prototyping Cycle</div>
         <div class="card-desc">Frameworks first: cycle, multimodal entry points, credit efficiency. Then the demo.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-num">02</div>
         <div class="card-title">Lab 1 · Your First Vibe Build</div>
         <div class="card-desc">15 minutes. Pick a scenario, ship a URL, self-review with AI critique.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#fde68a;">
         <div class="card-num">03</div>
         <div class="card-title">From Prompt to Functional Strategy</div>
         <div class="card-desc">Demo: basic → pro in three surgical passes. Then name what you saw.</div>
-      </div>
+  </div>
       <div class="card-item" style="--card-accent:#a78bfa;">
         <div class="card-num">04</div>
         <div class="card-title">Lab 2 · Strategically Refine</div>
         <div class="card-desc">Two upgrade passes on the same prototype. Vibe sketch → credible tool.</div>
+</div>
       </div>
-    </div>
 </div>
 </section>
 
@@ -519,11 +537,11 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
       <code>04-production-specs/ ← M4</code>
       <code>05-full-stack/      ← M5</code>
       <code>06-evals-iteration/ ← M6</code>
-    </div>
+      </div>
     <div style="text-align:center; margin-top:18px;">
       <a class="tool-btn" href="https://github.com/new?template_name=vibe-coding-project-template&amp;template_owner=DJN-KRS-2709" target="_blank" rel="noopener">⚡ Fork the template ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">One click — opens GitHub's "Create from template" form pre-filled.</div>
-    </div>
+      </div>
     <p class="repo-cta" style="margin-top:18px;"><span style="color:#34d399;">📂</span> <strong>First artefact today →</strong> <code>01-velocity/prototype-v1.md</code></p>
 </div>
 </section>
@@ -535,28 +553,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div class="lab-title">Section One · Frameworks + Demo</div>
     <div class="lab-name">The High-Velocity Prototyping Cycle</div>
     <div class="lab-desc">Three frameworks — the cycle, multimodal entry points, credit efficiency — then watch them in action.</div>
-  </div>
-</section>
-
-<!-- 4. THE SCENARIO -->
-<section data-title="The Scenario">
-  <div class="inner">
-    <div class="demo-tag tag-recall">The Scenario</div>
-    <h2>Three executives. Three theories. Zero data.</h2>
-    <p class="subtitle">Enterprise customers churn 30 days after onboarding. This is where every Vibe Coding session starts.</p>
-    <div class="waypoints">
-      <div class="waypoint"><div class="waypoint-num">VP</div><div class="waypoint-text">
-        <div class="wt-title">VP of Customer Success</div>
-        <div class="wt-desc">"It's a UX problem — onboarding is too dense, users don't know what to do next."</div></div></div>
-      <div class="waypoint"><div class="waypoint-num">HP</div><div class="waypoint-text">
-        <div class="wt-title">Head of Product</div>
-        <div class="wt-desc">"We need better feature discovery — they don't find the value early enough."</div></div></div>
-      <div class="waypoint"><div class="waypoint-num">CE</div><div class="waypoint-text">
-        <div class="wt-title">CEO</div>
-        <div class="wt-desc">"Add a self-serve analytics dashboard so they see their own ROI."</div></div></div>
     </div>
-    <div class="bridge-line"><p>Nobody has data. Everybody has opinions. Sound familiar?</p></div>
-</div>
 </section>
 
 <!-- 6. LECTURE: HIGH-VELOCITY PROTOTYPING CYCLE -->
@@ -575,7 +572,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-num">02</div>
         <div class="card-title">Show</div>
         <div class="card-desc">Silent walkthrough. No verbal tour. Watch where the eye goes, where the click hesitates.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#fde68a;">
         <div class="card-num">03</div>
         <div class="card-title">Learn</div>
@@ -586,34 +583,48 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-title">Decide</div>
         <div class="card-desc">Kill it, refine it, or escalate it. No prototype survives without a decision attached.</div>
       </div>
-    </div>
+      </div>
 </div>
 </section>
 
-<!-- 7. CASE STUDY: THE TRIPLE-THREAT BUILD -->
+<!-- 7. INSTRUCTOR-LED DEMO — THE TRIPLE-THREAT BUILD (problem + video, mirrors source PPTX) -->
 <section data-title="The Triple-Threat Build">
-  <div class="inner" style="max-width: 1100px;">
-    <div class="demo-tag tag-case">Demo · Case Study</div>
-    <h2>Three executives, three prototypes, fifteen minutes.</h2>
-    <p class="subtitle">One churn problem → one customer dashboard, one ops tool, one design-matched analytics view. Watch the demo first, then we'll unpack the moves.</p>
-    <div style="margin: 22px auto 0; max-width: 820px;">
-      <div style="position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; border: 1px solid rgba(59,130,246,0.25); background: #000;">
-        <iframe src="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/preview"
-                style="position:absolute; inset:0; width:100%; height:100%; border:0;"
-                allow="autoplay" allowfullscreen></iframe>
+  <div class="inner" style="max-width: 1180px;">
+    <div class="demo-tag tag-case">Instructor-Led Demo</div>
+    <h2>The Triple-Threat Build</h2>
+    <p class="subtitle">Three executives. Three theories. Zero data. Watch what happens when you stop debating and start building.</p>
+
+    <div class="demo-split">
+      <div class="problem-panel">
+        <span class="pp-label">⚠ The Problem</span>
+        <div class="pp-headline">Enterprise customers are churning 30 days after onboarding.</div>
+        <div class="pp-execs">
+          <div class="pp-exec">
+            <div class="pp-avatar" style="background:#3b82f6;">VP</div>
+            <div class="pp-quote"><strong>VP of Customer Success</strong>"It's a UX issue — onboarding is too dense."</div>
+          </div>
+          <div class="pp-exec">
+            <div class="pp-avatar" style="background:#a78bfa;">HP</div>
+            <div class="pp-quote"><strong>Head of Product</strong>"We need better feature discovery."</div>
+          </div>
+          <div class="pp-exec">
+            <div class="pp-avatar" style="background:#fb7185;">CE</div>
+            <div class="pp-quote"><strong>CEO</strong>"Add a self-serve analytics dashboard so they see their own ROI."</div>
+          </div>
+        </div>
+        <div class="pp-coda">Nobody has data. Everybody has opinions.</div>
       </div>
-      <div style="text-align:center; margin-top:14px;">
-        <a class="tool-btn" href="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/view" target="_blank" rel="noopener">▶ Click here to watch the full demo ↗</a>
-        <div style="font-size:12px; color:#8899bb; margin-top:6px;">~7 min · no sound · voice over while it plays. Opens in a new tab.</div>
+
+      <div class="demo-video-col">
+        <div class="demo-video-frame">
+          <iframe src="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/preview"
+                  allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div class="demo-video-cta">
+          <a class="tool-btn" href="https://drive.google.com/file/d/1ox6e9wn6mch_mmYg9Ur9JmFzWJxC4yKS/view" target="_blank" rel="noopener">▶ Click here to watch the full demo ↗</a>
+          <div class="demo-helper">~7 min · no sound · voice over while it plays. Opens in a new tab.</div>
+        </div>
       </div>
-    </div>
-    <div class="case-acts" style="margin-top: 24px;">
-      <div class="case-act act-bet"><div class="ca-label">The Bet</div>
-        <div class="ca-text">Don't pick a side. Build all three executive theories into concrete prototypes. Let evidence — not authority — decide.</div></div>
-      <div class="case-act act-crack"><div class="ca-label">The Crack</div>
-        <div class="ca-text">Each theory pulls toward a different product surface: customer onboarding dashboard, internal churn ops view, design-matched analytics page.</div></div>
-      <div class="case-act act-correct"><div class="ca-label">The Correction</div>
-        <div class="ca-text">In ~15 minutes we move from abstract debate to three clickable URLs. The question becomes <em>which evidence do we trust</em> — not whose opinion wins.</div></div>
     </div>
 </div>
 </section>
@@ -634,13 +645,13 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-icon">🧠</div>
         <div class="card-title">A sandbox LLM</div>
         <div class="card-desc">ChatGPT, Claude, or Gemini (free tier). Draft and refine prompts here <em>before</em> pasting into Lovable — saves credits.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-icon">🌐</div>
         <div class="card-title">Same method, any tool</div>
         <div class="card-desc">Cursor, Bolt, Replit, v0, Claude Code — the methodology is portable. We demo on Lovable for consistency.</div>
+        </div>
       </div>
-    </div>
 </div>
 </section>
 
@@ -660,12 +671,12 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-icon">📸</div>
         <div class="card-title">Screenshot-to-App</div>
         <div class="card-desc"><strong>1 → N.</strong> Upload a pattern (Mobbin, your own product). The AI clones the layout, palette, navigation.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-icon">🎨</div>
         <div class="card-title">Design-to-Code</div>
         <div class="card-desc"><strong>On-brand from minute one.</strong> Paste Figma frames or design-system tokens. Eliminates "looks like a toy" stakeholder pushback.</div>
-      </div>
+    </div>
     </div>
     <div class="artifact-preview">
       <div class="ap-title">When to use which</div>
@@ -678,7 +689,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div style="text-align:center; margin-top:14px;">
       <a class="tool-btn" href="https://mobbin.com/discover/apps/ios/latest" target="_blank" rel="noopener">Browse Mobbin ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">Free pattern library · screenshot anything · paste into Lovable.</div>
-    </div>
+  </div>
 </div>
 </section>
 
@@ -726,7 +737,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div style="text-align:center; margin-top:18px;">
       <a class="tool-btn" href="M1 - Lab Guide.html" target="_blank" rel="noopener">Open the lab guide ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">Four scenarios · two launch paths · timer · commit checklist.</div>
-    </div>
+        </div>
     <p class="repo-cta"><span style="color:#34d399;">📂</span> <strong>Go to your repo →</strong> <code>01-velocity/prototype-v1.md</code></p>
 </div>
 </section>
@@ -788,13 +799,13 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-icon">🏪</div>
         <div class="card-title">Where to find them</div>
         <div class="card-desc">Anthropic Skills marketplace, Cursor's skill folder, public GitHub repos. Free. Install in one click — same idea as an iOS app.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-icon">⚡</div>
         <div class="card-title">Why this matters today</div>
         <div class="card-desc">By M3 you build your own — a <em>Living Prompt Pack</em>. For now, just know they exist. The AI doesn't have to be a generalist when you can install a specialist.</div>
+        </div>
       </div>
-    </div>
 </div>
 </section>
 
@@ -805,7 +816,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div class="lab-title">Section Three · Demo + Lecture</div>
     <div class="lab-name">From Prompt to Functional Strategy</div>
     <div class="lab-desc">Watch a basic prototype become a credible tool in three surgical passes — no rebuild, all compounding.</div>
-  </div>
+      </div>
 </section>
 
 <!-- 16. DEMO — BASIC TO PRO -->
@@ -819,12 +830,12 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <iframe src="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/preview"
                 style="position:absolute; inset:0; width:100%; height:100%; border:0;"
                 allow="autoplay" allowfullscreen></iframe>
-      </div>
+        </div>
       <div style="text-align:center; margin-top:14px;">
         <a class="tool-btn" href="https://drive.google.com/file/d/1WsjQxlLkiAAFEkRb1gjNGYm75FCpbuDX/view" target="_blank" rel="noopener">▶ Click here to watch the full demo ↗</a>
         <div style="font-size:12px; color:#8899bb; margin-top:6px;">~15 min · no sound · voice over while it plays. Opens in a new tab.</div>
       </div>
-    </div>
+        </div>
     <div class="case-acts" style="margin-top: 24px;">
       <div class="case-act act-bet"><div class="ca-label">Pass 1 · Design Match</div>
         <div class="ca-text">Upload a Mobbin screenshot. Prompt the AI to clone the palette, the card layout, the sidebar. Same content — now it looks like <em>Linear</em>.</div></div>
@@ -832,7 +843,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="ca-text">Filters that filter. Cards that expand. A loading skeleton. <em>1.5 seconds of perceived performance</em> = enormous credibility boost.</div></div>
       <div class="case-act act-correct"><div class="ca-label">Pass 3 · Surgical Refinement</div>
         <div class="ca-text">Fix one section without touching the rest. Header → notification bell. Help block → real CTA. Two small prompts, massive polish.</div></div>
-    </div>
+      </div>
     <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">Compounding small improvements beats starting over. Every. Single. Time.</p>
 </div>
 </section>
@@ -844,7 +855,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div class="lab-title">Section Four · Applied Work · 15 min</div>
     <div class="lab-name">Lab 2 — Strategically Refine Your Build</div>
     <div class="lab-desc">Same prototype, two strategic upgrades. From vibe sketch to credible tool.</div>
-  </div>
+      </div>
 </section>
 
 <!-- 17. APPLIED WORK — LAB 2 -->
@@ -863,7 +874,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div style="text-align:center; margin-top:18px;">
       <a class="tool-btn" href="M1 - Lab Guide.html#lab-2" target="_blank" rel="noopener">Open Lab 2 in the guide ↗</a>
       <div style="font-size:12px; color:#8899bb; margin-top:6px;">Four upgrade paths · prompt templates · commit checklist.</div>
-    </div>
+        </div>
     <p class="repo-cta"><span style="color:#34d399;">📂</span> <strong>Go to your repo →</strong> <code>01-velocity/prototype-v2.md</code></p>
 </div>
 </section>
@@ -906,14 +917,14 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="cline-phase p1">M1 – M2 · High Ambiguity</div>
         <div class="cline-phase p2">M3 – M4 · Gaining Clarity</div>
         <div class="cline-phase p3">M5 – M6 · Production Confidence</div>
-      </div>
+  </div>
       <div class="cline-arrow"></div>
       <div class="cline-stops">
         <div class="cline-stop" style="--cl-accent:#fca5a5;">
           <div class="cls-num">M1</div>
           <div class="cls-name">Velocity</div>
           <div class="cls-desc">Build to think. Ship a clickable URL in 15 minutes.</div>
-        </div>
+</div>
         <div class="cline-stop" style="--cl-accent:#fca5a5;">
           <div class="cls-num">M2</div>
           <div class="cls-name">Validation</div>
@@ -933,14 +944,14 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
           <div class="cls-num">M5</div>
           <div class="cls-name">Full-Stack</div>
           <div class="cls-desc">Real APIs, real data, real eng handoff. Deployed.</div>
-        </div>
+      </div>
         <div class="cline-stop" style="--cl-accent:#6ee7b7;">
           <div class="cls-num">M6</div>
           <div class="cls-name">Evals &amp; Iteration</div>
           <div class="cls-desc">Measure. Learn. Iterate against evidence — not vibes.</div>
         </div>
+        </div>
       </div>
-    </div>
 
     <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">Every prompt you write is a choice: <em>explore</em> the path, or <em>refine</em> it.</p>
 </div>
@@ -989,17 +1000,17 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="da-num">2</div>
         <div class="da-name">Prototypes Built</div>
         <div class="da-q">From first prompt to live URL — twice. Zero lines of code written.</div>
-      </div>
+    </div>
       <div class="diag-axis">
         <div class="da-num">2</div>
         <div class="da-name">Self-Reviews</div>
         <div class="da-q">Silent walk + AI critique. Honest signal beats polite peer feedback.</div>
-      </div>
+  </div>
       <div class="diag-axis">
         <div class="da-num">67%</div>
         <div class="da-name">Hands-On Time</div>
         <div class="da-q">More time building than slides. This is where the skill transfers.</div>
-      </div>
+</div>
     </div>
     <div class="two-col">
       <div class="tc tc-new">
@@ -1060,8 +1071,8 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="ec-label">Next Session</div>
         <div class="ec-company">Module 2 — Validate Product Hypotheses via Risk-Based Prototyping</div>
         <div class="ec-text">Move beyond "vibe" coding by naming the assumption and defining exactly what you're testing before you open the tool. Bring <code>prototype-v2.md</code> — we'll dissect what assumption it was actually testing, and whether you tested the right one.</div>
-      </div>
     </div>
+  </div>
 </div>
 </section>
 
@@ -1086,23 +1097,23 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
         <div class="card-icon">📚</div>
         <div class="card-title">Frameworks Reference Card</div>
         <div class="card-desc"><a href="Module 1 - Frameworks Reference Card.md" target="_blank" rel="noopener" style="color:#a78bfa;">Open the card ↗</a> — one-page cheat sheet of every M1 framework.</div>
-      </div>
+    </div>
       <div class="card-item" style="--card-accent:#fde68a;">
         <div class="card-icon">🔤</div>
         <div class="card-title">Glossary</div>
         <div class="card-desc"><a href="Module 1 - Glossary.md" target="_blank" rel="noopener" style="color:#fde68a;">Open the glossary ↗</a> — every M1 term, defined the way we use it.</div>
-      </div>
+  </div>
       <div class="card-item" style="--card-accent:#f9a8d4;">
         <div class="card-icon">📖</div>
         <div class="card-title">Shareable Notes</div>
         <div class="card-desc"><a href="Module 1 - Notes (Shareable).md" target="_blank" rel="noopener" style="color:#f9a8d4;">Open the notes ↗</a> — long-form companion to this deck.</div>
-      </div>
+</div>
       <div class="card-item" style="--card-accent:#fca5a5;">
         <div class="card-icon">📝</div>
         <div class="card-title">M2 Pre-Read</div>
         <div class="card-desc">Drops in <code>#cohort-channel</code> later this week — the assumption-mapping primer for Module 2.</div>
-      </div>
     </div>
+  </div>
 </div>
 </section>
 
@@ -1124,7 +1135,7 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
     <div class="artifact-preview" style="max-width:560px;">
       <div class="ap-title">End-of-Session Survey</div>
       <p style="font-size:14px; color:#cdd5e3; line-height:1.6;">Scan the QR in the cohort channel, or use the Day-1 Survey link pinned in <code>#cohort-channel</code>. Like a real product team, we iterate on this course — your feedback is the data.</p>
-    </div>
+</div>
     <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">See you in Module 2 — <em>Validate Product Hypotheses via Risk-Based Prototyping</em>.</p>
 </div>
 </section>
@@ -1132,120 +1143,120 @@ section.section-break .section-break-inner { position: absolute; inset: 0; backg
 <script>
 const sections = Array.from(document.querySelectorAll('section'));
 const navDotsContainer = document.getElementById('navDots');
-let currentIdx = 0;
-let sorterVisible = false;
+  let currentIdx = 0;
+  let sorterVisible = false;
 
-const STORAGE_KEY = 'skip-sections-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
+  const STORAGE_KEY = 'skip-sections-' + document.title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 60);
 const skippedSections = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
 
 function saveSkips() { localStorage.setItem(STORAGE_KEY, JSON.stringify([...skippedSections])); }
 
-function applySkips() {
+  function applySkips() {
   sections.forEach((sec, i) => sec.classList.toggle('skipped', skippedSections.has(i)));
-  rebuildDots();
-}
+    rebuildDots();
+  }
 
-function rebuildDots() {
+  function rebuildDots() {
   navDotsContainer.innerHTML = '';
   sections.forEach((sec, i) => {
     if (skippedSections.has(i)) return;
-    const dot = document.createElement('button');
-    dot.className = 'nav-dot';
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot';
     const title = sec.dataset.title || 'Section';
-    dot.innerHTML = `<span class="tooltip">${title}</span>`;
-    dot.dataset.idx = i;
+      dot.innerHTML = `<span class="tooltip">${title}</span>`;
+      dot.dataset.idx = i;
     dot.onclick = () => sections[i].scrollIntoView({ behavior: 'smooth' });
     navDotsContainer.appendChild(dot);
-  });
-}
+    });
+  }
 
 function getActiveSections() { return sections.map((s, i) => i).filter(i => !skippedSections.has(i)); }
 
 function updateProgress(idx) {
-  currentIdx = idx;
+    currentIdx = idx;
   const active = getActiveSections();
-  const posInActive = active.indexOf(idx);
-  const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
+    const posInActive = active.indexOf(idx);
+    const progress = posInActive >= 0 ? (posInActive + 1) / active.length * 100 : 0;
   document.getElementById('progressBar').style.width = progress + '%';
   const dots = navDotsContainer.querySelectorAll('.nav-dot');
   dots.forEach(d => d.classList.toggle('active', parseInt(d.dataset.idx) === idx));
   document.getElementById('skip-badge').classList.toggle('visible', skippedSections.has(idx));
-}
+  }
 
-function toggleSkip(idx) {
+  function toggleSkip(idx) {
   if (skippedSections.has(idx)) skippedSections.delete(idx);
   else skippedSections.add(idx);
   saveSkips();
   applySkips();
   updateProgress(currentIdx);
   if (sorterVisible) renderSorter();
-}
+  }
 
-function nextActive(from, dir) {
-  let i = from + dir;
+  function nextActive(from, dir) {
+    let i = from + dir;
   while (i >= 0 && i < sections.length) {
     if (!skippedSections.has(i)) return i;
     i += dir;
   }
-  return -1;
-}
+    return -1;
+  }
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       const idx = sections.indexOf(entry.target);
       updateProgress(idx);
-    }
-  });
+      }
+    });
 }, { threshold: 0.35 });
 sections.forEach(sec => observer.observe(sec));
 
-function renderSorter() {
-  const grid = document.getElementById('sorter-grid');
-  grid.innerHTML = '';
+  function renderSorter() {
+    const grid = document.getElementById('sorter-grid');
+    grid.innerHTML = '';
   sections.forEach((sec, i) => {
     const isSkipped = skippedSections.has(i);
-    const isCurrent = i === currentIdx;
-    const div = document.createElement('div');
-    div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
+      const isCurrent = i === currentIdx;
+      const div = document.createElement('div');
+      div.className = 'sorter-item' + (isSkipped ? ' sorter-skipped' : '') + (isCurrent ? ' sorter-active' : '');
     const title = sec.dataset.title || 'Section';
-    div.innerHTML = `
-      <div class="sorter-num">Section ${i + 1}</div>
+      div.innerHTML = `
+        <div class="sorter-num">Section ${i + 1}</div>
       <div class="sorter-label">${title}</div>
       <button class="sorter-skip-btn ${isSkipped ? 'skip-on' : 'skip-off'}"
               onclick="event.stopPropagation(); toggleSkip(${i})">
-        ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
-      </button>`;
+          ${isSkipped ? '↩ Unskip' : '⊘ Skip'}
+        </button>`;
     div.addEventListener('click', () => { sections[i].scrollIntoView({ behavior: 'smooth' }); closeSorter(); });
-    grid.appendChild(div);
-  });
-}
-function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
-function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
+      grid.appendChild(div);
+    });
+  }
+  function openSorter() { sorterVisible = true; renderSorter(); document.getElementById('slide-sorter').classList.add('visible'); }
+  function closeSorter() { sorterVisible = false; document.getElementById('slide-sorter').classList.remove('visible'); }
 
-document.getElementById('skip-badge').addEventListener('click', () => toggleSkip(currentIdx));
+  document.getElementById('skip-badge').addEventListener('click', () => toggleSkip(currentIdx));
 
 document.addEventListener('keydown', (e) => {
-  if (sorterVisible) {
-    if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
-    return;
-  }
+    if (sorterVisible) {
+      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') { e.preventDefault(); closeSorter(); }
+      return;
+    }
   if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-    e.preventDefault();
-    const n = nextActive(currentIdx, 1);
+      e.preventDefault();
+      const n = nextActive(currentIdx, 1);
     if (n >= 0) sections[n].scrollIntoView({ behavior: 'smooth' });
-  }
+    }
   else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-    e.preventDefault();
-    const n = nextActive(currentIdx, -1);
+      e.preventDefault();
+      const n = nextActive(currentIdx, -1);
     if (n >= 0) sections[n].scrollIntoView({ behavior: 'smooth' });
-  }
-  else if (e.key === 'k' || e.key === 'K') { toggleSkip(currentIdx); }
+    }
+    else if (e.key === 'k' || e.key === 'K') { toggleSkip(currentIdx); }
   else if (e.key === 'm' || e.key === 'M') { openSorter(); }
-});
+  });
 
-applySkips();
+  applySkips();
 sections[0].classList.add('visible');
 document.querySelectorAll('.tf-item').forEach(item => {
   item.addEventListener('click', () => item.classList.toggle('revealed'));
