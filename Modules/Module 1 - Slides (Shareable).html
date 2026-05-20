@@ -341,25 +341,49 @@ section.cameras-section .cameras-inner {
 .two-col .tc-old ul li::before { background: #fca5a5; }
 .two-col .tc-new ul li::before { background: #6ee7b7; }
 
-/* Module-complete closing slide — editorial / narrative, NOT a metric dashboard */
-.complete-hero { text-align: center; max-width: 880px; margin: 28px auto 8px; }
-.complete-hero .ch-lede { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 500; color: #cfd9e8; line-height: 1.5; margin: 0 0 22px; letter-spacing: -0.005em; }
-.complete-hero .ch-lede em { color: #fff; font-style: normal; font-weight: 700; }
-.metric-chip-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.metric-chip { display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 14px; background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.22); border-radius: 999px; font-size: 13px; color: #cfd9e8; letter-spacing: 0.01em; }
-.metric-chip strong { color: #60a5fa; font-weight: 800; font-size: 14px; }
-.shift-list { max-width: 940px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 18px; }
-.shift-entry { display: grid; grid-template-columns: 64px 1fr; gap: 22px; align-items: start; padding: 22px 28px 22px 22px; background: linear-gradient(135deg, rgba(52,211,153,0.045), rgba(52,211,153,0.015)); border-left: 3px solid #6ee7b7; border-radius: 0 14px 14px 0; }
-.shift-entry .se-num { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 900; color: #6ee7b7; line-height: 1; letter-spacing: -0.02em; opacity: 0.85; }
-.shift-entry .se-body { color: #d6dde8; }
-.shift-entry .se-quote { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.25; letter-spacing: -0.01em; }
-.shift-entry .se-text { font-size: 15px; line-height: 1.65; color: #b8c2d4; margin: 0; }
-.shift-entry .se-text em { color: #fff; font-style: normal; font-weight: 600; }
-@media (max-width: 768px) {
-  .shift-entry { grid-template-columns: 48px 1fr; gap: 14px; padding: 18px; }
-  .shift-entry .se-num { font-size: 32px; }
-  .shift-entry .se-quote { font-size: 18px; }
-  .complete-hero .ch-lede { font-size: 17px; }
+/* Module-complete — analytics-dashboard layout (Numbers | Shifts + Next-CTA) */
+.dash-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(96,165,250,0.35) 20%, rgba(96,165,250,0.35) 80%, transparent); margin: 18px 0 26px; }
+.dash-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 36px; align-items: start; max-width: 1180px; margin: 0 auto; }
+.dash-col-header { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #60a5fa; margin: 0 0 14px; }
+
+/* LEFT: numbers column */
+.stat-tile-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.stat-tile { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; padding: 18px 18px; background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 70%, #2563eb 100%); border: 1px solid rgba(96,165,250,0.35); border-radius: 14px; box-shadow: 0 6px 20px -8px rgba(37,99,235,0.45); }
+.stat-tile .st-num { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.03em; }
+.stat-tile .st-label { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; }
+.stat-tile .st-sub { font-size: 12px; color: rgba(255,255,255,0.78); font-weight: 500; margin-top: 4px; line-height: 1.35; }
+.donut-row { display: grid; grid-template-columns: 160px 1fr; gap: 22px; align-items: center; padding: 14px 4px 4px; }
+.donut-svg { width: 160px; height: 160px; }
+.donut-svg .donut-track { fill: none; stroke: rgba(96,165,250,0.16); stroke-width: 12; }
+.donut-svg .donut-fill { fill: none; stroke: #60a5fa; stroke-width: 12; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 80px 80px; }
+.donut-svg .donut-text { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 32px; fill: #fff; }
+.donut-meta .dm-label { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.donut-meta .dm-desc { font-size: 13px; color: #b8c2d4; line-height: 1.5; }
+.stat-footer-tile { display: flex; align-items: center; gap: 16px; padding: 14px 18px; margin-top: 14px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(96,165,250,0.3); border-radius: 12px; }
+.stat-footer-tile .sft-num { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 900; color: #60a5fa; line-height: 1; }
+.stat-footer-tile .sft-label { font-size: 13px; color: #cfd9e8; line-height: 1.4; }
+.stat-footer-tile .sft-label strong { color: #fff; font-weight: 700; }
+
+/* RIGHT: shifts column */
+.shift-card { padding: 18px 20px; margin-bottom: 12px; background: rgba(255,255,255,0.025); border: 1px solid rgba(96,165,250,0.28); border-radius: 12px; position: relative; }
+.shift-card::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; background: #60a5fa; border-radius: 0 3px 3px 0; }
+.shift-card .sc-num { position: absolute; top: 16px; right: 18px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; color: rgba(96,165,250,0.55); }
+.shift-card .sc-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 800; color: #60a5fa; margin: 0 0 8px; padding-left: 8px; line-height: 1.25; }
+.shift-card .sc-text { font-size: 14px; line-height: 1.6; color: #cfd9e8; margin: 0; padding-left: 8px; }
+.shift-card .sc-text em { color: #fff; font-style: normal; font-weight: 700; }
+
+/* BOTTOM: next-module CTA bar */
+.next-module-bar { display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 16px; padding: 16px 22px; margin: 28px auto 0; max-width: 1180px; background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%); border: 1px solid rgba(96,165,250,0.42); border-radius: 14px; box-shadow: 0 8px 24px -10px rgba(37,99,235,0.5); }
+.next-module-bar .nmb-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: rgba(255,255,255,0.12); font-size: 20px; }
+.next-module-bar .nmb-text { font-size: 15px; color: #fff; line-height: 1.45; }
+.next-module-bar .nmb-text strong { color: #fff; font-weight: 800; }
+.next-module-bar .nmb-text em { color: #fff; font-style: italic; font-weight: 700; }
+.next-module-bar .nmb-arrow { font-family: 'Poppins', sans-serif; font-size: 22px; color: #fff; opacity: 0.85; }
+
+@media (max-width: 900px) {
+  .dash-grid { grid-template-columns: 1fr; gap: 22px; }
+  .donut-row { grid-template-columns: 130px 1fr; }
+  .donut-svg { width: 130px; height: 130px; }
 }
 
 @media (max-width: 768px) {
@@ -1075,35 +1099,65 @@ section.cameras-section .cameras-inner {
 </div>
 </section>
 
-<!-- 22A. MODULE 1 COMPLETE — EDITORIAL REFLECTION (not a metric dashboard) -->
-<section class="centered" data-title="Module 1 Complete">
-  <div class="inner">
+<!-- 22A. MODULE 1 COMPLETE — analytics dashboard (Numbers | Shifts + Next CTA) -->
+<section data-title="Module 1 Complete">
+  <div class="inner" style="max-width: 1220px;">
     <div class="demo-tag tag-complete">Module 1 Complete</div>
-    <h2>Look at what you just did.</h2>
-    <div class="complete-hero">
-      <p class="ch-lede">In ~90 minutes you went from a blank page to <em>two live URLs</em> — and learned a peer-feedback ritual sharp enough to tell a tool from a toy.</p>
-      <div class="metric-chip-row">
-        <div class="metric-chip"><strong>2</strong> prototypes</div>
-        <div class="metric-chip"><strong>2</strong> peer rounds</div>
-        <div class="metric-chip"><strong>67%</strong> hands-on</div>
-        <div class="metric-chip"><strong>0</strong> lines of code</div>
+    <h2>What you accomplished today.</h2>
+    <p class="subtitle">The numbers — and the two shifts underneath them.</p>
+    <div class="dash-divider"></div>
+    <div class="dash-grid">
+      <!-- LEFT · THE NUMBERS -->
+      <div class="dash-numbers">
+        <div class="dash-col-header">The Numbers</div>
+        <div class="stat-tile-row">
+          <div class="stat-tile">
+            <div class="st-num">2</div>
+            <div>
+              <div class="st-label">Prototypes Built</div>
+              <div class="st-sub">From first prompt to live URL — twice. Zero code written.</div>
+            </div>
+          </div>
+          <div class="stat-tile">
+            <div class="st-num">2</div>
+            <div>
+              <div class="st-label">Show &amp; Swap Rounds</div>
+              <div class="st-sub">Round 1: clarity. Round 2 with a new partner: credibility.</div>
+            </div>
+          </div>
+        </div>
+        <div class="donut-row">
+          <svg class="donut-svg" viewBox="0 0 160 160" aria-label="67 percent hands-on time">
+            <circle class="donut-track" cx="80" cy="80" r="68"/>
+            <circle class="donut-fill" cx="80" cy="80" r="68" stroke-dasharray="427.04" stroke-dashoffset="140.92"/>
+            <text class="donut-text" x="80" y="92" text-anchor="middle">67%</text>
+          </svg>
+          <div class="donut-meta">
+            <div class="dm-label">Hands-On Time</div>
+            <div class="dm-desc">More time building than covering theoretical concepts. This is where the skill transfers.</div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT · THE SHIFTS -->
+      <div class="dash-shifts">
+        <div class="dash-col-header">The Shifts</div>
+        <div class="shift-card">
+          <div class="sc-num">01</div>
+          <div class="sc-title">The mental barrier is removed.</div>
+          <p class="sc-text">You built functional software without writing a single line of code. The wall between <em>thinking</em> and <em>building</em> is gone. You no longer wait on engineering to validate your product instincts — you validated them yourself, today, in real time.</p>
+        </div>
+        <div class="shift-card">
+          <div class="sc-num">02</div>
+          <div class="sc-title">Tool vs Toy — learned.</div>
+          <p class="sc-text">If your prototype helped you <em>decide something</em>, it's a tool. If it only looked cool, it's a toy. You built tools today. That distinction sharpens everything you ship from here forward.</p>
+        </div>
       </div>
     </div>
-    <div class="shift-list">
-      <div class="shift-entry">
-        <div class="se-num">01</div>
-        <div class="se-body">
-          <div class="se-quote">The mental barrier is gone.</div>
-          <p class="se-text">You shipped functional software twice — without writing code. The wall between thinking and building is removed. <em>You no longer wait on eng to validate your product instincts.</em></p>
-        </div>
-      </div>
-      <div class="shift-entry">
-        <div class="se-num">02</div>
-        <div class="se-body">
-          <div class="se-quote">Toy vs Tool — learned.</div>
-          <p class="se-text">If your prototype helped you <em>decide something</em> — it's a tool. If it only looked cool — it's a toy. That distinction sharpens everything you ship from here forward.</p>
-        </div>
-      </div>
+    <!-- NEXT MODULE CTA -->
+    <div class="next-module-bar">
+      <div class="nmb-icon">⚡</div>
+      <div class="nmb-text"><strong>Next · Module 2</strong> — You can build fast. Now: are you building the <em>right</em> thing?</div>
+      <div class="nmb-arrow">→</div>
     </div>
 </div>
 </section>
