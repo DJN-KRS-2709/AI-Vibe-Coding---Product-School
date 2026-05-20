@@ -413,15 +413,15 @@ The question isn't "is this cool?" It's "does this test what they said they were
 After you've discussed, swap roles and repeat.
 
 
-## Slide 22 — Quick Debrief: Prototype-Readiness Score
+## Slide 22 — Quick Debrief: What Your Partner Just Told You
 
-Post on Slack: your score from 1 to 5, one sentence explaining why, and — this is important — **add screenshots of your M1 prototype vs. your M2 prototype side by side.**
+Post on Slack: M1 vs. M2 screenshots side by side, plus the one piece of feedback from your Show-and-Swap partner that landed hardest. The signal you came here for came from your partner, not from a number you give yourself.
 
-1 means "just a sketch." 3 means "getting there — recognizable but not functional." 5 means "VP ready — I'd show this to leadership tomorrow."
+The credibility rubric on the slide (1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready) is private framing only — use it for your own reflection, not for the Slack post.
 
-**ACTION: Read 3-4 responses. Follow up on extremes.** For 4s and 5s: "What specific upgrade made the difference?" For 1s and 2s: "Was it the prompting, the tool, or the hypothesis that got in the way?"
+**ACTION: Read out 2-3 of the partner-feedback lines from #builds.** Don't read out numbers — they're noise and they invite people to defend their score instead of sitting with what their partner said. Pick the feedback lines that name a specific friction point. Follow up with: "what does this tell you about whether the build actually tests what you said it tests?"
 
-The score might not have jumped much from M1. But the *reason* should be different. In M1, the score was about looks. In M2, it should be about what the prototype tests.
+The shift from M1 matters. In M1 the gap was about looks. In M2 it's about whether the build tests what you claimed it tests. Same private read, different reason — that's the move.
 
 
 ## Slide 23 — Reflection: The Same Three Questions

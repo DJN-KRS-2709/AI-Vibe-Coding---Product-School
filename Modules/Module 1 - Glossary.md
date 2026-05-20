@@ -56,8 +56,8 @@ The goal mode for credit efficiency — a single prompt that produces a useful r
 **Pre-Read**
 A short async document the learner reads before the live module session. Module 1's pre-read covers tool setup, the Confidence Line in 60 seconds, and the four scenarios.
 
-**Prototype-Readiness Score**
-The 1–5 self-evaluation the learner runs after Lab 2 (see *Toy vs Tool*). 1 = sketch, 5 = VP-ready. Most learners score 2–3 today; the score gap is what M2–M6 closes.
+**Prototype-Readiness Rubric** *(private framing only)*
+A 1–5 reading of your prototype against the Confidence Line: 1 Sketch · 2 Rough Direction · 3 Getting There · 4 Team-Ready · 5 VP-Ready. **Used as private framing for your own follow-up writing, not as a replacement for the paired review.** Vibe Coding has no solo reflection — the signal always comes from a peer (Show and Swap Round 1, Swap and Review Round 2) or, as a solo fallback, the AI-review prompt. Most learners read themselves as 2–3 in M1; the gap to VP-Ready is exactly what M2–M6 closes.
 
 **Refresh Code Directly**
 A credit-saving move: for cosmetic fixes (hex codes, label typos, padding), edit the generated code in the code panel rather than re-prompting. Re-prompting cosmetic changes is the most expensive way to do a five-second job.
