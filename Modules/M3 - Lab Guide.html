@@ -448,7 +448,7 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Open your <strong>M2 Lovable project</strong>. Paste your Expand prompt + visual references. Build the new screens.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Two tabs: <strong>Lovable</strong> (your M2 project) and <strong>GitHub</strong> at <code>03-prompt-chaining/prompts.md</code>. Copy <strong>Prompt 1 (Expand)</strong> from GitHub → paste into Lovable. Attach your visual references. Build the new screens.</p>
 
       <a class="tool-link" href="https://lovable.dev/" target="_blank">
         <span class="tool-icon">🔗</span> Open Lovable
@@ -457,9 +457,9 @@
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#3B6FE0;">1</div>
         <div class="step-body">
-          <div class="step-title">Paste your Expand prompt</div>
-          <div class="step-time">In Lovable's chat bar</div>
-          <div class="step-desc">Drag your screenshot(s) onto the chat. Hit enter. Watch the AI build screens A → B → C in strict sequence.</div>
+          <div class="step-title">Copy Prompt 1 from GitHub, paste into Lovable</div>
+          <div class="step-time">From <code>03-prompt-chaining/prompts.md</code> → Lovable chat</div>
+          <div class="step-desc">Open <code>prompts.md</code> in GitHub (Raw view is cleanest), copy your Expand prompt, paste into Lovable's chat. Drag your screenshot(s) onto the chat. Hit enter. Watch the AI build screens A → B → C in strict sequence.</div>
         </div>
       </div>
 
@@ -474,8 +474,8 @@
       <div class="step">
         <div class="step-marker" style="background:#3B6FE0;">3</div>
         <div class="step-body">
-          <div class="step-title">Log P1 results</div>
-          <div class="step-desc">In your Planner Log: how many screens you now have, whether the design matched, what worked, what didn't, any fixes you made.</div>
+          <div class="step-title">Log P1 results in <code>prompts.md</code></div>
+          <div class="step-desc">Append a <em>Result</em> section under Prompt 1 in <code>prompts.md</code>: how many screens you now have, whether the design matched, what worked, what didn't, any fixes you made. (Prompt Lovable to do this if you want, or edit on GitHub directly.)</div>
         </div>
       </div>
     </div>
@@ -494,12 +494,12 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Ground the AI in your loading / empty / error rules. Then <strong>manually trigger</strong> at least one unhappy path to verify.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Ground the AI in your loading / empty / error rules. Copy <strong>Prompt 2 (Behavior)</strong> from <code>03-prompt-chaining/prompts.md</code> in GitHub → paste into Lovable. Then <strong>manually trigger</strong> at least one unhappy path to verify.</p>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#7c3aed;">1</div>
         <div class="step-body">
-          <div class="step-title">Paste your Behavior prompt</div>
+          <div class="step-title">Copy Prompt 2 from GitHub, paste into Lovable</div>
           <div class="step-desc">Exact strings for empty + error states. Tether all behavior strictly to your rules.</div>
         </div>
       </div>
@@ -515,8 +515,8 @@
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">3</div>
         <div class="step-body">
-          <div class="step-title">Log P2 results</div>
-          <div class="step-desc">In your Planner Log: did loading / error / empty trigger correctly? Did the AI follow your constraints, or drift?</div>
+          <div class="step-title">Log P2 results in <code>prompts.md</code></div>
+          <div class="step-desc">Append a <em>Result</em> section under Prompt 2: did loading / error / empty trigger correctly? Did the AI follow your constraints, or drift?</div>
         </div>
       </div>
 
@@ -540,12 +540,12 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Surgical steering. Force the AI to audit first, then act on the single UI element you targeted.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Surgical steering. Copy <strong>Prompt 3 (Refine)</strong> from <code>03-prompt-chaining/prompts.md</code> in GitHub → paste into Lovable. Force the AI to audit first, then act on the single UI element you targeted.</p>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#059669;">1</div>
         <div class="step-body">
-          <div class="step-title">Paste your Refine prompt</div>
+          <div class="step-title">Copy Prompt 3 from GitHub, paste into Lovable</div>
           <div class="step-desc">The prompt should start with <em>"list the 3 biggest gaps"</em> before any change. The "Don't change anything else" line is your insurance policy.</div>
         </div>
       </div>
@@ -561,8 +561,8 @@
       <div class="step">
         <div class="step-marker" style="background:#059669;">3</div>
         <div class="step-body">
-          <div class="step-title">Log P3 results</div>
-          <div class="step-desc">In your Planner Log: which UI polishes applied, whether the rest of the build remained stable, or whether you had to steer it back.</div>
+          <div class="step-title">Log P3 results in <code>prompts.md</code></div>
+          <div class="step-desc">Append a <em>Result</em> section under Prompt 3: which UI polishes applied, whether the rest of the build remained stable, or whether you had to steer it back.</div>
         </div>
       </div>
 
@@ -591,8 +591,8 @@
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
         <div class="step-marker" style="background:#d97706;">1</div>
         <div class="step-body">
-          <div class="step-title">Prompt Lovable to save + push</div>
-          <div class="step-desc"><em>"Save my three prompts — Expand, Behavior, and Refine — along with the results I documented for each, as a PROMPTS.md file. Then push all current project files to my connected GitHub repository."</em></div>
+          <div class="step-title">Prompt Lovable to update <code>prompts.md</code> + push</div>
+          <div class="step-desc"><em>"Update <code>03-prompt-chaining/prompts.md</code> with the result logs for all three prompts (Expand, Behavior, Refine). Then push all current project files to my connected GitHub repository."</em></div>
         </div>
       </div>
 
@@ -600,21 +600,17 @@
         <div class="step-marker" style="background:#d97706;">2</div>
         <div class="step-body">
           <div class="step-title">Verify in GitHub</div>
-          <div class="step-desc">Open your repo and confirm <code>PROMPTS.md</code> shows your three prompts + the result logs. This is what your teammates will see.</div>
+          <div class="step-desc">Open your repo and confirm <code>03-prompt-chaining/prompts.md</code> shows your three prompts + the result logs. This is what your teammates (and M4+) will see.</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#d97706;">3</div>
         <div class="step-body">
-          <div class="step-title">Add to your Living Prompt Pack</div>
-          <div class="step-desc">Open the <strong>Living Prompt Pack Builder</strong> and add this chain as a Chain Entry. Each cohort week, your pack grows — by M6 you'll have ~6 reusable chains.</div>
+          <div class="step-title">Grow your reusable prompt library — directly in GitHub</div>
+          <div class="step-desc">Maintain a top-level <code>PROMPTS.md</code> at the root of your repo as your cohort-wide prompt library. After each module, prompt Lovable: <em>"Append this module's chain (Expand · Behavior · Refine + results) to <code>PROMPTS.md</code> at the repo root."</em> By M6, you'll have ~6 reusable chains — versioned in Git, portable to any future project.</div>
         </div>
       </div>
-
-      <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank">
-        <span class="tool-icon">📦</span> Open the Living Prompt Pack Builder
-      </a>
 
       <div class="checklist">
         <div class="check-item" onclick="toggleCheck(this)">
@@ -623,7 +619,7 @@
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Three prompts drafted</strong> — Expand · Behavior · Refine in your Prompt Chain Planner</div>
+          <div><strong>Three prompts drafted &amp; committed</strong> — Expand · Behavior · Refine in <code>03-prompt-chaining/prompts.md</code> on GitHub</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
@@ -631,7 +627,7 @@
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Chain executed end-to-end</strong> — Expand → Behavior → Refine in Lovable, each verified</div>
+          <div><strong>Chain executed end-to-end</strong> — copied from GitHub, pasted into Lovable, Expand → Behavior → Refine each verified</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
@@ -639,11 +635,11 @@
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>PROMPTS.md pushed to GitHub</strong> — visible in your repo's file tree</div>
+          <div><strong>Result logs pushed</strong> — <code>prompts.md</code> updated with result sections, visible in your repo's file tree</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Chain added to Living Prompt Pack</strong> — captured for the next module</div>
+          <div><strong>Cohort prompt library updated</strong> — chain appended to <code>PROMPTS.md</code> at repo root</div>
         </div>
       </div>
 
