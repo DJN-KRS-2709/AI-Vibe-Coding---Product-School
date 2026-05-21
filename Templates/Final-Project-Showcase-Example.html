@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapWishlist · Vibe Coding Final Project Example</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  EXAMPLE · what a filled-in showcase looks like
+  ────────────────────────────────────────────────────────────────────────────
+  Project: SnapWishlist (from Templates/Living-PRD-Sample-SnapWishlist.md)
+  Author : Maya Chen (fictional learner, May 2026 cohort)
+  Status : Demo content only — URLs are placeholders.
+
+  Use this side-by-side with Templates/Final-Project-Showcase.html to see
+  exactly how each placeholder maps to a real Living PRD / Validation Brief
+  / Iteration Sprint Brief. Then fork the blank template for your own.
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body {
+  font-family: 'Lato', -apple-system, sans-serif;
+  background: #07162C; color: #e8e8f0;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+
+section {
+  min-height: 100vh; scroll-snap-align: start;
+  padding: 80px 60px 60px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; position: relative;
+  background: radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.25) 0%, #07162C 60%);
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+section.visible { opacity: 1; transform: translateY(0); }
+
+.nav-dots { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 100; }
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; border: none; cursor: pointer; transition: all 0.3s; position: relative; }
+.nav-dot.active { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.5); transform: scale(1.4); }
+.nav-dot:hover { background: rgba(59,130,246,0.7); }
+.nav-dot .tooltip { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: #0c2244; color: #b0b4c8; padding: 4px 10px; border-radius: 6px; font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; border: 1px solid rgba(59,130,246,0.2); }
+.nav-dot:hover .tooltip { opacity: 1; }
+
+.progress-bar { position: fixed; top: 0; left: 0; height: 3px; z-index: 100; background: linear-gradient(90deg, #1241B0, #3b82f6); transition: width 0.3s ease; }
+
+h1, h2 { font-family: 'Poppins', sans-serif; }
+h1 { font-size: 60px; font-weight: 900; color: #fff; line-height: 1.1; }
+h2 { font-size: 42px; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.15; }
+h3 { font-size: 22px; font-weight: 700; color: #e0e0f0; }
+p, li { font-size: 17px; line-height: 1.7; color: #b0b4c8; }
+.subtitle { font-size: 19px; color: #8899bb; margin-top: 8px; margin-bottom: 28px; }
+.section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.7); margin-bottom: 12px; font-weight: 700; }
+strong { color: #fff; font-weight: 700; }
+em { color: #60a5fa; font-style: normal; font-weight: 600; }
+code { background: rgba(18,65,176,0.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; color: #60a5fa; font-family: 'IBM Plex Mono', 'SF Mono', monospace; }
+a { color: #60a5fa; text-decoration: none; transition: color 0.2s; }
+a:hover { color: #93c5fd; text-decoration: underline; }
+
+.inner { max-width: 980px; width: 100%; text-align: left; }
+section.centered .inner { text-align: center; }
+
+.hero { align-items: center; text-align: center; }
+.hero h1 { font-size: 72px; margin-bottom: 12px; letter-spacing: -0.02em; }
+.hero h1 span { background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .subtitle { font-size: 22px; max-width: 700px; margin: 8px auto 28px; color: #60a5fa; }
+.hero .scroll-hint { font-size: 13px; color: #444; margin-top: 56px; animation: pulse 2s ease infinite; }
+.hero .scroll-hint span { display: block; margin-top: 8px; font-size: 20px; }
+.hero-meta { display: inline-flex; gap: 14px; align-items: center; margin-top: 4px; font-size: 14px; color: #8899bb; letter-spacing: 0.05em; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #3b82f6; }
+.example-banner { position: fixed; top: 16px; right: 16px; z-index: 200; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 6px; background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+.cta-row { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; transition: all 0.2s; font-family: 'Poppins', sans-serif; }
+.cta-primary { background: linear-gradient(135deg, #3b82f6, #1241B0); color: #fff; }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); text-decoration: none; color: #fff; }
+.cta-secondary { background: rgba(255,255,255,0.06); color: #e0e0f0; border: 1px solid rgba(255,255,255,0.14); }
+.cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(96,165,250,0.4); text-decoration: none; color: #fff; }
+
+.demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; }
+.tag-product { background: rgba(96,165,250,0.12); color: #79c0ff; }
+.tag-validation { background: rgba(167,139,250,0.12); color: #d2a8ff; }
+.tag-blueprint { background: rgba(52,211,153,0.12); color: #6ee7b7; }
+.tag-logic { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.tag-handoff { background: rgba(244,114,182,0.12); color: #f9a8d4; }
+.tag-story { background: rgba(110,231,183,0.12); color: #6ee7b7; }
+.tag-meta { background: rgba(148,163,184,0.12); color: #cbd5e1; }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 22px 0; }
+.card-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px; text-align: left; transition: all 0.3s ease; position: relative; overflow: hidden; }
+.card-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent, #3b82f6); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.card-item:hover { border-color: var(--card-accent, #3b82f6); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.card-item:hover::before { transform: scaleX(1); }
+.card-item .card-num { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 900; color: var(--card-accent, #3b82f6); margin-bottom: 4px; line-height: 1; }
+.card-item .card-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #8899bb; margin-bottom: 8px; }
+.card-item .card-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.card-item .card-desc { font-size: 13px; color: #94a3b8; line-height: 1.55; }
+
+.evidence-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+.evidence-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 22px; transition: all 0.3s ease; }
+.evidence-card:hover { transform: translateY(-2px); border-color: rgba(59,130,246,0.3); }
+.evidence-card .ec-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #60a5fa; margin-bottom: 8px; }
+.evidence-card .ec-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.evidence-card .ec-text { font-size: 13.5px; color: #94a3b8; line-height: 1.6; }
+
+.waypoints { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15); border-radius: 12px; padding: 16px 20px; transition: all 0.3s ease; }
+.waypoint:hover { transform: translateX(4px); border-color: rgba(59,130,246,0.3); }
+.waypoint-num { width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; background: #1241B0; font-family: 'Poppins', sans-serif; }
+.waypoint-text { flex: 1; }
+.waypoint-text .wt-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.waypoint-text .wt-desc { font-size: 13.5px; color: #8899bb; line-height: 1.55; }
+.waypoint-link { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #60a5fa; align-self: center; white-space: nowrap; }
+.waypoint-link a { color: #60a5fa; }
+
+.product-frame { background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(167,139,250,0.08) 100%); border: 1px solid rgba(96,165,250,0.25); border-radius: 18px; padding: 24px; margin: 18px 0; }
+.product-mock { background: #0c1f3d; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.45); overflow: hidden; }
+.product-mock .pm-chrome { display: flex; gap: 6px; padding: 12px 14px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); align-items: center; }
+.product-mock .pm-dot { width: 10px; height: 10px; border-radius: 50%; }
+.product-mock .pm-dot.r { background: #ef4444; }
+.product-mock .pm-dot.y { background: #f59e0b; }
+.product-mock .pm-dot.g { background: #10b981; }
+.product-mock .pm-url { margin-left: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8899bb; }
+.product-mock .pm-stage { display: grid; grid-template-columns: 1fr 1fr; padding: 28px 32px; gap: 28px; min-height: 280px; }
+.product-mock .pm-left { display: flex; flex-direction: column; justify-content: center; }
+.product-mock .pm-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #60a5fa; margin-bottom: 12px; }
+.product-mock .pm-h1 { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 10px; }
+.product-mock .pm-sub { font-size: 13px; color: #cbd5e1; line-height: 1.5; max-width: 280px; }
+.product-mock .pm-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 10px 18px; border-radius: 8px; background: linear-gradient(135deg, #60a5fa, #a78bfa); color: #0c1f3d; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 0.02em; width: max-content; }
+.product-mock .pm-right { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 8px; }
+.product-mock .pm-tile { border-radius: 8px; background: linear-gradient(135deg, rgba(96,165,250,0.18), rgba(167,139,250,0.12)); border: 1px solid rgba(96,165,250,0.18); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; min-height: 80px; position: relative; overflow: hidden; }
+.product-mock .pm-tile::before { content: ''; position: absolute; inset: 0; background-size: cover; opacity: 0.5; }
+.product-mock .pm-tile.t1::before { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.product-mock .pm-tile.t2::before { background: linear-gradient(135deg, #34d399, #06b6d4); }
+.product-mock .pm-tile.t3::before { background: linear-gradient(135deg, #a78bfa, #ec4899); }
+.product-mock .pm-tile.t4::before { background: linear-gradient(135deg, #fbbf24, #f97316); }
+.product-mock .pm-tile-label { position: relative; font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 800; color: #fff; letter-spacing: 0.06em; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+.product-meta { display: flex; gap: 28px; margin-top: 16px; flex-wrap: wrap; }
+.product-meta .pm-item { display: flex; flex-direction: column; gap: 4px; }
+.product-meta .pm-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8899bb; }
+.product-meta .pm-value { font-size: 14px; font-weight: 600; color: #e0e0f0; }
+.product-meta .pm-value a { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; }
+
+.prompt-block { background: #0c1f3d; border: 1px solid rgba(96,165,250,0.25); border-radius: 12px; padding: 22px 26px; margin: 16px 0; text-align: left; }
+.prompt-block .pb-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: #60a5fa; margin-bottom: 12px; font-family: 'Poppins', sans-serif; }
+.prompt-block pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.prompt-block .pb-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 4px; margin-right: 8px; background: rgba(96,165,250,0.15); color: #60a5fa; }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 24px; justify-content: flex-start; }
+section.centered .pill-row { justify-content: center; }
+.pill { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 999px; padding: 8px 18px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: #e0e0f0; }
+.pill strong { color: #60a5fa; margin-right: 6px; }
+
+.metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin: 18px 0; }
+.metric-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 16px; text-align: center; transition: all 0.3s; }
+.metric-card:hover { border-color: rgba(59,130,246,0.35); transform: translateY(-2px); }
+.metric-num { font-family: 'Poppins', sans-serif; font-size: 34px; font-weight: 900; color: #60a5fa; line-height: 1; margin-bottom: 4px; }
+.metric-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; }
+
+.ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.ba-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px; transition: all 0.3s; }
+.ba-card.before { border-left: 3px solid #f87171; }
+.ba-card.after { border-left: 3px solid #34d399; }
+.ba-card:hover { transform: translateY(-2px); }
+.ba-card .ba-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+.ba-card.before .ba-label { color: #f87171; }
+.ba-card.after .ba-label { color: #34d399; }
+.ba-card .ba-text { font-size: 14px; color: #cbd5e1; line-height: 1.6; }
+
+.callout { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.3); border-left: 3px solid #60a5fa; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-size: 14px; color: #e0e0f0; line-height: 1.6; }
+.callout strong { color: #fff; }
+.callout-pill { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-right: 10px; background: rgba(96,165,250,0.18); color: #60a5fa; font-family: 'Poppins', sans-serif; }
+
+.big-quote { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 600; color: #e0e0f0; line-height: 1.4; margin: 20px 0; border-left: 3px solid #60a5fa; padding: 6px 0 6px 24px; }
+.big-quote em { color: #60a5fa; }
+
+.help-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 11px; color: rgba(255,255,255,0.2); z-index: 90; white-space: nowrap; pointer-events: none; }
+
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+@media (max-width: 768px) {
+  section { padding: 56px 24px 40px; }
+  h1, .hero h1 { font-size: 40px; }
+  h2 { font-size: 28px; }
+  .cards-grid, .evidence-cards, .ba-grid { grid-template-columns: 1fr; }
+  .nav-dots { display: none; }
+  .product-mock .pm-stage { grid-template-columns: 1fr; }
+  .example-banner { top: auto; bottom: 16px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="example-banner">Example · Demo content only</div>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- ════════════ SLIDE 1 · HERO ════════════ -->
+<section class="hero" data-title="Title">
+  <div class="section-label">Vibe Coding Certification &middot; Final Project</div>
+  <h1><span>SnapWishlist</span></h1>
+  <p class="subtitle">Upload a travel inspo photo. AI surfaces matching Airbnb listings. Wishlist creation goes from hours of manual searching to a single tap.</p>
+  <div class="hero-meta">
+    <span>by Maya Chen</span>
+    <span class="dot"></span>
+    <span>Six modules &middot; one closed loop</span>
+  </div>
+  <div class="cta-row">
+    <a class="cta-btn cta-primary" href="https://snap-wishlist.lovable.app" target="_blank" rel="noopener">&#8599; Open the live product</a>
+    <a class="cta-btn cta-secondary" href="https://github.com/maya-chen/snap-wishlist" target="_blank" rel="noopener">&lt;/&gt; View on GitHub</a>
+  </div>
+  <div class="scroll-hint">Scroll to walk the showcase<span>&#8595;</span></div>
+</section>
+
+<!-- ════════════ SLIDE 2 · THE PROBLEM ════════════ -->
+<section data-title="The Problem">
+  <div class="inner">
+    <div class="demo-tag tag-meta">01 &middot; The Problem</div>
+    <h2>The gap between inspiration and a bookable trip.</h2>
+    <p class="subtitle">Visual planners find travel inspiration on social media every day. Almost none of it becomes a booked stay.</p>
+
+    <div class="big-quote">Users save dozens of travel photos on Instagram &mdash; then sit in front of Airbnb's search bar with no idea what to type. The discovery flow is <em>manual, slow, and disconnected</em>.</div>
+
+    <div class="evidence-cards">
+      <div class="evidence-card">
+        <div class="ec-label">The User</div>
+        <div class="ec-title">"The Visual Planner"</div>
+        <div class="ec-text">Gen-Z and Millennial travellers who plan trips by aesthetics and vibe, not by price or dates. Their workaround today is opening Instagram and Airbnb in two tabs and squinting back and forth.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">The Pain</div>
+        <div class="ec-title">The translation cost</div>
+        <div class="ec-text">A saved photo is an emotion. Airbnb search is a keyword box. Bridging those two costs ~20 minutes per inspiration &mdash; most people give up before they get to a real booking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 3 · THE HYPOTHESIS ════════════ -->
+<section data-title="The Hypothesis">
+  <div class="inner">
+    <div class="demo-tag tag-validation">02 &middot; The Hypothesis</div>
+    <h2>What I believed before I built.</h2>
+    <p class="subtitle">The M2 hypothesis: photo &rarr; listings is the right shortcut, and the AI can be accurate enough to be useful.</p>
+
+    <div class="prompt-block">
+      <div class="pb-label">Hypothesis Statement</div>
+      <pre>If we let Visual Planners upload an inspiration photo and let AI surface matching Airbnb listings,
+then wishlist creation will increase and drop-off in the discovery phase will decrease,
+because prototype testing showed >80% location identification accuracy and clear intent-to-save signals from target users.</pre>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Why this one</span> The riskier path would have been chasing a chat-style "travel planner" agent. Photo-in / listings-out is a much narrower bet &mdash; one screen, one model call, one observable outcome. Falsifiable in a single weekend of testing.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 4 · THE APPROACH ════════════ -->
+<section data-title="The Approach">
+  <div class="inner">
+    <div class="demo-tag tag-meta">03 &middot; The Approach</div>
+    <h2>Six modules, one closed loop.</h2>
+    <p class="subtitle">From planning paralysis to a measured iteration &mdash; the arc that built SnapWishlist.</p>
+
+    <div class="cards-grid">
+      <div class="card-item" style="--card-accent: #60a5fa;">
+        <div class="card-num">M1</div>
+        <div class="card-label">Velocity</div>
+        <div class="card-title">Photo &rarr; listings in one sitting</div>
+        <div class="card-desc">First scrappy V1 with a hardcoded image and a mocked listing grid. Proved the shape of the flow in 90 minutes.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #a78bfa;">
+        <div class="card-num">M2</div>
+        <div class="card-label">Validation</div>
+        <div class="card-title">Five strangers, four assumptions</div>
+        <div class="card-desc">Tested location-ID accuracy, intent-to-save, mobile demand, and face-blur acceptance. Two confirmed, one pivot, one open.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-num">M3</div>
+        <div class="card-label">Architecture</div>
+        <div class="card-title">Upload &middot; Analyse &middot; Save</div>
+        <div class="card-desc">Three screens, one chain. Constraint-grounded prompts kept the privacy + non-travel guardrails consistent across the flow.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #fbbf24;">
+        <div class="card-num">M4</div>
+        <div class="card-label">Bridge</div>
+        <div class="card-title">Spec for the real Airbnb API</div>
+        <div class="card-desc">Living PRD + open questions list. Mocked listing JSON marked as the V2 swap point.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #f9a8d4;">
+        <div class="card-num">M5</div>
+        <div class="card-label">Production</div>
+        <div class="card-title">Live URL, GPT-4o, public</div>
+        <div class="card-desc">Multimodal AI call wired to a real key. Photos discarded post-analysis. Public Lovable URL shipped on day one.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #6ee7b7;">
+        <div class="card-num">M6</div>
+        <div class="card-label">Iteration</div>
+        <div class="card-title">22% upload drop-off &rarr; surgical fix</div>
+        <div class="card-desc">Lovable Insights showed users abandoning at the upload screen. AI analysis identified the cause. One prompt, one redeploy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 5 · THE PRODUCT ════════════ -->
+<section data-title="The Product">
+  <div class="inner">
+    <div class="demo-tag tag-product">04 &middot; The Product</div>
+    <h2>SnapWishlist &mdash; live.</h2>
+    <p class="subtitle">The deployed product, the M2 hypothesis it tests, and the scenario it was built to solve.</p>
+
+    <div class="product-frame">
+      <div class="product-mock">
+        <div class="pm-chrome">
+          <span class="pm-dot r"></span><span class="pm-dot y"></span><span class="pm-dot g"></span>
+          <span class="pm-url">snap-wishlist.lovable.app</span>
+        </div>
+        <div class="pm-stage">
+          <div class="pm-left">
+            <div class="pm-eyebrow">Drop a photo. Get the stay.</div>
+            <div class="pm-h1">Plan the trip your feed promised.</div>
+            <div class="pm-sub">Upload any travel inspiration photo &mdash; SnapWishlist finds the listings that match the vibe, not just the keyword.</div>
+            <div class="pm-btn">Create Wishlist from Photo &rarr;</div>
+          </div>
+          <div class="pm-right">
+            <div class="pm-tile t1"><span class="pm-tile-label">Cozy Cabin &middot; Banff</span></div>
+            <div class="pm-tile t2"><span class="pm-tile-label">Greek Whites &middot; Santorini</span></div>
+            <div class="pm-tile t3"><span class="pm-tile-label">Pink Pastel &middot; Bali</span></div>
+            <div class="pm-tile t4"><span class="pm-tile-label">Tokyo Loft &middot; Shibuya</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-meta">
+        <div class="pm-item"><span class="pm-label">Live URL</span><span class="pm-value"><a href="https://snap-wishlist.lovable.app" target="_blank" rel="noopener">snap-wishlist.lovable.app</a></span></div>
+        <div class="pm-item"><span class="pm-label">Repo</span><span class="pm-value"><a href="https://github.com/maya-chen/snap-wishlist" target="_blank" rel="noopener">github.com/maya-chen/snap-wishlist</a></span></div>
+        <div class="pm-item"><span class="pm-label">Built with</span><span class="pm-value">Lovable &middot; GPT-4o Vision &middot; GitHub Pages</span></div>
+      </div>
+    </div>
+
+    <div class="evidence-cards">
+      <div class="evidence-card">
+        <div class="ec-label">The Scenario</div>
+        <div class="ec-title">Maya, 27, planning her Bali trip</div>
+        <div class="ec-text">Has five saved Instagram photos of pink-pastel poolside villas. Opens SnapWishlist on her phone, uploads one, taps Save on three matching Ubud listings. Total time to first wishlist: 38 seconds.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">The Hypothesis Being Tested</div>
+        <div class="ec-title">Photo &rarr; listings shortens the gap</div>
+        <div class="ec-text">If a Visual Planner can go from inspo photo to saved listing in under one minute, wishlist creation rate will rise meaningfully versus a keyword search.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 6 · THE VALIDATION ════════════ -->
+<section data-title="The Validation">
+  <div class="inner">
+    <div class="demo-tag tag-validation">05 &middot; The Validation</div>
+    <h2>What the Validation Brief uncovered.</h2>
+    <p class="subtitle">Four assumptions tested in M2. Two confirmed. One challenged. One pivoted scope.</p>
+
+    <div class="evidence-cards">
+      <div class="evidence-card">
+        <div class="ec-label">Assumption 1 &middot; Confirmed</div>
+        <div class="ec-title">AI can identify the vibe accurately</div>
+        <div class="ec-text"><strong>Test:</strong> 25 inspiration photos through GPT-4o Vision. <strong>Result:</strong> 84% location or vibe-tag accuracy. <strong>Takeaway:</strong> the model is more than good enough to ship a V1 against.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">Assumption 2 &middot; Confirmed</div>
+        <div class="ec-title">Users will save listings the AI surfaces</div>
+        <div class="ec-text"><strong>Test:</strong> 5 target users walked through a clickable prototype. <strong>Result:</strong> 4 of 5 saved at least one listing on first session. <strong>Takeaway:</strong> intent-to-save is real, not theoretical.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">Assumption 3 &middot; Challenged</div>
+        <div class="ec-title">Desktop is the right first surface</div>
+        <div class="ec-text"><strong>Test:</strong> asked the same 5 users how they'd actually use it. <strong>Result:</strong> 5 of 5 said mobile-first &mdash; "I'd never open a laptop for this." <strong>Takeaway:</strong> mobile responsive is a V1 requirement, not a V2 roadmap item.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">Assumption 4 &middot; Pivoted</div>
+        <div class="ec-title">Privacy controls don't need to be visible</div>
+        <div class="ec-text"><strong>Test:</strong> asked users about face-blur and photo-storage. <strong>Result:</strong> all 5 wanted explicit, surfaced messaging. <strong>Takeaway:</strong> added a visible "your photos are discarded after analysis" line at upload time.</div>
+      </div>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Source</span> Full M2 brief in the repo: <a href="https://github.com/maya-chen/snap-wishlist/tree/main/02-validation" target="_blank" rel="noopener"><code>02-validation/</code></a>.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 7 · THE BLUEPRINT ════════════ -->
+<section data-title="The Blueprint">
+  <div class="inner">
+    <div class="demo-tag tag-blueprint">06 &middot; The Blueprint</div>
+    <h2>The Living PRD &mdash; the source of truth.</h2>
+    <p class="subtitle">The document that bridged prototype and engineering handoff. Key elements only.</p>
+
+    <div class="cards-grid">
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Problem</div>
+        <div class="card-title">One sentence</div>
+        <div class="card-desc">Visual Planners can't bridge inspiration photos and bookable Airbnb stays without 20+ minutes of manual searching.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Hypothesis</div>
+        <div class="card-title">Falsifiable bet</div>
+        <div class="card-desc">Photo-in / listings-out cuts wishlist creation time below 60 seconds and lifts session-to-save conversion.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Success metrics</div>
+        <div class="card-title">What good looks like</div>
+        <div class="card-desc">Wishlists / week (North Star) &middot; Photo&rarr;results completion >75% &middot; Save-from-results &gt;40% &middot; 30-day repeat use.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Scope</div>
+        <div class="card-title">V1 features</div>
+        <div class="card-desc">Photo upload (JPEG/PNG) &middot; AI location + vibe ID &middot; Mocked listing carousel &middot; Wishlist save &middot; Face-blur &middot; Non-travel error state.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Out of scope</div>
+        <div class="card-title">What I explicitly didn't ship</div>
+        <div class="card-desc">Live Airbnb API &middot; User auth &middot; Price/date filtering &middot; Native mobile app &middot; Multi-photo mood boards.</div>
+      </div>
+      <div class="card-item" style="--card-accent: #34d399;">
+        <div class="card-label">Stack</div>
+        <div class="card-title">Tech footprint</div>
+        <div class="card-desc">Lovable (React + Tailwind) &middot; GPT-4o Vision &middot; Mocked listing JSON &middot; No backend persistence (photos discarded).</div>
+      </div>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Source</span> Full Living PRD in the repo: <a href="https://github.com/maya-chen/snap-wishlist/tree/main/03-prd" target="_blank" rel="noopener"><code>03-prd/</code></a>.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 8 · THE LOGIC ════════════ -->
+<section data-title="The Logic">
+  <div class="inner">
+    <div class="demo-tag tag-logic">07 &middot; The Logic</div>
+    <h2>The Core Prompt Chain.</h2>
+    <p class="subtitle">Three prompts. One system. Constraint-grounding turns clever prompts into reliable behaviour.</p>
+
+    <div class="prompt-block">
+      <div class="pb-label"><span class="pb-tag">01</span> Foundation Prompt</div>
+      <pre>Build a 3-screen React + Tailwind app called SnapWishlist:
+  1. Homepage with a single primary CTA "Create Wishlist from Photo"
+  2. Photo upload screen accepting JPEG / PNG (max 5 MB)
+  3. Results screen showing a horizontal carousel of 3-5 listing cards
+Use a single-page route. Keep the visual language clean, white-space heavy,
+Gen-Z aesthetic. Do not add user auth or pricing logic.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <div class="pb-label"><span class="pb-tag">02</span> Feature Prompt &middot; Multimodal AI call</div>
+      <pre>On the upload screen submit, send the uploaded image to GPT-4o Vision with this system prompt:
+  "Identify the location (specific landmark, region, or country) AND the visual vibe
+   (cozy, minimalist, coastal, tropical, etc.) in this travel photo. Return JSON:
+     { location: string, vibe: string, confidence: 0-1 }."
+Then run a tag-based query against the mocked Airbnb JSON in /data/listings.json
+and render the top 5 matches as listing cards on the results screen.</pre>
+    </div>
+
+    <div class="prompt-block">
+      <div class="pb-label"><span class="pb-tag">03</span> Guardrail Prompt &middot; Privacy + non-travel</div>
+      <pre>Add two hard guardrails to the upload pipeline:
+  1. Privacy: detect faces in uploaded photos and blur them client-side BEFORE the
+     AI call. Discard the original file after analysis &mdash; never persist it.
+  2. Non-travel: if GPT-4o returns confidence &lt; 0.5 OR cannot identify a travel
+     location/vibe, render a friendly error: "We can't fly there! Try a travel
+     photo." Do not call the listings API in this branch.
+Both guardrails must run on every upload, not just the first one.</pre>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Source</span> Full chain in the repo: <a href="https://github.com/maya-chen/snap-wishlist/tree/main/03-prompt-chains" target="_blank" rel="noopener"><code>03-prompt-chains/</code></a>.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 9 · THE HANDOFF ════════════ -->
+<section data-title="The Handoff">
+  <div class="inner">
+    <div class="demo-tag tag-handoff">08 &middot; The Handoff</div>
+    <h2>Production-ready engineering spec.</h2>
+    <p class="subtitle">The bridge between Lovable prototype and the team that ships V2 on real Airbnb data.</p>
+
+    <div class="waypoints">
+      <div class="waypoint">
+        <div class="waypoint-num">1</div>
+        <div class="waypoint-text">
+          <div class="wt-title">Architecture overview</div>
+          <div class="wt-desc">Lovable React frontend &rarr; GPT-4o Vision API &rarr; mocked listings JSON. No backend persistence; photos discarded post-analysis. Single-page route, three screens, one model call per upload.</div>
+        </div>
+        <div class="waypoint-link"><a href="https://github.com/maya-chen/snap-wishlist/tree/main/04-handoff#architecture" target="_blank" rel="noopener">architecture.md</a></div>
+      </div>
+      <div class="waypoint">
+        <div class="waypoint-num">2</div>
+        <div class="waypoint-text">
+          <div class="wt-title">API + data contracts</div>
+          <div class="wt-desc">GPT-4o response schema (location, vibe, confidence). Listings JSON shape (id, title, location_tags, vibe_tags, image_url, airbnb_url). V2 swap point is documented at <code>/data/listings.json</code>.</div>
+        </div>
+        <div class="waypoint-link"><a href="https://github.com/maya-chen/snap-wishlist/tree/main/04-handoff#contracts" target="_blank" rel="noopener">contracts.md</a></div>
+      </div>
+      <div class="waypoint">
+        <div class="waypoint-num">3</div>
+        <div class="waypoint-text">
+          <div class="wt-title">Known limitations &amp; trade-offs</div>
+          <div class="wt-desc">Listings are mocked (no live Airbnb integration). Visual similarity is hardcoded, not a real embeddings model. Latency is API-bound (~3&ndash;5s on cold start). Documented kill-switch thresholds.</div>
+        </div>
+        <div class="waypoint-link"><a href="https://github.com/maya-chen/snap-wishlist/tree/main/04-handoff#limitations" target="_blank" rel="noopener">limitations.md</a></div>
+      </div>
+      <div class="waypoint">
+        <div class="waypoint-num">4</div>
+        <div class="waypoint-text">
+          <div class="wt-title">Acceptance criteria</div>
+          <div class="wt-desc">Upload &rarr; results &lt; 5s p95 &middot; face-blur applied 100% of uploads &middot; non-travel error never calls listings API &middot; first save event fires within 60s of landing on home for the test scenario.</div>
+        </div>
+        <div class="waypoint-link"><a href="https://github.com/maya-chen/snap-wishlist/tree/main/04-handoff#acceptance" target="_blank" rel="noopener">acceptance.md</a></div>
+      </div>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Source</span> Handoff doc: <a href="https://github.com/maya-chen/snap-wishlist/tree/main/04-handoff" target="_blank" rel="noopener"><code>04-handoff/</code></a>.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 10 · THE ITERATION ════════════ -->
+<section data-title="The Iteration">
+  <div class="inner">
+    <div class="demo-tag tag-product">09 &middot; The Iteration</div>
+    <h2>What the data showed &mdash; and the fix that followed.</h2>
+    <p class="subtitle">M6 closed-loop sprint: read the data, pick one finding, ship one change.</p>
+
+    <div class="metrics-row">
+      <div class="metric-card"><div class="metric-num">142</div><div class="metric-label">Visitors</div></div>
+      <div class="metric-card"><div class="metric-num">418</div><div class="metric-label">Page Views</div></div>
+      <div class="metric-card"><div class="metric-num">2.9</div><div class="metric-label">Views / Visit</div></div>
+      <div class="metric-card"><div class="metric-num">1m 04s</div><div class="metric-label">Visit Duration</div></div>
+      <div class="metric-card"><div class="metric-num">22%</div><div class="metric-label">Upload Drop-off</div></div>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card before">
+        <div class="ba-label">Before &middot; the data signal</div>
+        <div class="ba-text">22% of visitors who clicked <em>Create Wishlist from Photo</em> abandoned at the upload screen without ever picking a file. AI analysis prompt surfaced it as the highest-impact finding: <em>"users don't trust the AI will work; show them what it sees before asking for a save."</em></div>
+      </div>
+      <div class="ba-card after">
+        <div class="ba-label">After &middot; the one change</div>
+        <div class="ba-text">Added a transparent "We saw: a pink-pastel poolside villa in Bali" preview card on the results screen, BEFORE the listing carousel. One Persona-pattern prompt. Drop-off-equivalent journey time fell from 38s to 22s on the test scenario; save-rate trend pending more data.</div>
+      </div>
+    </div>
+
+    <div class="callout"><span class="callout-pill">Source</span> Iteration Sprint Brief: <a href="https://github.com/maya-chen/snap-wishlist/tree/main/06-iteration" target="_blank" rel="noopener"><code>06-iteration/</code></a>.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 11 · THE STORY ════════════ -->
+<section data-title="The Story">
+  <div class="inner">
+    <div class="demo-tag tag-story">10 &middot; The Story</div>
+    <h2>Friction &middot; Learning &middot; Aha.</h2>
+    <p class="subtitle">The honest debrief &mdash; what broke, what I learned, the moment it clicked.</p>
+
+    <div class="evidence-cards">
+      <div class="evidence-card">
+        <div class="ec-label">The Friction</div>
+        <div class="ec-title">My guardrails kept rewriting my features</div>
+        <div class="ec-text">Three times in M3, the face-blur prompt also nuked the listing carousel logic. I kept saying "add face blur" without grounding it in a constraint, and Lovable would happily rewire the whole upload flow. The fix was boring: write <em>what must NOT change</em> in every prompt.</div>
+      </div>
+      <div class="evidence-card">
+        <div class="ec-label">The Learning</div>
+        <div class="ec-title">Constraint-grounding &gt; clever prompts</div>
+        <div class="ec-text">My best prompts in M5 are the boring ones. "Keep all existing functionality working" added to every iteration prompt is what stopped the regressions. The cleverness lives in the architecture, not in the wording.</div>
+      </div>
+    </div>
+
+    <div class="big-quote">My aha moment was watching a classmate &mdash; not me, not a user I'd recruited &mdash; upload her own Santorini photo on day three of testing and silently save three listings. <em>She didn't know I was watching.</em> That's when I stopped seeing the product as a school project and started seeing it as the thing I'd been complaining about not existing for a decade.</div>
+  </div>
+</section>
+
+<!-- ════════════ SLIDE 12 · THANKS / CLOSING ════════════ -->
+<section class="centered" data-title="Thanks">
+  <div class="inner">
+    <div class="section-label">Thanks for walking the showcase</div>
+    <h2>SnapWishlist is live &mdash; go break it.</h2>
+    <p class="subtitle">The build-measure-iterate loop doesn't close at the showcase. It just got faster.</p>
+
+    <div class="cta-row" style="margin-top: 22px;">
+      <a class="cta-btn cta-primary" href="https://snap-wishlist.lovable.app" target="_blank" rel="noopener">&#8599; Open the live product</a>
+      <a class="cta-btn cta-secondary" href="https://github.com/maya-chen/snap-wishlist" target="_blank" rel="noopener">&lt;/&gt; Browse the repo</a>
+    </div>
+
+    <div class="pill-row" style="margin-top: 32px;">
+      <span class="pill"><strong>By</strong>Maya Chen</span>
+      <span class="pill"><strong>Cohort</strong>May 2026</span>
+      <span class="pill"><strong>Built in</strong>Vibe Coding Certification</span>
+    </div>
+  </div>
+</section>
+
+<div class="help-hint">&uarr; &darr; navigate &middot; M section sorter</div>
+
+<script>
+const sections = Array.from(document.querySelectorAll('section'));
+const navDotsContainer = document.getElementById('navDots');
+let currentIdx = 0;
+
+function rebuildDots() {
+  navDotsContainer.innerHTML = '';
+  sections.forEach((sec, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    const title = sec.dataset.title || 'Section';
+    dot.innerHTML = '<span class="tooltip">' + title + '</span>';
+    dot.dataset.idx = i;
+    dot.onclick = () => sec.scrollIntoView({ behavior: 'smooth' });
+    navDotsContainer.appendChild(dot);
+  });
+}
+
+function updateProgress(idx) {
+  currentIdx = idx;
+  const pct = (idx + 1) / sections.length * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  navDotsContainer.querySelectorAll('.nav-dot').forEach(d => d.classList.toggle('active', parseInt(d.dataset.idx) === idx));
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      updateProgress(sections.indexOf(entry.target));
+    }
+  });
+}, { threshold: 0.35 });
+sections.forEach(sec => observer.observe(sec));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+    e.preventDefault();
+    if (currentIdx + 1 < sections.length) sections[currentIdx + 1].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    if (currentIdx - 1 >= 0) sections[currentIdx - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+rebuildDots();
+sections[0].classList.add('visible');
+</script>
+</body>
+</html>
