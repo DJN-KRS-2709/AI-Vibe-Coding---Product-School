@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M5 Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 5 - Slides.html">← Module 5 · Ship Live Products with Full-Stack Logic</a></div>
+
+  <div class="header">
+    <div class="badge">Module 5 — Reference Card</div>
+    <h1>M5 Frameworks Reference Card</h1>
+    <p>The Three Integration Pillars, the Four Product States, the Stress-Test Trio, the Evolved Engineering Handoff, and the API Scaling Triangle — one page, in the order you use them.</p>
+  </div>
+
+  <div class="content">
+
+<blockquote>
+<p>Every framework from Module 5 in the order you use them. Keep this open while you generate your Integration Plan, run your three prompts, stress-test, and ship.</p>
+</blockquote>
+
+<hr />
+
+<h2>1. The Three Integration Pillars</h2>
+<p>Move from a connected infrastructure to a product fully built on the database. Every prompt for an integration falls into one of three pillars — schema, ownership, external orchestration.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Pillar</th><th>Verb</th><th>Example prompt</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>🗄️ Schema Expansion</strong><br>Define your source of truth.</td>
+  <td>Extend tables, types, and relationships. Replace hardcoded UI with real queries.</td>
+  <td><code>"Extend the schema. Create an 'Invites' table with sender_email, recipient_email, status, timestamp. Replace hardcoded dashboard metrics with real queries from this table."</code></td>
+</tr>
+<tr>
+  <td><strong>🔐 Ownership Permissions</strong><br>Partition the data.</td>
+  <td>Row-Level Security — users can only see records tied to their authenticated session.</td>
+  <td><code>"Ensure users can only see records where the 'user_id' matches their authenticated session ID."</code></td>
+</tr>
+<tr>
+  <td><strong>🌐 External APIs</strong><br>Orchestrate beyond your DB.</td>
+  <td>Document the trigger + action. Plug in Stripe, SendGrid, OpenAI, etc.</td>
+  <td><code>"Connect the Stripe API. Trigger a checkout session when 'Upgrade' is clicked and return to the dashboard on success."</code></td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> you are no longer prompting for pixels. You are prompting for <em>technical transactions</em>.</p>
+
+<hr />
+
+<h2>2. The Four Product States — Resistance Engineering</h2>
+<p>Most prototypes fail because nobody described what should happen when things go wrong. If you can describe the failure mode, the AI can build the safety net.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>State</th><th>Data Gap</th><th>Action to Take</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>📭 Empty</strong></td>
+  <td>"Day-zero" experience — new user with no records.</td>
+  <td>Active empty state with a "Get Started" CTA. Never a dead-end blank screen.</td>
+</tr>
+<tr>
+  <td><strong>⏳ Loading</strong></td>
+  <td>Data takes time. Silence kills sessions.</td>
+  <td>Skeleton screens that show the structure of the data before it arrives.</td>
+</tr>
+<tr>
+  <td><strong>⚠️ Error</strong></td>
+  <td>APIs and DBs will fail or time out.</td>
+  <td>Inline error with a Retry button. Graceful recovery, not a crashed session.</td>
+</tr>
+<tr>
+  <td><strong>📊 Load-Bearing</strong></td>
+  <td>5 rows → 5,000 in production.</td>
+  <td>Pagination for large datasets. "Last-write-wins" for simultaneous edits.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> every prototype passes the happy path. Every prototype fails at least one of these four states. Prompt 3 in your Integration Plan addresses all four in one shot.</p>
+
+<hr />
+
+<h2>3. The Stress-Test Trio — Chaos Before You Ship</h2>
+<p>Pick a chaos stressor. Run it. Document the result. Then ship — even if it failed (documented Known Gaps are still a ship).</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Test</th><th>What you do</th><th>What "pass" looks like</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>⚡ The Kill Switch</strong></td>
+  <td>DevTools → Network → Offline.</td>
+  <td>UI shows clear error message + Retry button — never a hung blank screen.</td>
+</tr>
+<tr>
+  <td><strong>👻 The Ghost User</strong></td>
+  <td>Sign up with a brand-new email.</td>
+  <td>Active empty state with a "Get Started" CTA — never an empty list.</td>
+</tr>
+<tr>
+  <td><strong>🔥 The Spam Click</strong></td>
+  <td>Hit Submit 5× rapidly.</td>
+  <td>One transaction in the database, not five duplicates.</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p><strong>Safari users:</strong> Safari has no built-in offline toggle. Use this Lovable prompt instead: <em>"Simulate a database timeout on the [Main Screen] and show me the error state."</em></p>
+</blockquote>
+<p><strong>Rule:</strong> you never ship perfect code, you ship code with <em>known risks</em>. A documented Known Gap in <code>HANDOFF.md</code> is a professional ship. A silent broken feature is not.</p>
+
+<hr />
+
+<h2>4. The Evolved Engineering Handoff — M4 → M5</h2>
+<p>Your <code>HANDOFF.md</code> documented what <em>could</em> be built in M4. Now it documents how the live engine actually <em>operates</em>.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>M4 · Previously (Static Inventory)</th><th>M5 · Now (Deployed Blueprint)</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>Component List</strong> — catalogue of components and infra, mocked vs real notes.</td>
+  <td><strong>Data Model &amp; Schema</strong> — expanded DB structure + RLS rules enforcing per-user data isolation.</td>
+</tr>
+<tr>
+  <td><strong>Mocked vs Real</strong> — note on what works.</td>
+  <td><strong>Source of Truth</strong> — map of how live data flows from DB to UI.</td>
+</tr>
+<tr>
+  <td><strong>Start-Here Guide</strong> — instructions for an engineer to start building.</td>
+  <td><strong>Edge Case Log</strong> — stress-test results: what's handled vs known gaps.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Identity shift:</strong> you moved from "the person building the thing" to <em>"the person owning the system."</em></p>
+
+<hr />
+
+<h2>5. The Three-Prompt Integration Chain — In Order</h2>
+<p>Lovable's Integration Plan generates three prompts customised to your codebase. Run them in order — each builds on the last.</p>
+
+<h3>1 · Schema Expansion</h3>
+<pre><code>[Customised by Lovable to your project]
+Extend the database schema for this product. Create the new tables
+from Section 3 of the Integration Plan. Replace every hardcoded
+UI value identified in the Data Audit with a real database query.
+</code></pre>
+<blockquote><p><strong>Verify:</strong> enter data, refresh — does it survive?</p></blockquote>
+
+<h3>2 · Auth UI + Row-Level Security</h3>
+<pre><code>[Customised by Lovable to your project]
+Add a login / signup screen. Implement the roles and RLS policies
+from Section 4. Show the logged-in user's name in the header.
+Add a logout button. Ensure different users see different data.
+</code></pre>
+<blockquote><p><strong>Verify:</strong> sign up two accounts. Account B must not see Account A's data.</p></blockquote>
+
+<h3>3 · Edge Cases</h3>
+<pre><code>[Customised by Lovable to your project]
+Handle these failure modes across the entire app:
+- DB connection failure → error + retry
+- Empty data states → CTA, not blank
+- Form submission failure → inline error, preserve input
+- Loading states → skeleton screens on every fetch
+- Session expiry → redirect to login with a message
+</code></pre>
+<blockquote><p><strong>Verify:</strong> DevTools → Network → Offline. Clear error + retry button, not a hung screen.</p></blockquote>
+
+<hr />
+
+<h2>6. The API Scaling Triangle — Future-Proofing</h2>
+<p>Your product is only as real as its ability to handle live, dynamic data. The three verbs that scale your product beyond your internal database:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Verb</th><th>HTTP shape</th><th>Real-world analog</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>👤 Personalisation</strong></td>
+  <td>GET with the User-ID as a query parameter.</td>
+  <td><strong>Spotify "Discover Weekly"</strong> — your ID tells the API to fetch <em>your</em> mix, not the global top 40.</td>
+</tr>
+<tr>
+  <td><strong>📡 Real-Time Utility</strong></td>
+  <td>WebSocket / polling for live feeds.</td>
+  <td><strong>Uber "Driver Tracking"</strong> — the app constantly calls a GPS API to update coordinates on your screen.</td>
+</tr>
+<tr>
+  <td><strong>🔁 Continuity</strong></td>
+  <td>POST / PUT to sync state across devices.</td>
+  <td><strong>Netflix "Continue Watching"</strong> — your phone sends a timestamp so your TV can fetch where you left off.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> the shift is from "my database <em>is</em> my product" to "my product is a switchboard." Any one of these verbs makes your demo meaningfully more alive.</p>
+
+<hr />
+
+<h2>One-page mental model</h2>
+<ol>
+<li><strong>The Threshold:</strong> you crossed it in M4 — you are shipping today.</li>
+<li><strong>The Three Pillars (M5):</strong> Schema · RLS · External APIs.</li>
+<li><strong>The Four Product States:</strong> Empty · Loading · Error · Load-Bearing — design for all four.</li>
+<li><strong>The Three Prompts:</strong> Schema → Auth/RLS → Edge Cases, in order.</li>
+<li><strong>The Stress-Test Trio:</strong> Kill Switch + (Ghost User <em>or</em> Spam Click).</li>
+<li><strong>The Evolved Handoff:</strong> static inventory → deployed blueprint.</li>
+<li><strong>The API Triangle:</strong> Personalisation · Real-Time · Continuity — scale beyond your DB.</li>
+</ol>
+
+  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 5 - Slides.html">← Back to Module 5</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">M1</a>
+      <a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">M2</a>
+      <a class="fn-sibling" href="Module 3 - Frameworks Reference Card.html">M3</a>
+      <a class="fn-sibling" href="Module 4 - Frameworks Reference Card.html">M4</a>
+      <a class="fn-sibling current" href="Module 5 - Frameworks Reference Card.html">M5</a>
+    </div>
+  </div>
+
+  <div class="footer-note">Vibe Coding Certification · Module 5 Frameworks Reference Card</div>
+
+</div>
+
+</body>
+</html>

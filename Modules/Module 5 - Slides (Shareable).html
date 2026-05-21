@@ -874,11 +874,6 @@ section.cameras-section .cameras-inner {
   </div>
   <p class="repo-cta">Today's repo lands in <strong><code>05-integration/</code></strong> — <code>Integration-Plan.md</code> + updated <code>HANDOFF.md</code> + your live URL.</p>
   <div class="scroll-hint">Scroll to explore<span>↓</span></div>
-  <div class="notes">
-    <h4>Speaker Notes</h4>
-    <p>Welcome to Module 5 — the production transition. The last two modules built infrastructure; today we make that infrastructure carry weight. By the end of this session every learner has a live, public URL with signed-in users, partitioned data, and graceful failure handling.</p>
-    <p>Frame the arc: M4 handed an engineer the spec; M5 hands an engineer (and customers) a running system. Stress: you will deploy <em>even if</em> the stress test reveals gaps — you'll document them in HANDOFF.md and ship anyway. That's the PM move.</p>
-  </div>
 </section>
 
 <!-- 2. CLASS EXPECTATIONS -->
@@ -894,10 +889,6 @@ section.cameras-section .cameras-inner {
       <div class="expect-card"><div class="expect-icon">🛠️</div><div class="expect-title">Tool Readiness</div><div class="expect-desc">Lovable, GitHub, and Supabase must be active before class — we will not stop or restart for setup.</div></div>
       <div class="expect-card"><div class="expect-icon">💬</div><div class="expect-title">Use Slack</div><div class="expect-desc">Use Slack for all communication to keep questions and comments organised.</div></div>
       <div class="expect-card"><div class="expect-icon">🚀</div><div class="expect-title">Class Momentum</div><div class="expect-desc">Individual or deep-dive questions move to after-class support so the cohort keeps pace.</div></div>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Run this quickly — the cohort has seen it four times. Use it as a reset for energy: cameras on, Slack questions only, no group breakouts. Day 5 is high-intensity (two labs, a live deploy) so the momentum norm matters most today.</p>
     </div>
   </div>
 </section>
@@ -921,10 +912,6 @@ section.cameras-section .cameras-inner {
       <div class="arc-arrow">→</div>
       <div class="arc-node"><div class="ad-num">M6</div>Measure &amp; Iterate</div>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Anchor the arc once more before we go in. The bridge from M4 to M5 is the move from "engineering-ready spec" to "engineering-shipped product." After today, the M6 bridge will be from "live product" to "live product that learns from its users."</p>
-    </div>
   </div>
 </section>
 
@@ -939,10 +926,6 @@ section.cameras-section .cameras-inner {
       <p style="font-size:14px; color:#cdd5e3; line-height:1.7;">Your instructor will ask for 5–6 volunteers in <code>#cohort-channel</code> — first come, first served. Bring your live URL, your <code>Integration-Plan.md</code>, and the one decision you're proudest of.</p>
     </div>
     <p style="font-size:14px; color:#8899bb; margin-top:18px;">If you want feedback before you submit your final repo, this is the highest-leverage slot in the cohort.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Push hard for volunteers. Frame it as the highest-bandwidth feedback in the cohort: live demo, live feedback, in front of peers. Drop the sign-up link in <code>#cohort-channel</code> right after this slide; pin the message. Aim for 5–6 names by end of class.</p>
-    </div>
   </div>
 </section>
 
@@ -957,10 +940,6 @@ section.cameras-section .cameras-inner {
       <div class="waypoint"><div class="waypoint-num">02</div><div class="waypoint-text"><div class="wt-title">How to Secure &amp; Extend Your Integration</div><div class="wt-desc">Prompt patterns for schema, RLS, and external APIs. Engineer for empty / loading / error / load-bearing states.</div></div></div>
       <div class="waypoint"><div class="waypoint-num">03</div><div class="waypoint-text"><div class="wt-title">Hands-On Lab — Add Data Schemas + RLS</div><div class="wt-desc">Generate your Integration Plan, then run three prompts in Lovable: schema · auth/RLS · edge cases.</div></div></div>
       <div class="waypoint"><div class="waypoint-num">04</div><div class="waypoint-text"><div class="wt-title">Hands-On Lab — Rapid-Fire Stress Test &amp; Deploy</div><div class="wt-desc">Kill-Switch + Ghost User / Spam Click, update HANDOFF.md, then click Publish.</div></div></div>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Two labs today — Lab 1 (Schema/RLS/Edge Cases) is the heavier one, the actual production work. Lab 2 (Stress Test + Deploy) is short but the payoff: every learner walks out with a public URL. Watch the clock; if you slip on Lab 1, cut the optional API integration step (Step 7) and protect the deploy.</p>
     </div>
   </div>
 </section>
@@ -1001,11 +980,6 @@ section.cameras-section .cameras-inner {
           <div class="demo-helper">Three prompts: wire all data to the database · add auth + RLS · handle edge cases. Then a DevTools chaos test.</div>
         </div>
       </div>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Cue the demo (~8 min). Students do not build along — eyes on the screen. Call out the three prompts as they fire and the result after each: schema → real metrics; auth/RLS → users only see their own rows; edge cases → loading skeletons and retry buttons replace dead screens.</p>
-      <p>End the demo on the DevTools offline toggle — that's the chaos test they'll repeat themselves in Lab 2.</p>
     </div>
   </div>
 </section>
@@ -1052,11 +1026,6 @@ section.cameras-section .cameras-inner {
         </div>
       </div>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>The lesson here is a vocabulary shift — from <em>visual</em> prompts ("make the button blue") to <em>transactional</em> prompts ("when a user clicks this, fetch this row owned by this session"). The three pillars of any integration are: schema (source of truth), ownership (who can see what), and external orchestration (what other systems plug in).</p>
-      <p>Stress that Lovable's Integration Plan tool generates all three customized to <em>their</em> codebase — they don't have to write these prompts from scratch in Lab 1.</p>
-    </div>
   </div>
 </section>
 
@@ -1091,11 +1060,6 @@ section.cameras-section .cameras-inner {
     <div class="callout-strip">
       <span class="callout-pill">The reframe</span>
       <span>If you can <em>describe</em> these failure modes to the AI, it can <em>build</em> you the safety nets. Lab 1's third prompt does exactly this — system-wide.</span>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Make the point concrete: every learner's prototype right now passes the "happy path" — a logged-in user with data clicking through the main flow. Every prototype <em>fails</em> at least one of these four states. Lab 2's stress test is literally a guided tour of these failures.</p>
-      <p>Empty &amp; loading are the cheap wins. Error &amp; load-bearing are where most production bugs hide. The Edge Case prompt in Lab 1 (Prompt 3) addresses all four in one shot — that's why we centralise it.</p>
     </div>
   </div>
 </section>
@@ -1155,11 +1119,6 @@ section.cameras-section .cameras-inner {
       </div>
       <a class="tool-btn" href="M5 - Lab Guide.html#phase-1" target="_blank" rel="noopener" style="white-space: nowrap;">→ Open Lab Guide · Phase 1 ↗</a>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>This is the heaviest lab in the cohort — 45 minutes, three sequential prompts, two verification gates. Pre-work audit takes 5 min; Plan generation takes ~3 min; each prompt takes ~10 min including verification. If a learner stalls on Prompt 1, get them on Lovable's <em>Settings → Integrations</em> tab to confirm Supabase is still linked from M4.</p>
-      <p>Push the verification language hard: <strong>data survives refresh</strong> (Prompt 1), <strong>two accounts can't see each other's data</strong> (Prompt 2), <strong>offline DevTools toggle shows an error message, not a hung screen</strong> (Prompt 3). These are the only three signals that matter.</p>
-    </div>
   </div>
 </section>
 
@@ -1169,10 +1128,6 @@ section.cameras-section .cameras-inner {
     <div class="demo-tag tag-break">Break · 5 minutes</div>
     <h2>Take a beat. ☕</h2>
     <p class="subtitle">You earned it. Refill, stretch, breathe.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>5-minute timer in <code>#cohort-channel</code>. Use the buffer to spot-check the room — anyone whose Prompt 3 failed should ping you in Slack so you can debug before Lab 2.</p>
-    </div>
   </div>
 </section>
 
@@ -1240,12 +1195,6 @@ section.cameras-section .cameras-inner {
       </div>
       <a class="tool-btn" href="M5 - Lab Guide.html#phase-2" target="_blank" rel="noopener" style="white-space: nowrap;">→ Open Lab Guide · Phase 2 ↗</a>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Run the first 10 minutes <em>together</em>. Ask one volunteer to screen-share their prototype while you walk the room through the Kill Switch. After that, learners go solo on Ghost User / Spam Click for ~10 min, then HANDOFF + Publish for the final ~10.</p>
-      <p>The PM mindset to repeat 3×: <strong>you never ship perfect code, you ship code with known risks.</strong> A documented Known Gap in HANDOFF.md is a professional ship. A silent broken feature is not.</p>
-      <p>Safari users — they can't toggle offline in DevTools. Give them the simulate-prompt in the Lab Guide.</p>
-    </div>
   </div>
 </section>
 
@@ -1278,11 +1227,6 @@ section.cameras-section .cameras-inner {
     <div class="callout-strip">
       <span class="callout-pill">Identity shift</span>
       <span>You moved from "the person building the thing" to <em>"the person owning the system."</em> Your documentation has to keep up.</span>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>This is the slide that connects today's lab back to the M4 narrative. The handoff isn't a one-shot artefact — it evolves with the build. By M6 it'll evolve again to include eval results and iteration evidence.</p>
-      <p>Stress the "source of truth" framing: the GitHub repo is where engineers go. The HANDOFF.md in their repo is the most senior artefact they ship in this cohort.</p>
     </div>
   </div>
 </section>
@@ -1318,11 +1262,6 @@ section.cameras-section .cameras-inner {
           <div class="m4c-desc">Use PUT/POST to sync timestamps or state changes to a cloud API so any device can pick them up.<br><br><strong>Example — Netflix "Continue Watching":</strong> your phone sends a timestamp API update so your TV can fetch where you left off.</div>
         </div>
       </div>
-    </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>This is the optional / advanced section — directly tied to Step 7 of Lab 1 (API integration). Most learners won't get there in class, but flag it as the most leverage in the M6 + final-project window.</p>
-      <p>The shift is from "my database is my product" to "my product is a switchboard." Personalisation, Real-Time, Continuity — three different verbs. Any one of them in your final demo makes the product feel meaningfully more alive.</p>
     </div>
   </div>
 </section>
@@ -1380,11 +1319,6 @@ section.cameras-section .cameras-inner {
     <div style="margin-top: 18px; padding: 12px 18px; background: rgba(248,113,113,0.08); border-left: 4px solid #f87171; border-radius: 8px; font-size: 13.5px; color: #e0e0f0; line-height: 1.55; text-align: left;">
       📍 <strong>Project deliverable check:</strong> update the "Integrations &amp; Data Model" and "Edge Cases &amp; Known Gaps" sections on Slide 9 of your final project deck. Confirm your <strong>Live URL</strong> is saved and your <strong>HANDOFF.md</strong> is exported to <code>05-integration/</code> on GitHub.
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Land the plane: this is the identity shift from <em>someone with an idea</em> to <em>a Technical PM who has successfully launched a live production system</em>. Push hard on the "you have a URL" line — it's the most concrete artefact any learner has shipped in their entire PM career so far.</p>
-      <p>Use this slide to set up M6: the product is live; now we measure it. Tease the evals + analytics + redeploy loop.</p>
-    </div>
   </div>
 </section>
 
@@ -1427,10 +1361,6 @@ section.cameras-section .cameras-inner {
         </div>
       </div>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Recap pace — 60 seconds per takeaway. The throughline: <em>resilience</em>. M5 is where prototypes either grow up or quietly fail in the wild. Every one of these four takeaways is a guard rail against quiet failure.</p>
-    </div>
   </div>
 </section>
 
@@ -1457,11 +1387,6 @@ section.cameras-section .cameras-inner {
       <div class="nab-title">M6 · Measure Product Performance for AI-Driven Iteration</div>
       <div class="nab-desc">Transition from gut-based guesses to evidence-based improvements. Analyse live user interactions against your hypothesis. Leverage AI-driven analytics to identify high-impact friction points and redeploy targeted updates that secure the confidence line.</div>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Frame the optional exercises as the gap between "you shipped" and "you shipped something interesting." Most learners stop at the live URL; the ones who do API Value Expansion come back to M6 with a product that's genuinely worth measuring.</p>
-      <p>Tease M6 as the closer: "today you have a URL — next class we make that URL <em>learn</em>."</p>
-    </div>
   </div>
 </section>
 
@@ -1476,10 +1401,6 @@ section.cameras-section .cameras-inner {
       <p style="font-size:14px; color:#cdd5e3; line-height:1.6;">Scan the QR or use the link in <code>#cohort-channel</code>. Your insights help us iterate the cohort.</p>
     </div>
     <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">See you in Module 6 — <em>Measure Product Performance for AI-Driven Iteration</em>.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Drop the link in <code>#cohort-channel</code> as you say this. Two minutes max. Mention that Day 5's feedback most heavily shapes the Day 6 evals walkthrough.</p>
-    </div>
   </div>
 </section>
 
@@ -1521,11 +1442,6 @@ section.cameras-section .cameras-inner {
         <div class="card-desc"><a href="../Final Project - Requirements and Scenario Guide.html" target="_blank" rel="noopener" style="color:#f9a8d4;">Open the brief ↗</a> — scenarios, deliverables, rubric, timeline.</div>
       </div>
     </div>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Drop this card list in <code>#cohort-channel</code> right after class — pin it. The Lab Guide is the walkthrough; the Integration Plan Template is the reference for "what good looks like"; the Frameworks Reference Card is the cheat sheet for today's four mental models.</p>
-      <p><strong>GitHub-first rule:</strong> reinforce one last time — the canonical artefacts live in their GitHub repo at <code>05-integration/Integration-Plan.md</code> and the updated <code>HANDOFF.md</code>. M6 pulls from <code>05-integration/</code> on GitHub. No tools, no browser cache, no exceptions.</p>
-    </div>
   </div>
 </section>
 
@@ -1535,10 +1451,6 @@ section.cameras-section .cameras-inner {
     <div class="demo-tag tag-debrief">Instructor-Led Q&amp;A</div>
     <h2>Questions?</h2>
     <p class="subtitle">Live: unmute or drop in chat. Async: post in <code>#cohort-channel</code> — instructor responds within ~24h.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>Open the floor for 3–4 minutes. If nobody has a live question, pick the highest-energy post from <code>#cohort-channel</code> and read it back: <em>"someone wrote — [paste line] — what's the engineering move on that?"</em></p>
-    </div>
   </div>
 </section>
 
@@ -1553,10 +1465,6 @@ section.cameras-section .cameras-inner {
       <p style="font-size:14px; color:#cdd5e3; line-height:1.7;"><code>05-integration/Integration-Plan.md</code> · updated <code>HANDOFF.md</code> · live URL in <code>README.md</code>. Push before you close the laptop.</p>
     </div>
     <p style="font-size:14px; color:#8899bb; margin-top:20px; text-align:center;">Next session: <strong style="color:#fff;">Module 6 — Measure Product Performance for AI-Driven Iteration</strong> — turn shipping into a learning loop.</p>
-    <div class="notes">
-      <h4>Speaker Notes</h4>
-      <p>The session's identity-shift moment lands here. Don't oversell — just acknowledge it: today they moved from "PM with a prototype" to "PM with a live URL." Drop the M6 hook in <code>#cohort-channel</code>: pre-read goes out tonight.</p>
-    </div>
   </div>
 </section>
 
