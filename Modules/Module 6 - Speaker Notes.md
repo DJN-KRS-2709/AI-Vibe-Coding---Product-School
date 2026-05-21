@@ -73,35 +73,27 @@ Watch for the **empty-data failure mode**: a learner whose product had no real u
 
 Land the audit question hard: *"is the data telling you the M2 hypothesis is confirmed, or is it telling you V2 is a pivot?"* That's the question the AI will answer in Lab 2.
 
-## 14. Break
-
-5-minute timer in `#cohort-channel`. While they break, read the room: anyone whose Insights panel was empty (no real users), pair them up with a peer who has data so Lab 2's prompt still runs against real signal.
-
-## 15. Cameras On
-
-Standard reminder slide. Today the cameras matter more than usual — they keep the energy up for the showcase later in the session.
-
-## 16. Section 03 · AI-Driven Product Iteration
+## 14. Section 03 · AI-Driven Product Iteration
 
 Brief section divider. The two lecture slides that follow are the conceptual backbone for Lab 2.
 
-## 17. AI-Powered Analysis · The PM's New Superpower
+## 15. AI-Powered Analysis · The PM's New Superpower
 
 The reframe: 10x faster decisions, same level of judgement required. Stress that the strategic prompt has four inputs — problem, hypothesis, metrics, feedback — and asks for a **ranked** backlog. Ranking is what makes it actionable.
 
 The discipline line is the one to land: **one finding, not three.** Lab 2 is 15 minutes; they don't have time for a full rebuild. Picking the single highest-impact tweak is the muscle we're building.
 
-## 18. From Data Signal to Technical Fix
+## 16. From Data Signal to Technical Fix
 
 The three patterns map to the three types of finding the AI most often returns: voice/copy issues (→ Persona), structural / UX issues (→ Branching), logic / data issues (→ Guardrail). Walk through one example per pattern — keep it concrete.
 
 The pattern line is what learners write down: **"based on the data showing..."** opens every iteration prompt. It enforces the discipline that you're *repairing friction*, not adding features.
 
-## 19. Section 04 · Hands-On Lab — AI Iteration Sprint
+## 17. Section 04 · Hands-On Lab — AI Iteration Sprint
 
 Brief section divider. The Lab 2 slide follows.
 
-## 20. Lab · Run an AI-Driven Iteration Sprint (15 min)
+## 18. Lab · Run an AI-Driven Iteration Sprint (15 min)
 
 15 minutes is tight on purpose. Push the constraint hard: **one finding, one change.** Most learners will want to fix three things — that's how they break their product right before the showcase. Block that instinct.
 
@@ -109,17 +101,25 @@ Spin up Zoom breakout rooms for a "co-working" feel — everyone builds in paral
 
 The single hardest thing to do well: **test before redeploying.** If Lovable made multiple changes and one broke something, don't ship it — re-prompt to revert that piece first.
 
-## 21. Finalize Your Project Deliverables (15 min)
+## 19. Finalize Your Project Deliverables (15 min)
 
 15 minutes of solo polish. Drop the Vibe Coding Final Project Deliverables template link in `#cohort-channel` — every learner submits a copy. Remind them this is the only deliverable that gates certification.
 
 Walk the slide map: 5 product · 6 validation · 7 PRD · 8 prompt chain · 9 handoff · 10 story. The story slide (10) is where most learners under-invest — push hard: "what was your aha moment? Write the sentence you'd say at a dinner party."
 
-## 22. Learner Journey · M1 → M6
+## 20. Learner Journey · M1 → M6
 
 Slow down here. This is the emotional payoff of the whole certification. Read each row out loud — let the cohort feel the arc. "In Module 1, you executed the velocity. In Module 6, you built the iteration engine." Six modules, six shifts, one loop closed.
 
 Land the closer: "you now have a build-measure-iterate toolkit most PMs at unicorn companies don't have. That's the identity you walk out with today."
+
+## 21. Take a Beat (5-minute break)
+
+5-minute timer in `#cohort-channel`. Use the buffer to pre-load the showcase order — pin a quick list of who presents first, second, third. Anyone with audio/video issues, troubleshoot now, not during the demos.
+
+## 22. Cameras On
+
+Standard reminder slide, placed deliberately right before the showcase. Today the cameras matter more than any other day — they keep the energy up for every demo and make the room feel like a real launch event.
 
 ## 23. Key Takeaways
 
