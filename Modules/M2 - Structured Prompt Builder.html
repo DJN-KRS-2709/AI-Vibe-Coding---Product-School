@@ -446,6 +446,73 @@
   .focus-block.ref { background: #f3f0ff; color: #7c3aed; }
   .focus-block.val { background: #1a1a2e; color: #fff; }
   .focus-block.out { background: #f0fdf4; color: #1a7f37; }
+
+  /* Auto-import banner */
+  .import-banner {
+    display: none;
+    align-items: flex-start;
+    gap: 14px;
+    background: linear-gradient(135deg, #f3f0ff 0%, #ede9fe 60%, #ebf0fe 100%);
+    border: 2px solid #c4b5fd;
+    border-radius: 12px;
+    padding: 16px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12);
+  }
+  .import-banner.visible { display: flex; }
+  .import-banner-icon {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #7c3aed 0%, #3B6FE0 100%);
+    color: #fff;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.35);
+  }
+  .import-banner-body { flex: 1; min-width: 0; }
+  .import-banner-title {
+    font-size: 13px; font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .import-banner-text {
+    font-size: 12px; color: #4a4a6e; line-height: 1.55;
+  }
+  .import-banner-text strong { color: #1a1a2e; font-weight: 700; }
+  .import-banner-text .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #fff;
+    border: 1px solid #c4b5fd;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #5b21b6;
+    margin-right: 4px;
+  }
+  .import-banner-actions {
+    display: flex; gap: 8px; margin-top: 10px;
+  }
+  .import-banner-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #c4b5fd;
+    background: #fff;
+    color: #5b21b6;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .import-banner-btn:hover {
+    background: #5b21b6;
+    color: #fff;
+    border-color: #5b21b6;
+  }
+  .import-banner-btn.danger { color: #b91c1c; border-color: #fecaca; }
+  .import-banner-btn.danger:hover { background: #b91c1c; color: #fff; border-color: #b91c1c; }
 </style>
 </head>
 <body>
@@ -497,6 +564,19 @@
         <strong style="color:#1a1a2e;font-size:13px;">Validation Brief ↗</strong>
         <span style="color:#888;font-size:11px;text-align:center;">Hypothesis + kill switch + scope</span>
       </a>
+    </div>
+  </div>
+
+  <!-- AUTO-IMPORT BANNER -->
+  <div class="import-banner" id="import-banner">
+    <div class="import-banner-icon">⚡</div>
+    <div class="import-banner-body">
+      <div class="import-banner-title">Auto-imported from your M2 work</div>
+      <div class="import-banner-text" id="import-banner-text">Pulling your latest Validation Brief and Context Data Pack…</div>
+      <div class="import-banner-actions">
+        <button class="import-banner-btn" onclick="refreshImport()">Pull latest</button>
+        <button class="import-banner-btn danger" onclick="dismissImportBanner()">Dismiss</button>
+      </div>
     </div>
   </div>
 
@@ -822,52 +902,195 @@ Key metrics:
 
   function pickScenario(id, btn) {
     document.querySelectorAll('.scenario-pick').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
+    else {
+      const target = document.querySelector('.scenario-pick[onclick*="\'' + id + '\'"]');
+      if (target) target.classList.add('active');
+    }
     const hint = scenarioHints[id];
     const hintEl = document.getElementById('scenario-hint');
     hintEl.innerHTML = `<span class="focus-block ${hint.focus}">${hint.label}</span> carries the most weight<br><br>${hint.text}`;
     hintEl.classList.add('visible');
-    if (id === 'byos') importBriefToBuilder();
   }
 
-  function importBriefToBuilder() {
-    const raw = localStorage.getItem('vibe-validation-brief');
-    if (!raw) return;
-    try {
-      const data = JSON.parse(raw);
-      const constraintField = document.getElementById('constraint-input');
-      if (constraintField.value.trim()) return;
+  // ───────────────────────────────────────────────────────────
+  // Auto-import from Validation Brief + Context Data Pack
+  // ───────────────────────────────────────────────────────────
 
-      let lines = [];
-      if (data.hypIf && data.hypThen) {
-        lines.push('- HYPOTHESIS: If ' + data.hypIf + ', then ' + data.hypThen + (data.hypBecause ? ', because ' + data.hypBecause : ''));
-      }
-      if (data.killSwitch) {
-        lines.push('- KILL SWITCH: ' + data.killSwitch);
-      }
-      if (data.explore) {
-        lines.push('- EXPLORING: ' + data.explore);
-      }
-      if (data.fidelity) {
-        lines.push('- FIDELITY: ' + data.fidelity);
-      }
-      if (data.validated) {
-        lines.push('- VALIDATED IF: ' + data.validated);
-      }
-      if (data.invalidated) {
-        lines.push('- INVALIDATED IF: ' + data.invalidated);
-      }
+  let importBannerDismissed = false;
+
+  function getStoredBrief() {
+    try {
+      const raw = localStorage.getItem('vibe-validation-brief');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function getStoredDataPack() {
+    try {
+      const raw = localStorage.getItem('vibe-context-data-pack');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function buildContextFromPack(pack) {
+    if (!pack) return '';
+    if (pack.scenario === 'byos' && pack.byos) {
+      const b = pack.byos;
+      let text = '';
+      if (b.company) text += 'COMPANY / PRODUCT: ' + b.company + '\n\n';
+      if (b.problem) text += 'CORE PROBLEM: ' + b.problem + '\n\n';
+      if (b.hypothesis) text += 'HYPOTHESIS: ' + b.hypothesis + '\n\n';
+      if (b.users) text += 'TARGET USERS: ' + b.users + '\n\n';
+      if (b.metrics) text += 'KNOWN METRICS: ' + b.metrics + '\n\n';
+      if (b.constraints) text += 'CONSTRAINTS: ' + b.constraints + '\n\n';
+      if (b.generatedDataPack) text += '─── GENERATED DATA PACK ───\n\n' + b.generatedDataPack + '\n';
+      return text.trim();
+    }
+    let text = '';
+    if (pack.scenarioBrief) text += pack.scenarioBrief + '\n\n';
+    if (Array.isArray(pack.selectedQuotes) && pack.selectedQuotes.length) {
+      text += 'USER FEEDBACK (highlighted):\n\n' + pack.selectedQuotes.join('\n\n') + '\n\n';
+    }
+    if (Array.isArray(pack.selectedMetrics) && pack.selectedMetrics.length) {
+      text += 'KEY METRICS (display these actual numbers in the prototype):\n\n' + pack.selectedMetrics.join('\n');
+    }
+    return text.trim();
+  }
+
+  function buildConstraintFromBrief(brief) {
+    if (!brief) return '';
+    let lines = [];
+    if (brief.hypIf && brief.hypThen) {
+      lines.push('- HYPOTHESIS: If ' + brief.hypIf + ', then ' + brief.hypThen + (brief.hypBecause ? ', because ' + brief.hypBecause : ''));
+    }
+    if (brief.killSwitch) lines.push('- KILL SWITCH: ' + brief.killSwitch);
+    if (brief.explore) lines.push('- EXPLORING: ' + brief.explore);
+    if (brief.fidelity) lines.push('- FIDELITY: ' + brief.fidelity);
+    if (brief.validated) lines.push('- VALIDATED IF: ' + brief.validated);
+    if (brief.invalidated) lines.push('- INVALIDATED IF: ' + brief.invalidated);
+    if (lines.length) {
       lines.push('- COPY: Use real user quotes in the UI, not placeholder text');
       lines.push('- CRITICAL: Build a product a user interacts with, NOT a dashboard or analysis');
+    }
+    return lines.join('\n');
+  }
 
-      if (lines.length > 2) {
-        constraintField.value = lines.join('\n');
-        updatePreview();
+  function importFromSources(opts) {
+    opts = opts || {};
+    const brief = getStoredBrief();
+    const pack = getStoredDataPack();
+
+    if (!brief && !pack) {
+      hideImportBanner();
+      return;
+    }
+
+    // Auto-select scenario tab from Data Pack
+    if (pack && pack.scenario && !opts.skipScenarioPick) {
+      pickScenario(pack.scenario, null);
+    }
+
+    // Fill Context block (Block 1)
+    const ctxEl = document.getElementById('context-input');
+    const ctxText = buildContextFromPack(pack);
+    if (ctxText && (opts.force || !ctxEl.value.trim())) {
+      ctxEl.value = ctxText;
+    }
+
+    // Fill Constraint block (Block 3)
+    const conEl = document.getElementById('constraint-input');
+    const conText = buildConstraintFromBrief(brief);
+    if (conText && (opts.force || !conEl.value.trim())) {
+      conEl.value = conText;
+    }
+
+    // Fill Output → user action from hypothesis
+    const testsEl = document.getElementById('output-tests');
+    if (brief && brief.hypIf && brief.hypThen && (opts.force || !testsEl.value.trim())) {
+      const action = brief.explore ? brief.explore : '[interact with the prototype]';
+      testsEl.value = 'The user should be able to ' + action + ' so we can observe whether: if ' + brief.hypIf + ', then ' + brief.hypThen + '.';
+    }
+
+    showImportBanner(brief, pack);
+    updatePreview();
+  }
+
+  function showImportBanner(brief, pack) {
+    if (importBannerDismissed) return;
+    const banner = document.getElementById('import-banner');
+    const textEl = document.getElementById('import-banner-text');
+    if (!banner || !textEl) return;
+
+    const pills = [];
+    if (brief) {
+      const briefBits = [];
+      if (brief.hypIf) briefBits.push('hypothesis');
+      if (brief.killSwitch) briefBits.push('kill switch');
+      if (brief.fidelity) briefBits.push('fidelity');
+      const tag = briefBits.length ? ' (' + briefBits.join(', ') + ')' : '';
+      pills.push('<span class="pill">Validation Brief</span>' + tag);
+    }
+    if (pack) {
+      const bits = [];
+      if (pack.scenarioLabel) bits.push(pack.scenarioLabel);
+      if (Array.isArray(pack.selectedQuotes) && pack.selectedQuotes.length) {
+        bits.push(pack.selectedQuotes.length + ' quote' + (pack.selectedQuotes.length === 1 ? '' : 's'));
       }
-    } catch (e) {}
+      if (Array.isArray(pack.selectedMetrics) && pack.selectedMetrics.length) {
+        bits.push(pack.selectedMetrics.length + ' metric' + (pack.selectedMetrics.length === 1 ? '' : 's'));
+      }
+      if (pack.scenario === 'byos' && pack.byos && (pack.byos.company || pack.byos.problem)) {
+        bits.push('BYOS form');
+      }
+      const tag = bits.length ? ' (' + bits.join(' · ') + ')' : '';
+      pills.push('<span class="pill">Context Data Pack</span>' + tag);
+    }
+
+    textEl.innerHTML = '<strong>Hypothesis, kill switch, scenario brief, quotes, and metrics</strong> were just pulled from ' +
+                       pills.join(' &nbsp;+&nbsp; ') +
+                       '. Edit any block below — your changes won\'t be overwritten unless you click <em>Pull latest</em>.';
+    banner.classList.add('visible');
+  }
+
+  function hideImportBanner() {
+    const banner = document.getElementById('import-banner');
+    if (banner) banner.classList.remove('visible');
+  }
+
+  function dismissImportBanner() {
+    importBannerDismissed = true;
+    hideImportBanner();
+  }
+
+  function refreshImport() {
+    importBannerDismissed = false;
+    const ctx = document.getElementById('context-input').value.trim();
+    const con = document.getElementById('constraint-input').value.trim();
+    if (ctx || con) {
+      if (!confirm('Pull the latest Validation Brief and Context Data Pack? This will overwrite the Context (Block 1) and Validation Brief (Block 3) inputs below.')) {
+        return;
+      }
+    }
+    importFromSources({ force: true });
   }
 
   pickScenario('retention', document.querySelector('.scenario-pick.active'));
+
+  // Initial import on load
+  importFromSources();
+
+  // Re-import when user tabs back from another window (e.g. just updated the Data Pack)
+  window.addEventListener('focus', function () {
+    if (!importBannerDismissed) importFromSources();
+  });
+
+  // Cross-tab sync via storage event
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'vibe-validation-brief' || e.key === 'vibe-context-data-pack') {
+      if (!importBannerDismissed) importFromSources();
+    }
+  });
 
   updatePreview();
 </script>

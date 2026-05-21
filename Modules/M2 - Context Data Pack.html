@@ -262,6 +262,18 @@
 
   .sel-btn-primary:hover { background: #2D5BC4; }
 
+  .sel-btn-builder {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  }
+
+  .sel-btn-builder:hover {
+    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.45);
+    transform: translateY(-1px);
+  }
+
   .instructions-banner {
     background: #fff;
     border-radius: 12px;
@@ -858,7 +870,10 @@
         <div class="byos-paste-field">
           <textarea id="byos-paste-input" placeholder="Paste the ChatGPT/Claude output here..."></textarea>
         </div>
-        <button class="byos-copy-prompt-btn" onclick="copyByosPaste()">Copy My Data Pack</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="byos-copy-prompt-btn" onclick="copyByosPaste()">Copy My Data Pack</button>
+          <button class="byos-copy-prompt-btn" style="background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);" onclick="sendToBuilder()">Send to Structured Prompt Builder →</button>
+        </div>
       </div>
     </div>
   </div>
@@ -866,17 +881,25 @@
   <!-- Selection Bar -->
   <div class="selection-bar" id="selection-bar">
     <div class="selection-info">
-      <strong id="selected-count">0 quotes, 0 metrics</strong> selected — ready to copy into your prompt
+      <strong id="selected-count">0 quotes, 0 metrics</strong> selected — auto-saved for the Structured Prompt Builder
     </div>
     <div class="selection-actions">
       <button class="sel-btn sel-btn-secondary" onclick="clearAll()">Clear All</button>
       <button class="sel-btn sel-btn-primary" onclick="copyAll()">Copy All Selected</button>
+      <button class="sel-btn sel-btn-builder" onclick="sendToBuilder()">Send to Structured Prompt Builder →</button>
     </div>
   </div>
 </div>
 
 <script>
   let currentScenario = 'retention';
+  const SCENARIO_LABELS = {
+    retention: 'Retention Engine',
+    internal: 'Internal Tool',
+    marketplace: 'Marketplace Trust',
+    dashboard: 'Dashboard',
+    byos: 'Bring Your Own Scenario'
+  };
 
   function switchScenario(id) {
     currentScenario = id;
@@ -889,6 +912,7 @@
     bar.style.display = (id === 'byos') ? 'none' : 'flex';
     if (id === 'byos') importFromValidationBrief();
     updateCount();
+    saveDataPackState();
   }
 
   function importFromValidationBrief() {
@@ -927,11 +951,13 @@
   function toggleHighlight(el) {
     el.classList.toggle('highlighted');
     updateCount();
+    saveDataPackState();
   }
 
   function toggleMetric(el) {
     el.classList.toggle('highlighted');
     updateCount();
+    saveDataPackState();
   }
 
   function updateCount() {
@@ -1051,7 +1077,82 @@
     const active = document.getElementById('scenario-' + currentScenario);
     active.querySelectorAll('.highlighted').forEach(el => el.classList.remove('highlighted'));
     updateCount();
+    saveDataPackState();
   }
+
+  function getScenarioBriefText(id) {
+    const active = document.getElementById('scenario-' + id);
+    if (!active) return '';
+    const labels = active.querySelectorAll('.brief-label');
+    const values = active.querySelectorAll('.brief-value');
+    let text = 'SCENARIO BRIEF:\n\n';
+    labels.forEach((l, i) => {
+      text += l.textContent + ': ' + (values[i]?.textContent || '') + '\n\n';
+    });
+    const hyps = active.querySelectorAll('.hypothesis-item');
+    if (hyps.length) {
+      text += 'COMPETING HYPOTHESES:\n';
+      hyps.forEach(h => {
+        const role = h.querySelector('.hypothesis-role')?.textContent || '';
+        const txt = h.querySelector('.hypothesis-text')?.textContent || '';
+        text += '- ' + role + ': ' + txt + '\n';
+      });
+    }
+    return text.trim();
+  }
+
+  function saveDataPackState() {
+    const state = {
+      scenario: currentScenario,
+      scenarioLabel: SCENARIO_LABELS[currentScenario] || currentScenario,
+      timestamp: Date.now()
+    };
+    if (currentScenario === 'byos') {
+      state.byos = {
+        company: (document.getElementById('byos-company')?.value || '').trim(),
+        problem: (document.getElementById('byos-problem')?.value || '').trim(),
+        hypothesis: (document.getElementById('byos-hypothesis')?.value || '').trim(),
+        metrics: (document.getElementById('byos-metrics')?.value || '').trim(),
+        users: (document.getElementById('byos-users')?.value || '').trim(),
+        constraints: (document.getElementById('byos-constraints')?.value || '').trim(),
+        generatedDataPack: (document.getElementById('byos-paste-input')?.value || '').trim()
+      };
+      if (state.byos.company) state.scenarioLabel = state.byos.company;
+    } else {
+      state.scenarioBrief = getScenarioBriefText(currentScenario);
+      state.selectedQuotes = getSelectedQuotes();
+      state.selectedMetrics = getSelectedMetrics();
+    }
+    try {
+      localStorage.setItem('vibe-context-data-pack', JSON.stringify(state));
+    } catch (e) { /* quota or privacy mode */ }
+  }
+
+  function sendToBuilder() {
+    saveDataPackState();
+    const btn = event && event.target;
+    const orig = btn ? btn.textContent : '';
+    if (btn) {
+      btn.textContent = 'Saved → Opening Builder...';
+      btn.style.opacity = '0.85';
+    }
+    setTimeout(() => {
+      window.open('M2 - Structured Prompt Builder.html', '_blank');
+      if (btn) {
+        btn.textContent = orig;
+        btn.style.opacity = '';
+      }
+    }, 500);
+  }
+
+  // Persist BYOS form edits
+  ['byos-company','byos-problem','byos-hypothesis','byos-metrics','byos-users','byos-constraints','byos-paste-input'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', saveDataPackState);
+  });
+
+  // Initial snapshot so the Builder can find scenario context even before user clicks anything
+  setTimeout(saveDataPackState, 0);
 
   if (window.location.hash === '#byos') {
     switchScenario('byos');
