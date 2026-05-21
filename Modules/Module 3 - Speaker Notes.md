@@ -247,7 +247,7 @@ Four steps:
 
 **Step 1 — Audit your M2 prototype.** Open it and identify 3-5 flow gaps (missing screens, dead ends), 3 specific friction points (no loading states, no error handling), and 1 targeted UI element you want to refine.
 
-**Step 2 — Draft your 3-step chain in the Living Prompt Pack Builder.** Open the Pack Builder link from Slack. Start in the **Chain Entries** section — click "Add Chain Entry" and write your Expand, Behavior, and Refine prompts directly there. The Builder structures each prompt for you and keeps everything in one place. If you completed M2 in the Prototype Builder, your data auto-imports — your scenario context, hypothesis, and design references carry forward automatically.
+**Step 2 — Draft your 3-step chain in the Living Prompt Pack Builder.** Open the Pack Builder link from Slack. Start in the **Chain Entries** section — click "Add Chain Entry" and write your Expand, Behavior, and Refine prompts directly there. The Builder structures each prompt for you and keeps everything in one place. If you completed M2 (Validation Brief + Structured Prompt Builder), your data auto-imports — your scenario context, hypothesis, and design references carry forward automatically.
 
 **Step 3 — Gather your references and fill in your Design System Reference.** For the COT expansion, get screenshots of the layouts you want to match for your new screens — same Mobbin workflow from M2. While you're in the Pack Builder, drop your screenshot or Figma link into the **Design System Reference** section so the AI has your visual direction locked in for every prompt going forward.
 

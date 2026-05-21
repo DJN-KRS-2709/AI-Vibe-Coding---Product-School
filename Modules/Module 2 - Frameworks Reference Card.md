@@ -128,7 +128,7 @@ The most expensive credit you'll burn is the one spent finding the prompt. The c
 
 | Move | Where it happens | Why |
 |---|---|---|
-| Frame the Validation Brief | Manually, or in the Prototype Builder | Locks the test before the tool is open. |
+| Frame the Validation Brief | Validation Brief template (Module 2) | Locks the test before the tool is open. |
 | Gather context | Context Data Pack | Real quotes + metrics replace placeholder hallucinations. |
 | Assemble the mega-prompt | Structured Prompt Builder | Granular control prevents AI drift. |
 | Smoke-test the prompt | ChatGPT / Gemini / Claude | Find logic holes *before* burning Lovable credits. |
