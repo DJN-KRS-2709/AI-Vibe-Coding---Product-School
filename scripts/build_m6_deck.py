@@ -234,12 +234,52 @@ BODY = r"""
   </div>
 </section>
 
-<!-- 9. THE ITERATION MINDSET — 3 levers -->
+<!-- 9. THE ITERATION MINDSET — 3 levers · loop diagram -->
 <section data-title="The Iteration Mindset">
   <div class="inner" style="max-width: 1240px;">
     <div class="section-label">The Iteration Mindset</div>
     <h2>Shipping a prototype isn't the finish line — it's the start of the feedback loop.</h2>
     <p class="subtitle">Your goal: replace <em>"I think"</em> with <em>"the data shows."</em> From this point forward, your intuition is just a hypothesis the data either proves or kills.</p>
+
+    <!-- Loop diagram: 3 nodes + forward arrows + dashed return curve -->
+    <svg viewBox="0 0 1200 230" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The Iteration Mindset loop: Prioritise → Identify → Validate → back to Prioritise" style="width:100%; max-width:1100px; margin:8px auto 22px; display:block;">
+      <defs>
+        <marker id="m6-arrow-fwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0,0 L 10,5 L 0,10 z" fill="#60a5fa"/>
+        </marker>
+        <marker id="m6-arrow-back" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0,0 L 10,5 L 0,10 z" fill="#a78bfa"/>
+        </marker>
+        <radialGradient id="m6-node-grad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#3b82f6"/>
+          <stop offset="100%" stop-color="#0c2f7a"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Forward arrows: 1 → 2 and 2 → 3 -->
+      <line x1="248" y1="78" x2="552" y2="78" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#m6-arrow-fwd)"/>
+      <line x1="648" y1="78" x2="952" y2="78" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#m6-arrow-fwd)"/>
+
+      <!-- Dashed return curve from node 3 (right) down and around back to node 1 (left) -->
+      <path d="M 1000,118 C 1000,210 200,210 200,118" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-dasharray="7 7" marker-end="url(#m6-arrow-back)"/>
+      <text x="600" y="200" text-anchor="middle" fill="#a78bfa" font-family="Poppins, sans-serif" font-weight="700" font-size="12" letter-spacing="3">REPEAT THE LOOP</text>
+
+      <!-- Node 1 -->
+      <circle cx="200" cy="78" r="44" fill="url(#m6-node-grad)" stroke="#60a5fa" stroke-width="2.5"/>
+      <text x="200" y="88" text-anchor="middle" fill="#ffffff" font-family="Poppins, sans-serif" font-weight="900" font-size="26">1</text>
+      <text x="200" y="148" text-anchor="middle" fill="#cbd5e1" font-family="Poppins, sans-serif" font-weight="700" font-size="13" letter-spacing="2.5">PRIORITISE</text>
+
+      <!-- Node 2 -->
+      <circle cx="600" cy="78" r="44" fill="url(#m6-node-grad)" stroke="#60a5fa" stroke-width="2.5"/>
+      <text x="600" y="88" text-anchor="middle" fill="#ffffff" font-family="Poppins, sans-serif" font-weight="900" font-size="26">2</text>
+      <text x="600" y="148" text-anchor="middle" fill="#cbd5e1" font-family="Poppins, sans-serif" font-weight="700" font-size="13" letter-spacing="2.5">IDENTIFY</text>
+
+      <!-- Node 3 -->
+      <circle cx="1000" cy="78" r="44" fill="url(#m6-node-grad)" stroke="#60a5fa" stroke-width="2.5"/>
+      <text x="1000" y="88" text-anchor="middle" fill="#ffffff" font-family="Poppins, sans-serif" font-weight="900" font-size="26">3</text>
+      <text x="1000" y="148" text-anchor="middle" fill="#cbd5e1" font-family="Poppins, sans-serif" font-weight="700" font-size="13" letter-spacing="2.5">VALIDATE</text>
+    </svg>
+
     <div class="m4-complete-grid">
       <div class="m4c-tile">
         <div class="m4c-num">1</div>
