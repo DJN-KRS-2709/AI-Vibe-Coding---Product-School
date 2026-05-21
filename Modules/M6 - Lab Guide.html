@@ -263,7 +263,7 @@
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Live URL posted in <code>#cohort-channel</code></strong> — classmates need it to leave feedback in Phase 1</div>
+          <div><strong>Live URL posted in <code>#cohort-channel</code></strong> — classmates need it for the Rapid-Fire Feedback Loop</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
@@ -273,29 +273,108 @@
 
       <div class="tip-box warning">
         <div class="tip-icon">&#9888;&#65039;</div>
-        <div class="tip-text"><strong>Live URL not posted yet?</strong> Do it now in <code>#cohort-channel</code> — your classmates need it to leave feedback in Phase 1. Your instructor will not pause for cohort coordination once Phase 1 starts.</div>
+        <div class="tip-text"><strong>Live URL not posted yet?</strong> Do it now in <code>#cohort-channel</code> — your classmates need it for the Rapid-Fire Feedback Loop. Your instructor will not pause for cohort coordination once the exercise starts.</div>
       </div>
     </div>
   </div>
 
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 1: READ LOVABLE INSIGHTS + GATHER SLACK PEER FEEDBACK    -->
+  <!--  PRE-LAB ACTIVITY: RAPID-FIRE FEEDBACK LOOP                     -->
+  <!--  Runs right after the instructor demo; before Phase 1.          -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="phase" id="phase-1">
-    <div class="phase-num" style="background:#059669;">1</div>
+  <div class="phase" id="rapid-fire">
+    <div class="phase-num" style="background:#f59e0b;">★</div>
     <div class="phase-text">
-      <h2>Read Your Lovable Insights + Gather Slack Peer Feedback</h2>
-      <div class="phase-time">Instructor-Led Exercise · 20 minutes</div>
+      <h2>Rapid-Fire Feedback Loop</h2>
+      <div class="phase-time">Individual Exercise · 10 minutes · runs before Phase 1</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Two passes on the same product. First, baseline your own engagement numbers. Then, get four classmates to stress-test your live URL and leave structured feedback in Slack.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Head to <code>#cohort-channel</code>. Test four classmates' deployed products. Leave one structured comment per product. This is the peer signal that fuels Lab 2's AI analysis — and it builds the critical eye you'll turn on your own product in Phase 1.</p>
 
-      <!-- Part A: Capture Your Metrics -->
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:20px 0 12px;">Part A — Capture Your Metrics</p>
+      <div class="step">
+        <div class="step-marker" style="background:#f59e0b;">1</div>
+        <div class="step-body">
+          <div class="step-title">Pick four classmates' URLs</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">From the cohort Slack channel, choose at least <strong>four different deployed Lovable links</strong> classmates have shared.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#f59e0b;">2</div>
+        <div class="step-body">
+          <div class="step-title">Test each for ~2 minutes</div>
+          <div class="step-time">8 minutes</div>
+          <div class="step-desc">Sign up with your email, run the core flow, try to break it with edge cases. The goal is detailed feedback you'd want to receive yourself.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#f59e0b;">3</div>
+        <div class="step-body">
+          <div class="step-title">Leave one structured comment per product</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Reply in the <em>same Slack thread</em> as the URL was posted. Tag the builder. Pick one of the four labels below — be specific.</div>
+        </div>
+      </div>
+
+      <div class="label-pill-grid">
+        <div class="label-pill">
+          <div class="lp-emoji">🐛</div>
+          <div class="lp-name">A Bug</div>
+          <div class="lp-example">"I clicked X and nothing happened — the form just stayed open."</div>
+        </div>
+        <div class="label-pill">
+          <div class="lp-emoji">🤔</div>
+          <div class="lp-name">Friction</div>
+          <div class="lp-example">"I was confused by the label on the submit button — I wasn't sure what would happen."</div>
+        </div>
+        <div class="label-pill">
+          <div class="lp-emoji">🤩</div>
+          <div class="lp-name">A Compliment</div>
+          <div class="lp-example">"I was so impressed with the empty-state CTA — I knew exactly what to click first."</div>
+        </div>
+        <div class="label-pill">
+          <div class="lp-emoji">💡</div>
+          <div class="lp-name">A Feature Idea</div>
+          <div class="lp-example">"It would be cool if this could also import contacts from CSV in bulk."</div>
+        </div>
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128172;</div>
+        <div class="tip-text"><strong>One labelled comment per peer product. Specific. Tagged. In-thread.</strong> <em>"Nice app!"</em> is noise, not signal. Keep your own comments because you'll paste them all into Lab 2's AI prompt later — yours and the ones you receive on your URL.</div>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Comments I received on my URL (collect these for Lab 2)</div>
+        <div class="na-hint">Paste every comment that lands on your Slack thread — keep the labels (🐛 / 🤔 / 🤩 / 💡) so the AI can weight them.</div>
+        <textarea placeholder="🤔 Friction — @Jamie said 'I wasn't sure what the Send button did.'"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 1: READ LOVABLE INSIGHTS                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase" id="phase-1">
+    <div class="phase-num" style="background:#059669;">1</div>
+    <div class="phase-text">
+      <h2>Read Your Lovable Insights</h2>
+      <div class="phase-time">Instructor-Led Lab · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">You just gave four classmates' products a critical read. Now do the same to your own analytics. Capture your metrics as text — you'll paste them into Lab 2's AI prompt.</p>
 
       <div class="step">
         <div class="step-marker" style="background:#059669;">1</div>
@@ -355,77 +434,13 @@
         <textarea placeholder="Compare to your original M2 hypothesis. If users are behaving as predicted, your V2 is a tweak. If not, your V2 is a pivot."></textarea>
       </div>
 
-      <!-- Part B: Slack peer feedback loop -->
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:28px 0 12px;">Part B — Gather Slack Peer Feedback</p>
-
-      <p style="font-size:14px; color:#555; margin-bottom:14px;">Your Insights metrics show what users <em>do</em>. Slack peer feedback shows what they <em>feel</em> and <em>say</em>. Both feed Lab 2.</p>
-
-      <div class="step">
-        <div class="step-marker" style="background:#d97706;">4</div>
-        <div class="step-body">
-          <div class="step-title">Open your <code>#cohort-channel</code> Slack thread</div>
-          <div class="step-time">1 minute</div>
-          <div class="step-desc">Your live URL should already be posted from M5. If not, post it now — classmates need it to leave feedback.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-marker" style="background:#d97706;">5</div>
-        <div class="step-body">
-          <div class="step-title">Pick four classmates' URLs and test their products</div>
-          <div class="step-time">8 minutes</div>
-          <div class="step-desc">Spend ~2 minutes per product. Sign up with your email. Run the core flow. Try to break it with an edge case. The goal is detailed feedback you'd want to receive yourself.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-marker" style="background:#d97706;">6</div>
-        <div class="step-body">
-          <div class="step-title">Leave one structured comment per product</div>
-          <div class="step-time">3 minutes</div>
-          <div class="step-desc">Reply in the <em>same Slack thread</em> as the URL was posted. Tag the builder. Pick one of the four labels below — be specific.</div>
-        </div>
-      </div>
-
-      <div class="label-pill-grid">
-        <div class="label-pill">
-          <div class="lp-emoji">🐛</div>
-          <div class="lp-name">A Bug</div>
-          <div class="lp-example">"I clicked the 'Send Invite' button and nothing happened — the form just stayed open."</div>
-        </div>
-        <div class="label-pill">
-          <div class="lp-emoji">🤔</div>
-          <div class="lp-name">Friction</div>
-          <div class="lp-example">"I wasn't sure what 'Track Status' meant — it sounded like it would email me, not show me a list."</div>
-        </div>
-        <div class="label-pill">
-          <div class="lp-emoji">🤩</div>
-          <div class="lp-name">A Compliment</div>
-          <div class="lp-example">"The 'Day Zero' empty state was so clear — I knew exactly what to click first."</div>
-        </div>
-        <div class="label-pill">
-          <div class="lp-emoji">💡</div>
-          <div class="lp-name">A Feature Idea</div>
-          <div class="lp-example">"It would be great to bulk-import contacts from CSV instead of one at a time."</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-marker" style="background:#d97706;">7</div>
-        <div class="step-body">
-          <div class="step-title">Read the feedback that came in on <em>your</em> thread</div>
-          <div class="step-time">3 minutes</div>
-          <div class="step-desc">Copy every comment into a single document — you'll paste it into Lab 2's AI prompt. Don't react yet, just collect.</div>
-        </div>
-      </div>
-
       <div class="callout">
-        <p>By the end of Phase 1 you have:<br><em>Your Insights metrics as text.</em> <em>4+ structured peer comments on your live URL.</em><br><strong>That's everything Lab 2 needs.</strong></p>
+        <p>By the end of Phase 1 you have:<br><em>Your Insights metrics as text.</em> <em>Your honest audit against the M2 hypothesis.</em><br><strong>Combined with the peer comments from the Rapid-Fire Feedback Loop above, that's everything Lab 2 needs.</strong></p>
       </div>
 
       <div class="notes-area">
         <div class="na-title">Phase 1 Build Notes</div>
-        <div class="na-hint">What surprised you? Which metric was furthest from what you expected? Which peer comment hit hardest?</div>
+        <div class="na-hint">What surprised you? Which metric was furthest from what you expected? Does the data confirm your M2 hypothesis or contradict it?</div>
         <textarea placeholder="Write your notes here..."></textarea>
       </div>
     </div>
