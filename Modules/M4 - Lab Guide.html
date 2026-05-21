@@ -248,6 +248,7 @@
   .infra-desc strong { color: #1a1a2e; }
 </style>
 </head>
+
 <body>
 
 <div class="page">
@@ -255,592 +256,471 @@
   <!-- ════════════════════ HEADER ════════════════════ -->
   <div class="header">
     <div class="badge">Module 4 — Lab Guide</div>
-    <h1>From Vibe to Structure</h1>
-    <p>Extract your Living PRD, refactor your code, connect real infrastructure, and generate an engineering handoff. Your prototype stops being yours and starts being the team's.</p>
+    <h1>Refactor Your Code &amp; Generate Your Engineering Handoff</h1>
+    <p>Extract your Living PRD, refactor the file structure, generate an engineering handoff, and connect a real backend. Your prototype stops being yours and starts being the team's. <strong>GitHub is the deliverable — not anything in browser memory.</strong></p>
   </div>
 
   <div class="overview-bar">
-    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Prompts</div></div>
-    <div class="overview-item"><div class="oi-num">~47</div><div class="oi-label">Minutes</div></div>
-    <div class="overview-item"><div class="oi-num">4</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">4</div><div class="oi-label">Prompts</div></div>
+    <div class="overview-item"><div class="oi-num">~50</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">6</div><div class="oi-label">Phases</div></div>
     <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Deliverables</div></div>
   </div>
 
 
-  <!-- ════════════════════ WHAT YOU'RE STARTING WITH ════════════════════ -->
+  <!-- ════════════════════ BEFORE YOU BEGIN ════════════════════ -->
   <div class="card" style="border: 2px solid #059669;">
     <div class="card-body">
       <p style="font-size:14px; font-weight:800; color:#059669; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Before You Begin</p>
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">You are working on your <strong>Module 3 prototype</strong> — the one with 5+ screens, interactive states, and a documented prompt chain. Open it in Lovable now.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">You are working on your <strong>Module 3 prototype</strong> — the multi-state build you carried from M2. Open it in Lovable now, and keep your GitHub repo open in a second tab.</p>
 
       <div class="checklist">
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>M3 prototype open in Lovable</strong> — this is the build you carried from M2 through M3</div>
+          <div><strong>M3 prototype open in Lovable</strong> — same project you carried from M2 through M3</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Living PRD Extractor tool open</strong> — link is in Slack</div>
+          <div><strong>GitHub repo open in a second tab</strong> — you'll be referencing screen names from here during refactor</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>GitHub account active</strong> — free account at github.com (should be set up before class)</div>
+          <div><strong>Lovable connected to your GitHub repo</strong> — Settings &rarr; Integrations &rarr; GitHub (should be set up from M2)</div>
         </div>
       </div>
 
       <div class="tip-box warning">
         <div class="tip-icon">&#9888;&#65039;</div>
-        <div class="tip-text"><strong>No GitHub account yet?</strong> Create one now at <strong>github.com</strong> — it takes 2 minutes and it's free. Your instructor will not pause to troubleshoot login issues.</div>
+        <div class="tip-text"><strong>Lovable not yet linked to GitHub?</strong> Connect it now before the lab starts. Your instructor will not pause to troubleshoot Git auth issues mid-lab.</div>
       </div>
     </div>
   </div>
 
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 1: EXTRACT THE LIVING PRD                               -->
+  <!--  PHASE 1: EXTRACT THE LIVING PRD                                -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
     <div class="phase-num" style="background:#3B6FE0;">1</div>
     <div class="phase-text">
       <h2>Extract Your Living PRD</h2>
-      <div class="phase-time">Individual Exercise · 10 minutes</div>
+      <div class="phase-time">Individual Exercise · 15 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:6px;">Use the <strong>Living PRD Extractor</strong> tool to interrogate your current build and generate a professional specification. Your goal is to capture a truth report of your prototype's functional logic, screen map, and technical reality.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Prompt Lovable to interrogate your current build and generate a structured PRD. Your goal is to capture a <strong>truth report</strong> of your prototype's functional logic, screen map, and technical reality.</p>
 
-      <div class="tip-box danger">
+      <div class="tip-box danger" style="background:#fee2e2; border-color:#fca5a5;">
         <div class="tip-icon">&#128721;</div>
-        <div class="tip-text"><strong>Do NOT attempt to "fix" the code yet.</strong> This is pre-work to document the current state of your prototype, even if it's not perfect. Document the reality first.</div>
+        <div class="tip-text"><strong>Do NOT attempt to "fix" the code yet.</strong> The goal is to document what really exists, even if it's not perfect. Document reality first — refactor in Phase 2.</div>
       </div>
-
-      <a class="tool-link" href="M4 - Living PRD Extractor.html" target="_blank">
-        <span class="tool-icon">&#128279;</span> Open Living PRD Extractor Tool
-      </a>
 
       <!-- Step 1 -->
       <div class="step">
         <div class="step-marker" style="background:#3B6FE0;">1</div>
         <div class="step-body">
-          <div class="step-title">Configure the Extractor</div>
-          <div class="step-time">3 minutes</div>
+          <div class="step-title">Prompt Lovable to extract your PRD</div>
+          <div class="step-time">5 minutes</div>
           <div class="step-desc">
-            Open the Living PRD Extractor and select <strong>"Build Your Own"</strong>. The recommended path: <strong>paste your <code>03-prompt-chaining/prompts.md</code> directly from your GitHub repo</strong> into the "Paste from GitHub" textarea, or drop the file from your local clone. (Your GitHub repo is the canonical record — the tool can also try to auto-import from M2/M3 browser cache, but treat that as a fallback.) The tool generates a baseline <strong>Extraction Prompt</strong> with variables you must customize:<br><br>
-            <strong>Replace the brackets</strong> with your actual product details — your screens, your hypothesis, your metrics. The AI needs to know which evidence to audit.
+            Open Lovable and return to your current prototype. Paste this prompt into the chat:
+            <div class="prompt-template">
+              <div class="pt-label">Living PRD Extraction Prompt</div>
+              "Extract a PRD from this prototype covering: <em>what it does, who it's for, the problem it solves, all screens and their purpose, the user flow, the hypothesis, key metrics, and what is mocked versus real.</em>"
+            </div>
+            Hit enter and wait for the <strong>full output</strong> before doing anything else.<br><br>
+            <em>If Lovable seems confused about what the product is</em>, follow up with: <em>"Audit the existing files and our previous conversation to find these details."</em>
           </div>
         </div>
-      </div>
-
-      <div class="tip-box info">
-        <div class="tip-icon">&#128161;</div>
-        <div class="tip-text"><strong>Pro Tip:</strong> Don't overthink the hypothesis or metrics. Use the ones you've been building toward since Module 1. They're already embedded in your prototype.</div>
       </div>
 
       <!-- Step 2 -->
       <div class="step">
         <div class="step-marker" style="background:#3B6FE0;">2</div>
         <div class="step-body">
-          <div class="step-title">Run the Technical Interrogation</div>
+          <div class="step-title">Review the output</div>
           <div class="step-time">5 minutes</div>
           <div class="step-desc">
-            Copy your customized prompt from the Extractor tool and paste it into your <strong>existing Lovable chat</strong> for your M3 project. Hit enter and wait for the AI to output the structured report.<br><br>
-            <strong>If the AI starts asking you what the product is</strong> instead of auditing the code, respond with:
+            Read through the PRD in the Lovable chat. Audit it against three questions:
+            <div class="checklist">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Does it accurately list all the screens</strong> you built?</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Does it correctly identify what's real vs. mocked?</strong></div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><strong>Is the hypothesis and technical reality honest</strong> about the current state of your build?</div></div>
+            </div>
+            <div class="tip-box success" style="margin-top:8px;">
+              <div class="tip-icon">&#128161;</div>
+              <div class="tip-text"><strong>Remember:</strong> it's completely fine if your PRD shows your database isn't connected or your logic is still mocked. You're <em>not</em> losing points for missing features — you're gaining points for documenting the truth.</div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="prompt-template">
-        <div class="pt-label label-extract">Fallback Prompt</div>
-        "Audit the existing files and our previous conversation to find these details."
       </div>
 
       <!-- Step 3 -->
       <div class="step">
         <div class="step-marker" style="background:#3B6FE0;">3</div>
         <div class="step-body">
-          <div class="step-title">Paste the Output Back Into the Extractor</div>
-          <div class="step-time">2 minutes</div>
+          <div class="step-title">Push your PRD to GitHub</div>
+          <div class="step-time">5 minutes</div>
           <div class="step-desc">
-            Once the AI finishes generating the specification, <strong>copy the entire response</strong> and paste it back into the Living PRD Extractor. This populates your engineering-ready blocks.<br><br>
-            Read through each block and verify:
+            Once you're happy with the output, prompt Lovable:
+            <div class="prompt-template">
+              <div class="pt-label">Save &amp; Push Prompt</div>
+              "Save this as <code>04-structure/PRD.md</code> and push it to my connected GitHub repository."
+            </div>
+            Open your GitHub repository and <strong>confirm <code>PRD.md</code> appears</strong> in your file tree before moving on. If the file doesn't appear, re-prompt: <em>"Push all current project files to my connected GitHub repository."</em>
           </div>
         </div>
       </div>
 
-      <div class="checklist">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Functional Architecture</strong> — does it accurately list the screens you built?</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Technical Reality</strong> — does it correctly identify what is real (connected code) versus mocked (static UI)?</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Hypothesis and Metrics</strong> — do they match what you've been testing since M2?</div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-icon">&#9989;</div>
-        <div class="tip-text"><strong>It is completely okay (and expected!) if your PRD shows that your database isn't connected or your logic is still mocked.</strong> You aren't losing points for missing features — you are gaining points for documenting the truth.</div>
-      </div>
-
-      <div class="notes-area">
-        <div class="na-title">Living PRD — Notes</div>
-        <div class="na-hint">Flag anything the AI misrepresented, missed, or any mocked features you need to revisit during the next lab.</div>
-        <textarea placeholder="Write your notes here..."></textarea>
+      <div class="tip-box" style="margin-top:14px;">
+        <div class="tip-icon">&#128217;</div>
+        <div class="tip-text"><strong>Phase 1 deliverable:</strong> <code>04-structure/PRD.md</code> committed to your GitHub repo. <em>If it's not in GitHub, it didn't happen — Phase 2 depends on this file.</em></div>
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 2: REFACTOR + ENGINEERING HANDOFF                       -->
+  <!--  PHASE 2: REFACTOR YOUR FILE STRUCTURE                          -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
     <div class="phase-num" style="background:#d97706;">2</div>
     <div class="phase-text">
-      <h2>Refactor Your Code &amp; Generate Handoff</h2>
-      <div class="phase-time">Lab Exercise · 12 minutes</div>
+      <h2>Refactor Your File Structure</h2>
+      <div class="phase-time">Lab Step 1 · 7 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Return to your M3 prototype in Lovable and refactor the code into something an engineer can inherit. Then generate a professional engineering handoff document.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Rename your generic <code>Component_1</code> files into descriptive, human-readable names. Use the screen names you just documented in <code>PRD.md</code>.</p>
 
-      <!-- Step 1: Refactor -->
+      <!-- Step 1 -->
       <div class="step">
         <div class="step-marker" style="background:#d97706;">1</div>
         <div class="step-body">
-          <div class="step-title">Copy and Customize the Refactor Prompt</div>
-          <div class="step-time">2 minutes</div>
+          <div class="step-title">Open <code>PRD.md</code> in your GitHub repo</div>
           <div class="step-desc">
-            Return to the Living PRD Extractor and copy the <strong>Refactoring Prompt</strong>. Before pasting it into Lovable, you must customize the <code>[list]</code> variable with your actual screen names.<br><br>
-            <strong>Where to find your list:</strong> Look at the <strong>User Flows &amp; Screen Map</strong> section of the Living PRD you just generated. Replace <code>[list]</code> with the actual names of your screens.
+            Open your <code>04-structure/PRD.md</code> file in GitHub (the one you just pushed in Phase 1). Scroll to the <strong>User Flows &amp; Screen Map</strong> section — copy your list of screen names. You'll paste these into the refactor prompt next.
           </div>
         </div>
       </div>
 
-      <div class="prompt-template">
-        <div class="pt-label label-refactor">Example — Customized [list]</div>
-        <div class="pt-block">
-          Rename components: AccountList, RiskDetail, TeamDashboard, OnboardingFlow, SettingsPanel
-        </div>
-        <div class="pt-block">
-          <em>Use the names from YOUR PRD — not these examples.</em>
-        </div>
-      </div>
-
-      <!-- Step 2: Audit -->
+      <!-- Step 2 -->
       <div class="step">
         <div class="step-marker" style="background:#d97706;">2</div>
         <div class="step-body">
-          <div class="step-title">Run the Refactor and Audit the File Tree</div>
-          <div class="step-time">5 minutes</div>
+          <div class="step-title">Paste the refactor prompt into Lovable</div>
           <div class="step-desc">
-            Paste your customized prompt into the Lovable chat and wait for the AI to finish the refactor. Then verify the results:
+            Replace <code>[list your screen names]</code> with the actual screens from your PRD:
+            <div class="prompt-template">
+              <div class="pt-label">Refactor Prompt</div>
+              "Refactor this codebase. Rename components: <em>[list your screen names from your PRD]</em>. Separate data logic from display components. Group files by feature. Add a <code>README.md</code> explaining the flow and project structure."
+            </div>
+            <div class="tip-box success" style="margin-top:8px;">
+              <div class="tip-icon">&#128161;</div>
+              <div class="tip-text"><strong>Tip:</strong> the more specific your screen names, the better the refactor. <code>TeamValueScreen</code> and <code>InviteFlow</code> are better than <code>Screen 1</code> and <code>Screen 2</code>.</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify in the Code tab:</p>
-
-      <div class="checklist">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div>From the nav bar, click <strong>"Code"</strong> to open the code sidebar</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div>Expand the <strong>src</strong> folder, then the <strong>pages</strong> folder inside it</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>File names match your PRD</strong> — you should see descriptive names, not generic ones</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div>Find <strong>README.md</strong> in the file tree and click to open — it should list your screens and explain the flow</div>
-        </div>
-      </div>
-
-      <div class="code-compare">
-        <div class="code-block code-before">
-          <div class="code-block-label">Before (what you'll see if refactor failed)</div>
-          src/pages/<br>
-          &nbsp;&nbsp;Component_1.tsx<br>
-          &nbsp;&nbsp;Screen_2.tsx<br>
-          &nbsp;&nbsp;Page_3.tsx
-        </div>
-        <div class="code-block code-after">
-          <div class="code-block-label">After (what success looks like)</div>
-          src/pages/<br>
-          &nbsp;&nbsp;OnboardingWelcome.tsx<br>
-          &nbsp;&nbsp;TeamInviteForm.tsx<br>
-          &nbsp;&nbsp;PMDashboard.tsx
-        </div>
-      </div>
-
-      <div class="tip-box warning">
-        <div class="tip-icon">&#128260;</div>
-        <div class="tip-text"><strong>If you still see generic names</strong> like Component_1.tsx or Screen_2.tsx, the refactor failed. Re-prompt: <strong>"Rename the files in the src/pages directory to match the names in my PRD."</strong></div>
-      </div>
-
-      <!-- Step 3: Handoff -->
+      <!-- Step 3 -->
       <div class="step">
         <div class="step-marker" style="background:#d97706;">3</div>
         <div class="step-body">
-          <div class="step-title">Generate the Engineering Handoff</div>
-          <div class="step-time">5 minutes</div>
+          <div class="step-title">Verify the refactor</div>
           <div class="step-desc">
-            Return to the Living PRD Extractor and copy the <strong>Engineering Handoff Prompt</strong>. Paste it into Lovable.<br><br>
-            <strong>You do not need to edit this prompt.</strong> Since you just finished the refactor, the AI already knows your new component names and file structure.
+            Switch to the <strong>Code</strong> tab in Lovable. Open <code>src/pages</code>. Confirm:
+            <div class="checklist">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>File names are <strong>descriptive</strong> (no more <code>Component_1.tsx</code>)</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>A <code>README.md</code> appears in your file tree</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Click into the README — it lists your screens and explains the flow</div></div>
+            </div>
+            <em>If you still see generic names</em>, re-prompt: <em>"Rename the files in the <code>src/pages</code> directory to match the names in my PRD."</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 3: GENERATE THE ENGINEERING HANDOFF                      -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#7c3aed;">3</div>
+    <div class="phase-text">
+      <h2>Generate the Engineering Handoff</h2>
+      <div class="phase-time">Lab Step 2 · 7 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Force the AI to summarise the work it just did into a technical manual an engineer can inherit cold.</p>
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">Paste the handoff prompt into Lovable</div>
+          <div class="step-desc">
+            <div class="prompt-template">
+              <div class="pt-label">Engineering Handoff Prompt</div>
+              "Generate an engineering handoff for this prototype. <em>List every component and its purpose. Describe the data model. Note what is mocked versus real. Write a Start Here guide explaining how the project is structured and where an engineer should begin.</em>"
+            </div>
           </div>
         </div>
       </div>
 
-      <p style="font-size:14px; color:#555; margin:8px 0;">Once the AI generates your "Start Here" guide, read it. It should clearly explain which files handle data and which ones handle UI. <strong>Copy the full output and paste it into the designated box in the Extractor tool.</strong></p>
-
-      <div class="checklist">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Handoff generated</strong> — component map, data model, start-here guide</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Pasted back into Extractor tool</strong></div>
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Review the output</div>
+          <div class="step-desc">
+            Read through the generated handoff. It should clearly explain:
+            <div class="checklist">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Which files handle the <strong>data</strong> and which handle the <strong>UI</strong></div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>What's mocked vs. real (matches your PRD)</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>A clear <strong>Start Here</strong> guide for a new engineer</div></div>
+            </div>
+            Make any tweaks if necessary. If the handoff misses a major component, prompt: <em>"Update the handoff to include [X component]."</em>
+          </div>
         </div>
       </div>
 
-      <div class="notes-area">
-        <div class="na-title">Refactor — Notes</div>
-        <div class="na-hint">Document the specific changes your refactor prompt produced. If something didn't work, document what you changed to get the results you wanted.</div>
-        <textarea placeholder="Write your notes here..."></textarea>
-      </div>
-
-      <div class="notes-area">
-        <div class="na-title">"Start Here" Handoff Document — Backup Copy</div>
-        <div class="na-hint">Paste your engineering handoff here for safekeeping. You'll need it for the next lab.</div>
-        <textarea placeholder="Paste your handoff document here..." style="min-height:100px;"></textarea>
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">3</div>
+        <div class="step-body">
+          <div class="step-title">Save <code>HANDOFF.md</code> to GitHub</div>
+          <div class="step-desc">
+            Prompt Lovable:
+            <div class="prompt-template">
+              <div class="pt-label">Save Prompt</div>
+              "Save this as <code>HANDOFF.md</code> and push it to my connected GitHub repository."
+            </div>
+            Open GitHub and confirm <code>HANDOFF.md</code> appears in your file tree. <strong>This is the artifact you'll swap with your peer in Phase 6 — it must be on GitHub before that.</strong>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 3: CONNECT INFRASTRUCTURE                                -->
+  <!--  PHASE 4: CONNECT INFRASTRUCTURE (SUPABASE / LOVABLE CLOUD)     -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
-    <div class="phase-num" style="background:#059669;">3</div>
+    <div class="phase-num" style="background:#059669;">4</div>
     <div class="phase-text">
       <h2>Connect Your Infrastructure</h2>
-      <div class="phase-time">Lab Exercise · 10 minutes</div>
+      <div class="phase-time">Lab Step 3 · 7 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:6px;">Move your project from a temporary session to permanent version control and a real database. This infrastructure is a <strong>mandatory prerequisite for Module 5</strong>, where you'll build real authentication and data relationships.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Transition your data from mocked variables to a <strong>real, persistent database</strong>. This is what lets your app remember things across sessions.</p>
 
-      <div class="callout" style="margin-top:16px;">
-        <p>Two clicks. Your code gets a <em>real GitHub repository</em> and a <em>real database</em>.<br>This is the moment your prototype stops being a demo.</p>
-      </div>
-
-      <!-- GitHub Section -->
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:20px 0 12px;">Part A — Version Control with GitHub</p>
-
+      <!-- Step 1 -->
       <div class="infra-step">
         <div class="infra-num" style="background:#059669;">1</div>
         <div class="infra-body">
-          <div class="infra-title">Open the GitHub Connection</div>
-          <div class="infra-desc">From the navigation bar of your Lovable project, click the <strong>GitHub icon</strong> in the top-right corner.</div>
+          <div class="infra-title">Prompt Lovable to set up the backend</div>
+          <div class="infra-desc">
+            <div class="prompt-template">
+              <div class="pt-label">Backend Setup Prompt</div>
+              "Set up a Supabase backend for this project. Create the database tables needed to support the core data in my prototype."
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- Step 2 -->
       <div class="infra-step">
         <div class="infra-num" style="background:#059669;">2</div>
         <div class="infra-body">
-          <div class="infra-title">Connect to GitHub</div>
-          <div class="infra-desc">Click <strong>"Connect to GitHub"</strong> and follow the authorization steps. You'll be prompted to authorize lovable.dev access to your GitHub account. Grant the access.</div>
+          <div class="infra-title">Click "Allow" to enable the backend</div>
+          <div class="infra-desc">Lovable will prompt you to enable the backend connection. <strong>Click Allow</strong> and follow any remaining prompts to authorise the Supabase connection.</div>
         </div>
       </div>
 
+      <!-- Step 3 -->
       <div class="infra-step">
         <div class="infra-num" style="background:#059669;">3</div>
         <div class="infra-body">
-          <div class="infra-title">Confirm the Transfer</div>
-          <div class="infra-desc">You may see a confirmation message about transferring your project to set up <strong>2-way sync</strong>. This is expected — it means your code is being upgraded from a temporary Lovable file to a permanent GitHub repository.</div>
+          <div class="infra-title">Verify the backend is live</div>
+          <div class="infra-desc">
+            Open the backend dashboard (check <strong>Settings</strong> in Lovable). You should see:
+            <div class="checklist">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>A <strong>live PostgreSQL database</strong> provisioned for your project</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Authentication ready</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Storage provisioned</div></div>
+            </div>
+            This is the infrastructure you'll build on in Module 5.
+          </div>
         </div>
       </div>
 
-      <div class="tip-box danger">
-        <div class="tip-icon">&#128165;</div>
-        <div class="tip-text"><strong>Don't Panic:</strong> If you see a warning about "moving the only instance" — that's exactly what we want. You're upgrading your project to real version control. Confirm the transfer.</div>
-      </div>
-
-      <div class="infra-step">
-        <div class="infra-num" style="background:#059669;">4</div>
-        <div class="infra-body">
-          <div class="infra-title">Verify in GitHub</div>
-          <div class="infra-desc">Open your GitHub repo URL in a new browser tab. <strong>Browse the code.</strong> Find your refactored component names. See the README. This is what an engineer sees when they clone your project.</div>
-        </div>
-      </div>
-
-      <div class="checklist">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>GitHub connected</strong> — your code is in a real repository</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Repo verified</strong> — you can see your refactored files and README in GitHub</div>
-        </div>
-      </div>
-
-      <!-- Backend Section -->
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:24px 0 12px;">Part B — Connect Your Database Backend</p>
-
-      <p style="font-size:14px; color:#555; margin-bottom:14px;">Transition your data from mocked variables to a real, live database. This allows your app to save information across sessions.</p>
-
-      <div class="infra-step">
-        <div class="infra-num" style="background:#059669;">1</div>
-        <div class="infra-body">
-          <div class="infra-title">Trigger the Backend Connection</div>
-          <div class="infra-desc">In Lovable, prompt the AI with a feature that requires a database. For example: <strong>"Save user onboarding progress to the database so returning users resume where they left off."</strong> Lovable will prompt you to enable the backend — click <strong>Allow</strong>.</div>
-        </div>
-      </div>
-
-      <div class="infra-step">
-        <div class="infra-num" style="background:#059669;">2</div>
-        <div class="infra-body">
-          <div class="infra-title">Verify the Backend</div>
-          <div class="infra-desc">Open the backend dashboard (check <strong>Settings</strong> in Lovable). You should see a live database, authentication, and storage provisioned for your project. This is the infrastructure you'll build on in Module 5.</div>
-        </div>
-      </div>
-
-      <div class="tip-box info">
+      <div class="tip-box" style="margin-top:14px;">
         <div class="tip-icon">&#128161;</div>
-        <div class="tip-text"><strong>Depending on your Lovable setup</strong>, the backend may be Lovable Cloud (built-in) or a Supabase connection. Either way, you'll end up with a real PostgreSQL database. If your instructor directs you to connect a separate Supabase account, follow those instructions instead.</div>
-      </div>
-
-      <div class="checklist">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Backend connected</strong> — your prototype has a real database</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Dashboard verified</strong> — you can see the database in the settings/dashboard</div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <p>Your prototype just made the transition.<br>It has a <em>spec</em>, <em>clean code in GitHub</em>, and a <em>real database</em>.<br><strong>This isn't a demo anymore.</strong></p>
+        <div class="tip-text"><strong>Note on Lovable Cloud vs. Supabase:</strong> depending on your Lovable setup, the backend may be <strong>Lovable Cloud</strong> (built-in) or a <strong>separate Supabase connection</strong>. Either way you end up with a real PostgreSQL database. If your instructor directs you to connect a separate Supabase account, follow those instructions instead.</div>
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  PHASE 4: THE INHERITANCE TEST                                 -->
+  <!--  PHASE 5: PUSH EVERYTHING TO GITHUB                             -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
-    <div class="phase-num" style="background:#7c3aed;">4</div>
+    <div class="phase-num" style="background:#d97706;">5</div>
     <div class="phase-text">
-      <h2>The Inheritance Test</h2>
-      <div class="phase-time">Breakout Groups of 2 · 15 minutes</div>
+      <h2>Push Everything to GitHub</h2>
+      <div class="phase-time">Lab close · 4 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:12px;">This is the most honest handoff test in the course. Instead of reading your partner's documentation yourself, you're going to <strong>clone their repo into your AI tool and let the agent explain the product</strong>. That's how PMs at Indeed, Linear, Vercel, and other AI-fluent teams actually collaborate today: the repo is the spec, the agent is the reading interface. No Confluence. No 30-page doc nobody opens.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Final commit. Make sure every artifact from today's lab is in your repo before you swap with a peer.</p>
 
-      <div class="callout" style="margin-top:0;">
-        <p>Swap <em>ONLY</em> your GitHub repo URL.<br><strong>No verbal walkthrough. No screen share of Lovable.</strong> Just the link.</p>
-      </div>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">1</div>
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">1</div>
         <div class="step-body">
-          <div class="step-title">Swap repo URLs in the chat</div>
-          <div class="step-time">1 minute</div>
-          <div class="step-desc">Post your GitHub URL. Grab your partner's. <strong>Do not explain anything.</strong> If your partner asks "what does this do?" — point them at the repo.</div>
-        </div>
-      </div>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">2</div>
-        <div class="step-body">
-          <div class="step-title">Clone your partner's repo into your AI tool of choice</div>
-          <div class="step-time">2 minutes</div>
-          <div class="step-desc">Use whichever AI tool you already have — <strong>Cursor</strong>, <strong>Claude Code</strong>, <strong>Lovable's import-from-GitHub</strong>, or <strong>ChatGPT with the repo files attached</strong>. The tool doesn't matter. What matters is that an <em>agent</em> reads the repo, not you.</div>
-        </div>
-      </div>
-
-      <div class="tip-box info">
-        <div class="tip-icon">&#128161;</div>
-        <div class="tip-text"><strong>Don't have Cursor or Claude installed?</strong> Open ChatGPT, attach the README + PRD + handoff markdown files from the repo, and treat that as your agent. Same exercise, lower friction.</div>
-      </div>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">3</div>
-        <div class="step-body">
-          <div class="step-title">Ask the agent these 5 questions</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Paste all 5 at once. Let the agent answer from the repo alone. <strong>Copy the agent's answers below.</strong></div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <div class="review-q">
-          <div class="review-num" style="background:#7c3aed;">1</div>
-          <div class="review-text">What does this product do, and <strong>who is it for</strong>?</div>
-        </div>
-        <div class="review-q">
-          <div class="review-num" style="background:#7c3aed;">2</div>
-          <div class="review-text">What <strong>hypothesis</strong> is it testing?</div>
-        </div>
-        <div class="review-q">
-          <div class="review-num" style="background:#7c3aed;">3</div>
-          <div class="review-text">What's <strong>real</strong> vs. what's <strong>mocked</strong>?</div>
-        </div>
-        <div class="review-q">
-          <div class="review-num" style="background:#7c3aed;">4</div>
-          <div class="review-text">What are the <strong>3 biggest technical decisions</strong> an engineer needs to make next?</div>
-        </div>
-        <div class="review-q">
-          <div class="review-num" style="background:#7c3aed;">5</div>
-          <div class="review-text">If you had to ship a fix on Friday, <strong>which file would you open first</strong>?</div>
+          <div class="step-title">Final push prompt</div>
+          <div class="step-desc">
+            <div class="prompt-template">
+              <div class="pt-label">Final Push</div>
+              "Push all current project files to my connected GitHub repository."
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="step">
-        <div class="step-marker" style="background:#7c3aed;">4</div>
+        <div class="step-marker" style="background:#d97706;">2</div>
         <div class="step-body">
-          <div class="step-title">Compare the agent's answers to your partner's actual intent</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Walk through the agent's answers together. Where did it <strong>get it right</strong>? Where did it <strong>guess, hallucinate, or miss the point</strong>? Every gap is a gap in your partner's repo — not the agent's failure. <strong>Swap roles and run it again.</strong></div>
+          <div class="step-title">Verify in GitHub</div>
+          <div class="step-desc">
+            Open your GitHub repo. Confirm:
+            <div class="checklist">
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>04-structure/PRD.md</code> &mdash; Living PRD with all 8 blocks</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>HANDOFF.md</code> &mdash; Engineering handoff doc</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Refactored files in <code>src/pages</code> &mdash; descriptive names, no <code>Component_1</code></div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>README.md</code> &mdash; project overview and flow</div></div>
+              <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Backend connection live (Supabase / Lovable Cloud)</div></div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="tip-box warning">
-        <div class="tip-icon">&#128269;</div>
-        <div class="tip-text"><strong>Watch for the silent gaps.</strong> Agents don't politely paper over confusion the way a human reader does. If the agent says "this appears to be a dashboard for X" when your partner meant Y — that's the kind of ambiguity an engineer would silently misinterpret and ship the wrong thing. <strong>Fix those gaps before Module 5.</strong></div>
-      </div>
-
-      <div class="notes-area">
-        <div class="na-title">Inheritance Test — Agent Answers vs. Reality</div>
-        <div class="na-hint">For each question: what did the agent say, and what did your partner actually mean? Where the two diverge = revision priorities for your repo.</div>
-        <textarea placeholder="Q1 — Agent said: ___ / Partner meant: ___&#10;Q2 — Agent said: ___ / Partner meant: ___&#10;Q3 — Agent said: ___ / Partner meant: ___&#10;Q4 — Agent said: ___ / Partner meant: ___&#10;Q5 — Agent said: ___ / Partner meant: ___" style="min-height:180px;"></textarea>
-      </div>
-
-      <div class="post-template">
-        <div class="pt-title">Slack debrief — post one sentence</div>
-        The biggest gap my partner's agent surfaced about my repo was <em>___</em>.
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 6: SHOW AND SWAP — Peer Review                           -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase">
+    <div class="phase-num" style="background:#e11d48;">6</div>
+    <div class="phase-text">
+      <h2>Show and Swap Your Spec Handoff</h2>
+      <div class="phase-time">Breakout Pairs · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Pair up. Read your partner's <code>PRD.md</code> and <code>HANDOFF.md</code> in <strong>total silence</strong> for 3 minutes — no verbal context. If they get confused, that's the data. Then ask the three questions.</p>
+
+      <!-- How to share -->
+      <div class="step">
+        <div class="step-marker" style="background:#e11d48;">A</div>
+        <div class="step-body">
+          <div class="step-title">Choose how to share your repo</div>
+          <div class="step-desc">
+            Before you begin, choose one option to share your files with your partner:
+            <ol style="margin-left:20px; margin-top:8px; line-height:1.8; font-size:14px; color:#555;">
+              <li><strong>Screenshare</strong> — the simplest option. Navigate to <code>PRD.md</code> and <code>HANDOFF.md</code> in GitHub so your partner can read along in real time.</li>
+              <li><strong>Add as a collaborator</strong> — Settings &rarr; Collaborators &rarr; add their GitHub username. <em>Recommended — mirrors how real engineering teams share code.</em></li>
+              <li><strong>Make repo public</strong> — Settings &rarr; Danger Zone &rarr; "Change visibility." Anyone with your link can view it.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Read in silence -->
+      <div class="step">
+        <div class="step-marker" style="background:#e11d48;">B</div>
+        <div class="step-body">
+          <div class="step-title">Silent reading: 3 minutes per side</div>
+          <div class="step-desc">
+            Spend 3 minutes reading your partner's <code>PRD.md</code> and <code>HANDOFF.md</code> in <strong>total silence</strong>. Do not explain your logic. Do not justify if you see them pausing. <em>If they're confused by a step, let them stay confused — that is your data.</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three questions -->
+      <div class="step">
+        <div class="step-marker" style="background:#e11d48;">C</div>
+        <div class="step-body">
+          <div class="step-title">Ask the three questions &mdash; take notes</div>
+          <div class="step-desc">After silent reading, the reader answers; the writer takes notes. Then swap.</div>
+
+          <div style="margin-top:14px;">
+            <div class="review-q">
+              <div class="review-num" style="background:#e11d48;">1</div>
+              <div class="review-text"><strong>Product Value:</strong> Can you identify the What / Who / Hypothesis in under 60 seconds? <em>(Based strictly on the Product Overview, do you know exactly what the app does and the specific problem it's testing?)</em></div>
+            </div>
+            <div class="review-q">
+              <div class="review-num" style="background:#e11d48;">2</div>
+              <div class="review-text"><strong>Technical Reality:</strong> Is Real vs. Mocked clear enough that you aren't guessing what works? <em>(If you clicked a button, would the documentation accurately predict if it actually saves data or just shows a fake success message?)</em></div>
+            </div>
+            <div class="review-q">
+              <div class="review-num" style="background:#e11d48;">3</div>
+              <div class="review-text"><strong>Engineering Handoff:</strong> Does it tell you exactly which file or feature to open and build first? <em>(Is there a clear, plain-English "Start Here" instruction pointing to a specific screen or file?)</em></div>
+            </div>
+          </div>
+
+          <div class="tip-box" style="margin-top:14px;">
+            <div class="tip-icon">&#128221;</div>
+            <div class="tip-text"><strong>Capture the feedback in GitHub.</strong> Create <code>04-structure/swap-notes.md</code> and paste your partner's three answers + any pain points. This becomes input for tightening your PRD before M5.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  THE FOUR-TAB REVEAL                                            -->
+  <!--  ACCOUNTABILITY                                                 -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="phase">
     <div class="phase-num" style="background:#059669;">!</div>
     <div class="phase-text">
-      <h2>The Reveal: M1 &rarr; M4</h2>
-      <div class="phase-time">Open all four prototypes side by side</div>
+      <h2>Lock In Your Module 4 Artifacts</h2>
+      <div class="phase-time">Final commits · 3 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:16px;">Open four browser tabs. Same tool. Same you. Four modules of progression.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:8px;">Three artifacts must live in your GitHub repo by end of class. <em>If they're in your repo, you have a portfolio piece. If they're not, they don't exist.</em></p>
 
-      <div class="reveal-grid">
-        <div class="reveal-card">
-          <div class="reveal-label">Module 1</div>
-          <div class="reveal-title">Speed</div>
-          <div class="reveal-desc">One prompt, one page. No data. A demo.</div>
-        </div>
-        <div class="reveal-card">
-          <div class="reveal-label">Module 2</div>
-          <div class="reveal-title">Aim</div>
-          <div class="reveal-desc">Real data, hypothesis, design-matched.</div>
-        </div>
-        <div class="reveal-card">
-          <div class="reveal-label">Module 3</div>
-          <div class="reveal-title">Precision</div>
-          <div class="reveal-desc">5+ screens, states, documented chain.</div>
-        </div>
-        <div class="reveal-card active">
-          <div class="reveal-label">Module 4</div>
-          <div class="reveal-title">Structure</div>
-          <div class="reveal-desc">Living PRD, GitHub, database, handoff.</div>
-        </div>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>04-structure/PRD.md</code> &mdash; <strong>Living PRD</strong>, 8 blocks filled with truth (including mocked elements)</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>HANDOFF.md</code> &mdash; <strong>Engineering Handoff</strong>, component list, data model, Start Here guide</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Refactored <code>src/pages</code> + <code>README.md</code> &mdash; <strong>readable architecture</strong></div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div>Backend connected (Supabase / Lovable Cloud) &mdash; verified in Settings</div></div>
+        <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><div><code>04-structure/swap-notes.md</code> &mdash; partner feedback from Show and Swap</div></div>
       </div>
 
-      <div class="callout">
-        <p>That's not a prototype anymore.<br>That's a <em>product brief with real infrastructure</em><br>an engineering team can sprint on.</p>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!--  POST + ACCOUNTABILITY                                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="card" style="margin-top:32px;">
-    <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Accountability — Before We Wrap</p>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#059669;">1</div>
-        <div class="step-body">
-          <div class="step-title">Post in #builds</div>
-          <div class="step-desc">Your prototype link + GitHub repo link + Living PRD.</div>
-        </div>
-      </div>
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#059669;">2</div>
-        <div class="step-body">
-          <div class="step-title">Caption: What did the AI get right?</div>
-          <div class="step-desc">What did the AI get right about your product that you hadn't written down?</div>
-        </div>
-      </div>
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#059669;">3</div>
-        <div class="step-body">
-          <div class="step-title">Engage with 2 others</div>
-          <div class="step-desc">Read 2 other PRDs. Could you understand the product without seeing the prototype?</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-marker" style="background:#059669;">4</div>
-        <div class="step-body">
-          <div class="step-title">Optional challenge</div>
-          <div class="step-desc">Share your GitHub repo with an actual engineer. What questions do they have?</div>
-        </div>
-      </div>
-
-      <div class="post-template">
-        <div class="pt-title">Post in Slack</div>
-        [Lovable link] + [GitHub repo link]<br>
-        "What the AI nailed about my product: ___. What it missed: ___."
+      <div class="callout" style="margin-top:18px;">
+        <p>Module 5 pulls from <strong>your GitHub repo</strong> — not from any tool's browser cache. If <em>PRD.md</em> isn't pushed, M5 starts without a spec to integrate.</p>
       </div>
     </div>
   </div>
@@ -851,26 +731,31 @@
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
     <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — Source of truth + M4 Tools</p>
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links &mdash; Source of truth + M4 aids</p>
+
       <div style="padding:12px 14px; background:#ecfdf5; border:1.5px solid #34d399; border-radius:8px; margin-bottom:14px;">
-        <div style="font-size:14px; font-weight:800; color:#065f46; margin-bottom:4px;">📂 Your GitHub repo — the source of truth</div>
-        <div style="font-size:12.5px; color:#047857; line-height:1.55;">M3 inputs you'll reference today: <code>03-prompt-chaining/prompts.md</code>, <code>chain-audit.md</code>, <code>prototype-v4.md</code>. Today's outputs: <code>04-structure/PRD.md</code>, <code>ARCHITECTURE.md</code>, <code>refactor-prompts.md</code>. Paste from these files into the Living PRD Extractor — don't rely on browser cache.</div>
+        <div style="font-size:14px; font-weight:800; color:#065f46; margin-bottom:4px;">&#128193; Your GitHub repo &mdash; the source of truth</div>
+        <div style="font-size:12.5px; color:#047857; line-height:1.55;">
+          <strong>M3 input you reference today:</strong> <code>03-prompt-chaining/prompts.md</code> in your repo &mdash; useful when extracting the PRD if Lovable asks about your prompt history.<br>
+          <strong>Today's outputs (push to GitHub):</strong> <code>04-structure/PRD.md</code>, <code>HANDOFF.md</code>, refactored <code>src/pages</code>, <code>README.md</code>, <code>04-structure/swap-notes.md</code>.<br>
+          <strong>Rule:</strong> if it's not on GitHub, M5 can't see it.
+        </div>
       </div>
+
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <a class="tool-link" href="M4 - Living PRD Extractor.html" target="_blank"><span class="tool-icon">&#128279;</span> Living PRD Extractor — Phases 1 &amp; 2 <em style="color:#94a3b8;font-style:normal;">(browser-only — paste from GitHub, export back to GitHub)</em></a>
-        <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank"><span class="tool-icon">&#128220;</span> Living Prompt Pack Builder — Add your structure prompts <em style="color:#94a3b8;font-style:normal;">(export and commit each session)</em></a>
-      </div>
-      <div class="tip-box" style="margin-top:12px;">
-        <div class="tip-icon">&#128218;</div>
-        <div class="tip-text"><strong>Your Living Prompt Pack grows today.</strong> Add your structure prompts (extract, refactor, handoff) to the pack you started in M3. Always export the pack as <code>PROMPTS.md</code> and commit it — that's how your playbook survives across sessions.</div>
+        <a class="tool-link" href="../Templates/Living-PRD-Sample-SnapWishlist.md" target="_blank"><span class="tool-icon">&#128218;</span> Living PRD Sample &mdash; SnapWishlist (all 8 blocks)</a>
+        <a class="tool-link" href="Module 4 - Frameworks Reference Card.html" target="_blank"><span class="tool-icon">&#128221;</span> M4 Frameworks Reference Card &mdash; Production Threshold &middot; 8 Blocks &middot; 3 Pillars</a>
+        <a class="tool-link" href="M4 - Living PRD Extractor.html" target="_blank"><span class="tool-icon">&#128279;</span> Living PRD Extractor <em style="color:#94a3b8;font-style:normal;">(optional aid &mdash; browser-only; always export back to GitHub)</em></a>
+        <a class="tool-link" href="https://lovable.dev/" target="_blank"><span class="tool-icon">&#128640;</span> Open Lovable</a>
+        <a class="tool-link" href="https://github.com/" target="_blank"><span class="tool-icon">&#128194;</span> Open GitHub</a>
       </div>
     </div>
   </div>
 
   <div class="footer-note">
     <strong>Module 4: From Vibe to Structure</strong><br>
-    Your prototype made the transition. It's no longer just yours — it can survive without you.<br><br>
-    <strong>Next up — Module 5: Make It Real.</strong> Real database schemas, authentication, API integrations, and edge case handling.<br>Your infrastructure is connected. Now you build on top of it.
+    Your prototype just stopped being yours. It's the team's. Documented, refactored, version-controlled, and backed by a real database.<br><br>
+    <strong>Next up &mdash; Module 5: Ship Live Products with Full-Stack Logic.</strong> Real database schemas, authentication, API integrations, edge case handling. <em>Your infrastructure is connected. Now you build on top of it.</em>
   </div>
 
 </div>

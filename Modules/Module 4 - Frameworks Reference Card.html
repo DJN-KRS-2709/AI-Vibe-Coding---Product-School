@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M4 Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 4 - Slides.html">← Module 4 · Transition From Prototypes to Production Specs</a></div>
+
+  <div class="header">
+    <div class="badge">Module 4 — Reference Card</div>
+    <h1>M4 Frameworks Reference Card</h1>
+    <p>The Production Threshold, the Vibe Loop, the Eight Building Blocks of a Living PRD, the Three Pillars of an Engineering-Ready System, and the Four-Prompt Refactor Chain — one page, in the order you use them.</p>
+  </div>
+
+  <div class="content">
+<blockquote>
+<p>Every framework from Module 4 in the order you use them. Keep this open while you refactor, extract, and hand off.</p>
+</blockquote>
+<hr />
+<h2>1. The Production Threshold</h2>
+<p>Not every prototype should move into production. <strong>Threshold judgement</strong> is the most important PM skill in Vibe Coding — move too early and you harden a build that still needs to change; move too late and the AI's complexity outpaces your ability to manage it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>✅ Move to Production Spec when</th>
+<th>🚫 Stay in Prototyping mode when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your "kill switch" hypothesis is proven with functional evidence.</td>
+<td>Your core value proposition or user flow is still changing.</td>
+</tr>
+<tr>
+<td>Stakeholders have approved the direction for a real build.</td>
+<td>You haven't gathered feedback outside your immediate team.</td>
+</tr>
+<tr>
+<td>You can explain the logic <strong>without needing a demo</strong>.</td>
+<td>You can't yet define the business rules the AI is executing.</td>
+</tr>
+<tr>
+<td>Your goal has shifted from discovery to durability.</td>
+<td>Speed of iteration is still more valuable than system stability.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Gut check:</strong> Could you explain what your prototype does, how the data flows, and what it's testing — <em>without opening Lovable</em>? If yes, you're ready. If you need the demo to explain your own product, keep iterating.</p>
+<hr />
+<h2>2. The Vibe Loop — The New Operating Model</h2>
+<p>The shift from traditional PM workflow to Vibe Coding isn't just about speed — it's about what you trade.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Old Way · Dependency Loop</th>
+<th>New Way · Vibe Loop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Research → Write Spec → Wait for Eng/Design → Review Build → Feedback → Wait for Update</td>
+<td>Idea → Build Prototype → Test &amp; Iterate → Extract Spec → Connect Infra → Live</td>
+</tr>
+<tr>
+<td>Spec is your <strong>starting point</strong> (your best guess at requirements).</td>
+<td>Prototype is the <strong>source of truth</strong> (what's already been validated).</td>
+</tr>
+<tr>
+<td>You are a <strong>requestor</strong>, dependent on others' time.</td>
+<td>You are an <strong>author</strong>, handing engineers proven logic.</td>
+</tr>
+<tr>
+<td>Trade documents-as-guesses for documents-as-guesses.</td>
+<td>Trade live links + extracted specs for live links + extracted specs.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> Your spec is no longer the input. It's the <strong>output</strong> of a functional build.</p>
+<hr />
+<h2>3. The Eight Building Blocks of a Living PRD</h2>
+<p>The eight specific blocks that turn a black box of AI code into a professional-grade specification.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Block</th>
+<th>What it captures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>🔎 Product Overview</strong></td>
+<td>High-level summary of the validated system — what it does and who it's for.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>🎯 Problem &amp; Hypothesis</strong></td>
+<td>Clear definition of user friction and the evidence-backed intervention being tested.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>🗺️ User Flow &amp; Screen Map</strong></td>
+<td>Visual and descriptive map of navigation paths, screen states, and interactive logic.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>📈 Success Metrics</strong></td>
+<td>North Star metric and leading indicators used to measure production performance.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>🛠️ Technical Reality</strong></td>
+<td>Truth vs. Mock report — functional logic vs. mocked elements and current infra connections.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>⚠️ Assumptions &amp; Risks</strong></td>
+<td>Current confidence levels, kill switch triggers, and potential technical failure points.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>🧱 In vs. Out Scope</strong></td>
+<td>Definitive list of included features, excluded items, and proposed roadmap for future phases.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>📋 Engineering Recommendation</strong></td>
+<td>Strategic guide on build order, technical effort estimates, and open architectural questions.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> Document the truth — <em>including what's mocked</em>. You're not losing points for missing features. You're gaining points for documenting reality.</p>
+<hr />
+<h2>4. From Prompt Pack to Product Spec — Three Pillars of Extraction</h2>
+<p>You've already done most of the work. A traditional PRD is a <em>wish list written before a build</em>. A Living PRD is a <em>reality report extracted from a build</em>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Pillar</th>
+<th>Why this becomes a PRD section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M2</strong></td>
+<td>The Intent — Hypothesis &amp; Data Packs</td>
+<td>You injected strategic intent from day one — the AI reads the hypothesis you embedded, not a guessed one.</td>
+</tr>
+<tr>
+<td><strong>M3</strong></td>
+<td>The Architecture — Prompt Chaining</td>
+<td>Your Expansion + Behavior chains hard-coded <strong>states, logic, and if/then rules</strong>. The AI translates those back into a User Flow + Screen Map.</td>
+</tr>
+<tr>
+<td><strong>M4</strong></td>
+<td>The Reality — Baseline Code</td>
+<td>Your functional prototype is a <strong>measurable asset</strong>. The AI audits actual files to define exactly what's functional vs. mocked.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>5. The Three Pillars of an Engineering-Ready System</h2>
+<p>Non-negotiable standards for moving any prototype into a production environment. You don't need to be an engineer — you need the AI to set up the infrastructure.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Pillar</th>
+<th>Role</th>
+<th>What "done" looks like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>📂 GitHub Connection</strong> (Front Door)</td>
+<td>Version-controlled repo with permanent history, safe rollbacks, secure front door for collaboration.</td>
+<td>Engineer can <code>git clone</code> your repo on day one and see commit history.</td>
+</tr>
+<tr>
+<td><strong>🧱 Code Refactoring</strong> (Cleanup)</td>
+<td>Structurally organised codebase, professional naming, data separated from display, generated README.</td>
+<td>Engineer can orient within <strong>5 minutes</strong> of reading the README.</td>
+</tr>
+<tr>
+<td><strong>🗄️ Supabase Connection</strong> (Memory)</td>
+<td>Persistent PostgreSQL database + Auth layer, managed through a visual table editor.</td>
+<td>Real tables visible in dashboard; product remembers things across sessions.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> You direct, the AI executes and connects.</p>
+<hr />
+<h2>6. The Four-Prompt Refactor Chain — In Order</h2>
+<p>Each prompt is small. The order matters. Each subsequent prompt depends on the artifact the previous one produced.</p>
+<h3>1 · Extract the Living PRD</h3>
+<pre><code>Extract a PRD from this prototype covering:
+- what it does, who it's for, the problem it solves,
+- all screens and their purpose,
+- the user flow, the hypothesis, key metrics,
+- and what is mocked versus real.
+</code></pre>
+<blockquote>
+<p>If Lovable seems confused: <em>"Audit the existing files and our previous conversation to find these details."</em>
+Save as <code>04-structure/PRD.md</code> — push to GitHub.</p>
+</blockquote>
+<h3>2 · Refactor the Code</h3>
+<pre><code>Refactor this codebase. Rename components: [list your screen names from PRD].
+Separate data logic from display components. Group files by feature.
+Add a README explaining the flow and project structure.
+</code></pre>
+<blockquote>
+<p>Copy the screen names from your PRD's User Flow section.
+Verify: open <code>src/pages</code> — file names are descriptive; <code>README.md</code> exists.</p>
+</blockquote>
+<h3>3 · Generate the Engineering Handoff</h3>
+<pre><code>Generate an engineering handoff for this prototype.
+List every component and its purpose. Describe the data model.
+Note what is mocked versus real.
+Write a Start Here guide explaining how the project is structured
+and where an engineer should begin.
+</code></pre>
+<blockquote>
+<p>Save as <code>HANDOFF.md</code> — push to GitHub.</p>
+</blockquote>
+<h3>4 · Connect the Backend</h3>
+<pre><code>Set up a Supabase backend for this project.
+Create the database tables needed to support the core data in my prototype.
+</code></pre>
+<blockquote>
+<p>Lovable will prompt to enable — click <strong>Allow</strong>. Verify in Settings: database + auth + storage live.
+<em>Lovable Cloud vs. Supabase nuance:</em> either way you end up with a real PostgreSQL database.</p>
+</blockquote>
+<hr />
+<h2>7. The Show-and-Swap Test — Peer Cold-Read</h2>
+<p>Hand your <code>PRD.md</code> + <code>HANDOFF.md</code> to a partner. <strong>3 minutes of silent reading. No verbal context.</strong> Confusion is data.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>What "pass" looks like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Product Value:</strong> Can you identify the What / Who / Hypothesis in under 60 seconds?</td>
+<td>Reader names all three from the Product Overview alone.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Technical Reality:</strong> Is Real vs. Mocked clear enough that you aren't guessing what works?</td>
+<td>Reader can predict whether clicking a button saves data or shows a fake success.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Engineering Handoff:</strong> Does it tell you exactly which file or feature to open and build first?</td>
+<td>Reader points to a specific screen/file as the starting point — without ambiguity.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> If your partner can't follow your handoff in silence, your docs aren't engineer-ready. Capture the feedback in <code>04-structure/swap-notes.md</code> — input for tightening before M5.</p>
+<hr />
+<h2>8. Voice Calibration — From Vibe to Spec</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You were saying</th>
+<th>You should now write</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"This is what my prototype does."</td>
+<td><em>"Product Overview: [System function]. Target persona: [The Visual Planner — Gen-Z traveler who plans by aesthetic, not price]."</em></td>
+</tr>
+<tr>
+<td>"Some of it isn't really connected yet."</td>
+<td><em>"Technical Reality. </em><em>Functional:</em><em> image upload, multimodal AI call, location tag extraction. </em><em>Mocked:</em><em> listing DB is a JSON file (not live Airbnb data); Visual Similarity Score is hardcoded."</em></td>
+</tr>
+<tr>
+<td>"Here's what I think we should build next."</td>
+<td><em>"Engineering Recommendation. Suggested build order: 1) Harden photo upload + AI call pipeline. 2) Replace mocked JSON with live listing API. Effort: medium 2–3 days / high 1–2 weeks."</em></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>9. The Identity Move</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You were</th>
+<th>You are</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A prototype-builder with a black box of code only you understood</td>
+<td>A system designer with a documented, refactored, version-controlled product</td>
+</tr>
+<tr>
+<td>Trapped between "demo it" and "explain it"</td>
+<td>Equipped to hand over a system an engineer can inherit cold</td>
+</tr>
+<tr>
+<td>Iterating on vibes</td>
+<td>Hardening the build with technical rigor</td>
+</tr>
+</tbody>
+</table></div>
+<p>Four prompts. Three pillars. One inheritable system.
+<strong>The Living PRD is the proof — your refactored repo is the asset.</strong></p>
+
+  </div>
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 4 - Slides.html">← Back to Module 4 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">M1 · Velocity</a>
+      <a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">M2 · Validation</a>
+      <a class="fn-sibling" href="Module 3 - Frameworks Reference Card.html">M3 · Prompt Chaining</a>
+      <a class="fn-sibling current" href="Module 4 - Frameworks Reference Card.html">M4 · Production</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 4 - Frameworks Reference Card.md</code> in this repo.
+  </div>
+
+</div>
+
+</body>
+</html>
