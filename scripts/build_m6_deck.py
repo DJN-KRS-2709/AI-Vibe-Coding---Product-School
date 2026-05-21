@@ -1,0 +1,906 @@
+"""Build Module 6 instructor + shareable decks by reusing M5's design-system shell.
+
+Reads `Modules/Module 5 - Slides.html`, swaps the title + slide body for the
+M6 content while keeping the <head> CSS and <script> controller verbatim.
+
+Outputs:
+  - Modules/Module 6 - Slides.html              (instructor, with .notes blocks)
+  - Modules/Module 6 - Slides (Shareable).html  (notes stripped)
+
+Mirrors the canonical class catalog used across M1-M5.
+"""
+from pathlib import Path
+import re
+
+REPO = Path(__file__).resolve().parent.parent
+M5 = REPO / 'Modules' / 'Module 5 - Slides.html'
+M6 = REPO / 'Modules' / 'Module 6 - Slides.html'
+M6_SHARE = REPO / 'Modules' / 'Module 6 - Slides (Shareable).html'
+
+# ---------------------------------------------------------------------------
+# M6 slide body — every section in source order. Uses canonical classes only.
+# ---------------------------------------------------------------------------
+
+BODY = r"""
+<!-- 1. HERO -->
+<section class="hero" data-title="Measure Product Performance for AI-Driven Iteration">
+  <div class="hero-logo"><img src="../Design/Product-School-Logo.png" alt="Product School"/></div>
+  <div class="section-label">Module 6 — Vibe Coding Certification</div>
+  <h1>Measure Product Performance<br><span>for AI-Driven Iteration</span></h1>
+  <p class="subtitle">Replace "I think" with "the data shows." Read the three layers of analytics on your live product, run an AI-powered iteration sprint on one high-impact finding, redeploy, and demo what you shipped — closing the Confidence Line.</p>
+  <div class="waypoints">
+    <div class="waypoint"><div class="waypoint-num">1</div><div class="waypoint-text"><div class="wt-title">Shift From Shipping to Proving With Data</div><div class="wt-desc">Why a live URL is the start of the feedback loop, not the finish line. The Iteration Mindset, the metrics that matter, and the three layers of analytics.</div></div></div>
+    <div class="waypoint"><div class="waypoint-num">2</div><div class="waypoint-text"><div class="wt-title">Lab — Read Your Lovable Insights</div><div class="wt-desc">Open Lovable Insights, baseline your engagement metrics, identify your lowest-engagement screen, and gather peer feedback in Slack.</div></div></div>
+    <div class="waypoint"><div class="waypoint-num">3</div><div class="waypoint-text"><div class="wt-title">Lab — Run an AI-Driven Iteration Sprint</div><div class="wt-desc">Feed problem + hypothesis + metrics + peer feedback into an LLM. Get a prioritised backlog. Implement one fix. Redeploy.</div></div></div>
+    <div class="waypoint"><div class="waypoint-num">4</div><div class="waypoint-text"><div class="wt-title">Final Project Showcase</div><div class="wt-desc">Demo your live product to the cohort. Get live, actionable feedback. Submit your final deliverables to the LMS to qualify for certification.</div></div></div>
+  </div>
+  <p class="repo-cta">Today's repo lands in <strong><code>06-iteration/</code></strong> — <code>Iteration-Sprint-Brief.md</code> with the AI analysis + the one change you shipped, plus your redeployed live URL.</p>
+  <div class="scroll-hint">Scroll to explore<span>↓</span></div>
+  <div class="notes">
+    <h4>Speaker Notes</h4>
+    <p>Welcome to Module 6 — the final session. Five modules built up to a live URL; today we make that URL <em>learn</em>. By the end of class every learner has read their own analytics, run an AI-powered iteration on real signal, redeployed, and demoed their product to the cohort.</p>
+    <p>Frame the arc: M5 was "ship the thing." M6 is "prove the thing." This is the move from PM-as-builder to PM-as-operator. Push hard on the identity shift — they finish today as Technical PMs who can close a build-measure-iterate loop end-to-end.</p>
+  </div>
+</section>
+
+<!-- 2. CLASS EXPECTATIONS -->
+<section class="centered" data-title="Class Expectations">
+  <div class="inner">
+    <div class="section-label">Cohort Norms</div>
+    <h2>Class expectations.</h2>
+    <p class="subtitle">Same six norms across the certification. Show up, ship something, share generously — for the last time.</p>
+    <div class="expect-grid">
+      <div class="expect-card"><div class="expect-icon">📹</div><div class="expect-title">Cameras On</div><div class="expect-desc">Be present and visible — especially today, the showcase runs on energy.</div></div>
+      <div class="expect-card"><div class="expect-icon">⏰</div><div class="expect-title">Arrive On Time</div><div class="expect-desc">Respect everyone's time by arriving promptly to sessions.</div></div>
+      <div class="expect-card"><div class="expect-icon">🤝</div><div class="expect-title">Engage to Network</div><div class="expect-desc">Participate in the peer feedback loop and the showcase to close the cohort connection.</div></div>
+      <div class="expect-card"><div class="expect-icon">🛠️</div><div class="expect-title">Tool Readiness</div><div class="expect-desc">Lovable, GitHub, your LLM of choice, and your live URL — all active before class starts.</div></div>
+      <div class="expect-card"><div class="expect-icon">💬</div><div class="expect-title">Use Slack</div><div class="expect-desc">Use Slack for the Rapid-Fire Feedback Loop and for everything else.</div></div>
+      <div class="expect-card"><div class="expect-icon">🚀</div><div class="expect-title">Class Momentum</div><div class="expect-desc">Individual or deep-dive questions move to after-class support so the showcase stays on time.</div></div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Run this quickly — the cohort has seen it five times. The momentum norm matters most today because the showcase is on a hard clock: ~10 minutes per presenter, 5–6 presenters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. COURSE ARC — M6 active -->
+<section class="centered" data-title="The Course Arc">
+  <div class="inner" style="max-width: 1180px;">
+    <div class="section-label">Vibe Coding Certification — Syllabus</div>
+    <h2>Where M6 closes the arc.</h2>
+    <p class="subtitle">You shipped in M5. Today you turn shipping into a measurement loop and demo the result. This is the final lap.</p>
+    <div class="arc-flow">
+      <div class="arc-node"><div class="ad-num">M1</div>Velocity</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M2</div>Validation</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M3</div>Prompt Chaining</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M4</div>Production Specs</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M5</div>Full-Stack Logic</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node active-node"><div class="ad-num">M6</div>Measure &amp; Iterate</div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Anchor the arc one last time. M1–M5 was the build; M6 is the proof. The Confidence Line goes from "I have an idea" all the way to "the data confirms the idea" — that's the journey we close today.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. LMS SUBMISSION REMINDER — final project required for cert -->
+<section class="centered" data-title="Final Project Submission Reminder">
+  <div class="inner" style="max-width: 880px;">
+    <div class="demo-tag tag-activity">Required · Certification</div>
+    <h2>To certify, you must submit.</h2>
+    <p class="subtitle">Today's showcase is the highest-bandwidth feedback moment in the cohort. The LMS submission is what unlocks your certificate. Both matter — for different reasons.</p>
+    <div class="artifact-preview" style="max-width: 640px;">
+      <div class="ap-title">Required · Final Project Deliverables Deck</div>
+      <p style="font-size:14px; color:#cdd5e3; line-height:1.7;">Submit a finalised copy of your <strong>Final Project Deliverables Deck</strong> in Docebo within <strong>7 days</strong> of this class. Live URL, hypothesis, validation brief, Living PRD, prompt chain, engineering handoff, and your individual aha-moment — all in one deck.</p>
+    </div>
+    <p style="font-size:14px; color:#8899bb; margin-top:18px;">5–6 volunteers will demo live today. Sign up in <code>#cohort-channel</code>. Everyone else — submit by the 7-day deadline.</p>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>This is the only "this is required for certification" moment in the deck — make it stick. Drop the Docebo link in <code>#cohort-channel</code> right after this slide and pin the message. Mention the 7-day window explicitly. Then ask for the 5–6 showcase volunteers right now while attention is high.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. TODAY'S AGENDA -->
+<section class="centered" data-title="Today's Agenda">
+  <div class="inner" style="max-width: 1080px;">
+    <div class="section-label">Today's Agenda</div>
+    <h2>Five moves, one closing demo.</h2>
+    <p class="subtitle">Two short labs, a 15-minute deck polish, then the final showcase.</p>
+    <div class="waypoints">
+      <div class="waypoint"><div class="waypoint-num">01</div><div class="waypoint-text"><div class="wt-title">Shift From Shipping to Proving With Data</div><div class="wt-desc">Instructor demo + the Iteration Mindset, the metrics that matter, and the three layers of analytics.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">02</div><div class="waypoint-text"><div class="wt-title">Hands-On Lab — Read Your Lovable Insights</div><div class="wt-desc">Open Insights, baseline your numbers, identify your lowest-engagement screen, gather Slack peer feedback.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">03</div><div class="waypoint-text"><div class="wt-title">AI-Driven Product Iteration</div><div class="wt-desc">The PM's new superpower: feed inputs to an LLM, get a prioritised backlog, translate data signals into surgical prompts.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">04</div><div class="waypoint-text"><div class="wt-title">Hands-On Lab — Run an AI-Driven Iteration Sprint</div><div class="wt-desc">One finding, one prompt, one redeploy. Push the brief to GitHub.</div></div></div>
+      <div class="waypoint"><div class="waypoint-num">05</div><div class="waypoint-text"><div class="wt-title">Final Project Showcase</div><div class="wt-desc">5–6 cohort volunteers present live. Everyone submits to Docebo within 7 days.</div></div></div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Two labs again, but both are lighter than M5: Lab 1 (~10 min Insights + ~10 min peer feedback in Slack) and Lab 2 (~15 min AI sprint). The biggest time investment is the final showcase. Watch the clock — if anything slips, protect the showcase, not the polish-deliverables block.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. SECTION 01 — Shift From Shipping to Proving With Data -->
+<section class="section-break" data-title="Section 01 · Shift From Shipping to Proving With Data">
+  <div class="section-break-inner">
+    <div class="section-num">01</div>
+    <div class="lab-title">Section 01</div>
+    <div class="lab-name">Shift From Shipping to Proving With Data.</div>
+    <div class="lab-desc">Your product is live. Your gut is not data. We'll watch what's already there and what to do with it.</div>
+  </div>
+</section>
+
+<!-- 7. INSTRUCTOR-LED DEMO — Making Data-Driven Decisions -->
+<section data-title="Instructor Demo · Making Data-Driven Decisions">
+  <div class="inner" style="max-width: 1180px;">
+    <div class="demo-tag tag-case">Instructor-Led Demo · 3 minutes</div>
+    <h2>From "I think it's working" to "the data says so."</h2>
+    <p class="subtitle">Your product has been live for a few days. Real users have clicked around. But how do you actually know if it's solving the problem from M2? Let's open Lovable Insights together — no setup, no extra tool, it's been collecting since M5.</p>
+    <div class="demo-split">
+      <div class="problem-panel">
+        <span class="pp-label">⚠ The Gap</span>
+        <div class="pp-headline">A hunch isn't data — it's confirmation bias.</div>
+        <div class="pp-execs">
+          <div class="pp-exec"><div class="pp-avatar">👁️</div><div class="pp-quote">"I tested it myself and it felt great." — every PM ever, right before launch.</div></div>
+          <div class="pp-exec"><div class="pp-avatar">📊</div><div class="pp-quote">"Real sessions, real users, real screens visited. Insights has been on since the moment we deployed."</div></div>
+          <div class="pp-exec"><div class="pp-avatar">🎯</div><div class="pp-quote">"In a moment, you'll do the same thing on <em>your</em> product — and on four of your classmates'."</div></div>
+        </div>
+        <div class="pp-coda">Shipping is 50% of the job. The other 50% is reading what just happened.</div>
+      </div>
+      <div class="demo-video-col">
+        <div class="demo-video-frame" style="display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(96,165,250,0.12), rgba(167,139,250,0.12)); border:1.5px dashed rgba(96,165,250,0.4); aspect-ratio: 16/9; border-radius:14px; padding:32px; text-align:center;">
+          <div>
+            <div style="font-size:48px; margin-bottom:14px;">📈</div>
+            <div style="font-family:'Poppins',sans-serif; font-weight:700; color:#fff; font-size:18px; margin-bottom:8px;">Live walk-through</div>
+            <div style="font-size:13px; color:#b0b4c8; line-height:1.6;">Ask one volunteer to share their Lovable project. Click the chart icon in the top nav → open <strong>Insights</strong>. Walk the room through Visitors · Page Views · Views Per Visit · Duration · Bounce Rate.</div>
+          </div>
+        </div>
+        <div class="demo-video-cta">
+          <a class="tool-btn" href="M6 - Lab Guide.html#phase-1" target="_blank" rel="noopener">→ Open the Lab Guide (Phase 1) ↗</a>
+          <div class="demo-helper">After the demo, every learner does the same on their own project — that's Lab 1.</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Cue the demo (~3 min). Ask for one volunteer to share their Lovable project — open the Insights panel together. Call out each metric: <strong>Visitors</strong> (unique), <strong>Page Views</strong> (total), <strong>Views Per Visit</strong> (depth), <strong>Duration</strong> (engagement), <strong>Bounce Rate</strong> (entry-screen quality).</p>
+      <p>End with: "in 10 minutes, every one of you will do this on your own product." That's the bridge into the Iteration Mindset framing slides before Lab 1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. THE ITERATION MINDSET — 3 levers -->
+<section data-title="The Iteration Mindset">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">The Iteration Mindset</div>
+    <h2>Shipping a prototype isn't the finish line — it's the start of the feedback loop.</h2>
+    <p class="subtitle">Your goal: replace <em>"I think"</em> with <em>"the data shows."</em> From this point forward, your intuition is just a hypothesis the data either proves or kills.</p>
+    <div class="m4-complete-grid">
+      <div class="m4c-tile">
+        <div class="m4c-num">1</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Feature Prioritisation</div>
+          <div class="m4c-title">Find the 20% that drives 80% of value</div>
+          <div class="m4c-desc">Every V1 has ghost features — things you thought were critical that no one touches. Data identifies the 20% of your product driving 80% of the value so you stop wasting engineering cycles on the other 80%.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">2</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Friction Identification</div>
+          <div class="m4c-title">See the leaks you can't see</div>
+          <div class="m4c-desc">You know how the app works because you built it. Real users don't. Data exposes the leaks and dead ends in your UI that your own bias makes you blind to.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">3</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Hypothesis Validation</div>
+          <div class="m4c-title">Audit the workflow you designed</div>
+          <div class="m4c-desc">Compare the workflow you designed against how humans actually navigate it. Data is the only objective way to see if your solution is operating the way you engineered it to.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">The reframe</span>
+      <span>Every decision from here is <em>backed by evidence</em>, not instinct. Your intuition gets you to a hypothesis; the data either funds it or kills it.</span>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Make the three levers concrete with a single example: a learner's invite-tracker product. Feature Prioritisation says <em>"the only screen anyone visits is the dashboard — your settings page is dead weight."</em> Friction Identification says <em>"50% of new users bounce on the sign-up screen — your CTA is broken."</em> Hypothesis Validation says <em>"users send invites but never check the status tab — your value prop isn't the tracker, it's the send flow."</em></p>
+      <p>The throughline for every M6 lecture slide is the same: prompts now start with <strong>"based on the data..."</strong>, not <em>"I think it should..."</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. METRICS THAT MATTER — 4 buckets + North Star -->
+<section data-title="Metrics That Matter">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">Metrics That Matter</div>
+    <h2>3–5 signals beat 50 — every time.</h2>
+    <p class="subtitle">Analysis paralysis is the biggest killer of V2. Narrow the lens to a handful of signals that map directly to your problem statement.</p>
+    <div class="blocks-grid">
+      <div class="block-card">
+        <div class="bc-icon">🚦</div>
+        <div class="bc-title">Engagement</div>
+        <div class="bc-desc"><strong>The core flow.</strong> How many users signed up? Which features are used most — and which are ignored ghosts?</div>
+      </div>
+      <div class="block-card">
+        <div class="bc-icon">🔁</div>
+        <div class="bc-title">Retention</div>
+        <div class="bc-desc"><strong>Your honesty metric.</strong> Do users return after their first session? Where exactly do they drop off in the flow?</div>
+      </div>
+      <div class="block-card">
+        <div class="bc-icon">⚙️</div>
+        <div class="bc-title">Quality</div>
+        <div class="bc-desc"><strong>The "is it broken" check.</strong> Is the page load under 3 seconds? Are users hitting dead ends or high error rates?</div>
+      </div>
+      <div class="block-card">
+        <div class="bc-icon">🎯</div>
+        <div class="bc-title">Impact</div>
+        <div class="bc-desc"><strong>The hypothesis check.</strong> Does user behaviour match your M2 hypothesis? Is what you predicted actually happening?</div>
+      </div>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">North Star</span>
+      <span>Does user behaviour <em>confirm</em> or <em>contradict</em> your original problem statement? If the data says no, your V2 isn't an update — it's a pivot.</span>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Stress the discipline: <strong>3–5 signals, not 50.</strong> The four buckets are guard-rails — pick one or two per bucket and run with them. For most learners the M6 set will be: Engagement (sessions / core-flow events), Retention (return visits), Quality (bounce rate), Impact (one event tied to the M2 hypothesis).</p>
+      <p>The North Star line is the one to land hard: if the data <em>contradicts</em> your hypothesis, the right move is a pivot, not a tweak. We'll see this exact split show up in their AI analysis output in Lab 2.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. THREE LAYERS OF ANALYTICS — Internal · External · Custom -->
+<section data-title="Three Layers of Analytics">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">Three Layers of Analytics</div>
+    <h2>What users do · what they feel · what they say.</h2>
+    <p class="subtitle">Shipping is 50% of the job. The other 50% is architecting how you'll <em>see</em> friction before the user realises it's there.</p>
+    <div class="m4-complete-grid">
+      <div class="m4c-tile">
+        <div class="m4c-num">1</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Internal · Passive System</div>
+          <div class="m4c-title">Surface-level engagement</div>
+          <div class="m4c-desc"><strong>Tool:</strong> Lovable Insights (built-in).<br><strong>Data:</strong> active users, sessions, page views, click depth.<br><br>Day-zero pulse. No setup, no extra code — it's been collecting since you deployed in M5. <em>This is Lab 1.</em></div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">2</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">External · Passive Behavioural</div>
+          <div class="m4c-title">Deep-funnel signal</div>
+          <div class="m4c-desc"><strong>Tool:</strong> Google Analytics 4 (optional post-class).<br><strong>Data:</strong> traffic sources, bounce rates, conversion paths.<br><br>Moves beyond clicks to the actual user journey — where leaks happen and where users abandon the flow before completing a goal.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">3</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Custom · Active Sentiment</div>
+          <div class="m4c-title">Direct qualitative data</div>
+          <div class="m4c-desc"><strong>Tool:</strong> in-product capture wired to Supabase.<br><strong>Data:</strong> star ratings, bug reports, feature requests.<br><br>Custom feedback loops you own — like a "Report Issue" button piped into your own tables. Data you own is data you can act on.</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Layer 1 is what we use in class — Lovable Insights is free, instant, and already running. Layer 2 (GA4) is the optional post-class add-on; the Lab Guide has a 10-minute walkthrough. Layer 3 is the most advanced and the most powerful — the Supabase connection from M5 is exactly what enables it.</p>
+      <p>Tell the cohort: "the most senior PM move you can make on your final project is layering all three. You won't do it today — but the moment you have a paying user, this is the architecture."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11. SECTION 02 — Hands-On Lab: Read Lovable Insights -->
+<section class="section-break" data-title="Section 02 · Lab — Read Lovable Insights">
+  <div class="section-break-inner">
+    <div class="section-num">02</div>
+    <div class="lab-title">Section 02 · Hands-On Lab</div>
+    <div class="lab-name">Read Your Lovable Insights.</div>
+    <div class="lab-desc">Open Insights, baseline your numbers, identify your lowest-engagement screen — then gather Slack peer feedback to triangulate.</div>
+  </div>
+</section>
+
+<!-- 12. LAB 1 — Read Lovable Insights + Peer Feedback (20 min combined) -->
+<section data-title="Lab · Read Lovable Insights + Peer Feedback (20 min)">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="demo-tag tag-exercise">Hands-On Lab · 20 minutes</div>
+    <h2>Baseline your numbers, then triangulate with peer feedback.</h2>
+    <p class="subtitle">Two passes on the same product. Pass 1: read your own analytics. Pass 2: get four peers to test your live URL and leave structured feedback in Slack. By the end, you have everything Lab 2's AI analysis needs.</p>
+    <div class="flow-steps" style="grid-template-columns: repeat(3, 1fr); max-width: 1140px; gap: 14px;">
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">1</div><div class="fs-icon">📊</div></div>
+        <div class="fs-title">Open Lovable Insights</div>
+        <div class="fs-text">In Lovable, click the chart icon in the top nav. Screenshot the panel to baseline your starting point.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">2</div><div class="fs-icon">📝</div></div>
+        <div class="fs-title">Copy your key metrics</div>
+        <div class="fs-text">Capture <strong>Visitors · Page Views · Views Per Visit · Duration · Bounce Rate</strong> as text — you'll paste them into Lab 2's prompt.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">3</div><div class="fs-icon">🔍</div></div>
+        <div class="fs-title">Identify your weakest screen</div>
+        <div class="fs-text">Where are users dropping off or not engaging? Note honestly whether this matches what you predicted in M2.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">4</div><div class="fs-icon">🔗</div></div>
+        <div class="fs-title">Post your URL in <code>#cohort-channel</code></div>
+        <div class="fs-text">If you haven't already from M5 — post it now. Classmates need it to leave feedback in the next steps.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">5</div><div class="fs-icon">🧪</div></div>
+        <div class="fs-title">Test 4 peer products</div>
+        <div class="fs-text">Open four classmates' URLs. Sign up, run the core flow, try to break edge cases. Spend ~2 minutes on each.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">6</div><div class="fs-icon">💬</div></div>
+        <div class="fs-title">Leave structured Slack feedback</div>
+        <div class="fs-text">One piece per product, in the same thread, tag the builder. Pick a label: 🐛 Bug · 🤔 Friction · 🤩 Compliment · 💡 Feature Idea.</div>
+      </div>
+    </div>
+    <div style="margin-top: 22px; padding: 16px 22px; background: rgba(96,165,250,0.08); border: 1.5px solid rgba(96,165,250,0.35); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
+      <div style="text-align: left;">
+        <div style="font-family:'Poppins',sans-serif; font-weight: 700; font-size: 15px; color: #fff; margin-bottom: 4px;">Open the full walkthrough</div>
+        <div style="font-size: 13px; color: #b0b4c8;">Step-by-step Insights tour, screenshot prompts, and the four feedback label patterns — in the M6 Lab Guide.</div>
+      </div>
+      <a class="tool-btn" href="M6 - Lab Guide.html#phase-1" target="_blank" rel="noopener" style="white-space: nowrap;">→ Open Lab Guide · Phase 1 ↗</a>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Run the first 10 minutes as a guided exercise — ask one volunteer to screen-share their Insights panel while you walk the room. The other 10 minutes is Slack peer feedback: every learner posts their URL, opens four others, leaves one labelled comment on each.</p>
+      <p>Watch for two failure modes: <strong>(1) a learner who never posted their URL in M5</strong> — they get peer-tested last and won't have feedback for Lab 2. Catch them now. <strong>(2) feedback that's too vague</strong> — "nice app!" doesn't help. Push the four labels: 🐛 / 🤔 / 🤩 / 💡 with one specific sentence each.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13. BREAK -->
+<section class="centered" data-title="Take a Beat">
+  <div class="inner">
+    <div class="demo-tag tag-break">Break · 5 minutes</div>
+    <h2>Take a beat. ☕</h2>
+    <p class="subtitle">You earned it. Refill, stretch, breathe. Read the feedback that just landed on your Slack thread.</p>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>5-minute timer in <code>#cohort-channel</code>. While they break, read the room: anyone whose Insights panel was empty (no real users), pair them up with a peer who has data so Lab 2's prompt still runs against real signal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 14. CAMERAS ON -->
+<section class="cameras-section" data-title="Cameras On">
+  <div class="cameras-inner">
+    <div class="cameras-layout">
+      <div class="cameras-left">
+        <img class="cameras-logo" src="../Design/Product-School-Logo.png" alt="Product School"/>
+        <div class="cameras-card">
+          <h2>Reminder! 🚨</h2>
+          <div class="cameras-arrow">→ Cameras On</div>
+          <p>It's always better to see your smiling face — especially on showcase day! Be present and visible to keep the energy high for the demos.</p>
+        </div>
+      </div>
+      <div class="cameras-photo-strip">
+        <img src="../Design/cameras-on.png" alt="Cameras On"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15. SECTION 03 — AI-Driven Product Iteration -->
+<section class="section-break" data-title="Section 03 · AI-Driven Product Iteration">
+  <div class="section-break-inner">
+    <div class="section-num">03</div>
+    <div class="lab-title">Section 03</div>
+    <div class="lab-name">AI-Driven Product Iteration.</div>
+    <div class="lab-desc">Stop crunching CSVs. Feed your signal to an LLM. Get a prioritised backlog in minutes. Translate one finding into one surgical prompt.</div>
+  </div>
+</section>
+
+<!-- 16. AI-POWERED ANALYSIS — Old way vs New way + the strategic prompt -->
+<section data-title="AI-Powered Analysis · The PM's New Superpower">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">AI-Powered Analysis · The PM's New Superpower</div>
+    <h2>From data cruncher to decision maker.</h2>
+    <p class="subtitle">You've been here before. Days cleaning data, building charts, writing a 10-page findings doc no one reads. In the AI era, you move from analysis to decision in minutes — but you still own the call.</p>
+    <div class="two-col">
+      <div class="tc tc-old">
+        <div class="tc-label">🕰️ Old Way · Manual Analysis</div>
+        <div class="tc-title">Days of exports + pivot tables</div>
+        <ul>
+          <li>Export CSVs from every tool.</li>
+          <li>Build pivot tables in spreadsheets.</li>
+          <li>Spend 6 hours writing a "findings" doc.</li>
+          <li>Hope someone reads it before the product moves on.</li>
+        </ul>
+      </div>
+      <div class="tc tc-new">
+        <div class="tc-label">⚡ New Way · AI-Powered Synthesis</div>
+        <div class="tc-title">Minutes to a prioritised backlog</div>
+        <ul>
+          <li>Feed problem statement + hypothesis + metrics + peer feedback to the LLM.</li>
+          <li>Ask: "is this solving the problem? What are the top 3 fixes, ranked by impact?"</li>
+          <li>Get a synthesised, ranked backlog in seconds.</li>
+          <li>You own the final decision — the AI does not.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="artifact-preview" style="max-width: 960px; margin-top: 22px; text-align: left;">
+      <div class="ap-title">The Strategic Prompt · paste into your LLM of choice</div>
+      <p style="font-size:13.5px; color:#cdd5e3; line-height:1.7; font-family:'IBM Plex Mono', monospace;">I built a product to solve this problem: <code>[problem statement]</code>. My hypothesis was: <code>[hypothesis]</code>. Here are the metrics from my live product: <code>[paste Lovable Insights data]</code>. Here is the peer feedback I received: <code>[paste Slack feedback]</code>.<br><br>Evaluate: is this product solving the problem? What does the data suggest? What are the top 3 things I should improve, <strong>ranked by likely impact</strong>?</p>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">The discipline</span>
+      <span>The AI provides the synthesis — <em>you</em> provide the conviction. Pick one finding. Not three.</span>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>The reframe: 10x faster decisions, same level of judgement required. Stress that the strategic prompt has four inputs — problem, hypothesis, metrics, feedback — and asks for a <strong>ranked</strong> backlog. Ranking is what makes it actionable.</p>
+      <p>The discipline line is the one to land: <strong>one finding, not three.</strong> Lab 2 is 15 minutes; they don't have time for a full rebuild. Picking the single highest-impact tweak is the muscle we're building.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17. FROM DATA SIGNAL TO TECHNICAL FIX — Persona · Branching · Guardrail -->
+<section data-title="From Data Signal to Technical Fix">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">From Data Signal to Technical Fix</div>
+    <h2>Every prompt now starts with <em>"based on the data..."</em></h2>
+    <p class="subtitle">The AI tells you <strong>what</strong> is wrong — it's a list of problems. It doesn't tell you <strong>how</strong> to fix it. This is where you move from analysis to architecture.</p>
+    <div class="m4-complete-grid">
+      <div class="m4c-tile">
+        <div class="m4c-num">🧠</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">From "Verbose" to "Persona"</div>
+          <div class="m4c-title">Persona Refinement</div>
+          <div class="m4c-desc">If users are overwhelmed by text, don't ask for "less copy" — that's a tweak. Hardcode a <em>persona</em> into the system: "act as an efficiency expert" — and the entire app's voice shifts permanently.<br><br><code style="background:rgba(255,255,255,0.08); padding:6px 10px; border-radius:6px; font-size:11.5px; color:#cfd9e8; display:block; line-height:1.5;">"Based on the data showing 70% bounce, refactor all copy to the voice of an efficiency expert — short, declarative, action-first."</code></div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">🔀</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">From "Bounce" to "Branching"</div>
+          <div class="m4c-title">Visual Branching</div>
+          <div class="m4c-desc">If GA4 shows a 70% bounce on a screen, the AI might suggest "the UI is too complex." Translate that into a <em>different mental model</em> — swap a list for a board, or a wizard for a single page.<br><br><code style="background:rgba(255,255,255,0.08); padding:6px 10px; border-radius:6px; font-size:11.5px; color:#cfd9e8; display:block; line-height:1.5;">"Based on the 70% bounce on /onboarding, swap the multi-step wizard for a single Kanban board the user can move cards on."</code></div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">🛡️</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">From "Functional Gap" to "Guardrail"</div>
+          <div class="m4c-title">Hard IF/THEN Rules</div>
+          <div class="m4c-desc">When Insights show submissions failing in a specific shape, the AI flags a logic error. Translate that into a <em>guardrail</em> — an unbreakable IF/THEN rule the system can never violate.<br><br><code style="background:rgba(255,255,255,0.08); padding:6px 10px; border-radius:6px; font-size:11.5px; color:#cfd9e8; display:block; line-height:1.5;">"Based on the data showing duplicate invites, IF the recipient_email already exists in invites for this sender, THEN block the submit and show an inline warning."</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">The pattern</span>
+      <span>Every M6 prompt starts with <em>"based on the data showing..."</em> — that's how you stop feature-creeping and start surgically repairing.</span>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>The three patterns map to the three types of finding the AI most often returns: voice/copy issues (→ Persona), structural / UX issues (→ Branching), logic / data issues (→ Guardrail). Walk through one example per pattern — keep it concrete.</p>
+      <p>The pattern line is what learners write down: <strong>"based on the data showing..."</strong> opens every iteration prompt. It enforces the discipline that you're <em>repairing friction</em>, not adding features.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 18. SECTION 04 — Hands-On Lab: AI Iteration Sprint -->
+<section class="section-break" data-title="Section 04 · Lab — AI Iteration Sprint">
+  <div class="section-break-inner">
+    <div class="section-num">04</div>
+    <div class="lab-title">Section 04 · Hands-On Lab</div>
+    <div class="lab-name">Run an AI-Driven Iteration Sprint.</div>
+    <div class="lab-desc">One finding, one prompt, one redeploy. Push the brief to GitHub.</div>
+  </div>
+</section>
+
+<!-- 19. LAB 2 — AI Iteration Sprint (15 min) -->
+<section data-title="Lab · Run an AI-Driven Iteration Sprint (15 min)">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="demo-tag tag-exercise">Individual Lab · 15 minutes</div>
+    <h2>Close the loop: data → AI → one fix → redeploy.</h2>
+    <p class="subtitle">Pull together everything you gathered, run the strategic prompt, pick the single highest-impact finding, ship the fix, push to GitHub. Resist the temptation to fix everything — one finding, one change.</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">1</div><div class="fs-icon">📥</div></div>
+        <div class="fs-title">Gather your inputs</div>
+        <div class="fs-text">Problem statement + hypothesis from your Living PRD, Lovable Insights metrics from Lab 1, and the peer feedback from your Slack thread.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">2</div><div class="fs-icon">🤖</div></div>
+        <div class="fs-title">Run the strategic prompt</div>
+        <div class="fs-text">Paste the prompt from slide 16 into ChatGPT / Claude / Gemini. Replace the four placeholders. Read the ranked backlog.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">3</div><div class="fs-icon">🎯</div></div>
+        <div class="fs-title">Pick one finding</div>
+        <div class="fs-text">The single highest-impact recommendation. Not three. Not the safest. The one that moves the needle.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">4</div><div class="fs-icon">⚡</div></div>
+        <div class="fs-title">Write your "based on the data" prompt</div>
+        <div class="fs-text">Pattern: <em>"Based on the user data showing [finding], update [specific part] to [specific change]. Keep all existing functionality working."</em> Pick Persona, Branching, or Guardrail.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">5</div><div class="fs-icon">🧪</div></div>
+        <div class="fs-title">Test, audit, then redeploy</div>
+        <div class="fs-text">Does the change work as expected? Did anything else break? If yes, re-prompt before redeploying. Once clean, click Publish.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-head"><div class="fs-num">6</div><div class="fs-icon">📤</div></div>
+        <div class="fs-title">Push to GitHub</div>
+        <div class="fs-text">Commit <code>Iteration-Sprint-Brief.md</code> to <code>06-iteration/</code> with the AI analysis, the chosen finding, the implementation prompt, and the redeployed URL.</div>
+      </div>
+    </div>
+    <div style="margin-top: 22px; padding: 16px 22px; background: rgba(110,231,183,0.08); border: 1.5px solid rgba(110,231,183,0.35); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
+      <div style="text-align: left;">
+        <div style="font-family:'Poppins',sans-serif; font-weight: 700; font-size: 15px; color: #fff; margin-bottom: 4px;">Open the sprint walkthrough</div>
+        <div style="font-size: 13px; color: #b0b4c8;">Every step, every verification check, plus the optional GA4 post-class setup — in the M6 Lab Guide.</div>
+      </div>
+      <a class="tool-btn" href="M6 - Lab Guide.html#phase-2" target="_blank" rel="noopener" style="white-space: nowrap;">→ Open Lab Guide · Phase 2 ↗</a>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>15 minutes is tight on purpose. Push the constraint hard: <strong>one finding, one change.</strong> Most learners will want to fix three things — that's how they break their product right before the showcase. Block that instinct.</p>
+      <p>Spin up Zoom breakout rooms for a "co-working" feel — everyone builds in parallel with cameras on. Stay in the main room for support; learners DM you in Slack if stuck.</p>
+      <p>The single hardest thing to do well: <strong>test before redeploying.</strong> If Lovable made multiple changes and one broke something, don't ship it — re-prompt to revert that piece first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 20. FINALIZE PROJECT DELIVERABLES — 15 min individual exercise -->
+<section data-title="Finalize Your Project Deliverables">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">Individual Exercise · 15 minutes</div>
+    <h2>Polish the deck you'll submit to Docebo.</h2>
+    <p class="subtitle">You've got everything you need across six modules. Fifteen minutes to make sure the deck is ready, links work, and screenshots are clear.</p>
+    <div class="m4-complete-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="m4c-tile">
+        <div class="m4c-num">05</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Product</div>
+          <div class="m4c-title">Live URL + Hypothesis + Scenario</div>
+          <div class="m4c-desc">The deployed product link, your original M2 hypothesis, and the scenario the product was built to solve.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">06</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Validation</div>
+          <div class="m4c-title">Validation Brief Highlights</div>
+          <div class="m4c-desc">Key sections of your Validation Brief — assumptions tested, data confirmed or challenged.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">07</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Blueprint</div>
+          <div class="m4c-title">Living PRD Key Elements</div>
+          <div class="m4c-desc">The source of truth bridging your prototype and engineering handoff.</div>
+        </div>
+      </div>
+      <div class="m4c-tile">
+        <div class="m4c-num">08</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Logic</div>
+          <div class="m4c-title">Core Prompt Chain</div>
+          <div class="m4c-desc">The prompts that power your multi-screen architecture from M3.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">09</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Handoff</div>
+          <div class="m4c-title">Finalised Engineering Handoff</div>
+          <div class="m4c-desc">Production-ready spec bridging vision and execution — including today's iteration evidence.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">10</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">The Story</div>
+          <div class="m4c-title">Friction · Learning · Aha</div>
+          <div class="m4c-desc">Your individual insights — what broke, what you learned, the biggest aha moment of the course.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 18px; padding: 14px 20px; background: rgba(167,139,250,0.08); border-left: 4px solid #a78bfa; border-radius: 8px; font-size: 13.5px; color: #e0e0f0; line-height: 1.55; text-align: left;">
+      🎯 <strong>The bar is not perfection.</strong> The bar is your <em>strategic logic</em> and what you learned. Feel free to adapt the template — make it yours.
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>15 minutes of solo polish. Drop the Vibe Coding Final Project Deliverables template link in <code>#cohort-channel</code> — every learner submits a copy. Remind them this is the only deliverable that gates certification.</p>
+      <p>Walk the slide map: 5 product · 6 validation · 7 PRD · 8 prompt chain · 9 handoff · 10 story. The story slide (10) is where most learners under-invest — push hard: "what was your aha moment? Write the sentence you'd say at a dinner party."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 21. LEARNER JOURNEY · M1 → M6 RECAP -->
+<section data-title="Learner Journey · M1 → M6">
+  <div class="inner" style="max-width: 1280px;">
+    <div class="demo-tag tag-debrief">The Journey · Complete</div>
+    <h2>Six modules. One closed loop.</h2>
+    <p class="subtitle">From planning paralysis to a measured iteration — the toolkit you've built across the Confidence Line.</p>
+    <div class="dash-divider"></div>
+    <div class="m4-complete-grid">
+      <div class="m4c-tile">
+        <div class="m4c-num">M1</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 1 · High Ambiguity</div>
+          <div class="m4c-title">Execute Velocity</div>
+          <div class="m4c-desc"><strong>The shift:</strong> planning paralysis → building at lightspeed.<br><strong>The win:</strong> a functional prototype from an ambiguous problem in one session.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">M2</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 1 · High Ambiguity</div>
+          <div class="m4c-title">Validation Pivot</div>
+          <div class="m4c-desc"><strong>The shift:</strong> building by instinct → prototypes that answer the why.<br><strong>The win:</strong> mapping assumptions, injecting data, solving the right problem.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">M3</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 2 · Gaining Clarity</div>
+          <div class="m4c-title">Architecture Leap</div>
+          <div class="m4c-desc"><strong>The shift:</strong> single screens → multi-screen systems that hold under complexity.<br><strong>The win:</strong> prompt chaining + constraint grounding maintaining consistency as you scale.</div>
+        </div>
+      </div>
+      <div class="m4c-tile">
+        <div class="m4c-num">M4</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 2 · Gaining Clarity</div>
+          <div class="m4c-title">Engineering Bridge</div>
+          <div class="m4c-desc"><strong>The shift:</strong> informal builds → handoff-ready production specs.<br><strong>The win:</strong> converting a prototype into a spec engineering can execute on.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">M5</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 3 · Production Confidence</div>
+          <div class="m4c-title">Production Leap</div>
+          <div class="m4c-desc"><strong>The shift:</strong> standalone interfaces → integrated, deployed products.<br><strong>The win:</strong> live DBs, secure APIs, a public URL.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">M6</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Phase 3 · Production Confidence</div>
+          <div class="m4c-title">Iteration Engine</div>
+          <div class="m4c-desc"><strong>The shift:</strong> shipping and hoping → measuring, learning, redeploying.<br><strong>The win:</strong> AI-driven analytics + a surgical fix that secures the Confidence Line.</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">The Confidence Line</span>
+      <span>You moved from <em>vague intuition</em> to <em>data-backed conviction</em>. That's not a course — that's a career shift.</span>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Slow down here. This is the emotional payoff of the whole certification. Read each row out loud — let the cohort feel the arc. "In Module 1, you executed the velocity. In Module 6, you built the iteration engine." Six modules, six shifts, one loop closed.</p>
+      <p>Land the closer: "you now have a build-measure-iterate toolkit most PMs at unicorn companies don't have. That's the identity you walk out with today."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 22. KEY TAKEAWAYS -->
+<section data-title="Key Takeaways">
+  <div class="inner" style="max-width: 1180px;">
+    <div class="section-label">Key Takeaways</div>
+    <h2>Measure product performance for AI-driven iteration.</h2>
+    <div class="m4-complete-grid">
+      <div class="m4c-tile">
+        <div class="m4c-num">01</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Shipping ≠ Finishing</div>
+          <div class="m4c-title">The live URL is the start of the loop</div>
+          <div class="m4c-desc">Shipping a vibe-coded product is the <em>start</em> of the feedback loop, not the finish line. PMs replace "I think" with "the data shows" — tracking metrics that validate or challenge the M2 hypothesis.</div>
+        </div>
+      </div>
+      <div class="m4c-tile b">
+        <div class="m4c-num">02</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">Layered Analytics</div>
+          <div class="m4c-title">Internal · External · Custom</div>
+          <div class="m4c-desc">A multi-layered analytics approach captures system engagement, behavioural funnel signal, and qualitative sentiment — together they surface the evidence needed to prioritise fixes.</div>
+        </div>
+      </div>
+      <div class="m4c-tile c">
+        <div class="m4c-num">03</div>
+        <div class="m4c-meta">
+          <div class="m4c-label">AI as Decision Engine</div>
+          <div class="m4c-title">Minutes, not days</div>
+          <div class="m4c-desc">PMs transform live product data into a prioritised backlog in minutes by feeding problem + hypothesis + metrics + feedback into an LLM. Hours of manual analysis become a synthesised, actionable evaluation.</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Recap pace — 60 seconds per takeaway. The throughline: <em>discipline</em>. M6 is where the build-measure-iterate loop stops being a buzzword and becomes a muscle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 23. SECTION 05 — Final Project Showcase -->
+<section class="section-break" data-title="Section 05 · Final Project Showcase">
+  <div class="section-break-inner">
+    <div class="section-num">05</div>
+    <div class="lab-title">Section 05 · Final Project Showcase</div>
+    <div class="lab-name">Demo Your Live Product.</div>
+    <div class="lab-desc">5–6 volunteers present live. 10 minutes per demo. Everyone submits to Docebo within 7 days.</div>
+  </div>
+</section>
+
+<!-- 24. SHOWCASE KICKOFF — LMS + presentation flow -->
+<section data-title="Your Time to Shine">
+  <div class="inner" style="max-width: 1180px;">
+    <div class="demo-tag tag-debrief">Showcase Kick-Off</div>
+    <h2>Your time to shine. 🌟</h2>
+    <p class="subtitle">10 minutes per volunteer. Demo your live product, walk through your strategic logic, share the one finding from today's iteration sprint.</p>
+    <div class="ep-grid">
+      <div class="ep-card">
+        <div class="ep-num">01</div>
+        <div class="ep-title">For volunteers · ~10 minutes each</div>
+        <div class="ep-desc">Open with the problem (M2). Show the live URL. Walk through one core flow. Land on your aha moment from today's iteration sprint. Stay on time — the instructor will give a 6–7 minute warning.</div>
+      </div>
+      <div class="ep-card">
+        <div class="ep-num">02</div>
+        <div class="ep-title">For the audience</div>
+        <div class="ep-desc">Cameras on. Energy high. Drop one piece of feedback in <code>#cohort-channel</code> per demo — same labels as Lab 1: 🐛 Bug · 🤔 Friction · 🤩 Compliment · 💡 Feature Idea.</div>
+      </div>
+    </div>
+    <div style="margin-top: 18px; padding: 14px 20px; background: rgba(248,113,113,0.08); border-left: 4px solid #f87171; border-radius: 8px; font-size: 13.5px; color: #e0e0f0; line-height: 1.55; text-align: left;">
+      📍 <strong>LMS submission required.</strong> Every learner — volunteer or not — must submit a finalised copy of the Final Project Deliverables Deck to <strong>Docebo</strong> within <strong>7 days</strong> of class to qualify for certification.
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Call on your first volunteer right after this slide. Get them to share their screen. Live feedback uses the same rubric as the cohort feedback (Project Clarity, Credibility &amp; Reasoning, Strategic Thinking, Application of Concepts) — but make it warm. This is the celebration moment, not an exam.</p>
+      <p>Give a 6–7 minute warning per presenter. If a learner is going long, cut respectfully — protect the rest of the showcase. After all volunteers, return here to remind every learner about the 7-day Docebo deadline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 25. DAY 6 SURVEY -->
+<section class="centered" data-title="Day 6 Survey">
+  <div class="inner">
+    <div class="demo-tag tag-debrief">Feedback</div>
+    <h2>Your opinion matters.</h2>
+    <p class="subtitle">Two minutes. Helps us iterate the cohort — like a real product team.</p>
+    <div class="artifact-preview" style="max-width: 560px;">
+      <div class="ap-title">End-of-Session Survey · Day 6</div>
+      <p style="font-size:14px; color:#cdd5e3; line-height:1.6;">Scan the QR or use the link in <code>#cohort-channel</code>. Your insights shape the next cohort.</p>
+    </div>
+    <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">This is your last in-class survey — make it count.</p>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Drop the link in <code>#cohort-channel</code> as you say this. Two minutes max. The Day 6 survey is the most actionable — it shapes the next cohort's entire structure. Push for honest, specific feedback.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 26. RESOURCES & TEMPLATES -->
+<section data-title="Resources &amp; Templates">
+  <div class="inner" style="max-width: 1240px;">
+    <div class="section-label">Resources &amp; Templates</div>
+    <h2>Everything Module 6 ships with.</h2>
+    <p class="subtitle">Bookmark them — they're referenced across your final-project submission. <strong>Your GitHub repo is the source of truth</strong>; the tools below are aids.</p>
+
+    <div class="resources-hero">
+      <div class="rh-logo"><img src="../Design/logos/github.svg" alt="GitHub"/></div>
+      <div class="rh-content">
+        <div class="rh-eyebrow">Primary artifact · GitHub-first</div>
+        <div class="rh-title">Your GitHub repo (source of truth)</div>
+        <div class="rh-desc"><strong>This is where your work lives.</strong> Today's deliverable: <code>06-iteration/Iteration-Sprint-Brief.md</code> with the AI analysis, the chosen finding, the implementation prompt, and the redeployed URL. Plus the finalised Final-Project deck submitted to Docebo within 7 days.</div>
+      </div>
+    </div>
+
+    <div class="resources-tiles">
+      <div class="card-item" style="--card-accent:#60a5fa;">
+        <div class="card-icon">🧪</div>
+        <div class="card-title">Module 6 Lab Guide</div>
+        <div class="card-desc"><a href="M6 - Lab Guide.html" target="_blank" rel="noopener" style="color:#60a5fa;">Open the lab guide ↗</a> — full walkthrough: Insights tour, Slack peer feedback, AI analysis, the one fix, redeploy + GitHub push.</div>
+      </div>
+      <div class="card-item" style="--card-accent:#a78bfa;">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Iteration Sprint Brief Template</div>
+        <div class="card-desc"><a href="../Templates/Iteration-Sprint-Brief.md" target="_blank" rel="noopener" style="color:#a78bfa;">Open the template ↗</a> — the 7-section structure your <code>Iteration-Sprint-Brief.md</code> follows.</div>
+      </div>
+      <div class="card-item" style="--card-accent:#fb7185;">
+        <div class="card-icon">📚</div>
+        <div class="card-title">M6 Frameworks Reference Card</div>
+        <div class="card-desc"><a href="Module 6 - Frameworks Reference Card.html" target="_blank" rel="noopener" style="color:#fb7185;">Open the card ↗</a> — Iteration Mindset · Metrics That Matter · Three Layers · AI Analysis Prompt · Data Signal → Fix.</div>
+      </div>
+      <div class="card-item" style="--card-accent:#f9a8d4;">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Final Project Brief</div>
+        <div class="card-desc"><a href="../Final Project - Requirements and Scenario Guide.html" target="_blank" rel="noopener" style="color:#f9a8d4;">Open the brief ↗</a> — scenarios, deliverables, rubric, timeline, and the LMS submission requirements.</div>
+      </div>
+    </div>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Drop this card list in <code>#cohort-channel</code> right after class — pin it. The Lab Guide is the walkthrough; the Iteration Sprint Brief Template is the "what good looks like" reference; the Frameworks Reference Card is the cheat sheet for the M6 mental models.</p>
+      <p><strong>GitHub-first rule, one last time:</strong> the canonical artefact lives at <code>06-iteration/Iteration-Sprint-Brief.md</code>. The Final Project deck goes to Docebo for cert; the GitHub repo is your portfolio piece for the rest of your career.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 27. Q&A -->
+<section class="centered" data-title="Q&amp;A">
+  <div class="inner">
+    <div class="demo-tag tag-debrief">Instructor-Led Q&amp;A</div>
+    <h2>Questions?</h2>
+    <p class="subtitle">Last chance live. Async: <code>#cohort-channel</code> stays open — instructor responds within ~24h while submissions roll in.</p>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>Open the floor for 3–4 minutes. Two common Q&amp;A patterns at the end of a cohort: <strong>"what do I do after I submit?"</strong> — point them at the Final Project Brief next-steps section and the cohort alumni Slack. <strong>"how do I keep building?"</strong> — recommend they iterate on their own product weekly for the next 30 days using the same M6 loop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 28. END -->
+<section class="centered" data-title="Certification Complete">
+  <div class="inner">
+    <div class="demo-tag tag-debrief">End of Module 6 · End of Certification</div>
+    <h2>You closed the loop.</h2>
+    <p class="subtitle">A live URL. Real user data. An AI-powered iteration. A redeploy. A finalised deck. You don't just have a product — you have a <em>practice</em>.</p>
+    <div class="artifact-preview" style="max-width: 620px;">
+      <div class="ap-title">Today's repo state</div>
+      <p style="font-size:14px; color:#cdd5e3; line-height:1.7;"><code>06-iteration/Iteration-Sprint-Brief.md</code> · updated <code>HANDOFF.md</code> · redeployed URL in <code>README.md</code>. Final Project deck submitted to Docebo within 7 days.</p>
+    </div>
+    <p style="font-size:14px; color:#8899bb; margin-top:20px; text-align:center;">Welcome to the Vibe Coding alumni community. <strong style="color:#fff;">Keep shipping. Keep measuring. Keep iterating.</strong></p>
+    <div class="notes">
+      <h4>Speaker Notes</h4>
+      <p>The identity-shift closer. Don't oversell — name it: today they finished as Technical PMs who can ship, measure, and iterate end-to-end. Thank them for the cohort energy. Drop the alumni Slack channel link and the post-cert resource list one last time.</p>
+    </div>
+  </div>
+</section>
+"""
+
+# ---------------------------------------------------------------------------
+# Assemble
+# ---------------------------------------------------------------------------
+
+src = M5.read_text()
+
+# split header / footer at the body markers
+m_start = re.search(r'<!--\s*1\.\s*HERO\s*-->', src)
+m_end = re.search(r'\n<script>\s*\n\s*const sections', src)
+if not m_start or not m_end:
+    raise SystemExit('Could not find M5 body markers — abort.')
+
+header = src[:m_start.start()]
+footer = src[m_end.start():]
+
+# Update the page title in <head>
+header = header.replace(
+    '<title>Module 5 — Ship Live Products with Full-Stack Logic · Instructor</title>',
+    '<title>Module 6 — Measure Product Performance for AI-Driven Iteration · Instructor</title>',
+)
+
+# Assemble instructor deck (with notes)
+instructor = header + BODY.lstrip('\n') + '\n\n' + footer
+M6.write_text(instructor)
+print(f'wrote {M6} ({len(instructor)} bytes)')
+
+# Build shareable deck by stripping <div class="notes">...</div> blocks.
+# Pattern matches the entire indented block on its own lines so the parent's
+# closing </div> retains its original indentation.
+shareable = re.sub(
+    r'^[ \t]*<div class="notes">[\s\S]*?</div>[ \t]*\r?\n',
+    '',
+    instructor,
+    flags=re.MULTILINE,
+)
+M6_SHARE.write_text(shareable)
+print(f'wrote {M6_SHARE} ({len(shareable)} bytes)')

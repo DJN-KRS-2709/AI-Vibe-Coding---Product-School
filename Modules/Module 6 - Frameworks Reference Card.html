@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M6 Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #052e2b 0%, #0b4f47 50%, #0f7c6b 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(16,185,129,0.18); border: 1px solid rgba(110,231,183,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #a7f3d0; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #047857; font-style: italic; }
+
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #047857; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  .content pre { background: #052e2b; color: #d1fae5; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  .content blockquote { background: #ecfdf5; border-left: 4px solid #059669; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #064e3b; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #022c22; }
+  .content blockquote em { color: #047857; }
+
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #064e3b; color: #d1fae5; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  .content a { color: #047857; text-decoration: none; border-bottom: 1px solid rgba(4,120,87,0.3); }
+  .content a:hover { border-bottom-color: #047857; }
+
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #064e3b; color: #fff; border-color: #064e3b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #047857; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #052e2b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 6 - Slides.html">← Module 6 · Measure Product Performance for AI-Driven Iteration</a></div>
+
+  <div class="header">
+    <div class="badge">Module 6 — Reference Card</div>
+    <h1>M6 Frameworks Reference Card</h1>
+    <p>The Iteration Mindset, the Metrics That Matter, the Three Layers of Analytics, the Strategic Analysis Prompt, and the Data-Signal-to-Fix patterns — one page, in the order you use them.</p>
+  </div>
+
+  <div class="content">
+
+<blockquote>
+<p>Every framework from Module 6 in the order you use them. Keep this open while you read your Lovable Insights, gather peer feedback, run your AI analysis, write your "based on the data..." prompt, and redeploy.</p>
+</blockquote>
+
+<hr />
+
+<h2>1. The Iteration Mindset — Three Levers</h2>
+<p>Shipping a vibe-coded product isn't the finish line; it's the start of the feedback loop. The job is to replace <em>"I think"</em> with <em>"the data shows."</em></p>
+<div class="table-wrap"><table>
+<thead><tr><th>Lever</th><th>What it answers</th><th>Why your gut can't</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>1. Feature Prioritisation</strong></td>
+  <td>Which 20% of your product drives 80% of the value?</td>
+  <td>Every V1 has ghost features. Data tells you which features are anchors and which are dead weight.</td>
+</tr>
+<tr>
+  <td><strong>2. Friction Identification</strong></td>
+  <td>Where are the leaks and dead ends in your UI?</td>
+  <td>You know how the app works because you built it. Real users don't. Your bias is built in.</td>
+</tr>
+<tr>
+  <td><strong>3. Hypothesis Validation</strong></td>
+  <td>Are users behaving the way you predicted in M2?</td>
+  <td>Data is the only objective check on whether your solution is operating the way you engineered it to.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> from this point forward, your intuition is just a hypothesis the data either proves or kills.</p>
+
+<hr />
+
+<h2>2. Metrics That Matter — 3–5 Signals, Not 50</h2>
+<p>Analysis paralysis is the biggest killer of V2. Narrow the lens to a handful of signals that map directly to your problem statement.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Bucket</th><th>Questions it answers</th><th>What "good" looks like for a V1</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>🚦 Engagement</strong></td>
+  <td>How many signed up? Which features are used most — and which are ghosts?</td>
+  <td>The core flow event fires for &gt;60% of new sign-ups.</td>
+</tr>
+<tr>
+  <td><strong>🔁 Retention</strong></td>
+  <td>Do users return after their first session? Where do they drop off?</td>
+  <td>Any second-session return at all. For most V1s, return rate ≠ zero is a win.</td>
+</tr>
+<tr>
+  <td><strong>⚙️ Quality</strong></td>
+  <td>Page load &lt; 3 seconds? Dead ends? Error rates?</td>
+  <td>Bounce rate &lt; 50%. No dead-end screens (every screen has a next-step CTA).</td>
+</tr>
+<tr>
+  <td><strong>🎯 Impact</strong></td>
+  <td>Does behaviour match your M2 hypothesis?</td>
+  <td>Your hypothesis-tied event (e.g. "invite sent") fires for the users who you predicted would send invites.</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p><strong>The North Star:</strong> does user behaviour <em>confirm</em> or <em>contradict</em> your original problem statement? If the data says no, your V2 isn't an update — it's a pivot.</p>
+</blockquote>
+
+<hr />
+
+<h2>3. The Three Layers of Analytics</h2>
+<p>Shipping is 50% of the job. The other 50% is architecting how you'll <em>see</em> friction before the user realises it's there.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Layer</th><th>Tool</th><th>What it captures</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>1. Internal · Passive System</strong></td>
+  <td>Lovable Insights (built-in, free, on since M5 deploy)</td>
+  <td>Surface engagement — active users, sessions, page views, click depth, bounce rate.</td>
+</tr>
+<tr>
+  <td><strong>2. External · Passive Behavioural</strong></td>
+  <td>Google Analytics 4 (~10 min post-class setup)</td>
+  <td>Deep-funnel signal — traffic sources, conversion paths, where users abandon flows.</td>
+</tr>
+<tr>
+  <td><strong>3. Custom · Active Sentiment</strong></td>
+  <td>In-product capture wired to Supabase</td>
+  <td>Qualitative data you own — star ratings, bug reports, feature requests, support tickets.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> Layer 1 is today's lab. Layer 2 is the optional post-class extension. Layer 3 is the senior-PM move you make the moment you have a paying user.</p>
+
+<hr />
+
+<h2>4. The Strategic Analysis Prompt</h2>
+<p>The PM's new superpower: minutes to a synthesised, ranked backlog instead of days of CSV exports and pivot tables.</p>
+
+<h3>How it works</h3>
+<ul>
+<li><strong>Old way · Manual Analysis.</strong> Export CSVs, build pivot tables, spend 6 hours writing a "findings" doc no one reads.</li>
+<li><strong>New way · AI-Powered Synthesis.</strong> Feed problem + hypothesis + metrics + feedback into an LLM. Get a ranked backlog in seconds.</li>
+<li><strong>The discipline.</strong> The AI provides the synthesis. <em>You</em> provide the conviction. Pick one finding. Not three.</li>
+</ul>
+
+<h3>The prompt — paste into ChatGPT / Claude / Gemini</h3>
+<pre><code>I built a product to solve this problem: [problem statement].
+
+My hypothesis was: [hypothesis].
+
+Here are the metrics from my deployed product (Lovable Insights):
+[paste Visitors / Page Views / Views Per Visit / Duration / Bounce Rate]
+
+Here is the feedback I received from peer users in Slack:
+[paste all comments — keep the 🐛 / 🤔 / 🤩 / 💡 labels]
+
+Evaluate honestly:
+1. Is this product solving the problem? What does the data suggest?
+2. Where does my hypothesis appear confirmed vs contradicted?
+3. What are the top 3 improvements, ranked by likely impact?
+   For each, name the pattern: Persona Refinement / Visual Branching / Guardrail.
+
+Be specific and grounded in the data I gave you. Do not invent metrics.
+</code></pre>
+<blockquote><p><strong>Verify:</strong> the AI's response is grounded in your inputs (no hallucinated metrics). Findings are ranked. Each is tagged with one of the three patterns below.</p></blockquote>
+
+<hr />
+
+<h2>5. From Data Signal to Technical Fix — Three Patterns</h2>
+<p>The AI tells you <strong>what</strong> is wrong. It doesn't tell you <strong>how</strong> to fix it. These three patterns are how you translate a data signal into a surgical Lovable prompt.</p>
+<p><strong>Every prompt in this phase starts with <code>"Based on the data showing..."</code></strong> — that's how you stop feature-creeping and start surgically repairing.</p>
+
+<h3>🧠 Persona Refinement</h3>
+<p><strong>When:</strong> the data shows users are confused by copy, voice, or framing.</p>
+<pre><code>Based on the user data showing [specific metric finding],
+refactor all copy in [Screen Name] to the voice of [persona — e.g.
+"an efficiency expert"]. Keep all existing functionality and
+component structure working. Change only the language.
+</code></pre>
+
+<h3>🔀 Visual Branching</h3>
+<p><strong>When:</strong> the data shows users abandoning a flow — the mental model is wrong.</p>
+<pre><code>Based on the user data showing [bounce / drop-off metric] on
+[Screen Name], swap the current [component — e.g. "multi-step
+wizard"] for [new mental model — e.g. "a single-page Kanban board"].
+Preserve the underlying data and submit logic.
+</code></pre>
+
+<h3>🛡️ Guardrail · Hard IF/THEN</h3>
+<p><strong>When:</strong> the data exposes a logic gap — bad data, duplicates, edge cases.</p>
+<pre><code>Based on the user data showing [specific failure mode], add a hard
+rule: IF [condition], THEN [enforced behaviour]. Show an inline
+error if the rule blocks the action. Apply this guardrail to
+[specific component / action].
+</code></pre>
+
+<hr />
+
+<h2>6. The Slack Peer-Feedback Labels</h2>
+<p>Four labels for the Rapid-Fire Feedback Loop — keep them on the feedback you collect and on the feedback you give back to classmates.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Label</th><th>What it captures</th><th>Example</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>🐛 A Bug</strong></td>
+  <td>Something broken, not working as intended.</td>
+  <td><em>"I clicked 'Send Invite' and nothing happened — the form just stayed open."</em></td>
+</tr>
+<tr>
+  <td><strong>🤔 Friction</strong></td>
+  <td>Confusion, hesitation, unclear language.</td>
+  <td><em>"I wasn't sure what 'Track Status' meant — it sounded like it would email me."</em></td>
+</tr>
+<tr>
+  <td><strong>🤩 A Compliment</strong></td>
+  <td>What's working — signal the bright spot.</td>
+  <td><em>"The empty state was so clear — I knew exactly what to click first."</em></td>
+</tr>
+<tr>
+  <td><strong>💡 A Feature Idea</strong></td>
+  <td>What would meaningfully extend the product.</td>
+  <td><em>"It would be great to bulk-import contacts from CSV."</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Rule:</strong> one labelled comment per peer product. Specific. Tagged. In-thread. Vague "nice app!" is feedback noise, not signal.</p>
+
+<hr />
+
+<h2>One-page mental model</h2>
+<ol>
+<li><strong>Shift the question:</strong> stop asking "what should we build?", start asking "what does the data say?".</li>
+<li><strong>The Iteration Mindset (3 levers):</strong> Feature Prioritisation · Friction Identification · Hypothesis Validation.</li>
+<li><strong>Metrics That Matter:</strong> Engagement · Retention · Quality · Impact — 3–5 signals max.</li>
+<li><strong>Three Layers of Analytics:</strong> Internal (Lovable Insights) · External (GA4) · Custom (Supabase sentiment capture).</li>
+<li><strong>The Strategic Prompt:</strong> problem + hypothesis + metrics + feedback → ranked backlog.</li>
+<li><strong>The Discipline:</strong> one finding, one prompt, one redeploy. Not three.</li>
+<li><strong>The Patterns:</strong> Persona · Branching · Guardrail — every prompt starts with <em>"based on the data showing..."</em>.</li>
+</ol>
+
+  </div>
+
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 6 - Slides.html">← Back to Module 6</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">M1</a>
+      <a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">M2</a>
+      <a class="fn-sibling" href="Module 3 - Frameworks Reference Card.html">M3</a>
+      <a class="fn-sibling" href="Module 4 - Frameworks Reference Card.html">M4</a>
+      <a class="fn-sibling" href="Module 5 - Frameworks Reference Card.html">M5</a>
+      <a class="fn-sibling current" href="Module 6 - Frameworks Reference Card.html">M6</a>
+    </div>
+  </div>
+
+  <div class="footer-note">Vibe Coding Certification · Module 6 Frameworks Reference Card</div>
+
+</div>
+
+</body>
+</html>

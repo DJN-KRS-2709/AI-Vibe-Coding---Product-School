@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Module 6 — Lab Guide</title>
+<title>Module 6 — Hands-On Lab Guide</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -20,19 +20,21 @@
   .page { max-width: 800px; margin: 0 auto; }
 
   .header {
-    text-align: center; margin-bottom: 40px;
+    text-align: center;
+    margin-bottom: 40px;
     padding: 40px 32px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b1a 50%, #3d1f0f 100%);
-    border-radius: 16px; color: white;
+    background: linear-gradient(135deg, #052e2b 0%, #0b4f47 50%, #0f7c6b 100%);
+    border-radius: 16px;
+    color: white;
   }
   .badge {
     display: inline-block; font-size: 11px; font-weight: 700;
-    color: #fdba74; text-transform: uppercase; letter-spacing: 0.12em;
-    background: rgba(234,88,12,0.2); padding: 6px 16px; border-radius: 20px;
+    color: #6ee7b7; text-transform: uppercase; letter-spacing: 0.12em;
+    background: rgba(16,185,129,0.22); padding: 6px 16px; border-radius: 20px;
     margin-bottom: 14px;
   }
   .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
-  .header p { font-size: 15px; color: #a08870; line-height: 1.6; max-width: 580px; margin: 0 auto; }
+  .header p { font-size: 15px; color: #a7f3d0; line-height: 1.6; max-width: 620px; margin: 0 auto; }
 
   .overview-bar {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
@@ -42,10 +44,13 @@
     background: #fff; border-radius: 10px; padding: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
   }
-  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #ea580c; }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #059669; }
   .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
 
-  .phase { margin-top: 40px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+  .phase {
+    margin-top: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
   .phase-num {
     width: 48px; height: 48px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
@@ -69,26 +74,14 @@
   .step-marker {
     width: 36px; height: 36px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; margin-top: 2px;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
   }
   .step-body { flex: 1; }
   .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
-  .step-time { font-size: 12px; font-weight: 600; color: #ea580c; margin-bottom: 6px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #059669; margin-bottom: 6px; }
   .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
   .step-desc strong { color: #1a1a2e; }
-
-  .tip-box {
-    display: flex; gap: 14px; align-items: flex-start;
-    background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
-    padding: 16px 20px; margin: 16px 0;
-  }
-  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
-  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
-  .tip-box.fire { background: #fff7ed; border-color: #fdba74; }
-  .tip-box.danger { background: #fef2f2; border-color: #fecaca; }
-  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
-  .tip-text strong { color: #1a1a2e; }
 
   .checklist { margin: 10px 0; }
   .check-item {
@@ -106,32 +99,64 @@
 
   .prompt-template {
     background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
-    padding: 18px 22px; margin: 12px 0;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px;
-    color: #475569; line-height: 1.7;
+    padding: 20px 24px; margin: 12px 0; position: relative;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: #475569; line-height: 1.7; max-height: 320px; overflow-y: auto;
   }
   .prompt-template .pt-label {
     font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: 0.08em; color: #ea580c;
-    margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 8px;
   }
+  .prompt-template em { color: #94a3b8; font-style: italic; }
+  .label-analyze { color: #059669; }
+  .label-build { color: #d97706; }
+  .label-track { color: #2563eb; }
+
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #059669; color: #fff; border: none; border-radius: 8px;
+    padding: 10px 20px; font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; margin: 8px 0;
+  }
+  .copy-btn:hover { background: #047857; }
+  .copy-btn.copied { background: #0f766e; }
+
+  .tip-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.danger { background: #fff1f2; border-color: #fecdd3; }
+  .tip-box.info { background: #eff6ff; border-color: #bfdbfe; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
 
   .callout {
-    background: #0d1117; border-radius: 12px; padding: 28px 32px;
+    background: #052e2b; border-radius: 12px; padding: 28px 32px;
     text-align: center; margin: 24px 0;
   }
-  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout p { font-size: 18px; font-weight: 600; color: #d1fae5; line-height: 1.6; }
   .callout strong { color: #fff; }
-  .callout em { color: #fb923c; font-style: normal; font-weight: 700; }
+  .callout em { color: #6ee7b7; font-style: normal; font-weight: 700; }
 
-  .post-template {
+  .notes-area {
     background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
-    padding: 16px 20px; margin: 12px 0;
-    font-size: 14px; color: #555; line-height: 1.7;
+    padding: 16px 20px; margin: 12px 0; min-height: 80px;
   }
-  .post-template .pt-title {
-    font-size: 12px; font-weight: 700; color: #ea580c;
+  .notes-area .na-title {
+    font-size: 12px; font-weight: 700; color: #059669;
     text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .notes-area .na-hint { font-size: 13px; color: #999; line-height: 1.5; }
+  .notes-area textarea {
+    width: 100%; min-height: 60px; border: none; background: transparent;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #333;
+    line-height: 1.6; resize: vertical; outline: none; margin-top: 4px;
   }
 
   .flow-connector { display: flex; justify-content: center; padding: 4px 0; margin: 4px 0; }
@@ -141,35 +166,60 @@
     transform: translateX(-50%); color: #d1d5db; font-size: 10px;
   }
 
-  .reveal-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 16px 0; }
-  .reveal-card {
-    border-radius: 10px; padding: 14px 10px; text-align: center;
+  .metric-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0;
+    background: #f8fafc; border-radius: 10px; overflow: hidden;
   }
-  .reveal-card.inactive { background: #f8fafc; border: 1px solid #e2e8f0; }
-  .reveal-card.active { background: #fff7ed; border: 2px solid #ea580c; }
-  .reveal-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-  .reveal-card.inactive .reveal-label { color: #94a3b8; }
-  .reveal-card.active .reveal-label { color: #ea580c; }
-  .reveal-title { font-size: 11px; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
-  .reveal-desc { font-size: 10px; color: #888; line-height: 1.3; }
+  .metric-table th {
+    background: #064e3b; color: #d1fae5; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 12px 14px; text-align: left;
+  }
+  .metric-table td {
+    padding: 12px 14px; font-size: 14px; color: #555;
+    border-top: 1px solid #e2e8f0;
+  }
+  .metric-table td:first-child {
+    font-weight: 700; color: #1a1a2e; width: 38%;
+  }
+  .metric-table td input {
+    width: 100%; border: 1px solid #d1d5db; border-radius: 6px;
+    padding: 6px 10px; font-family: 'Inter', sans-serif; font-size: 13px;
+    color: #333; background: #fff;
+  }
 
-  .pitch-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin: 12px 0; }
-  .pitch-step {
-    display: flex; gap: 14px; align-items: flex-start;
-    padding: 14px 18px;
-    background: #f8fafc; border: 1px solid #e2e8f0;
+  .label-pill-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    margin: 14px 0;
   }
-  .pitch-step:first-child { border-radius: 10px 10px 0 0; }
-  .pitch-step:last-child { border-radius: 0 0 10px 10px; }
-  .pitch-step + .pitch-step { border-top: none; }
-  .pitch-num {
-    width: 28px; height: 28px; border-radius: 6px; background: #ea580c;
-    color: #fff; font-size: 12px; font-weight: 800;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  .label-pill {
+    border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 12px 14px;
   }
-  .pitch-body .pitch-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
-  .pitch-body .pitch-time { font-size: 11px; font-weight: 600; color: #ea580c; }
-  .pitch-body .pitch-desc { font-size: 12px; color: #777; line-height: 1.5; margin-top: 2px; }
+  .label-pill .lp-emoji { font-size: 18px; }
+  .label-pill .lp-name {
+    font-size: 14px; font-weight: 700; color: #1a1a2e; margin: 4px 0;
+  }
+  .label-pill .lp-example {
+    font-size: 12.5px; color: #666; line-height: 1.5;
+    font-style: italic;
+  }
+
+  .pattern-card {
+    border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 18px; margin: 10px 0;
+  }
+  .pattern-card .pc-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+  .pattern-card .pc-emoji { font-size: 22px; }
+  .pattern-card .pc-name { font-size: 15px; font-weight: 800; color: #1a1a2e; }
+  .pattern-card .pc-when { font-size: 12px; color: #888; margin-bottom: 8px; line-height: 1.5; }
+  .pattern-card .pc-example {
+    background: #0d1117; color: #c9d1d9; padding: 12px 14px;
+    border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.6;
+  }
 
   .footer-note {
     text-align: center; margin-top: 40px; padding: 24px;
@@ -184,534 +234,510 @@
 
   <div class="header">
     <div class="badge">Module 6 — Lab Guide</div>
-    <h1>Measure, Learn, Iterate</h1>
-    <p>Your product is live. Now learn from it. Set up analytics, use AI to analyze your data, build one evidence-based improvement, and present the full journey.</p>
+    <h1>Measure for AI-Driven Iteration</h1>
+    <p>Read your Lovable Insights, triangulate with Slack peer feedback, feed it all into an AI for a ranked backlog, ship one surgical fix, and redeploy.</p>
   </div>
 
   <div class="overview-bar">
-    <div class="overview-item"><div class="oi-num">6</div><div class="oi-label">Phases</div></div>
-    <div class="overview-item"><div class="oi-num">~80</div><div class="oi-label">Lab Minutes</div></div>
-    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Labs</div></div>
-    <div class="overview-item"><div class="oi-num">6</div><div class="oi-label">Deliverables</div></div>
+    <div class="overview-item"><div class="oi-num">2</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">~35</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">Finding</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">Redeploy</div></div>
   </div>
 
-  <!-- ═══════════ PHASE 1: CONNECT ANALYTICS ═══════════ -->
-  <div class="phase" style="margin-top:24px;">
+
+  <!-- ════════════════════ BEFORE YOU BEGIN ════════════════════ -->
+  <div class="card" style="border: 2px solid #059669;">
+    <div class="card-body">
+      <p style="font-size:14px; font-weight:800; color:#059669; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Before You Begin</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">You are working on the <strong>live product</strong> you shipped in M5. Open Lovable, your Living PRD, and your <code>#cohort-channel</code> Slack thread in three tabs.</p>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>M5 product open in Lovable</strong> — with the live URL still live (test it once before class)</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Living PRD open</strong> — you'll pull the M2 problem statement + hypothesis from it</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Live URL posted in <code>#cohort-channel</code></strong> — classmates need it to leave feedback in Phase 1</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>LLM ready</strong> — ChatGPT, Claude, or Gemini open in another tab</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">&#9888;&#65039;</div>
+        <div class="tip-text"><strong>Live URL not posted yet?</strong> Do it now in <code>#cohort-channel</code> — your classmates need it to leave feedback in Phase 1. Your instructor will not pause for cohort coordination once Phase 1 starts.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 1: READ LOVABLE INSIGHTS + GATHER SLACK PEER FEEDBACK    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase" id="phase-1">
     <div class="phase-num" style="background:#059669;">1</div>
     <div class="phase-text">
-      <h2>Connect Analytics</h2>
-      <div class="phase-time">Hands-On · 15 minutes</div>
+      <h2>Read Your Lovable Insights + Gather Slack Peer Feedback</h2>
+      <div class="phase-time">Instructor-Led Exercise · 20 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Your product has been live since M5. Let's see what's happening.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Two passes on the same product. First, baseline your own engagement numbers. Then, get four classmates to stress-test your live URL and leave structured feedback in Slack.</p>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+      <!-- Part A: Capture Your Metrics -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:20px 0 12px;">Part A — Capture Your Metrics</p>
+
+      <div class="step">
         <div class="step-marker" style="background:#059669;">1</div>
         <div class="step-body">
-          <div class="step-title">Review Lovable Insights</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Open your deployed product in Lovable. Find the <strong>insights/analytics panel</strong>. Review what's already being tracked: page views, user sessions, feature usage. <strong>Screenshot your current metrics</strong> — this is your baseline.</div>
+          <div class="step-title">Open the Lovable Insights panel</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">In your Lovable project, click the <strong>chart icon</strong> in the top navigation bar. Screenshot the panel — that's your baseline.</div>
         </div>
       </div>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>No data showing?</strong> Insights has been collecting since you deployed in M5 — but if you never tested your live URL yourself, you'll have zero sessions. Open your live URL in two different browsers right now to generate at least some signal before the lab moves on.</div>
+      </div>
+
+      <div class="step">
         <div class="step-marker" style="background:#059669;">2</div>
         <div class="step-body">
-          <div class="step-title">Set Up Google Analytics (GA4)</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">
-            <strong>a.</strong> Go to <strong>analytics.google.com</strong><br>
-            <strong>b.</strong> Create a new property (free)<br>
-            <strong>c.</strong> Choose "Web" as the platform<br>
-            <strong>d.</strong> Get your <strong>Measurement ID</strong> (starts with G-)<br>
-            <strong>e.</strong> Use the prompt below to add it to your project
-          </div>
+          <div class="step-title">Copy your five key metrics</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">As text, not screenshots — you'll paste them into Lab 2's AI prompt. Fill in the table below.</div>
         </div>
       </div>
 
-      <div class="prompt-template">
-        <div class="pt-label">Analytics Setup Prompt</div>
-        "Add Google Analytics tracking to this project. Use Measurement ID: G-XXXXXXXXXX. Add the gtag script to the head of the main HTML file. Track page views automatically."
-      </div>
-
-      <div class="tip-box warning">
-        <div class="tip-icon">⚠️</div>
-        <div class="tip-text"><strong>Replace G-XXXXXXXXXX</strong> with your actual Measurement ID from the GA4 setup. After adding the tag, <strong>redeploy</strong> your project.</div>
-      </div>
+      <table class="metric-table">
+        <thead><tr><th>Metric</th><th>Your value</th><th>What it tells you</th></tr></thead>
+        <tbody>
+          <tr><td>Visitors</td><td><input placeholder="e.g. 27"/></td><td>Unique users who reached your product</td></tr>
+          <tr><td>Page Views</td><td><input placeholder="e.g. 84"/></td><td>Total pages viewed across all sessions</td></tr>
+          <tr><td>Views Per Visit</td><td><input placeholder="e.g. 3.1"/></td><td>Depth — how many screens an average user explored</td></tr>
+          <tr><td>Duration</td><td><input placeholder="e.g. 1m 42s"/></td><td>Average time spent in a session</td></tr>
+          <tr><td>Bounce Rate</td><td><input placeholder="e.g. 48%"/></td><td>% who left without interacting — your entry-screen quality</td></tr>
+        </tbody>
+      </table>
 
       <div class="step">
         <div class="step-marker" style="background:#059669;">3</div>
         <div class="step-body">
-          <div class="step-title">Verify Tracking</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Open your deployed product in a new tab. Go to GA4 → <strong>Real-time</strong> view. You should see yourself as a live user. Open on your phone — now you should see <strong>two live users</strong>.</div>
-        </div>
-      </div>
-
-      <div class="checklist" style="margin-top:16px;">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Lovable insights reviewed</strong> — baseline screenshot taken</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>GA4 property created</strong> — Measurement ID obtained</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>GA4 tag added</strong> — prompt executed, redeployed</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Tracking verified</strong> — see yourself in real-time view</div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text"><strong>If GA4 setup takes too long:</strong> Lovable's built-in insights are enough for the AI analysis sprint. Don't let GA4 setup eat into analysis time.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
-  <!-- ═══════════ PHASE 2: AI ANALYSIS SPRINT ═══════════ -->
-  <div class="phase">
-    <div class="phase-num" style="background:#7c3aed;">2</div>
-    <div class="phase-text">
-      <h2>AI Analysis Sprint</h2>
-      <div class="phase-time">Hands-On · 15 minutes</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Pull your data. Ask AI to evaluate whether your product is solving the problem you defined.</p>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">1</div>
-        <div class="step-body">
-          <div class="step-title">Gather Your Metrics</div>
+          <div class="step-title">Audit your data — be honest</div>
           <div class="step-time">3 minutes</div>
-          <div class="step-desc">Open Lovable insights or GA4. <strong>Screenshot or copy</strong> your key metrics: sessions, user counts, feature usage, any engagement data you can find.</div>
+          <div class="step-desc">Answer the three questions below. You'll feed the answers into Lab 2's AI analysis.</div>
         </div>
       </div>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">2</div>
-        <div class="step-body">
-          <div class="step-title">Find Your Problem Statement</div>
-          <div class="step-time">2 minutes</div>
-          <div class="step-desc">Open <code>04-structure/PRD.md</code> in your <strong>GitHub repo</strong> — that's where your Living PRD lives (source of truth across modules, not the M4 tool's browser cache). Copy your <strong>problem statement</strong> and your <strong>M2 hypothesis</strong>. Can't find them? Pull from <code>02-validation/validation-brief.md</code> in the same repo, or write a one-sentence version from memory.</div>
-        </div>
+      <div class="notes-area">
+        <div class="na-title">What is your bounce rate telling you about your landing screen?</div>
+        <textarea placeholder="If &gt; 50%: users aren't getting past the hero. If &lt; 30%: your entry hook is working — the friction is downstream."></textarea>
       </div>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#7c3aed;">3</div>
-        <div class="step-body">
-          <div class="step-title">Run the AI Analysis</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Open <strong>ChatGPT or Gemini</strong>. Use the prompt below. Paste your problem statement, hypothesis, and metrics.</div>
-        </div>
+      <div class="notes-area">
+        <div class="na-title">Are users exploring your product or dropping off quickly?</div>
+        <textarea placeholder="Views per visit + duration together. 1 page per visit = single-screen bounce. 4+ pages, &gt;2 min = real exploration."></textarea>
       </div>
 
-      <div class="prompt-template">
-        <div class="pt-label">AI Analysis Prompt</div>
-        "I built a product to solve this problem: [paste your problem statement].<br><br>
-        My hypothesis was: [paste your M2 hypothesis].<br><br>
-        Here are the metrics from my deployed product: [paste your metrics data].<br><br>
-        Evaluate: is this product solving the problem? What does the data suggest? What are the top 3 things I should improve, ranked by likely impact?"
+      <div class="notes-area">
+        <div class="na-title">Is this what you expected? Are users behaving the way you predicted in M2?</div>
+        <textarea placeholder="Compare to your original M2 hypothesis. If users are behaving as predicted, your V2 is a tweak. If not, your V2 is a pivot."></textarea>
       </div>
+
+      <!-- Part B: Slack peer feedback loop -->
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin:28px 0 12px;">Part B — Gather Slack Peer Feedback</p>
+
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Your Insights metrics show what users <em>do</em>. Slack peer feedback shows what they <em>feel</em> and <em>say</em>. Both feed Lab 2.</p>
 
       <div class="step">
-        <div class="step-marker" style="background:#7c3aed;">4</div>
+        <div class="step-marker" style="background:#d97706;">4</div>
         <div class="step-body">
-          <div class="step-title">Identify Your Top Finding</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Read the AI's analysis. <strong>Highlight the single highest-impact recommendation.</strong> That's what you'll build next.</div>
-        </div>
-      </div>
-
-      <div class="checklist" style="margin-top:16px;">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Metrics gathered</strong> — from Lovable insights or GA4</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Problem statement + hypothesis</strong> — copied from <code>04-structure/PRD.md</code> or <code>02-validation/validation-brief.md</code> in your GitHub repo</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>AI analysis complete</strong> — evaluation received</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Top finding identified</strong> — single highest-impact recommendation</div>
-        </div>
-      </div>
-
-      <div class="tip-box fire">
-        <div class="tip-icon">🔥</div>
-        <div class="tip-text"><strong>The wow moment:</strong> When AI connects your data to your problem statement and tells you something you didn't expect about your own product. That analysis would take a product team a day. You just did it in 2 minutes.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
-  <!-- ═══════════ PHASE 3: BUILD ONE IMPROVEMENT ═══════════ -->
-  <div class="phase">
-    <div class="phase-num" style="background:#ea580c;">3</div>
-    <div class="phase-text">
-      <h2>Build One Improvement</h2>
-      <div class="phase-time">Hands-On · 10 minutes</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Pick your single highest-impact finding from the AI analysis. Build it. Redeploy.</p>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#ea580c;">1</div>
-        <div class="step-body">
-          <div class="step-title">Write Your Iteration Prompt</div>
-          <div class="step-time">2 minutes</div>
-          <div class="step-desc">Use the pattern below. Reference the specific finding from your AI analysis.</div>
-        </div>
-      </div>
-
-      <div class="prompt-template">
-        <div class="pt-label">Iteration Prompt Pattern</div>
-        "Based on user data showing [specific finding from AI analysis], update [specific part of the product] to [specific change]. Keep all existing functionality working."
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text"><strong>Evidence-based vs. guess-based:</strong> Your prompt should reference the data that drove the decision. Not "I think the onboarding is confusing" but "Users drop off at step 3 — the CTA is unclear. Rewrite step 3."</div>
-      </div>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#ea580c;">2</div>
-        <div class="step-body">
-          <div class="step-title">Build the Improvement</div>
-          <div class="step-time">5 minutes</div>
-          <div class="step-desc">Paste your iteration prompt into Lovable. Review the changes. Test that existing functionality still works.</div>
+          <div class="step-title">Open your <code>#cohort-channel</code> Slack thread</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Your live URL should already be posted from M5. If not, post it now — classmates need it to leave feedback.</div>
         </div>
       </div>
 
       <div class="step">
-        <div class="step-marker" style="background:#ea580c;">3</div>
+        <div class="step-marker" style="background:#d97706;">5</div>
         <div class="step-body">
-          <div class="step-title">Redeploy</div>
-          <div class="step-time">3 minutes</div>
-          <div class="step-desc"><strong>Redeploy your project.</strong> Your live URL now reflects a data-driven improvement. Open it. Verify the change is live.</div>
+          <div class="step-title">Pick four classmates' URLs and test their products</div>
+          <div class="step-time">8 minutes</div>
+          <div class="step-desc">Spend ~2 minutes per product. Sign up with your email. Run the core flow. Try to break it with an edge case. The goal is detailed feedback you'd want to receive yourself.</div>
         </div>
       </div>
 
-      <div class="checklist" style="margin-top:16px;">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Iteration prompt written</strong> — references specific data finding</div>
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">6</div>
+        <div class="step-body">
+          <div class="step-title">Leave one structured comment per product</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Reply in the <em>same Slack thread</em> as the URL was posted. Tag the builder. Pick one of the four labels below — be specific.</div>
         </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Improvement built</strong> — tested in Lovable</div>
+      </div>
+
+      <div class="label-pill-grid">
+        <div class="label-pill">
+          <div class="lp-emoji">🐛</div>
+          <div class="lp-name">A Bug</div>
+          <div class="lp-example">"I clicked the 'Send Invite' button and nothing happened — the form just stayed open."</div>
         </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Redeployed</strong> — live URL reflects the change</div>
+        <div class="label-pill">
+          <div class="lp-emoji">🤔</div>
+          <div class="lp-name">Friction</div>
+          <div class="lp-example">"I wasn't sure what 'Track Status' meant — it sounded like it would email me, not show me a list."</div>
+        </div>
+        <div class="label-pill">
+          <div class="lp-emoji">🤩</div>
+          <div class="lp-name">A Compliment</div>
+          <div class="lp-example">"The 'Day Zero' empty state was so clear — I knew exactly what to click first."</div>
+        </div>
+        <div class="label-pill">
+          <div class="lp-emoji">💡</div>
+          <div class="lp-name">A Feature Idea</div>
+          <div class="lp-example">"It would be great to bulk-import contacts from CSV instead of one at a time."</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">7</div>
+        <div class="step-body">
+          <div class="step-title">Read the feedback that came in on <em>your</em> thread</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Copy every comment into a single document — you'll paste it into Lab 2's AI prompt. Don't react yet, just collect.</div>
         </div>
       </div>
 
       <div class="callout">
-        <p>You just completed the <em>full product lifecycle</em>:<br>understand → hypothesize → build → ship → measure → learn → <strong>improve</strong></p>
+        <p>By the end of Phase 1 you have:<br><em>Your Insights metrics as text.</em> <em>4+ structured peer comments on your live URL.</em><br><strong>That's everything Lab 2 needs.</strong></p>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Phase 1 Build Notes</div>
+        <div class="na-hint">What surprised you? Which metric was furthest from what you expected? Which peer comment hit hardest?</div>
+        <textarea placeholder="Write your notes here..."></textarea>
       </div>
     </div>
   </div>
 
   <div class="flow-connector"><div class="flow-arrow"></div></div>
 
-  <!-- ═══════════ PHASE 4: QUICK POLISH ═══════════ -->
-  <div class="phase">
-    <div class="phase-num" style="background:#d97706;">4</div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  PHASE 2: AI-DRIVEN ITERATION SPRINT                            -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="phase" id="phase-2">
+    <div class="phase-num" style="background:#d97706;">2</div>
     <div class="phase-text">
-      <h2>Quick Polish</h2>
-      <div class="phase-time">Hands-On · 5 minutes</div>
+      <h2>Run an AI-Driven Iteration Sprint</h2>
+      <div class="phase-time">Individual Lab · 15 minutes</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Quick cleanup before the gallery walk. One prompt per fix.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Feed your inputs to an LLM, get a ranked backlog, pick <strong>one</strong> finding, write one surgical prompt, redeploy. Resist the urge to fix everything.</p>
 
-      <div class="tip-box warning">
-        <div class="tip-icon">⏱️</div>
-        <div class="tip-text"><strong>5 minutes only.</strong> Don't start new features. Just clean up what's there.</div>
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">1</div>
+        <div class="step-body">
+          <div class="step-title">Gather your four inputs</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Pull these together in one place before opening your LLM. Saves you context-switching mid-prompt.</div>
+        </div>
       </div>
 
       <div class="checklist">
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Page title</strong> — shows your product name, not "Vite App"</div>
+          <div><strong>Problem statement</strong> — one sentence, from your M2 Living PRD. (No PRD? Write it from memory now.)</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Favicon</strong> — custom icon in the browser tab</div>
+          <div><strong>Hypothesis</strong> — your M2 prediction about what users would do.</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Mobile responsive</strong> — check on your phone</div>
+          <div><strong>Lovable Insights metrics</strong> — the five values from Phase 1's table.</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>No placeholder text</strong> — no "Lorem ipsum" or "TODO"</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Live URL works in incognito</strong></div>
+          <div><strong>Peer feedback</strong> — every Slack comment on your thread, copy-pasted.</div>
         </div>
       </div>
 
-      <div class="prompt-template">
-        <div class="pt-label">Polish Prompt — Page Title + Favicon</div>
-        "Update the page title to '[Your Product Name]' and add a favicon that matches the product's brand. The favicon should be a simple, recognizable icon."
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">2</div>
+        <div class="step-body">
+          <div class="step-title">Run the Strategic Analysis Prompt</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Open ChatGPT, Claude, or Gemini in a new tab. Paste the prompt below, replacing the four <code>[placeholders]</code> with your gathered inputs.</div>
+        </div>
       </div>
 
-      <div class="prompt-template">
-        <div class="pt-label">Polish Prompt — Mobile Responsive</div>
-        "Make this app fully responsive for mobile screens. The navigation should collapse into a hamburger menu on screens narrower than 768px. All content should be readable without horizontal scrolling."
+      <button class="copy-btn" onclick="copyPrompt(this, 'analyze-prompt', 'Strategic Analysis Prompt')">&#128203; Copy Strategic Analysis Prompt</button>
+
+      <div class="prompt-template" id="analyze-prompt">
+        <div class="pt-label label-analyze">Strategic Analysis Prompt</div>
+I built a product to solve this problem: [problem statement].
+
+My hypothesis was: [hypothesis].
+
+Here are the metrics from my deployed product (Lovable Insights):
+[paste the five-metric block — Visitors, Page Views, Views Per Visit, Duration, Bounce Rate]
+
+Here is the feedback I received from peer users in Slack:
+[paste all peer comments — keep the labels (🐛 Bug, 🤔 Friction, 🤩 Compliment, 💡 Feature Idea) so the AI can weight them]
+
+Evaluate honestly:
+1. Is this product solving the problem? What does the data actually suggest?
+2. Where does my hypothesis appear to be confirmed vs contradicted by the signal?
+3. What are the top 3 things I should improve, ranked by likely impact?
+   For each, name the pattern: Persona Refinement / Visual Branching / Guardrail.
+
+Be specific and grounded in the data I gave you. Do not invent metrics I didn't share.
+      </div>
+
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text"><strong>The AI is your analyst, not your PM.</strong> It will give you a ranked list. <em>You</em> pick the one to ship. Don't outsource the conviction.</div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">3</div>
+        <div class="step-body">
+          <div class="step-title">Pick exactly one finding</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">From the AI's top 3, pick the single highest-impact recommendation. Not the safest. The one that moves the needle.</div>
+        </div>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">My chosen finding</div>
+        <div class="na-hint">Write the AI's recommendation back in your own words. Include the pattern (Persona / Branching / Guardrail) it maps to.</div>
+        <textarea placeholder="e.g. 'Bounce rate is 62% on the landing screen because the value prop isn't clear in 5 seconds. Pattern: Persona Refinement — rewrite the hero copy with an action-first voice.'"></textarea>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">4</div>
+        <div class="step-body">
+          <div class="step-title">Write your Lovable implementation prompt</div>
+          <div class="step-time">2 minutes</div>
+          <div class="step-desc">Every M6 prompt starts with <strong>"based on the data..."</strong>. Use the matching pattern below for your finding.</div>
+        </div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pc-head"><div class="pc-emoji">🧠</div><div class="pc-name">Persona Refinement</div></div>
+        <div class="pc-when"><strong>When:</strong> the data shows users are confused by copy, voice, or framing.</div>
+        <div class="pc-example">Based on the user data showing [specific metric finding], refactor all copy in [Screen Name] to the voice of [persona — e.g. "an efficiency expert"]. Keep all existing functionality and component structure working. Change only the language.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pc-head"><div class="pc-emoji">🔀</div><div class="pc-name">Visual Branching</div></div>
+        <div class="pc-when"><strong>When:</strong> the data shows users abandoning a flow — the mental model is wrong.</div>
+        <div class="pc-example">Based on the user data showing [bounce / drop-off metric] on [Screen Name], swap the current [component — e.g. "multi-step wizard"] for [new mental model — e.g. "a single-page Kanban board"]. Preserve the underlying data and submit logic.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pc-head"><div class="pc-emoji">🛡️</div><div class="pc-name">Guardrail (Hard IF/THEN)</div></div>
+        <div class="pc-when"><strong>When:</strong> the data exposes a logic gap — bad data, duplicates, edge cases.</div>
+        <div class="pc-example">Based on the user data showing [specific failure mode], add a hard rule: IF [condition], THEN [enforced behaviour]. Show an inline error if the rule blocks the action. Apply this guardrail to [specific component / action].</div>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">My implementation prompt</div>
+        <div class="na-hint">Write the final prompt you'll paste into Lovable. One change, one component.</div>
+        <textarea placeholder='e.g. "Based on the user data showing a 62% bounce rate on the landing screen, refactor all hero and CTA copy on / (root) to the voice of an efficiency expert — short, declarative, action-first. Keep all existing functionality and component structure working."'></textarea>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">5</div>
+        <div class="step-body">
+          <div class="step-title">Run the prompt in Lovable, then test</div>
+          <div class="step-time">4 minutes</div>
+          <div class="step-desc">Paste the prompt. Let Lovable do its thing. Then test the change end-to-end before you redeploy.</div>
+        </div>
+      </div>
+
+      <p style="font-size:14px; font-weight:700; color:#1a1a2e; margin:12px 0 8px;">Verify before redeploying:</p>
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>The change works as expected</strong> — the friction point the AI flagged is now resolved</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Nothing else broke</strong> — run your core flow once more (sign-up → main action → check result)</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>The data in your DB is intact</strong> — your prior records still display</div>
+        </div>
+      </div>
+
+      <div class="tip-box danger">
+        <div class="tip-icon">&#128680;</div>
+        <div class="tip-text"><strong>Something broke?</strong> Do <em>not</em> redeploy. Re-prompt: <em>"The last change broke [specific thing]. Restore [the working behaviour] while keeping [the new change you wanted]."</em> Ship only when the diff is clean.</div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">6</div>
+        <div class="step-body">
+          <div class="step-title">Redeploy your project</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">In Lovable, click <strong>Publish</strong>. Your changes are live on the same URL within ~30 seconds.</div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">7</div>
+        <div class="step-body">
+          <div class="step-title">Push your Iteration Sprint Brief to GitHub</div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Commit <code>Iteration-Sprint-Brief.md</code> to <code>06-iteration/</code> — the AI analysis, your chosen finding, the implementation prompt, the redeployed URL. The <a href="../Templates/Iteration-Sprint-Brief.md" target="_blank" rel="noopener">template</a> gives you the structure.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>You just closed the loop. <em>Ship → measure → analyse → ship again.</em><br><strong>That's the practice. Not the project — the practice.</strong></p>
+      </div>
+
+      <div class="notes-area">
+        <div class="na-title">Phase 2 Build Notes</div>
+        <div class="na-hint">What did the AI catch that you missed? How close was the chosen finding to the M2 hypothesis? What would you do differently next sprint?</div>
+        <textarea placeholder="Write your notes here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  WRAP-UP — submit final-project deliverables                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="card" style="margin-top:32px;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Before You Close the Laptop</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">1</div>
+        <div class="step-body">
+          <div class="step-title">Commit to GitHub</div>
+          <div class="step-desc">Push <code>06-iteration/Iteration-Sprint-Brief.md</code> alongside your <code>05-integration/</code> deliverables. Update <code>README.md</code> with the redeployed URL. <strong>If it's not in GitHub, it didn't happen</strong> — your repo is your portfolio for the rest of your career.</div>
+        </div>
+      </div>
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">2</div>
+        <div class="step-body">
+          <div class="step-title">Polish your Final Project Deliverables Deck</div>
+          <div class="step-desc">Add the redeployed URL, the chosen finding, and the iteration evidence to slide 10 of your final deck. The strategic logic — what you measured, what you found, what you shipped — is the most senior signal a PM can show.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">3</div>
+        <div class="step-body">
+          <div class="step-title">Submit to Docebo within 7 days</div>
+          <div class="step-desc">Every learner — volunteer or not — submits a finalised copy of the deck to the LMS to qualify for certification. This is the only gate.</div>
+        </div>
       </div>
 
       <div class="tip-box success">
-        <div class="tip-icon">✅</div>
-        <div class="tip-text"><strong>Redeploy after fixes.</strong> Your live URL updates instantly. One final redeploy when time is up.</div>
+        <div class="tip-icon">&#127881;</div>
+        <div class="tip-text"><strong>That's it.</strong> Six modules, one closed loop, one production-grade portfolio piece. Welcome to the Vibe Coding alumni community. Keep shipping. Keep measuring. Keep iterating.</div>
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
 
-  <!-- ═══════════ PHASE 5: GALLERY WALK ═══════════ -->
-  <div class="phase">
-    <div class="phase-num" style="background:#2563eb;">5</div>
-    <div class="phase-text">
-      <h2>Gallery Walk</h2>
-      <div class="phase-time">Experience Each Other's Products · 20 minutes</div>
-    </div>
-  </div>
-
-  <div class="card">
+  <!-- ════════════════════ OPTIONAL POST-CLASS — GA4 ════════════════════ -->
+  <div class="card" style="margin-top:32px; background:#fafbfc; border:1px solid #e2e8f0;">
     <div class="card-body">
-      <div class="callout" style="margin-top:0;">
-        <p>These products have been <em>measured and improved with real data</em>. You're using them as a real user.</p>
-      </div>
+      <p style="font-size:13px; font-weight:800; color:#2563eb; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">Optional · Post-Class</p>
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:6px;">Connect Google Analytics 4 for the External Behavioural Layer</p>
+      <p style="font-size:14px; color:#555; line-height:1.6; margin-bottom:14px;">Lovable Insights is your Layer 1 (internal, passive). GA4 is Layer 2 — deeper funnel signal, traffic sources, conversion paths. ~10 minutes of setup.</p>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+      <div class="step">
         <div class="step-marker" style="background:#2563eb;">1</div>
         <div class="step-body">
-          <div class="step-title">Post your live URL in Slack</div>
-          <div class="step-desc">Make sure your latest deploy is live. Drop the URL in the class Slack channel.</div>
+          <div class="step-title">Create your GA4 account</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Go to <code>analytics.google.com</code> → <strong>Start measuring</strong>. Set: Account name (use your prototype name), Business details, Data collection = <strong>Web</strong>. Paste your Lovable URL (without <code>https://</code>) into the website URL field.</div>
         </div>
       </div>
 
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#2563eb;">2</div>
-        <div class="step-body">
-          <div class="step-title">Open 4–5 classmates' products</div>
-          <div class="step-desc">Pick products from different scenarios if possible. Open each in its own browser tab.</div>
-        </div>
-      </div>
-
-      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
-        <div class="step-marker" style="background:#2563eb;">3</div>
-        <div class="step-body">
-          <div class="step-title">Real user test for each product</div>
-          <div class="step-desc">
-            <strong>a.</strong> Sign up with a real email<br>
-            <strong>b.</strong> Try the core flow — what is this product trying to do?<br>
-            <strong>c.</strong> Try to break it — what happens?<br>
-            <strong>d.</strong> Note: one thing that impressed you, one thing that confused you
-          </div>
-        </div>
+      <div class="tip-box info">
+        <div class="tip-icon">&#128161;</div>
+        <div class="tip-text">Click <strong>Create and Continue</strong>. GA4 generates a screen with your tracking code and a unique <strong>Measurement ID</strong> starting with <code>G-</code>. Copy it.</div>
       </div>
 
       <div class="step">
-        <div class="step-marker" style="background:#2563eb;">4</div>
+        <div class="step-marker" style="background:#2563eb;">2</div>
         <div class="step-body">
-          <div class="step-title">Post feedback in Slack</div>
-          <div class="step-desc">Tag the builder. Keep it honest and specific.</div>
+          <div class="step-title">Connect GA4 to your Lovable project</div>
+          <div class="step-time">4 minutes</div>
+          <div class="step-desc">Paste this prompt into Lovable, replacing <code>G-XXXXXXXXXX</code> with your real ID.</div>
         </div>
       </div>
 
-      <div class="post-template">
-        <div class="pt-title">Feedback Template</div>
-        @[builder name] — used your product!<br>
-        "One thing that impressed me: ___"<br>
-        "One thing that confused me: ___"
+      <button class="copy-btn" style="background:#2563eb;" onclick="copyPrompt(this, 'ga4-prompt', 'GA4 Connection Prompt')">&#128203; Copy GA4 Connection Prompt</button>
+
+      <div class="prompt-template" id="ga4-prompt" style="max-height:180px;">
+        <div class="pt-label label-track">GA4 Connection Prompt</div>
+Add Google Analytics tracking to this project. Use Measurement ID: G-XXXXXXXXXX. Add the gtag script to the head of the main HTML file. Track page views automatically. Do not change any existing functionality.
       </div>
 
-      <div class="checklist" style="margin-top:16px;">
+      <div class="step">
+        <div class="step-marker" style="background:#2563eb;">3</div>
+        <div class="step-body">
+          <div class="step-title">Verify in Realtime</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Redeploy in Lovable to push the tracking script. Open <strong>GA4 → Realtime Overview</strong>. Open your live URL in a new tab — you should see yourself appear as an active user. Open it on your phone too — two active users means GA4 is wired up.</div>
+        </div>
+      </div>
+
+      <div class="checklist">
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Tried 4+ classmates' products</strong></div>
+          <div><strong>GA4 Realtime shows your laptop session</strong></div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Signed up on at least 2</strong> with a real email</div>
+          <div><strong>GA4 Realtime shows your phone as a second user</strong> — tracking confirmed</div>
         </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Posted feedback in Slack</strong> for at least 2 builders</div>
-        </div>
+      </div>
+
+      <div class="tip-box success">
+        <div class="tip-icon">&#9989;</div>
+        <div class="tip-text"><strong>You're now reading Layer 2.</strong> Run the same Strategic Analysis Prompt from Phase 2 next week, but this time paste the GA4 funnel data alongside your Lovable Insights. The AI will give you sharper, journey-aware findings.</div>
       </div>
     </div>
   </div>
 
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
-  <!-- ═══════════ PHASE 6: PRESENTATION ═══════════ -->
-  <div class="phase">
-    <div class="phase-num" style="background:#e11d48;">6</div>
-    <div class="phase-text">
-      <h2>Your 5-Minute Pitch</h2>
-      <div class="phase-time">Presentations · 5 minutes each</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">No slides required. Your product IS the presentation.</p>
-
-      <div class="pitch-grid">
-        <div class="pitch-step">
-          <div class="pitch-num">1</div>
-          <div class="pitch-body">
-            <div class="pitch-title">The Problem</div>
-            <div class="pitch-time">30 seconds</div>
-            <div class="pitch-desc">What user problem are you solving? One sentence.</div>
-          </div>
-        </div>
-        <div class="pitch-step">
-          <div class="pitch-num">2</div>
-          <div class="pitch-body">
-            <div class="pitch-title">The Hypothesis</div>
-            <div class="pitch-time">30 seconds</div>
-            <div class="pitch-desc">What did you test? What was your M2 assumption?</div>
-          </div>
-        </div>
-        <div class="pitch-step">
-          <div class="pitch-num">3</div>
-          <div class="pitch-body">
-            <div class="pitch-title">Live Demo</div>
-            <div class="pitch-time">2 minutes</div>
-            <div class="pitch-desc">Show your deployed product. Walk through the core flow. Show one key integration.</div>
-          </div>
-        </div>
-        <div class="pitch-step">
-          <div class="pitch-num">4</div>
-          <div class="pitch-body">
-            <div class="pitch-title">What the Data Told You</div>
-            <div class="pitch-time">1 minute</div>
-            <div class="pitch-desc">What did analytics reveal? What did AI analysis surface? What improvement did you make based on evidence?</div>
-          </div>
-        </div>
-        <div class="pitch-step">
-          <div class="pitch-num">5</div>
-          <div class="pitch-body">
-            <div class="pitch-title">The Journey</div>
-            <div class="pitch-time">1 minute</div>
-            <div class="pitch-desc">Show your M1 build vs. your M6 build. Side by side. What changed?</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tip-box fire">
-        <div class="tip-icon">🔥</div>
-        <div class="tip-text"><strong>The M1 vs M6 side-by-side is the most powerful moment.</strong> Open both tabs before you present so you can switch quickly.</div>
-      </div>
-
-      <div class="checklist" style="margin-top:16px;">
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Live URL ready</strong> — tested and working</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>M1 URL ready</strong> — for the side-by-side comparison</div>
-        </div>
-        <div class="check-item" onclick="toggleCheck(this)">
-          <div class="check-box"></div>
-          <div><strong>Data story prepared</strong> — what analytics told you, what you improved</div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <div class="tip-icon">📹</div>
-        <div class="tip-text"><strong>Not presenting live?</strong> Record a 2-minute Loom walkthrough. Include your data story: what you measured, what you learned, what you improved. Post in Slack with your M1 link.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flow-connector"><div class="flow-arrow"></div></div>
-
-  <!-- ═══════════ THE JOURNEY ═══════════ -->
-  <div class="card" style="margin-top:32px;">
-    <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px; text-align:center;">The Complete Arc</p>
-      <div class="reveal-grid">
-        <div class="reveal-card inactive">
-          <div class="reveal-label">M1</div>
-          <div class="reveal-title">Speed</div>
-          <div class="reveal-desc">One prompt, one page</div>
-        </div>
-        <div class="reveal-card inactive">
-          <div class="reveal-label">M2</div>
-          <div class="reveal-title">Aim</div>
-          <div class="reveal-desc">Hypothesis + data</div>
-        </div>
-        <div class="reveal-card inactive">
-          <div class="reveal-label">M3</div>
-          <div class="reveal-title">Precision</div>
-          <div class="reveal-desc">Multi-screen, interactive</div>
-        </div>
-        <div class="reveal-card inactive">
-          <div class="reveal-label">M4</div>
-          <div class="reveal-title">Structure</div>
-          <div class="reveal-desc">Clean code, Living PRD</div>
-        </div>
-        <div class="reveal-card inactive">
-          <div class="reveal-label">M5</div>
-          <div class="reveal-title">Ship</div>
-          <div class="reveal-desc">Database, auth, deployed</div>
-        </div>
-        <div class="reveal-card active">
-          <div class="reveal-label">M6</div>
-          <div class="reveal-title">Learn</div>
-          <div class="reveal-desc">Measured. Analyzed. Iterated.</div>
-        </div>
-      </div>
-      <div class="callout">
-        <p>Same tool. Same you. Six modules.<br><br>From <em>"I wonder if AI can build things"</em> to <strong>"I just shipped, measured, and improved a product."</strong></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:24px; border: 2px solid #34d399; background:#ecfdf5;">
-    <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#065f46; margin-bottom:10px;">📂 Your GitHub repo — your portfolio piece</p>
-      <p style="font-size:13.5px; color:#047857; line-height:1.6;">Everything you submit to the LMS and everything you share with future hiring panels comes from your repo: <code>02-validation/</code> · <code>03-prompt-chaining/</code> · <code>04-structure/</code> · <code>05-integration/</code> · <code>06-iteration/</code>. The tools across modules were thinking aids that lived in browser memory. The repo is the artefact that survives.</p>
-    </div>
-  </div>
 
   <div class="footer-note">
-    <strong>Module 6: Measure, Learn, Iterate</strong><br>
-    Your product is live. You measured it. You learned from it. You improved it. That's the complete product lifecycle. That's Vibe Coding.
+    <strong>Module 6: Measure for AI-Driven Iteration</strong><br>
+    Your live URL is now measured, iterated, and redeployed.<br>Real data. AI-synthesised analysis. One surgical fix. The build-measure-iterate loop, closed.<br><br>
+    <strong>End of certification.</strong> Submit the Final Project deck to Docebo within 7 days to qualify.
   </div>
 
 </div>
@@ -721,6 +747,20 @@
     const box = item.querySelector('.check-box');
     box.classList.toggle('checked');
     box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+
+  function copyPrompt(btn, promptId, labelText) {
+    const el = document.getElementById(promptId);
+    const text = el.textContent.replace(labelText, '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      const original = btn.innerHTML;
+      btn.innerHTML = '&#9989; Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = original;
+      }, 2000);
+    });
   }
 </script>
 
