@@ -695,60 +695,69 @@ Be specific and grounded in the data I gave you. Do not invent metrics I didn't 
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:15px; color:#555; margin-bottom:14px;">Your final deliverable is <strong>not a PowerPoint</strong>. It's a live, hosted showcase site that walks a reviewer through your six modules — Problem &middot; Hypothesis &middot; Product &middot; Validation &middot; PRD &middot; Prompt Chain &middot; Handoff &middot; Iteration &middot; Story. Fork the template, fill in placeholders, push to GitHub Pages, submit the URL.</p>
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Your final deliverable is <strong>not a PowerPoint</strong>. It's a live, hosted showcase site that walks a reviewer through your six modules — Problem &middot; Hypothesis &middot; Validation &middot; PRD &middot; Prompt Chain &middot; Handoff &middot; Friction &middot; Learning &middot; Aha. The <strong>Showcase Generator</strong> reads your repo's markdown and builds the whole thing for you — no template-editing, no placeholder hunting.</p>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">1</div>
         <div class="step-body">
-          <div class="step-title">Fork the showcase template</div>
-          <div class="step-time">1 minute</div>
-          <div class="step-desc">Open <a href="../Templates/Final-Project-Showcase.html" target="_blank" rel="noopener" style="color:#7c3aed; font-weight:700;"><code>Templates/Final-Project-Showcase.html</code></a>. Save it into the root of your project repo as <code>index.html</code>. (GitHub Pages serves <code>index.html</code> from the root by default.)</div>
+          <div class="step-title">Make sure your repo is public</div>
+          <div class="step-time">30 seconds</div>
+          <div class="step-desc">Open your repo on GitHub → <strong>Settings</strong> → scroll to <strong>Danger Zone</strong> → <strong>Change repository visibility</strong> → <em>Public</em>. (GitHub Pages and the generator both need a public repo on the free plan. If you're staying private, paste a personal access token into the generator's optional field.)</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">2</div>
         <div class="step-body">
-          <div class="step-title">Replace the placeholder tokens</div>
-          <div class="step-time">9 minutes</div>
-          <div class="step-desc">Every spot you need to edit is marked <code>[PLACEHOLDER]</code>. Search-and-replace these first: <code>[YOUR_NAME]</code>, <code>[PROJECT_NAME]</code>, <code>[LIVE_URL]</code>, <code>[GITHUB_URL]</code>. Then walk each slide and replace the inline tokens with content from your modules — you already have everything in <code>02-validation/</code>, <code>03-prd/</code>, <code>04-handoff/</code>, <code>06-iteration/</code>.</div>
+          <div class="step-title">Drop a <code>STORY.md</code> in your repo</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">Most learners already have Problem, Hypothesis, Validation, PRD, and Handoff content somewhere in their markdown. What's usually missing: <strong>Friction</strong>, <strong>Learning</strong>, and <strong>Aha</strong>. Copy <a href="../Templates/STORY-Template.md" target="_blank" rel="noopener" style="color:#7c3aed; font-weight:700;"><code>Templates/STORY-Template.md</code></a> into your repo as <code>STORY.md</code> and fill in three short paragraphs.</div>
         </div>
       </div>
 
       <div class="tip-box info">
         <div class="tip-icon">&#127919;</div>
-        <div class="tip-text"><strong>The bar is your strategic logic, not perfection.</strong> Write the Story slide first — that's where most learners under-invest. The "aha moment" should sound like a sentence you'd say at a dinner party, not a deliverable.</div>
+        <div class="tip-text"><strong>The bar is your strategic logic, not perfection.</strong> Write the Aha section first — that's where most learners under-invest. It should sound like a sentence you'd say at a dinner party, not a deliverable.</div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">3</div>
         <div class="step-body">
-          <div class="step-title">Add a hero screenshot</div>
+          <div class="step-title">Open the Showcase Generator &amp; paste your repo URL</div>
           <div class="step-time">2 minutes</div>
-          <div class="step-desc">Create an <code>assets/</code> folder in your repo. Save a screenshot of your live product as <code>assets/product-hero.png</code>. On slide 5 of the template, replace the <code>.pf-placeholder</code> div with <code>&lt;img src="assets/product-hero.png" alt="..."/&gt;</code>.</div>
+          <div class="step-desc">Open <a href="../Templates/Showcase-Generator.html" target="_blank" rel="noopener" style="color:#7c3aed; font-weight:700;"><code>Templates/Showcase-Generator.html</code></a>. Paste your repo URL (e.g. <code>https://github.com/you/your-repo</code>) and hit <strong>Generate &rarr;</strong>. The tool crawls every markdown file, matches H2 headers against the 8 showcase slots, and renders the preview live in the page.</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">4</div>
         <div class="step-body">
-          <div class="step-title">Commit and push to GitHub</div>
-          <div class="step-time">1 minute</div>
-          <div class="step-desc">Open the GitHub Desktop app (or run <code>git add . && git commit -m "Add showcase site" && git push</code>). The whole site is a single <code>index.html</code> — no build step.</div>
+          <div class="step-title">Fix any yellow placeholder cards</div>
+          <div class="step-time">3 minutes</div>
+          <div class="step-desc">If the generator couldn't find a section, that slide is a yellow card telling you exactly what heading to add (e.g. <em>"Add ## Hypothesis to a markdown file in your repo"</em>). Open the file, add the heading + content, push, and re-run the generator. Loop until every slide is green.</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">5</div>
         <div class="step-body">
-          <div class="step-title">Turn on GitHub Pages</div>
+          <div class="step-title">Download <code>index.html</code> &rarr; drop in <code>docs/</code></div>
           <div class="step-time">1 minute</div>
-          <div class="step-desc">Open your repo on GitHub → <strong>Settings</strong> → <strong>Pages</strong>. Under <em>Source</em>, choose <strong>Deploy from a branch</strong>, set Branch to <code>main</code> and Folder to <code>/ (root)</code>. Hit <strong>Save</strong>.</div>
+          <div class="step-desc">Hit <strong>&darr; Download HTML</strong> in the generator's preview toolbar. Move the downloaded <code>index.html</code> into a <code>docs/</code> folder in your repo (create it if needed). Commit and push: <code>git add docs/index.html &amp;&amp; git commit -m "Add showcase site" &amp;&amp; git push</code>.</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-marker" style="background:#7c3aed;">6</div>
+        <div class="step-body">
+          <div class="step-title">Turn on GitHub Pages from <code>/docs</code></div>
+          <div class="step-time">1 minute</div>
+          <div class="step-desc">Open your repo on GitHub &rarr; <strong>Settings</strong> &rarr; <strong>Pages</strong>. Under <em>Source</em>, choose <strong>Deploy from a branch</strong>. Set Branch to <code>main</code> and Folder to <code>/docs</code>. Hit <strong>Save</strong>. (We use <code>/docs</code> not <code>/ (root)</code> so the showcase doesn't collide with your live product's <code>index.html</code> from Lovable.)</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">7</div>
         <div class="step-body">
           <div class="step-title">Verify the public URL</div>
           <div class="step-time">1 minute</div>
@@ -759,19 +768,19 @@ Be specific and grounded in the data I gave you. Do not invent metrics I didn't 
       <div class="checklist">
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Every <code>[PLACEHOLDER]</code> token replaced</strong> — search the file for <code>[</code> to be sure</div>
+          <div><strong>Generator filled all 8 sections green</strong> &mdash; no yellow placeholder cards left</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Hero screenshot loads</strong> on slide 5 (no broken-image icon)</div>
+          <div><strong>Product link auto-detected</strong> in the title slide (your Lovable URL)</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Live URL + GitHub repo URL both open</strong> from the hero buttons</div>
+          <div><strong>Prompt chain populated</strong> &mdash; at least 1 code block pulled from your prompt-chain markdown</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
-          <div><strong>Story slide written like a dinner-party story</strong> — friction, learning, aha</div>
+          <div><strong>Aha section written like a dinner-party story</strong> &mdash; not a deliverable</div>
         </div>
         <div class="check-item" onclick="toggleCheck(this)">
           <div class="check-box"></div>
@@ -781,7 +790,7 @@ Be specific and grounded in the data I gave you. Do not invent metrics I didn't 
 
       <div class="tip-box success">
         <div class="tip-icon">&#127881;</div>
-        <div class="tip-text"><strong>That's it.</strong> Your portfolio is a live URL hosted on GitHub Pages, not a PowerPoint living in someone's downloads folder. Welcome to the Vibe Coding alumni community. Keep shipping. Keep measuring. Keep iterating.</div>
+        <div class="tip-text"><strong>That's it.</strong> Your portfolio is a live URL hosted on GitHub Pages, generated from the same markdown you've been writing across six modules. No PowerPoint, no manual placeholder hunting — just the work itself, rendered. Welcome to the Vibe Coding alumni community. Keep shipping. Keep measuring. Keep iterating.</div>
       </div>
     </div>
   </div>

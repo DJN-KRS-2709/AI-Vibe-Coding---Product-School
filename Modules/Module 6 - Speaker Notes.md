@@ -103,9 +103,11 @@ The single hardest thing to do well: **test before redeploying.** If Lovable mad
 
 ## 19. Finalize Your Project Deliverables (15 min)
 
-15 minutes of solo polish — but the deliverable is **a live GitHub Pages site, not a PowerPoint.** Drop the link to `Templates/Final-Project-Showcase.html` in `#cohort-channel`. Every learner forks it, drops it into their repo as `index.html`, replaces the `[PLACEHOLDER]` tokens with content from their modules, pushes, and turns on Pages (`Settings → Pages → main / root`). That public URL is what they submit to Docebo.
+15 minutes of solo polish — but the deliverable is **a live GitHub Pages site, not a PowerPoint.** Drop the link to `Templates/Showcase-Generator.html` in `#cohort-channel`. Every learner opens it, pastes their repo URL, and the tool scans every markdown file in their repo — pattern-matching H2 headers against the 8 showcase slots (Problem · Hypothesis · Validation · PRD elements · Handoff · Friction · Learning · Aha) plus fenced code blocks for the prompt chain. Hit Download HTML, drop the file in `docs/index.html`, push, `Settings → Pages → main / /docs → Save`. That public URL is what they submit to Docebo.
 
-Walk the slide map: 5 product · 6 validation · 7 PRD · 8 prompt chain · 9 handoff · 10 story. The story slide (10) is where most learners under-invest — push hard: *"what was your aha moment? Write the sentence you'd say at a dinner party."* Same energy as the AI Product Strategy showcases — the URL is the artifact, not a slide deck.
+Two prereqs to flag before they start: (1) the repo must be **public** (or paste a personal access token in the optional field) — public is required for free GitHub Pages anyway; (2) any section the tool can't find shows up as a yellow placeholder card with the exact heading to add. Most learners will be missing Friction · Learning · Aha — those typically aren't in `livingprd.md` or `engineeringhandoff.md`. Tell them to drop a `STORY.md` in their repo root with three short sections (`## Friction`, `## Learning`, `## Aha`). Template lives in `Templates/STORY-Template.md`.
+
+Walk the slide map: title · product · problem · hypothesis · validation · PRD · prompts · handoff · friction · learning · aha. The story slides (friction/learning/aha) are where most learners under-invest — push hard: *"what was your aha moment? Write the sentence you'd say at a dinner party."* Same energy as the AI Product Strategy showcases — the URL is the artifact, not a slide deck.
 
 ## 20. Learner Journey · M1 → M6
 

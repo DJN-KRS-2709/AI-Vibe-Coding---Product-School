@@ -704,18 +704,19 @@ BODY = r"""
     </div>
     <div style="margin-top: 18px; padding: 16px 22px; background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(167,139,250,0.08)); border: 1.5px solid rgba(96,165,250,0.35); border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
       <div style="text-align: left;">
-        <div style="font-family:'Poppins',sans-serif; font-weight: 700; font-size: 15px; color: #fff; margin-bottom: 4px;">Fork the showcase template</div>
-        <div style="font-size: 13px; color: #b0b4c8;">A single-file scroll-snap site that mirrors the 10 deliverable slides. Drop it in your repo as <code>index.html</code>, replace the <code>[PLACEHOLDER]</code> tokens, push, and turn on GitHub Pages.</div>
+        <div style="font-family:'Poppins',sans-serif; font-weight: 700; font-size: 15px; color: #fff; margin-bottom: 4px;">Open the Showcase Generator</div>
+        <div style="font-size: 13px; color: #b0b4c8;">Paste your <strong>public</strong> GitHub repo URL — the tool crawls every markdown file, finds your Problem · Hypothesis · Validation · PRD · Prompts · Handoff · Friction · Learning · Aha sections, and renders the showcase live. Download <code>index.html</code>, drop it in <code>docs/</code>, push, and turn on GitHub Pages.</div>
       </div>
-      <a class="tool-btn" href="../Templates/Final-Project-Showcase.html" target="_blank" rel="noopener" style="white-space: nowrap;">↗ Open the showcase template</a>
+      <a class="tool-btn" href="../Templates/Showcase-Generator.html" target="_blank" rel="noopener" style="white-space: nowrap;">↗ Open the generator</a>
     </div>
     <div style="margin-top: 12px; padding: 14px 20px; background: rgba(167,139,250,0.08); border-left: 4px solid #a78bfa; border-radius: 8px; font-size: 13.5px; color: #e0e0f0; line-height: 1.55; text-align: left;">
-      🎯 <strong>The bar is not perfection.</strong> The bar is your <em>strategic logic</em> and what you learned. Adapt the template — make it yours.
+      🎯 <strong>The bar is not perfection.</strong> The bar is your <em>strategic logic</em> and what you learned. If a section is missing from your repo, the generator shows a clear placeholder telling you exactly what heading to add.
     </div>
     <div class="notes">
       <h4>Speaker Notes</h4>
-      <p>15 minutes of solo polish — but the deliverable is <strong>a live GitHub Pages site</strong>, not a PowerPoint. Drop the link to <code>Templates/Final-Project-Showcase.html</code> in <code>#cohort-channel</code> — every learner forks it, fills in the placeholders, and pushes to their repo. Settings → Pages → main / root → done. That public URL is what they submit to Docebo.</p>
-      <p>Walk the slide map: 5 product · 6 validation · 7 PRD · 8 prompt chain · 9 handoff · 10 story. The story slide (10) is where most learners under-invest — push hard: <em>"what was your aha moment? Write the sentence you'd say at a dinner party."</em> Same energy as the AI Product Strategy showcases — the URL is the artifact, not a slide deck.</p>
+      <p>15 minutes of solo polish — but the deliverable is <strong>a live GitHub Pages site</strong>, not a PowerPoint. Drop the link to <code>Templates/Showcase-Generator.html</code> in <code>#cohort-channel</code>. Every learner opens it, pastes their repo URL, and the tool scans every markdown file in their repo — pattern-matching H2 headers against the 8 showcase slots (Problem · Hypothesis · Validation · PRD elements · Handoff · Friction · Learning · Aha) plus fenced code blocks for the prompt chain. Hit Download HTML, drop the file in <code>docs/index.html</code>, push, Settings → Pages → main / /docs → done. That public URL is what they submit to Docebo.</p>
+      <p>Two prereqs to flag: (1) the repo must be <strong>public</strong> (or paste a personal access token in the optional field), and (2) any section the tool can't find shows up as a yellow placeholder card with explicit instructions. Most learners will be missing Friction · Learning · Aha — those usually aren't in <code>livingprd.md</code> or <code>engineeringhandoff.md</code>. Tell them to drop a <code>STORY.md</code> in their repo root with three short sections (<code>## Friction</code>, <code>## Learning</code>, <code>## Aha</code>). Template lives in <code>Templates/STORY-Template.md</code>.</p>
+      <p>Walk the slide map: title · product · problem · hypothesis · validation · PRD · prompts · handoff · friction · learning · aha. The story slides (friction/learning/aha) are where most learners under-invest — push hard: <em>"what was your aha moment? Write the sentence you'd say at a dinner party."</em> Same energy as the AI Product Strategy showcases — the URL is the artifact, not a slide deck.</p>
     </div>
   </div>
 </section>
