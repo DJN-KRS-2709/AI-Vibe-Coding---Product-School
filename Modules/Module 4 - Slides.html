@@ -493,6 +493,13 @@ section.cameras-section .cameras-inner {
 
 /* FLOW STEPS — visual step chain for Frame Before You Build + Lab */
 .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px auto 16px; max-width: 1040px; position: relative; }
+
+/* Extract Your Living PRD (S15) — 3-up grid that fills the inner column.
+   Separate from .flow-steps so the 4-col + media-query baggage doesn't apply. */
+.extract-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; width: 100%; margin: 24px 0 18px; }
+.extract-grid > .flow-step { padding: 26px 22px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; text-align: left; transition: all .3s ease; }
+.extract-grid > .flow-step:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.4); background: rgba(255,255,255,0.05); }
+@media (max-width: 760px) { .extract-grid { grid-template-columns: 1fr; } }
 .flow-step { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 16px; text-align: left; transition: all .3s ease; position: relative; }
 .flow-step:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.4); background: rgba(255,255,255,0.05); }
 .flow-step .fs-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -1349,13 +1356,13 @@ section.cameras-section .cameras-inner {
 <!-- 15. EXTRACT YOUR LIVING PRD — Individual Exercise (15 min) -->
 <section data-title="Extract Your Living PRD">
   <div class="lab-timer">⏰ 15 min</div>
-  <div class="inner" style="max-width: 1180px;">
+  <div class="inner" style="max-width: 1240px;">
     <div class="demo-tag tag-exercise">Individual Exercise · 15 Minutes</div>
     <h2>Extract your Living PRD.</h2>
     <p class="subtitle">Use Lovable to extract a structured PRD from your current build. Your goal is to capture an <strong>honest record</strong> of your prototype's functional logic, screen map, and technical reality — even if it's not perfect. <em>Document what exists, don't fix the code yet.</em></p>
 
-    <div class="flow-steps" style="grid-template-columns: repeat(3, 1fr); max-width: 100%; gap: 16px;">
-      <div class="flow-step" style="padding: 22px 20px;">
+    <div class="extract-grid">
+      <div class="flow-step">
         <div class="fs-head">
           <div class="fs-num">1</div>
           <div class="fs-icon">🔗</div>
@@ -1363,7 +1370,7 @@ section.cameras-section .cameras-inner {
         <div class="fs-title">Open your M3 Lovable project</div>
         <div class="fs-text">Same project you carried from M2 → M3. Paste this prompt: <em>"Extract a PRD from this prototype covering: what it does, who it's for, the problem it solves, all screens and their purpose, the user flow, the hypothesis, key metrics, and what is mocked versus real."</em></div>
       </div>
-      <div class="flow-step" style="padding: 22px 20px;">
+      <div class="flow-step">
         <div class="fs-head">
           <div class="fs-num">2</div>
           <div class="fs-icon">🔍</div>
@@ -1371,7 +1378,7 @@ section.cameras-section .cameras-inner {
         <div class="fs-title">Review &amp; flag inaccuracies</div>
         <div class="fs-text">Read the PRD carefully. Does it accurately list all screens? Does it correctly identify what's real vs. mocked? Is the hypothesis honest? <strong>Flag anything the AI got wrong</strong> — but don't fix the code yet.</div>
       </div>
-      <div class="flow-step" style="padding: 22px 20px;">
+      <div class="flow-step">
         <div class="fs-head">
           <div class="fs-num">3</div>
           <div class="fs-icon">📂</div>
