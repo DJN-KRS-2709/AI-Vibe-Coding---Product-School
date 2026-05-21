@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 3 — Hands-On Lab Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    color: #1a1a2e;
+  }
+
+  .page { max-width: 800px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 16px;
+    color: white;
+  }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    color: #93c5fd; text-transform: uppercase; letter-spacing: 0.12em;
+    background: rgba(59,111,224,0.2); padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+  .header p { font-size: 15px; color: #8899bb; line-height: 1.6; max-width: 580px; margin: 0 auto; }
+
+  .overview-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: -20px 20px 32px; position: relative; z-index: 10;
+  }
+  .overview-item {
+    background: #fff; border-radius: 10px; padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center;
+  }
+  .overview-item .oi-num { font-size: 24px; font-weight: 800; color: #3B6FE0; }
+  .overview-item .oi-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+  /* Phase headers */
+  .phase {
+    margin-top: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .phase-num {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
+  }
+  .phase-text h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; }
+  .phase-text .phase-time { font-size: 13px; font-weight: 600; color: #888; margin-top: 2px; }
+
+  .phase-orange .phase-num { background: #d97706; }
+  .phase-blue .phase-num { background: #3B6FE0; }
+  .phase-green .phase-num { background: #059669; }
+  .phase-purple .phase-num { background: #7c3aed; }
+  .phase-pink .phase-num { background: #e11d48; }
+
+  /* Cards */
+  .card {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .card-body { padding: 24px 28px; }
+
+  /* Steps */
+  .step {
+    display: flex; gap: 16px; padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-marker {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body { flex: 1; }
+  .step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-time { font-size: 12px; font-weight: 600; color: #3B6FE0; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+  .step-desc strong { color: #1a1a2e; }
+
+  /* Tool link */
+  .tool-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #eff6ff; border: 1px solid #bfdbfe;
+    border-radius: 8px; padding: 10px 16px; margin: 8px 0;
+    font-size: 13px; font-weight: 700; color: #3B6FE0;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .tool-link:hover { background: #dbeafe; }
+  .tool-icon { font-size: 16px; }
+
+  /* Checklist */
+  .checklist { margin: 10px 0; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 0; font-size: 14px; color: #555; line-height: 1.5;
+  }
+  .check-box {
+    width: 20px; height: 20px; border: 2px solid #d1d5db; border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 12px; color: transparent;
+  }
+  .check-box.checked { border-color: #059669; background: #ecfdf5; color: #059669; }
+  .check-item strong { color: #1a1a2e; }
+
+  /* Prompt template */
+  .prompt-template {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 20px 24px; margin: 12px 0;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: #475569; line-height: 1.7;
+  }
+  .prompt-template .pt-label {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em; color: #3B6FE0;
+    margin-bottom: 4px;
+  }
+  .prompt-template .pt-block { margin-bottom: 12px; }
+  .prompt-template .pt-block:last-child { margin-bottom: 0; }
+  .prompt-template em { color: #94a3b8; font-style: italic; }
+
+  /* Warning / tip boxes */
+  .tip-box {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+    padding: 16px 20px; margin: 16px 0;
+  }
+  .tip-box.warning { background: #fef3c7; border-color: #fcd34d; }
+  .tip-box.success { background: #ecfdf5; border-color: #a7f3d0; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .tip-text strong { color: #1a1a2e; }
+
+  /* Peer review questions */
+  .review-q {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .review-q:last-child { border-bottom: none; }
+  .review-num {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: #7c3aed; color: #fff; font-size: 13px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .review-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 3px; }
+
+  /* Reveal comparison */
+  .reveal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .reveal-card {
+    border-radius: 10px; padding: 20px 24px; text-align: center;
+  }
+  .reveal-m1 { background: #f8fafc; border: 1px solid #e2e8f0; }
+  .reveal-m2 { background: #eff6ff; border: 2px solid #3B6FE0; }
+  .reveal-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .reveal-m1 .reveal-label { color: #94a3b8; }
+  .reveal-m2 .reveal-label { color: #3B6FE0; }
+  .reveal-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .reveal-list { font-size: 13px; color: #666; line-height: 1.6; text-align: left; }
+  .reveal-list li { margin-bottom: 4px; }
+
+  /* Flow connector */
+  .flow-connector {
+    display: flex; justify-content: center; padding: 4px 0; margin: 4px 0;
+  }
+  .flow-arrow {
+    width: 2px; height: 20px; background: #d1d5db; position: relative;
+  }
+  .flow-arrow::after {
+    content: '▼'; position: absolute; bottom: -10px; left: 50%;
+    transform: translateX(-50%); color: #d1d5db; font-size: 10px;
+  }
+
+  /* Scenario cards */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .scenario-card {
+    background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+    padding: 16px 18px; cursor: default;
+  }
+  .scenario-card .sc-num { font-size: 11px; font-weight: 800; color: #3B6FE0; margin-bottom: 4px; }
+  .scenario-card .sc-title { font-size: 14px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .scenario-card .sc-desc { font-size: 12px; color: #777; line-height: 1.5; }
+
+  /* Big callout */
+  .callout {
+    background: #0d1117; border-radius: 12px; padding: 28px 32px;
+    text-align: center; margin: 24px 0;
+  }
+  .callout p { font-size: 18px; font-weight: 600; color: #c9d1d9; line-height: 1.6; }
+  .callout strong { color: #fff; }
+  .callout em { color: #60a5fa; font-style: normal; font-weight: 700; }
+
+  /* Post template */
+  .post-template {
+    background: #fafbfc; border: 1.5px dashed #d1d5db; border-radius: 10px;
+    padding: 16px 20px; margin: 12px 0;
+    font-size: 14px; color: #555; line-height: 1.7;
+  }
+  .post-template .pt-title {
+    font-size: 12px; font-weight: 700; color: #3B6FE0;
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+
+  .footer-note {
+    text-align: center; margin-top: 40px; padding: 24px;
+    font-size: 13px; color: #888; line-height: 1.6;
+  }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Module 3 — Lab Guide</div>
+    <h1>Execute Your Prompt Chain</h1>
+    <p>Step-by-step guide for the Module 3 hands-on lab. Plan the chain in silence. Execute it in sequence. Push your <code>PROMPTS.md</code> at the end. The chain is the deliverable — your build is the receipt.</p>
+  </div>
+
+  <div class="overview-bar">
+    <div class="overview-item"><div class="oi-num">3</div><div class="oi-label">Prompts</div></div>
+    <div class="overview-item"><div class="oi-num">55</div><div class="oi-label">Minutes</div></div>
+    <div class="overview-item"><div class="oi-num">7</div><div class="oi-label">Phases</div></div>
+    <div class="overview-item"><div class="oi-num">1</div><div class="oi-label">PROMPTS.md</div></div>
+  </div>
+
+  <!-- ═══════════ PHASE 0: GENERATE README ═══════════ -->
+  <div class="phase phase-orange">
+    <div class="phase-num">0</div>
+    <div class="phase-text">
+      <h2>Generate Your README</h2>
+      <div class="phase-time">Pre-work · 2 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Before you audit anything, get your <strong>M2 prototype summarised by Lovable</strong> and pushed to GitHub. This README becomes the input for every step below.</p>
+
+      <a class="tool-link" href="https://lovable.dev/" target="_blank">
+        <span class="tool-icon">🔗</span> Open your M2 Lovable project
+      </a>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">1</div>
+        <div class="step-body">
+          <div class="step-title">Paste this prompt into Lovable's chat bar</div>
+          <div class="step-desc"><em>"Write a README for this project that summarises the hypothesis, scenario, key screens, user flow, and main build decisions. Save it as README.md and push it to my GitHub repository."</em></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">2</div>
+        <div class="step-body">
+          <div class="step-title">Open the README in GitHub</div>
+          <div class="step-desc">Confirm Lovable pushed <code>README.md</code> to your repo. Keep that tab open — you'll reference it throughout the chain.</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">⚠️</div>
+        <div class="tip-text"><strong>If Lovable says it can't push:</strong> check that your GitHub connection is still active under <em>Settings → GitHub</em> in your Lovable project. Re-link if needed, then re-run the prompt.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 1: AUDIT ═══════════ -->
+  <div class="phase phase-blue">
+    <div class="phase-num">1</div>
+    <div class="phase-text">
+      <h2>Audit Your M2 Prototype</h2>
+      <div class="phase-time">Plan, Step 1 · 4 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">With your README open, audit your current M2 build against three lenses. You're naming the gaps your chain will close.</p>
+
+      <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank">
+        <span class="tool-icon">⛓️</span> Open the Prompt Chain Planner — Step 1: Audit
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">A</div>
+        <div class="step-body">
+          <div class="step-title">The Flow Gap</div>
+          <div class="step-desc">What are the <strong>3–5 additional screens or modal states</strong> required to guide a user through a complete, end-to-end task? List them in the exact sequence you'll build them.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">B</div>
+        <div class="step-body">
+          <div class="step-title">The Friction Audit</div>
+          <div class="step-desc">Where will the user encounter a <strong>data-load, an empty list, or a submission failure</strong>? Identify 3 specific points where you must hard-code loading / error / empty-state logic.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">C</div>
+        <div class="step-body">
+          <div class="step-title">The Polish Audit</div>
+          <div class="step-desc">What is the <strong>one specific screen or UI element</strong> that's failing your visual standards? Pick one — Refine is a scalpel, not a hammer.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Stuck?</strong> Paste your README into ChatGPT / Claude and ask: <em>"Read this README and propose 3–5 missing screens, 3 friction points, and 1 UI element that would most benefit from surgical refinement."</em> Use that as a starting point, then edit.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 2: DRAFT THE CHAIN ═══════════ -->
+  <div class="phase phase-purple">
+    <div class="phase-num">2</div>
+    <div class="phase-text">
+      <h2>Draft Expand · Behavior · Refine</h2>
+      <div class="phase-time">Plan, Step 2 · 7 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Translate the audit into three prompts. Each one anchors to a distinct strategy — don't write three Expand prompts.</p>
+
+      <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank">
+        <span class="tool-icon">⛓️</span> Open the Prompt Chain Planner — Step 2: Draft
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">Prompt 1 — Expand (COT)</div>
+          <div class="step-desc">Use Image-Anchored COT Sequencing. Pair each new screen with a visual reference so the prompt focuses entirely on the navigation logic. <strong>Template:</strong> <em>"Add a [Nth] screen: [what it shows]. Match the layout of the attached [reference] screenshot. Add a [Nth] screen: [what it shows]. Match the attached [reference] screenshot. Build navigation between all [N] screens."</em></div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Prompt 2 — Behavior (Constraint Grounding)</div>
+          <div class="step-desc">Hard-code the unhappy path. Define exactly how the system handles loading delays, missing data, and technical failures. <strong>Template:</strong> <em>"Add a loading state with skeleton screens for [section]. Add an empty state for [scenario]: '[exact message]'. Add an error state for [failure case]: '[exact message]'. Maintain the same design language and tether all behavior strictly to these rules."</em></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">3</div>
+        <div class="step-body">
+          <div class="step-title">Prompt 3 — Refine (Reflection)</div>
+          <div class="step-desc">Force the AI to audit before it acts. <strong>Template:</strong> <em>"Focus only on the [specific screen]. Start by listing the 3 biggest gaps in [design/spacing/logic] compared to the [reference brand] standard. Once identified, [add/move/resize component] to fix those gaps. Don't change anything else."</em></div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Faster path:</strong> Paste your README + Step 1 audit into an LLM and ask: <em>"Generate Expand, Behavior, and Refine prompts for this prototype using the templates above."</em> Then edit the output for specificity. Don't accept the first draft.</div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">📸</div>
+        <div class="tip-text"><strong>Visual anchors:</strong> for the Expand prompt, you need <em>one screenshot per new screen</em>. Grab them from Mobbin, your own product, or a competitor before you leave this phase.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 3: SHOW AND SWAP ═══════════ -->
+  <div class="phase phase-pink">
+    <div class="phase-num">3</div>
+    <div class="phase-text">
+      <h2>Show and Swap Your Prompts</h2>
+      <div class="phase-time">Peer Cold-Read · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Pair with a peer. Swap your Prompt Chain Planner doc link in chat. <strong>3 minutes of silent reading per partner. No verbal context. No explanations.</strong> Confusion is data.</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#e11d48;">1</div>
+        <div class="step-body">
+          <div class="step-title">Sequence — did anything jump?</div>
+          <div class="step-desc">Did the partner spot a sudden jump or any confusion in the screen sequence? <em>Did you understand exactly how the user gets from the first screen to the last, or was there a missing step?</em></div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#e11d48;">2</div>
+        <div class="step-body">
+          <div class="step-title">Behavior — what's missing?</div>
+          <div class="step-desc">Is there a piece of error / loading / empty-state logic that might have been missed? <em>What happens if data fails to load? Is there a Constraint Grounding rule for that?</em></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#e11d48;">3</div>
+        <div class="step-body">
+          <div class="step-title">Reusability — what's portable?</div>
+          <div class="step-desc">What's the strongest part of this chain that makes it reusable for other projects? <em>Which part of the prompt structure was so clear that it could be used for a completely different app?</em></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>If your partner can't follow your chain in silence,<br><em>your prompts aren't reproducible.</em></p>
+      </div>
+
+      <div class="post-template">
+        <div class="pt-title">Capture your partner's feedback in</div>
+        <code>03-prompt-chaining/swap-notes.md</code> — one bullet per question. Edit your chain before the lab if anything broke.
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 4: EXPAND ═══════════ -->
+  <div class="phase phase-blue">
+    <div class="phase-num">4</div>
+    <div class="phase-text">
+      <h2>Execute Prompt 1 — Expand</h2>
+      <div class="phase-time">Lab · 12 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Open your <strong>M2 Lovable project</strong>. Paste your Expand prompt + visual references. Build the new screens.</p>
+
+      <a class="tool-link" href="https://lovable.dev/" target="_blank">
+        <span class="tool-icon">🔗</span> Open Lovable
+      </a>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">1</div>
+        <div class="step-body">
+          <div class="step-title">Paste your Expand prompt</div>
+          <div class="step-time">In Lovable's chat bar</div>
+          <div class="step-desc">Drag your screenshot(s) onto the chat. Hit enter. Watch the AI build screens A → B → C in strict sequence.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#3B6FE0;">2</div>
+        <div class="step-body">
+          <div class="step-title">Verify navigation works</div>
+          <div class="step-desc">Click between old + new screens. If a button is broken or a layout is off, send a <strong>1-sentence fix</strong> prompt — don't redo the whole chain.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#3B6FE0;">3</div>
+        <div class="step-body">
+          <div class="step-title">Log P1 results</div>
+          <div class="step-desc">In your Planner Log: how many screens you now have, whether the design matched, what worked, what didn't, any fixes you made.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 5: BEHAVIOR ═══════════ -->
+  <div class="phase phase-purple">
+    <div class="phase-num">5</div>
+    <div class="phase-text">
+      <h2>Execute Prompt 2 — Behavior</h2>
+      <div class="phase-time">Lab · 12 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Ground the AI in your loading / empty / error rules. Then <strong>manually trigger</strong> at least one unhappy path to verify.</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">1</div>
+        <div class="step-body">
+          <div class="step-title">Paste your Behavior prompt</div>
+          <div class="step-desc">Exact strings for empty + error states. Tether all behavior strictly to your rules.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#7c3aed;">2</div>
+        <div class="step-body">
+          <div class="step-title">Trigger an unhappy path</div>
+          <div class="step-desc">Search for a non-existent item. Disconnect your network. Submit an empty form. If your states don't trigger, send a 1-sentence fix — don't move on.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#7c3aed;">3</div>
+        <div class="step-body">
+          <div class="step-title">Log P2 results</div>
+          <div class="step-desc">In your Planner Log: did loading / error / empty trigger correctly? Did the AI follow your constraints, or drift?</div>
+        </div>
+      </div>
+
+      <div class="tip-box warning">
+        <div class="tip-icon">⚠️</div>
+        <div class="tip-text"><strong>If the AI drifts:</strong> don't re-prompt the whole chain. Re-prompt only the specific rule that broke. <em>"You ignored the empty-state rule for [section]. Re-apply: '[exact message]'."</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 6: REFINE ═══════════ -->
+  <div class="phase phase-green">
+    <div class="phase-num">6</div>
+    <div class="phase-text">
+      <h2>Execute Prompt 3 — Refine</h2>
+      <div class="phase-time">Lab · 10 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">Surgical steering. Force the AI to audit first, then act on the single UI element you targeted.</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">1</div>
+        <div class="step-body">
+          <div class="step-title">Paste your Refine prompt</div>
+          <div class="step-desc">The prompt should start with <em>"list the 3 biggest gaps"</em> before any change. The "Don't change anything else" line is your insurance policy.</div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#059669;">2</div>
+        <div class="step-body">
+          <div class="step-title">Confirm the scope held</div>
+          <div class="step-desc">Click through every screen. The AI should ONLY have touched your targeted element. If anything else changed, revert and re-prompt with a tighter scope clause.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#059669;">3</div>
+        <div class="step-body">
+          <div class="step-title">Log P3 results</div>
+          <div class="step-desc">In your Planner Log: which UI polishes applied, whether the rest of the build remained stable, or whether you had to steer it back.</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">🔁</div>
+        <div class="tip-text"><strong>Time left? Restart the cycle.</strong> Find the next flow gap → run a second chain (Expand → Behavior → Refine). Don't settle for one cycle if the prototype still feels incomplete.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector"><div class="flow-arrow"></div></div>
+
+  <!-- ═══════════ PHASE 7: SAVE & PUSH ═══════════ -->
+  <div class="phase phase-orange">
+    <div class="phase-num">7</div>
+    <div class="phase-text">
+      <h2>Save PROMPTS.md and Push to GitHub</h2>
+      <div class="phase-time">Lab close · 5 minutes</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="font-size:15px; color:#555; margin-bottom:14px;">The chain is the deliverable. Save your three prompts + results as <code>PROMPTS.md</code> and push the project to GitHub.</p>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#d97706;">1</div>
+        <div class="step-body">
+          <div class="step-title">Prompt Lovable to save + push</div>
+          <div class="step-desc"><em>"Save my three prompts — Expand, Behavior, and Refine — along with the results I documented for each, as a PROMPTS.md file. Then push all current project files to my connected GitHub repository."</em></div>
+        </div>
+      </div>
+
+      <div class="step" style="border-bottom: 1px solid #f0f0f0;">
+        <div class="step-marker" style="background:#d97706;">2</div>
+        <div class="step-body">
+          <div class="step-title">Verify in GitHub</div>
+          <div class="step-desc">Open your repo and confirm <code>PROMPTS.md</code> shows your three prompts + the result logs. This is what your teammates will see.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker" style="background:#d97706;">3</div>
+        <div class="step-body">
+          <div class="step-title">Add to your Living Prompt Pack</div>
+          <div class="step-desc">Open the <strong>Living Prompt Pack Builder</strong> and add this chain as a Chain Entry. Each cohort week, your pack grows — by M6 you'll have ~6 reusable chains.</div>
+        </div>
+      </div>
+
+      <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank">
+        <span class="tool-icon">📦</span> Open the Living Prompt Pack Builder
+      </a>
+
+      <div class="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>README pushed</strong> — Lovable created and pushed <code>README.md</code> in Phase 0</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Three prompts drafted</strong> — Expand · Behavior · Refine in your Prompt Chain Planner</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Peer cold-read complete</strong> — partner answered all 3 swap questions, notes captured</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Chain executed end-to-end</strong> — Expand → Behavior → Refine in Lovable, each verified</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Unhappy path tested</strong> — at least one empty / error / loading state manually triggered</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>PROMPTS.md pushed to GitHub</strong> — visible in your repo's file tree</div>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"></div>
+          <div><strong>Chain added to Living Prompt Pack</strong> — captured for the next module</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p>Three prompts, three strategies, one resilient build.<br><em>The chain is now portable — it's your IP.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOOLS REFERENCE ═══════════ -->
+  <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
+    <div class="card-body">
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — M3 Tools</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank"><span class="tool-icon">⛓️</span> Prompt Chain Planner — guided audit + Expand / Behavior / Refine templates</a>
+        <a class="tool-link" href="M3 - Prompt Techniques Template.html" target="_blank"><span class="tool-icon">📚</span> Prompt Techniques Template — Foundational · Architectural · Enforcement · Optimization</a>
+        <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank"><span class="tool-icon">📦</span> Living Prompt Pack Builder — capture chain entries, export reusable PROMPTS.md</a>
+        <a class="tool-link" href="M2 - Structured Prompt Builder.html" target="_blank"><span class="tool-icon">🧱</span> M2 Structured Prompt Builder — your M2 prompt that feeds this chain</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>Module 3: Precision Prompting</strong><br>
+    From this point forward, every build is reproducible — your prompts are the architecture.
+  </div>
+
+</div>
+
+<script>
+  function toggleCheck(item) {
+    const box = item.querySelector('.check-box');
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M3 Frameworks Reference Card · Vibe Coding</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f5f5f7; min-height: 100vh; padding: 40px 20px 80px; color: #1a1a2e; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 880px; margin: 0 auto; }
+
+  /* Breadcrumb */
+  .breadcrumb { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .breadcrumb a { color: #3B6FE0; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  /* Hero */
+  .header { text-align: center; margin-bottom: 40px; padding: 44px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); border-radius: 16px; color: white; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.12em; background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .header h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; line-height: 1.15; letter-spacing: -0.015em; }
+  .header p { font-size: 15px; color: #94a3b8; line-height: 1.6; max-width: 640px; margin: 0 auto; }
+
+  /* Body content card */
+  .content { background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 44px 52px; }
+
+  /* Headings */
+  .content h1, .content h2, .content h3, .content h4 { font-weight: 800; color: #1a1a2e; line-height: 1.25; letter-spacing: -0.01em; }
+  .content > h1:first-child, .content > h2:first-child { margin-top: 0; }
+  .content h1 { font-size: 30px; margin: 44px 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb; }
+  .content h2 { font-size: 24px; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 1px solid #e5e7eb; }
+  .content h3 { font-size: 19px; margin: 32px 0 12px; color: #1e293b; }
+  .content h4 { font-size: 16px; margin: 24px 0 8px; color: #334155; }
+
+  /* Body text */
+  .content p { font-size: 15px; line-height: 1.75; color: #374151; margin-bottom: 16px; }
+  .content p strong { color: #1a1a2e; font-weight: 700; }
+  .content p em { color: #1e293b; font-style: italic; }
+
+  /* Lists */
+  .content ul, .content ol { margin: 8px 0 18px; padding-left: 26px; }
+  .content li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .content li strong { color: #1a1a2e; }
+  .content ul ul, .content ol ol, .content ul ol, .content ol ul { margin: 4px 0 4px; }
+
+  /* Inline code */
+  .content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #f1f5f9; color: #be185d; padding: 2px 7px; border-radius: 5px; border: 1px solid #e2e8f0; }
+
+  /* Code blocks */
+  .content pre { background: #0d1117; color: #c9d1d9; padding: 18px 22px; border-radius: 10px; overflow-x: auto; margin: 18px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .content pre code { background: transparent; color: inherit; padding: 0; border: none; font-size: 13px; }
+
+  /* Blockquotes */
+  .content blockquote { background: #eff6ff; border-left: 4px solid #3B6FE0; padding: 14px 22px; margin: 18px 0; border-radius: 0 10px 10px 0; }
+  .content blockquote p { font-size: 15px; color: #1e3a8a; margin: 0; line-height: 1.7; }
+  .content blockquote p strong { color: #0c2360; }
+  .content blockquote em { color: #1e40af; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid #e5e7eb; border-radius: 10px; }
+  .content table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .content table th { background: #1e293b; color: #fff; font-weight: 700; text-align: left; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .content table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; vertical-align: top; color: #374151; line-height: 1.65; }
+  .content table tr:nth-child(even) td { background: #fafbfc; }
+  .content table strong { color: #1a1a2e; }
+  .content table code { font-size: 12px; }
+
+  /* Horizontal rule */
+  .content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, #cbd5e1 20%, #cbd5e1 80%, transparent); margin: 32px 0; }
+
+  /* Links */
+  .content a { color: #3B6FE0; text-decoration: none; border-bottom: 1px solid rgba(59,111,224,0.3); }
+  .content a:hover { border-bottom-color: #3B6FE0; }
+
+  /* Definition-list-ish rendering of "**Term**\nDefinition" pattern (Glossary) */
+  .content p strong:only-child { display: block; margin-top: 8px; color: #1a1a2e; font-size: 16px; }
+
+  /* Footer nav */
+  .footer-nav { margin-top: 36px; padding: 24px 28px; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+  .footer-nav .fn-back { font-size: 13px; color: #6b7280; }
+  .footer-nav .fn-back a { color: #3B6FE0; text-decoration: none; font-weight: 600; }
+  .footer-nav .fn-back a:hover { text-decoration: underline; }
+  .footer-nav .fn-siblings { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-nav .fn-sibling { font-size: 12px; color: #6b7280; background: #f1f5f9; padding: 7px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #e2e8f0; font-weight: 600; }
+  .footer-nav .fn-sibling:hover { background: #e2e8f0; color: #1a1a2e; }
+  .footer-nav .fn-sibling.current { background: #1e293b; color: #fff; border-color: #1e293b; }
+
+  .footer-note { text-align: center; margin-top: 22px; padding: 14px; font-size: 12px; color: #94a3b8; line-height: 1.6; }
+  .footer-note a { color: #64748b; text-decoration: none; }
+  .footer-note a:hover { color: #3B6FE0; }
+
+  @media (max-width: 720px) {
+    .content { padding: 28px 22px; }
+    .header { padding: 32px 22px; }
+    .header h1 { font-size: 26px; }
+    .content h1 { font-size: 24px; }
+    .content h2 { font-size: 20px; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .breadcrumb, .footer-nav, .footer-note { display: none; }
+    .header { background: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content { box-shadow: none; padding: 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="breadcrumb"><a href="Module 3 - Slides.html">← Module 3 · Ensure Complex System Stability with Prompt Chaining</a></div>
+
+  <div class="header">
+    <div class="badge">Module 3 — Reference Card</div>
+    <h1>M3 Frameworks Reference Card</h1>
+    <p>The Prompting Maturity Curve, the Three Traps, the Execution Toolkit (Expand · Behavior · Refine), and the "Break It" Debugging mindset — one page, in the order you use them.</p>
+  </div>
+
+  <div class="content">
+<blockquote>
+<p>Every framework from Module 3 in the order you use them. Keep this open while you chain.</p>
+</blockquote>
+<hr />
+<h2>1. The Prompting Maturity Curve</h2>
+<p>Your prompt style should match your <strong>certainty</strong>. As product certainty rises, precision rises with it — exploration prompts give way to execution prompts.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>When</th>
+<th>Style</th>
+<th>Example pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exploration</strong></td>
+<td>M1–M2 (low certainty)</td>
+<td>Open-ended, conversational. Define the "what."</td>
+<td><em>"Build a dashboard for [audience] that helps them [goal]."</em></td>
+</tr>
+<tr>
+<td><strong>Execution</strong></td>
+<td>M3 onwards (high certainty)</td>
+<td>Rigid, system-grade instructions. Dictate the "how."</td>
+<td><em>"Add a 4th screen. Match the attached Asana layout. Navigation: A → B → C. Build in order — screen 1 is the mandatory anchor."</em></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Rule:</strong> Vagueness is a bug. By end of M3, your prompts should look like technical specifications.</p>
+<hr />
+<h2>2. Three Common Prompting Traps</h2>
+<p>Each is solvable with one prompting strategy. Name the trap when you spot it — then apply the fix.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Trap</th>
+<th>Failure mode</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🧱 The Mega Prompt</strong></td>
+<td>Database + flow + button animations in one prompt. If the build fails, you can't tell which part broke.</td>
+<td><strong>Prompt Chaining</strong> — build logic first, then design.</td>
+</tr>
+<tr>
+<td><strong>🌫️ The Vague Request</strong></td>
+<td>"Build a Dashboard" without defining user state or business rules → generic rectangle that breaks on click.</td>
+<td><strong>Intentionality</strong> — define functionality + path before you hit enter.</td>
+</tr>
+<tr>
+<td><strong>🔬 The Micromanager</strong></td>
+<td>Arguing with the AI about hex codes or padding in text. Burns credits, drifts the core logic.</td>
+<td><strong>Multimodal</strong> — don't describe the blue; <em>show</em> the blue (upload a screenshot).</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>3. The Execution Toolkit — Three Steps, Three Strategies</h2>
+<p>You aren't splitting one big prompt into three parts. You're <strong>layering different cognitive strategies in sequence</strong> so precision accumulates without breaking the foundation.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Strategy</th>
+<th>How</th>
+<th>What it produces</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Expand — Build the Logic</strong></td>
+<td>Chain-of-Thought (COT)</td>
+<td>Force the AI to build in strict, dependent order (Screen A → B → C). Use a visual reference for every new screen.</td>
+<td>New screens with hard-wired navigation logic.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Behavior — Define the Flow</strong></td>
+<td>Constraint Grounding</td>
+<td>Hard-code if/then triggers for the unhappy path. Exact strings for loading / empty / error states.</td>
+<td>A prototype that behaves like real software, not a static mockup.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Refine — Polish the Design</strong></td>
+<td>Reflection Prompting</td>
+<td>Isolate ONE screen. Force the AI to audit and list gaps before editing. End with <em>"Don't change anything else."</em></td>
+<td>Surgical UI polish without regression in the rest of the build.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>COT vs Prompt Chaining:</strong> COT is <em>how you reason inside one prompt</em>. Prompt Chaining is <em>the sequence of prompts you send in order</em>. They operate at different levels — which is why they combine.</p>
+<hr />
+<h2>4. Prompt Chaining in Action — Three Real Prompts</h2>
+<h3>1 · Expand (Sequential Logic — COT)</h3>
+<pre><code>Build the next phase of this app in a strict sequence:
+1. Add a 2nd screen: &quot;User Settings&quot;. Match the layout and spacing of the attached Asana reference.
+2. Add a 3rd screen: &quot;Account Activity&quot;. Match the data-heavy density of the attached Intercom reference.
+3. Navigation: write the logic so User Settings links to Account Activity.
+
+Build these in order so the Settings screen serves as the mandatory anchor for the Activity view.
+</code></pre>
+<blockquote>
+<p>Notice: each new screen is tethered to a visual North Star. The prompt handles the "how"; the screenshot handles the "where."</p>
+</blockquote>
+<h3>2 · Behavior (Constraint Grounding)</h3>
+<pre><code>Apply the following logic constraints to the Account Activity flow:
+- Use skeleton screens for the transaction list loading state.
+- If no data is present, show the empty state: &quot;No activity yet. Start your first project to see data here.&quot;
+- On fetch failure, trigger the error state: &quot;Connection lost. Please refresh the dashboard.&quot;
+
+Maintain the same design language throughout and tether all behavior strictly to these rules.
+</code></pre>
+<blockquote>
+<p>Notice: exact strings for each state. Hard-coding the unhappy path is what separates a mockup from a product.</p>
+</blockquote>
+<h3>3 · Refine (Reflection Prompt)</h3>
+<pre><code>The User Settings screen needs a professional Asana-style polish.
+1. Start by listing the 3 biggest gaps in typography and spacing compared to the Asana design system.
+2. Once you've identified those, resize the headers and update the primary button hex code to match.
+
+Don't change anything else in the project or touch the underlying logic.
+</code></pre>
+<blockquote>
+<p>Notice: audit first, then act. The "Don't change anything else" line is your insurance policy.</p>
+</blockquote>
+<hr />
+<h2>5. Prompt Chain Debugging — The "Break It" Mindset</h2>
+<p>When a chain goes off-rails, <strong>diagnose before re-prompting</strong>. Throwing more prompts at a broken chain just compounds the error.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Move</th>
+<th>What you're looking for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><strong>Read the Chain</strong></td>
+<td>Open the actual text of your previous 3 prompts. Did you give a "Never" rule in Prompt 1 that contradicts Prompt 3?</td>
+</tr>
+<tr>
+<td>02</td>
+<td><strong>Compare the Output</strong></td>
+<td>What's the delta between what you asked for and what was produced? Logic miss, or context clutter?</td>
+</tr>
+<tr>
+<td>03</td>
+<td><strong>Diagnose</strong></td>
+<td>Identify the one specific point of failure. Did the AI ignore a constraint? Did it lose the design thread? Isolate <strong>one variable</strong>.</td>
+</tr>
+<tr>
+<td>04</td>
+<td><strong>Fix It</strong></td>
+<td>Revert to the last stable state. Re-prompt with a cleaner, more targeted instruction that addresses the specific framing error.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>The 5+ prompt rule:</strong> If you're 5 or more prompts deep on the same issue, the problem isn't the tool — it's your framing. Stop, read your own chain, find the contradiction.</p>
+<hr />
+<h2>6. The Prompt Chain Workflow — End-to-End</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What you do</th>
+<th>Where it lives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Generate a README of your M2 build</td>
+<td>Lovable → GitHub</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audit your prototype (3–5 flow gaps · 3 friction points · 1 UI target)</td>
+<td>Prompt Chain Planner</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Draft Expand · Behavior · Refine using the templates</td>
+<td>Prompt Chain Planner</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Peer cold-read (3 min silent) → capture feedback</td>
+<td><code>03-prompt-chaining/swap-notes.md</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Execute the chain in order, log each result</td>
+<td>Lovable + Planner</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Save <code>PROMPTS.md</code> to your GitHub repo</td>
+<td>Lovable → GitHub</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Add this chain to your Living Prompt Pack</td>
+<td>Living Prompt Pack Builder</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>7. Voice Calibration — Exploration vs Execution Language</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You want to say</th>
+<th>Reframe it as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Build a dashboard for retention."</td>
+<td><em>"Add a Retention Dashboard (Screen 4). Match the attached Mixpanel layout. Include: Day-3 invite rate, retention comparison, onboarding completion, users-not-yet-invited."</em></td>
+</tr>
+<tr>
+<td>"Make it look professional."</td>
+<td><em>"Match the attached Asana reference. List the 3 biggest typography gaps before touching code, then resize headers and primary buttons to match."</em></td>
+</tr>
+<tr>
+<td>"Handle errors gracefully."</td>
+<td><em>"On fetch failure, trigger the error state: 'Connection lost. Please refresh the dashboard.' On no data, show: 'No activity yet. Start your first project to see data here.'"</em></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>8. The Identity Move</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>You were</th>
+<th>You are</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A prompt-sender expecting the AI to fill in the gaps</td>
+<td>An architect dictating system rules the AI must obey</td>
+</tr>
+<tr>
+<td>Rage-prompting until something works</td>
+<td>Diagnosing your own chain before re-prompting</td>
+</tr>
+<tr>
+<td>A one-shot vibe builder</td>
+<td>A reproducible chain author whose prompts a teammate could re-run</td>
+</tr>
+</tbody>
+</table></div>
+<p>Three prompts. Three strategies. One resilient build.
+<strong>The chain is the IP — your build is the receipt.</strong></p>
+  </div>
+  <div class="footer-nav">
+    <div class="fn-back"><a href="Module 2 - Slides.html">← Back to Module 2 deck</a></div>
+    <div class="fn-siblings">
+      <a class="fn-sibling" href="Module 1 - Frameworks Reference Card.html">M1 · Velocity</a>
+      <a class="fn-sibling" href="Module 2 - Frameworks Reference Card.html">M2 · Validation</a>
+      <a class="fn-sibling current" href="Module 3 - Frameworks Reference Card.html">M3 · Prompt Chaining</a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Source of truth: <code>Module 2 - Frameworks Reference Card.md</code> · regenerate with <code>python3 Modules/_gen_resource_pages.py</code>
+  </div>
+
+</div>
+
+</body>
+</html>

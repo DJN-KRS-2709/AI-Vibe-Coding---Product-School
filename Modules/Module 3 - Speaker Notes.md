@@ -2,6 +2,8 @@
 
 Casual talking points for each slide. Not a script — just the key things to say, what to do on screen, and the energy to bring. Module 3 is the precision shift — students stop prompting and start directing. The vibe moves from "build me something" to "build me exactly this." Real examples woven in. Company stories where relevant.
 
+> **Source of truth:** the canonical slide order + inline speaker notes live in `Module 3 - Slides.html` (26 sections). This file is a longform reference — the deck has been re-flowed since this file was written, so cross-check against the deck when ordering matters.
+
 **Tools referenced in this module:**
 - Lovable (building)
 - Prompt Chain Planner (planning the 3-step chain before building)
@@ -263,9 +265,9 @@ Four steps:
 5. **Students only filling Chain Entries** — "While you're in there, fill in your Product Context Block and Design System Reference too. Those sections make every future prompt stronger."
 
 
-## Slide 14 — Breakout: Show and Swap Your Prompt Chain
+## Slide 14 — Show and Swap Your Prompt Chain
 
-**ACTION: Create breakout pairs — random assignment.**
+**ACTION: Create Zoom pair rooms — random assignment.**
 
 Swap your Prompt Chain Plan — your three drafted prompts — in the chat. Read your partner's prompts silently for 3 minutes. No verbal context, no explanations.
 
