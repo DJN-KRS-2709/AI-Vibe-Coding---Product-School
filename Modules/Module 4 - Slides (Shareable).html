@@ -779,7 +779,9 @@ section.cameras-section .cameras-inner {
 .pillar-num { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; align-self: flex-start; background: rgba(96,165,250,0.16); color: #93c5fd; }
 .pillar-card.b .pillar-num { background: rgba(192,132,252,0.16); color: #d8b4fe; }
 .pillar-card.c .pillar-num { background: rgba(110,231,183,0.16); color: #6ee7b7; }
-.pillar-icon { font-size: 38px; line-height: 1; }
+.pillar-icon { font-size: 38px; line-height: 1; display: flex; align-items: center; }
+.pillar-icon img.pillar-logo { width: 44px; height: 44px; display: block; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35)); }
+.pillar-card.b .pillar-icon img.pillar-logo { width: 48px; height: 48px; }
 .pillar-title { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.2; }
 .pillar-body { font-size: 13px; color: #b0b4c8; line-height: 1.6; }
 .pillar-body strong { color: #fff; }
@@ -1432,19 +1434,19 @@ section.cameras-section .cameras-inner {
     <div class="pillars-grid">
       <div class="pillar-card">
         <span class="pillar-num">01 · The Front Door</span>
-        <div class="pillar-icon">📂</div>
+        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/github.svg" alt="GitHub"/></div>
         <div class="pillar-title">GitHub Connection</div>
         <div class="pillar-body">The project must live in a <strong>version-controlled repository</strong> with permanent history, safe rollbacks, and a secure front door for technical collaboration. This is where the engineer goes to clone your code on day one.</div>
       </div>
       <div class="pillar-card b">
         <span class="pillar-num">02 · The Cleanup</span>
-        <div class="pillar-icon">🧱</div>
-        <div class="pillar-title">Code Refactoring</div>
+        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/lovable.svg" alt="Lovable"/></div>
+        <div class="pillar-title">Code Refactoring <span style="font-size:12px; font-weight:600; color:#94a3b8; letter-spacing:0; text-transform:none;">(in Lovable)</span></div>
         <div class="pillar-body">The codebase must be <strong>structurally organised</strong> with professional naming, separated logic, and a README so an engineer can fully orient within 5 minutes. No more <code>Component_1</code> spaghetti.</div>
       </div>
       <div class="pillar-card c">
         <span class="pillar-num">03 · The Memory</span>
-        <div class="pillar-icon">🗄️</div>
+        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/supabase.svg" alt="Supabase"/></div>
         <div class="pillar-title">Supabase Connection</div>
         <div class="pillar-body">The system must move from <strong>mocked data to a persistent PostgreSQL database</strong> with an Auth layer, managed through a visual table editor rather than hard-coded simulations. Your product now has memory.</div>
       </div>
