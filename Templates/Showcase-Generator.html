@@ -146,6 +146,13 @@ details code { background: rgba(96,165,250,0.12); color: #93c5fd; padding: 1px 6
         <input type="url" id="repo-input" placeholder="https://github.com/you/your-repo" required autocomplete="off" />
         <button type="submit" id="generate-btn">Generate &rarr;</button>
       </div>
+      <details style="margin-top: 4px;">
+        <summary style="font-size: 12px;">Private repo? Add a token (optional)</summary>
+        <div style="margin-top: 12px;">
+          <input type="text" id="token-input" placeholder="ghp_... (GitHub personal access token, repo:read scope)" autocomplete="off" spellcheck="false" />
+          <p style="font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 8px; line-height: 1.6;">Generate one at <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Showcase%20Generator" target="_blank" rel="noopener">github.com/settings/tokens</a> (fine-grained or classic, <code>repo</code> read scope). Token stays in your browser memory only &mdash; never logged, never sent anywhere except GitHub. Cleared on refresh.</p>
+        </div>
+      </details>
     </form>
 
     <div id="status"></div>
@@ -207,9 +214,17 @@ function parseRepoUrl(url) {
   return { owner: m[1], repo: m[2].replace(/\.git$/, '') };
 }
 
+function authHeaders() {
+  const t = ($('#token-input') && $('#token-input').value || '').trim();
+  const h = { 'Accept': 'application/vnd.github.v3+json' };
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+}
+
 async function ghFetchJson(url) {
-  const r = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+  const r = await fetch(url, { headers: authHeaders() });
   if (r.status === 404) throw new Error('repo-not-found');
+  if (r.status === 401) throw new Error('bad-token');
   if (r.status === 403) throw new Error('rate-limited');
   if (!r.ok) throw new Error('fetch-failed');
   return r.json();
@@ -226,6 +241,15 @@ async function fetchTree(owner, repo, branch) {
 }
 
 async function fetchRaw(owner, repo, branch, path) {
+  const token = ($('#token-input') && $('#token-input').value || '').trim();
+  if (token) {
+    // For private repos, use the contents API (returns base64-encoded content)
+    try {
+      const data = await ghFetchJson(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`);
+      if (data && data.content) return atob(data.content.replace(/\n/g, ''));
+    } catch (e) { return null; }
+    return null;
+  }
   const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
   const r = await fetch(url);
   if (!r.ok) return null;
@@ -445,8 +469,16 @@ async function generate(repoUrl) {
   let branch;
   try { branch = await fetchDefaultBranch(owner, repo); }
   catch (e) {
-    if (e.message === 'repo-not-found') status('Repo not found. Make sure it\'s public and the URL is correct.', 'err');
-    else if (e.message === 'rate-limited') status('GitHub API rate-limited (60 req/hr without auth). Wait a few minutes and retry.', 'err');
+    const hasToken = ($('#token-input') && $('#token-input').value || '').trim().length > 0;
+    if (e.message === 'repo-not-found') {
+      if (hasToken) {
+        status(`Repo <code>${owner}/${repo}</code> not found <strong>even with a token</strong>. Check: (a) the URL is spelled exactly right, (b) the token has access to this repo, (c) the repo actually exists. <a href="https://github.com/${owner}/${repo}" target="_blank">Try opening it on GitHub</a>.`, 'err');
+      } else {
+        status(`Repo <code>${owner}/${repo}</code> not found by the public API. <strong>Two likely causes:</strong><br>&nbsp;&nbsp;1. The repo is <strong>private</strong> &mdash; either make it public (Settings &rarr; Danger Zone) or paste a personal access token below.<br>&nbsp;&nbsp;2. The URL is mis-spelled &mdash; check <a href="https://github.com/${owner}/${repo}" target="_blank">github.com/${owner}/${repo}</a> opens.`, 'err');
+      }
+    }
+    else if (e.message === 'bad-token') status('Token rejected (401). Make sure it\'s valid and has the <code>repo</code> scope.', 'err');
+    else if (e.message === 'rate-limited') status('GitHub API rate-limited (60 req/hr without auth, 5000/hr with a token). Wait a few minutes or add a token below.', 'err');
     else status(`Couldn't reach the repo. ${esc(e.message)}`, 'err');
     btn.disabled = false; btn.textContent = 'Generate \u2192';
     return;
