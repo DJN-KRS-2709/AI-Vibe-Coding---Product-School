@@ -274,7 +274,7 @@ BODY = r"""
     <div class="demo-tag tag-exercise">Hands-On Lab · 45 minutes</div>
     <h2>Add data schemas and RLS authentication to your prototype.</h2>
     <p class="subtitle">Audit your M4 prototype for hardcoded UI, generate a personalised Integration Plan, then run three prompts. By the end, your data survives a refresh and your RLS protects user privacy.</p>
-    <div class="flow-steps">
+    <div class="flow-steps" style="grid-template-columns: repeat(3, 1fr); max-width: 1140px; gap: 14px;">
       <div class="flow-step">
         <div class="fs-head"><div class="fs-num">1</div><div class="fs-icon">🔍</div></div>
         <div class="fs-title">Pre-work audit</div>
