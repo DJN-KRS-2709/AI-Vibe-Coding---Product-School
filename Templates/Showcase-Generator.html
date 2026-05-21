@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showcase Generator · Vibe Coding</title>
+<meta name="description" content="Paste your GitHub repo URL. The tool scans your markdown, finds the right sections, and renders your Vibe Coding final project showcase.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Lato', -apple-system, sans-serif; background: #07162C; color: #e8e8f0; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+/* ════════════ EDITOR VIEW ════════════ */
+#editor { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 60px 24px; background: radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.18) 0%, #07162C 60%); }
+#editor .container { max-width: 720px; width: 100%; }
+.eyebrow { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #60a5fa; background: rgba(96,165,250,0.1); padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
+#editor h1 { font-family: 'Poppins', sans-serif; font-size: 56px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px; }
+#editor h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+#editor .lede { font-size: 18px; color: #b0b4c8; line-height: 1.6; margin-bottom: 36px; max-width: 580px; }
+
+form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.input-row { display: flex; gap: 10px; }
+input[type=url], input[type=text] { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px 18px; color: #fff; font-family: 'IBM Plex Mono', monospace; font-size: 14px; outline: none; transition: all 0.2s; }
+input:focus { border-color: rgba(96,165,250,0.5); background: rgba(255,255,255,0.06); box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+input::placeholder { color: rgba(255,255,255,0.25); }
+button { background: linear-gradient(135deg, #3b82f6, #1241B0); color: #fff; border: none; border-radius: 12px; padding: 16px 28px; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); }
+button:disabled { opacity: 0.5; cursor: wait; }
+button.secondary { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+button.secondary:hover:not(:disabled) { background: rgba(255,255,255,0.1); border-color: rgba(96,165,250,0.4); box-shadow: none; }
+
+#status { min-height: 32px; font-size: 13px; color: #8899bb; font-family: 'IBM Plex Mono', monospace; margin-top: 14px; line-height: 1.7; }
+#status .ok { color: #6ee7b7; }
+#status .err { color: #fca5a5; }
+#status .warn { color: #fbbf24; }
+#status .dim { color: #475569; }
+
+details { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 20px; margin-top: 28px; font-size: 14px; color: #b0b4c8; }
+details summary { cursor: pointer; font-weight: 700; color: #e0e0f0; font-family: 'Poppins', sans-serif; letter-spacing: 0.02em; outline: none; user-select: none; }
+details[open] summary { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+details ul { padding-left: 18px; line-height: 1.8; }
+details li { margin-bottom: 4px; }
+details code { background: rgba(96,165,250,0.12); color: #93c5fd; padding: 1px 6px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; }
+
+.footnote { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 22px; }
+.footnote a { color: #60a5fa; text-decoration: none; }
+.footnote a:hover { text-decoration: underline; }
+
+/* ════════════ PREVIEW VIEW ════════════ */
+#preview { display: none; }
+#preview.active { display: block; }
+.preview-toolbar { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: rgba(7,22,44,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; }
+.preview-toolbar .title { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; color: #e0e0f0; letter-spacing: 0.02em; }
+.preview-toolbar .title .url { color: #60a5fa; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; margin-left: 8px; }
+.preview-toolbar button { padding: 8px 16px; font-size: 12px; border-radius: 8px; }
+.preview-toolbar button.back { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+.preview-toolbar button.back:hover { background: rgba(255,255,255,0.1); }
+.preview-toolbar .actions { display: flex; gap: 10px; }
+
+#slides-container { padding-top: 56px; scroll-snap-type: y mandatory; height: calc(100vh - 0px); overflow-y: auto; scroll-behavior: smooth; }
+
+/* ════════════ SLIDES (shared with output) ════════════ */
+.slide { min-height: calc(100vh - 56px); scroll-snap-align: start; padding: 60px 60px 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; background: radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.25) 0%, #07162C 60%); }
+.slide.centered .inner { text-align: center; }
+.slide h1 { font-family: 'Poppins', sans-serif; font-size: 64px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+.slide h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.slide h2 { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.15; }
+.slide h3 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #e0e0f0; margin: 18px 0 8px; }
+.slide p, .slide li { font-size: 17px; line-height: 1.7; color: #b0b4c8; }
+.slide .inner { max-width: 980px; width: 100%; text-align: left; }
+.slide .subtitle { font-size: 19px; color: #8899bb; margin-top: 8px; margin-bottom: 28px; }
+.slide .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.7); margin-bottom: 12px; font-weight: 700; }
+.slide strong { color: #fff; font-weight: 700; }
+.slide em { color: #60a5fa; font-style: normal; font-weight: 600; }
+.slide code { background: rgba(18,65,176,0.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; color: #60a5fa; font-family: 'IBM Plex Mono', monospace; }
+.slide a { color: #60a5fa; text-decoration: none; transition: color 0.2s; }
+.slide a:hover { color: #93c5fd; text-decoration: underline; }
+.slide ul, .slide ol { padding-left: 22px; }
+.slide li { margin: 6px 0; }
+.slide hr { border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 22px 0; }
+.slide table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.slide table th { text-align: left; padding: 10px 14px; background: rgba(96,165,250,0.08); color: #e0e0f0; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid rgba(96,165,250,0.2); }
+.slide table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); color: #b0b4c8; }
+.slide table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; background: rgba(96,165,250,0.12); color: #79c0ff; }
+.tag-validation { background: rgba(167,139,250,0.12); color: #d2a8ff; }
+.tag-blueprint { background: rgba(52,211,153,0.12); color: #6ee7b7; }
+.tag-logic { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.tag-handoff { background: rgba(244,114,182,0.12); color: #f9a8d4; }
+.tag-story { background: rgba(110,231,183,0.12); color: #6ee7b7; }
+
+.hero-meta { display: inline-flex; gap: 14px; align-items: center; margin-top: 4px; font-size: 14px; color: #8899bb; letter-spacing: 0.05em; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #3b82f6; }
+.cta-row { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; transition: all 0.2s; font-family: 'Poppins', sans-serif; }
+.cta-primary { background: linear-gradient(135deg, #3b82f6, #1241B0); color: #fff; }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); text-decoration: none; color: #fff; }
+.cta-secondary { background: rgba(255,255,255,0.06); color: #e0e0f0; border: 1px solid rgba(255,255,255,0.14); }
+.cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(96,165,250,0.4); text-decoration: none; color: #fff; }
+
+.prompt-block { background: #0c1f3d; border: 1px solid rgba(96,165,250,0.25); border-radius: 12px; padding: 22px 26px; margin: 16px 0; text-align: left; }
+.prompt-block .pb-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: #60a5fa; margin-bottom: 12px; font-family: 'Poppins', sans-serif; }
+.prompt-block pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.prompt-block .pb-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 4px; margin-right: 8px; background: rgba(96,165,250,0.15); color: #60a5fa; }
+
+.placeholder-card { background: rgba(251,191,36,0.06); border: 1px dashed rgba(251,191,36,0.4); border-radius: 14px; padding: 32px; margin: 14px 0; text-align: left; }
+.placeholder-card .ph-label { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fbbf24; background: rgba(251,191,36,0.15); padding: 4px 12px; border-radius: 6px; margin-bottom: 14px; }
+.placeholder-card .ph-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fbbf24; margin-bottom: 10px; }
+.placeholder-card .ph-desc { color: #cbd5e1; font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
+.placeholder-card .ph-howto { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.6; }
+.placeholder-card .ph-howto strong { color: #fbbf24; }
+
+.scroll-hint { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 56px; animation: pulse 2s ease infinite; }
+.scroll-hint span { display: block; margin-top: 8px; font-size: 20px; }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+@media (max-width: 768px) {
+  .slide { padding: 48px 24px; }
+  .slide h1 { font-size: 38px; }
+  .slide h2 { font-size: 26px; }
+  #editor h1 { font-size: 36px; }
+  .input-row { flex-direction: column; }
+}
+
+/* Toast */
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #0c2244; border: 1px solid rgba(96,165,250,0.3); padding: 14px 22px; border-radius: 10px; font-size: 14px; color: #e0e0f0; box-shadow: 0 12px 32px rgba(0,0,0,0.4); transition: transform 0.3s ease; z-index: 2000; pointer-events: none; }
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast .ok { color: #6ee7b7; margin-right: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ EDITOR VIEW ════════════ -->
+<div id="editor">
+  <div class="container">
+    <span class="eyebrow">Vibe Coding Final Project</span>
+    <h1><span>Showcase Generator</span></h1>
+    <p class="lede">Paste your GitHub repo URL. The tool scans every markdown file in your repo, finds the right sections, and renders your final project showcase &mdash; ready to deploy on GitHub Pages.</p>
+
+    <form id="generate-form">
+      <div class="input-row">
+        <input type="url" id="repo-input" placeholder="https://github.com/you/your-repo" required autocomplete="off" />
+        <button type="submit" id="generate-btn">Generate &rarr;</button>
+      </div>
+    </form>
+
+    <div id="status"></div>
+
+    <details>
+      <summary>What the tool looks for in your repo</summary>
+      <p style="margin-bottom: 12px;">It crawls every <code>.md</code> file and pattern-matches H2 headers (<code>##</code>) to find these sections:</p>
+      <ul>
+        <li><strong>Product link</strong> &middot; any <code>https://*.lovable.app</code> URL anywhere in your markdown</li>
+        <li><strong>Problem</strong> &middot; any heading matching <code>## Problem</code> (often inside <code>livingprd.md</code>)</li>
+        <li><strong>Hypothesis</strong> &middot; any heading matching <code>## Hypothesis</code></li>
+        <li><strong>Validation</strong> &middot; any heading matching <code>## Validation</code> or <code>## Assumptions</code> (often a separate validation brief)</li>
+        <li><strong>Living PRD elements</strong> &middot; metrics + scope sections in <code>livingprd.md</code></li>
+        <li><strong>Prompt chain</strong> &middot; fenced code blocks inside any file with <code>prompt</code> in the path</li>
+        <li><strong>Engineering handoff</strong> &middot; content of <code>engineeringhandoff.md</code> or files under <code>04-handoff</code></li>
+        <li><strong>Friction</strong> &middot; any heading matching <code>## Friction</code> or <code>## What broke</code></li>
+        <li><strong>Key learnings</strong> &middot; any heading matching <code>## Learning</code> or <code>## What I learned</code></li>
+        <li><strong>Aha moment</strong> &middot; any heading matching <code>## Aha</code> or <code>## Aha moment</code></li>
+      </ul>
+      <p style="margin-top: 12px;">If a section is missing, the showcase still renders &mdash; that slide becomes a clear placeholder telling you exactly what to add to your repo.</p>
+    </details>
+
+    <p class="footnote">No login required. Public repos only. Uses GitHub's public API &middot; rate-limited to 60 requests per hour per IP.</p>
+  </div>
+</div>
+
+<!-- ════════════ PREVIEW VIEW ════════════ -->
+<div id="preview">
+  <div class="preview-toolbar">
+    <button class="back" id="back-btn">&larr; Back to editor</button>
+    <div class="title">Preview <span class="url" id="preview-repo"></span></div>
+    <div class="actions">
+      <button id="download-btn">&darr; Download HTML</button>
+    </div>
+  </div>
+  <div id="slides-container"></div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<script>
+// ════════════════════════════════════════════════════════════
+//  Helpers — DOM
+// ════════════════════════════════════════════════════════════
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+const status = (msg, cls = '') => { $('#status').innerHTML += `<div class="${cls}">${msg}</div>`; };
+const clearStatus = () => { $('#status').innerHTML = ''; };
+const toast = (msg) => { const t = $('#toast'); t.innerHTML = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); };
+const esc = (s) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ════════════════════════════════════════════════════════════
+//  GitHub fetching
+// ════════════════════════════════════════════════════════════
+function parseRepoUrl(url) {
+  const m = url.trim().match(/github\.com[/:]([^/]+)\/([^/?#.]+)/i);
+  if (!m) return null;
+  return { owner: m[1], repo: m[2].replace(/\.git$/, '') };
+}
+
+async function ghFetchJson(url) {
+  const r = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+  if (r.status === 404) throw new Error('repo-not-found');
+  if (r.status === 403) throw new Error('rate-limited');
+  if (!r.ok) throw new Error('fetch-failed');
+  return r.json();
+}
+
+async function fetchDefaultBranch(owner, repo) {
+  const info = await ghFetchJson(`https://api.github.com/repos/${owner}/${repo}`);
+  return info.default_branch || 'main';
+}
+
+async function fetchTree(owner, repo, branch) {
+  const data = await ghFetchJson(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+  return (data.tree || []).filter(n => n.type === 'blob' && n.path.toLowerCase().endsWith('.md'));
+}
+
+async function fetchRaw(owner, repo, branch, path) {
+  const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
+  const r = await fetch(url);
+  if (!r.ok) return null;
+  return r.text();
+}
+
+// ════════════════════════════════════════════════════════════
+//  Section extraction
+// ════════════════════════════════════════════════════════════
+function extractH2Sections(md, path) {
+  const lines = md.split('\n');
+  const sections = [];
+  let current = null;
+  for (const line of lines) {
+    const m = line.match(/^(#{1,3})\s+(.+)$/);
+    if (m && (m[1].length === 2 || m[1].length === 1)) {
+      if (current) sections.push(current);
+      current = { header: m[2].replace(/^[0-9.]+\s*/, '').trim(), level: m[1].length, content: '', path };
+    } else if (current) {
+      current.content += line + '\n';
+    }
+  }
+  if (current) sections.push(current);
+  return sections.map(s => ({ ...s, content: s.content.trim() }));
+}
+
+function findSection(allSections, pattern, preferPaths = []) {
+  // Search in preferred paths first, then anywhere.
+  const matchers = preferPaths.length ? [...preferPaths.map(p => s => pattern.test(s.header) && s.path.toLowerCase().includes(p)), (s) => pattern.test(s.header)] : [(s) => pattern.test(s.header)];
+  for (const m of matchers) {
+    const found = allSections.find(m);
+    if (found && found.content.length > 20) return found;
+  }
+  return null;
+}
+
+function findAnySection(allSections, patterns, preferPaths = []) {
+  for (const p of patterns) {
+    const s = findSection(allSections, p, preferPaths);
+    if (s) return s;
+  }
+  return null;
+}
+
+function findProductLink(allMd) {
+  const m = allMd.match(/https:\/\/[a-z0-9-]+\.lovable\.app[a-z0-9/.\-]*/i);
+  return m ? m[0] : null;
+}
+
+function findTitle(allSections, repoName) {
+  const h1 = allSections.find(s => s.level === 1);
+  if (h1 && h1.header.length < 80) return h1.header;
+  return repoName.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+}
+
+function findPrompts(files) {
+  const out = [];
+  for (const f of files) {
+    if (!/prompt/i.test(f.path)) continue;
+    const blocks = [...f.content.matchAll(/```(?:[a-z]*\n)?([\s\S]*?)```/g)];
+    for (const b of blocks) {
+      const text = b[1].trim();
+      if (text.length > 60 && text.length < 2000) {
+        const fileName = f.path.split('/').pop().replace(/\.md$/, '');
+        const labelMatch = fileName.match(/^[0-9]+[-_](.+)/);
+        const label = labelMatch ? labelMatch[1].replace(/[-_]/g, ' ') : fileName;
+        out.push({ label, text });
+      }
+    }
+  }
+  return out.slice(0, 4);
+}
+
+// ════════════════════════════════════════════════════════════
+//  Slot definitions — what each slide is looking for
+// ════════════════════════════════════════════════════════════
+const SLOTS = [
+  { id: 'problem', label: 'The Problem', tag: '', patterns: [/^problem$/i, /the problem/i, /^problem statement$/i], prefer: ['livingprd', 'prd', 'readme'], howto: 'Add a heading `## Problem` to a markdown file in your repo (often inside `livingprd.md`). One short paragraph describing who hurts and why.' },
+  { id: 'hypothesis', label: 'The Hypothesis', tag: 'tag-validation', patterns: [/^hypothesis$/i, /the hypothesis/i], prefer: ['livingprd', 'prd', 'readme'], howto: 'Add a heading `## Hypothesis` to a markdown file. State your falsifiable bet: *If we do X, then Y will happen, because Z.*' },
+  { id: 'validation', label: 'The Validation', tag: 'tag-validation', patterns: [/^validation/i, /^assumption/i, /assumptions? tested/i], prefer: ['validation', 'brief', '02-validation'], howto: 'Add a `## Validation` section (or a separate `validation-brief.md` file) listing the assumptions you tested and the results.' },
+  { id: 'prd', label: 'Living PRD &middot; Key Elements', tag: 'tag-blueprint', patterns: [/key metric/i, /^metric/i, /success criteria/i, /^scope$/i], prefer: ['livingprd', 'prd'], howto: 'Add a heading `## Key Metrics` or `## Success Criteria` to `livingprd.md` with your primary, leading, guard, and lagging metrics.' },
+  { id: 'handoff', label: 'The Handoff', tag: 'tag-handoff', patterns: [/^architecture$/i, /^start here$/i, /system overview/i, /tech stack/i], prefer: ['handoff', 'engineering', '04-handoff'], howto: 'Add an `engineeringhandoff.md` file with an architecture overview, or `## Architecture` heading anywhere in your repo.' },
+  { id: 'friction', label: 'Friction', tag: 'tag-story', patterns: [/^friction$/i, /^what broke$/i, /^what didn'?t work$/i, /the friction/i], prefer: [], howto: 'Add a `## Friction` heading to a `STORY.md` (or any markdown file). One paragraph: what hit a wall during the build?' },
+  { id: 'learning', label: 'Key Learnings', tag: 'tag-story', patterns: [/^learning/i, /^key learning/i, /^what i learned/i, /the learning/i], prefer: [], howto: 'Add a `## Key Learning` heading to a `STORY.md` (or any markdown file). One paragraph: what would you do differently next time?' },
+  { id: 'aha', label: 'The Aha Moment', tag: 'tag-story', patterns: [/^aha$/i, /^aha moment$/i, /the aha/i, /^breakthrough$/i], prefer: [], howto: 'Add a `## Aha` heading to a `STORY.md` (or any markdown file). One paragraph: the moment it clicked &mdash; what you saw that you can\'t un-see.' },
+];
+
+// ════════════════════════════════════════════════════════════
+//  Render — turn analyzed content into slide HTML
+// ════════════════════════════════════════════════════════════
+function renderMarkdown(md) {
+  if (!md) return '';
+  try { return marked.parse(md); } catch (e) { return `<p>${esc(md).replace(/\n/g, '<br>')}</p>`; }
+}
+
+function slidePlaceholder(slot) {
+  return `<div class="placeholder-card">
+    <div class="ph-label">Missing &middot; ${slot.label}</div>
+    <div class="ph-title">Add ${slot.label} to your repo to fill this slide</div>
+    <div class="ph-desc">The tool couldn't find a matching section in any markdown file. Once you add it and push, re-run the generator.</div>
+    <div class="ph-howto"><strong>How to fix &middot;</strong> ${slot.howto.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*([^*]+)\*/g, '<em>$1</em>')}</div>
+  </div>`;
+}
+
+function buildSlides(data) {
+  const slides = [];
+
+  // 1. Title
+  slides.push(`<section class="slide centered" data-title="Title">
+    <div class="inner">
+      <div class="section-label">Vibe Coding Certification &middot; Final Project</div>
+      <h1><span>${esc(data.title)}</span></h1>
+      <p class="subtitle">${data.tagline ? esc(data.tagline) : 'A final project showcase &mdash; built, validated, shipped.'}</p>
+      <div class="hero-meta">
+        <span>by ${esc(data.author)}</span>
+        <span class="dot"></span>
+        <span>Generated from <code>${esc(data.repo)}</code></span>
+      </div>
+      <div class="cta-row">
+        ${data.productUrl ? `<a class="cta-btn cta-primary" href="${data.productUrl}" target="_blank" rel="noopener">&#8599; Open the live product</a>` : ''}
+        <a class="cta-btn cta-secondary" href="${data.repoUrl}" target="_blank" rel="noopener">&lt;/&gt; View on GitHub</a>
+      </div>
+      <div class="scroll-hint">Scroll to walk the showcase<span>&#8595;</span></div>
+    </div>
+  </section>`);
+
+  // 2-9. Content slides
+  for (const slot of SLOTS) {
+    if (slot.id === 'prd' || slot.id === 'handoff') {
+      // PRD + handoff are simpler one-section slides
+      const section = data.sections[slot.id];
+      slides.push(`<section class="slide" data-title="${esc(slot.label.replace(/&middot;/g, '·'))}">
+        <div class="inner">
+          <div class="demo-tag ${slot.tag}">${slot.label}</div>
+          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
+          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
+        </div>
+      </section>`);
+    } else if (slot.id === 'friction' || slot.id === 'learning' || slot.id === 'aha') {
+      const section = data.sections[slot.id];
+      slides.push(`<section class="slide" data-title="${esc(slot.label)}">
+        <div class="inner">
+          <div class="demo-tag ${slot.tag}">${slot.label}</div>
+          <h2>${slot.id === 'aha' ? 'The moment it clicked.' : slot.id === 'friction' ? 'What broke.' : 'What I\'d do differently.'}</h2>
+          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
+          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
+        </div>
+      </section>`);
+    } else {
+      const section = data.sections[slot.id];
+      slides.push(`<section class="slide" data-title="${esc(slot.label)}">
+        <div class="inner">
+          <div class="demo-tag ${slot.tag}">${slot.label}</div>
+          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
+          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
+        </div>
+      </section>`);
+    }
+  }
+
+  // Prompts slide (special: code blocks)
+  const promptsSlide = data.prompts.length ? `<section class="slide" data-title="The Prompts">
+    <div class="inner">
+      <div class="demo-tag tag-logic">The Prompts</div>
+      <h2>The Core Prompt Chain.</h2>
+      <p class="subtitle">The prompts that built the bulk of this project.</p>
+      ${data.prompts.map((p, i) => `<div class="prompt-block">
+        <div class="pb-label"><span class="pb-tag">${String(i + 1).padStart(2, '0')}</span> ${esc(p.label)}</div>
+        <pre>${esc(p.text)}</pre>
+      </div>`).join('')}
+    </div>
+  </section>` : `<section class="slide" data-title="The Prompts">
+    <div class="inner">
+      <div class="demo-tag tag-logic">The Prompts</div>
+      ${slidePlaceholder({ label: 'The Prompt Chain', howto: 'Add markdown files with `prompt` in the path (e.g. `docs/03-prompt-chains/01-foundation.md`). Put your prompts inside fenced code blocks (```) and the tool will pick them up.' })}
+    </div>
+  </section>`;
+  // Insert prompts slide after handoff (index 5 in SLOTS = handoff is at slide position 6)
+  slides.splice(6, 0, promptsSlide);
+
+  // Final thanks
+  slides.push(`<section class="slide centered" data-title="Thanks">
+    <div class="inner">
+      <div class="section-label">Thanks for walking the showcase</div>
+      <h2>${esc(data.title)} is live &mdash; go break it.</h2>
+      <p class="subtitle">The build-measure-iterate loop doesn't close at the showcase. It just got faster.</p>
+      <div class="cta-row" style="margin-top: 22px;">
+        ${data.productUrl ? `<a class="cta-btn cta-primary" href="${data.productUrl}" target="_blank" rel="noopener">&#8599; Open the live product</a>` : ''}
+        <a class="cta-btn cta-secondary" href="${data.repoUrl}" target="_blank" rel="noopener">&lt;/&gt; Browse the repo</a>
+      </div>
+    </div>
+  </section>`);
+
+  return slides.join('\n');
+}
+
+// ════════════════════════════════════════════════════════════
+//  Main flow
+// ════════════════════════════════════════════════════════════
+let lastGenerated = null;
+
+async function generate(repoUrl) {
+  clearStatus();
+  const btn = $('#generate-btn');
+  btn.disabled = true;
+  btn.textContent = 'Working...';
+
+  const parsed = parseRepoUrl(repoUrl);
+  if (!parsed) {
+    status('Could not parse that URL. Expected something like <code>https://github.com/owner/repo</code>.', 'err');
+    btn.disabled = false; btn.textContent = 'Generate \u2192';
+    return;
+  }
+  const { owner, repo } = parsed;
+  status(`<span class="dim">[1/4]</span> Looking up <strong>${owner}/${repo}</strong>...`);
+
+  let branch;
+  try { branch = await fetchDefaultBranch(owner, repo); }
+  catch (e) {
+    if (e.message === 'repo-not-found') status('Repo not found. Make sure it\'s public and the URL is correct.', 'err');
+    else if (e.message === 'rate-limited') status('GitHub API rate-limited (60 req/hr without auth). Wait a few minutes and retry.', 'err');
+    else status(`Couldn't reach the repo. ${esc(e.message)}`, 'err');
+    btn.disabled = false; btn.textContent = 'Generate \u2192';
+    return;
+  }
+  status(`<span class="ok">\u2713</span> Default branch: <code>${branch}</code>`);
+
+  status(`<span class="dim">[2/4]</span> Crawling markdown files...`);
+  let mdFiles;
+  try { mdFiles = await fetchTree(owner, repo, branch); }
+  catch (e) {
+    status(`Couldn't read the repo tree. ${esc(e.message)}`, 'err');
+    btn.disabled = false; btn.textContent = 'Generate \u2192';
+    return;
+  }
+  if (!mdFiles.length) {
+    status('No markdown files found in this repo.', 'err');
+    btn.disabled = false; btn.textContent = 'Generate \u2192';
+    return;
+  }
+  status(`<span class="ok">\u2713</span> Found ${mdFiles.length} markdown file(s): <span class="dim">${mdFiles.slice(0, 6).map(f => f.path).join(', ')}${mdFiles.length > 6 ? ', ...' : ''}</span>`);
+
+  status(`<span class="dim">[3/4]</span> Fetching content...`);
+  const files = [];
+  for (const f of mdFiles) {
+    const content = await fetchRaw(owner, repo, branch, f.path);
+    if (content) files.push({ path: f.path, content });
+  }
+  status(`<span class="ok">\u2713</span> Loaded ${files.length} file(s)`);
+
+  status(`<span class="dim">[4/4]</span> Extracting sections...`);
+  // Build all sections
+  const allSections = [];
+  for (const f of files) allSections.push(...extractH2Sections(f.content, f.path));
+
+  // Resolve each slot
+  const sections = {};
+  let filled = 0;
+  for (const slot of SLOTS) {
+    const found = findAnySection(allSections, slot.patterns, slot.prefer);
+    if (found) { sections[slot.id] = found; filled++; }
+  }
+
+  // Prompts
+  const prompts = findPrompts(files);
+
+  // Product link
+  const allMd = files.map(f => f.content).join('\n\n');
+  const productUrl = findProductLink(allMd);
+
+  // Title
+  const title = findTitle(allSections, repo);
+
+  // Author
+  const owner_name = owner;
+
+  status(`<span class="ok">\u2713</span> Filled <strong>${filled} / ${SLOTS.length}</strong> sections${prompts.length ? `, found <strong>${prompts.length}</strong> prompt(s)` : ''}${productUrl ? `, product link <code>${esc(productUrl)}</code>` : ', no product link found'}`);
+
+  const data = {
+    title,
+    author: owner_name,
+    repo: `${owner}/${repo}`,
+    repoUrl: `https://github.com/${owner}/${repo}`,
+    productUrl,
+    sections,
+    prompts,
+    tagline: '',
+  };
+
+  lastGenerated = data;
+  $('#preview-repo').textContent = `${owner}/${repo}`;
+  $('#slides-container').innerHTML = buildSlides(data);
+  $('#editor').style.display = 'none';
+  $('#preview').classList.add('active');
+  $('#slides-container').scrollTo({ top: 0 });
+
+  btn.disabled = false; btn.textContent = 'Generate \u2192';
+}
+
+// ════════════════════════════════════════════════════════════
+//  Standalone HTML export
+// ════════════════════════════════════════════════════════════
+function buildStandaloneHtml(data) {
+  const slidesHtml = buildSlides(data);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(data.title)} &middot; Vibe Coding Showcase</title>
+<meta name="description" content="Vibe Coding final project showcase for ${esc(data.title)}.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; background: #07162C; color: #e8e8f0; }
+
+.slide { min-height: 100vh; scroll-snap-align: start; padding: 80px 60px 60px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(ellipse at 30% 40%, rgba(59,130,246,0.25) 0%, #07162C 60%); }
+.slide.centered .inner { text-align: center; }
+.slide h1 { font-family: 'Poppins', sans-serif; font-size: 64px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+.slide h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.slide h2 { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 800; color: #fff; margin-bottom: 14px; line-height: 1.15; }
+.slide h3 { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #e0e0f0; margin: 18px 0 8px; }
+.slide p, .slide li { font-size: 17px; line-height: 1.7; color: #b0b4c8; }
+.slide .inner { max-width: 980px; width: 100%; text-align: left; }
+.slide .subtitle { font-size: 19px; color: #8899bb; margin-top: 8px; margin-bottom: 28px; }
+.slide .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.7); margin-bottom: 12px; font-weight: 700; }
+.slide strong { color: #fff; font-weight: 700; }
+.slide em { color: #60a5fa; font-style: normal; font-weight: 600; }
+.slide code { background: rgba(18,65,176,0.15); padding: 2px 8px; border-radius: 4px; font-size: 14px; color: #60a5fa; font-family: 'IBM Plex Mono', monospace; }
+.slide a { color: #60a5fa; text-decoration: none; }
+.slide a:hover { color: #93c5fd; text-decoration: underline; }
+.slide ul, .slide ol { padding-left: 22px; }
+.slide li { margin: 6px 0; }
+.slide hr { border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 22px 0; }
+.slide table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.slide table th { text-align: left; padding: 10px 14px; background: rgba(96,165,250,0.08); color: #e0e0f0; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid rgba(96,165,250,0.2); }
+.slide table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); color: #b0b4c8; }
+.demo-tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 6px; margin-bottom: 18px; background: rgba(96,165,250,0.12); color: #79c0ff; }
+.tag-validation { background: rgba(167,139,250,0.12); color: #d2a8ff; }
+.tag-blueprint { background: rgba(52,211,153,0.12); color: #6ee7b7; }
+.tag-logic { background: rgba(245,158,11,0.12); color: #fbbf24; }
+.tag-handoff { background: rgba(244,114,182,0.12); color: #f9a8d4; }
+.tag-story { background: rgba(110,231,183,0.12); color: #6ee7b7; }
+.hero-meta { display: inline-flex; gap: 14px; align-items: center; margin-top: 4px; font-size: 14px; color: #8899bb; letter-spacing: 0.05em; }
+.hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #3b82f6; }
+.cta-row { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; font-family: 'Poppins', sans-serif; transition: all 0.2s; }
+.cta-primary { background: linear-gradient(135deg, #3b82f6, #1241B0); color: #fff; }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); }
+.cta-secondary { background: rgba(255,255,255,0.06); color: #e0e0f0; border: 1px solid rgba(255,255,255,0.14); }
+.cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(96,165,250,0.4); }
+.prompt-block { background: #0c1f3d; border: 1px solid rgba(96,165,250,0.25); border-radius: 12px; padding: 22px 26px; margin: 16px 0; text-align: left; }
+.prompt-block .pb-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: #60a5fa; margin-bottom: 12px; font-family: 'Poppins', sans-serif; }
+.prompt-block pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.prompt-block .pb-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 4px; margin-right: 8px; background: rgba(96,165,250,0.15); color: #60a5fa; }
+.placeholder-card { background: rgba(251,191,36,0.06); border: 1px dashed rgba(251,191,36,0.4); border-radius: 14px; padding: 32px; margin: 14px 0; text-align: left; }
+.placeholder-card .ph-label { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fbbf24; background: rgba(251,191,36,0.15); padding: 4px 12px; border-radius: 6px; margin-bottom: 14px; }
+.placeholder-card .ph-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fbbf24; margin-bottom: 10px; }
+.placeholder-card .ph-desc { color: #cbd5e1; font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
+.placeholder-card .ph-howto { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.6; }
+.placeholder-card .ph-howto strong { color: #fbbf24; }
+.scroll-hint { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 56px; animation: pulse 2s ease infinite; }
+.scroll-hint span { display: block; margin-top: 8px; font-size: 20px; }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+.progress-bar { position: fixed; top: 0; left: 0; height: 3px; z-index: 100; background: linear-gradient(90deg, #1241B0, #3b82f6); transition: width 0.3s ease; }
+.nav-dots { position: fixed; right: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px; z-index: 100; }
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: #333; border: none; cursor: pointer; transition: all 0.3s; }
+.nav-dot.active { background: #3b82f6; box-shadow: 0 0 8px rgba(59,130,246,0.5); transform: scale(1.4); }
+.nav-dot:hover { background: rgba(59,130,246,0.7); }
+
+@media (max-width: 768px) { .slide { padding: 56px 24px; } .slide h1 { font-size: 38px; } .slide h2 { font-size: 26px; } .nav-dots { display: none; } }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots"></nav>
+${slidesHtml}
+<script>
+const sections = Array.from(document.querySelectorAll('section.slide'));
+const navDotsContainer = document.getElementById('navDots');
+let currentIdx = 0;
+sections.forEach((sec, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'nav-dot';
+  dot.dataset.idx = i;
+  dot.onclick = () => sec.scrollIntoView({ behavior: 'smooth' });
+  navDotsContainer.appendChild(dot);
+});
+function updateProgress(idx) {
+  currentIdx = idx;
+  document.getElementById('progressBar').style.width = ((idx + 1) / sections.length * 100) + '%';
+  navDotsContainer.querySelectorAll('.nav-dot').forEach(d => d.classList.toggle('active', parseInt(d.dataset.idx) === idx));
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) updateProgress(sections.indexOf(entry.target)); });
+}, { threshold: 0.35 });
+sections.forEach(sec => observer.observe(sec));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); if (currentIdx + 1 < sections.length) sections[currentIdx + 1].scrollIntoView({ behavior: 'smooth' }); }
+  else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); if (currentIdx - 1 >= 0) sections[currentIdx - 1].scrollIntoView({ behavior: 'smooth' }); }
+});
+</` + `script>
+</body>
+</html>`;
+}
+
+function download(filename, content) {
+  const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+}
+
+// ════════════════════════════════════════════════════════════
+//  Event wiring
+// ════════════════════════════════════════════════════════════
+$('#generate-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const url = $('#repo-input').value;
+  generate(url);
+});
+
+$('#back-btn').addEventListener('click', () => {
+  $('#preview').classList.remove('active');
+  $('#editor').style.display = 'flex';
+});
+
+$('#download-btn').addEventListener('click', () => {
+  if (!lastGenerated) return;
+  const html = buildStandaloneHtml(lastGenerated);
+  download('index.html', html);
+  toast('<span class="ok">&#10003;</span> Downloaded <code>index.html</code> &mdash; drop it into <code>docs/</code> in your repo');
+});
+
+// Prefill if a ?repo= param is provided
+const urlParams = new URLSearchParams(window.location.search);
+const preRepo = urlParams.get('repo');
+if (preRepo) {
+  $('#repo-input').value = preRepo;
+  setTimeout(() => generate(preRepo), 200);
+}
+</script>
+</body>
+</html>
