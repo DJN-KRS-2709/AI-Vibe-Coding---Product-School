@@ -316,7 +316,7 @@
         <div class="tip-text"><strong>Do NOT attempt to "fix" the code yet.</strong> This is pre-work to document the current state of your prototype, even if it's not perfect. Document the reality first.</div>
       </div>
 
-      <a class="tool-link" href="#" target="_blank">
+      <a class="tool-link" href="M4 - Living PRD Extractor.html" target="_blank">
         <span class="tool-icon">&#128279;</span> Open Living PRD Extractor Tool
       </a>
 
@@ -327,7 +327,7 @@
           <div class="step-title">Configure the Extractor</div>
           <div class="step-time">3 minutes</div>
           <div class="step-desc">
-            Open the Living PRD Extractor and select your scenario — either one of the four pre-built examples or <strong>"Build Your Own"</strong> if you're working on your own prototype. If you choose Build Your Own and you used the M2/M3 tools in this browser, the Extractor will offer to import your hypothesis, metrics, and prompt chain automatically. The tool generates a baseline <strong>Extraction Prompt</strong> with variables you must customize:<br><br>
+            Open the Living PRD Extractor and select <strong>"Build Your Own"</strong>. The recommended path: <strong>paste your <code>03-prompt-chaining/prompts.md</code> directly from your GitHub repo</strong> into the "Paste from GitHub" textarea, or drop the file from your local clone. (Your GitHub repo is the canonical record — the tool can also try to auto-import from M2/M3 browser cache, but treat that as a fallback.) The tool generates a baseline <strong>Extraction Prompt</strong> with variables you must customize:<br><br>
             <strong>Replace the brackets</strong> with your actual product details — your screens, your hypothesis, your metrics. The AI needs to know which evidence to audit.
           </div>
         </div>
@@ -851,14 +851,18 @@
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
     <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — All M4 Tools</p>
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — Source of truth + M4 Tools</p>
+      <div style="padding:12px 14px; background:#ecfdf5; border:1.5px solid #34d399; border-radius:8px; margin-bottom:14px;">
+        <div style="font-size:14px; font-weight:800; color:#065f46; margin-bottom:4px;">📂 Your GitHub repo — the source of truth</div>
+        <div style="font-size:12.5px; color:#047857; line-height:1.55;">M3 inputs you'll reference today: <code>03-prompt-chaining/prompts.md</code>, <code>chain-audit.md</code>, <code>prototype-v4.md</code>. Today's outputs: <code>04-structure/PRD.md</code>, <code>ARCHITECTURE.md</code>, <code>refactor-prompts.md</code>. Paste from these files into the Living PRD Extractor — don't rely on browser cache.</div>
+      </div>
       <div style="display:flex; flex-direction:column; gap:8px;">
-        <a class="tool-link" href="#" target="_blank"><span class="tool-icon">&#128279;</span> Living PRD Extractor — Phases 1 &amp; 2</a>
-        <a class="tool-link" href="#" target="_blank"><span class="tool-icon">&#128220;</span> Living Prompt Pack Builder — Add your structure prompts</a>
+        <a class="tool-link" href="M4 - Living PRD Extractor.html" target="_blank"><span class="tool-icon">&#128279;</span> Living PRD Extractor — Phases 1 &amp; 2 <em style="color:#94a3b8;font-style:normal;">(browser-only — paste from GitHub, export back to GitHub)</em></a>
+        <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank"><span class="tool-icon">&#128220;</span> Living Prompt Pack Builder — Add your structure prompts <em style="color:#94a3b8;font-style:normal;">(export and commit each session)</em></a>
       </div>
       <div class="tip-box" style="margin-top:12px;">
         <div class="tip-icon">&#128218;</div>
-        <div class="tip-text"><strong>Your Living Prompt Pack grows today.</strong> Add your structure prompts (extract, refactor, handoff) to the pack you started in M3. This pack becomes a reusable product playbook.</div>
+        <div class="tip-text"><strong>Your Living Prompt Pack grows today.</strong> Add your structure prompts (extract, refactor, handoff) to the pack you started in M3. Always export the pack as <code>PROMPTS.md</code> and commit it — that's how your playbook survives across sessions.</div>
       </div>
     </div>
   </div>

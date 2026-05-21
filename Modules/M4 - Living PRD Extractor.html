@@ -435,14 +435,27 @@
         <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
       </div>
 
-      <!-- File upload zone for BYO scenario -->
+      <!-- File upload zone for BYO scenario — upload directly from your GitHub clone -->
       <div class="m3-upload-banner" id="m3-upload-banner" onclick="document.getElementById('scenario-import-file').click()" ondragover="event.preventDefault(); this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault(); this.classList.remove('dragover'); handleScenarioFileDrop(event)">
-        <div class="upload-icon">📄</div>
-        <strong>Upload your data</strong><br>
-        Drop a <code>.md</code> or <code>.json</code> file here to import your PRD — or click to browse.
-        <div class="upload-hint">Exported from the M2 Structured Prompt Builder, M3 Prompt Chain Planner, or a previous PRD Extractor session.</div>
+        <div class="upload-icon">📂</div>
+        <strong>Upload from your GitHub repo</strong><br>
+        Drop a <code>.md</code> file here to import your work — or click to browse your local clone.
+        <div class="upload-hint">Recommended: <code>03-prompt-chaining/prompts.md</code> or <code>02-validation/README.md</code> from your GitHub repo. Those files are the source of truth — not browser cache.</div>
       </div>
       <input type="file" id="scenario-import-file" accept=".md,.txt,.json" style="display:none" onchange="handleScenarioFileUpload(event)">
+
+      <!-- OR: paste directly from GitHub (raw view) -->
+      <div style="margin-top:12px; padding:14px 16px; background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%); border:1.5px solid #0f172a; border-radius:10px;">
+        <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:6px;">📋 Or paste directly from your GitHub repo</div>
+        <div style="font-size:11.5px; color:#475569; line-height:1.55; margin-bottom:10px;">
+          Open <code style="background:#e2e8f0;padding:1.5px 5px;border-radius:3px;">03-prompt-chaining/prompts.md</code> in GitHub → click <strong>Raw</strong> → Cmd/Ctrl+A → Cmd/Ctrl+C → paste below.
+        </div>
+        <textarea id="github-paste-input" placeholder="Paste your M3 prompts.md or M2 README.md content here…" style="width:100%;min-height:90px;padding:10px 12px;border:1.5px solid #cbd5e1;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.55;background:#fff;color:#0f172a;resize:vertical;box-sizing:border-box;"></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button onclick="importFromGitHubPaste()" style="background:#0f172a;color:#fff;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Use this content</button>
+          <button onclick="document.getElementById('github-paste-input').value=''" style="background:#e2e8f0;color:#64748b;border:none;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Clear</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -655,7 +668,8 @@
   <div class="tip-bar" style="margin-top:12px;">
     <div class="tip-icon" style="background:#eff6ff;color:#3B6FE0;">→</div>
     <div class="tip-text">
-      <strong>Data flows in from:</strong> <a href="M2%20-%20Validation%20Brief.html">M2 Validation Brief</a> (hypothesis, risk type, kill switch) · <a href="M2%20-%20Structured%20Prompt%20Builder.html">M2 Structured Prompt Builder</a> (assembled prompt, constraints) · <a href="M3%20-%20Prompt%20Chain%20Planner.html">M3 Prompt Chain Planner</a> (chain, screen count) · <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html">M3 Prompt Pack Builder</a> (constraints, context)
+      <strong>Source of truth:</strong> your GitHub repo. Pull from <code>02-validation/</code> (M2 hypothesis, validation brief) and <code>03-prompt-chaining/prompts.md</code> (M3 chain) by pasting or uploading the markdown above — the tools below are convenience aids and can lose state if your browser cache clears.<br>
+      <span style="font-size:11.5px;color:#94a3b8;">Tool aids (browser-only): <a href="M2%20-%20Validation%20Brief.html">M2 Validation Brief</a> · <a href="M2%20-%20Structured%20Prompt%20Builder.html">M2 Structured Prompt Builder</a> · <a href="M3%20-%20Prompt%20Chain%20Planner.html">M3 Prompt Chain Planner</a> · <a href="M3%20-%20Living%20Prompt%20Pack%20Builder.html">M3 Prompt Pack Builder</a></span>
     </div>
   </div>
 </div>
@@ -1477,6 +1491,23 @@ EXPERIMENT PLAN:
       document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
     reader.readAsText(file);
+  }
+
+  // Paste a chunk of markdown straight from a GitHub Raw view.
+  // We treat it as a markdown import (same parser as a .md upload) — the
+  // student's GitHub file is the source of truth, not browser storage.
+  function importFromGitHubPaste() {
+    const el = document.getElementById('github-paste-input');
+    const content = (el && el.value || '').trim();
+    if (!content) {
+      alert('Paste the contents of your GitHub markdown file before importing.\n\nTip: in GitHub, open the file → click "Raw" → Cmd/Ctrl+A → Cmd/Ctrl+C → paste here.');
+      return;
+    }
+    document.getElementById('m3-upload-banner').classList.remove('visible');
+    parseMarkdownImport(content);
+    saveToLocalStorage();
+    showSaveIndicator('Imported from GitHub paste', 'saved');
+    document.querySelector('.prompt-card.extract').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function setToggle(field, val) {

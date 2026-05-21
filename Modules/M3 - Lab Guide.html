@@ -293,10 +293,10 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:14px; color:#555; margin-bottom:14px;">With your README open, audit your current M2 build against three lenses. You're naming the gaps your chain will close.</p>
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">With your <strong>GitHub README</strong> open in another tab (this is your source of truth — not the Planner tool), audit your current M2 build against three lenses. You're naming the gaps your chain will close.</p>
 
       <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank">
-        <span class="tool-icon">⛓️</span> Open the Prompt Chain Planner — Step 1: Audit
+        <span class="tool-icon">⛓️</span> Open the Prompt Chain Planner — Step 1: Audit <em style="color:#94a3b8;font-style:normal;font-size:11px;">(paste your GitHub README into the planner's "From GitHub" textarea)</em>
       </a>
 
       <div class="step" style="border-bottom: 1px solid #f0f0f0;">
@@ -343,7 +343,7 @@
 
   <div class="card">
     <div class="card-body">
-      <p style="font-size:14px; color:#555; margin-bottom:14px;">Translate the audit into three prompts. Each one anchors to a distinct strategy — don't write three Expand prompts.</p>
+      <p style="font-size:14px; color:#555; margin-bottom:14px;">Translate the audit into three prompts. Each one anchors to a distinct strategy — don't write three Expand prompts. Once you've drafted them, commit them to <code>03-prompt-chaining/prompts.md</code> in your GitHub repo before the lab — that's your authoritative copy.</p>
 
       <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank">
         <span class="tool-icon">⛓️</span> Open the Prompt Chain Planner — Step 2: Draft
@@ -656,13 +656,19 @@
   <!-- ═══════════ TOOLS REFERENCE ═══════════ -->
   <div class="card" style="margin-top:32px; border: 2px solid #e2e8f0;">
     <div class="card-body">
-      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — M3 Tools</p>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank"><span class="tool-icon">⛓️</span> Prompt Chain Planner — guided audit + Expand / Behavior / Refine templates</a>
-        <a class="tool-link" href="M3 - Prompt Techniques Template.html" target="_blank"><span class="tool-icon">📚</span> Prompt Techniques Template — Foundational · Architectural · Enforcement · Optimization</a>
-        <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank"><span class="tool-icon">📦</span> Living Prompt Pack Builder — capture chain entries, export reusable PROMPTS.md</a>
-        <a class="tool-link" href="M2 - Structured Prompt Builder.html" target="_blank"><span class="tool-icon">🧱</span> M2 Structured Prompt Builder — your M2 prompt that feeds this chain</a>
+      <p style="font-size:16px; font-weight:800; color:#1a1a2e; margin-bottom:14px;">Quick Links — Source of truth + M3 Tools</p>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+        <div style="padding:12px 14px; background:#ecfdf5; border:1.5px solid #34d399; border-radius:8px;">
+          <div style="font-size:14px; font-weight:800; color:#065f46; margin-bottom:4px;">📂 Your GitHub repo — the source of truth</div>
+          <div style="font-size:12.5px; color:#047857; line-height:1.55;">M2 inputs you'll reference: <code>02-validation/README.md</code>, <code>validation-brief.md</code>, <code>prompts.md</code> (whatever you committed in M2). Today's outputs: <code>03-prompt-chaining/prompts.md</code>, <code>chain-audit.md</code>, <code>prototype-v4.md</code>. M4+ pull from these files — not from any tool's browser cache.</div>
+        </div>
       </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a class="tool-link" href="M3 - Prompt Chain Planner.html" target="_blank"><span class="tool-icon">⛓️</span> Prompt Chain Planner — guided audit + Expand / Behavior / Refine templates <em style="color:#94a3b8;font-style:normal;">(browser-only)</em></a>
+        <a class="tool-link" href="M3 - Prompt Techniques Template.html" target="_blank"><span class="tool-icon">📚</span> Prompt Techniques Template — Foundational · Architectural · Enforcement · Optimization <em style="color:#94a3b8;font-style:normal;">(browser-only)</em></a>
+        <a class="tool-link" href="M3 - Living Prompt Pack Builder.html" target="_blank"><span class="tool-icon">📦</span> Living Prompt Pack Builder — capture chain entries, export reusable PROMPTS.md <em style="color:#94a3b8;font-style:normal;">(browser-only — always export + commit)</em></a>
+      </div>
+      <p style="font-size:11.5px; color:#94a3b8; margin-top:10px; line-height:1.5;">⚠️ The tools above live in your browser. If you clear cache, switch machines, or change browsers, that data is gone. <strong>Always</strong> export and commit your final artefacts to GitHub.</p>
     </div>
   </div>
 

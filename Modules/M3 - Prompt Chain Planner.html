@@ -420,48 +420,48 @@
         <button class="scenario-btn byo" onclick="pickScenario('byo',this)">Build Your Own</button>
       </div>
 
-      <!-- M2 data found — offer import -->
-      <div class="m2-import-banner" id="m2-import-banner">
+      <!-- PRIMARY: GitHub README paste — source of truth across modules -->
+      <div class="m2-import-banner" id="m2-github-banner" style="border-color:#0f172a;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 100%);">
         <div class="m2-import-header">
-          <span class="m2-import-badge">M2 Data Found</span>
-          <span class="m2-import-title" id="m2-import-scenario"></span>
+          <span class="m2-import-badge" style="background:#0f172a;">📂 From GitHub (recommended)</span>
+          <span class="m2-import-title">Paste your M2 README from your GitHub repo</span>
         </div>
-        <div class="m2-import-body" id="m2-import-body"></div>
-        <div class="m2-import-actions">
-          <button class="m2-import-btn primary" onclick="importM2Data()">Import M2 Data</button>
-          <button class="m2-import-btn secondary" onclick="dismissM2Import()">Start Blank</button>
+        <div class="m2-import-body">
+          Your GitHub repo is the source of truth. Open <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;">02-validation/README.md</code> (or wherever Lovable pushed it), copy the contents, and paste below. The Planner uses it as context — it never goes back to your browser cache.
+        </div>
+        <textarea id="github-paste-input" placeholder="Paste your M2 README.md content here…&#10;&#10;Tip: in GitHub, click the README file → click 'Raw' → Cmd/Ctrl+A → Cmd/Ctrl+C → paste here." style="width:100%;min-height:120px;margin-top:10px;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.55;background:#fff;color:#0f172a;resize:vertical;"></textarea>
+        <div class="m2-import-actions" style="margin-top:12px;">
+          <button class="m2-import-btn primary" style="background:#0f172a;" onclick="importFromGitHubPaste()">Use this as my M2 context</button>
+          <button class="m2-import-btn secondary" onclick="dismissNoData()">Skip — start blank</button>
         </div>
       </div>
 
-      <!-- No M2 data — tell them how to get it -->
-      <div class="m2-import-banner" id="m2-no-data-banner" style="border-color:#d97706;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);">
+      <!-- SECONDARY: localStorage auto-import (only shows if browser data exists) -->
+      <div class="m2-import-banner" id="m2-import-banner" style="border-color:#94a3b8;background:#f8fafc;margin-top:10px;">
         <div class="m2-import-header">
-          <span class="m2-import-badge" style="background:#d97706;">No M2 Data Yet</span>
-          <span class="m2-import-title">Connect your M2 work in 2 steps</span>
+          <span class="m2-import-badge" style="background:#64748b;">🧠 Browser cache (fallback)</span>
+          <span class="m2-import-title" id="m2-import-scenario"></span>
         </div>
-        <div class="m2-import-body">
-          <strong>Step 1:</strong> Open the <a href="M2%20-%20Validation%20Brief.html" target="_blank" style="color:#3B6FE0;font-weight:700;text-decoration:none;">M2 Validation Brief ↗</a> and fill in your hypothesis, risk type, kill switch, and success criteria.<br>
-          <strong>Step 2:</strong> Open the <a href="M2%20-%20Structured%20Prompt%20Builder.html" target="_blank" style="color:#3B6FE0;font-weight:700;text-decoration:none;">M2 Structured Prompt Builder ↗</a> and assemble Context + Reference + Constraint + Output — then click <strong>"Copy Prompt to Clipboard"</strong> to save your data.<br>
-          <strong>Step 3:</strong> Come back here, click <strong>"Build Your Own"</strong> again, and your M2 data will appear.
-        </div>
-        <div class="m2-import-actions">
-          <a href="M2%20-%20Structured%20Prompt%20Builder.html" target="_blank" class="m2-import-btn primary" style="text-decoration:none;text-align:center;">Open M2 Structured Prompt Builder</a>
-          <button class="m2-import-btn secondary" onclick="dismissNoData()">Skip — I'll Start Blank</button>
+        <div class="m2-import-body" id="m2-import-body" style="font-size:11px;"></div>
+        <div style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin-top:4px;">⚠️ Browser-only. Lost if you switch machines, clear cache, or change browsers. Prefer the GitHub paste above.</div>
+        <div class="m2-import-actions" style="margin-top:10px;">
+          <button class="m2-import-btn primary" style="background:#64748b;" onclick="importM2Data()">Import from browser anyway</button>
+          <button class="m2-import-btn secondary" onclick="dismissM2Import()">Dismiss</button>
         </div>
       </div>
 
       <!-- Imported M2 context display -->
       <div class="byo-context" id="byo-context">
-        <div class="byo-context-label">Your M2 Prompt (imported from Structured Prompt Builder)</div>
+        <div class="byo-context-label" id="byo-context-label">Your M2 context (imported from GitHub)</div>
         <div class="byo-context-text" id="byo-m2-prompt"></div>
         <div style="margin-top:10px;font-size:11px;color:#888;line-height:1.5;">Use this as context while writing your Expand, Behavior, and Refine prompts below. Your M2 prototype is the starting point — your chain builds on top of it.</div>
       </div>
 
-      <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Your references:</div>
+      <div style="font-size:12px;color:#888;line-height:1.6;margin-top:10px;">Your references (source of truth = GitHub):</div>
       <div class="m2-links" style="grid-template-columns:1fr 1fr; gap:10px;">
-        <a class="m2-link" href="M2%20-%20Validation%20Brief.html" target="_blank" style="flex-direction:row;gap:12px;justify-content:flex-start;">
-          <span class="m2-link-dot" style="background:#3B6FE0;">M2</span>
-          <div><strong>Validation Brief ↗</strong><br><span>Your hypothesis, risk type, kill switch, success criteria</span></div>
+        <a class="m2-link" href="#" onclick="event.preventDefault();alert('Open your GitHub repo → 02-validation/README.md (or whatever path Lovable pushed). That is your reference for this lab.');" style="flex-direction:row;gap:12px;justify-content:flex-start;">
+          <span class="m2-link-dot" style="background:#0f172a;">📂</span>
+          <div><strong>Your GitHub repo ↗</strong><br><span>02-validation/ — your M2 README, validation brief, and PROMPTS</span></div>
         </a>
         <a class="m2-link" href="M3%20-%20Prompt%20Techniques%20Template.html" target="_blank" style="flex-direction:row;gap:12px;justify-content:flex-start;">
           <span class="m2-link-dot" style="background:#7c3aed;">PT</span>
@@ -679,12 +679,15 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     const banner = document.getElementById('m2-import-banner');
     const byoCtx = document.getElementById('byo-context');
 
-    const noDataBanner = document.getElementById('m2-no-data-banner');
+    const githubBanner = document.getElementById('m2-github-banner');
 
     if (id === 'byo') {
       byoCtx.classList.remove('visible');
-      noDataBanner.classList.remove('visible');
 
+      // PRIMARY: always offer the GitHub paste banner for BYO
+      githubBanner.classList.add('visible');
+
+      // SECONDARY: surface the localStorage fallback only if data is actually there
       try { m2Handoff = JSON.parse(localStorage.getItem('vc-m2-handoff')); } catch(e) {}
 
       if (m2Handoff) {
@@ -697,7 +700,6 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
         banner.classList.add('visible');
       } else {
         banner.classList.remove('visible');
-        noDataBanner.classList.add('visible');
       }
       document.getElementById('prompt-expand').value = '';
       document.getElementById('prompt-behavior').value = '';
@@ -714,7 +716,7 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
     }
 
     banner.classList.remove('visible');
-    noDataBanner.classList.remove('visible');
+    githubBanner.classList.remove('visible');
     byoCtx.classList.remove('visible');
 
     const hasExisting = ['prompt-expand','prompt-behavior','prompt-refine'].some(
@@ -751,10 +753,34 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
 
     if (m2Handoff.prompt) {
       document.getElementById('byo-m2-prompt').textContent = m2Handoff.prompt;
+      document.getElementById('byo-context-label').textContent = 'Your M2 context (imported from browser cache)';
       byoCtx.classList.add('visible');
     }
 
     banner.classList.remove('visible');
+    document.getElementById('m2-github-banner').classList.remove('visible');
+
+    updateAudit();
+    updatePreview();
+    document.querySelector('.prompt-card.expand').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // PRIMARY path: student pastes the contents of their M2 README.md (or any
+  // committed markdown from their GitHub repo) and we use it as BYO context.
+  // This is the recommended flow — GitHub is the source of truth, not localStorage.
+  function importFromGitHubPaste() {
+    const pasteEl = document.getElementById('github-paste-input');
+    const raw = (pasteEl && pasteEl.value || '').trim();
+    if (!raw) {
+      alert('Paste the contents of your M2 README.md (from your GitHub repo) before importing.\n\nTip: in GitHub, open the file → click "Raw" → Cmd/Ctrl+A → Cmd/Ctrl+C → paste here.');
+      return;
+    }
+    document.getElementById('byo-m2-prompt').textContent = raw;
+    document.getElementById('byo-context-label').textContent = 'Your M2 context (pasted from GitHub)';
+    document.getElementById('byo-context').classList.add('visible');
+
+    document.getElementById('m2-github-banner').classList.remove('visible');
+    document.getElementById('m2-import-banner').classList.remove('visible');
 
     updateAudit();
     updatePreview();
@@ -766,7 +792,8 @@ Example: &quot;The PM dashboard needs to be more actionable. Add a 'Send nudge e
   }
 
   function dismissNoData() {
-    document.getElementById('m2-no-data-banner').classList.remove('visible');
+    document.getElementById('m2-github-banner').classList.remove('visible');
+    document.getElementById('m2-import-banner').classList.remove('visible');
   }
 
   function setToggle(field, val) {

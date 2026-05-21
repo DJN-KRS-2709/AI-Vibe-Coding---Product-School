@@ -1267,15 +1267,15 @@ Maintain the same design language throughout and tether all behavior strictly to
           <div class="fs-icon">⛓️</div>
         </div>
         <div class="fs-title">Draft Expand · Behavior · Refine</div>
-        <div class="fs-text">Paste your README + audit into ChatGPT / Claude / Gemini and ask it to generate your three prompts using the templates in the <strong>Prompt Chain Planner</strong>. Grab a Mobbin screenshot for the Expand prompt.</div>
+        <div class="fs-text">Paste your <strong>GitHub README</strong> + audit into ChatGPT / Claude / Gemini and ask it to generate your three prompts using the Prompt Chain Planner templates. Grab a Mobbin screenshot for the Expand prompt.</div>
       </div>
       <div class="flow-step">
         <div class="fs-head">
           <div class="fs-num">4</div>
           <div class="fs-icon">💾</div>
         </div>
-        <div class="fs-title">Save your final chain</div>
-        <div class="fs-text">Lock the three finalised prompts into your <strong>Prompt Chain Planner</strong> doc. Have them ready to copy + paste in the lab — no edits during build time.</div>
+        <div class="fs-title">Save your final chain to GitHub</div>
+        <div class="fs-text">Commit your three finalised prompts to <code>03-prompt-chaining/prompts.md</code> in your <strong>GitHub repo</strong>. That's your source of truth — not the Planner tool, not browser memory. Ready to copy + paste in the lab.</div>
       </div>
     </div>
 
@@ -1289,7 +1289,8 @@ Maintain the same design language throughout and tether all behavior strictly to
       <h4>Speaker Notes</h4>
       <p>Hard rule: <strong>no Lovable for 15 minutes</strong>. The value of the chain happens BEFORE the build. Walk the room — anyone with Lovable open at minute 3 needs a redirect.</p>
       <p>Two failure modes to watch: (1) students who skip the README step and try to plan the chain from memory — push them back to the README prompt. (2) students who write 3 prompts that all sound like Expand prompts (no constraint injection, no surgical refine) — that's the cue to point them at the Prompt Chain Planner templates.</p>
-      <p>At T+3 min: "If you're stuck on the audit, paste your README into an LLM and ask it: <em>'Convert this screen list into a Chain-of-Thought prompt that builds the sequence screen-by-screen.'</em>" At T+12 min: "Lock your three prompts now. Final 3 minutes are to grab visual references."</p>
+      <p>At T+3 min: "If you're stuck on the audit, paste your README into an LLM and ask it: <em>'Convert this screen list into a Chain-of-Thought prompt that builds the sequence screen-by-screen.'</em>" At T+12 min: "Lock your three prompts now — commit them to <code>prompts.md</code> in GitHub. Final 3 minutes are to grab visual references."</p>
+      <p><strong>Tools vs. GitHub:</strong> the Prompt Chain Planner is a thinking aid — it lives in browser storage and can disappear. The canonical save is always to a markdown file in their GitHub repo. Drill this rule: <em>if it's not in GitHub, it didn't happen.</em></p>
     </div>
   </div>
 </section>
@@ -1581,8 +1582,13 @@ Maintain the same design language throughout and tether all behavior strictly to
   <div class="inner" style="max-width: 1100px;">
     <div class="section-label">Resources &amp; Templates</div>
     <h2>Everything Module 3 ships with.</h2>
-    <p class="subtitle">Bookmark them — they're referenced across M4–M6.</p>
+    <p class="subtitle">Bookmark them — they're referenced across M4–M6. <strong>Your GitHub repo is the source of truth</strong> across modules; the tools below are aids that live in browser memory.</p>
     <div class="cards-grid">
+      <div class="card-item" style="--card-accent:#34d399;">
+        <div class="card-icon">📂</div>
+        <div class="card-title">Your GitHub repo (source of truth)</div>
+        <div class="card-desc"><strong>This is where your work lives across modules.</strong> Today's deliverables: <code>03-prompt-chaining/prompts.md</code>, <code>chain-audit.md</code>, <code>prototype-v4.md</code>. M4+ pull from here, not from any tool's cache.</div>
+      </div>
       <div class="card-item" style="--card-accent:#60a5fa;">
         <div class="card-icon">🧪</div>
         <div class="card-title">Module 3 Lab Guide</div>
@@ -1591,7 +1597,7 @@ Maintain the same design language throughout and tether all behavior strictly to
       <div class="card-item" style="--card-accent:#a78bfa;">
         <div class="card-icon">⛓️</div>
         <div class="card-title">Prompt Chain Planner</div>
-        <div class="card-desc"><a href="M3 - Prompt Chain Planner.html" target="_blank" rel="noopener" style="color:#a78bfa;">Open the planner ↗</a> — guided audit + Expand / Behavior / Refine templates. Auto-imports your M2 work.</div>
+        <div class="card-desc"><a href="M3 - Prompt Chain Planner.html" target="_blank" rel="noopener" style="color:#a78bfa;">Open the planner ↗</a> — guided audit + Expand / Behavior / Refine templates. <em>Browser-only — always commit your final chain to GitHub.</em></div>
       </div>
       <div class="card-item" style="--card-accent:#fb7185;">
         <div class="card-icon">📚</div>
@@ -1601,7 +1607,7 @@ Maintain the same design language throughout and tether all behavior strictly to
       <div class="card-item" style="--card-accent:#6ee7b7;">
         <div class="card-icon">📦</div>
         <div class="card-title">Living Prompt Pack Builder</div>
-        <div class="card-desc"><a href="M3 - Living Prompt Pack Builder.html" target="_blank" rel="noopener" style="color:#6ee7b7;">Open the builder ↗</a> — capture chain entries and export a reusable PROMPTS.md for any future build.</div>
+        <div class="card-desc"><a href="M3 - Living Prompt Pack Builder.html" target="_blank" rel="noopener" style="color:#6ee7b7;">Open the builder ↗</a> — capture chain entries and export <code>PROMPTS.md</code>. <em>Always export and commit to GitHub — don't rely on browser cache.</em></div>
       </div>
       <div class="card-item" style="--card-accent:#fde68a;">
         <div class="card-icon">📚</div>
@@ -1617,6 +1623,7 @@ Maintain the same design language throughout and tether all behavior strictly to
     <div class="notes">
       <h4>Speaker Notes</h4>
       <p>Drop this card list once in <code>#cohort-channel</code> immediately after class — pin it. The Lab Guide is the walkthrough; the Prompt Chain Planner is the guided template; the Prompt Techniques Template is the full library for self-study; the Living Prompt Pack Builder is where their PROMPTS.md grows over the cohort.</p>
+      <p><strong>GitHub-first rule:</strong> reinforce that the tools above are <em>aids</em> — they help students think, but the canonical artefacts live in their GitHub repo. M4 onwards pulls from <code>03-prompt-chaining/prompts.md</code> on GitHub, not from any tool's browser cache. If a student switches machines or clears cookies, GitHub is the only thing that survives.</p>
     </div>
   </div>
 </section>
