@@ -843,28 +843,34 @@ section.cameras-section .cameras-inner {
     <div class="section-label">Class Expectations</div>
     <h2>How we work together today.</h2>
     <div class="expect-grid">
-      <div class="expect-tile"><div class="expect-icon">📹</div><div class="expect-title">Cameras On</div><div class="expect-desc">Be present and visible with your camera on to stay engaged in class.</div></div>
-      <div class="expect-tile"><div class="expect-icon">⏰</div><div class="expect-title">Arrive On Time</div><div class="expect-desc">Respect everyone's time by arriving promptly to sessions.</div></div>
-      <div class="expect-tile"><div class="expect-icon">🤝</div><div class="expect-title">Engage to Network</div><div class="expect-desc">Participate in labs and discussions to build your professional learning network.</div></div>
-      <div class="expect-tile"><div class="expect-icon">🛠️</div><div class="expect-title">Tool Readiness</div><div class="expect-desc">Lovable, GitHub, and your M3 prototype must be open before class — we will not stop or restart for setup.</div></div>
-      <div class="expect-tile"><div class="expect-icon">💬</div><div class="expect-title">Use Slack</div><div class="expect-desc">Slack for all communication to keep questions and comments organised.</div></div>
-      <div class="expect-tile"><div class="expect-icon">🎓</div><div class="expect-title">Class Momentum</div><div class="expect-desc">Individual or deep-dive questions will be moved to after-class support.</div></div>
+      <div class="expect-card"><div class="expect-icon">📹</div><div class="expect-title">Cameras On</div><div class="expect-desc">Be present and visible with your camera on to stay engaged in class.</div></div>
+      <div class="expect-card"><div class="expect-icon">⏰</div><div class="expect-title">Arrive On Time</div><div class="expect-desc">Respect everyone's time by arriving promptly to sessions.</div></div>
+      <div class="expect-card"><div class="expect-icon">🤝</div><div class="expect-title">Engage to Network</div><div class="expect-desc">Participate in labs and discussions to build your professional learning network.</div></div>
+      <div class="expect-card"><div class="expect-icon">🛠️</div><div class="expect-title">Tool Readiness</div><div class="expect-desc">Lovable, GitHub, and your M3 prototype must be open before class — we will not stop or restart for setup.</div></div>
+      <div class="expect-card"><div class="expect-icon">💬</div><div class="expect-title">Use Slack</div><div class="expect-desc">Slack for all communication to keep questions and comments organised.</div></div>
+      <div class="expect-card"><div class="expect-icon">🎓</div><div class="expect-title">Class Momentum</div><div class="expect-desc">Individual or deep-dive questions will be moved to after-class support.</div></div>
     </div>
   </div>
 </section>
 
 <!-- 3. COURSE ARC — M4 active -->
 <section class="centered" data-title="The Course Arc">
-  <div class="inner">
+  <div class="inner" style="max-width: 1080px;">
     <div class="section-label">Vibe Coding Syllabus · Where we are</div>
     <h2>Six modules. One product. You're on Module 4.</h2>
-    <div class="arc-grid">
-      <div class="arc-tile"><div class="arc-mod">M1</div><div class="arc-name">Execute Vibe Coding Velocity</div><div class="arc-desc">From ambiguous problem to functional prototype — the Confidence Line.</div></div>
-      <div class="arc-tile"><div class="arc-mod">M2</div><div class="arc-name">Validate Product Hypotheses via Risk-Based Prototyping</div><div class="arc-desc">Map assumptions, apply a validation lens, inject data + metrics + hypotheses.</div></div>
-      <div class="arc-tile"><div class="arc-mod">M3</div><div class="arc-name">Ensure Complex System Stability with Prompt Chaining</div><div class="arc-desc">Context layering + constraint grounding. Multi-screen architectures that don't break.</div></div>
-      <div class="arc-tile active"><div class="arc-mod">M4 · Today</div><div class="arc-name">Transition From Prototypes to Production Specs</div><div class="arc-desc">Refactor code, extract a Living PRD, generate the engineering handoff, connect a real backend.</div></div>
-      <div class="arc-tile"><div class="arc-mod">M5</div><div class="arc-name">Ship Live Products with Full-Stack Logic</div><div class="arc-desc">Live databases + secure APIs + edge cases on a real URL.</div></div>
-      <div class="arc-tile"><div class="arc-mod">M6</div><div class="arc-name">Measure Product Performance for AI-Driven Iteration</div><div class="arc-desc">Analyse real interactions, find friction, redeploy an improved update.</div></div>
+    <p class="subtitle">M1 proved you can <em>build</em>. M2 proved you can build to <em>test a hypothesis</em>. M3 proved you can build something <em>resilient</em>. Today you make it <em>inheritable</em> — a system an engineer can take from you cold.</p>
+    <div class="arc-flow">
+      <div class="arc-node"><div class="ad-num">M1</div>Velocity</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M2</div>Validation</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M3</div>Prompt Chaining</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node active-node"><div class="ad-num">M4</div>Production Specs</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M5</div>Full-Stack</div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node"><div class="ad-num">M6</div>Evals &amp; Iteration</div>
     </div>
   </div>
 </section>
@@ -893,8 +899,9 @@ section.cameras-section .cameras-inner {
 <section class="section-break" data-title="Section 01 · The Black Box Gap">
   <div class="section-break-inner">
     <div class="section-num">01</div>
-    <h2>The Black Box Gap<br>of AI-Generated Code</h2>
-    <p class="section-desc">Your prototype looks like a finished product. The code underneath is anything but. Today starts by naming that gap honestly.</p>
+    <div class="lab-title">Section 01</div>
+    <div class="lab-name">The Black Box Gap of AI-Generated Code.</div>
+    <div class="lab-desc">Your prototype looks like a finished product. The code underneath is anything but. Today starts by naming that gap honestly.</div>
   </div>
 </section>
 
@@ -1012,8 +1019,9 @@ section.cameras-section .cameras-inner {
 <section class="section-break" data-title="Section 02 · From Prototype to Production">
   <div class="section-break-inner">
     <div class="section-num">02</div>
-    <h2>How to Move From<br>Prototype to Production</h2>
-    <p class="section-desc">Threshold judgement is the most important PM skill in Vibe Coding. Not every prototype should become a product.</p>
+    <div class="lab-title">Section 02</div>
+    <div class="lab-name">How to Move From Prototype to Production.</div>
+    <div class="lab-desc">Threshold judgement is the most important PM skill in Vibe Coding. Not every prototype should become a product.</div>
   </div>
 </section>
 
@@ -1251,18 +1259,8 @@ section.cameras-section .cameras-inner {
           <p>It's always better to see your smiling face! Be present and visible to keep interactions valuable.</p>
         </div>
       </div>
-      <div class="cameras-right">
-        <div class="artifact-preview">
-          <div class="ap-pill">📂 Today's GitHub artefacts</div>
-          <div class="ap-title">By end of class, your repo has:</div>
-          <ul class="ap-list">
-            <li><code>04-structure/PRD.md</code> — Living PRD with all 8 blocks</li>
-            <li><code>HANDOFF.md</code> — engineering handoff doc</li>
-            <li><code>README.md</code> — refactored code overview</li>
-            <li>Descriptive component names in <code>src/pages</code></li>
-            <li>Supabase / Lovable Cloud connected</li>
-          </ul>
-        </div>
+      <div class="cameras-photo-strip">
+        <img src="../Design/cameras-on.png" alt="Cameras On"/>
       </div>
     </div>
   </div>
@@ -1272,8 +1270,9 @@ section.cameras-section .cameras-inner {
 <section class="section-break" data-title="Section 03 · The Engineering Handoff">
   <div class="section-break-inner">
     <div class="section-num">03</div>
-    <h2>Hands-On Lab<br>Refactor + Engineering Handoff</h2>
-    <p class="section-desc">Three prompts. Clean code, an inheritable spec, and a real backend. Push all of it to GitHub before the timer hits zero.</p>
+    <div class="lab-title">Section 03 · Hands-On Lab</div>
+    <div class="lab-name">Refactor + Engineering Handoff.</div>
+    <div class="lab-desc">Three prompts. Clean code, an inheritable spec, and a real backend. Push all of it to GitHub before the timer hits zero.</div>
   </div>
 </section>
 
@@ -1561,16 +1560,16 @@ section.cameras-section .cameras-inner {
 </section>
 
 <!-- 28. END -->
-<section class="centered end-slide" data-title="See You in Module 5">
+<section class="centered" data-title="See You in Module 5">
   <div class="inner">
-    <div class="end-mark">Module 4 · Complete</div>
-    <h2 style="font-size:64px; line-height:1.1;">Thank you.</h2>
-    <p class="subtitle" style="max-width:680px; margin-top:14px;">You built the engineering bridge — refactored the prototype into a Living PRD and earned the right to command the handoff.</p>
-    <div style="margin-top:24px; padding:18px 28px; background:linear-gradient(90deg, rgba(18,65,176,0.20), rgba(124,58,237,0.16)); border-left:4px solid #60a5fa; border-radius:10px; max-width:760px; text-align:left;">
-      <div style="font-family:'Poppins',sans-serif; font-size:11px; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:#93c5fd;">Next Session</div>
-      <div style="font-family:'Poppins',sans-serif; font-size:20px; font-weight:800; color:#fff; margin-top:6px;">Module 5 — Ship Live Products with Full-Stack Logic</div>
-      <div style="font-size:13px; color:#b0b4c8; margin-top:6px; line-height:1.55;">From connected infrastructure to a fully deployed, live product. Real database schemas, authentication, API integrations, and edge case handling.</div>
+    <div class="demo-tag tag-debrief">Module 4 · Complete</div>
+    <h2>Thank you.</h2>
+    <p class="subtitle">You built the engineering bridge — refactored the prototype into a Living PRD, generated the handoff, and connected real infrastructure. Your build is no longer just yours.</p>
+    <div class="artifact-preview" style="max-width: 620px;">
+      <div class="ap-title">Next Session · Module 5 — Ship Live Products with Full-Stack Logic</div>
+      <p style="font-size:14px; color:#cdd5e3; line-height:1.6;">From connected infrastructure to a fully deployed, live product. Real database schemas, authentication, API integrations, and edge case handling. <em>You've built the foundation — now we build on top of it.</em></p>
     </div>
+    <p style="font-size:14px; color:#8899bb; margin-top:18px; text-align:center;">See you in Module 5 — <em>Ship Live Products with Full-Stack Logic</em>.</p>
   </div>
 </section>
 <script>
