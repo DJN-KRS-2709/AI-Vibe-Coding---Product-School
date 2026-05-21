@@ -699,13 +699,14 @@ section.cameras-section .cameras-inner {
 .opmodel-card.old .op-tag { background: rgba(248,113,113,0.16); color: #fca5a5; }
 .opmodel-card.new .op-tag { background: rgba(110,231,183,0.16); color: #6ee7b7; }
 .op-title { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.2; }
-.op-loop-svg { display: block; width: 100%; max-width: 360px; height: auto; margin: 4px auto 4px; }
+.op-loop-svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 4px auto 4px; }
 .op-node-label {
   width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Poppins', sans-serif; font-size: 10px; font-weight: 700;
-  color: #fff; text-align: center; line-height: 1.15;
-  letter-spacing: 0.01em; padding: 2px 4px; box-sizing: border-box;
+  font-family: 'Poppins', sans-serif; font-size: 9.5px; font-weight: 700;
+  color: #fff; text-align: center; line-height: 1.1;
+  letter-spacing: 0; padding: 2px 4px; box-sizing: border-box;
+  overflow-wrap: break-word; word-break: break-word; hyphens: auto;
 }
 .opmodel-card.old .op-node-label { color: #fee2e2; }
 .opmodel-card.new .op-node-label { color: #d1fae5; }
@@ -999,35 +1000,35 @@ section.cameras-section .cameras-inner {
       <div class="opmodel-card old">
         <span class="op-tag">Old Way · Dependency Loop</span>
         <div class="op-title">Build to Spec</div>
-        <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="op-loop-svg" aria-hidden="true">
+        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="op-loop-svg" aria-hidden="true">
           <defs>
             <marker id="op-arrow-old" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="#fca5a5"/>
             </marker>
           </defs>
-          <circle cx="190" cy="190" r="128" fill="none" stroke="#fca5a5" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 4"/>
-          <path d="M 224.0,66.6 A 128,128 0 0,1 265.3,86.5" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 307.7,139.6 A 128,128 0 0,1 317.9,184.3" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 302.7,250.6 A 128,128 0 0,1 274.2,286.4" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 212.9,315.9 A 128,128 0 0,1 167.1,315.9" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 105.8,286.4 A 128,128 0 0,1 77.3,250.6" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 62.1,184.3 A 128,128 0 0,1 72.3,139.6" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <path d="M 114.7,86.5 A 128,128 0 0,1 156.0,66.6" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
-          <foreignObject x="100" y="168" width="180" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="op-center-label">Traditional<br/>PM Workflow</div></foreignObject>
-          <circle cx="190.0" cy="62.0" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="147.0" y="37.0" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Research</div></foreignObject>
-          <circle cx="290.1" cy="110.2" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="247.1" y="85.2" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Write Spec</div></foreignObject>
-          <circle cx="314.8" cy="218.5" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="271.8" y="193.5" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Wait for Eng / Design</div></foreignObject>
-          <circle cx="245.5" cy="305.3" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="202.5" y="280.3" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Review Build</div></foreignObject>
-          <circle cx="134.5" cy="305.3" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="91.5" y="280.3" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Provide Feedback</div></foreignObject>
-          <circle cx="65.2" cy="218.5" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="22.2" y="193.5" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Wait for Update</div></foreignObject>
-          <circle cx="89.9" cy="110.2" r="30" fill="#fca5a5" fill-opacity="0.16" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="46.9" y="85.2" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Test &amp; Iterate</div></foreignObject>
+          <circle cx="210" cy="210" r="145" fill="none" stroke="#fca5a5" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 4"/>
+          <path d="M 256.0,72.5 A 145,145 0 0,1 288.8,88.3" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 346.2,160.2 A 145,145 0 0,1 354.3,195.8" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 333.8,285.4 A 145,145 0 0,1 311.1,313.9" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 228.2,353.9 A 145,145 0 0,1 191.8,353.9" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 108.9,313.9 A 145,145 0 0,1 86.2,285.4" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 65.7,195.8 A 145,145 0 0,1 73.8,160.2" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <path d="M 131.2,88.3 A 145,145 0 0,1 164.0,72.5" fill="none" stroke="#fca5a5" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-old)"/>
+          <foreignObject x="115" y="188" width="190" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="op-center-label">Traditional<br/>PM Workflow</div></foreignObject>
+          <circle cx="210.0" cy="65.0" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="171.0" y="30.0" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Research</div></foreignObject>
+          <circle cx="323.4" cy="119.6" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="284.4" y="84.6" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Write Spec</div></foreignObject>
+          <circle cx="351.4" cy="242.3" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="312.4" y="207.3" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Wait for Eng / Design</div></foreignObject>
+          <circle cx="272.9" cy="340.6" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="233.9" y="305.6" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Review Build</div></foreignObject>
+          <circle cx="147.1" cy="340.6" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="108.1" y="305.6" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Provide Feedback</div></foreignObject>
+          <circle cx="68.6" cy="242.3" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="29.6" y="207.3" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Wait for Update</div></foreignObject>
+          <circle cx="96.6" cy="119.6" r="42" fill="#fca5a5" fill-opacity="0.18" stroke="#fca5a5" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="57.6" y="84.6" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Test &amp; Iterate</div></foreignObject>
         </svg>
         <div class="op-body">The Spec is your <strong>starting point</strong> — a best guess at requirements before any code is written. You're a <strong>requestor</strong>, dependent on other people's time to validate a hypothesis you can't prove yourself.</div>
         <div class="op-coda">⚠ The spec is the input · You trade guesses for guesses.</div>
@@ -1036,29 +1037,29 @@ section.cameras-section .cameras-inner {
       <div class="opmodel-card new">
         <span class="op-tag">New Way · Vibe Loop</span>
         <div class="op-title">Build to Spec</div>
-        <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="op-loop-svg" aria-hidden="true">
+        <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="op-loop-svg" aria-hidden="true">
           <defs>
             <marker id="op-arrow-new" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
               <path d="M0,0 L10,5 L0,10 z" fill="#6ee7b7"/>
             </marker>
           </defs>
-          <circle cx="190" cy="190" r="128" fill="none" stroke="#6ee7b7" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 4"/>
-          <path d="M 224.0,66.6 A 128,128 0 0,1 296.9,119.5" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
-          <path d="M 317.9,184.2 A 128,128 0 0,1 290.0,269.8" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
-          <path d="M 235.0,309.8 A 128,128 0 0,1 145.0,309.8" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
-          <path d="M 90.0,269.8 A 128,128 0 0,1 62.1,184.2" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
-          <path d="M 83.1,119.5 A 128,128 0 0,1 156.0,66.6" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
-          <foreignObject x="100" y="168" width="180" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="op-center-label">Vibe Coding<br/>Workflow</div></foreignObject>
-          <circle cx="190.0" cy="62.0" r="30" fill="#6ee7b7" fill-opacity="0.16" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="147.0" y="37.0" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Idea</div></foreignObject>
-          <circle cx="311.7" cy="150.4" r="30" fill="#6ee7b7" fill-opacity="0.16" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="268.7" y="125.4" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Build Prototype</div></foreignObject>
-          <circle cx="265.2" cy="293.6" r="30" fill="#6ee7b7" fill-opacity="0.16" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="222.2" y="268.6" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Test Live</div></foreignObject>
-          <circle cx="114.8" cy="293.6" r="30" fill="#6ee7b7" fill-opacity="0.16" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="71.8" y="268.6" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Extract Spec</div></foreignObject>
-          <circle cx="68.3" cy="150.4" r="30" fill="#6ee7b7" fill-opacity="0.16" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
-          <foreignObject x="25.3" y="125.4" width="86" height="50"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Connect Infra</div></foreignObject>
+          <circle cx="210" cy="210" r="145" fill="none" stroke="#6ee7b7" stroke-opacity="0.14" stroke-width="1" stroke-dasharray="3 4"/>
+          <path d="M 256.0,72.5 A 145,145 0 0,1 326.6,123.8" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
+          <path d="M 355.0,211.3 A 145,145 0 0,1 328.0,294.2" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
+          <path d="M 253.6,348.3 A 145,145 0 0,1 166.4,348.3" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
+          <path d="M 92.0,294.2 A 145,145 0 0,1 65.0,211.3" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
+          <path d="M 93.4,123.8 A 145,145 0 0,1 164.0,72.5" fill="none" stroke="#6ee7b7" stroke-width="1.4" stroke-opacity="0.7" marker-end="url(#op-arrow-new)"/>
+          <foreignObject x="115" y="188" width="190" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="op-center-label">Vibe Coding<br/>Workflow</div></foreignObject>
+          <circle cx="210.0" cy="65.0" r="42" fill="#6ee7b7" fill-opacity="0.18" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="171.0" y="30.0" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Idea</div></foreignObject>
+          <circle cx="347.9" cy="165.2" r="42" fill="#6ee7b7" fill-opacity="0.18" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="308.9" y="130.2" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Build Prototype</div></foreignObject>
+          <circle cx="295.2" cy="327.3" r="42" fill="#6ee7b7" fill-opacity="0.18" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="256.2" y="292.3" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Test Live</div></foreignObject>
+          <circle cx="124.8" cy="327.3" r="42" fill="#6ee7b7" fill-opacity="0.18" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="85.8" y="292.3" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Extract Spec</div></foreignObject>
+          <circle cx="72.1" cy="165.2" r="42" fill="#6ee7b7" fill-opacity="0.18" stroke="#6ee7b7" stroke-opacity="0.78" stroke-width="1.5"/>
+          <foreignObject x="33.1" y="130.2" width="78" height="70"><div xmlns="http://www.w3.org/1999/xhtml" class="op-node-label">Connect Infra</div></foreignObject>
         </svg>
         <div class="op-body">Your <strong>prototype is the source of truth</strong>. You manifest the logic, test the live app, iterate in real time. The Spec is the <strong>output</strong> — evidence of validated logic, not a wish list.</div>
         <div class="op-coda">✅ The spec is the output · You trade live links for live links.</div>
