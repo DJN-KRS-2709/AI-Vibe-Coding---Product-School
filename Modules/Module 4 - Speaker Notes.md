@@ -6,9 +6,9 @@
 ## Tools referenced in this module
 
 - **Lovable** — building, refactoring, connecting infrastructure (paste prompts directly into chat).
-- **GitHub** — version control. Connected from Lovable in M2; today's deliverables push here.
+- **GitHub** — version control. Connected from Lovable in M2; today's deliverables push here as `04-structure/PRD.md` and `HANDOFF.md`.
 - **Supabase / Lovable Cloud** — real PostgreSQL database, auth, and storage. Provisioned by Lovable.
-- **Living PRD Extractor** (optional aid) — browser-only tool; always export to GitHub.
+- **Living PRD Sample (SnapWishlist)** — the reference exemplar in `Templates/`. Use as a "what good looks like" comparison after Lovable extracts the PRD.
 
 ## What to prepare before class
 
