@@ -110,6 +110,21 @@ section.centered ul li::before { display: none; }
 .card-item .card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
 .card-item .card-desc { font-size: 13px; color: #8899bb; line-height: 1.5; }
 
+/* Resources slide (S26) — hero card + 4-tile row layout */
+.resources-hero { display: grid; grid-template-columns: 72px 1fr; gap: 22px; align-items: center; padding: 22px 26px; margin: 22px 0 16px; background: linear-gradient(120deg, rgba(52,211,153,0.14) 0%, rgba(52,211,153,0.04) 60%, rgba(96,165,250,0.06) 100%); border: 1.5px solid rgba(52,211,153,0.35); border-radius: 16px; box-shadow: 0 8px 22px -10px rgba(52,211,153,0.32); position: relative; overflow: hidden; }
+.resources-hero::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #34d399 0%, #60a5fa 100%); }
+.rh-logo { width: 56px; height: 56px; display: grid; place-items: center; background: rgba(255,255,255,0.06); border-radius: 14px; border: 1px solid rgba(255,255,255,0.10); }
+.rh-logo img { width: 36px; height: 36px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.45)); }
+.rh-content { display: flex; flex-direction: column; gap: 5px; min-width: 0; text-align: left; }
+.rh-eyebrow { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: #6ee7b7; }
+.rh-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: #fff; line-height: 1.2; }
+.rh-desc { font-size: 13.5px; color: #cfd9e8; line-height: 1.55; }
+.rh-desc code { background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; font-size: 12.5px; color: #fff; }
+.rh-desc strong { color: #fff; }
+.resources-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0 0 8px; }
+@media (max-width: 1100px) { .resources-tiles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .resources-tiles { grid-template-columns: 1fr; } .resources-hero { grid-template-columns: 1fr; text-align: center; } .rh-logo { margin: 0 auto; } .rh-content { text-align: center; } }
+
 .expect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
 .expect-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; text-align: center; transition: all 0.3s ease; }
 .expect-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-2px); }
@@ -770,20 +785,25 @@ section.cameras-section .cameras-inner {
 .bc-title { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 800; color: #fff; line-height: 1.25; }
 .bc-desc { font-size: 12px; color: #b0b4c8; line-height: 1.55; }
 
-/* Three Pillars of Engineering-Ready System (S21) — 3 vertical cards */
-.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0 8px; align-items: stretch; }
+/* Three Pillars of Engineering-Ready System (S25) — dashboard-tile layout
+   (mirrors the M4 Complete .m4c-tile pattern: big number left, content right) */
+.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0 8px; align-items: stretch; }
 @media (max-width: 1100px) { .pillars-grid { grid-template-columns: 1fr; } }
-.pillar-card { background: linear-gradient(180deg, rgba(96,165,250,0.10) 0%, rgba(96,165,250,0.02) 100%); border: 1.5px solid rgba(96,165,250,0.34); border-radius: 16px; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
-.pillar-card.b { background: linear-gradient(180deg, rgba(192,132,252,0.10) 0%, rgba(192,132,252,0.02) 100%); border-color: rgba(192,132,252,0.34); }
-.pillar-card.c { background: linear-gradient(180deg, rgba(110,231,183,0.10) 0%, rgba(110,231,183,0.02) 100%); border-color: rgba(110,231,183,0.36); }
-.pillar-num { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border-radius: 6px; align-self: flex-start; background: rgba(96,165,250,0.16); color: #93c5fd; }
-.pillar-card.b .pillar-num { background: rgba(192,132,252,0.16); color: #d8b4fe; }
-.pillar-card.c .pillar-num { background: rgba(110,231,183,0.16); color: #6ee7b7; }
-.pillar-icon { font-size: 38px; line-height: 1; display: flex; align-items: center; }
-.pillar-icon img.pillar-logo { width: 44px; height: 44px; display: block; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.35)); }
-.pillar-card.b .pillar-icon img.pillar-logo { width: 48px; height: 48px; }
-.pillar-title { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.2; }
-.pillar-body { font-size: 13px; color: #b0b4c8; line-height: 1.6; }
+.pillar-card { background: rgba(18,65,176,0.14); border: 1px solid rgba(96,165,250,0.30); border-radius: 12px; padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; text-align: left; transition: all .3s ease; }
+.pillar-card.b { background: rgba(124,58,237,0.10); border-color: rgba(192,132,252,0.30); }
+.pillar-card.c { background: rgba(110,231,183,0.08); border-color: rgba(110,231,183,0.30); }
+.pillar-card:hover { transform: translateY(-3px); }
+.pillar-num { font-family: 'Poppins', sans-serif; font-size: 44px; font-weight: 900; color: #60a5fa; line-height: 0.9; flex-shrink: 0; letter-spacing: -0.02em; }
+.pillar-card.b .pillar-num { color: #c4b5fd; }
+.pillar-card.c .pillar-num { color: #6ee7b7; }
+.pillar-meta { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pillar-label { font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; color: #93c5fd; }
+.pillar-card.b .pillar-label { color: #d8b4fe; }
+.pillar-card.c .pillar-label { color: #6ee7b7; }
+.pillar-title-row { display: flex; align-items: center; gap: 10px; }
+.pillar-title-row img.pillar-logo { width: 26px; height: 26px; flex-shrink: 0; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35)); }
+.pillar-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 800; color: #fff; line-height: 1.2; }
+.pillar-body { font-size: 12.5px; color: #b0b4c8; line-height: 1.55; margin-top: 2px; }
 .pillar-body strong { color: #fff; }
 .pillars-foot { margin-top: 14px; padding: 12px 18px; background: rgba(18,65,176,0.14); border-left: 4px solid #3b82f6; border-radius: 8px; font-size: 13.5px; color: #e0e0f0; line-height: 1.55; text-align: left; }
 .pillars-foot strong { color: #fff; }
@@ -1561,22 +1581,37 @@ section.cameras-section .cameras-inner {
 
     <div class="pillars-grid">
       <div class="pillar-card">
-        <span class="pillar-num">01 · The Front Door</span>
-        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/github.svg" alt="GitHub"/></div>
-        <div class="pillar-title">GitHub Connection</div>
-        <div class="pillar-body">The project must live in a <strong>version-controlled repository</strong> with permanent history, safe rollbacks, and a secure front door for technical collaboration. This is where the engineer goes to clone your code on day one.</div>
+        <div class="pillar-num">01</div>
+        <div class="pillar-meta">
+          <div class="pillar-label">The Front Door</div>
+          <div class="pillar-title-row">
+            <img class="pillar-logo" src="../Design/logos/github.svg" alt="GitHub"/>
+            <div class="pillar-title">GitHub Connection</div>
+          </div>
+          <div class="pillar-body">The project must live in a <strong>version-controlled repository</strong> with permanent history, safe rollbacks, and a secure front door for technical collaboration. This is where the engineer goes to clone your code on day one.</div>
+        </div>
       </div>
       <div class="pillar-card b">
-        <span class="pillar-num">02 · The Cleanup</span>
-        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/lovable.svg" alt="Lovable"/></div>
-        <div class="pillar-title">Code Refactoring <span style="font-size:12px; font-weight:600; color:#94a3b8; letter-spacing:0; text-transform:none;">(in Lovable)</span></div>
-        <div class="pillar-body">The codebase must be <strong>structurally organised</strong> with professional naming, separated logic, and a README so an engineer can fully orient within 5 minutes. No more <code>Component_1</code> spaghetti.</div>
+        <div class="pillar-num">02</div>
+        <div class="pillar-meta">
+          <div class="pillar-label">The Cleanup</div>
+          <div class="pillar-title-row">
+            <img class="pillar-logo" src="../Design/logos/lovable.svg" alt="Lovable"/>
+            <div class="pillar-title">Code Refactoring <span style="font-size:12px; font-weight:600; color:#94a3b8; letter-spacing:0; text-transform:none;">(in Lovable)</span></div>
+          </div>
+          <div class="pillar-body">The codebase must be <strong>structurally organised</strong> with professional naming, separated logic, and a README so an engineer can fully orient within 5 minutes. No more <code>Component_1</code> spaghetti.</div>
+        </div>
       </div>
       <div class="pillar-card c">
-        <span class="pillar-num">03 · The Memory</span>
-        <div class="pillar-icon"><img class="pillar-logo" src="../Design/logos/supabase.svg" alt="Supabase"/></div>
-        <div class="pillar-title">Supabase Connection</div>
-        <div class="pillar-body">The system must move from <strong>mocked data to a persistent PostgreSQL database</strong> with an Auth layer, managed through a visual table editor rather than hard-coded simulations. Your product now has memory.</div>
+        <div class="pillar-num">03</div>
+        <div class="pillar-meta">
+          <div class="pillar-label">The Memory</div>
+          <div class="pillar-title-row">
+            <img class="pillar-logo" src="../Design/logos/supabase.svg" alt="Supabase"/>
+            <div class="pillar-title">Supabase Connection</div>
+          </div>
+          <div class="pillar-body">The system must move from <strong>mocked data to a persistent PostgreSQL database</strong> with an Auth layer, managed through a visual table editor rather than hard-coded simulations. Your product now has memory.</div>
+        </div>
       </div>
     </div>
 
@@ -1740,16 +1775,21 @@ section.cameras-section .cameras-inner {
 
 <!-- 26. RESOURCES & TEMPLATES -->
 <section data-title="Resources &amp; Templates">
-  <div class="inner" style="max-width: 1100px;">
+  <div class="inner" style="max-width: 1240px;">
     <div class="section-label">Resources &amp; Templates</div>
     <h2>Everything Module 4 ships with.</h2>
     <p class="subtitle">Bookmark them — they're referenced across M5–M6. <strong>Your GitHub repo is the source of truth</strong>; the tools below are aids that live in browser memory.</p>
-    <div class="cards-grid">
-      <div class="card-item" style="--card-accent:#34d399;">
-        <div class="card-icon">📂</div>
-        <div class="card-title">Your GitHub repo (source of truth)</div>
-        <div class="card-desc"><strong>This is where your work lives across modules.</strong> Today's deliverables: <code>04-structure/PRD.md</code>, <code>HANDOFF.md</code>, refactored <code>src/pages</code>, <code>README.md</code>. M5+ pull from here, not from any tool's cache.</div>
+
+    <div class="resources-hero">
+      <div class="rh-logo"><img src="../Design/logos/github.svg" alt="GitHub"/></div>
+      <div class="rh-content">
+        <div class="rh-eyebrow">Primary artifact · GitHub-first</div>
+        <div class="rh-title">Your GitHub repo (source of truth)</div>
+        <div class="rh-desc"><strong>This is where your work lives across modules.</strong> Today's deliverables: <code>04-structure/PRD.md</code>, <code>HANDOFF.md</code>, refactored <code>src/pages</code>, <code>README.md</code>. M5+ pull from here, not from any tool's cache.</div>
       </div>
+    </div>
+
+    <div class="resources-tiles">
       <div class="card-item" style="--card-accent:#60a5fa;">
         <div class="card-icon">🧪</div>
         <div class="card-title">Module 4 Lab Guide</div>
