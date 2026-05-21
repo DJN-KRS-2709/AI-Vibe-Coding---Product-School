@@ -114,6 +114,67 @@ details code { background: rgba(96,165,250,0.12); color: #93c5fd; padding: 1px 6
 .placeholder-card .ph-howto { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.6; }
 .placeholder-card .ph-howto strong { color: #fbbf24; }
 
+/* ════════════ Visual elements (rich slide content) ════════════ */
+.metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 24px 0 28px; }
+.metric-card { background: linear-gradient(180deg, rgba(96,165,250,0.06), rgba(96,165,250,0.02)); border: 1px solid rgba(96,165,250,0.18); border-radius: 14px; padding: 24px 18px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+.metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #60a5fa, #a78bfa); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.metric-card:hover { border-color: rgba(96,165,250,0.45); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.35); }
+.metric-card:hover::before { transform: scaleX(1); }
+.metric-num { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 900; color: #60a5fa; line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+.metric-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; line-height: 1.4; }
+
+.big-quote { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 500; color: #e0e0f0; line-height: 1.45; margin: 24px 0; padding: 8px 0 8px 26px; border-left: 3px solid #60a5fa; text-align: left; }
+.big-quote em { color: #60a5fa; font-style: normal; font-weight: 600; }
+.big-quote strong { color: #fff; font-weight: 700; }
+.big-quote.huge { font-size: 30px; font-weight: 600; font-style: italic; padding: 14px 0 14px 30px; border-left-width: 4px; }
+.big-quote.aha { font-size: 36px; font-weight: 600; font-style: italic; color: #fff; padding: 16px 0 16px 36px; border-left-color: #fbbf24; border-left-width: 5px; line-height: 1.35; }
+.big-quote.friction { border-left-color: #f87171; }
+.big-quote.learning { border-left-color: #34d399; }
+
+.callout { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-left: 3px solid #60a5fa; border-radius: 10px; padding: 16px 22px; margin: 22px 0; font-size: 15px; color: #e0e0f0; line-height: 1.6; text-align: left; }
+.callout strong { color: #fff; }
+.callout em { color: #93c5fd; font-style: normal; font-weight: 600; }
+.callout .callout-pill { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-right: 10px; background: rgba(96,165,250,0.2); color: #93c5fd; font-family: 'Poppins', sans-serif; }
+
+.evidence-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.evidence-cards.cols-1 { grid-template-columns: 1fr; }
+.evidence-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px; transition: all 0.3s; text-align: left; }
+.evidence-card:hover { transform: translateY(-2px); border-color: rgba(96,165,250,0.3); background: rgba(255,255,255,0.06); }
+.evidence-card .ec-pill { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+.ec-pill.confirmed { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+.ec-pill.pivoted { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.ec-pill.open { background: rgba(96,165,250,0.15); color: #93c5fd; }
+.ec-pill.failed { background: rgba(248,113,113,0.15); color: #fca5a5; }
+.ec-pill.neutral { background: rgba(148,163,184,0.15); color: #cbd5e1; }
+.evidence-card .ec-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+.evidence-card .ec-text { font-size: 14px; color: #b0b4c8; line-height: 1.6; }
+
+.waypoints { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(244,114,182,0.06); border: 1px solid rgba(244,114,182,0.18); border-radius: 12px; padding: 18px 22px; transition: all 0.3s; text-align: left; }
+.waypoint:hover { transform: translateX(4px); border-color: rgba(244,114,182,0.4); }
+.waypoint-num { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #ec4899, #be185d); }
+.waypoint-text { flex: 1; }
+.waypoint-text .wt-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+.waypoint-text .wt-desc { font-size: 13.5px; color: #b0b4c8; line-height: 1.55; }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 22px 0; }
+.card-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; text-align: left; transition: all 0.3s; position: relative; overflow: hidden; }
+.card-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent, #34d399); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.card-item:hover { border-color: var(--card-accent, #34d399); transform: translateY(-3px); }
+.card-item:hover::before { transform: scaleX(1); }
+.card-item .ci-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--card-accent, #34d399); margin-bottom: 8px; font-family: 'Poppins', sans-serif; }
+.card-item .ci-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+.card-item .ci-text { font-size: 13.5px; color: #94a3b8; line-height: 1.55; }
+
+.aha-slide { background: radial-gradient(ellipse at 50% 50%, rgba(251,191,36,0.18) 0%, #07162C 70%); }
+.aha-slide .demo-tag { background: rgba(251,191,36,0.15); color: #fcd34d; }
+.aha-slide h2 { color: #fff; }
+.aha-slide .inner { max-width: 920px; text-align: center; }
+.aha-slide .big-quote { text-align: left; }
+
+.source-tag { margin-top: 24px; font-size: 11px; color: rgba(255,255,255,0.22); letter-spacing: 0.02em; }
+.source-tag code { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
+
 .scroll-hint { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 56px; animation: pulse 2s ease infinite; }
 .scroll-hint span { display: block; margin-top: 8px; font-size: 20px; }
 @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
@@ -338,21 +399,365 @@ const SLOTS = [
 ];
 
 // ════════════════════════════════════════════════════════════
-//  Render — turn analyzed content into slide HTML
+//  Content extraction — pull visual elements out of raw markdown
 // ════════════════════════════════════════════════════════════
-function renderMarkdown(md) {
-  if (!md) return '';
-  try { return marked.parse(md); } catch (e) { return `<p>${esc(md).replace(/\n/g, '<br>')}</p>`; }
+function cleanMd(text) {
+  return text.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '$1').replace(/`([^`]+)`/g, '$1');
 }
 
+function mdInline(text) {
+  if (!text) return '';
+  return esc(text)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+
+function truncate(text, max = 240) {
+  if (!text) return '';
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  return cut.slice(0, lastSpace > max - 40 ? lastSpace : max).trim() + '…';
+}
+
+function extractFirstParagraph(text) {
+  const lines = text.split('\n');
+  const para = [];
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) { if (para.length) break; else continue; }
+    if (line.startsWith('#') || /^[-*]\s/.test(line) || line.startsWith('|') || line.startsWith('```') || /^\d+\.\s/.test(line) || line.startsWith('>')) {
+      if (para.length) break;
+      continue;
+    }
+    para.push(line);
+  }
+  return para.join(' ').replace(/\s+/g, ' ').trim();
+}
+
+function extractBlockquote(text) {
+  const lines = text.split('\n');
+  const parts = [];
+  for (const line of lines) {
+    if (/^\s*>\s?/.test(line)) {
+      parts.push(line.replace(/^\s*>\s?/, ''));
+    } else if (parts.length && !line.trim()) {
+      continue;
+    } else if (parts.length) {
+      break;
+    }
+  }
+  return parts.length ? parts.join(' ').replace(/\s+/g, ' ').trim() : null;
+}
+
+function extractFirstList(text, max = 6) {
+  const lines = text.split('\n');
+  const items = [];
+  let inList = false;
+  for (const raw of lines) {
+    const line = raw.trimStart();
+    const m = line.match(/^[-*]\s+(.+)/) || line.match(/^\d+\.\s+(.+)/);
+    if (m) { inList = true; items.push(m[1].trim()); if (items.length >= max) break; }
+    else if (inList && !line.trim()) continue;
+    else if (inList && !raw.startsWith(' ')) break;
+  }
+  return items;
+}
+
+function extractH3Sections(text) {
+  const lines = text.split('\n');
+  const out = [];
+  let current = null;
+  for (const raw of lines) {
+    const m = raw.match(/^###\s+(.+)$/);
+    if (m) {
+      if (current) out.push(current);
+      current = { title: m[1].replace(/^[0-9.]+\s*/, '').trim(), content: '' };
+    } else if (current) current.content += raw + '\n';
+  }
+  if (current) out.push(current);
+  return out.map(s => ({ ...s, content: s.content.trim() }));
+}
+
+function extractTable(text) {
+  const lines = text.split('\n');
+  let start = -1;
+  for (let i = 0; i < lines.length - 1; i++) {
+    if (/^\s*\|.+\|\s*$/.test(lines[i]) && /^\s*\|[\s|:-]+\|\s*$/.test(lines[i + 1])) { start = i; break; }
+  }
+  if (start === -1) return null;
+  const rows = [];
+  for (let i = start; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line.startsWith('|')) break;
+    if (/^\|[\s|:-]+\|$/.test(line)) continue;
+    rows.push(line.split('|').slice(1, -1).map(c => c.trim()));
+  }
+  return rows.length > 1 ? rows : null;
+}
+
+const FILLER = new Set(['is', 'are', 'was', 'were', 'of', 'the', 'a', 'an', 'at', 'to', 'in', 'on', 'for', 'with', 'by', 'and', 'or', 'but', 'current', 'currently', 'now', 'have', 'has', 'about', 'this', 'that', 'from', 'into', 'over', 'than', 'just']);
+
+function extractStats(text, max = 4) {
+  const stats = [];
+  const seen = new Set();
+  const cleaned = cleanMd(text);
+  const lines = cleaned.split('\n');
+  for (const raw of lines) {
+    const line = raw.replace(/[#>]/g, '').trim();
+    const matches = [...line.matchAll(/(\d+(?:\.\d+)?)(%|×|x\b|k\b)/gi)];
+    for (const m of matches) {
+      const num = m[1] + (m[2].toLowerCase() === 'x' ? '×' : m[2].toUpperCase() === 'K' ? 'k' : m[2]);
+      if (seen.has(num)) continue;
+      seen.add(num);
+      const idx = m.index || 0;
+      const before = line.slice(0, idx).replace(/^[-*]\s*/, '').trim();
+      const words = before.split(/\s+/).filter(w => w && !FILLER.has(w.toLowerCase()));
+      let label = words.slice(-4).join(' ').replace(/[—–-]\s*$/, '').replace(/^[—–-]\s*/, '').trim();
+      if (!label) {
+        const after = line.slice(idx + m[0].length).split(/\s+/).filter(w => w && !FILLER.has(w.toLowerCase())).slice(0, 4).join(' ');
+        label = after.replace(/^[—–-]\s*/, '').trim();
+      }
+      stats.push({ num, label: label.slice(0, 38) });
+      if (stats.length >= max) return stats;
+    }
+  }
+  return stats;
+}
+
+function statusFromText(text) {
+  const lower = text.toLowerCase();
+  if (/\bconfirmed?\b/.test(lower)) return 'confirmed';
+  if (/\bpivot/.test(lower)) return 'pivoted';
+  if (/\b(open|pending|in flight|in progress)\b/.test(lower)) return 'open';
+  if (/\b(failed|invalidated|disproved|rejected)\b/.test(lower)) return 'failed';
+  return 'neutral';
+}
+
+// ════════════════════════════════════════════════════════════
+//  Slide rendering — per-slot custom layouts
+// ════════════════════════════════════════════════════════════
 function slidePlaceholder(slot) {
+  const howto = slot.howto.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*([^*]+)\*/g, '<em>$1</em>');
   return `<div class="placeholder-card">
     <div class="ph-label">Missing &middot; ${slot.label}</div>
     <div class="ph-title">Add ${slot.label} to your repo to fill this slide</div>
     <div class="ph-desc">The tool couldn't find a matching section in any markdown file. Once you add it and push, re-run the generator.</div>
-    <div class="ph-howto"><strong>How to fix &middot;</strong> ${slot.howto.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*([^*]+)\*/g, '<em>$1</em>')}</div>
+    <div class="ph-howto"><strong>How to fix &middot;</strong> ${howto}</div>
   </div>`;
 }
+
+function sourceFooter(section) {
+  return section ? `<div class="source-tag">source &middot; <code>${esc(section.path)}</code></div>` : '';
+}
+
+function slideWrap(slot, body, extraClass = '') {
+  const title = esc(slot.label.replace(/&middot;/g, '·'));
+  return `<section class="slide ${extraClass}" data-title="${title}">
+    <div class="inner">
+      <div class="demo-tag ${slot.tag}">${slot.label}</div>
+      ${body}
+    </div>
+  </section>`;
+}
+
+function renderProblemSlide(section, slot) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const stats = extractStats(section.content, 4);
+  const para = extractFirstParagraph(section.content);
+  const list = extractFirstList(section.content, 4);
+  const h3s = extractH3Sections(section.content);
+
+  let body = `<h2>The problem in numbers.</h2>`;
+  if (stats.length >= 2) {
+    body += `<div class="metrics-row">${stats.map(s => `
+      <div class="metric-card">
+        <div class="metric-num">${esc(s.num)}</div>
+        <div class="metric-label">${esc(s.label || '\u2014')}</div>
+      </div>`).join('')}</div>`;
+  }
+  // Headline quote: para, or first bullet, or first H3 content
+  const lead = para && para.length > 30 ? para : (list[0] || (h3s[0] && extractFirstParagraph(h3s[0].content)) || '');
+  if (lead) body += `<div class="big-quote">${mdInline(truncate(lead, 220))}</div>`;
+  // Two-up evidence cards from H3s
+  if (h3s.length >= 2) {
+    body += `<div class="evidence-cards">
+      <div class="evidence-card"><div class="ec-title">${esc(h3s[0].title)}</div><div class="ec-text">${mdInline(truncate(extractFirstParagraph(h3s[0].content) || h3s[0].content, 160))}</div></div>
+      <div class="evidence-card"><div class="ec-title">${esc(h3s[1].title)}</div><div class="ec-text">${mdInline(truncate(extractFirstParagraph(h3s[1].content) || h3s[1].content, 160))}</div></div>
+    </div>`;
+  } else if (!stats.length && list.length >= 2) {
+    body += `<div class="cards-grid">${list.slice(0, 4).map(item => `<div class="card-item"><div class="ci-text">${mdInline(truncate(item, 110))}</div></div>`).join('')}</div>`;
+  }
+  body += sourceFooter(section);
+  return slideWrap(slot, body);
+}
+
+function renderHypothesisSlide(section, slot) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const bq = extractBlockquote(section.content);
+  const para = extractFirstParagraph(section.content);
+  const h3s = extractH3Sections(section.content);
+  const riskiest = h3s.find(h => /risk/i.test(h.title)) || h3s.find(h => /assumption/i.test(h.title));
+
+  let body = `<h2>The hypothesis.</h2>`;
+  const quote = bq || para;
+  if (quote) body += `<div class="big-quote huge">${mdInline(truncate(quote, 360))}</div>`;
+  if (riskiest) {
+    const riskText = extractFirstParagraph(riskiest.content) || riskiest.content;
+    body += `<div class="callout"><span class="callout-pill">Riskiest assumption</span>${mdInline(truncate(riskText, 280))}</div>`;
+  }
+  body += sourceFooter(section);
+  return slideWrap(slot, body);
+}
+
+function renderValidationSlide(section, slot) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const table = extractTable(section.content);
+  const h3s = extractH3Sections(section.content);
+
+  let body = `<h2>Assumptions tested.</h2>`;
+  let cards = [];
+  if (table && table.length > 1) {
+    // Use rows as evidence cards (first column = title, last column = status, middle = description)
+    const dataRows = table.slice(1); // skip header
+    cards = dataRows.slice(0, 4).map(row => {
+      const title = row[0] || row[1] || 'Assumption';
+      const status = row[row.length - 1] || '';
+      const middle = row.slice(1, -1).join(' — ') || '';
+      return { title, body: middle, status: statusFromText(status + ' ' + title) };
+    });
+  } else if (h3s.length) {
+    cards = h3s.slice(0, 4).map(h => ({
+      title: h.title,
+      body: truncate(extractFirstParagraph(h.content) || h.content, 160),
+      status: statusFromText(h.title + ' ' + h.content),
+    }));
+  } else {
+    const list = extractFirstList(section.content, 4);
+    cards = list.map(item => ({
+      title: truncate(item.split(/[—–:]/)[0], 50),
+      body: truncate(item, 140),
+      status: statusFromText(item),
+    }));
+  }
+  if (cards.length >= 2) {
+    body += `<div class="evidence-cards">${cards.map(c => `
+      <div class="evidence-card">
+        <div class="ec-pill ${c.status}">${c.status === 'neutral' ? 'Tested' : c.status}</div>
+        <div class="ec-title">${mdInline(c.title)}</div>
+        ${c.body ? `<div class="ec-text">${mdInline(c.body)}</div>` : ''}
+      </div>`).join('')}</div>`;
+  } else {
+    const lead = extractFirstParagraph(section.content) || extractBlockquote(section.content) || '';
+    body += `<div class="big-quote">${mdInline(truncate(lead, 280))}</div>`;
+  }
+  body += sourceFooter(section);
+  return slideWrap(slot, body);
+}
+
+function renderPRDSlide(section, slot) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const table = extractTable(section.content);
+  const stats = extractStats(section.content, 4);
+  const list = extractFirstList(section.content, 4);
+
+  let body = `<h2>Living PRD &middot; key elements.</h2>`;
+  // If a table is present, render top rows as metric tiles using number columns
+  if (table && table.length > 2) {
+    const tiles = [];
+    const header = table[0];
+    for (const row of table.slice(1, 5)) {
+      // Find a numeric cell
+      const numCell = row.find(c => /\d+(\.\d+)?(%|×|x|k)?/i.test(c));
+      if (numCell) {
+        const num = (numCell.match(/(\d+(?:\.\d+)?)(%|×|x|k)?/i) || [])[0];
+        tiles.push({ num, label: row[0] });
+      }
+    }
+    if (tiles.length >= 2) {
+      body += `<div class="metrics-row">${tiles.map(t => `<div class="metric-card"><div class="metric-num">${esc(t.num)}</div><div class="metric-label">${esc(truncate(t.label, 32))}</div></div>`).join('')}</div>`;
+    }
+  } else if (stats.length >= 2) {
+    body += `<div class="metrics-row">${stats.map(s => `<div class="metric-card"><div class="metric-num">${esc(s.num)}</div><div class="metric-label">${esc(s.label || '\u2014')}</div></div>`).join('')}</div>`;
+  }
+  // Supporting cards from list items
+  if (list.length >= 2) {
+    body += `<div class="cards-grid">${list.slice(0, 4).map(item => {
+      const parts = item.split(/[—–:]/);
+      const head = parts[0] || item;
+      const tail = parts.slice(1).join(' — ');
+      return `<div class="card-item">
+        <div class="ci-title">${mdInline(truncate(head, 48))}</div>
+        ${tail ? `<div class="ci-text">${mdInline(truncate(tail, 110))}</div>` : ''}
+      </div>`;
+    }).join('')}</div>`;
+  }
+  body += sourceFooter(section);
+  return slideWrap(slot, body);
+}
+
+function renderHandoffSlide(section, slot) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const h3s = extractH3Sections(section.content);
+  const list = extractFirstList(section.content, 5);
+
+  let body = `<h2>Production-ready handoff.</h2>`;
+  let items = [];
+  if (h3s.length >= 2) {
+    items = h3s.slice(0, 4).map((h, i) => ({
+      n: i + 1,
+      title: h.title,
+      desc: truncate(extractFirstParagraph(h.content) || h.content, 140),
+    }));
+  } else if (list.length >= 2) {
+    items = list.slice(0, 5).map((item, i) => {
+      const parts = item.split(/[—–:]/);
+      return { n: i + 1, title: truncate(parts[0] || item, 48), desc: truncate(parts.slice(1).join(' — '), 140) };
+    });
+  }
+  if (items.length) {
+    body += `<div class="waypoints">${items.map(it => `
+      <div class="waypoint">
+        <div class="waypoint-num">${it.n}</div>
+        <div class="waypoint-text">
+          <div class="wt-title">${mdInline(it.title)}</div>
+          ${it.desc ? `<div class="wt-desc">${mdInline(it.desc)}</div>` : ''}
+        </div>
+      </div>`).join('')}</div>`;
+  } else {
+    const lead = extractFirstParagraph(section.content);
+    if (lead) body += `<div class="big-quote">${mdInline(truncate(lead, 280))}</div>`;
+  }
+  body += sourceFooter(section);
+  return slideWrap(slot, body);
+}
+
+function renderStorySlide(section, slot, variant) {
+  if (!section) return slideWrap(slot, slidePlaceholder(slot));
+  const para = extractFirstParagraph(section.content);
+  const headlines = { friction: 'What broke.', learning: 'What I\'d do differently.', aha: 'The moment it clicked.' };
+  const maxLen = { friction: 280, learning: 280, aha: 360 };
+  const extraClass = variant === 'aha' ? 'aha-slide' : '';
+  const quoteClass = variant === 'aha' ? 'big-quote aha' : variant === 'friction' ? 'big-quote friction huge' : 'big-quote learning huge';
+
+  let body = `<h2>${headlines[variant]}</h2>`;
+  if (para) body += `<div class="${quoteClass}">${mdInline(truncate(para, maxLen[variant]))}</div>`;
+  body += sourceFooter(section);
+  return slideWrap(slot, body, extraClass);
+}
+
+const SLOT_RENDERERS = {
+  problem: renderProblemSlide,
+  hypothesis: renderHypothesisSlide,
+  validation: renderValidationSlide,
+  prd: renderPRDSlide,
+  handoff: renderHandoffSlide,
+  friction: (s, slot) => renderStorySlide(s, slot, 'friction'),
+  learning: (s, slot) => renderStorySlide(s, slot, 'learning'),
+  aha: (s, slot) => renderStorySlide(s, slot, 'aha'),
+};
 
 function buildSlides(data) {
   const slides = [];
@@ -376,38 +781,10 @@ function buildSlides(data) {
     </div>
   </section>`);
 
-  // 2-9. Content slides
+  // 2-9. Content slides via per-slot renderers
   for (const slot of SLOTS) {
-    if (slot.id === 'prd' || slot.id === 'handoff') {
-      // PRD + handoff are simpler one-section slides
-      const section = data.sections[slot.id];
-      slides.push(`<section class="slide" data-title="${esc(slot.label.replace(/&middot;/g, '·'))}">
-        <div class="inner">
-          <div class="demo-tag ${slot.tag}">${slot.label}</div>
-          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
-          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
-        </div>
-      </section>`);
-    } else if (slot.id === 'friction' || slot.id === 'learning' || slot.id === 'aha') {
-      const section = data.sections[slot.id];
-      slides.push(`<section class="slide" data-title="${esc(slot.label)}">
-        <div class="inner">
-          <div class="demo-tag ${slot.tag}">${slot.label}</div>
-          <h2>${slot.id === 'aha' ? 'The moment it clicked.' : slot.id === 'friction' ? 'What broke.' : 'What I\'d do differently.'}</h2>
-          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
-          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
-        </div>
-      </section>`);
-    } else {
-      const section = data.sections[slot.id];
-      slides.push(`<section class="slide" data-title="${esc(slot.label)}">
-        <div class="inner">
-          <div class="demo-tag ${slot.tag}">${slot.label}</div>
-          ${section ? renderMarkdown(section.content) : slidePlaceholder(slot)}
-          ${section ? `<p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.25);">source &middot; <code>${esc(section.path)}</code></p>` : ''}
-        </div>
-      </section>`);
-    }
+    const renderer = SLOT_RENDERERS[slot.id];
+    if (renderer) slides.push(renderer(data.sections[slot.id], slot));
   }
 
   // Prompts slide (special: code blocks)
@@ -623,6 +1000,54 @@ body { font-family: 'Lato', sans-serif; background: #07162C; color: #e8e8f0; }
 .placeholder-card .ph-desc { color: #cbd5e1; font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
 .placeholder-card .ph-howto { background: rgba(0,0,0,0.25); border-radius: 8px; padding: 14px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #e0e0f0; line-height: 1.6; }
 .placeholder-card .ph-howto strong { color: #fbbf24; }
+.metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 24px 0 28px; }
+.metric-card { background: linear-gradient(180deg, rgba(96,165,250,0.06), rgba(96,165,250,0.02)); border: 1px solid rgba(96,165,250,0.18); border-radius: 14px; padding: 24px 18px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; }
+.metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #60a5fa, #a78bfa); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.metric-card:hover { border-color: rgba(96,165,250,0.45); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.35); }
+.metric-card:hover::before { transform: scaleX(1); }
+.metric-num { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 900; color: #60a5fa; line-height: 1; margin-bottom: 8px; letter-spacing: -0.02em; }
+.metric-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; line-height: 1.4; }
+.big-quote { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 500; color: #e0e0f0; line-height: 1.45; margin: 24px 0; padding: 8px 0 8px 26px; border-left: 3px solid #60a5fa; text-align: left; }
+.big-quote em { color: #60a5fa; font-style: normal; font-weight: 600; }
+.big-quote strong { color: #fff; font-weight: 700; }
+.big-quote.huge { font-size: 30px; font-weight: 600; font-style: italic; padding: 14px 0 14px 30px; border-left-width: 4px; }
+.big-quote.aha { font-size: 36px; font-weight: 600; font-style: italic; color: #fff; padding: 16px 0 16px 36px; border-left-color: #fbbf24; border-left-width: 5px; line-height: 1.35; }
+.big-quote.friction { border-left-color: #f87171; }
+.big-quote.learning { border-left-color: #34d399; }
+.callout { background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-left: 3px solid #60a5fa; border-radius: 10px; padding: 16px 22px; margin: 22px 0; font-size: 15px; color: #e0e0f0; line-height: 1.6; text-align: left; }
+.callout strong { color: #fff; }
+.callout em { color: #93c5fd; font-style: normal; font-weight: 600; }
+.callout .callout-pill { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-right: 10px; background: rgba(96,165,250,0.2); color: #93c5fd; font-family: 'Poppins', sans-serif; }
+.evidence-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.evidence-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px; transition: all 0.3s; text-align: left; }
+.evidence-card:hover { transform: translateY(-2px); border-color: rgba(96,165,250,0.3); background: rgba(255,255,255,0.06); }
+.evidence-card .ec-pill { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+.ec-pill.confirmed { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+.ec-pill.pivoted { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.ec-pill.open { background: rgba(96,165,250,0.15); color: #93c5fd; }
+.ec-pill.failed { background: rgba(248,113,113,0.15); color: #fca5a5; }
+.ec-pill.neutral { background: rgba(148,163,184,0.15); color: #cbd5e1; }
+.evidence-card .ec-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+.evidence-card .ec-text { font-size: 14px; color: #b0b4c8; line-height: 1.6; }
+.waypoints { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+.waypoint { display: flex; align-items: flex-start; gap: 18px; background: rgba(244,114,182,0.06); border: 1px solid rgba(244,114,182,0.18); border-radius: 12px; padding: 18px 22px; transition: all 0.3s; text-align: left; }
+.waypoint:hover { transform: translateX(4px); border-color: rgba(244,114,182,0.4); }
+.waypoint-num { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #ec4899, #be185d); }
+.waypoint-text { flex: 1; }
+.waypoint-text .wt-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+.waypoint-text .wt-desc { font-size: 13.5px; color: #b0b4c8; line-height: 1.55; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 22px 0; }
+.card-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; text-align: left; transition: all 0.3s; position: relative; overflow: hidden; }
+.card-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent, #34d399); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.card-item:hover { border-color: var(--card-accent, #34d399); transform: translateY(-3px); }
+.card-item:hover::before { transform: scaleX(1); }
+.card-item .ci-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--card-accent, #34d399); margin-bottom: 8px; font-family: 'Poppins', sans-serif; }
+.card-item .ci-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+.card-item .ci-text { font-size: 13.5px; color: #94a3b8; line-height: 1.55; }
+.aha-slide { background: radial-gradient(ellipse at 50% 50%, rgba(251,191,36,0.18) 0%, #07162C 70%) !important; }
+.aha-slide .demo-tag { background: rgba(251,191,36,0.15); color: #fcd34d; }
+.source-tag { margin-top: 24px; font-size: 11px; color: rgba(255,255,255,0.22); letter-spacing: 0.02em; }
+.source-tag code { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); }
 .scroll-hint { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 56px; animation: pulse 2s ease infinite; }
 .scroll-hint span { display: block; margin-top: 8px; font-size: 20px; }
 @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
