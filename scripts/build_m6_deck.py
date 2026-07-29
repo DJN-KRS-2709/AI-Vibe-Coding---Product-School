@@ -292,6 +292,10 @@ BODY = r"""
       <span class="callout-pill">The reframe</span>
       <span>Every decision from here is <em>backed by evidence</em>, not instinct. Your intuition gets you to a hypothesis; the data either funds it or kills it.</span>
     </div>
+    <div class="callout-strip">
+      <span class="callout-pill">Real-world example · Anthropic</span>
+      <span>The Claude Code team re-tests its priors every model generation — they recently deleted <strong>~80% of the Claude Code system prompt</strong> because the newer model no longer needed it. When you iterate, re-examine the assumptions baked into your prompts and context, not just your UI. <a href="https://newsletter.pragmaticengineer.com/p/inside-anthropic" target="_blank" rel="noopener" style="color:#60a5fa; text-decoration:underline;">Source: The Pragmatic Engineer, 2026</a></span>
+    </div>
     <div class="notes">
       <h4>Speaker Notes</h4>
       <p>Make the three levers concrete with a single example: a learner's invite-tracker product. Feature Prioritisation says <em>"the only screen anyone visits is the dashboard — your settings page is dead weight."</em> Friction Identification says <em>"50% of new users bounce on the sign-up screen — your CTA is broken."</em> Hypothesis Validation says <em>"users send invites but never check the status tab — your value prop isn't the tracker, it's the send flow."</em></p>
@@ -511,6 +515,10 @@ BODY = r"""
     <div class="callout-strip">
       <span class="callout-pill">The discipline</span>
       <span>The AI provides the synthesis — <em>you</em> provide the conviction. Pick one finding. Not three.</span>
+    </div>
+    <div class="callout-strip">
+      <span class="callout-pill">Real-world example · Anthropic</span>
+      <span>When Anthropic rewrote Bun to Rust, the creator ran <strong>64 AI agents in parallel</strong>, with an orchestrator agent making the commits so they never collided — "fanning out work to many Claudes," which he calls powerful and underused. AI-powered analysis is the same move at PM scale: parallelise the grunt work, keep one hand on the decision. <a href="https://newsletter.pragmaticengineer.com/p/inside-anthropic" target="_blank" rel="noopener" style="color:#60a5fa; text-decoration:underline;">Source: The Pragmatic Engineer, 2026</a></span>
     </div>
     <div class="notes">
       <h4>Speaker Notes</h4>
